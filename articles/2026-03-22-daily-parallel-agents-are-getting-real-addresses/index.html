@@ -1,0 +1,180 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Parallel agents are getting real addresses | The Git Reporter</title>
+  <meta name="description" content="This week’s most important agent upgrade isn’t more raw intelligence. It’s workplace logistics. Gemini CLI is giving parallel sessions separate rooms. Codex is giving subagents names you can actually point at.">
+  <link rel="icon" href="/assets/mark.svg">
+  <link rel="stylesheet" href="/assets/site.css?v=2026-05-18-reader-desk-2">
+  <script defer src="/assets/feedback.js?v=2026-05-18-reader-desk-2"></script>
+</head>
+<body>
+  <div class="site">
+    <header class="site-header" id="top">
+      <div class="wrap utility-row">
+        <a class="icon-link menu-icon" href="/archive/" aria-label="Open edition history"><span></span><span></span><span></span></a>
+        <a class="icon-link search-icon" href="/archive/" aria-label="Search edition history"></a>
+      </div>
+      <div class="wrap masthead-lockup">
+        <a class="masthead-title" href="/">THE GIT REPORTER</a>
+        <div class="masthead-ornament" aria-hidden="true"></div>
+      </div>
+      <div class="wrap nav-wrap">
+        <nav class="paper-nav" aria-label="Primary navigation">
+    <a class="" href="/">Today</a><a class="active" href="/archive/">Editions</a><a class="" href="/atlas/">Agent Atlas</a><a class="" href="/repos/">Repos</a>
+  </nav>
+        <div class="nav-rule"></div>
+      </div>
+    </header>
+    <main class="wrap page-shell">
+      <section class="page-hero story-front">
+        <div class="story-topline">
+          <span>Daily Edition</span>
+          <span>Sources <strong>+4</strong></span>
+        </div>
+        <h1>Parallel agents are getting real addresses</h1>
+        <p class="summary">This week’s most important agent upgrade isn’t more raw intelligence. It’s workplace logistics. Gemini CLI is giving parallel sessions separate rooms. Codex is giving subagents names you can actually point at.</p>
+        <div class="receipt">
+    <div class="receipt-line">
+      <span class="receipt-icon">repo</span>
+      <span class="receipt-main">openai/codex</span>
+      <span class="branch-pill">main</span>
+    </div>
+    <div class="receipt-line receipt-muted">
+      <span>4 source signals</span>
+      <span>2 repos</span>
+      <span>5a3c715</span>
+    </div>
+    <div class="commit-line">&gt; 5a3c715 / March 22, 2026 / Daily Edition</div>
+  </div>
+      </section>
+      <section class="story-layout">
+        <article class="story-shell story-body">
+          <p>Everybody loves the fantasy version of multi-agent software. Spin up more workers. Fan out the task. Let the swarm cook.</p>
+
+      <p>Then reality walks in wearing steel-toed boots.</p>
+
+      <p>Parallel agents are only useful if they stop stepping on each other. If one helper rewrites files another helper is reading, or if your runtime can’t cleanly refer to which subagent did what, “more agents” starts feeling less like leverage and more like a group project gone bad.</p>
+
+      <p class="pull">The interesting shift this week is that terminal agents are starting to look less like invisible background threads and more like coworkers with named desks and separate rooms.</p>
+
+      <h2>Gemini CLI: give each session its own room</h2>
+      <p>In <code>google-gemini/gemini-cli</code>, PR <code>#22973</code> adds experimental Git worktree support for isolated parallel sessions. That sounds modest until you read the problem statement in issue <code>#22945</code>: shared working directories were causing <em>state contention</em>, manual worktree setup was too painful for most people, and spec-driven parallel tracks were colliding because project-level files lived in one place.</p>
+
+      <p>The code backs up the pitch. In <code>WorktreeService.setup()</code>, Gemini captures the repo’s base SHA before creating a fresh worktree. It places that worktree under <code>.gemini/worktrees/&lt;name&gt;</code> and creates a dedicated branch for it. That is not hand-wavy “session isolation.” That is filesystem-level separation with Git doing the heavy lifting.</p>
+
+      <p>The safety logic is the part I like most. <code>maybeCleanup()</code> checks two things before deleting anything: whether <code>git status --porcelain</code> shows working-tree changes, and whether <code>HEAD</code> has moved from the base SHA. If either is true, Gemini preserves the worktree instead of treating it like disposable scratch space.</p>
+
+      <p>That design choice matters. It says the product is being built for real interrupted workflows, not just clean demos. The docs even spell out the resume path: <code>cd .gemini/worktrees/&lt;name&gt;</code>, then <code>gemini --resume &lt;session_id&gt;</code>.</p>
+
+      <h2>Codex: give each subagent a mailing address</h2>
+      <p>OpenAI’s <code>codex</code> repo is attacking the same coordination problem from another side. PR <code>#15313</code> replaces UUID-style multi-agent references with a path-like identity system rooted at <code>/root</code>.</p>
+
+      <p>The new <code>AgentPath</code> type in Rust is stricter than it sounds. Absolute paths must begin with <code>/root</code>. Child names can only use lowercase letters, digits, and underscores. Reserved segments like <code>.</code>, <code>..</code>, and <code>root</code> are blocked. The helper methods make the model’s world more navigable too: <code>join("researcher")</code> yields <code>/root/researcher</code>, while <code>resolve()</code> supports both relative and absolute references.</p>
+
+      <p>That may sound like a boring schema cleanup. It isn’t. Naming is interface design.</p>
+
+      <p>In the spawn handler, Codex now tries to surface <code>task_name</code> from the new agent path and only falls back to an opaque thread ID when no path is available. That means the system can increasingly talk about a subagent as a place in a tree instead of a random token you have to look up somewhere else.</p>
+
+      <h2>Why these two changes rhyme</h2>
+      <p>Gemini and Codex are not shipping the exact same thing.</p>
+
+      <ul>
+        <li>Gemini’s evidence is concrete workspace isolation: separate directories, separate branches, safe cleanup rules, and a documented resume flow.</li>
+        <li>Codex’s evidence is stronger on identity and orchestration: subagents get structured addresses, path validation, and cleaner references at spawn time.</li>
+      </ul>
+
+      <p>But both changes point in the same direction: multi-agent tooling is leaving the era of ghost processes.</p>
+
+      <p>That’s bigger than it sounds. Humans don’t just need more workers. They need to know <em>which</em> worker is responsible, <em>where</em> that work lives, and <em>how</em> to come back to it later without turning the repo into soup.</p>
+
+      <h2>The next bottleneck is not intelligence. It’s logistics.</h2>
+      <p>For the last year, agent discourse has mostly focused on cognition: planning, reasoning, tool use, autonomy, memory. Those things matter. But once agents start running in parallel, the limiting factor gets weirdly physical.</p>
+
+      <p>Where is this agent working?</p>
+      <p>What files can it touch without collisions?</p>
+      <p>How do I refer to it without a debugger and a prayer?</p>
+      <p>What survives when I pause and come back later?</p>
+
+      <p>Those are workplace questions, not benchmark questions. And that’s exactly why this week’s commits feel important. They move agent UX a step away from spectacle and a step toward something teams can actually manage.</p>
+
+      <h2>The bigger pattern</h2>
+      <p>If you zoom out, the pattern is hard to miss.</p>
+
+      <ul>
+        <li>Parallelism is becoming a product surface, not just an internal runtime trick.</li>
+        <li>Agent identity is getting more legible.</li>
+        <li>Isolation is becoming more concrete and less aspirational.</li>
+        <li>The best agent systems are starting to borrow from office design as much as model design.</li>
+      </ul>
+
+      <p>That may be the next real maturity curve for terminal agents. Not “can it spawn helpers?” but “can those helpers coexist without chaos?”</p>
+
+      <p>So here’s the open question: <strong>if agent tools get much better at giving parallel workers clear boundaries and clear identities, does that change how much responsibility developers are willing to hand them?</strong></p>
+
+      <p>If you’re building in this space, watch the boring infrastructure closely. The next leap may come not from smarter agents, but from better rooms, better labels, and less accidental elbowing.</p>
+          <section class="reader-feedback"
+    data-tgr-feedback
+    data-article-slug="2026-03-22-daily-parallel-agents-are-getting-real-addresses"
+    data-article-title="Parallel agents are getting real addresses"
+    data-article-url="/articles/2026-03-22-daily-parallel-agents-are-getting-real-addresses/"
+    data-edition-date="2026-03-22"
+    data-lane="Daily Edition"
+    data-tags="Permissions,Memory,Delegation,Tools"
+    data-repos="openai/codex,google-gemini/gemini-cli">
+    <div class="reader-feedback-head">
+      <div>
+        <div class="eyebrow">Letters &amp; Corrections</div>
+        <h2>Send a note to the desk</h2>
+      </div>
+      <p>Corrections, missing context, or a follow-up lead.</p>
+    </div>
+    <form class="feedback-form">
+      <div class="feedback-votes" role="group" aria-label="Choose signal type">
+        <button class="feedback-choice" type="button" data-vote="follow-up" aria-pressed="false">
+          <span aria-hidden="true">+</span>
+          <span>Follow-up</span>
+        </button>
+        <button class="feedback-choice" type="button" data-vote="correction" aria-pressed="false">
+          <span aria-hidden="true">!</span>
+          <span>Correction</span>
+        </button>
+      </div>
+      <label class="feedback-comment">
+        <span>Note for the editor</span>
+        <textarea name="comment" rows="3" maxlength="320" placeholder="What did we miss, or what should we follow next?"></textarea>
+      </label>
+      <div class="feedback-submit-row">
+        <p class="feedback-status" aria-live="polite"></p>
+        <button class="paper-button primary feedback-submit" type="submit">Send to desk</button>
+      </div>
+    </form>
+  </section>
+        </article>
+        <aside class="side-panel">
+          <h2>Evidence</h2>
+          <div class="evidence-table">
+            <div class="evidence-line"><span>Date</span><span>March 22, 2026</span></div>
+            <div class="evidence-line"><span>Lane</span><span>Daily Edition</span></div>
+            <div class="evidence-line"><span>Confidence</span><span>78%</span></div>
+            <div class="evidence-line"><span>Sources</span><span>4</span></div>
+            <div class="evidence-line"><span>Repos</span><span>openai/codex, google-gemini/gemini-cli</span></div>
+          </div>
+          <div class="actions">
+            <a class="paper-button primary" href="/evidence/2026-03-22-daily-parallel-agents-are-getting-real-addresses/">View Evidence</a>
+            <a class="paper-button" href="/editions/2026-03-22/">Edition</a>
+          </div>
+          
+        </aside>
+      </section>
+    </main>
+    <footer class="wrap site-footer">
+      <span>&copy; 2026 The Git Reporter</span>
+      <a href="/atlas/">About</a>
+      <a href="/articles.json">Manifest JSON</a>
+      <a href="/repos/">Sources</a>
+    </footer>
+  </div>
+</body>
+</html>

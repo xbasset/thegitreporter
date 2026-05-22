@@ -1,0 +1,172 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Page Agent’s MacroTool Makes In‑Browser Agents Resilient to Messy Tool Calls | The Git Reporter</title>
+  <meta name="description" content="GitHub’s trending list has been noisy with “agent frameworks,” but Alibaba’s page-agent stands out because it runs inside the web page instead of driving a separate headless browser. That ar...">
+  <link rel="icon" href="/assets/mark.svg">
+  <link rel="stylesheet" href="/assets/site.css?v=2026-05-18-reader-desk-2">
+  <script defer src="/assets/feedback.js?v=2026-05-18-reader-desk-2"></script>
+</head>
+<body>
+  <div class="site">
+    <header class="site-header" id="top">
+      <div class="wrap utility-row">
+        <a class="icon-link menu-icon" href="/archive/" aria-label="Open edition history"><span></span><span></span><span></span></a>
+        <a class="icon-link search-icon" href="/archive/" aria-label="Search edition history"></a>
+      </div>
+      <div class="wrap masthead-lockup">
+        <a class="masthead-title" href="/">THE GIT REPORTER</a>
+        <div class="masthead-ornament" aria-hidden="true"></div>
+      </div>
+      <div class="wrap nav-wrap">
+        <nav class="paper-nav" aria-label="Primary navigation">
+    <a class="" href="/">Today</a><a class="active" href="/archive/">Editions</a><a class="" href="/atlas/">Agent Atlas</a><a class="" href="/repos/">Repos</a>
+  </nav>
+        <div class="nav-rule"></div>
+      </div>
+    </header>
+    <main class="wrap page-shell">
+      <section class="page-hero story-front">
+        <div class="story-topline">
+          <span>Daily Edition</span>
+          <span>Sources <strong>+2</strong></span>
+        </div>
+        <h1>Page Agent’s MacroTool Makes In‑Browser Agents Resilient to Messy Tool Calls</h1>
+        <p class="summary">GitHub’s trending list has been noisy with “agent frameworks,” but Alibaba’s page-agent stands out because it runs inside the web page instead of driving a separate headless browser. That ar...</p>
+        <div class="receipt">
+    <div class="receipt-line">
+      <span class="receipt-icon">repo</span>
+      <span class="receipt-main">google-gemini/gemini-cli</span>
+      <span class="branch-pill">main</span>
+    </div>
+    <div class="receipt-line receipt-muted">
+      <span>2 source signals</span>
+      <span>3 repos</span>
+      <span>source trail</span>
+    </div>
+    <div class="commit-line">&gt; source trail / March 12, 2026 / Daily Edition</div>
+  </div>
+      </section>
+      <section class="story-layout">
+        <article class="story-shell story-body">
+          <p>
+      GitHub’s trending list has been noisy with “agent frameworks,” but Alibaba’s
+      <strong>page-agent</strong> stands out because it runs <em>inside</em> the web page instead of driving a
+      separate headless browser. That architectural choice forces a different kind of reliability:
+      the agent has to survive imperfect tool calls, flaky DOM snapshots, and the reality of
+      browser UIs that change mid‑step.
+    </p>
+
+    <p>
+      The core loop in <code>PageAgentCore</code> wraps every step in a single MacroTool.
+      The MacroTool schema fuses <em>reflection</em> (evaluation, memory, next goal) with the
+      <em>action</em> payload, and the agent is required to call this tool every step.
+      In practice, that means each action is framed by a structured self‑check and is always
+      validated against the live tool schemas. It’s a surprisingly strict contract for a
+      UI‑embedded agent.
+    </p>
+
+    <p>
+      The second layer is defensive: <code>normalizeResponse</code> in <code>autoFixer.ts</code> repairs the
+      most common tool‑call failures (missing tool calls, JSON in message content, wrong tool
+      name, primitive inputs). It then re‑validates action inputs with Zod and emits clean errors
+      if the schema still doesn’t match. This is the “seatbelt” that keeps the agent driving even
+      when the model outputs sloppy tool arguments.
+    </p>
+
+    <p>
+      Underneath, <code>PageController</code> produces a structured <code>BrowserState</code>—header, simplified
+      HTML content, and a footer that hints how much page is above or below. That makes the prompt
+      predictable and keeps the agent’s action indices aligned to a consistent DOM snapshot.
+      The OpenAI‑compatible client also enforces tool calls and schema validation on every request.
+    </p>
+
+    <p>
+      The privacy stance is equally deliberate: page-agent’s docs spell out a BYOK, client‑side‑only
+      design with no built‑in backend or data collection. That’s a direct response to the
+      “who sees my page content?” worry that kills adoption for in‑browser agents.
+    </p>
+
+    <p>
+      <strong>Why it matters:</strong> The real breakthrough here isn’t the UI panel or the demo—it’s a
+      strict execution contract that turns a fragile tool‑calling agent into a resilient,
+      in‑page operator. If agentic workflows are going to move beyond headless scripts and into
+      real products, this kind of macro‑tool + auto‑fixer architecture is the blueprint.
+    </p>
+
+    <h2>Sources</h2>
+    <ul>
+      <li>GitHub Trending: https://github.com/trending?since=daily</li>
+      <li>Repo: https://github.com/alibaba/page-agent</li>
+      <li>PageAgentCore loop + MacroTool: <code>packages/core/src/PageAgentCore.ts</code></li>
+      <li>Tool‑call normalization: <code>packages/core/src/utils/autoFixer.ts</code></li>
+      <li>BrowserState + DOM extraction: <code>packages/page-controller/src/PageController.ts</code></li>
+      <li>Tool‑choice enforcement: <code>packages/llms/src/OpenAIClient.ts</code></li>
+      <li>BYOK + client‑side privacy: <code>docs/terms-and-privacy.md</code></li>
+    </ul>
+          <section class="reader-feedback"
+    data-tgr-feedback
+    data-article-slug="2026-03-12-daily-page-agent-s-macrotool-makes-in-browser-agents-resilient-to-messy-tool-calls"
+    data-article-title="Page Agent’s MacroTool Makes In‑Browser Agents Resilient to Messy Tool Calls"
+    data-article-url="/articles/2026-03-12-daily-page-agent-s-macrotool-makes-in-browser-agents-resilient-to-messy-tool-calls/"
+    data-edition-date="2026-03-12"
+    data-lane="Daily Edition"
+    data-tags="Memory,Tools,UX,Runtime"
+    data-repos="google-gemini/gemini-cli,alibaba/page-agent,NousResearch/hermes-agent">
+    <div class="reader-feedback-head">
+      <div>
+        <div class="eyebrow">Letters &amp; Corrections</div>
+        <h2>Send a note to the desk</h2>
+      </div>
+      <p>Corrections, missing context, or a follow-up lead.</p>
+    </div>
+    <form class="feedback-form">
+      <div class="feedback-votes" role="group" aria-label="Choose signal type">
+        <button class="feedback-choice" type="button" data-vote="follow-up" aria-pressed="false">
+          <span aria-hidden="true">+</span>
+          <span>Follow-up</span>
+        </button>
+        <button class="feedback-choice" type="button" data-vote="correction" aria-pressed="false">
+          <span aria-hidden="true">!</span>
+          <span>Correction</span>
+        </button>
+      </div>
+      <label class="feedback-comment">
+        <span>Note for the editor</span>
+        <textarea name="comment" rows="3" maxlength="320" placeholder="What did we miss, or what should we follow next?"></textarea>
+      </label>
+      <div class="feedback-submit-row">
+        <p class="feedback-status" aria-live="polite"></p>
+        <button class="paper-button primary feedback-submit" type="submit">Send to desk</button>
+      </div>
+    </form>
+  </section>
+        </article>
+        <aside class="side-panel">
+          <h2>Evidence</h2>
+          <div class="evidence-table">
+            <div class="evidence-line"><span>Date</span><span>March 12, 2026</span></div>
+            <div class="evidence-line"><span>Lane</span><span>Daily Edition</span></div>
+            <div class="evidence-line"><span>Confidence</span><span>68%</span></div>
+            <div class="evidence-line"><span>Sources</span><span>2</span></div>
+            <div class="evidence-line"><span>Repos</span><span>google-gemini/gemini-cli, alibaba/page-agent, NousResearch/hermes-agent</span></div>
+          </div>
+          <div class="actions">
+            <a class="paper-button primary" href="/evidence/2026-03-12-daily-page-agent-s-macrotool-makes-in-browser-agents-resilient-to-messy-tool-calls/">View Evidence</a>
+            <a class="paper-button" href="/editions/2026-03-12/">Edition</a>
+          </div>
+          
+        </aside>
+      </section>
+    </main>
+    <footer class="wrap site-footer">
+      <span>&copy; 2026 The Git Reporter</span>
+      <a href="/atlas/">About</a>
+      <a href="/articles.json">Manifest JSON</a>
+      <a href="/repos/">Sources</a>
+    </footer>
+  </div>
+</body>
+</html>

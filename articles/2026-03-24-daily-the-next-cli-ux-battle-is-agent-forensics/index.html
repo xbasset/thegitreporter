@@ -1,0 +1,190 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>The Next CLI UX Battle Is Agent Forensics | The Git Reporter</title>
+  <meta name="description" content="The most important agent upgrade this week is not another tool. It’s the growing ability to reconstruct why an agent touched files, spent tokens, and arrived at a code change in the first place.">
+  <link rel="icon" href="/assets/mark.svg">
+  <link rel="stylesheet" href="/assets/site.css?v=2026-05-18-reader-desk-2">
+  <script defer src="/assets/feedback.js?v=2026-05-18-reader-desk-2"></script>
+</head>
+<body>
+  <div class="site">
+    <header class="site-header" id="top">
+      <div class="wrap utility-row">
+        <a class="icon-link menu-icon" href="/archive/" aria-label="Open edition history"><span></span><span></span><span></span></a>
+        <a class="icon-link search-icon" href="/archive/" aria-label="Search edition history"></a>
+      </div>
+      <div class="wrap masthead-lockup">
+        <a class="masthead-title" href="/">THE GIT REPORTER</a>
+        <div class="masthead-ornament" aria-hidden="true"></div>
+      </div>
+      <div class="wrap nav-wrap">
+        <nav class="paper-nav" aria-label="Primary navigation">
+    <a class="" href="/">Today</a><a class="active" href="/archive/">Editions</a><a class="" href="/atlas/">Agent Atlas</a><a class="" href="/repos/">Repos</a>
+  </nav>
+        <div class="nav-rule"></div>
+      </div>
+    </header>
+    <main class="wrap page-shell">
+      <section class="page-hero story-front">
+        <div class="story-topline">
+          <span>Daily Edition</span>
+          <span>Sources <strong>+3</strong></span>
+        </div>
+        <h1>The Next CLI UX Battle Is Agent Forensics</h1>
+        <p class="summary">The most important agent upgrade this week is not another tool. It’s the growing ability to reconstruct why an agent touched files, spent tokens, and arrived at a code change in the first place.</p>
+        <div class="receipt">
+    <div class="receipt-line">
+      <span class="receipt-icon">repo</span>
+      <span class="receipt-main">openai/codex</span>
+      <span class="branch-pill">main</span>
+    </div>
+    <div class="receipt-line receipt-muted">
+      <span>3 source signals</span>
+      <span>2 repos</span>
+      <span>e07eaff</span>
+    </div>
+    <div class="commit-line">&gt; e07eaff / March 24, 2026 / Daily Edition</div>
+  </div>
+      </section>
+      <section class="story-layout">
+        <article class="story-shell story-body">
+          <p>Agent tooling has spent the last year obsessed with capability.</p>
+      <p>More tools. More autonomy. More parallelism. More subagents. More wow.</p>
+      <p>But once an agent starts doing real work in your terminal, a different question becomes brutal fast: <em>what exactly happened here?</em></p>
+
+      <p class="pull">The signal in both Codex and Gemini CLI right now is the rise of agent forensics: runtime primitives that help teams reconstruct cost, context, and causality after a turn is over.</p>
+
+      <h2>Codex is turning each turn into a measurable event</h2>
+      <p>In OpenAI’s <code>codex</code>, the interesting March changes are not flashy UX features. They are accounting moves.</p>
+
+      <p>Commit <code>e07eaff0d32c</code>, <em>“feat: add metric for per-turn tool count and add tmp_mem flag”</em>, adds a dedicated histogram for <code>codex.turn.tool.call</code>. That means a turn is no longer just a blob of agent behavior. It becomes a countable unit of action.</p>
+
+      <p>The same patch also tags those metrics with <code>tmp_mem_enabled</code>. That sounds small. It isn’t. The moment you segment behavior by memory mode, you gain a real debugging dimension: did the agent behave differently because its memory configuration changed?</p>
+
+      <p>Nearby commit <code>49634b7f9c07</code>, <em>“add metric for per-turn token usage”</em>, pushes the same idea deeper. Codex snapshots total token usage at turn start, diffs it at turn end, and emits histograms for <code>total</code>, <code>input</code>, <code>cached_input</code>, <code>output</code>, and <code>reasoning_output</code>.</p>
+
+      <p>That is a meaningful shift in posture. Instead of treating cost as a fuzzy session-level haze, Codex is making each turn auditable: how much it spent, how many tools it used, and under what memory mode it ran.</p>
+
+      <h2>Gemini CLI is making context acquisition visible</h2>
+      <p>Google’s <code>gemini-cli</code> is approaching the same problem from a different angle.</p>
+
+      <p>Commit <code>7b4a822b0eba</code>, <em>“instrument file system tools for JIT context discovery”</em>, introduces a shared <code>discoverJitContext()</code> helper and wires it into high-intent file tools like <code>read-file</code>. When the agent touches a path, Gemini can discover relevant subdirectory context and append it directly to tool output under a loud delimiter: <code>--- Newly Discovered Project Context ---</code>.</p>
+
+      <p>That delimiter matters. It turns hidden context loading into an observable event. You can now see, in the tool result itself, when the runtime pulled in extra project knowledge and what shape that knowledge took.</p>
+
+      <p>This is not just a convenience feature for the model. It is a breadcrumb for the human. If an agent suddenly starts acting more informed about a corner of the repo, Gemini is increasingly leaving clues about where that extra context came from.</p>
+
+      <h2>Then Gemini adds a trail marker for edit offers</h2>
+      <p>Another nearby Gemini change sharpens the same forensic pattern.</p>
+
+      <p>Commit <code>d7d53981f3c1</code>, <em>“add trajectoryId to ConversationOffered telemetry”</em>, extends the telemetry emitted for agentic edit offers with a <code>trajectoryId</code>. In plain English: an offered code change can now carry an identifier that helps tie it back to the execution path that produced it.</p>
+
+      <p>That is the kind of detail that barely registers in a changelog and matters enormously in practice. Once agents generate more edits, more autonomously, the real product question is no longer just “can it edit?” It becomes “can I trace this edit back to the run that created it?”</p>
+
+      <h2>Same destination, different implementation style</h2>
+      <p>Codex and Gemini CLI are not shipping the same mechanism.</p>
+
+      <ul>
+        <li>Codex is making turns measurable through metrics: tool-call counts, token deltas, memory-mode tags.</li>
+        <li>Gemini CLI is making turns reconstructable through trace signals: newly discovered context, trajectory-linked edit telemetry.</li>
+      </ul>
+
+      <p>Different code. Same product instinct.</p>
+
+      <p>Both teams seem to understand the next pain point of agent workflows: once people trust agents enough to do more work, they will immediately demand better ways to inspect that work after the fact.</p>
+
+      <h2>Why this matters more than another demo feature</h2>
+      <p>The first generation of agent UX was about spectacle.</p>
+      <p>Watch it plan. Watch it browse. Watch it edit. Watch it spawn helpers.</p>
+      <p>The next generation is going to be about evidence.</p>
+
+      <p>Why did this run get expensive?</p>
+      <p>Why did this turn explode into twelve tool calls?</p>
+      <p>What new context did the agent load before it changed that file?</p>
+      <p>Can I connect this patch back to the exact execution path that produced it?</p>
+
+      <p>That is not observability as a nice-to-have. That is trust infrastructure.</p>
+
+      <p>And there is a bigger strategic consequence here: the CLI that best explains its own agent behavior may end up feeling safer than the CLI that simply looks more powerful in a demo.</p>
+
+      <h2>The pattern worth watching</h2>
+      <p>For a while, agent tooling competed on visible capability. The quieter competition now is on forensic fidelity.</p>
+
+      <p>If that trend holds, the winning developer tools will not just help agents act. They will help humans replay the story of a run afterward — cost, context, choices, and all.</p>
+
+      <p>So here’s the open question: <strong>as agent tooling gets better at leaving a reconstructable trail, does that change where teams draw the line between “assist me” and “go do it”?</strong></p>
+
+      <p>If you build agent products, watch this layer closely. Then push your own tools to leave sharper evidence behind. That is how agent trust graduates from a vibe into an interface.</p>
+          <section class="reader-feedback"
+    data-tgr-feedback
+    data-article-slug="2026-03-24-daily-the-next-cli-ux-battle-is-agent-forensics"
+    data-article-title="The Next CLI UX Battle Is Agent Forensics"
+    data-article-url="/articles/2026-03-24-daily-the-next-cli-ux-battle-is-agent-forensics/"
+    data-edition-date="2026-03-24"
+    data-lane="Daily Edition"
+    data-tags="Memory,Delegation,Tools,UX"
+    data-repos="openai/codex,google-gemini/gemini-cli">
+    <div class="reader-feedback-head">
+      <div>
+        <div class="eyebrow">Letters &amp; Corrections</div>
+        <h2>Send a note to the desk</h2>
+      </div>
+      <p>Corrections, missing context, or a follow-up lead.</p>
+    </div>
+    <form class="feedback-form">
+      <div class="feedback-votes" role="group" aria-label="Choose signal type">
+        <button class="feedback-choice" type="button" data-vote="follow-up" aria-pressed="false">
+          <span aria-hidden="true">+</span>
+          <span>Follow-up</span>
+        </button>
+        <button class="feedback-choice" type="button" data-vote="correction" aria-pressed="false">
+          <span aria-hidden="true">!</span>
+          <span>Correction</span>
+        </button>
+      </div>
+      <label class="feedback-comment">
+        <span>Note for the editor</span>
+        <textarea name="comment" rows="3" maxlength="320" placeholder="What did we miss, or what should we follow next?"></textarea>
+      </label>
+      <div class="feedback-submit-row">
+        <p class="feedback-status" aria-live="polite"></p>
+        <button class="paper-button primary feedback-submit" type="submit">Send to desk</button>
+      </div>
+    </form>
+  </section>
+        </article>
+        <aside class="side-panel">
+          <h2>Evidence</h2>
+          <div class="evidence-table">
+            <div class="evidence-line"><span>Date</span><span>March 24, 2026</span></div>
+            <div class="evidence-line"><span>Lane</span><span>Daily Edition</span></div>
+            <div class="evidence-line"><span>Confidence</span><span>78%</span></div>
+            <div class="evidence-line"><span>Sources</span><span>3</span></div>
+            <div class="evidence-line"><span>Repos</span><span>openai/codex, google-gemini/gemini-cli</span></div>
+          </div>
+          <div class="actions">
+            <a class="paper-button primary" href="/evidence/2026-03-24-daily-the-next-cli-ux-battle-is-agent-forensics/">View Evidence</a>
+            <a class="paper-button" href="/editions/2026-03-24/">Edition</a>
+          </div>
+          <div class="related-list">
+                  <h3>Same Edition</h3>
+                  <a href="/articles/2026-03-24-agent-daily-subagents-are-getting-job-titles-badge-checks-and-a-manager-chain/">
+                        <span>Pattern</span>
+                        Subagents Are Getting Job Titles, Badge Checks, and a Manager Chain
+                      </a>
+                </div>
+        </aside>
+      </section>
+    </main>
+    <footer class="wrap site-footer">
+      <span>&copy; 2026 The Git Reporter</span>
+      <a href="/atlas/">About</a>
+      <a href="/articles.json">Manifest JSON</a>
+      <a href="/repos/">Sources</a>
+    </footer>
+  </div>
+</body>
+</html>

@@ -1,0 +1,172 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>AI agents are getting better at saying “here’s what I finished” | The Git Reporter</title>
+  <meta name="description" content="The real upgrade this week isn’t bigger context or flashier autonomy. It’s something more human: when an agent stalls, waits, delegates, or times out, it’s starting to leave behind a useful trail instead of a shrug.">
+  <link rel="icon" href="/assets/mark.svg">
+  <link rel="stylesheet" href="/assets/site.css?v=2026-05-18-reader-desk-2">
+  <script defer src="/assets/feedback.js?v=2026-05-18-reader-desk-2"></script>
+</head>
+<body>
+  <div class="site">
+    <header class="site-header" id="top">
+      <div class="wrap utility-row">
+        <a class="icon-link menu-icon" href="/archive/" aria-label="Open edition history"><span></span><span></span><span></span></a>
+        <a class="icon-link search-icon" href="/archive/" aria-label="Search edition history"></a>
+      </div>
+      <div class="wrap masthead-lockup">
+        <a class="masthead-title" href="/">THE GIT REPORTER</a>
+        <div class="masthead-ornament" aria-hidden="true"></div>
+      </div>
+      <div class="wrap nav-wrap">
+        <nav class="paper-nav" aria-label="Primary navigation">
+    <a class="" href="/">Today</a><a class="active" href="/archive/">Editions</a><a class="" href="/atlas/">Agent Atlas</a><a class="" href="/repos/">Repos</a>
+  </nav>
+        <div class="nav-rule"></div>
+      </div>
+    </header>
+    <main class="wrap page-shell">
+      <section class="page-hero story-front">
+        <div class="story-topline">
+          <span>Daily Edition</span>
+          <span>Sources <strong>+1</strong></span>
+        </div>
+        <h1>AI agents are getting better at saying “here’s what I finished”</h1>
+        <p class="summary">The real upgrade this week isn’t bigger context or flashier autonomy. It’s something more human: when an agent stalls, waits, delegates, or times out, it’s starting to leave behind a useful trail instead of a shrug.</p>
+        <div class="receipt">
+    <div class="receipt-line">
+      <span class="receipt-icon">repo</span>
+      <span class="receipt-main">openai/codex</span>
+      <span class="branch-pill">main</span>
+    </div>
+    <div class="receipt-line receipt-muted">
+      <span>1 source signal</span>
+      <span>3 repos</span>
+      <span>3431f01</span>
+    </div>
+    <div class="commit-line">&gt; 3431f01 / March 21, 2026 / Daily Edition</div>
+  </div>
+      </section>
+      <section class="story-layout">
+        <article class="story-shell story-body">
+          <p>For a while, agent UX has had a brutal flaw. The system looks busy. Tools spin. Tokens burn. Then the run ends and the human gets one of two outcomes: a neat answer, or a blank wall.</p>
+
+      <p>That wall is starting to crack.</p>
+
+      <p>Fresh code in <strong>Codex</strong>, <strong>Gemini CLI</strong>, and <strong>OpenClaw</strong> points to the same shift: agent runtimes are getting much better at preserving <em>continuity</em>. Not just finishing tasks, but showing partial progress while the task is still in flight, or after it fails to land cleanly.</p>
+
+      <p class="pull">The story is no longer just “can the agent do the work?” It’s “can the agent leave you something useful when the work gets messy?”</p>
+
+      <h2>Codex: make the live transcript a first-class event</h2>
+      <p>In <code>openai/codex</code>, commit <code>3431f01</code> adds a typed realtime event: <code>thread/realtime/transcriptUpdated</code>. The payload is simple — <code>{ threadId, role, text }</code> — but the implication is bigger than it looks.</p>
+
+      <p>Codex already had realtime surfaces for audio and raw items. What changed here is that transcript deltas now become their own explicit stream. In the event handling code, input transcript deltas are mapped to the <code>user</code> role, output transcript deltas to <code>assistant</code>, and the tests verify those deltas alongside forwarded <code>handoff_request</code> events that carry transcript context.</p>
+
+      <p>That means a client doesn’t have to wait for some final stitched artifact to understand what happened during delegation. It can render the conversation as it evolves.</p>
+
+      <h2>Gemini CLI: show the subagent’s work, and stop charging the clock while humans think</h2>
+      <p>Gemini CLI’s browser-agent changes are even more direct. In commit <code>759575faa80b</code>, the browser agent starts emitting structured <code>SubagentProgress</code> objects with states like <code>running</code>, <code>completed</code>, <code>error</code>, and <code>cancelled</code>.</p>
+
+      <p>That progress object keeps a <code>recentActivity</code> log. It tracks thought chunks, tool-call starts and ends, associates tool work with a <code>callId</code>, and even sanitizes sensitive arguments and error payloads before surfacing them. The tests cover the whole arc: incremental thought text, tool lifecycle, failures, and secret redaction.</p>
+
+      <p>That alone would be notable. But Gemini’s follow-up move matters even more. In commit <code>11951592aaa0</code>, the CLI introduces a <code>DeadlineTimer</code> that can <code>pause()</code> and <code>resume()</code>, then wires it into the scheduler so the agent’s timeout budget pauses while the runtime is waiting for user confirmation.</p>
+
+      <p>That’s a subtle but important philosophical change. It treats “the agent is blocked on the human” as different from “the agent is stuck.” In other words: don’t declare failure just because the person took ten seconds to decide.</p>
+
+      <h2>OpenClaw: a timeout should still tell you what got done</h2>
+      <p>OpenClaw pushes the same idea from the other end of the lifecycle: the timeout path.</p>
+
+      <p>In commit <code>598f1826d8b2</code>, the subagent announce flow stops acting like the latest assistant message is the only thing that matters. Instead, it summarizes output history, counts assistant tool calls, preserves deliberate silence like <code>NO_REPLY</code>, and, when needed, emits a distilled fallback such as:</p>
+
+      <p><code>[Partial progress: N tool call(s) executed before timeout]</code></p>
+
+      <p>That line is more important than it looks. It converts a timeout from a dead end into an artifact. The user may not have the final polished answer, but they do have evidence that the run advanced, and sometimes a compact summary of where it got.</p>
+
+      <h2>The bigger pattern</h2>
+      <p>None of these repos are doing exactly the same thing. Codex is improving realtime transcript continuity. Gemini CLI is making subagent execution observable and fairer under confirmation waits. OpenClaw is preserving partial work when a subagent runs out of time.</p>
+
+      <p>But the pattern is clear.</p>
+
+      <ul>
+        <li>Binary success/failure is giving way to incremental disclosure.</li>
+        <li>Delegation is becoming easier to inspect, not just initiate.</li>
+        <li>Timeouts are being treated as reportable states, not silent voids.</li>
+        <li>Agent UX is getting closer to how good human collaborators work: “I’m not done, but here’s what I’ve learned so far.”</li>
+      </ul>
+
+      <p>That’s a bigger deal than it sounds. In real workflows, the most frustrating part of agent tooling is rarely raw model intelligence. It’s the loss of context between “started,” “working,” and “finished.” These commits all chip away at that gap.</p>
+
+      <h2>Why this matters for builders</h2>
+      <p>If you’re building on top of agents, this is a design hint worth stealing. Users don’t just need final answers. They need legible intermediate states: what was tried, what finished, what timed out, what’s waiting on them, and what can still be salvaged.</p>
+
+      <p>That’s where trust actually grows — not from perfect autonomy, but from visible progress under imperfect conditions.</p>
+
+      <p>So here’s the open question: <strong>if agent tools get much better at exposing partial progress, does that change how willing people are to hand them longer, riskier work?</strong></p>
+
+      <p>If you’re building one of these systems, or using them in production, watch this layer closely. The next leap in agent UX may not be smarter answers. It may be better receipts.</p>
+          <section class="reader-feedback"
+    data-tgr-feedback
+    data-article-slug="2026-03-21-daily-ai-agents-are-getting-better-at-saying-here-s-what-i-finished"
+    data-article-title="AI agents are getting better at saying “here’s what I finished”"
+    data-article-url="/articles/2026-03-21-daily-ai-agents-are-getting-better-at-saying-here-s-what-i-finished/"
+    data-edition-date="2026-03-21"
+    data-lane="Daily Edition"
+    data-tags="Memory,Delegation,Tools,UX"
+    data-repos="openai/codex,google-gemini/gemini-cli,openclaw/openclaw">
+    <div class="reader-feedback-head">
+      <div>
+        <div class="eyebrow">Letters &amp; Corrections</div>
+        <h2>Send a note to the desk</h2>
+      </div>
+      <p>Corrections, missing context, or a follow-up lead.</p>
+    </div>
+    <form class="feedback-form">
+      <div class="feedback-votes" role="group" aria-label="Choose signal type">
+        <button class="feedback-choice" type="button" data-vote="follow-up" aria-pressed="false">
+          <span aria-hidden="true">+</span>
+          <span>Follow-up</span>
+        </button>
+        <button class="feedback-choice" type="button" data-vote="correction" aria-pressed="false">
+          <span aria-hidden="true">!</span>
+          <span>Correction</span>
+        </button>
+      </div>
+      <label class="feedback-comment">
+        <span>Note for the editor</span>
+        <textarea name="comment" rows="3" maxlength="320" placeholder="What did we miss, or what should we follow next?"></textarea>
+      </label>
+      <div class="feedback-submit-row">
+        <p class="feedback-status" aria-live="polite"></p>
+        <button class="paper-button primary feedback-submit" type="submit">Send to desk</button>
+      </div>
+    </form>
+  </section>
+        </article>
+        <aside class="side-panel">
+          <h2>Evidence</h2>
+          <div class="evidence-table">
+            <div class="evidence-line"><span>Date</span><span>March 21, 2026</span></div>
+            <div class="evidence-line"><span>Lane</span><span>Daily Edition</span></div>
+            <div class="evidence-line"><span>Confidence</span><span>68%</span></div>
+            <div class="evidence-line"><span>Sources</span><span>1</span></div>
+            <div class="evidence-line"><span>Repos</span><span>openai/codex, google-gemini/gemini-cli, openclaw/openclaw</span></div>
+          </div>
+          <div class="actions">
+            <a class="paper-button primary" href="/evidence/2026-03-21-daily-ai-agents-are-getting-better-at-saying-here-s-what-i-finished/">View Evidence</a>
+            <a class="paper-button" href="/editions/2026-03-21/">Edition</a>
+          </div>
+          
+        </aside>
+      </section>
+    </main>
+    <footer class="wrap site-footer">
+      <span>&copy; 2026 The Git Reporter</span>
+      <a href="/atlas/">About</a>
+      <a href="/articles.json">Manifest JSON</a>
+      <a href="/repos/">Sources</a>
+    </footer>
+  </div>
+</body>
+</html>

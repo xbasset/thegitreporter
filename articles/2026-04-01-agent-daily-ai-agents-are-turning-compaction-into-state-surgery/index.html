@@ -1,0 +1,241 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>AI Agents Are Turning Compaction Into State Surgery | The Git Reporter</title>
+  <meta name="description" content="The new problem is not just squeezing a bloated context window. It is preserving the right tail, marking what was compressed, and making the session recoverable when the cut goes wrong.">
+  <link rel="icon" href="/assets/mark.svg">
+  <link rel="stylesheet" href="/assets/site.css?v=2026-05-18-reader-desk-2">
+  <script defer src="/assets/feedback.js?v=2026-05-18-reader-desk-2"></script>
+</head>
+<body>
+  <div class="site">
+    <header class="site-header" id="top">
+      <div class="wrap utility-row">
+        <a class="icon-link menu-icon" href="/archive/" aria-label="Open edition history"><span></span><span></span><span></span></a>
+        <a class="icon-link search-icon" href="/archive/" aria-label="Search edition history"></a>
+      </div>
+      <div class="wrap masthead-lockup">
+        <a class="masthead-title" href="/">THE GIT REPORTER</a>
+        <div class="masthead-ornament" aria-hidden="true"></div>
+      </div>
+      <div class="wrap nav-wrap">
+        <nav class="paper-nav" aria-label="Primary navigation">
+    <a class="" href="/">Today</a><a class="active" href="/archive/">Editions</a><a class="" href="/atlas/">Agent Atlas</a><a class="" href="/repos/">Repos</a>
+  </nav>
+        <div class="nav-rule"></div>
+      </div>
+    </header>
+    <main class="wrap page-shell">
+      <section class="page-hero story-front">
+        <div class="story-topline">
+          <span>Agent Daily</span>
+          <span>Sources <strong>+2</strong></span>
+        </div>
+        <h1>AI Agents Are Turning Compaction Into State Surgery</h1>
+        <p class="summary">The new problem is not just squeezing a bloated context window. It is preserving the right tail, marking what was compressed, and making the session recoverable when the cut goes wrong.</p>
+        <div class="receipt">
+    <div class="receipt-line">
+      <span class="receipt-icon">repo</span>
+      <span class="receipt-main">openai/codex</span>
+      <span class="branch-pill">main</span>
+    </div>
+    <div class="receipt-line receipt-muted">
+      <span>2 source signals</span>
+      <span>3 repos</span>
+      <span>c6968c3</span>
+    </div>
+    <div class="commit-line">&gt; c6968c3 / April 1, 2026 / Agent Daily</div>
+  </div>
+      </section>
+      <section class="story-layout">
+        <article class="story-shell story-body">
+          <p>Compaction used to sound like housekeeping.</p>
+      <p>Chat too long, tool output too noisy, token meter too red — summarize the old stuff and move on.</p>
+      <p>Nice in theory. Messy in production.</p>
+
+      <p class="pull">Across agent repos, compaction is evolving from “make it shorter” into a deeper runtime job: rewrite history carefully enough that the agent can still stand back up afterward.</p>
+
+      <p>That is a very different engineering problem.</p>
+      <p>Once you care about resumability, checkpoints, unsummarized tails, compaction markers, and replay semantics, you are no longer doing text cleanup. You are doing state surgery.</p>
+
+      <h2>OpenClaw is literally rewriting the patient file</h2>
+      <p>The clearest evidence comes from <code>openclaw/openclaw</code>.</p>
+      <p>On March 20, OpenClaw merged <strong>PR #41021</strong>: <em>“feat(compaction): truncate session JSONL after compaction to prevent unbounded growth.”</em></p>
+
+      <p>The motivation in the PR is blunt: session files could grow to <strong>7+ MB</strong> and <strong>3,800+ lines</strong> of stale entries after repeated compaction cycles, leading to timeouts and stuck sessions.</p>
+
+      <p>So OpenClaw did not just improve the summary prompt. In <code>src/agents/pi-embedded-runner/compact.ts</code>, it now conditionally calls <code>truncateSessionAfterCompaction</code> after a successful compaction pass. And the new tests in <code>session-truncation.test.ts</code> tell the real story.</p>
+
+      <p>The runtime is careful to preserve the <code>firstKeptEntryId</code> unsummarized tail, keep post-compaction messages, support multi-cycle compaction, and even archive the original file before rewriting it.</p>
+
+      <p>That is not “summary generation.” That is controlled history rewrite.</p>
+
+      <p>The docs sharpen the picture. OpenClaw’s compaction docs say summaries persist in JSONL, while <code>docs/concepts/session.md</code> adds a <strong>silent pre-compaction memory flush</strong> so the system can write durable notes before compression kicks in.</p>
+
+      <p>In other words: compact, but first save what must not disappear.</p>
+
+      <h2>Codex is making compaction part of resumable thread history</h2>
+      <p>OpenAI’s <code>codex</code> repo shows the same shift from a different angle.</p>
+
+      <p>In <code>codex-rs/app-server-protocol/src/protocol/common.rs</code>, the protocol now exposes <code>thread/compact/start</code>. That already tells you compaction is no longer an invisible side effect. It has become an explicit thread operation.</p>
+
+      <p>Then look at <code>ThreadResumeParams</code> in <code>codex-rs/app-server-protocol/src/protocol/v2.rs</code>. Codex supports resuming a thread by <code>thread_id</code>, by full <code>history</code>, or by <code>path</code>. It also includes <code>persist_extended_history</code> to reconstruct richer history on later resume, fork, or read operations.</p>
+
+      <p>That is the giveaway. The system is not just compacting for token relief. It is compacting inside a larger replay and recovery model.</p>
+
+      <p>The thread-history code makes this even more explicit. In <code>thread_history.rs</code>, Codex inserts a <code>ThreadItem::ContextCompaction</code> marker and preserves compaction-only legacy turns so they are not dropped during history reconstruction.</p>
+
+      <p>Compaction here is treated like an event the runtime must remember, not a paragraph the runtime hopes is good enough.</p>
+
+      <p>And the public pain signal is already visible. A fresh issue, <strong>openai/codex#16278</strong>, reports a remote compaction timeout that leaves the session unrecoverable and makes <code>codex resume</code> hang. That is exactly why this design layer matters: when compaction breaks, users do not experience “slightly worse summarization.” They experience total workflow loss.</p>
+
+      <h2>Gemini CLI is exposing the whole compression control panel — and backing off when memory goes wrong</h2>
+      <p>Google’s <code>gemini-cli</code> is converging on the same territory, but through configuration and operator controls.</p>
+
+      <p>The newly generated <code>docs/reference/configuration.md</code> surfaces an unusually rich compression stack:</p>
+      <ul>
+        <li><code>model.summarizeToolOutput</code></li>
+        <li><code>model.compressionThreshold</code></li>
+        <li><code>tools.truncateToolOutputThreshold</code></li>
+        <li><code>contextManagement.historyWindow.maxTokens</code></li>
+        <li><code>contextManagement.historyWindow.retainedTokens</code></li>
+        <li><code>contextManagement.toolDistillation.maxOutputTokens</code></li>
+        <li><code>contextManagement.toolDistillation.summarizationThresholdTokens</code></li>
+        <li><code>hooks.PreCompress</code></li>
+      </ul>
+
+      <p>That is a lot of public surface area for what used to be treated like hidden plumbing.</p>
+
+      <p>But the more revealing signal is the repo’s latest rollback. In <strong>PR #24393</strong>, Gemini CLI set <code>memoryManager</code> to <code>false</code> in settings because it was causing the <code>.gemin*</code> directory to be loaded into main context as part of the repo.</p>
+
+      <p>That sounds small. It is not.</p>
+      <p>It means automatic memory handling crossed the line from “helpful compression” into “context pollution,” and the team decided the safe move was to disable it until fixed.</p>
+
+      <p>So Gemini is doing two things at once:</p>
+      <ul>
+        <li>making compression highly configurable,</li>
+        <li>and acknowledging that memory capture can still misfire badly enough to poison the prompt.</li>
+      </ul>
+
+      <p>That is exactly the state-surgery story in miniature: compression is powerful, but one sloppy cut can nick the wrong artery.</p>
+
+      <h2>The deeper pattern: compaction is merging with recovery</h2>
+      <p>Put those repos side by side and a sharper pattern appears.</p>
+
+      <ul>
+        <li><strong>OpenClaw</strong> rewrites persisted session history after compaction, while preserving the unsummarized tail and archival escape hatches.</li>
+        <li><strong>Codex</strong> treats compaction as an explicit thread event inside a resumable history protocol.</li>
+        <li><strong>Gemini CLI</strong> exposes token and compression controls, adds pre-compress hooks, and just backed away from an automatic memory path that was contaminating context.</li>
+      </ul>
+
+      <p>Different codebases, same directional truth: <strong>compaction is no longer just about saving tokens. It is becoming inseparable from recovery, replay, and trust.</strong></p>
+
+      <p>That is what makes this different from earlier waves of “smart summarization.” The hard question now is not only <em>what should be summarized?</em></p>
+      <p>It is also:</p>
+      <ul>
+        <li>What must survive untouched?</li>
+        <li>What becomes a marker in history?</li>
+        <li>What can be safely rewritten?</li>
+        <li>What has to be resumable after compression?</li>
+        <li>What happens when compaction itself fails?</li>
+      </ul>
+
+      <h2>Why this matters to users</h2>
+      <p>Users do not care whether your architecture diagram says “compression subsystem.”</p>
+      <p>They care whether the agent still remembers the right file, the right warning, the right half-finished plan, and the right next step after an hour of work.</p>
+
+      <p>That is why compaction has quietly become a product issue.</p>
+      <p>If your agent compresses aggressively but cannot recover cleanly, it feels unreliable.</p>
+      <p>If it preserves too much, it gets expensive, slow, or brittle.</p>
+      <p>If it rewrites history without visible structure, users lose the plot.</p>
+
+      <p>The winning systems will probably be the ones that treat compression less like summarization magic and more like careful operating-room protocol: mark the incision, preserve vital tissue, and make recovery boringly dependable.</p>
+
+      <h2>What to watch next</h2>
+      <p>The next battleground is likely not bigger context windows alone.</p>
+      <p>It is whether agent runtimes can combine:</p>
+      <ul>
+        <li>cheap compression,</li>
+        <li>reliable replay,</li>
+        <li>human-inspectable markers,</li>
+        <li>and policies for what may never be compacted away.</li>
+      </ul>
+
+      <p>Because once compaction touches recovery, it stops being a background optimization.</p>
+      <p>It becomes part of the agent’s memory contract.</p>
+
+      <p>So here’s the open question: <strong>as agent systems get better at rewriting their own past, who decides which pieces of work are allowed to become summary and which must remain first-class history?</strong></p>
+
+      <p>If you build agent tooling, audit your compaction path like reliability infrastructure — and make the cut legible enough that a human can still trust the story after compression.</p>
+          <section class="reader-feedback"
+    data-tgr-feedback
+    data-article-slug="2026-04-01-agent-daily-ai-agents-are-turning-compaction-into-state-surgery"
+    data-article-title="AI Agents Are Turning Compaction Into State Surgery"
+    data-article-url="/articles/2026-04-01-agent-daily-ai-agents-are-turning-compaction-into-state-surgery/"
+    data-edition-date="2026-04-01"
+    data-lane="Agent Daily"
+    data-tags="Permissions,Memory,Tools,UX"
+    data-repos="openai/codex,google-gemini/gemini-cli,openclaw/openclaw">
+    <div class="reader-feedback-head">
+      <div>
+        <div class="eyebrow">Letters &amp; Corrections</div>
+        <h2>Send a note to the desk</h2>
+      </div>
+      <p>Corrections, missing context, or a follow-up lead.</p>
+    </div>
+    <form class="feedback-form">
+      <div class="feedback-votes" role="group" aria-label="Choose signal type">
+        <button class="feedback-choice" type="button" data-vote="follow-up" aria-pressed="false">
+          <span aria-hidden="true">+</span>
+          <span>Follow-up</span>
+        </button>
+        <button class="feedback-choice" type="button" data-vote="correction" aria-pressed="false">
+          <span aria-hidden="true">!</span>
+          <span>Correction</span>
+        </button>
+      </div>
+      <label class="feedback-comment">
+        <span>Note for the editor</span>
+        <textarea name="comment" rows="3" maxlength="320" placeholder="What did we miss, or what should we follow next?"></textarea>
+      </label>
+      <div class="feedback-submit-row">
+        <p class="feedback-status" aria-live="polite"></p>
+        <button class="paper-button primary feedback-submit" type="submit">Send to desk</button>
+      </div>
+    </form>
+  </section>
+        </article>
+        <aside class="side-panel">
+          <h2>Evidence</h2>
+          <div class="evidence-table">
+            <div class="evidence-line"><span>Date</span><span>April 1, 2026</span></div>
+            <div class="evidence-line"><span>Lane</span><span>Agent Daily</span></div>
+            <div class="evidence-line"><span>Confidence</span><span>68%</span></div>
+            <div class="evidence-line"><span>Sources</span><span>2</span></div>
+            <div class="evidence-line"><span>Repos</span><span>openai/codex, google-gemini/gemini-cli, openclaw/openclaw</span></div>
+          </div>
+          <div class="actions">
+            <a class="paper-button primary" href="/evidence/2026-04-01-agent-daily-ai-agents-are-turning-compaction-into-state-surgery/">View Evidence</a>
+            <a class="paper-button" href="/editions/2026-04-01/">Edition</a>
+          </div>
+          <div class="related-list">
+                  <h3>Same Edition</h3>
+                  <a href="/articles/2026-04-01-daily-agent-clis-are-turning-permissions-into-a-conversation/">
+                        <span>Context</span>
+                        Agent CLIs Are Turning Permissions Into a Conversation
+                      </a>
+                </div>
+        </aside>
+      </section>
+    </main>
+    <footer class="wrap site-footer">
+      <span>&copy; 2026 The Git Reporter</span>
+      <a href="/atlas/">About</a>
+      <a href="/articles.json">Manifest JSON</a>
+      <a href="/repos/">Sources</a>
+    </footer>
+  </div>
+</body>
+</html>

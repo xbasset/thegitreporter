@@ -1,0 +1,133 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Agent Goals Are Becoming Runtime State | The Git Reporter</title>
+  <meta name="description" content="Recent Codex and Hermes Agent changes show coding agents turning goals from chat commands into durable metadata, resumable session state, and queued work control.">
+  <link rel="icon" href="/assets/mark.svg">
+  <link rel="stylesheet" href="/assets/site.css?v=2026-05-18-reader-desk-2">
+  <script defer src="/assets/feedback.js?v=2026-05-18-reader-desk-2"></script>
+</head>
+<body>
+  <div class="site">
+    <header class="site-header" id="top">
+      <div class="wrap utility-row">
+        <a class="icon-link menu-icon" href="/archive/" aria-label="Open edition history"><span></span><span></span><span></span></a>
+        <a class="icon-link search-icon" href="/archive/" aria-label="Search edition history"></a>
+      </div>
+      <div class="wrap masthead-lockup">
+        <a class="masthead-title" href="/">THE GIT REPORTER</a>
+        <div class="masthead-ornament" aria-hidden="true"></div>
+      </div>
+      <div class="wrap nav-wrap">
+        <nav class="paper-nav" aria-label="Primary navigation">
+    <a class="" href="/">Today</a><a class="active" href="/archive/">Editions</a><a class="" href="/atlas/">Agent Atlas</a><a class="" href="/repos/">Repos</a>
+  </nav>
+        <div class="nav-rule"></div>
+      </div>
+    </header>
+    <main class="wrap page-shell">
+      <section class="page-hero story-front">
+        <div class="story-topline">
+          <span>Daily Edition</span>
+          <span>Sources <strong>+7</strong></span>
+        </div>
+        <h1>Agent Goals Are Becoming Runtime State</h1>
+        <p class="summary">Recent Codex and Hermes Agent changes show coding agents turning goals from chat commands into durable metadata, resumable session state, and queued work control.</p>
+        <div class="receipt">
+    <div class="receipt-line">
+      <span class="receipt-icon">repo</span>
+      <span class="receipt-main">openai/codex</span>
+      <span class="branch-pill">main</span>
+    </div>
+    <div class="receipt-line receipt-muted">
+      <span>7 source signals</span>
+      <span>2 repos</span>
+      <span>f10ddc3</span>
+    </div>
+    <div class="commit-line">&gt; f10ddc3 / May 21, 2026 / Daily Edition</div>
+  </div>
+      </section>
+      <section class="story-layout">
+        <article class="story-shell story-body">
+          <p>The next agent reliability problem is deceptively simple: when an agent says it has a goal, where does that goal live?</p>
+  <p>If the answer is “somewhere in the conversation,” the product eventually runs into edge cases. A session that starts with a goal may need to appear in a resume list before any normal user message exists. A long pasted task brief may need to become a concise stored objective. A follow-up task may need to wait behind the current one. A restarted agent may need to know what target it was still pursuing.</p>
+  <p>This month’s public evidence from OpenAI Codex and Hermes Agent points to the same pressure from different directions. The goal is becoming a typed piece of runtime state.</p>
+  <h2>Codex separates the goal from the first message</h2>
+  <p>OpenAI Codex PR <a href="https://github.com/openai/codex/pull/21981">#21981</a>, merged on May 11, is a small metadata change with a large design signal. It fixes <code>/goal</code>-first threads that could be missing from <code>codex resume</code> and app recents because discovery had depended on metadata derived from a normal first user message.</p>
+  <p>The earlier PR <a href="https://github.com/openai/codex/pull/21489">#21489</a> tried a narrower visible fix: persist <code>ThreadGoalUpdated</code> events and synthesize <code>first_user_message</code> from the goal objective. The review discussion pushed back on that shape. A goal objective can provide useful preview text, but it is not literally the first user message, and reusing that field would blur title, preview, and discovery behavior.</p>
+  <p>The merged replacement adds an internal thread <code>preview</code> metadata field. <code>ThreadGoalUpdated</code> can now be preview-bearing metadata, while <code>first_user_message</code> keeps its original meaning. That is the story: Codex did not just make a list item appear. It gave goal-derived display state a separate lane.</p>
+  <p>A nearby Codex issue, <a href="https://github.com/openai/codex/issues/21477">#21477</a>, shows the same boundary at input time. The report says a long pasted <code>/goal</code> command was rejected before the model could normalize it into a concise persisted <code>ThreadGoal.objective</code>. The issue argues that raw goal source text and stored thread objective should not be treated as the same object.</p>
+  <h2>Hermes makes goals persistent work control</h2>
+  <p>Hermes Agent exposes the broader product version of the same idea. Its <a href="https://github.com/NousResearch/hermes-agent/releases">v0.13.0 release</a>, published May 7, describes <code>/goal</code> as a primitive that keeps the agent locked on a target across turns. In the same release, ACP <code>/steer</code> and <code>/queue</code> let editor integrations direct the in-flight agent or queue follow-up work.</p>
+  <p>The project’s <a href="https://github.com/NousResearch/hermes-agent/blob/main/RELEASE_v0.13.0.md">release file</a> places persistent goals beside checkpoints, session durability, atomic session persistence, and reasoning-metadata preservation. That grouping matters. A goal that survives across turns is no longer just a slash command; it belongs to the same layer as restart behavior and session storage.</p>
+  <p>Hermes issue <a href="https://github.com/NousResearch/hermes-agent/issues/22617">#22617</a>, opened two days after that release, pushes the idea further. The request asks for <code>/queue-goal &lt;text&gt;</code>, automatic promotion when the current goal completes, persistence across session restarts, and pending items visible in <code>/goal status</code>. That is not shipped behavior in the issue. It is evidence of what users expect once goals become durable: ordering, status, and continuity.</p>
+  <h2>The implication</h2>
+  <p>The shared pattern is not that Codex and Hermes have the same design. They do not. Codex is carving goal-derived preview out of normal user-message metadata. Hermes is presenting goals as a persistent operating target and connecting nearby queue and durability surfaces. But both are answering the same product question: how does an agent runtime remember what it is trying to finish without hiding that memory inside ordinary chat text?</p>
+  <p>That question gets sharper as agents move from one-turn assistance to longer tasks. Goals need names. They need limits. They need history. They may need queues. They may need to survive process restarts. And when they affect what the user sees in a resume list or editor panel, they need their own metadata rather than borrowing fields that meant something else.</p>
+  <p>Watch next for goal inspectors, queued objective lists, restart-safe goal histories, and clearer boundaries between “what the user said” and “what the runtime is currently pursuing.” The durable agent is not just the one that remembers more context. It is the one that can account for its objective as state.</p>
+          <section class="reader-feedback"
+    data-tgr-feedback
+    data-article-slug="2026-05-21-daily-agent-goals-are-becoming-runtime-state"
+    data-article-title="Agent Goals Are Becoming Runtime State"
+    data-article-url="/articles/2026-05-21-daily-agent-goals-are-becoming-runtime-state/"
+    data-edition-date="2026-05-21"
+    data-lane="Daily Edition"
+    data-tags="Memory,Runtime"
+    data-repos="openai/codex,NousResearch/hermes-agent">
+    <div class="reader-feedback-head">
+      <div>
+        <div class="eyebrow">Letters &amp; Corrections</div>
+        <h2>Send a note to the desk</h2>
+      </div>
+      <p>Corrections, missing context, or a follow-up lead.</p>
+    </div>
+    <form class="feedback-form">
+      <div class="feedback-votes" role="group" aria-label="Choose signal type">
+        <button class="feedback-choice" type="button" data-vote="follow-up" aria-pressed="false">
+          <span aria-hidden="true">+</span>
+          <span>Follow-up</span>
+        </button>
+        <button class="feedback-choice" type="button" data-vote="correction" aria-pressed="false">
+          <span aria-hidden="true">!</span>
+          <span>Correction</span>
+        </button>
+      </div>
+      <label class="feedback-comment">
+        <span>Note for the editor</span>
+        <textarea name="comment" rows="3" maxlength="320" placeholder="What did we miss, or what should we follow next?"></textarea>
+      </label>
+      <div class="feedback-submit-row">
+        <p class="feedback-status" aria-live="polite"></p>
+        <button class="paper-button primary feedback-submit" type="submit">Send to desk</button>
+      </div>
+    </form>
+  </section>
+        </article>
+        <aside class="side-panel">
+          <h2>Evidence</h2>
+          <div class="evidence-table">
+            <div class="evidence-line"><span>Date</span><span>May 21, 2026</span></div>
+            <div class="evidence-line"><span>Lane</span><span>Daily Edition</span></div>
+            <div class="evidence-line"><span>Confidence</span><span>87%</span></div>
+            <div class="evidence-line"><span>Sources</span><span>7</span></div>
+            <div class="evidence-line"><span>Repos</span><span>openai/codex, NousResearch/hermes-agent</span></div>
+          </div>
+          <div class="actions">
+            <a class="paper-button primary" href="/evidence/2026-05-21-daily-agent-goals-are-becoming-runtime-state/">View Evidence</a>
+            <a class="paper-button" href="/editions/2026-05-21/">Edition</a>
+          </div>
+          
+        </aside>
+      </section>
+    </main>
+    <footer class="wrap site-footer">
+      <span>&copy; 2026 The Git Reporter</span>
+      <a href="/atlas/">About</a>
+      <a href="/articles.json">Manifest JSON</a>
+      <a href="/repos/">Sources</a>
+    </footer>
+  </div>
+</body>
+</html>

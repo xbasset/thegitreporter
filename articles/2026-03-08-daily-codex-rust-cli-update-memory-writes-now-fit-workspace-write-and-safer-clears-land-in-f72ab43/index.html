@@ -1,0 +1,150 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Codex Rust CLI Update: Memory Writes Now Fit “workspace-write” and Safer Clears Land in f72ab43 | The Git Reporter</title>
+  <meta name="description" content="The Codex Rust CLI just got a small but meaningful quality-of-life upgrade—one that also tightens safety around memory cleanup. In PR openai/codex#13467 (commit f72ab43fd193b31208cd3c306293b...">
+  <link rel="icon" href="/assets/mark.svg">
+  <link rel="stylesheet" href="/assets/site.css?v=2026-05-18-reader-desk-2">
+  <script defer src="/assets/feedback.js?v=2026-05-18-reader-desk-2"></script>
+</head>
+<body>
+  <div class="site">
+    <header class="site-header" id="top">
+      <div class="wrap utility-row">
+        <a class="icon-link menu-icon" href="/archive/" aria-label="Open edition history"><span></span><span></span><span></span></a>
+        <a class="icon-link search-icon" href="/archive/" aria-label="Search edition history"></a>
+      </div>
+      <div class="wrap masthead-lockup">
+        <a class="masthead-title" href="/">THE GIT REPORTER</a>
+        <div class="masthead-ornament" aria-hidden="true"></div>
+      </div>
+      <div class="wrap nav-wrap">
+        <nav class="paper-nav" aria-label="Primary navigation">
+    <a class="" href="/">Today</a><a class="active" href="/archive/">Editions</a><a class="" href="/atlas/">Agent Atlas</a><a class="" href="/repos/">Repos</a>
+  </nav>
+        <div class="nav-rule"></div>
+      </div>
+    </header>
+    <main class="wrap page-shell">
+      <section class="page-hero story-front">
+        <div class="story-topline">
+          <span>Daily Edition</span>
+          <span>Sources <strong>+1</strong></span>
+        </div>
+        <h1>Codex Rust CLI Update: Memory Writes Now Fit “workspace-write” and Safer Clears Land in f72ab43</h1>
+        <p class="summary">The Codex Rust CLI just got a small but meaningful quality-of-life upgrade—one that also tightens safety around memory cleanup. In PR openai/codex#13467 (commit f72ab43fd193b31208cd3c306293b...</p>
+        <div class="receipt">
+    <div class="receipt-line">
+      <span class="receipt-icon">repo</span>
+      <span class="receipt-main">openai/codex</span>
+      <span class="branch-pill">main</span>
+    </div>
+    <div class="receipt-line receipt-muted">
+      <span>1 source signal</span>
+      <span>1 repo</span>
+      <span>source trail</span>
+    </div>
+    <div class="commit-line">&gt; source trail / March 8, 2026 / Daily Edition</div>
+  </div>
+      </section>
+      <section class="story-layout">
+        <article class="story-shell story-body">
+          <p>
+      The Codex Rust CLI just got a small but meaningful quality-of-life upgrade—one that also tightens safety around memory cleanup. In PR
+      <a href="https://github.com/openai/codex/pull/13467">openai/codex#13467</a> (commit
+      <a href="https://github.com/openai/codex/commit/f72ab43fd193b31208cd3c306293b1b71a52a709">f72ab43fd193b31208cd3c306293b1b71a52a709</a>),
+      Codex adjusts how it treats its own memory directory during sandboxed runs and hardens the logic used when clearing memory contents.
+    </p>
+
+    <p>
+      The headline behavior change lands in sandbox mode <strong>"workspace-write"</strong>. Previously, everyday “memory maintenance” actions
+      could trip over sandbox boundaries, because the CLI’s memory location lives outside the repo workspace. With this update, Codex now includes
+      <code>~/.codex/memories</code> in the sandbox’s writable roots when running under <strong>"workspace-write"</strong>, so memory upkeep doesn’t
+      require extra approval prompts or manual allowances. In practice, the CLI can continue to read and refresh its stored context without turning
+      a routine run into a permissions negotiation.
+    </p>
+
+    <p>
+      The same PR also adds a safety improvement for a more destructive operation: clearing the memory root. The updated behavior refuses to operate
+      on <em>symlinked</em> roots, reducing the risk of “clear” targeting an unexpected location via a symbolic link. And after a clear, Codex
+      recreates the memory directory, leaving the filesystem in a predictable, ready-to-use state rather than requiring the next command to rebuild
+      the directory structure from scratch.
+    </p>
+
+    <p>
+      Taken together, these changes keep Codex’s memory features feeling seamless while keeping sharp edges away from the file system. The result is
+      a CLI that behaves more like a well-mannered tool: it stays in its lane under sandbox rules, and it’s more careful when asked to delete.
+    </p>
+
+    <h2>Why it matters</h2>
+    <ul>
+      <li>Fewer interruptions: memory maintenance in <strong>"workspace-write"</strong> works without extra approvals thanks to writable access to <code>~/.codex/memories</code>.</li>
+      <li>Reduced risk: refusing symlinked roots helps prevent accidental deletion outside the intended memory directory.</li>
+      <li>More reliable runs: recreating the directory after clearing keeps subsequent commands consistent and predictable.</li>
+    </ul>
+          <section class="reader-feedback"
+    data-tgr-feedback
+    data-article-slug="2026-03-08-daily-codex-rust-cli-update-memory-writes-now-fit-workspace-write-and-safer-clears-land-in-f72ab43"
+    data-article-title="Codex Rust CLI Update: Memory Writes Now Fit “workspace-write” and Safer Clears Land in f72ab43"
+    data-article-url="/articles/2026-03-08-daily-codex-rust-cli-update-memory-writes-now-fit-workspace-write-and-safer-clears-land-in-f72ab43/"
+    data-edition-date="2026-03-08"
+    data-lane="Daily Edition"
+    data-tags="Permissions,Memory,Tools,UX"
+    data-repos="openai/codex">
+    <div class="reader-feedback-head">
+      <div>
+        <div class="eyebrow">Letters &amp; Corrections</div>
+        <h2>Send a note to the desk</h2>
+      </div>
+      <p>Corrections, missing context, or a follow-up lead.</p>
+    </div>
+    <form class="feedback-form">
+      <div class="feedback-votes" role="group" aria-label="Choose signal type">
+        <button class="feedback-choice" type="button" data-vote="follow-up" aria-pressed="false">
+          <span aria-hidden="true">+</span>
+          <span>Follow-up</span>
+        </button>
+        <button class="feedback-choice" type="button" data-vote="correction" aria-pressed="false">
+          <span aria-hidden="true">!</span>
+          <span>Correction</span>
+        </button>
+      </div>
+      <label class="feedback-comment">
+        <span>Note for the editor</span>
+        <textarea name="comment" rows="3" maxlength="320" placeholder="What did we miss, or what should we follow next?"></textarea>
+      </label>
+      <div class="feedback-submit-row">
+        <p class="feedback-status" aria-live="polite"></p>
+        <button class="paper-button primary feedback-submit" type="submit">Send to desk</button>
+      </div>
+    </form>
+  </section>
+        </article>
+        <aside class="side-panel">
+          <h2>Evidence</h2>
+          <div class="evidence-table">
+            <div class="evidence-line"><span>Date</span><span>March 8, 2026</span></div>
+            <div class="evidence-line"><span>Lane</span><span>Daily Edition</span></div>
+            <div class="evidence-line"><span>Confidence</span><span>68%</span></div>
+            <div class="evidence-line"><span>Sources</span><span>1</span></div>
+            <div class="evidence-line"><span>Repos</span><span>openai/codex</span></div>
+          </div>
+          <div class="actions">
+            <a class="paper-button primary" href="/evidence/2026-03-08-daily-codex-rust-cli-update-memory-writes-now-fit-workspace-write-and-safer-clears-land-in-f72ab43/">View Evidence</a>
+            <a class="paper-button" href="/editions/2026-03-08/">Edition</a>
+          </div>
+          
+        </aside>
+      </section>
+    </main>
+    <footer class="wrap site-footer">
+      <span>&copy; 2026 The Git Reporter</span>
+      <a href="/atlas/">About</a>
+      <a href="/articles.json">Manifest JSON</a>
+      <a href="/repos/">Sources</a>
+    </footer>
+  </div>
+</body>
+</html>

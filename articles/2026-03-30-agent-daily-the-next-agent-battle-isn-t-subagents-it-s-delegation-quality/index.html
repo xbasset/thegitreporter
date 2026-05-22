@@ -1,0 +1,228 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>The Next Agent Battle Isn’t Subagents. It’s Delegation Quality. | The Git Reporter</title>
+  <meta name="description" content="Subagents used to be the shiny feature. Now the harder question is whether the runtime can choose the right specialist, hand work off cleanly, recover when the chain gets messy, and prove it made the right call.">
+  <link rel="icon" href="/assets/mark.svg">
+  <link rel="stylesheet" href="/assets/site.css?v=2026-05-18-reader-desk-2">
+  <script defer src="/assets/feedback.js?v=2026-05-18-reader-desk-2"></script>
+</head>
+<body>
+  <div class="site">
+    <header class="site-header" id="top">
+      <div class="wrap utility-row">
+        <a class="icon-link menu-icon" href="/archive/" aria-label="Open edition history"><span></span><span></span><span></span></a>
+        <a class="icon-link search-icon" href="/archive/" aria-label="Search edition history"></a>
+      </div>
+      <div class="wrap masthead-lockup">
+        <a class="masthead-title" href="/">THE GIT REPORTER</a>
+        <div class="masthead-ornament" aria-hidden="true"></div>
+      </div>
+      <div class="wrap nav-wrap">
+        <nav class="paper-nav" aria-label="Primary navigation">
+    <a class="" href="/">Today</a><a class="active" href="/archive/">Editions</a><a class="" href="/atlas/">Agent Atlas</a><a class="" href="/repos/">Repos</a>
+  </nav>
+        <div class="nav-rule"></div>
+      </div>
+    </header>
+    <main class="wrap page-shell">
+      <section class="page-hero story-front">
+        <div class="story-topline">
+          <span>Agent Daily</span>
+          <span>Sources <strong>+4</strong></span>
+        </div>
+        <h1>The Next Agent Battle Isn’t Subagents. It’s Delegation Quality.</h1>
+        <p class="summary">Subagents used to be the shiny feature. Now the harder question is whether the runtime can choose the right specialist, hand work off cleanly, recover when the chain gets messy, and prove it made the right call.</p>
+        <div class="receipt">
+    <div class="receipt-line">
+      <span class="receipt-icon">repo</span>
+      <span class="receipt-main">openai/codex</span>
+      <span class="branch-pill">main</span>
+    </div>
+    <div class="receipt-line receipt-muted">
+      <span>4 source signals</span>
+      <span>3 repos</span>
+      <span>d9d2ce3</span>
+    </div>
+    <div class="commit-line">&gt; d9d2ce3 / March 30, 2026 / Agent Daily</div>
+  </div>
+      </section>
+      <section class="story-layout">
+        <article class="story-shell story-body">
+          <p>Last week, “multi-agent” still sounded a bit like theater.</p>
+      <p>Spawn some helpers. Give them names. Maybe let them fan out in parallel. Add a nice thread picker in the UI.</p>
+      <p>But the code landing across agent runtimes is pushing the story somewhere more serious.</p>
+      <p>The new work is not just about <em>having</em> subagents. It is about operating delegation like a live system.</p>
+
+      <p>First, the runtime has to decide whether a task should be delegated at all.</p>
+      <p>Then it has to pick the right specialist, hand the work off cleanly, and recover when the after-effects get messy.</p>
+
+      <p>Across Gemini CLI, Codex, and OpenClaw, delegation is starting to look less like a feature checkbox and more like an operations discipline.</p>
+
+      <h2>Gemini CLI is testing delegation like a behavior, not a capability</h2>
+
+      <p>The clearest signal comes from Google’s Gemini CLI.</p>
+
+      <p>A fresh commit surfaced by gsio — <code>d9d2ce36f2a7</code>, titled <code>test(evals): add comprehensive subagent delegation evaluations</code> — points to a new emphasis inside <code>evals/subagents.eval.ts</code>. The file does not merely test whether subagents exist. It tests whether the outer agent delegates <em>well</em>.</p>
+
+      <p>At lines 38 through 45, the comments spell out the goal: check whether the outer agent reliably uses an expert subagent even when the prompt only indirectly implies the need. In other words, Gemini is probing judgment, not syntax matching.</p>
+
+      <p>Then the file flips the test around. At lines 67 through 70, it explicitly checks that trivial direct-edit work is <em>not</em> over-delegated. That is a subtle but important maturity marker. Once a runtime can spawn specialists, one failure mode is under-delegation. Another is orchestration mania — sending simple work through a specialist pipeline just because the machinery exists.</p>
+
+      <p>And the test suite keeps climbing. At lines 191 through 225, Gemini checks whether the main agent can pick the correct specialist from a pool of ten different agents. That is not “subagents are available.” That is dispatch quality under menu pressure.</p>
+
+      <div class="callout">
+        Gemini’s shift is simple and revealing: delegation is no longer a binary feature. It is something the runtime is now willing to grade.
+      </div>
+
+      <p>The public docs reinforce the same product direction. Gemini’s subagent docs frame specialists as a way to keep the main session from getting cluttered while letting the primary agent “hire” focused helpers with their own prompts, tools, and context windows. But the new eval work shows where the frontier is moving: once you can hire specialists, the next problem is making sure the manager hires the <em>right</em> one, at the <em>right</em> time, for the <em>right</em> amount of work.</p>
+
+      <h2>Codex is separating “wake the worker” from “leave a note”</h2>
+
+      <p>OpenAI’s Codex is tackling the same problem from a different layer.</p>
+
+      <p>In the multi-agent v2 tool stack, Codex is hardening the protocol around delegated work. The file <code>codex-rs/core/src/tools/handlers/multi_agents_v2.rs</code> exports distinct handlers for <code>AssignTaskHandler</code>, <code>SendMessageHandler</code>, and <code>ListAgentsHandler</code>. That is already a clue: the runtime is no longer treating child-agent interaction as one generic “talk to another agent” action.</p>
+
+      <p>The sharper distinction shows up one layer lower.</p>
+
+      <p>In <code>assign_task.rs</code>, line 21 routes through <code>MessageDeliveryMode::TriggerTurn</code>. In <code>send_message.rs</code>, line 21 routes through <code>MessageDeliveryMode::QueueOnly</code>. Same family of tool. Different operational contract.</p>
+
+      <p>That difference matters more than it looks.</p>
+
+      <p><code>assign_task</code> says: wake the worker and make this live work.</p>
+      <p><code>send_message</code> says: attach context, but do not necessarily start a fresh turn.</p>
+
+      <p>That is the kind of distinction systems add when delegation stops being a novelty and starts becoming something that can be overloaded, mis-timed, or left hanging. The editorial point is simple: delegated work needs explicit operational contracts.</p>
+
+      <p>The adjacent tool registration in <code>codex-rs/core/src/tools/spec.rs</code> makes the shape even clearer: <code>send_message</code>, <code>assign_task</code>, and <code>list_agents</code> are all first-class registered surfaces. Codex is making agent inventory and handoff semantics explicit.</p>
+
+      <p>The public Codex docs tell the same story from the operator side. The product now documents spawning subagents, routing follow-up instructions, waiting for results, closing threads, inheriting sandbox policy, and even surfacing approvals from inactive threads. That is not just “we support subagents.” That is workflow governance.</p>
+
+      <h2>OpenClaw is building the control room around delegated work</h2>
+
+      <p>OpenClaw shows what happens when a runtime keeps following delegation all the way down into delivery and lifecycle management.</p>
+
+      <p>Start with the operator surface. In <code>src/agents/tools/subagents-tool.ts</code>, the subagents tool exposes <code>list</code>, <code>kill</code>, and <code>steer</code>. The runtime is not just launching children and hoping for the best. It is assuming that delegated runs will sometimes need supervision.</p>
+
+      <p>Then look at the delivery mechanics. In <code>src/agents/subagent-announce-dispatch.ts</code>, delivery paths are explicitly tracked as <code>queued</code>, <code>steered</code>, <code>direct</code>, or <code>none</code>. Dispatch phases distinguish <code>queue-primary</code>, <code>direct-primary</code>, and <code>queue-fallback</code>. That is the vocabulary of a runtime that expects delivery to branch, degrade, and recover.</p>
+
+      <p>The queue layer goes further. In <code>src/agents/subagent-announce-queue.ts</code>, OpenClaw keeps debounce settings, capacity caps, drop policy, summary lines, and exponential backoff for drain failures. Delegated work does not just finish; it has to come back into the human-facing lane without spamming or collapsing under burst pressure.</p>
+
+      <p>And the registry layer is even more revealing. In <code>src/agents/subagent-registry.types.ts</code>, each run record carries controller and requester links, runtime, retry counts, lifecycle reason, descendant-settle wakeups, and frozen completion text preserved for later delivery. That is runtime supervision, not just feature gloss.</p>
+
+      <p>Put differently: OpenClaw is not treating delegation as a moment. It is treating it as a lifecycle.</p>
+
+      <h2>The bigger pattern: subagents are becoming measurable workers</h2>
+
+      <p>Line the repos up, and a broader convergence starts to show.</p>
+
+      <ul>
+        <li><strong>Gemini CLI</strong> asks whether the parent delegates appropriately, avoids over-delegation, and picks the right specialist from a crowded field.</li>
+        <li><strong>Codex</strong> formalizes different handoff semantics — assign work, queue a message, inspect active agents — instead of bundling everything into one vague inter-agent channel.</li>
+        <li><strong>OpenClaw</strong> builds the runtime furniture needed once delegation produces real operational mess: queued returns, fallback delivery, steering, retries, descendant coordination, and persistent run records.</li>
+      </ul>
+
+      <p>Three different stacks, same realization: delegated work has to be measured and governed, not just enabled.</p>
+
+      <p>The industry is moving from “subagents exist” to “delegation has quality metrics, control surfaces, and failure modes.”</p>
+
+      <p>That shift also helps explain why the docs and community commentary have changed tone so quickly. Simon Willison noted in mid-March that subagents are now widely supported across agent products. Once that pattern goes mainstream, the competitive question changes. Availability is table stakes. Reliability is the story.</p>
+
+      <p>Can the system avoid handing easy work to a specialist just because it can? Can it distinguish between queuing context and triggering active work? Can it surface approvals from the right child thread? Can it retry delivery without becoming noisy? Can a human step in and steer a worker before the chain goes sideways?</p>
+
+      <p>Those are not UX details anymore. They are the guts of whether multi-agent work feels useful or flaky.</p>
+
+      <h2>Why this matters now</h2>
+
+      <p>There is a simple trap in agent discourse right now: we talk about subagents like adding more bodies to the room automatically makes the system smarter.</p>
+
+      <p>But more workers mostly create more coordination debt.</p>
+
+      <p>That is why this new code matters. The interesting teams are finally paying the coordination bill in public. They are writing evals for delegation judgment. They are distinguishing task triggers from queued notes. They are exposing list/kill/steer controls. They are tracking retries, delivery paths, and stalled descendants.</p>
+
+      <p>In other words, they are turning subagents from a parlor trick into something closer to runtime operations.</p>
+
+      <p><strong>Open question:</strong> as subagents become standard across coding tools, will the real product moat come from having more specialists — or from having the clearest, most trustworthy operating model for when delegation happens, how it is supervised, and how failures are recovered?</p>
+
+      <p><strong>Call to action:</strong> if you are evaluating agent platforms, do not stop at “supports subagents.” Inspect the handoff. Look for delegation evals, explicit delivery modes, operator controls, retry logic, and lifecycle records. In the next phase of agent tooling, the winners may be the systems that manage delegated work like operations — not the ones that merely market it like magic.</p>
+
+      <div class="sources">
+        <h2>Source anchors</h2>
+        <ul>
+          <li><code>google-gemini/gemini-cli</code> — <code>evals/subagents.eval.ts</code>; gsio commit anchors <code>d9d2ce36f2a7</code>, <code>57a66f5f0db1</code>; subagent docs at <code>geminicli.com/docs/core/subagents</code></li>
+          <li><code>openai/codex</code> — <code>codex-rs/core/src/tools/handlers/multi_agents_v2.rs</code>, <code>assign_task.rs</code>, <code>send_message.rs</code>, <code>codex-rs/core/src/tools/spec.rs</code>; gsio commit anchor <code>773fbf56a43a</code>; Codex subagent docs</li>
+          <li><code>openclaw/openclaw</code> — <code>src/agents/tools/subagents-tool.ts</code>, <code>src/agents/subagent-announce-dispatch.ts</code>, <code>src/agents/subagent-announce-queue.ts</code>, <code>src/agents/subagent-registry.types.ts</code>; gsio commit anchors <code>b75be0914491</code>, <code>96c77025263d</code></li>
+        </ul>
+      </div>
+          <section class="reader-feedback"
+    data-tgr-feedback
+    data-article-slug="2026-03-30-agent-daily-the-next-agent-battle-isn-t-subagents-it-s-delegation-quality"
+    data-article-title="The Next Agent Battle Isn’t Subagents. It’s Delegation Quality."
+    data-article-url="/articles/2026-03-30-agent-daily-the-next-agent-battle-isn-t-subagents-it-s-delegation-quality/"
+    data-edition-date="2026-03-30"
+    data-lane="Agent Daily"
+    data-tags="Permissions,Memory,Delegation,Tools"
+    data-repos="openai/codex,google-gemini/gemini-cli,openclaw/openclaw">
+    <div class="reader-feedback-head">
+      <div>
+        <div class="eyebrow">Letters &amp; Corrections</div>
+        <h2>Send a note to the desk</h2>
+      </div>
+      <p>Corrections, missing context, or a follow-up lead.</p>
+    </div>
+    <form class="feedback-form">
+      <div class="feedback-votes" role="group" aria-label="Choose signal type">
+        <button class="feedback-choice" type="button" data-vote="follow-up" aria-pressed="false">
+          <span aria-hidden="true">+</span>
+          <span>Follow-up</span>
+        </button>
+        <button class="feedback-choice" type="button" data-vote="correction" aria-pressed="false">
+          <span aria-hidden="true">!</span>
+          <span>Correction</span>
+        </button>
+      </div>
+      <label class="feedback-comment">
+        <span>Note for the editor</span>
+        <textarea name="comment" rows="3" maxlength="320" placeholder="What did we miss, or what should we follow next?"></textarea>
+      </label>
+      <div class="feedback-submit-row">
+        <p class="feedback-status" aria-live="polite"></p>
+        <button class="paper-button primary feedback-submit" type="submit">Send to desk</button>
+      </div>
+    </form>
+  </section>
+        </article>
+        <aside class="side-panel">
+          <h2>Evidence</h2>
+          <div class="evidence-table">
+            <div class="evidence-line"><span>Date</span><span>March 30, 2026</span></div>
+            <div class="evidence-line"><span>Lane</span><span>Agent Daily</span></div>
+            <div class="evidence-line"><span>Confidence</span><span>78%</span></div>
+            <div class="evidence-line"><span>Sources</span><span>4</span></div>
+            <div class="evidence-line"><span>Repos</span><span>openai/codex, google-gemini/gemini-cli, openclaw/openclaw</span></div>
+          </div>
+          <div class="actions">
+            <a class="paper-button primary" href="/evidence/2026-03-30-agent-daily-the-next-agent-battle-isn-t-subagents-it-s-delegation-quality/">View Evidence</a>
+            <a class="paper-button" href="/editions/2026-03-30/">Edition</a>
+          </div>
+          <div class="related-list">
+                  <h3>Same Edition</h3>
+                  <a href="/articles/2026-03-30-daily-the-cli-is-becoming-an-agent-workbench/">
+                        <span>Context</span>
+                        The CLI Is Becoming an Agent Workbench
+                      </a>
+                </div>
+        </aside>
+      </section>
+    </main>
+    <footer class="wrap site-footer">
+      <span>&copy; 2026 The Git Reporter</span>
+      <a href="/atlas/">About</a>
+      <a href="/articles.json">Manifest JSON</a>
+      <a href="/repos/">Sources</a>
+    </footer>
+  </div>
+</body>
+</html>

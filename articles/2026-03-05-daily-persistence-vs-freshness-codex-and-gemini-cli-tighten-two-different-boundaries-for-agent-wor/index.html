@@ -1,0 +1,146 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Persistence vs Freshness: Codex and Gemini CLI Tighten Two Different Boundaries for Agent Workflows | The Git Reporter</title>
+  <meta name="description" content="On March 4, 2026, two quiet merges landed on opposite sides of the agentic tooling ecosystem—both aimed at making “hands-off” workflows less surprising. OpenAI’s Codex and Google’s Gemini CL...">
+  <link rel="icon" href="/assets/mark.svg">
+  <link rel="stylesheet" href="/assets/site.css?v=2026-05-18-reader-desk-2">
+  <script defer src="/assets/feedback.js?v=2026-05-18-reader-desk-2"></script>
+</head>
+<body>
+  <div class="site">
+    <header class="site-header" id="top">
+      <div class="wrap utility-row">
+        <a class="icon-link menu-icon" href="/archive/" aria-label="Open edition history"><span></span><span></span><span></span></a>
+        <a class="icon-link search-icon" href="/archive/" aria-label="Search edition history"></a>
+      </div>
+      <div class="wrap masthead-lockup">
+        <a class="masthead-title" href="/">THE GIT REPORTER</a>
+        <div class="masthead-ornament" aria-hidden="true"></div>
+      </div>
+      <div class="wrap nav-wrap">
+        <nav class="paper-nav" aria-label="Primary navigation">
+    <a class="" href="/">Today</a><a class="active" href="/archive/">Editions</a><a class="" href="/atlas/">Agent Atlas</a><a class="" href="/repos/">Repos</a>
+  </nav>
+        <div class="nav-rule"></div>
+      </div>
+    </header>
+    <main class="wrap page-shell">
+      <section class="page-hero story-front">
+        <div class="story-topline">
+          <span>Daily Edition</span>
+          <span>Sources <strong>+4</strong></span>
+        </div>
+        <h1>Persistence vs Freshness: Codex and Gemini CLI Tighten Two Different Boundaries for Agent Workflows</h1>
+        <p class="summary">On March 4, 2026, two quiet merges landed on opposite sides of the agentic tooling ecosystem—both aimed at making “hands-off” workflows less surprising. OpenAI’s Codex and Google’s Gemini CL...</p>
+        <div class="receipt">
+    <div class="receipt-line">
+      <span class="receipt-icon">repo</span>
+      <span class="receipt-main">openai/codex</span>
+      <span class="branch-pill">main</span>
+    </div>
+    <div class="receipt-line receipt-muted">
+      <span>4 source signals</span>
+      <span>2 repos</span>
+      <span>source trail</span>
+    </div>
+    <div class="commit-line">&gt; source trail / March 5, 2026 / Daily Edition</div>
+  </div>
+      </section>
+      <section class="story-layout">
+        <article class="story-shell story-body">
+          <p>On March 4, 2026, two quiet merges landed on opposite sides of the agentic tooling ecosystem—both aimed at making “hands-off” workflows less surprising. OpenAI’s Codex and Google’s Gemini CLI each fixed a boundary problem that only shows up once you trust an agent to run for a while: one boundary is about what is allowed to persist, the other about what is allowed to become stale.</p>
+
+  <p>In <a href="https://github.com/openai/codex/pull/13467">openai/codex PR #13467</a> (merged 2026-03-04), Codex adjusted how its “memories” directory behaves under sandboxing. The headline change is simple: even when Codex is running in a workspace-write sandbox mode (a mode that constrains what paths are writable), the “memories root” is now explicitly made writable as part of the workspace-write writable roots configuration. In the same PR, Codex also tightened the rules for clearing memories: if the memory root is symlinked, the “clear memory” operation refuses to proceed.</p>
+
+  <p>It reads like housekeeping until you imagine the scene it’s meant to prevent. An agent is grinding through a multi-step refactor, taking notes, recording context, and building up a thread of what it learned—exactly what a “memory” feature is for. But sandbox settings don’t care about intent; they care about paths. If the memory store lives outside the workspace’s allowed write roots, the agent can suddenly become an amnesiac in the middle of a long run: it can read what it wrote earlier but can’t update it, or it can’t create new memories at all. The PR addresses that by granting the memories root a clear, sanctioned spot in the writable set for workspace-write mode.</p>
+
+  <p>The second change in Codex is less about convenience and more about safety rails. “Clear memory” is a destructive operation; if a memory root were symlinked, a path that looks like “safe internal storage” could actually point somewhere else—potentially somewhere unintended. By refusing to clear memories when the memory root is symlinked, Codex is drawing a bright line: persistent state must be anchored to a real directory, not a redirect that could make deletion behave like a trapdoor. That protects the persistence boundary: what counts as “the agent’s durable state,” and what operations are allowed to mutate or destroy it.</p>
+
+  <p>On the same day, <a href="https://github.com/google-gemini/gemini-cli/pull/21050">google-gemini/gemini-cli PR #21050</a> (merged 2026-03-04) solved a different kind of boundary failure in agent tooling: the freshness of tool discovery when connecting to MCP servers.</p>
+
+  <p>Gemini CLI’s PR is titled “Notifications/tools/list_changed support not working,” and its fixes target two failure modes that are classic in distributed, event-driven systems. First, Gemini CLI now registers <code>list_changed</code> handlers even when the server’s declared capabilities don’t advertise <code>listChanged</code>. In other words: even if a server forgets (or declines) to tell the client it can emit “the tool list changed” notifications, Gemini CLI listens anyway. The client is choosing robustness over strict adherence to a declaration contract, because in the real world MCP servers may be inconsistent—and agent workflows depend on tools appearing when they’re available.</p>
+
+  <p>Second, Gemini CLI adds retry logic for discovery to avoid race conditions: if no changes are found, it retries after 500ms. This is the kind of timing edge that humans rarely see, but agents hit constantly. Agents start servers, trigger tool registration, and immediately ask “what tools do you have?” A server might register tools a moment later than the client’s first check, leading to a misleading “no tools” snapshot. The 500ms retry is a pragmatic hedge against that: it doesn’t slow everything down dramatically, but it makes initial discovery far less fragile.</p>
+
+  <p>Where Codex is defending persistence boundaries, Gemini CLI is defending freshness boundaries. That philosophical split matters because agent workflows fail in two distinct and expensive ways.</p>
+
+  <p>Failure mode one is persistence drift: an agent thinks it’s accumulating durable context (memories), but sandbox rules or unsafe path handling cause writes to silently fail, or destructive actions to hit the wrong location. The cost is compounding: the longer the run, the more the agent depends on the continuity of its memory. Codex’s change is a statement that memory is not an incidental cache; it’s a first-class workflow artifact that deserves explicit write authorization and careful deletion semantics. Making the memories root writable under workspace-write mode reduces “it worked yesterday” breakage when moving between environments. Refusing to clear symlinked memory roots reduces the risk that a cleanup command becomes a catastrophic delete outside its intended scope.</p>
+
+  <p>Failure mode two is freshness collapse: the agent is technically connected to a tool ecosystem, but it’s operating on a stale or incomplete list of capabilities. Here, even a perfect memory can’t save you, because the agent’s plan is built on incorrect assumptions about what actions are possible right now. Gemini CLI’s changes treat “tool list accuracy over time” as the thing to protect. By registering notifications even without explicit capability declaration, it reduces the chances that updates are missed due to imperfect server metadata. By retrying discovery after 500ms when no changes are found, it acknowledges that the world is asynchronous—and an agent that moves at machine speed will outrun naive single-shot initialization.</p>
+
+  <p>In practice, these boundaries reinforce different forms of trust. Codex is saying: trust that what you store as memory will remain in the right place and that destructive operations won’t be tricked by filesystem indirection. Gemini CLI is saying: trust that the world you’re acting in—your available tools—will be kept up to date even when servers are sloppy or timing is tight.</p>
+
+  <p>Put together, the day’s merges form a neat lesson for anyone building agentic workflows: reliability is not just about preventing crashes. It’s about aligning the agent’s internal continuity (persistence) with its external reality (freshness). When either boundary is leaky, the agent becomes unpredictable in exactly the ways that make automation feel risky: it forgets what it learned, or it acts as if tools don’t exist. Codex and Gemini CLI fixed different cracks, but they’re both shoring up the same promise: that an agent can run longer, faster, and more autonomously without drifting into confusion.</p>
+
+  <h2>Sources</h2>
+  <ul>
+    <li><a href="https://github.com/openai/codex/pull/13467">openai/codex PR #13467</a></li>
+    <li><a href="https://github.com/google-gemini/gemini-cli/pull/21050">google-gemini/gemini-cli PR #21050</a></li>
+  </ul>
+          <section class="reader-feedback"
+    data-tgr-feedback
+    data-article-slug="2026-03-05-daily-persistence-vs-freshness-codex-and-gemini-cli-tighten-two-different-boundaries-for-agent-wor"
+    data-article-title="Persistence vs Freshness: Codex and Gemini CLI Tighten Two Different Boundaries for Agent Workflows"
+    data-article-url="/articles/2026-03-05-daily-persistence-vs-freshness-codex-and-gemini-cli-tighten-two-different-boundaries-for-agent-wor/"
+    data-edition-date="2026-03-05"
+    data-lane="Daily Edition"
+    data-tags="Permissions,Memory,Tools,UX"
+    data-repos="openai/codex,google-gemini/gemini-cli">
+    <div class="reader-feedback-head">
+      <div>
+        <div class="eyebrow">Letters &amp; Corrections</div>
+        <h2>Send a note to the desk</h2>
+      </div>
+      <p>Corrections, missing context, or a follow-up lead.</p>
+    </div>
+    <form class="feedback-form">
+      <div class="feedback-votes" role="group" aria-label="Choose signal type">
+        <button class="feedback-choice" type="button" data-vote="follow-up" aria-pressed="false">
+          <span aria-hidden="true">+</span>
+          <span>Follow-up</span>
+        </button>
+        <button class="feedback-choice" type="button" data-vote="correction" aria-pressed="false">
+          <span aria-hidden="true">!</span>
+          <span>Correction</span>
+        </button>
+      </div>
+      <label class="feedback-comment">
+        <span>Note for the editor</span>
+        <textarea name="comment" rows="3" maxlength="320" placeholder="What did we miss, or what should we follow next?"></textarea>
+      </label>
+      <div class="feedback-submit-row">
+        <p class="feedback-status" aria-live="polite"></p>
+        <button class="paper-button primary feedback-submit" type="submit">Send to desk</button>
+      </div>
+    </form>
+  </section>
+        </article>
+        <aside class="side-panel">
+          <h2>Evidence</h2>
+          <div class="evidence-table">
+            <div class="evidence-line"><span>Date</span><span>March 5, 2026</span></div>
+            <div class="evidence-line"><span>Lane</span><span>Daily Edition</span></div>
+            <div class="evidence-line"><span>Confidence</span><span>78%</span></div>
+            <div class="evidence-line"><span>Sources</span><span>4</span></div>
+            <div class="evidence-line"><span>Repos</span><span>openai/codex, google-gemini/gemini-cli</span></div>
+          </div>
+          <div class="actions">
+            <a class="paper-button primary" href="/evidence/2026-03-05-daily-persistence-vs-freshness-codex-and-gemini-cli-tighten-two-different-boundaries-for-agent-wor/">View Evidence</a>
+            <a class="paper-button" href="/editions/2026-03-05/">Edition</a>
+          </div>
+          
+        </aside>
+      </section>
+    </main>
+    <footer class="wrap site-footer">
+      <span>&copy; 2026 The Git Reporter</span>
+      <a href="/atlas/">About</a>
+      <a href="/articles.json">Manifest JSON</a>
+      <a href="/repos/">Sources</a>
+    </footer>
+  </div>
+</body>
+</html>

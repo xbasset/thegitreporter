@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Evidence - Agent Runtimes Are Making Their Limits Explicit | The Git Reporter</title>
+  <meta name="description" content="Evidence trail for Agent Runtimes Are Making Their Limits Explicit.">
+  <link rel="icon" href="/assets/mark.svg">
+  <link rel="stylesheet" href="/assets/site.css?v=2026-05-18-reader-desk-2">
+  <script defer src="/assets/feedback.js?v=2026-05-18-reader-desk-2"></script>
+</head>
+<body>
+  <div class="site">
+    <header class="site-header" id="top">
+      <div class="wrap utility-row">
+        <a class="icon-link menu-icon" href="/archive/" aria-label="Open edition history"><span></span><span></span><span></span></a>
+        <a class="icon-link search-icon" href="/archive/" aria-label="Search edition history"></a>
+      </div>
+      <div class="wrap masthead-lockup">
+        <a class="masthead-title" href="/">THE GIT REPORTER</a>
+        <div class="masthead-ornament" aria-hidden="true"></div>
+      </div>
+      <div class="wrap nav-wrap">
+        <nav class="paper-nav" aria-label="Primary navigation">
+    <a class="" href="/">Today</a><a class="active" href="/archive/">Editions</a><a class="" href="/atlas/">Agent Atlas</a><a class="" href="/repos/">Repos</a>
+  </nav>
+        <div class="nav-rule"></div>
+      </div>
+    </header>
+    <main class="wrap page-shell">
+      <section class="page-hero evidence-hero">
+        <div class="eyebrow">Evidence Trail</div>
+        <h1>Agent Runtimes Are Making Their Limits Explicit</h1>
+        <p class="summary">May 22, 2026 / Daily Edition / 8 source signals.</p>
+        <div class="receipt">
+    <div class="receipt-line">
+      <span class="receipt-icon">repo</span>
+      <span class="receipt-main">charmbracelet/crush</span>
+      <span class="branch-pill">main</span>
+    </div>
+    <div class="receipt-line receipt-muted">
+      <span>8 source signals</span>
+      <span>2 repos</span>
+      <span>96728b1</span>
+    </div>
+    <div class="commit-line">&gt; 96728b1 / May 22, 2026 / Daily Edition</div>
+  </div>
+        <div class="story-actions">
+          <a class="paper-button primary" href="/articles/2026-05-22-daily-agent-runtimes-are-making-their-limits-explicit/">Read Story</a>
+          <a class="paper-button" href="/editions/2026-05-22/">Open Edition</a>
+        </div>
+      </section>
+      <section class="section markdown evidence-copy"><h2>Reporter Notes</h2><p>The strongest story is not &quot;permissions got better&quot; or &quot;context windows are hard&quot; in isolation. The shared pattern is that agent boundaries are becoming inspectable runtime facts:</p>
+<ul>
+<li>Crush distinguishes a safe-looking shell read from a composed shell expression and routes the latter through permission prompting.</li>
+<li>Crush also hardens the permission service state that makes those prompts meaningful under concurrent runtime conditions.</li>
+<li>LangChain makes prompt-too-long failures catchable under a standard context-overflow abstraction and moves OpenAI context-size lookup toward model profiles.</li>
+</ul>
+<p>This gives the article a practical builder consequence: explicit runtime contracts make it possible to ask, deny, summarize, retry, and explain instead of failing as an opaque side effect.</p></section>
+      <section class="section markdown evidence-copy">
+        <h2>Primary Evidence</h2>
+<ul>
+<li>Charmbracelet Crush commit <code>96728b15</code>, <code>feat(permissions): require a permission prompt for chained commands</code>: <a href="https://github.com/charmbracelet/crush/commit/96728b15d037f187424db63cd6bdb20a01fbe08f">https://github.com/charmbracelet/crush/commit/96728b15d037f187424db63cd6bdb20a01fbe08f</a></li>
+<li>Evidence used: modifies <code>internal/agent/tools/bash.go</code>, <code>internal/agent/tools/safe.go</code>, <code>internal/agent/tools/bash_test.go</code>, and <code>internal/agent/tools/safe_test.go</code>; adds chained-command detection and prevents chained shell commands from being treated as safe read-only.</li>
+<li>Charmbracelet Crush commit <code>6b312bee</code>, <code>fix: potential data race on permissionService (#2964)</code>: <a href="https://github.com/charmbracelet/crush/commit/6b312bee06bf3ca90ba587035a7287594b97e186">https://github.com/charmbracelet/crush/commit/6b312bee06bf3ca90ba587035a7287594b97e186</a></li>
+<li>Evidence used: modifies <code>internal/permission/permission.go</code> and <code>internal/permission/permission_test.go</code>; introduces atomic skip-state handling, mutex-protected auto-approve session state, and a concurrent skip-mode test.</li>
+<li>LangChain commit <code>40c515c7b</code>, <code>fix(fireworks): raise ContextOverflowError on prompt-too-long (#37458)</code>: <a href="https://github.com/langchain-ai/langchain/commit/40c515c7b18830460672b455b74e9d7140d2a03b">https://github.com/langchain-ai/langchain/commit/40c515c7b18830460672b455b74e9d7140d2a03b</a></li>
+<li>Evidence used: modifies the Fireworks chat model and unit tests so prompt-too-long invalid requests become <code>FireworksContextOverflowError</code> while remaining catchable as <code>ContextOverflowError</code>.</li>
+<li>LangChain commit <code>2259d292</code>, <code>fix(openai): broaden condition for ContextOverflowError to accommodate other providers (#37457)</code>: <a href="https://github.com/langchain-ai/langchain/commit/2259d29231633bb8baae76bf1c8f16367002397b">https://github.com/langchain-ai/langchain/commit/2259d29231633bb8baae76bf1c8f16367002397b</a></li>
+<li>Evidence used: broadens OpenAI context-overflow detection to include additional provider phrasing, including &quot;prompt is too long.&quot;</li>
+<li>LangChain commit <code>992c613b</code>, <code>fix(openai): source LLM context size from model profiles (#37489)</code>: <a href="https://github.com/langchain-ai/langchain/commit/992c613b51fb40213dc1e0156ce0d66db6771055">https://github.com/langchain-ai/langchain/commit/992c613b51fb40213dc1e0156ce0d66db6771055</a></li>
+<li>Evidence used: changes <code>BaseOpenAI.modelname_to_contextsize</code> to prefer profile <code>max_input_tokens</code>, marks the helper deprecated, and keeps a legacy fallback mapping.</li>
+<li>LangChain commit <code>36c381b</code>, <code>fix(langchain): alias Bedrock providers in summarization token check (#37453)</code>: <a href="https://github.com/langchain-ai/langchain/commit/36c381b1496827db4405e49918e64cfda87ae701">https://github.com/langchain-ai/langchain/commit/36c381b1496827db4405e49918e64cfda87ae701</a></li>
+<li>Evidence used: adds provider alias matching for Bedrock summarization token checks, supporting the broader context-control theme.</li>
+<li>Crush permissions documentation: <a href="https://charmbracelet-crush.mintlify.app/configuration/permissions">https://charmbracelet-crush.mintlify.app/configuration/permissions</a></li>
+<li>Evidence used: public docs state that Crush prompts before tool calls by default and supports configuring allowed or disabled tools.</li>
+<li>LangChain Deep Agents context-engineering documentation: <a href="https://docs.langchain.com/oss/python/deepagents/context-engineering">https://docs.langchain.com/oss/python/deepagents/context-engineering</a></li>
+<li>Evidence used: public docs describe standard <code>ContextOverflowError</code> handling as a trigger for summarization and retry in deep-agent workflows.</li>
+</ul>
+<h2>Evidence Limits</h2>
+<ul>
+<li>This article does not claim Crush and LangChain share an implementation or standard.</li>
+<li>The article relies only on the cited Crush and LangChain public artifacts and does not make claims about watched projects that are not represented in the evidence above.</li>
+<li>The article treats commits and public docs as evidence of current direction, not as a guarantee of released package behavior in every downstream installation.</li>
+<li>The LangChain context-overflow evidence supports catchability and profile-backed limits; it does not prove that every provider integration now normalizes context errors the same way.</li>
+</ul>
+      </section>
+      <section class="section markdown evidence-copy"><h2>Open Questions</h2><ul>
+<li>Whether Crush will expose richer permission history or audit views around these boundaries.</li>
+<li>Whether LangChain will normalize context-overflow behavior across more providers beyond the commits cited here.</li>
+<li>Whether users respond more strongly to permission-boundary stories, context-control stories, or the combined runtime-contract framing.</li>
+</ul></section>
+    </main>
+    <footer class="wrap site-footer">
+      <span>&copy; 2026 The Git Reporter</span>
+      <a href="/atlas/">About</a>
+      <a href="/articles.json">Manifest JSON</a>
+      <a href="/repos/">Sources</a>
+    </footer>
+  </div>
+</body>
+</html>

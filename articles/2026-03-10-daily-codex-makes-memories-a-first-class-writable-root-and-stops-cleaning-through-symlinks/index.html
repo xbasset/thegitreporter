@@ -1,0 +1,163 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Codex Makes Memories a First-Class Writable Root—and Stops Cleaning Through Symlinks | The Git Reporter</title>
+  <meta name="description" content="Codex just turned its “memories” folder from a side alley into a well-lit main road. And it put a lock on the janitor’s closet so cleanup can’t accidentally bulldoze someone else’s house. Th...">
+  <link rel="icon" href="/assets/mark.svg">
+  <link rel="stylesheet" href="/assets/site.css?v=2026-05-18-reader-desk-2">
+  <script defer src="/assets/feedback.js?v=2026-05-18-reader-desk-2"></script>
+</head>
+<body>
+  <div class="site">
+    <header class="site-header" id="top">
+      <div class="wrap utility-row">
+        <a class="icon-link menu-icon" href="/archive/" aria-label="Open edition history"><span></span><span></span><span></span></a>
+        <a class="icon-link search-icon" href="/archive/" aria-label="Search edition history"></a>
+      </div>
+      <div class="wrap masthead-lockup">
+        <a class="masthead-title" href="/">THE GIT REPORTER</a>
+        <div class="masthead-ornament" aria-hidden="true"></div>
+      </div>
+      <div class="wrap nav-wrap">
+        <nav class="paper-nav" aria-label="Primary navigation">
+    <a class="" href="/">Today</a><a class="active" href="/archive/">Editions</a><a class="" href="/atlas/">Agent Atlas</a><a class="" href="/repos/">Repos</a>
+  </nav>
+        <div class="nav-rule"></div>
+      </div>
+    </header>
+    <main class="wrap page-shell">
+      <section class="page-hero story-front">
+        <div class="story-topline">
+          <span>Daily Edition</span>
+          <span>Sources <strong>+2</strong></span>
+        </div>
+        <h1>Codex Makes Memories a First-Class Writable Root—and Stops Cleaning Through Symlinks</h1>
+        <p class="summary">Codex just turned its “memories” folder from a side alley into a well-lit main road. And it put a lock on the janitor’s closet so cleanup can’t accidentally bulldoze someone else’s house. Th...</p>
+        <div class="receipt">
+    <div class="receipt-line">
+      <span class="receipt-icon">repo</span>
+      <span class="receipt-main">openai/codex</span>
+      <span class="branch-pill">main</span>
+    </div>
+    <div class="receipt-line receipt-muted">
+      <span>2 source signals</span>
+      <span>1 repo</span>
+      <span>f72ab43</span>
+    </div>
+    <div class="commit-line">&gt; f72ab43 / March 10, 2026 / Daily Edition</div>
+  </div>
+      </section>
+      <section class="story-layout">
+        <article class="story-shell story-body">
+          <p>
+      Codex just turned its “memories” folder from a side alley into a well-lit main road.
+      And it put a lock on the janitor’s closet so cleanup can’t accidentally bulldoze someone else’s house.
+    </p>
+
+    <p>
+      The core shift: in <code>workspace-write</code> sandbox mode, <code>~/.codex/memories</code> is now treated as a
+      first-class writable root—so memory upkeep doesn’t keep tripping permission gates.
+      At the same time, memory cleanup is hardened to avoid following symlinks and deleting outside targets.
+    </p>
+
+    <h2>What changed</h2>
+    <ul>
+      <li>
+        In <code>codex-rs/core/src/config/mod.rs</code>, when <code>SandboxPolicy::WorkspaceWrite</code> is built,
+        Codex now creates <code>~/.codex/memories</code> and ensures it’s included <em>exactly once</em> in
+        <code>writable_roots</code>.
+      </li>
+      <li>
+        A new helper, <code>clear_memory_root_contents()</code>, replaces a raw <code>remove_dir_all</code>:
+        it refuses to clear a <em>symlinked</em> memory root, preserves the root directory itself, and deletes only its contents.
+      </li>
+      <li>
+        Tests were added to assert the memories root is present once and that symlinked roots are rejected.
+      </li>
+      <li>
+        The README now states that <code>workspace-write</code> includes <code>~/.codex/memories</code>,
+        so memory maintenance doesn’t require extra approval.
+      </li>
+    </ul>
+
+    <p>
+      The contrast is sharp: before, “memory” could feel like a special case—sometimes writable, sometimes blocked.
+      Now it’s explicitly part of the allowed write surface in workspace-write mode, and cleanup is more surgical:
+      no deleting the directory itself, and no chasing symlinks into unintended territory.
+    </p>
+
+    <p>
+      <strong>Takeaway:</strong> Memories are now officially inside the sandbox fence—and cleanup won’t wander outside it.
+    </p>
+
+    <h2>Sources</h2>
+    <ul>
+      <li>Git commit f72ab43fd193 (codex repo)</li>
+      <li>PR https://github.com/openai/codex/pull/13467</li>
+    </ul>
+          <section class="reader-feedback"
+    data-tgr-feedback
+    data-article-slug="2026-03-10-daily-codex-makes-memories-a-first-class-writable-root-and-stops-cleaning-through-symlinks"
+    data-article-title="Codex Makes Memories a First-Class Writable Root—and Stops Cleaning Through Symlinks"
+    data-article-url="/articles/2026-03-10-daily-codex-makes-memories-a-first-class-writable-root-and-stops-cleaning-through-symlinks/"
+    data-edition-date="2026-03-10"
+    data-lane="Daily Edition"
+    data-tags="Permissions,Memory"
+    data-repos="openai/codex">
+    <div class="reader-feedback-head">
+      <div>
+        <div class="eyebrow">Letters &amp; Corrections</div>
+        <h2>Send a note to the desk</h2>
+      </div>
+      <p>Corrections, missing context, or a follow-up lead.</p>
+    </div>
+    <form class="feedback-form">
+      <div class="feedback-votes" role="group" aria-label="Choose signal type">
+        <button class="feedback-choice" type="button" data-vote="follow-up" aria-pressed="false">
+          <span aria-hidden="true">+</span>
+          <span>Follow-up</span>
+        </button>
+        <button class="feedback-choice" type="button" data-vote="correction" aria-pressed="false">
+          <span aria-hidden="true">!</span>
+          <span>Correction</span>
+        </button>
+      </div>
+      <label class="feedback-comment">
+        <span>Note for the editor</span>
+        <textarea name="comment" rows="3" maxlength="320" placeholder="What did we miss, or what should we follow next?"></textarea>
+      </label>
+      <div class="feedback-submit-row">
+        <p class="feedback-status" aria-live="polite"></p>
+        <button class="paper-button primary feedback-submit" type="submit">Send to desk</button>
+      </div>
+    </form>
+  </section>
+        </article>
+        <aside class="side-panel">
+          <h2>Evidence</h2>
+          <div class="evidence-table">
+            <div class="evidence-line"><span>Date</span><span>March 10, 2026</span></div>
+            <div class="evidence-line"><span>Lane</span><span>Daily Edition</span></div>
+            <div class="evidence-line"><span>Confidence</span><span>68%</span></div>
+            <div class="evidence-line"><span>Sources</span><span>2</span></div>
+            <div class="evidence-line"><span>Repos</span><span>openai/codex</span></div>
+          </div>
+          <div class="actions">
+            <a class="paper-button primary" href="/evidence/2026-03-10-daily-codex-makes-memories-a-first-class-writable-root-and-stops-cleaning-through-symlinks/">View Evidence</a>
+            <a class="paper-button" href="/editions/2026-03-10/">Edition</a>
+          </div>
+          
+        </aside>
+      </section>
+    </main>
+    <footer class="wrap site-footer">
+      <span>&copy; 2026 The Git Reporter</span>
+      <a href="/atlas/">About</a>
+      <a href="/articles.json">Manifest JSON</a>
+      <a href="/repos/">Sources</a>
+    </footer>
+  </div>
+</body>
+</html>

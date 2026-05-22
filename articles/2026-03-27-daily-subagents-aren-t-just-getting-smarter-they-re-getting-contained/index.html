@@ -1,0 +1,202 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Subagents Aren’t Just Getting Smarter. They’re Getting Contained. | The Git Reporter</title>
+  <meta name="description" content="The next terminal-agent upgrade is not more helpers. It’s better walls: isolation, cleanup, bounded autonomy, and fewer chances for delegated work to spill across the room.">
+  <link rel="icon" href="/assets/mark.svg">
+  <link rel="stylesheet" href="/assets/site.css?v=2026-05-18-reader-desk-2">
+  <script defer src="/assets/feedback.js?v=2026-05-18-reader-desk-2"></script>
+</head>
+<body>
+  <div class="site">
+    <header class="site-header" id="top">
+      <div class="wrap utility-row">
+        <a class="icon-link menu-icon" href="/archive/" aria-label="Open edition history"><span></span><span></span><span></span></a>
+        <a class="icon-link search-icon" href="/archive/" aria-label="Search edition history"></a>
+      </div>
+      <div class="wrap masthead-lockup">
+        <a class="masthead-title" href="/">THE GIT REPORTER</a>
+        <div class="masthead-ornament" aria-hidden="true"></div>
+      </div>
+      <div class="wrap nav-wrap">
+        <nav class="paper-nav" aria-label="Primary navigation">
+    <a class="" href="/">Today</a><a class="active" href="/archive/">Editions</a><a class="" href="/atlas/">Agent Atlas</a><a class="" href="/repos/">Repos</a>
+  </nav>
+        <div class="nav-rule"></div>
+      </div>
+    </header>
+    <main class="wrap page-shell">
+      <section class="page-hero story-front">
+        <div class="story-topline">
+          <span>Daily Edition</span>
+          <span>Sources <strong>+8</strong></span>
+        </div>
+        <h1>Subagents Aren’t Just Getting Smarter. They’re Getting Contained.</h1>
+        <p class="summary">The next terminal-agent upgrade is not more helpers. It’s better walls: isolation, cleanup, bounded autonomy, and fewer chances for delegated work to spill across the room.</p>
+        <div class="receipt">
+    <div class="receipt-line">
+      <span class="receipt-icon">repo</span>
+      <span class="receipt-main">openai/codex</span>
+      <span class="branch-pill">main</span>
+    </div>
+    <div class="receipt-line receipt-muted">
+      <span>8 source signals</span>
+      <span>2 repos</span>
+      <span>5fa14db</span>
+    </div>
+    <div class="commit-line">&gt; 5fa14db / March 27, 2026 / Daily Edition</div>
+  </div>
+      </section>
+      <section class="story-layout">
+        <article class="story-shell story-body">
+          <p>For a while, agent demos have sold the same fantasy.</p>
+      <p>More subagents. More parallelism. More little workers fanning out across a repo like interns after too much cold brew.</p>
+      <p>Fun demo. Terrifying production model.</p>
+
+      <p class="pull">What the code says now is sharper: the real race is no longer just to spawn more helpers. It’s to make those helpers safe to run.</p>
+
+      <p>That shift is visible in both Gemini CLI and Codex. And it matters because delegation stops feeling magical the minute a subagent leaks state, asks the wrong human question, collides with another worker, or leaves cleanup debris behind.</p>
+
+      <h2>Gemini is putting subagents in real side rooms</h2>
+      <p>The freshest Gemini signal is PR <code>#23903</code>, <em>“subagent isolation and cleanup hardening.”</em> This is not cosmetic polish.</p>
+
+      <p>According to the merged PR, Gemini now stores subagent session files in directories keyed to the full parent session UUID, refactors deletion into a shared async utility, and hardens path sanitization to prevent traversal and file leaks.</p>
+
+      <p>That sounds mundane until you translate it into product language: subagents are no longer treated like casual extensions of the main run. They are being handled like workloads that need their own storage boundaries and predictable teardown.</p>
+
+      <p>There is a second clue in the same cluster. PR <code>#22115</code>, <em>“Fully migrate packages/core to AgentLoopContext,”</em> spreads a shared runtime context model across scheduling, prompts, safety, shell execution, loop detection, and even tools like web search and fetch.</p>
+
+      <p>That is the kind of plumbing you build when agent behavior needs consistent context, not just clever prompting. It is infrastructure for control.</p>
+
+      <h2>Gemini is also teaching delegated runs how to fail more cleanly</h2>
+      <p>Another recent Gemini change pushes the same direction from a different angle.</p>
+
+      <p>Commit <code>5fa14dbe4283</code>, <em>“resilient subagent tool rejection with contextual feedback,”</em> upgrades the subagent failure path so a rejected tool call can come back with direct instructions to acknowledge the rejection and rethink the strategy.</p>
+
+      <p>That matters because immature delegation stacks tend to do one of two dumb things when blocked: either they crash noisily, or they keep pushing the same bad plan.</p>
+
+      <p>Gemini is starting to do something more adult. When a subagent gets denied, the runtime gives it a clearer frame for recovery.</p>
+
+      <p>Even the default budgets are getting more realistic. In <code>packages/core/src/agents/types.ts</code>, Gemini doubled the default subagent limits from <code>15</code> to <code>30</code> turns and from <code>5</code> to <code>10</code> minutes. That is not just generosity. It is a signal that delegated work is being tuned as an execution unit with explicit bounds.</p>
+
+      <h2>Codex is trimming away the human dependency inside subagents</h2>
+      <p>Codex is approaching the same problem from a slightly different philosophy.</p>
+
+      <p>Commit <code>bda3c49dc4a4</code>, <em>“disable request input on sub agent,”</em> makes the stance brutally clear in <code>codex-rs/core/src/tools/spec.rs</code>: if the session source is a subagent, <code>request_user_input</code> does not get registered.</p>
+
+      <p>That is a strong product opinion. A delegated worker should not become a little chaos portal back to the human. If the main agent chooses to delegate, the child run should stay bounded and finish within its lane instead of pinging the user midstream.</p>
+
+      <p>Then Codex tightens the social contract among workers. Commit <code>932ff2818320</code>, <em>“better multi-agent prompt,”</em> rewrites the spawn-agent guidance to emphasize explicit ownership, disjoint write scopes, and a clear instruction not to revert other workers’ edits.</p>
+
+      <p>That is less “wow, look at the swarm” and more “somebody finally wrote the badge rules for the machine room.”</p>
+
+      <h2>Codex is adding the gauges too</h2>
+      <p>Containment is not only about blocking bad behavior. It is also about measuring what happened inside the box.</p>
+
+      <p>Commit <code>e07eaff0d32c</code>, <em>“add metric for per-turn tool count and add tmp_mem flag,”</em> increments tool-call counts inside the active turn state and emits a <code>codex.turn.tool.call</code> histogram at turn completion. Nearby work tracks per-turn token usage too.</p>
+
+      <p>That makes delegated work easier to reason about as an operational object: how busy was the turn, how expensive was it, and under what memory mode did it run?</p>
+
+      <p>Even Codex’s newest merged cleanup fits the pattern. PR <code>#15906</code> removes dead <code>skillMetadata</code> from command approval payloads across app-server, TUI, and MCP boundaries. Smaller contract. Less protocol baggage. Fewer stray surfaces.</p>
+
+      <p>Again: not flashy. Very telling.</p>
+
+      <h2>The bigger pattern: delegation is turning into operations</h2>
+      <p>Put the two repos together and the picture gets clearer.</p>
+
+      <ul>
+        <li><strong>Gemini CLI</strong> is hardening isolation, cleanup, shared loop context, rejection recovery, and bounded runtime defaults.</li>
+        <li><strong>Codex</strong> is suppressing human interruptions inside subagents, clarifying worker ownership, and instrumenting turns like measurable jobs.</li>
+      </ul>
+
+      <p>Different implementation style. Same instinct.</p>
+
+      <p>These teams are acting less like they are building magical helper creatures and more like they are running a small distributed system inside the terminal.</p>
+
+      <p>That is the important shift.</p>
+
+      <p>The first generation of agent tooling asked, <em>can we delegate?</em></p>
+      <p>The next generation is asking, <em>what boundaries make delegation trustworthy?</em></p>
+
+      <h2>Why this matters</h2>
+      <p>In real software work, the danger is rarely that an agent cannot do enough.</p>
+      <p>The danger is that it does enough in the wrong place.</p>
+      <p>Wrong files. Wrong cleanup. Wrong escalation path. Wrong interruption model.</p>
+
+      <p>That is why this week’s code matters more than it looks. The platforms that win long-term may not be the ones with the most dramatic multi-agent demos. They may be the ones that make delegated work feel boxed, inspectable, recoverable, and boring in the best possible way.</p>
+
+      <p>So here’s the open question: <strong>if subagents start looking more like isolated jobs than free-roaming helpers, does that make teams more willing to trust them with larger chunks of real work?</strong></p>
+
+      <p>If you build agent tools, don’t just add more workers. Add better boundaries. Make ownership explicit, cleanup reliable, approvals slimmer, and failures easier to recover from. That is how delegation stops being a stunt and starts becoming infrastructure.</p>
+          <section class="reader-feedback"
+    data-tgr-feedback
+    data-article-slug="2026-03-27-daily-subagents-aren-t-just-getting-smarter-they-re-getting-contained"
+    data-article-title="Subagents Aren’t Just Getting Smarter. They’re Getting Contained."
+    data-article-url="/articles/2026-03-27-daily-subagents-aren-t-just-getting-smarter-they-re-getting-contained/"
+    data-edition-date="2026-03-27"
+    data-lane="Daily Edition"
+    data-tags="Permissions,Memory,Delegation,Tools"
+    data-repos="openai/codex,google-gemini/gemini-cli">
+    <div class="reader-feedback-head">
+      <div>
+        <div class="eyebrow">Letters &amp; Corrections</div>
+        <h2>Send a note to the desk</h2>
+      </div>
+      <p>Corrections, missing context, or a follow-up lead.</p>
+    </div>
+    <form class="feedback-form">
+      <div class="feedback-votes" role="group" aria-label="Choose signal type">
+        <button class="feedback-choice" type="button" data-vote="follow-up" aria-pressed="false">
+          <span aria-hidden="true">+</span>
+          <span>Follow-up</span>
+        </button>
+        <button class="feedback-choice" type="button" data-vote="correction" aria-pressed="false">
+          <span aria-hidden="true">!</span>
+          <span>Correction</span>
+        </button>
+      </div>
+      <label class="feedback-comment">
+        <span>Note for the editor</span>
+        <textarea name="comment" rows="3" maxlength="320" placeholder="What did we miss, or what should we follow next?"></textarea>
+      </label>
+      <div class="feedback-submit-row">
+        <p class="feedback-status" aria-live="polite"></p>
+        <button class="paper-button primary feedback-submit" type="submit">Send to desk</button>
+      </div>
+    </form>
+  </section>
+        </article>
+        <aside class="side-panel">
+          <h2>Evidence</h2>
+          <div class="evidence-table">
+            <div class="evidence-line"><span>Date</span><span>March 27, 2026</span></div>
+            <div class="evidence-line"><span>Lane</span><span>Daily Edition</span></div>
+            <div class="evidence-line"><span>Confidence</span><span>87%</span></div>
+            <div class="evidence-line"><span>Sources</span><span>8</span></div>
+            <div class="evidence-line"><span>Repos</span><span>openai/codex, google-gemini/gemini-cli</span></div>
+          </div>
+          <div class="actions">
+            <a class="paper-button primary" href="/evidence/2026-03-27-daily-subagents-aren-t-just-getting-smarter-they-re-getting-contained/">View Evidence</a>
+            <a class="paper-button" href="/editions/2026-03-27/">Edition</a>
+          </div>
+          <div class="related-list">
+                  <h3>Same Edition</h3>
+                  <a href="/articles/2026-03-27-agent-daily-ai-coding-agents-are-turning-approval-settings-into-operating-modes/">
+                        <span>Pattern</span>
+                        AI Coding Agents Are Turning Approval Settings Into Operating Modes
+                      </a>
+                </div>
+        </aside>
+      </section>
+    </main>
+    <footer class="wrap site-footer">
+      <span>&copy; 2026 The Git Reporter</span>
+      <a href="/atlas/">About</a>
+      <a href="/articles.json">Manifest JSON</a>
+      <a href="/repos/">Sources</a>
+    </footer>
+  </div>
+</body>
+</html>

@@ -1,0 +1,114 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Evidence - Agent Runtimes Are Moving State Out of the Shadows | The Git Reporter</title>
+  <meta name="description" content="Evidence trail for Agent Runtimes Are Moving State Out of the Shadows.">
+  <link rel="icon" href="/assets/mark.svg">
+  <link rel="stylesheet" href="/assets/site.css?v=2026-05-18-reader-desk-2">
+  <script defer src="/assets/feedback.js?v=2026-05-18-reader-desk-2"></script>
+</head>
+<body>
+  <div class="site">
+    <header class="site-header" id="top">
+      <div class="wrap utility-row">
+        <a class="icon-link menu-icon" href="/archive/" aria-label="Open edition history"><span></span><span></span><span></span></a>
+        <a class="icon-link search-icon" href="/archive/" aria-label="Search edition history"></a>
+      </div>
+      <div class="wrap masthead-lockup">
+        <a class="masthead-title" href="/">THE GIT REPORTER</a>
+        <div class="masthead-ornament" aria-hidden="true"></div>
+      </div>
+      <div class="wrap nav-wrap">
+        <nav class="paper-nav" aria-label="Primary navigation">
+    <a class="" href="/">Today</a><a class="active" href="/archive/">Editions</a><a class="" href="/atlas/">Agent Atlas</a><a class="" href="/repos/">Repos</a>
+  </nav>
+        <div class="nav-rule"></div>
+      </div>
+    </header>
+    <main class="wrap page-shell">
+      <section class="page-hero evidence-hero">
+        <div class="eyebrow">Evidence Trail</div>
+        <h1>Agent Runtimes Are Moving State Out of the Shadows</h1>
+        <p class="summary">May 20, 2026 / Daily Edition / 9 source signals.</p>
+        <div class="receipt">
+    <div class="receipt-line">
+      <span class="receipt-icon">repo</span>
+      <span class="receipt-main">openai/codex</span>
+      <span class="branch-pill">main</span>
+    </div>
+    <div class="receipt-line receipt-muted">
+      <span>9 source signals</span>
+      <span>2 repos</span>
+      <span>a668379</span>
+    </div>
+    <div class="commit-line">&gt; a668379 / May 20, 2026 / Daily Edition</div>
+  </div>
+        <div class="story-actions">
+          <a class="paper-button primary" href="/articles/2026-05-20-daily-agent-runtimes-are-moving-state-out-of-the-shadows/">Read Story</a>
+          <a class="paper-button" href="/editions/2026-05-20/">Open Edition</a>
+        </div>
+      </section>
+      <section class="section markdown evidence-copy"><h2>Reporter Notes</h2><h1>Notes</h1>
+<h2>Candidate Arcs</h2>
+<p>1. Hidden turn context becomes queued thread settings.</p>
+<p>2. Pending input and subagent mailbox delivery get one owner.</p>
+<p>3. Subagent startup becomes a lifecycle event with injected context.</p>
+<p>4. Gemini CLI adds a feature flag for session-based subagent invocation.</p>
+<p>5. Terminal output classification becomes PTY-aware rather than byte-naive.</p>
+<h2>Interpretation</h2>
+<p>The shared pattern is not &quot;more tools.&quot; It is runtime state becoming explicit enough to be ordered, observed, tested, and surfaced. The strongest Codex evidence is internal but concrete: new operation names, events, queue ownership, and hook schemas. The Gemini evidence is narrower but useful because it shows the same concern at two boundaries: subagent invocation path and shell stream classification.</p>
+<h2>Claims Kept Conservative</h2>
+<ul>
+<li>Codex is moving away from <code>OverrideTurnContext</code> toward queued <code>ThreadSettings</code>; this is directly stated in the commit message and diff.</li>
+<li>Codex consolidated pending input, next-turn queued response items, and mailbox delivery behind <code>InputQueue</code>; this is directly stated in the commit message and visible in the diff.</li>
+<li>Gemini added an experimental flag for AgentSession-backed subagent invocations; this is directly stated in PR #26947 and docs.</li>
+<li>Gemini's Windows PTY fix strips ANSI control sequences and uses a PTY-aware binary check; this is visible in commit <code>f09d45d</code>.</li>
+</ul>
+<h2>Claims Avoided</h2>
+<ul>
+<li>No claim that these changes are shipped in a stable release.</li>
+<li>No claim that Gemini's subagent session flag is enabled by default; the docs say default <code>false</code>.</li>
+<li>No claim that Codex has completed the full seven-PR thread settings stack; the article only cites observed merged commits and public commit metadata.</li>
+</ul></section>
+      <section class="section markdown evidence-copy">
+        <h2>Primary Evidence</h2>
+<ul>
+<li>OpenAI Codex commit <code>a668379abf0f67d81a61dc971ea463c483846fd2</code>, <code>[5 of 7] Replace OverrideTurnContext with ThreadSettings (#22508)</code>: <a href="https://github.com/openai/codex/commit/a668379abf0f67d81a61dc971ea463c483846fd2">https://github.com/openai/codex/commit/a668379abf0f67d81a61dc971ea463c483846fd2</a></li>
+<li>Evidence used: <code>Op::ThreadSettings</code>, <code>ThreadSettingsApplied</code>, settings-only updates routed through the submission queue, and deletion of <code>Op::OverrideTurnContext</code>.</li>
+<li>OpenAI Codex commit <code>afa0101ae222792c1c7e072107e1eb7b72c19b7b</code>, <code>[codex] Move pending input into input queue (#22728)</code>: <a href="https://github.com/openai/codex/commit/afa0101ae222792c1c7e072107e1eb7b72c19b7b">https://github.com/openai/codex/commit/afa0101ae222792c1c7e072107e1eb7b72c19b7b</a></li>
+<li>Evidence used: new <code>session/input_queue.rs</code>, queue ownership for pending input, next-turn queued items, and mailbox delivery coordination.</li>
+<li>OpenAI Codex commit <code>d661ab70eda6bde758d7e48d6bf3638523cb014c</code>, <code>Add SubagentStart hook (#22782)</code>: <a href="https://github.com/openai/codex/commit/d661ab70eda6bde758d7e48d6bf3638523cb014c">https://github.com/openai/codex/commit/d661ab70eda6bde758d7e48d6bf3638523cb014c</a></li>
+<li>Evidence used: <code>SubagentStart</code> runs for thread-spawned subagents before first model request, includes <code>agent_id</code> and <code>agent_type</code>, and can add context to the child conversation.</li>
+<li>OpenAI Codex commit <code>05b8ce43541bbcd3ed14a21ea3f103c20cb9392b</code>, <code>chore: namespace v1 sub-agent tools (#23475)</code>: <a href="https://github.com/openai/codex/commit/05b8ce43541bbcd3ed14a21ea3f103c20cb9392b">https://github.com/openai/codex/commit/05b8ce43541bbcd3ed14a21ea3f103c20cb9392b</a></li>
+<li>Evidence used: <code>spawn_agent</code>, <code>send_input</code>, <code>resume_agent</code>, <code>wait_agent</code>, and <code>close_agent</code> moved under the <code>multi_agent_v1</code> namespace.</li>
+<li>Google Gemini CLI PR #26947, <code>feat(core): add adk.agentSessionSubagentEnabled flag</code>: <a href="https://github.com/google-gemini/gemini-cli/pull/26947">https://github.com/google-gemini/gemini-cli/pull/26947</a></li>
+<li>Evidence used: merged PR body, changed files, 43 additions, and configuration docs describing <code>experimental.adk.agentSessionSubagentEnabled</code>.</li>
+<li>Google Gemini CLI patch in <code>packages/core/src/config/config.ts</code> from PR #26947.</li>
+<li>Evidence used: <code>agentSessionSubagentEnabled?: boolean</code>, class field initialization, and <code>isAgentSessionSubagentEnabled()</code> getter.</li>
+<li>Google Gemini CLI patch in <code>docs/reference/configuration.md</code> from PR #26947.</li>
+<li>Evidence used: docs state the flag routes subagent invocations through the AgentSession protocol instead of legacy executors.</li>
+<li>Google Gemini CLI commit <code>f09d45d13338b385caf6bf49ec74900caa4c24b0</code>, <code>fix(core): prevent isBinary false-positive on Windows PTY streams (#26565)</code>: <a href="https://github.com/google-gemini/gemini-cli/commit/f09d45d13338b385caf6bf49ec74900caa4c24b0">https://github.com/google-gemini/gemini-cli/commit/f09d45d13338b385caf6bf49ec74900caa4c24b0</a></li>
+<li>Evidence used: <code>ShellExecutionService</code> now calls <code>isBinary(sniffBuffer, 512, true)</code>, <code>stripAnsiFromBuffer</code> was added, and tests cover Windows PTY output with ANSI sequences and null bytes.</li>
+<li>Gemini CLI subagents documentation: <a href="https://github.com/google-gemini/gemini-cli/blob/main/docs/core/subagents.md">https://github.com/google-gemini/gemini-cli/blob/main/docs/core/subagents.md</a></li>
+<li>Evidence used: subagents have separate context windows and can be enabled or disabled through settings.</li>
+</ul>
+<h2>Evidence Limits</h2>
+<ul>
+<li>The article does not claim that Codex and Gemini share an implementation or standard. It claims convergent pressure around explicit runtime state.</li>
+<li>The article does not claim that all cited changes are available in stable end-user releases.</li>
+<li>Gemini's AgentSession subagent flag is default-off, so the article frames it as rollout plumbing rather than current default behavior.</li>
+</ul>
+      </section>
+      
+    </main>
+    <footer class="wrap site-footer">
+      <span>&copy; 2026 The Git Reporter</span>
+      <a href="/atlas/">About</a>
+      <a href="/articles.json">Manifest JSON</a>
+      <a href="/repos/">Sources</a>
+    </footer>
+  </div>
+</body>
+</html>

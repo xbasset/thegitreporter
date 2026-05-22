@@ -1,0 +1,168 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>How AI Agents Work — Chapter 1: Birth of an Agent | The Git Reporter</title>
+  <meta name="description" content="← Series bible &amp; episode map Chapter 1 of 10 How AI Agents Work Chapter 1 — Birth of an Agent A lot of people think an AI agent begins when you type a prompt. The source code tells a differe...">
+  <link rel="icon" href="/assets/mark.svg">
+  <link rel="stylesheet" href="/assets/site.css?v=2026-05-18-reader-desk-2">
+  <script defer src="/assets/feedback.js?v=2026-05-18-reader-desk-2"></script>
+</head>
+<body>
+  <div class="site">
+    <header class="site-header" id="top">
+      <div class="wrap utility-row">
+        <a class="icon-link menu-icon" href="/archive/" aria-label="Open edition history"><span></span><span></span><span></span></a>
+        <a class="icon-link search-icon" href="/archive/" aria-label="Search edition history"></a>
+      </div>
+      <div class="wrap masthead-lockup">
+        <a class="masthead-title" href="/">THE GIT REPORTER</a>
+        <div class="masthead-ornament" aria-hidden="true"></div>
+      </div>
+      <div class="wrap nav-wrap">
+        <nav class="paper-nav" aria-label="Primary navigation">
+    <a class="" href="/">Today</a><a class="" href="/archive/">Editions</a><a class="active" href="/atlas/">Agent Atlas</a><a class="" href="/repos/">Repos</a>
+  </nav>
+        <div class="nav-rule"></div>
+      </div>
+    </header>
+    <main class="wrap page-shell">
+      <section class="page-hero">
+        <div class="eyebrow">Agent Atlas</div>
+        <h1>How AI Agents Work — Chapter 1: Birth of an Agent</h1>
+      </section>
+      <section class="story-layout">
+        <article class="story-shell story-body">
+          <div class="wrap">
+    <div class="nav">
+      <a href="/">← Series bible & episode map</a>
+      <span class="small">Chapter 1 of 10</span>
+    </div>
+
+    <section class="hero">
+      <div class="eyebrow">How AI Agents Work</div>
+      <h1>Chapter 1 — Birth of an Agent</h1>
+      <p class="subtitle">A lot of people think an AI agent begins when you type a prompt. The source code tells a different story: before an agent writes a line, opens a file, or delegates a task, the software has already decided what kind of being it is allowed to become.</p>
+    </section>
+
+    <article>
+      <p>Ask most people when an AI agent begins and they’ll point to the obvious moment: a human types a request, presses enter, and waits for the machine to respond.</p>
+
+      <p>That answer feels natural because it matches what we can see. There is a prompt box. There is a blinking cursor. There is a sentence that looks like the start of a conversation. From the outside, birth appears to happen at the surface.</p>
+
+      <p>But once you start reading the code of real agent systems, the illusion breaks almost immediately.</p>
+
+      <p>The prompt is not the birth of the agent. It is just the trigger.</p>
+
+      <p>Before an agent can answer, the system has to decide what this thing is. Is it a session inside a channel? A specialized role in a team? A declared agent definition with an execution context? A product profile with its own permissions and startup ceremony? By the time the model sees its first token, those decisions have already shaped the life it is about to live.</p>
+
+      <blockquote>
+        Agents are born through architecture: through the structures that decide what kind of actor a prompt is allowed to become.
+      </blockquote>
+
+      <h2>The hidden moment before the first answer</h2>
+
+      <p>That hidden moment is what this chapter is about.</p>
+
+      <p>In the systems we’ve studied, the beginning of an agent is never just “model + text.” It is always some combination of identity, scope, context, permissions, and route back to the human. Different repos choose different first commitments, and those choices ripple through everything that follows.</p>
+
+      <p>That is why two agent systems can both feel competent and still feel profoundly different in use. They were born differently.</p>
+
+      <div class="repo-grid">
+        <div class="repo"><strong>OpenClaw</strong><br/>Birth begins with <em>routing</em>: a message becomes a session key, a queue lane, a run, and a workspace.</div>
+        <div class="repo"><strong>Codex</strong><br/>Birth begins with <em>role and orchestration</em>: the agent enters the world already shaped by a collaborative graph.</div>
+        <div class="repo"><strong>Gemini CLI</strong><br/>Birth begins with <em>definitions and execution context</em>: a declared agent becomes live inside a prepared runtime.</div>
+        <div class="repo"><strong>Mistral Vibe</strong><br/>Birth begins with <em>bootstrap and profile</em>: onboarding, config, startup mode, and explicit agent profiles decide the opening posture.</div>
+      </div>
+
+      <h2>OpenClaw: an agent is born as a session</h2>
+
+      <p>OpenClaw is a good place to start because it makes the mechanics unusually visible. In its architecture, an incoming message does not simply flow into a model. It first becomes part of a routing system.</p>
+
+      <p>The docs and runtime surfaces show that the system resolves a <em>session key</em> based on where the message came from and what kind of run it represents. A direct chat, a group channel, a cron job, and a webhook do not all produce the same kind of birth. They create different session identities, and those identities determine queueing, serialization, and execution context.</p>
+
+      <p>That means an OpenClaw agent is born less like a chatbot and more like an operational process. It has a location in the system. It has a scope. It has a lane.</p>
+
+      <p>This is a subtle but important shift. In ordinary chatbot thinking, the model is the center. In OpenClaw’s design, the session is at least as important. The architecture is saying: before we ask what the agent thinks, we need to know where this run lives, what boundaries it belongs to, and how it should be serialized against the rest of the world.</p>
+
+      <h2>Codex: an agent is born into a team</h2>
+
+      <p>Codex reveals a different assumption. Its recent evolution points toward role systems, thread inheritance, and sub-agent coordination as first-class architecture. The commits tell a story of roles moving into TOML, role metadata becoming richer, and spawned agents retaining pieces of their parent configuration and session context.</p>
+
+      <p>That suggests that a Codex agent is often born not as an isolated actor, but as a specialized worker in an already structured environment. Its identity comes bundled with role, relationship, and constraints. A child agent is meaningful because there is already a parent thread, a broader task, and an orchestration fabric around it.</p>
+
+      <p>This changes the emotional picture of agency. OpenClaw’s birth feels infrastructural: a session comes to life inside a routed system. Codex’s birth feels organizational: a worker takes shape inside a team.</p>
+
+      <p>It is a reminder that “agent” does not always mean “one artificial person.” Sometimes it means “a temporary specialist invoked by a larger machine of cooperation.”</p>
+
+      <h2>Gemini CLI: an agent is born from a definition</h2>
+
+      <p>Gemini CLI’s evidence points somewhere else again. Here, the important early moves are declarative agent definitions, startup context generation, session context binding, and execution-scoped plumbing. The architecture puts a lot of emphasis on deciding what an agent is before it starts acting.</p>
+
+      <p>That makes the birth feel almost theatrical: first define the role, then prepare the stage, then let the actor walk on.</p>
+
+      <p>The significance of this approach is clarity. If agent identity is declared, configured, and bound to a context object, then the system can reason about it more cleanly. Discovery flows make sense. Enable/disable behavior makes sense. Policy attachment makes sense. Even subagents inherit a kind of conceptual dignity because they emerge from a definitional system rather than pure improvisation.</p>
+
+      <p>In Gemini CLI, birth is less about routing or collaboration and more about <em>instantiation</em>. A design becomes a running entity.</p>
+
+      <h2>Mistral Vibe: an agent is born through product ritual</h2>
+
+      <p>Mistral Vibe adds a fourth variation, and it matters because it brings the product layer into view. In its source, startup is explicit: bootstrap config files, run onboarding if needed, choose an initial agent profile, resume or preload session state, then enter either programmatic mode or the interactive TUI.</p>
+
+      <p>Here, the beginning of an agent is not just technical plumbing. It is also a user-facing ritual.</p>
+
+      <p>That matters because millions of real interactions with agents do not begin in abstract architectural diagrams. They begin in a terminal, in a folder, with a first-run experience, a trust decision, a selected mode, and a visible interface that tells the human what kind of collaboration is about to happen.</p>
+
+      <p>Mistral Vibe makes that opening posture legible. The built-in profiles are not decorative presets. They are identity templates. They determine whether the system enters the world cautious, read-only, editing-forward, or aggressively auto-approved. In that sense, Mistral Vibe shows that an agent can be born not only through system architecture, but through a designed product ceremony that teaches both the software and the user how to relate to one another.</p>
+
+      <h2>Why this matters</h2>
+
+      <p>All four systems are solving the same first problem: how to turn an incoming task into a bounded actor. But they solve it with different first commitments.</p>
+
+      <p>And those commitments matter because beginnings are not neutral. If a system starts by defining a session, it will think differently about routing and history. If it starts by defining a role, it will think differently about specialization and hierarchy. If it starts with a definition object, it will care about governance and configuration. If it starts through product bootstrap, it will care about modes, permissions, and trust at the moment of first contact.</p>
+
+      <p>The birth of an agent is where a philosophy becomes software.</p>
+
+      <h2>The deeper reveal</h2>
+
+      <p>This is the point where the story begins to widen.</p>
+
+      <p>Once you see that agents are born through architecture, a bigger question appears: what exactly is architecture deciding at that moment? Not just <em>who</em> the agent is, but <em>what world</em> it is about to perceive.</p>
+
+      <p>Because identity alone is not enough. The next thing that matters is what enters the agent’s field of view: files, logs, branches, skills, tools, memory, chat history, trusted documents, subagents, system prompts, project context. That act of curation may matter as much as the model itself.</p>
+
+      <blockquote>
+        If birth decides what kind of actor an agent may become, context decides what kind of world it is allowed to know.
+      </blockquote>
+
+      <p>That is where the story goes next.</p>
+
+      <div class="footer-nav">
+        <a href="/">← Back to series bible</a>
+        <a href="#" title="Chapter 2 draft not published yet">Next: Chapter 2 — What an Agent Can See →</a>
+      </div>
+    </article>
+  </div>
+        </article>
+        <aside class="side-panel">
+          <h2>Source</h2>
+          <div class="evidence-table">
+            <div class="evidence-line"><span>Status</span><span>Working draft</span></div>
+            <div class="evidence-line"><span>Project</span><span>How AI Agents Work</span></div>
+          </div>
+          <div class="actions">
+            <a class="paper-button" href="/atlas/">Atlas</a>
+          </div>
+        </aside>
+      </section>
+    </main>
+    <footer class="wrap site-footer">
+      <span>&copy; 2026 The Git Reporter</span>
+      <a href="/atlas/">About</a>
+      <a href="/articles.json">Manifest JSON</a>
+      <a href="/repos/">Sources</a>
+    </footer>
+  </div>
+</body>
+</html>

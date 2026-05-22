@@ -1,0 +1,165 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Before the Prompt Lands: Codex and Gemini Turn Hooks Into Agent Control Planes | The Git Reporter</title>
+  <meta name="description" content="Terminal agents are growing a new kind of muscle: not just better tools, but better middleware. In both Codex and Gemini CLI, the moment right after you hit Enter is becoming programmable territory.">
+  <link rel="icon" href="/assets/mark.svg">
+  <link rel="stylesheet" href="/assets/site.css?v=2026-05-18-reader-desk-2">
+  <script defer src="/assets/feedback.js?v=2026-05-18-reader-desk-2"></script>
+</head>
+<body>
+  <div class="site">
+    <header class="site-header" id="top">
+      <div class="wrap utility-row">
+        <a class="icon-link menu-icon" href="/archive/" aria-label="Open edition history"><span></span><span></span><span></span></a>
+        <a class="icon-link search-icon" href="/archive/" aria-label="Search edition history"></a>
+      </div>
+      <div class="wrap masthead-lockup">
+        <a class="masthead-title" href="/">THE GIT REPORTER</a>
+        <div class="masthead-ornament" aria-hidden="true"></div>
+      </div>
+      <div class="wrap nav-wrap">
+        <nav class="paper-nav" aria-label="Primary navigation">
+    <a class="" href="/">Today</a><a class="active" href="/archive/">Editions</a><a class="" href="/atlas/">Agent Atlas</a><a class="" href="/repos/">Repos</a>
+  </nav>
+        <div class="nav-rule"></div>
+      </div>
+    </header>
+    <main class="wrap page-shell">
+      <section class="page-hero story-front">
+        <div class="story-topline">
+          <span>Daily Edition</span>
+          <span>Sources <strong>+2</strong></span>
+        </div>
+        <h1>Before the Prompt Lands: Codex and Gemini Turn Hooks Into Agent Control Planes</h1>
+        <p class="summary">Terminal agents are growing a new kind of muscle: not just better tools, but better middleware. In both Codex and Gemini CLI, the moment right after you hit Enter is becoming programmable territory.</p>
+        <div class="receipt">
+    <div class="receipt-line">
+      <span class="receipt-icon">repo</span>
+      <span class="receipt-main">openai/codex</span>
+      <span class="branch-pill">main</span>
+    </div>
+    <div class="receipt-line receipt-muted">
+      <span>2 source signals</span>
+      <span>2 repos</span>
+      <span>6fef421</span>
+    </div>
+    <div class="commit-line">&gt; 6fef421 / March 20, 2026 / Daily Edition</div>
+  </div>
+      </section>
+      <section class="story-layout">
+        <article class="story-shell story-body">
+          <main class="wrap">
+    <div class="eyebrow">TheGitReporter · Daily code story</div>
+    
+    
+    <p class="meta">Published 2026-03-20 · Grounded in Codex commit <a href="https://github.com/openai/codex/commit/6fef4216546c">6fef4216546c</a>, Gemini CLI hook docs and core client code, live GitHub repo metadata, and fresh GSIO coverage data.</p>
+
+    <div class="card">
+      <p><strong>The short version:</strong> Codex just added a <code>UserPromptSubmit</code> hook path that can inspect, block, or enrich a user prompt before it is accepted into the turn. Gemini has already been treating that same moment as a first-class extension point with <code>BeforeAgent</code> and <code>AfterAgent</code> hooks that can inject context, stop execution, or force retries.</p>
+      <p>That may sound like plumbing. It is really architecture. The prompt is no longer just input. It is becoming a <strong>control surface</strong>.</p>
+    </div>
+
+    <h2>This is pre-turn middleware, not a cosmetic extension</h2>
+    <p>There is a familiar pattern here if you squint: web middleware before a request handler, Git hooks before a commit, CI gates before a merge. Agent CLIs are now building the same idea around prompts.</p>
+    <p>Gemini’s own docs say it plainly. Hooks run synchronously inside the agent loop, and <code>BeforeAgent</code> fires <strong>after user submits prompt, before planning</strong>. Common use cases: add context, validate prompts, block turns.</p>
+    <p>Codex’s new hook lands in the same neighborhood. Its <code>UserPromptSubmit</code> flow serializes a dedicated hook input with the session id, turn id, working directory, transcript path, model, permission mode, and prompt. That is not a log event. That is a deliberate interception point.</p>
+
+    <h2>Codex’s tell: the prompt is inspected before it is really accepted</h2>
+    <p>The sharpest Codex evidence lives in the runtime path around pending input.</p>
+    <p>In <code>codex-rs/core/src/state/turn.rs</code>, turn state explicitly buffers <code>pending_input</code>. Then in <code>hook_runtime.rs</code>, <code>inspect_pending_input()</code> runs <code>UserPromptSubmit</code> against user messages before <code>record_pending_input()</code> commits them into the turn.</p>
+    <p class="quote">That detail matters. Codex is not just letting hooks comment on a prompt after the fact. It is evaluating the prompt while it is still buffered and deciding whether it becomes part of the conversation at all.</p>
+    <p>The hook output parser in <code>user_prompt_submit.rs</code> makes the feature feel broader than a simple blocklist. A hook can stop processing, issue a block with a reason, or attach extra context for the model. Even plain-text stdout can become additional context.</p>
+    <p>And when Codex accepts that extra context, it does not tack it on as a side note. It converts it into <code>DeveloperInstructions</code>. In other words, hook output can climb straight into the agent’s instruction stack.</p>
+
+    <h2>Gemini’s tell: the hook system is broader and more explicit</h2>
+    <p>Gemini’s hook surface is less new, but it is more openly formalized.</p>
+    <p>In <code>packages/core/src/core/client.ts</code>, <code>fireBeforeAgentHookSafe()</code> deduplicates hook execution once per <code>prompt_id</code>. The hook can stop execution, block execution, or return <code>additionalContext</code>. Then, right before the turn proceeds, Gemini appends that material into the request as <code>&lt;hook_context&gt;...&lt;/hook_context&gt;</code>.</p>
+    <p>That makes Gemini’s model-facing contract easier to see. The hook layer is not hidden infrastructure. It is a sanctioned way to reshape the request before planning begins.</p>
+    <p>One subtle but important detail: Gemini tests explicitly sanitize hook-provided context by escaping <code>&lt;</code> and <code>&lt;/hook_context&gt;</code>. That does not make the system magically safe, but it does show the team is thinking about delimiter abuse at the boundary where hook output becomes model input.</p>
+
+    <h2>Same architectural direction, different breadth</h2>
+    <p>The tempting headline would be that Codex and Gemini now do the same thing. That would be sloppy.</p>
+    <ul>
+      <li><strong>Codex:</strong> newly adds a narrower prompt-submission interception point with runtime-visible pending input and promotion of hook context into developer instructions.</li>
+      <li><strong>Gemini:</strong> already exposes a broader lifecycle hook framework around the whole agent loop, with a clearly documented <code>BeforeAgent</code> stage and adjacent before/after model and tool events.</li>
+    </ul>
+    <p>The better framing is this: both projects are moving control <strong>earlier</strong>. They are hardening the space before planning, before tool selection, and in some cases before history is finalized.</p>
+
+    <h2>Why this matters now</h2>
+    <p>This is not an archaeological story dug out of stale branches. Both repos are moving fast right now. As of this morning, GitHub shows Codex updated at <code>2026-03-20T05:01:45Z</code> and Gemini CLI at <code>2026-03-20T04:45:10Z</code>. Recent merged work on both sides keeps circling runtime governance: hooks, plugin sync, exec capture, MCP installs, plan policies, ACP metadata.</p>
+    <p>GSIO’s current project scope report adds another confidence check: both repositories are fully analyzed with fresh syncs from today. So this is not a fuzzy vibes story. It is a current implementation trend visible in live source, live metadata, and live repo activity.</p>
+
+    <div class="card">
+      <p><strong>Crisp takeaway:</strong> terminal agents are quietly turning prompt submission into programmable middleware. Codex now buffers and inspects the user turn before it is recorded. Gemini already wraps that moment in a wider hook framework that can block, enrich, and sanitize the request before planning.</p>
+    </div>
+
+    <p>If prompt submission becomes a programmable control surface, who should really own it: repo authors, platform teams, or end users building personal agent rituals?</p>
+    <p>If you are building agent tooling, inspect your own loop closely. The most important design choice might not be the model or the tools. It might be the thin slice of code that decides what a prompt becomes before the model ever sees it.</p>
+  </main>
+          <section class="reader-feedback"
+    data-tgr-feedback
+    data-article-slug="2026-03-20-daily-before-the-prompt-lands-codex-and-gemini-turn-hooks-into-agent-control-planes"
+    data-article-title="Before the Prompt Lands: Codex and Gemini Turn Hooks Into Agent Control Planes"
+    data-article-url="/articles/2026-03-20-daily-before-the-prompt-lands-codex-and-gemini-turn-hooks-into-agent-control-planes/"
+    data-edition-date="2026-03-20"
+    data-lane="Daily Edition"
+    data-tags="Permissions,Memory,Delegation,Tools"
+    data-repos="openai/codex,google-gemini/gemini-cli">
+    <div class="reader-feedback-head">
+      <div>
+        <div class="eyebrow">Letters &amp; Corrections</div>
+        <h2>Send a note to the desk</h2>
+      </div>
+      <p>Corrections, missing context, or a follow-up lead.</p>
+    </div>
+    <form class="feedback-form">
+      <div class="feedback-votes" role="group" aria-label="Choose signal type">
+        <button class="feedback-choice" type="button" data-vote="follow-up" aria-pressed="false">
+          <span aria-hidden="true">+</span>
+          <span>Follow-up</span>
+        </button>
+        <button class="feedback-choice" type="button" data-vote="correction" aria-pressed="false">
+          <span aria-hidden="true">!</span>
+          <span>Correction</span>
+        </button>
+      </div>
+      <label class="feedback-comment">
+        <span>Note for the editor</span>
+        <textarea name="comment" rows="3" maxlength="320" placeholder="What did we miss, or what should we follow next?"></textarea>
+      </label>
+      <div class="feedback-submit-row">
+        <p class="feedback-status" aria-live="polite"></p>
+        <button class="paper-button primary feedback-submit" type="submit">Send to desk</button>
+      </div>
+    </form>
+  </section>
+        </article>
+        <aside class="side-panel">
+          <h2>Evidence</h2>
+          <div class="evidence-table">
+            <div class="evidence-line"><span>Date</span><span>March 20, 2026</span></div>
+            <div class="evidence-line"><span>Lane</span><span>Daily Edition</span></div>
+            <div class="evidence-line"><span>Confidence</span><span>68%</span></div>
+            <div class="evidence-line"><span>Sources</span><span>2</span></div>
+            <div class="evidence-line"><span>Repos</span><span>openai/codex, google-gemini/gemini-cli</span></div>
+          </div>
+          <div class="actions">
+            <a class="paper-button primary" href="/evidence/2026-03-20-daily-before-the-prompt-lands-codex-and-gemini-turn-hooks-into-agent-control-planes/">View Evidence</a>
+            <a class="paper-button" href="/editions/2026-03-20/">Edition</a>
+          </div>
+          
+        </aside>
+      </section>
+    </main>
+    <footer class="wrap site-footer">
+      <span>&copy; 2026 The Git Reporter</span>
+      <a href="/atlas/">About</a>
+      <a href="/articles.json">Manifest JSON</a>
+      <a href="/repos/">Sources</a>
+    </footer>
+  </div>
+</body>
+</html>
