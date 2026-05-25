@@ -14,5 +14,3 @@ thegitreporter-production-workspace/.exports/static-site/
 Do not add the private article pipeline, local repo caches, scanner output, raw
 feedback exports, or recovered local source paths here.
 
-This export was rewritten for the static base path `/thegitreporter`.
-
