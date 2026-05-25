@@ -1,0 +1,145 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Agent Runtimes Are Learning Where to Say No | The Git Reporter</title>
+  <meta name="description" content="After shipping more visible control planes, agent projects are now tightening the places where tools, plugins, credentials, chat context, and test runs are allowed to flow.">
+  <link rel="icon" href="/assets/mark.svg">
+  <link rel="stylesheet" href="/assets/site.css?v=2026-05-23-engraver-draft-1">
+  <script defer src="/assets/feedback.js?v=2026-05-23-engraver-draft-1"></script>
+</head>
+<body>
+  <div class="site">
+    <header class="site-header" id="top">
+      <div class="wrap utility-row">
+        <a class="icon-link menu-icon" href="/archive/" aria-label="Open edition history"><span></span><span></span><span></span></a>
+        <a class="icon-link search-icon" href="/archive/" aria-label="Search edition history"></a>
+      </div>
+      <div class="wrap masthead-lockup">
+        <a class="masthead-title" href="/">THE GIT REPORTER</a>
+        <div class="masthead-ornament" aria-hidden="true"></div>
+      </div>
+      <div class="wrap nav-wrap">
+        <nav class="paper-nav" aria-label="Primary navigation">
+    <a class="" href="/">Today</a><a class="active" href="/archive/">Editions</a><a class="" href="/atlas/">Agent Atlas</a><a class="" href="/repos/">Repos</a>
+  </nav>
+        <div class="nav-rule"></div>
+      </div>
+    </header>
+    <main class="wrap page-shell">
+      <section class="page-hero story-front">
+        <div class="story-topline">
+          <span>Daily Edition</span>
+          <span>Sources <strong>+6</strong></span>
+        </div>
+        <h1>Agent Runtimes Are Learning Where to Say No</h1>
+        <p class="summary">After shipping more visible control planes, agent projects are now tightening the places where tools, plugins, credentials, chat context, and test runs are allowed to flow.</p>
+        
+        <div class="receipt">
+    <div class="receipt-line">
+      <span class="receipt-icon">repo</span>
+      <span class="receipt-main">openai/codex</span>
+      <span class="branch-pill">main</span>
+    </div>
+    <div class="receipt-line receipt-muted">
+      <span>6 source signals</span>
+      <span>3 repos</span>
+      <span>5c20513</span>
+    </div>
+    <div class="commit-line">&gt; 5c20513 / May 24, 2026 / Daily Edition</div>
+  </div>
+      </section>
+      <section class="story-layout">
+        <article class="story-shell story-body">
+          <p>The next useful agent feature may be a well-placed refusal.</p>
+  <p>For the last several editions, the code trail around agent tools has pointed toward a visible control plane: packaged shells, platform adapters, context profiles, skill catalogs, and tool lifecycle hooks. The newest readable commits move that story one step deeper. They show projects adding boundaries around the control plane itself.</p>
+  <p>That does not mean these systems are suddenly secure. The stronger, more source-grounded claim is narrower: agent runtimes are learning to encode where risky data should stop, be rewritten, be isolated, or be traced.</p>
+  <h2>Codex puts ordinary tools behind hooks</h2>
+  <p>OpenAI's Codex commit <a href="https://github.com/openai/codex/commit/5c20513a1b3d15898429abd92b3676b76795a892"><code>5c20513a1</code></a> makes local function tools participate in the default hook contract. The commit message says earlier PreToolUse, PostToolUse, and updated-input coverage depended on each handler remembering to wire itself into the contract.</p>
+  <p>The patch moves that default behavior into <code>CoreToolRuntime</code>. Function payloads can now expose generic PreToolUse and PostToolUse payloads, and updated hook input can be serialized back into function-tool arguments. The tests cover local function calls being blocked before execution, rewritten before execution, and observed after execution.</p>
+  <p>The exceptions matter as much as the default. Codex explicitly keeps code-mode <code>wait</code> and <code>write_stdin</code> out of parts of the generic path because those calls are runtime control for already-running work. In other words, the hook system is not just becoming broader. It is also learning which internal control messages should not look like ordinary model actions.</p>
+  <h2>Plugin bundles get a shared checkpoint</h2>
+  <p>A second Codex commit, <a href="https://github.com/openai/codex/commit/7d47056ea42636271ac020b86347fbbef49490aa"><code>7d47056e</code></a>, moves plugin tarball packing and unpacking into a shared archive helper. The headline sounds like plumbing, but the checks are the story.</p>
+  <p>The new helper verifies that a bundle has the expected plugin manifest, enforces archive and extracted-size limits, rejects path traversal, rejects hard links and symbolic links, and rejects unsupported archive entry types. Upload and install paths now use the same archive logic instead of carrying duplicate handling.</p>
+  <p>That is a control-plane boundary in file form. A plugin system is only useful if bundles can move across machines. The archive helper is where Codex decides what kind of bundle is allowed to cross that line.</p>
+  <h2>Hermes names the limit of its own denial</h2>
+  <p>Hermes Agent's <a href="https://github.com/NousResearch/hermes-agent/commit/97e975edd2cd666b09412cca5ee22d3e5ad431de"><code>97e975ed</code></a> commit widens direct read denials around credential material. The denied set expands beyond existing auth files to include <code>.env</code>, webhook subscription secrets, and files under <code>mcp-tokens/</code>, with profile-mode coverage for both the active home and the global root.</p>
+  <p>The most important line is the caveat. The code comments say the read-deny is not a security boundary because the terminal tool still runs as the same operating-system user. The stated purpose is defense-in-depth: models that respect tool denials may stop, and attempted credential reads become visible in logs.</p>
+  <p>That is unusually honest source evidence. Hermes is not pretending a read-file guard defeats every bypass. It is making a smaller boundary visible enough that users and maintainers can see when something tries to cross it.</p>
+  <h2>Observed chat stops being a pending request</h2>
+  <p>Hermes shows another version of the same pattern in <a href="https://github.com/NousResearch/hermes-agent/commit/4a91e36495e86e54dfa3ef52bad04b31b084525a"><code>4a91e364</code></a>, which separates observed Telegram group context from the current addressed message.</p>
+  <p>The patch withholds observed group chatter from normal replay history and wraps it as a context-only block before the current message. Tests assert that the current addressed message remains the turn to answer, while earlier observed group lines are available only as context when the new message asks for them.</p>
+  <p>For a group-chat agent, that distinction is not cosmetic. Without it, old unaddressed chatter can replay like pending user work. The fix turns "what the agent saw" and "what the agent was asked" into separate runtime categories.</p>
+  <h2>LangChain tightens the test lane</h2>
+  <p>LangChain's freshest evidence is not an agent UI change. It is operational trust around live provider tests. Commit <a href="https://github.com/langchain-ai/langchain/commit/33875fde2acf6ffb717915a895638274a6098ec2"><code>33875fde</code></a> adds job-level concurrency to scheduled integration tests so overlapping per-package shards do not hit the same live API credentials at once.</p>
+  <p>Another commit, <a href="https://github.com/langchain-ai/langchain/commit/bdd7f71a1b426675a83915dbd68107ceca069fc8"><code>bdd7f71a</code></a>, adds trace metadata for those scheduled tests: workflow run, attempt, SHA, event, ref, working directory, and Python version. A failing trace can point back to the run and shard that produced it.</p>
+  <p>This is not the same surface as Codex hooks or Hermes file safety. But it belongs to the same practical family: when software touches external model providers and shared credentials, the runtime lane needs boundaries and provenance, not just a green or red CI badge.</p>
+  <h2>The pattern is refusal with receipts</h2>
+  <p>Taken together, these commits do not prove a shared standard. They do show a shared pressure. Agent software is adding places where work is stopped before execution, archives are checked before installation, credential reads are denied with an audit trail, observed context is prevented from masquerading as a user request, and credential-backed tests are serialized and traced.</p>
+  <p>That is what maturity looks like at the source level. The model still gets the visible conversation, but the agent runtime increasingly carries the responsibility for saying: this input is not safe to treat as a command, this bundle is not safe to unpack, this file is not appropriate to read, this context is not a request, and this test run should not collide with another one.</p>
+  <p>Tomorrow's question is whether these boundaries keep spreading from tests and helpers into product defaults. The agents that earn trust will not be the ones that say yes to everything. They will be the ones whose control planes know when to say no, and can show their work when they do.</p>
+          <section class="reader-feedback"
+    data-tgr-feedback
+    data-article-slug="2026-05-24-daily-agent-runtimes-are-learning-where-to-say-no"
+    data-article-title="Agent Runtimes Are Learning Where to Say No"
+    data-article-url="/articles/2026-05-24-daily-agent-runtimes-are-learning-where-to-say-no/"
+    data-edition-date="2026-05-24"
+    data-lane="Daily Edition"
+    data-tags="Memory,Tools,UX,Runtime"
+    data-repos="openai/codex,langchain-ai/langchain,NousResearch/hermes-agent">
+    <div class="reader-feedback-head">
+      <div>
+        <div class="eyebrow">Letters &amp; Corrections</div>
+        <h2>Send a note to the desk</h2>
+      </div>
+      <p>Corrections, missing context, or a follow-up lead.</p>
+    </div>
+    <form class="feedback-form">
+      <div class="feedback-votes" role="group" aria-label="Choose signal type">
+        <button class="feedback-choice" type="button" data-vote="follow-up" aria-pressed="false">
+          <span aria-hidden="true">+</span>
+          <span>Follow-up</span>
+        </button>
+        <button class="feedback-choice" type="button" data-vote="correction" aria-pressed="false">
+          <span aria-hidden="true">!</span>
+          <span>Correction</span>
+        </button>
+      </div>
+      <label class="feedback-comment">
+        <span>Note for the editor</span>
+        <textarea name="comment" rows="3" maxlength="320" placeholder="What did we miss, or what should we follow next?"></textarea>
+      </label>
+      <div class="feedback-submit-row">
+        <p class="feedback-status" aria-live="polite"></p>
+        <button class="paper-button primary feedback-submit" type="submit">Send to desk</button>
+      </div>
+    </form>
+  </section>
+        </article>
+        <aside class="side-panel">
+          <h2>Evidence</h2>
+          <div class="evidence-table">
+            <div class="evidence-line"><span>Date</span><span>May 24, 2026</span></div>
+            <div class="evidence-line"><span>Lane</span><span>Daily Edition</span></div>
+            <div class="evidence-line"><span>Confidence</span><span>87%</span></div>
+            <div class="evidence-line"><span>Sources</span><span>6</span></div>
+            <div class="evidence-line"><span>Repos</span><span>openai/codex, langchain-ai/langchain, NousResearch/hermes-agent</span></div>
+          </div>
+          <div class="actions">
+            <a class="paper-button primary" href="/evidence/2026-05-24-daily-agent-runtimes-are-learning-where-to-say-no/">View Evidence</a>
+            <a class="paper-button" href="/editions/2026-05-24/">Edition</a>
+          </div>
+          
+        </aside>
+      </section>
+    </main>
+    <footer class="wrap site-footer">
+      <span>&copy; 2026 The Git Reporter</span>
+      <a href="/atlas/">About</a>
+      <a href="/articles.json">Manifest JSON</a>
+      <a href="/repos/">Sources</a>
+    </footer>
+  </div>
+</body>
+</html>

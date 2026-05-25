@@ -1,0 +1,139 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Agent Reliability Is Moving Into the Test Rig | The Git Reporter</title>
+  <meta name="description" content="The newest source-readable trail points away from model mystique and toward the workflows that test, trace, serialize, and maintain agent behavior.">
+  <link rel="icon" href="/assets/mark.svg">
+  <link rel="stylesheet" href="/assets/site.css?v=2026-05-23-engraver-draft-1">
+  <script defer src="/assets/feedback.js?v=2026-05-23-engraver-draft-1"></script>
+</head>
+<body>
+  <div class="site">
+    <header class="site-header" id="top">
+      <div class="wrap utility-row">
+        <a class="icon-link menu-icon" href="/archive/" aria-label="Open edition history"><span></span><span></span><span></span></a>
+        <a class="icon-link search-icon" href="/archive/" aria-label="Search edition history"></a>
+      </div>
+      <div class="wrap masthead-lockup">
+        <a class="masthead-title" href="/">THE GIT REPORTER</a>
+        <div class="masthead-ornament" aria-hidden="true"></div>
+      </div>
+      <div class="wrap nav-wrap">
+        <nav class="paper-nav" aria-label="Primary navigation">
+    <a class="" href="/">Today</a><a class="active" href="/archive/">Editions</a><a class="" href="/atlas/">Agent Atlas</a><a class="" href="/repos/">Repos</a>
+  </nav>
+        <div class="nav-rule"></div>
+      </div>
+    </header>
+    <main class="wrap page-shell">
+      <section class="page-hero story-front">
+        <div class="story-topline">
+          <span>Daily Edition</span>
+          <span>Sources <strong>+5</strong></span>
+        </div>
+        <h1>Agent Reliability Is Moving Into the Test Rig</h1>
+        <p class="summary">The newest source-readable trail points away from model mystique and toward the workflows that test, trace, serialize, and maintain agent behavior.</p>
+        
+        <div class="receipt">
+    <div class="receipt-line">
+      <span class="receipt-icon">repo</span>
+      <span class="receipt-main">google-gemini/gemini-cli</span>
+      <span class="branch-pill">main</span>
+    </div>
+    <div class="receipt-line receipt-muted">
+      <span>5 source signals</span>
+      <span>2 repos</span>
+      <span>11cdce9</span>
+    </div>
+    <div class="commit-line">&gt; 11cdce9 / May 25, 2026 / Daily Edition</div>
+  </div>
+      </section>
+      <section class="story-layout">
+        <article class="story-shell story-body">
+          <p>The next reliability feature in agent software may not look like a feature at all. It may look like a GitHub Actions workflow with better trace metadata.</p>
+  <p><a href="/articles/2026-05-24-daily-agent-runtimes-are-learning-where-to-say-no/">Yesterday's edition</a> followed a runtime pattern: agent tools were learning where to say no. The freshest strong evidence takes the next step outward. If agents are going to be trusted in real work, the surrounding test rig has to become more explicit too.</p>
+  <p>That test rig is not one product. It is the maintenance layer around agent behavior: real-model evals that are run intentionally, provider-backed integration tests that can be traced to the exact shard that failed, concurrency controls around shared credentials, and issue automation that preserves better signals from humans and bots.</p>
+  <h2>LangChain adds a live-model eval lane</h2>
+  <p>LangChain commit <a href="https://github.com/langchain-ai/langchain/commit/11cdce91dc4867613a8ff49fb942c5a72fe2ff96"><code>11cdce91</code></a> adds a new Middleware Evals workflow. The file describes real-model evals for agent middleware and says the tests call live model APIs, incur cost, and therefore are not run on every pull request.</p>
+  <p>That detail matters. A lot of agent behavior cannot be fully judged by a cheap unit test. The workflow creates a manually dispatched lane where maintainers can pass model IDs, choose an eval tier, filter by category, and run across providers with tracing enabled.</p>
+  <p>The workflow also treats its own inputs as part of the reliability problem. Its comments warn that GitHub workflow expressions are expanded before the shell runs, so user-controlled values are passed through environment variables rather than spliced into the script body. The eval lane is not just about measuring agents. It is also about making the measurement path harder to corrupt.</p>
+  <h2>Provider tests get receipts</h2>
+  <p>A second LangChain commit, <a href="https://github.com/langchain-ai/langchain/commit/bdd7f71a1b426675a83915dbd68107ceca069fc8"><code>bdd7f71a</code></a>, wires scheduled integration tests into LangSmith tracing. The commit message says partner test runs now emit traces to a shared project with GitHub Actions metadata attached.</p>
+  <p>The patch builds metadata from the workflow run, run attempt, run URL, SHA, event, ref, working directory, and Python version, then routes test traces with tags for GitHub Actions, package, Python version, and SHA. In plain English: a failing provider-backed test should be easier to connect back to the exact CI run and matrix shard that produced it.</p>
+  <p>Commit <a href="https://github.com/langchain-ai/langchain/commit/33875fde2acf6ffb717915a895638274a6098ec2"><code>33875fde</code></a> adds the companion control. Scheduled integration tests now use job-level concurrency keyed by working directory and Python version. The stated reason is practical: overlapping workflow dispatches should not hit the same live API credentials at once.</p>
+  <p>That is reliability as coordination. The tests are not only assertions about code. They are an operating environment with external providers, shared credentials, retries, costs, and noisy failures that have to be made legible.</p>
+  <h2>Gemini CLI hardens the maintenance queue</h2>
+  <p>Google's Gemini CLI shows the same pressure from a different side: the issue queue. Commit <a href="https://github.com/google-gemini/gemini-cli/commit/906f8a31513dcc322e4e6acbc03ca165f5ad97d1"><code>906f8a315</code></a> changes the stale issue lifecycle and triage automation.</p>
+  <p>The patch moves issue search to full pagination, adds clearer dry-run logging, ignores bot comments when deciding whether a contributor responded, removes stale labels after meaningful human activity, and closes stale or no-response items with an explicit reason. It also makes bug stale messages ask reporters to verify behavior against the latest Gemini CLI version.</p>
+  <p>That is not glamorous infrastructure. But for a fast-moving agent CLI, the issue queue is part of the product's nervous system. If automation loses human follow-up, mistakes bot activity for a real response, or closes reports without clear state, maintainers get a worse signal about what is broken.</p>
+  <p>A follow-on Gemini CLI commit, <a href="https://github.com/google-gemini/gemini-cli/commit/854f811be0391d7a7d8bc1a15e372eb5318bde7f"><code>854f811b</code></a>, tightens the labeling path. It extracts JSON from noisy model or tool output more defensively, aggregates standard and effort analyses by issue, merges explanations, and handles label conflicts. The point is not that an automated label is always right. The point is that the system is being changed so automated triage is less brittle and less lossy.</p>
+  <h2>The test rig is becoming part of the runtime story</h2>
+  <p>Taken together, these commits do not prove that any agent is suddenly more capable. They show something more concrete: projects are spending source code on the machinery that tells maintainers when behavior changed, where a failure came from, which provider-backed run produced it, and whether an automated maintenance action is preserving the right signal.</p>
+  <p>That is a different maturity marker from a bigger context window or a new command. It is the work that begins after a system is useful enough to be painful when it fails.</p>
+  <p>The watch item for the next editions is whether this reliability layer keeps moving closer to everyday agent work. Today's evidence is still mostly in CI and issue automation. The bigger shift will be when the same traceability, eval discipline, and queue hygiene become ordinary product surfaces for people supervising long-running agents.</p>
+          <section class="reader-feedback"
+    data-tgr-feedback
+    data-article-slug="2026-05-25-daily-agent-reliability-is-moving-into-the-test-rig"
+    data-article-title="Agent Reliability Is Moving Into the Test Rig"
+    data-article-url="/articles/2026-05-25-daily-agent-reliability-is-moving-into-the-test-rig/"
+    data-edition-date="2026-05-25"
+    data-lane="Daily Edition"
+    data-tags="Memory,Tools,UX,Runtime"
+    data-repos="google-gemini/gemini-cli,langchain-ai/langchain">
+    <div class="reader-feedback-head">
+      <div>
+        <div class="eyebrow">Letters &amp; Corrections</div>
+        <h2>Send a note to the desk</h2>
+      </div>
+      <p>Corrections, missing context, or a follow-up lead.</p>
+    </div>
+    <form class="feedback-form">
+      <div class="feedback-votes" role="group" aria-label="Choose signal type">
+        <button class="feedback-choice" type="button" data-vote="follow-up" aria-pressed="false">
+          <span aria-hidden="true">+</span>
+          <span>Follow-up</span>
+        </button>
+        <button class="feedback-choice" type="button" data-vote="correction" aria-pressed="false">
+          <span aria-hidden="true">!</span>
+          <span>Correction</span>
+        </button>
+      </div>
+      <label class="feedback-comment">
+        <span>Note for the editor</span>
+        <textarea name="comment" rows="3" maxlength="320" placeholder="What did we miss, or what should we follow next?"></textarea>
+      </label>
+      <div class="feedback-submit-row">
+        <p class="feedback-status" aria-live="polite"></p>
+        <button class="paper-button primary feedback-submit" type="submit">Send to desk</button>
+      </div>
+    </form>
+  </section>
+        </article>
+        <aside class="side-panel">
+          <h2>Evidence</h2>
+          <div class="evidence-table">
+            <div class="evidence-line"><span>Date</span><span>May 25, 2026</span></div>
+            <div class="evidence-line"><span>Lane</span><span>Daily Edition</span></div>
+            <div class="evidence-line"><span>Confidence</span><span>78%</span></div>
+            <div class="evidence-line"><span>Sources</span><span>5</span></div>
+            <div class="evidence-line"><span>Repos</span><span>google-gemini/gemini-cli, langchain-ai/langchain</span></div>
+          </div>
+          <div class="actions">
+            <a class="paper-button primary" href="/evidence/2026-05-25-daily-agent-reliability-is-moving-into-the-test-rig/">View Evidence</a>
+            <a class="paper-button" href="/editions/2026-05-25/">Edition</a>
+          </div>
+          
+        </aside>
+      </section>
+    </main>
+    <footer class="wrap site-footer">
+      <span>&copy; 2026 The Git Reporter</span>
+      <a href="/atlas/">About</a>
+      <a href="/articles.json">Manifest JSON</a>
+      <a href="/repos/">Sources</a>
+    </footer>
+  </div>
+</body>
+</html>

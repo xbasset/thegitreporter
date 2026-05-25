@@ -1,0 +1,143 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Agent Runtimes Are Learning to Ship Their Control Plane | The Git Reporter</title>
+  <meta name="description" content="A set of Codex, Hermes Agent, Gemini CLI, and Crush commits shows agent tools packaging the machinery around the model: shells, platform adapters, context profiles, and skill catalogs.">
+  <link rel="icon" href="/assets/mark.svg">
+  <link rel="stylesheet" href="/assets/site.css?v=2026-05-23-engraver-draft-1">
+  <script defer src="/assets/feedback.js?v=2026-05-23-engraver-draft-1"></script>
+</head>
+<body>
+  <div class="site">
+    <header class="site-header" id="top">
+      <div class="wrap utility-row">
+        <a class="icon-link menu-icon" href="/archive/" aria-label="Open edition history"><span></span><span></span><span></span></a>
+        <a class="icon-link search-icon" href="/archive/" aria-label="Search edition history"></a>
+      </div>
+      <div class="wrap masthead-lockup">
+        <a class="masthead-title" href="/">THE GIT REPORTER</a>
+        <div class="masthead-ornament" aria-hidden="true"></div>
+      </div>
+      <div class="wrap nav-wrap">
+        <nav class="paper-nav" aria-label="Primary navigation">
+    <a class="" href="/">Today</a><a class="active" href="/archive/">Editions</a><a class="" href="/atlas/">Agent Atlas</a><a class="" href="/repos/">Repos</a>
+  </nav>
+        <div class="nav-rule"></div>
+      </div>
+    </header>
+    <main class="wrap page-shell">
+      <section class="page-hero story-front">
+        <div class="story-topline">
+          <span>Daily Edition</span>
+          <span>Sources <strong>+13</strong></span>
+        </div>
+        <h1>Agent Runtimes Are Learning to Ship Their Control Plane</h1>
+        <p class="summary">A set of Codex, Hermes Agent, Gemini CLI, and Crush commits shows agent tools packaging the machinery around the model: shells, platform adapters, context profiles, and skill catalogs.</p>
+        <figure class="story-illustration article-illustration">
+    <img src="/assets/illustrations/2026-05-23-control-plane-draft-v1.jpg" alt="Newspaper-style ink illustration of an open shipping case with tagged runtime parts, showing packaged shell, plugin, context, and skills components as inspectable records." loading="lazy" decoding="async">
+    <figcaption><span>Draft illustration</span>The Engraver draft: hidden runtime machinery as packaged, inspectable control-plane parts.</figcaption>
+  </figure>
+        <div class="receipt">
+    <div class="receipt-line">
+      <span class="receipt-icon">repo</span>
+      <span class="receipt-main">openai/codex</span>
+      <span class="branch-pill">main</span>
+    </div>
+    <div class="receipt-line receipt-muted">
+      <span>13 source signals</span>
+      <span>5 repos</span>
+      <span>c7bcb90</span>
+    </div>
+    <div class="commit-line">&gt; c7bcb90 / May 23, 2026 / Daily Edition</div>
+  </div>
+      </section>
+      <section class="story-layout">
+        <article class="story-shell story-body">
+          <p>The next generation of agent software is not only about the model sounding smarter. It is about whether the software around the model is stable enough for people to trust: which shell runs the work, how messages reach outside platforms, how long sessions preserve context, and how users discover what the agent can do.</p>
+  <p>That surrounding machinery is the control plane. It is the part of an agent system that turns a chat loop into a working environment. Recent changes in Codex, Hermes Agent, Gemini CLI, and Crush all point in the same direction: the hidden support layer is becoming something projects package, name, configure, and expose.</p>
+  <h2>Codex packages the shell it depends on</h2>
+  <p>In OpenAI's Codex repo, commit <a href="https://github.com/openai/codex/commit/c7bcb90f9b705f556ed0fb1bde13d836cbf71924"><code>c7bcb90f9</code></a> packages Codex's zsh fork as a runtime resource. The commit message says the package layout gives Codex a stable place for runtime helpers that should travel with the entrypoint, and the diff follows through by adding a checked-in DotSlash manifest at <a href="https://github.com/openai/codex/blob/c7bcb90f9b705f556ed0fb1bde13d836cbf71924/scripts/codex_package/codex-zsh"><code>scripts/codex_package/codex-zsh</code></a>.</p>
+  <p>That manifest points to platform-specific zsh artifacts, while <a href="https://github.com/openai/codex/blob/c7bcb90f9b705f556ed0fb1bde13d836cbf71924/codex-rs/install-context/src/lib.rs"><code>install-context/src/lib.rs</code></a> adds resource discovery for a bundled zsh path and its binary directory. The important product move is that the shell helper stops being a manual path knob and starts becoming part of the package contract.</p>
+  <p>For a coding agent, the shell is not background scenery. It is where commands run, tests fail, and files change. When Codex packages that dependency with the app, it is treating execution behavior as something the runtime owns.</p>
+  <h2>Hermes turns Discord into a plugin surface</h2>
+  <p>Hermes Agent shows the same pressure from a different direction. Commit <a href="https://github.com/NousResearch/hermes-agent/commit/cc8e5ec2afbfd10a3cff4e710210dd9ecae64a33"><code>cc8e5ec2</code></a> moves the Discord gateway adapter out of the old built-in platform path and into <a href="https://github.com/NousResearch/hermes-agent/blob/cc8e5ec2afbfd10a3cff4e710210dd9ecae64a33/plugins/platforms/discord/adapter.py"><code>plugins/platforms/discord/adapter.py</code></a>. The stat line is large because this is not a small wrapper: 42 files changed, with thousands of lines moving as the adapter gains a plugin home.</p>
+  <p>The new <a href="https://github.com/NousResearch/hermes-agent/blob/cc8e5ec2afbfd10a3cff4e710210dd9ecae64a33/plugins/platforms/discord/plugin.yaml"><code>plugin.yaml</code></a> declares the Discord platform's name, label, kind, version, description, and environment requirements. The adapter's registration block wires hooks for setup, connection checks, YAML configuration, standalone sending, lazy dependency checks, and message-length metadata.</p>
+  <p>The gateway runner also changes shape. In <a href="https://github.com/NousResearch/hermes-agent/blob/cc8e5ec2afbfd10a3cff4e710210dd9ecae64a33/gateway/run.py"><code>gateway/run.py</code></a>, adapter creation checks the platform registry first, then falls through to built-ins. That is the control-plane story: Discord is no longer only a branch in core gateway code. It is a platform capability with metadata and hooks.</p>
+  <h2>Gemini makes context policy a profile</h2>
+  <p>Gemini CLI's May 22 context change, <a href="https://github.com/google-gemini/gemini-cli/commit/e6f92d66f67e721a8b9e191a19f714bfc2f98524"><code>e6f92d66f</code></a>, is less about external connectors and more about the agent's memory pressure. The diff adds and reshapes context-management code, including <a href="https://github.com/google-gemini/gemini-cli/blob/e6f92d66f67e721a8b9e191a19f714bfc2f98524/packages/core/src/context/config/profiles.ts"><code>packages/core/src/context/config/profiles.ts</code></a>.</p>
+  <p>That file defines named profiles such as a default generalist profile, a stress-test profile, and an experimental power-user profile. The power-user profile uses retained, normalized, and archived token budgets, an incremental garbage-collection strategy, named stages such as "Immediate Sanitization," "Normalization," "Archiving," and "Emergency Backstop," plus an async background garbage-collection path.</p>
+  <p>The configuration reference also exposes <a href="https://github.com/google-gemini/gemini-cli/blob/e6f92d66f67e721a8b9e191a19f714bfc2f98524/docs/reference/configuration.md"><code>experimental.powerUserProfile</code></a>. That matters because context handling is where agent sessions often become mysterious. Gemini is treating context policy as a configurable runtime mode rather than an invisible cleanup routine.</p>
+  <h2>Crush makes skills visible metadata</h2>
+  <p>Crush adds the user-facing side of the pattern. Commit <a href="https://github.com/charmbracelet/crush/commit/55721653ceb67f04abd53c278ade01d05043bf7d"><code>55721653</code></a> adds descriptions to the skill picker and changes how attachments are used. The core evidence is <a href="https://github.com/charmbracelet/crush/blob/55721653ceb67f04abd53c278ade01d05043bf7d/internal/skills/catalog.go"><code>internal/skills/catalog.go</code></a>, which defines catalog entries with an ID, name, description, label, and source.</p>
+  <p>That source can be system, user, or project. The same file adds functions for building the visible catalog, finding the effective skill, and reading a skill's content with metadata. The protocol layer backs this up: <a href="https://github.com/charmbracelet/crush/blob/55721653ceb67f04abd53c278ade01d05043bf7d/internal/proto/proto.go"><code>internal/proto/proto.go</code></a> defines skill info and skill-read request and response shapes.</p>
+  <p>Skills are a powerful abstraction only when users can see what they are choosing. Crush's change moves skills toward an inspectable catalog instead of a pile of files that the agent happens to know how to load.</p>
+  <h2>The shared move is operational</h2>
+  <p>None of these commits proves a shared standard. The projects are independent, and each one is solving a different product problem. The pattern is narrower and more useful: agent runtimes are turning their support machinery into things that can be shipped, named, selected, and inspected.</p>
+  <p>That is where practical trust in agents will increasingly live. Does the app know which shell it is using? Can a platform adapter explain its setup and environment requirements? Can context policy be named and tested? Can skills be discovered by source and description? Can the frontend ask for the content behind a capability?</p>
+  <p>The model may still get the headline, but the control plane is where the work becomes reliable. These commits show that layer becoming less hidden, one runtime surface at a time.</p>
+          <section class="reader-feedback"
+    data-tgr-feedback
+    data-article-slug="2026-05-23-daily-agent-runtimes-are-learning-to-ship-their-control-plane"
+    data-article-title="Agent Runtimes Are Learning to Ship Their Control Plane"
+    data-article-url="/articles/2026-05-23-daily-agent-runtimes-are-learning-to-ship-their-control-plane/"
+    data-edition-date="2026-05-23"
+    data-lane="Daily Edition"
+    data-tags="Memory,Tools,Runtime"
+    data-repos="openai/codex,google-gemini/gemini-cli,charmbracelet/crush,langchain-ai/langchain,NousResearch/hermes-agent">
+    <div class="reader-feedback-head">
+      <div>
+        <div class="eyebrow">Letters &amp; Corrections</div>
+        <h2>Send a note to the desk</h2>
+      </div>
+      <p>Corrections, missing context, or a follow-up lead.</p>
+    </div>
+    <form class="feedback-form">
+      <div class="feedback-votes" role="group" aria-label="Choose signal type">
+        <button class="feedback-choice" type="button" data-vote="follow-up" aria-pressed="false">
+          <span aria-hidden="true">+</span>
+          <span>Follow-up</span>
+        </button>
+        <button class="feedback-choice" type="button" data-vote="correction" aria-pressed="false">
+          <span aria-hidden="true">!</span>
+          <span>Correction</span>
+        </button>
+      </div>
+      <label class="feedback-comment">
+        <span>Note for the editor</span>
+        <textarea name="comment" rows="3" maxlength="320" placeholder="What did we miss, or what should we follow next?"></textarea>
+      </label>
+      <div class="feedback-submit-row">
+        <p class="feedback-status" aria-live="polite"></p>
+        <button class="paper-button primary feedback-submit" type="submit">Send to desk</button>
+      </div>
+    </form>
+  </section>
+        </article>
+        <aside class="side-panel">
+          <h2>Evidence</h2>
+          <div class="evidence-table">
+            <div class="evidence-line"><span>Date</span><span>May 23, 2026</span></div>
+            <div class="evidence-line"><span>Lane</span><span>Daily Edition</span></div>
+            <div class="evidence-line"><span>Confidence</span><span>91%</span></div>
+            <div class="evidence-line"><span>Sources</span><span>13</span></div>
+            <div class="evidence-line"><span>Repos</span><span>openai/codex, google-gemini/gemini-cli, charmbracelet/crush, langchain-ai/langchain, NousResearch/hermes-agent</span></div>
+          </div>
+          <div class="actions">
+            <a class="paper-button primary" href="/evidence/2026-05-23-daily-agent-runtimes-are-learning-to-ship-their-control-plane/">View Evidence</a>
+            <a class="paper-button" href="/editions/2026-05-23/">Edition</a>
+          </div>
+          
+        </aside>
+      </section>
+    </main>
+    <footer class="wrap site-footer">
+      <span>&copy; 2026 The Git Reporter</span>
+      <a href="/atlas/">About</a>
+      <a href="/articles.json">Manifest JSON</a>
+      <a href="/repos/">Sources</a>
+    </footer>
+  </div>
+</body>
+</html>
