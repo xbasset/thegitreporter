@@ -6,8 +6,8 @@
   <title>Agent UI Is Becoming the Control Room | The Git Reporter</title>
   <meta name="description" content="Fresh commits in Codex, Hermes, and Gemini CLI point to a practical agent shift: the human interface is turning into the place where long-running work gets linked, stopped, switched, and steered.">
   <link rel="icon" href="/assets/mark.svg">
-  <link rel="stylesheet" href="/assets/site.css?v=2026-05-23-engraver-draft-1">
-  <script defer src="/assets/feedback.js?v=2026-05-23-engraver-draft-1"></script>
+  <link rel="stylesheet" href="/assets/site.css?v=2026-05-29-article-evidence-unified-1">
+  <script defer src="/assets/feedback.js?v=2026-05-29-article-evidence-unified-1"></script>
 </head>
 <body>
   <div class="site">
@@ -27,7 +27,7 @@
         <div class="nav-rule"></div>
       </div>
     </header>
-    <main class="wrap page-shell">
+    <main class="wrap page-shell article-page">
       <section class="page-hero story-front">
         <div class="story-topline">
           <span>Daily Edition</span>
@@ -52,8 +52,12 @@
     </div>
     <div class="commit-line">&gt; 4535452 / May 28, 2026 / Daily Edition</div>
   </div>
+        <div class="article-route-row">
+          <a href="/editions/2026-05-28/">Open Edition</a>
+          <a href="#evidence">Evidence below</a>
+        </div>
       </section>
-      <section class="story-layout">
+      <section class="story-reader">
         <article class="story-shell story-body">
           <p>The agent interface used to be easy to underestimate. A prompt went in, a response came out, and the surrounding terminal or app looked like presentation. The newest source trail says that surface is becoming something more operational: a control room for supervising work that can run, branch, ask, stream, and fail.</p>
   <p>That continues the thread from <a href="/articles/2026-05-27-daily-agent-context-becomes-runtime-state/">yesterday's edition</a>, which followed context becoming runtime state. Today moves the question outward. If the runtime is carrying more state, then the user interface needs better handles for seeing it, clicking through it, interrupting it, and moving between live streams of work.</p>
@@ -76,7 +80,71 @@
   <p>None of these commits prove coordination. They do not define a shared agent UI standard. They are independent changes in separate projects. But they point to the same pressure: as agent runtimes become more capable, the human-facing surface has to become more than a chat window with logs.</p>
   <p>The interface needs handles. Links have to stay attached to evidence. Interruptions have to clean up real work. Sessions have to be visible and switchable. Keyboard semantics have to respect the people who live in terminals all day.</p>
   <p>That is why the agent UI is starting to look like the control room. Not because it controls everything yet, but because supervision is becoming the job. The next thing to watch is whether these handles move from isolated commits into a common expectation: every serious agent tool should show what it is doing, let the operator move between workstreams, and stop work without leaving the room in a mess.</p>
-          <section class="reader-feedback"
+        </article>
+      </section>
+      <section class="evidence-section" id="evidence" aria-labelledby="evidence-title">
+    <div class="evidence-head">
+      <div>
+        <div class="eyebrow">Evidence Trail</div>
+        <h2 id="evidence-title">Receipts below the story</h2>
+        <p>The article above is the public narrative. This section keeps the source trail, limits, and reporting notes on the same page.</p>
+      </div>
+      <a class="paper-button" href="/editions/2026-05-28/">Edition</a>
+    </div>
+    <div class="evidence-table evidence-summary">
+      <div class="evidence-line"><span>Date</span><span>May 28, 2026</span></div>
+      <div class="evidence-line"><span>Lane</span><span>Daily Edition</span></div>
+      <div class="evidence-line"><span>Confidence</span><span>78%</span></div>
+      <div class="evidence-line"><span>Sources</span><span>5</span></div>
+      <div class="evidence-line"><span>Repos</span><span>openai/codex, google-gemini/gemini-cli, NousResearch/hermes-agent</span></div>
+    </div>
+    <div class="markdown evidence-copy evidence-copy-block"><h3>Reporter Notes</h3><h1>Notes</h1>
+<h2>Reporting Notes</h2>
+<p>The strongest story today is not &quot;agent tools got nicer UIs.&quot; The source-grounded version is more specific: supervision now needs handles. Codex adds link handles in terminal output and interruption cleanup handles in the shell runtime. Hermes adds session handles. Gemini CLI removes one class of accidental normal-mode key leakage while keeping modifier shortcuts available.</p>
+<p>This is a natural continuation of the runtime-state sequence but should read more human than infrastructure-heavy. The reader-facing point is that an operator needs to click evidence, stop work, switch between live threads, and trust keyboard behavior before long-running agents feel controllable.</p>
+<h2>Claim Boundaries</h2>
+<ul>
+<li>Do not say these projects coordinated.</li>
+<li>Do not say this is a standard.</li>
+<li>Do not say the OSC 8 work makes every terminal link clickable; the commit specifically depends on terminals that support OSC 8 links.</li>
+<li>Do not overstate the Gemini CLI fix. It is a targeted input-handling improvement.</li>
+<li>Do not turn interruption cleanup into a general safety guarantee. The commit addresses a specific shell-command cancellation race and cleanup path.</li>
+</ul>
+<h2>Illustration Notes</h2>
+<p>Diagram Punk hook: &quot;THE AGENT UI IS BECOMING THE CONTROL ROOM.&quot;</p>
+<p>Evidence cards:</p>
+<ul>
+<li>openai/codex #24472 OSC 8 links.</li>
+<li>openai/codex #22729 interruption cleanup.</li>
+<li>NousResearch/hermes-agent TUI session orchestrator.</li>
+<li>google-gemini/gemini-cli #27102 Vim key passthrough.</li>
+</ul>
+<p>Caveat: &quot;INDEPENDENT COMMITS, NOT A STANDARD.&quot;</p></div>
+    <div class="markdown evidence-copy evidence-copy-block">
+      <h2>Primary Evidence</h2>
+<ul>
+<li>OpenAI Codex commit &quot;feat(tui): add OSC 8 web links to rich content (#24472)&quot;: <a href="https://github.com/openai/codex/commit/7a26497836be29ec77fb8007347b33cad952b497">https://github.com/openai/codex/commit/7a26497836be29ec77fb8007347b33cad952b497</a></li>
+<li>Evidence used: adds OSC 8 web-link support for rich TUI output, validates web destinations, preserves complete URL targets through wrapping and replay paths, and routes Codex-owned notices/help surfaces through shared hyperlink handling.</li>
+<li>OpenAI Codex issue context referenced by the OSC 8 commit: <a href="https://github.com/openai/codex/issues/12200#issuecomment-4535452980">https://github.com/openai/codex/issues/12200#issuecomment-4535452980</a></li>
+<li>Evidence used: public context for the semantic-link problem that the OSC 8 commit says it addresses.</li>
+<li>OpenAI Codex commit &quot;fix(linux-sandbox): preserve shell cleanup on interruption (#22729)&quot;: <a href="https://github.com/openai/codex/commit/9152ebd289f2d9103ffc41c2fec69f6c623a6eab">https://github.com/openai/codex/commit/9152ebd289f2d9103ffc41c2fec69f6c623a6eab</a></li>
+<li>Evidence used: changes shell-command cancellation so interrupted Linux sandbox work can run cleanup before hard termination, and adds regression coverage around cleanup-on-cancellation behavior.</li>
+<li>NousResearch Hermes Agent commit &quot;feat: add TUI session orchestrator&quot;: <a href="https://github.com/NousResearch/hermes-agent/commit/0a83247e9fa6fc0d94ebbd05626b666c520c3d43">https://github.com/NousResearch/hermes-agent/commit/0a83247e9fa6fc0d94ebbd05626b666c520c3d43</a></li>
+<li>Evidence used: adds a TUI active-session orchestrator that can list, activate, close, and launch live sessions, hydrate committed and in-flight output, and expose a clickable live-session count.</li>
+<li>Google Gemini CLI commit &quot;fix(cli): ignore unmapped vim normal keys (#27102)&quot;: <a href="https://github.com/google-gemini/gemini-cli/commit/5cac7c10fa9ff34e99553057631727c95c1e99f8">https://github.com/google-gemini/gemini-cli/commit/5cac7c10fa9ff34e99553057631727c95c1e99f8</a></li>
+<li>Evidence used: adjusts Vim normal-mode input handling so unmapped printable keys are consumed while modifier chords can still fall through, with regression tests for several keys.</li>
+</ul>
+<h2>Evidence Limits</h2>
+<ul>
+<li>These sources show independent project changes; they do not prove coordination, a shared UI standard, or equivalent implementation choices.</li>
+<li>The evidence supports a pattern in agent supervision interfaces, not a claim that any one product has fully solved long-running agent oversight.</li>
+<li>The Hermes source shows a project-specific TUI session orchestrator, not broad availability across all Hermes deployments.</li>
+<li>The Gemini CLI source is a narrow keyboard-handling fix. It is used as a small supporting signal, not as proof of a large UI redesign.</li>
+</ul>
+    </div>
+    
+  </section>
+      <section class="reader-feedback"
     data-tgr-feedback
     data-article-slug="2026-05-28-daily-agent-ui-is-becoming-the-control-room"
     data-article-title="Agent UI Is Becoming the Control Room"
@@ -113,23 +181,7 @@
       </div>
     </form>
   </section>
-        </article>
-        <aside class="side-panel">
-          <h2>Evidence</h2>
-          <div class="evidence-table">
-            <div class="evidence-line"><span>Date</span><span>May 28, 2026</span></div>
-            <div class="evidence-line"><span>Lane</span><span>Daily Edition</span></div>
-            <div class="evidence-line"><span>Confidence</span><span>78%</span></div>
-            <div class="evidence-line"><span>Sources</span><span>5</span></div>
-            <div class="evidence-line"><span>Repos</span><span>openai/codex, google-gemini/gemini-cli, NousResearch/hermes-agent</span></div>
-          </div>
-          <div class="actions">
-            <a class="paper-button primary" href="/evidence/2026-05-28-daily-agent-ui-is-becoming-the-control-room/">View Evidence</a>
-            <a class="paper-button" href="/editions/2026-05-28/">Edition</a>
-          </div>
-          
-        </aside>
-      </section>
+      
     </main>
     <footer class="wrap site-footer">
       <span>&copy; 2026 The Git Reporter</span>

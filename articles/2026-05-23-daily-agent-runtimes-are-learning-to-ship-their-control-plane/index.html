@@ -6,8 +6,8 @@
   <title>Agent Runtimes Are Learning to Ship Their Control Plane | The Git Reporter</title>
   <meta name="description" content="A set of Codex, Hermes Agent, Gemini CLI, and Crush commits shows agent tools packaging the machinery around the model: shells, platform adapters, context profiles, and skill catalogs.">
   <link rel="icon" href="/assets/mark.svg">
-  <link rel="stylesheet" href="/assets/site.css?v=2026-05-23-engraver-draft-1">
-  <script defer src="/assets/feedback.js?v=2026-05-23-engraver-draft-1"></script>
+  <link rel="stylesheet" href="/assets/site.css?v=2026-05-29-article-evidence-unified-1">
+  <script defer src="/assets/feedback.js?v=2026-05-29-article-evidence-unified-1"></script>
 </head>
 <body>
   <div class="site">
@@ -27,7 +27,7 @@
         <div class="nav-rule"></div>
       </div>
     </header>
-    <main class="wrap page-shell">
+    <main class="wrap page-shell article-page">
       <section class="page-hero story-front">
         <div class="story-topline">
           <span>Daily Edition</span>
@@ -52,8 +52,12 @@
     </div>
     <div class="commit-line">&gt; c7bcb90 / May 23, 2026 / Daily Edition</div>
   </div>
+        <div class="article-route-row">
+          <a href="/editions/2026-05-23/">Open Edition</a>
+          <a href="#evidence">Evidence below</a>
+        </div>
       </section>
-      <section class="story-layout">
+      <section class="story-reader">
         <article class="story-shell story-body">
           <p>The next generation of agent software is not only about the model sounding smarter. It is about whether the software around the model is stable enough for people to trust: which shell runs the work, how messages reach outside platforms, how long sessions preserve context, and how users discover what the agent can do.</p>
   <p>That surrounding machinery is the control plane. It is the part of an agent system that turns a chat loop into a working environment. Recent changes in Codex, Hermes Agent, Gemini CLI, and Crush all point in the same direction: the hidden support layer is becoming something projects package, name, configure, and expose.</p>
@@ -77,7 +81,136 @@
   <p>None of these commits proves a shared standard. The projects are independent, and each one is solving a different product problem. The pattern is narrower and more useful: agent runtimes are turning their support machinery into things that can be shipped, named, selected, and inspected.</p>
   <p>That is where practical trust in agents will increasingly live. Does the app know which shell it is using? Can a platform adapter explain its setup and environment requirements? Can context policy be named and tested? Can skills be discovered by source and description? Can the frontend ask for the content behind a capability?</p>
   <p>The model may still get the headline, but the control plane is where the work becomes reliable. These commits show that layer becoming less hidden, one runtime surface at a time.</p>
-          <section class="reader-feedback"
+        </article>
+      </section>
+      <section class="evidence-section" id="evidence" aria-labelledby="evidence-title">
+    <div class="evidence-head">
+      <div>
+        <div class="eyebrow">Evidence Trail</div>
+        <h2 id="evidence-title">Receipts below the story</h2>
+        <p>The article above is the public narrative. This section keeps the source trail, limits, and reporting notes on the same page.</p>
+      </div>
+      <a class="paper-button" href="/editions/2026-05-23/">Edition</a>
+    </div>
+    <div class="evidence-table evidence-summary">
+      <div class="evidence-line"><span>Date</span><span>May 23, 2026</span></div>
+      <div class="evidence-line"><span>Lane</span><span>Daily Edition</span></div>
+      <div class="evidence-line"><span>Confidence</span><span>91%</span></div>
+      <div class="evidence-line"><span>Sources</span><span>13</span></div>
+      <div class="evidence-line"><span>Repos</span><span>openai/codex, google-gemini/gemini-cli, charmbracelet/crush, langchain-ai/langchain, NousResearch/hermes-agent</span></div>
+    </div>
+    <div class="markdown evidence-copy evidence-copy-block"><h3>Reporter Notes</h3><p>The common mechanism across the primary evidence is not &quot;more agent features.&quot;</p>
+<p>It is the conversion of runtime support systems into productized surfaces:</p>
+<ul>
+<li>Codex: the shell fork becomes a package-managed runtime resource, not a</li>
+</ul>
+<p>  user-supplied path knob.</p>
+<ul>
+<li>Hermes: a platform adapter becomes a plugin with metadata, hooks, and</li>
+</ul>
+<p>  registry creation.</p>
+<ul>
+<li>Gemini CLI: context retention and garbage collection become named profiles</li>
+</ul>
+<p>  and pipelines behind an experimental config flag.</p>
+<ul>
+<li>Crush: skills become catalog entries and protocol payloads that a frontend</li>
+</ul>
+<p>  can display and read.</p>
+<p>The strongest sentence for readers: the agent's control plane is becoming a</p>
+<p>thing users can inspect and builders can ship.</p>
+<p>The phrasing should avoid implying that these projects share an API or release</p>
+<p>plan. They do not. The evidence supports convergent pressure: each repo is</p>
+<p>making its runtime layer less implicit.</p></div>
+    <div class="markdown evidence-copy evidence-copy-block">
+      <h2>Primary Evidence</h2>
+<ul>
+<li>Hermes Agent commit migrating the Discord gateway adapter into a bundled</li>
+</ul>
+<p>  platform plugin:</p>
+<p>  <a href="https://github.com/NousResearch/hermes-agent/commit/cc8e5ec2afbfd10a3cff4e710210dd9ecae64a33">https://github.com/NousResearch/hermes-agent/commit/cc8e5ec2afbfd10a3cff4e710210dd9ecae64a33</a></p>
+<ul>
+<li>Hermes Agent <code>plugin.yaml</code> declaring the Discord plugin's metadata and</li>
+</ul>
+<p>  required/optional environment variables:</p>
+<p>  <a href="https://github.com/NousResearch/hermes-agent/blob/cc8e5ec2afbfd10a3cff4e710210dd9ecae64a33/plugins/platforms/discord/plugin.yaml">https://github.com/NousResearch/hermes-agent/blob/cc8e5ec2afbfd10a3cff4e710210dd9ecae64a33/plugins/platforms/discord/plugin.yaml</a></p>
+<ul>
+<li>Hermes Agent Discord adapter showing the <code>register(ctx)</code> hook and plugin</li>
+</ul>
+<p>  registration callbacks:</p>
+<p>  <a href="https://github.com/NousResearch/hermes-agent/blob/cc8e5ec2afbfd10a3cff4e710210dd9ecae64a33/plugins/platforms/discord/adapter.py">https://github.com/NousResearch/hermes-agent/blob/cc8e5ec2afbfd10a3cff4e710210dd9ecae64a33/plugins/platforms/discord/adapter.py</a></p>
+<ul>
+<li>Hermes Agent gateway runner code that checks the platform registry before</li>
+</ul>
+<p>  falling through to built-in adapters:</p>
+<p>  <a href="https://github.com/NousResearch/hermes-agent/blob/cc8e5ec2afbfd10a3cff4e710210dd9ecae64a33/gateway/run.py">https://github.com/NousResearch/hermes-agent/blob/cc8e5ec2afbfd10a3cff4e710210dd9ecae64a33/gateway/run.py</a></p>
+<ul>
+<li>Codex commit packaging the zsh fork with the Codex package:</li>
+</ul>
+<p>  <a href="https://github.com/openai/codex/commit/c7bcb90f9b705f556ed0fb1bde13d836cbf71924">https://github.com/openai/codex/commit/c7bcb90f9b705f556ed0fb1bde13d836cbf71924</a></p>
+<ul>
+<li>Codex DotSlash manifest for the bundled zsh resource:</li>
+</ul>
+<p>  <a href="https://github.com/openai/codex/blob/c7bcb90f9b705f556ed0fb1bde13d836cbf71924/scripts/codex_package/codex-zsh">https://github.com/openai/codex/blob/c7bcb90f9b705f556ed0fb1bde13d836cbf71924/scripts/codex_package/codex-zsh</a></p>
+<ul>
+<li>Codex install-context code exposing bundled zsh resource discovery:</li>
+</ul>
+<p>  <a href="https://github.com/openai/codex/blob/c7bcb90f9b705f556ed0fb1bde13d836cbf71924/codex-rs/install-context/src/lib.rs">https://github.com/openai/codex/blob/c7bcb90f9b705f556ed0fb1bde13d836cbf71924/codex-rs/install-context/src/lib.rs</a></p>
+<ul>
+<li>Gemini CLI commit completing the context simplification work:</li>
+</ul>
+<p>  <a href="https://github.com/google-gemini/gemini-cli/commit/e6f92d66f67e721a8b9e191a19f714bfc2f98524">https://github.com/google-gemini/gemini-cli/commit/e6f92d66f67e721a8b9e191a19f714bfc2f98524</a></p>
+<ul>
+<li>Gemini CLI context profile implementation, including the experimental power</li>
+</ul>
+<p>  user profile:</p>
+<p>  <a href="https://github.com/google-gemini/gemini-cli/blob/e6f92d66f67e721a8b9e191a19f714bfc2f98524/packages/core/src/context/config/profiles.ts">https://github.com/google-gemini/gemini-cli/blob/e6f92d66f67e721a8b9e191a19f714bfc2f98524/packages/core/src/context/config/profiles.ts</a></p>
+<ul>
+<li>Gemini CLI configuration reference listing <code>experimental.powerUserProfile</code>:</li>
+</ul>
+<p>  <a href="https://github.com/google-gemini/gemini-cli/blob/e6f92d66f67e721a8b9e191a19f714bfc2f98524/docs/reference/configuration.md">https://github.com/google-gemini/gemini-cli/blob/e6f92d66f67e721a8b9e191a19f714bfc2f98524/docs/reference/configuration.md</a></p>
+<ul>
+<li>Crush commit adding descriptions to the skill picker and attachment handling:</li>
+</ul>
+<p>  <a href="https://github.com/charmbracelet/crush/commit/55721653ceb67f04abd53c278ade01d05043bf7d">https://github.com/charmbracelet/crush/commit/55721653ceb67f04abd53c278ade01d05043bf7d</a></p>
+<ul>
+<li>Crush skill catalog implementation with visible skill metadata and source</li>
+</ul>
+<p>  labels:</p>
+<p>  <a href="https://github.com/charmbracelet/crush/blob/55721653ceb67f04abd53c278ade01d05043bf7d/internal/skills/catalog.go">https://github.com/charmbracelet/crush/blob/55721653ceb67f04abd53c278ade01d05043bf7d/internal/skills/catalog.go</a></p>
+<ul>
+<li>Crush protocol definitions for frontend skill metadata and skill reads:</li>
+</ul>
+<p>  <a href="https://github.com/charmbracelet/crush/blob/55721653ceb67f04abd53c278ade01d05043bf7d/internal/proto/proto.go">https://github.com/charmbracelet/crush/blob/55721653ceb67f04abd53c278ade01d05043bf7d/internal/proto/proto.go</a></p>
+<h2>Evidence Limits</h2>
+<ul>
+<li>This article treats the commits as a pattern, not as proof of a shared</li>
+</ul>
+<p>  standard or coordinated roadmap.</p>
+<ul>
+<li>Hermes <code>cc8e5ec2</code> was authored earlier than this edition window but was</li>
+</ul>
+<p>  committed inside it.</p>
+<ul>
+<li>LangChain had readable updates in the same edition window but was not used as</li>
+</ul>
+<p>  primary evidence because the inspected commits did not add a clear mechanism</p>
+<p>  to this specific control-plane story.</p>
+    </div>
+    <div class="markdown evidence-copy evidence-copy-block"><h3>Open Questions</h3><ul>
+<li>Will these runtime surfaces become compatible standards, or stay project</li>
+</ul>
+<p>  specific?</p>
+<ul>
+<li>Which pieces of the control plane need user-facing UI, and which should stay</li>
+</ul>
+<p>  as internal package or protocol boundaries?</p>
+<ul>
+<li>Does packaged runtime behavior reduce configuration mistakes, or does it make</li>
+</ul>
+<p>  debugging harder when the bundled helper is wrong?</p></div>
+  </section>
+      <section class="reader-feedback"
     data-tgr-feedback
     data-article-slug="2026-05-23-daily-agent-runtimes-are-learning-to-ship-their-control-plane"
     data-article-title="Agent Runtimes Are Learning to Ship Their Control Plane"
@@ -114,23 +247,7 @@
       </div>
     </form>
   </section>
-        </article>
-        <aside class="side-panel">
-          <h2>Evidence</h2>
-          <div class="evidence-table">
-            <div class="evidence-line"><span>Date</span><span>May 23, 2026</span></div>
-            <div class="evidence-line"><span>Lane</span><span>Daily Edition</span></div>
-            <div class="evidence-line"><span>Confidence</span><span>91%</span></div>
-            <div class="evidence-line"><span>Sources</span><span>13</span></div>
-            <div class="evidence-line"><span>Repos</span><span>openai/codex, google-gemini/gemini-cli, charmbracelet/crush, langchain-ai/langchain, NousResearch/hermes-agent</span></div>
-          </div>
-          <div class="actions">
-            <a class="paper-button primary" href="/evidence/2026-05-23-daily-agent-runtimes-are-learning-to-ship-their-control-plane/">View Evidence</a>
-            <a class="paper-button" href="/editions/2026-05-23/">Edition</a>
-          </div>
-          
-        </aside>
-      </section>
+      
     </main>
     <footer class="wrap site-footer">
       <span>&copy; 2026 The Git Reporter</span>

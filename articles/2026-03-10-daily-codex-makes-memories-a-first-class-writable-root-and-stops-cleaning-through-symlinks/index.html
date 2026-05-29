@@ -6,8 +6,8 @@
   <title>Codex Makes Memories a First-Class Writable Root—and Stops Cleaning Through Symlinks | The Git Reporter</title>
   <meta name="description" content="Codex just turned its “memories” folder from a side alley into a well-lit main road. And it put a lock on the janitor’s closet so cleanup can’t accidentally bulldoze someone else’s house. Th...">
   <link rel="icon" href="/assets/mark.svg">
-  <link rel="stylesheet" href="/assets/site.css?v=2026-05-23-engraver-draft-1">
-  <script defer src="/assets/feedback.js?v=2026-05-23-engraver-draft-1"></script>
+  <link rel="stylesheet" href="/assets/site.css?v=2026-05-29-article-evidence-unified-1">
+  <script defer src="/assets/feedback.js?v=2026-05-29-article-evidence-unified-1"></script>
 </head>
 <body>
   <div class="site">
@@ -27,7 +27,7 @@
         <div class="nav-rule"></div>
       </div>
     </header>
-    <main class="wrap page-shell">
+    <main class="wrap page-shell article-page">
       <section class="page-hero story-front">
         <div class="story-topline">
           <span>Daily Edition</span>
@@ -49,8 +49,12 @@
     </div>
     <div class="commit-line">&gt; f72ab43 / March 10, 2026 / Daily Edition</div>
   </div>
+        <div class="article-route-row">
+          <a href="/editions/2026-03-10/">Open Edition</a>
+          <a href="#evidence">Evidence below</a>
+        </div>
       </section>
-      <section class="story-layout">
+      <section class="story-reader">
         <article class="story-shell story-body">
           <p>
       Codex just turned its “memories” folder from a side alley into a well-lit main road.
@@ -98,7 +102,116 @@
       <li>Git commit f72ab43fd193 (codex repo)</li>
       <li>PR https://github.com/openai/codex/pull/13467</li>
     </ul>
-          <section class="reader-feedback"
+        </article>
+      </section>
+      <section class="evidence-section" id="evidence" aria-labelledby="evidence-title">
+    <div class="evidence-head">
+      <div>
+        <div class="eyebrow">Evidence Trail</div>
+        <h2 id="evidence-title">Receipts below the story</h2>
+        <p>The article above is the public narrative. This section keeps the source trail, limits, and reporting notes on the same page.</p>
+      </div>
+      <a class="paper-button" href="/editions/2026-03-10/">Edition</a>
+    </div>
+    <div class="evidence-table evidence-summary">
+      <div class="evidence-line"><span>Date</span><span>March 10, 2026</span></div>
+      <div class="evidence-line"><span>Lane</span><span>Daily Edition</span></div>
+      <div class="evidence-line"><span>Confidence</span><span>68%</span></div>
+      <div class="evidence-line"><span>Sources</span><span>2</span></div>
+      <div class="evidence-line"><span>Repos</span><span>openai/codex</span></div>
+    </div>
+    <div class="markdown evidence-copy evidence-copy-block"><h3>Reporter Notes</h3><h1>Notes</h1>
+<h2>Insight</h2>
+<p>Codex’s workspace-write sandbox now explicitly whitelists <code>~/.codex/memories</code>, making memory upkeep a first-class writable path. The cleanup path is hardened with <code>clear_memory_root_contents()</code> to avoid deleting symlink targets and to preserve the root directory itself.</p>
+<h2>Why it matters</h2>
+<ul>
+<li>Reduces friction: memory maintenance no longer trips extra approvals in workspace-write mode.</li>
+<li>Safer cleanup: prevents destructive behavior when memory roots are symlinked.</li>
+<li>Codifies expectations with tests and README guidance.</li>
+</ul>
+<h2>Files touched (high signal)</h2>
+<ul>
+<li>codex-rs/README.md</li>
+<li>codex-rs/core/src/config/mod.rs</li>
+<li>codex-rs/core/src/memories/control.rs</li>
+<li>codex-rs/core/src/memories/tests.rs</li>
+</ul>
+<h2>Draft title</h2>
+<p>Codex Makes Memories a First-Class Writable Root—and Stops Cleaning Through Symlinks</p></div>
+    <div class="markdown evidence-copy evidence-copy-block">
+      <h1>Sources</h1>
+<h2>Git</h2>
+<h3>Commit: f72ab43fd193 (openai/codex)</h3>
+<pre><code>
+commit f72ab43fd193b31208cd3c306293b1b71a52a709
+Author: jif-oai &lt;jif@openai.com&gt;
+Date:   Wed Mar 4 13:00:26 2026 +0000
+
+    feat: memories in workspace write (#13467)
+
+--- codex-rs/README.md
++In `workspace-write`, Codex also includes `~/.codex/memories` in its writable roots so memory maintenance does not require an extra approval.
+
+--- codex-rs/core/src/config/mod.rs
++        if let SandboxPolicy::WorkspaceWrite { writable_roots, .. } = &amp;mut sandbox_policy {
++            let memories_root = memory_root(&amp;codex_home);
++            std::fs::create_dir_all(&amp;memories_root)?;
++            let memories_root = AbsolutePathBuf::from_absolute_path(&amp;memories_root)?;
++            if !writable_roots
++                .iter()
++                .any(|existing| existing == &amp;memories_root)
++            {
++                writable_roots.push(memories_root);
++            }
++            for path in additional_writable_roots {
++                if !writable_roots.iter().any(|existing| existing == &amp;path) {
++                    writable_roots.push(path);
++                }
++            }
++        }
+
+--- codex-rs/core/src/memories/control.rs
++pub(crate) async fn clear_memory_root_contents(memory_root: &amp;Path) -&gt; std::io::Result&lt;()&gt; {
++    match tokio::fs::symlink_metadata(memory_root).await {
++        Ok(metadata) if metadata.file_type().is_symlink() =&gt; {
++            return Err(std::io::Error::new(
++                std::io::ErrorKind::InvalidInput,
++                format!(&quot;refusing to clear symlinked memory root {}&quot;, memory_root.display()),
++            ));
++        }
++        Ok(_) =&gt; {}
++        Err(err) if err.kind() == std::io::ErrorKind::NotFound =&gt; {}
++        Err(err) =&gt; return Err(err),
++    }
++
++    tokio::fs::create_dir_all(memory_root).await?;
++
++    let mut entries = tokio::fs::read_dir(memory_root).await?;
++    while let Some(entry) = entries.next_entry().await? {
++        let path = entry.path();
++        let file_type = entry.file_type().await?;
++        if file_type.is_dir() {
++            tokio::fs::remove_dir_all(path).await?;
++        } else {
++            tokio::fs::remove_file(path).await?;
++        }
++    }
++
++    Ok(())
++}
+</code></pre>
+<h2>GitHub</h2>
+<pre><code>
+{&quot;author&quot;:{&quot;id&quot;:&quot;U_kgDODbXvPg&quot;,&quot;is_bot&quot;:false,&quot;login&quot;:&quot;jif-oai&quot;,&quot;name&quot;:&quot;&quot;},&quot;mergedAt&quot;:&quot;2026-03-04T13:00:26Z&quot;,&quot;number&quot;:13467,&quot;title&quot;:&quot;feat: memories in workspace write&quot;,&quot;url&quot;:&quot;https://github.com/openai/codex/pull/13467&quot;}
+</code></pre>
+<h2>gsio</h2>
+<pre><code>
+1   openai/codex  f72ab43fd193  2026-03-05   0.673  63%       100%   0%     34%   Ensure the workspace-write sandbox mode automatically treats the Codex
+</code></pre>
+    </div>
+    
+  </section>
+      <section class="reader-feedback"
     data-tgr-feedback
     data-article-slug="2026-03-10-daily-codex-makes-memories-a-first-class-writable-root-and-stops-cleaning-through-symlinks"
     data-article-title="Codex Makes Memories a First-Class Writable Root—and Stops Cleaning Through Symlinks"
@@ -135,23 +248,7 @@
       </div>
     </form>
   </section>
-        </article>
-        <aside class="side-panel">
-          <h2>Evidence</h2>
-          <div class="evidence-table">
-            <div class="evidence-line"><span>Date</span><span>March 10, 2026</span></div>
-            <div class="evidence-line"><span>Lane</span><span>Daily Edition</span></div>
-            <div class="evidence-line"><span>Confidence</span><span>68%</span></div>
-            <div class="evidence-line"><span>Sources</span><span>2</span></div>
-            <div class="evidence-line"><span>Repos</span><span>openai/codex</span></div>
-          </div>
-          <div class="actions">
-            <a class="paper-button primary" href="/evidence/2026-03-10-daily-codex-makes-memories-a-first-class-writable-root-and-stops-cleaning-through-symlinks/">View Evidence</a>
-            <a class="paper-button" href="/editions/2026-03-10/">Edition</a>
-          </div>
-          
-        </aside>
-      </section>
+      
     </main>
     <footer class="wrap site-footer">
       <span>&copy; 2026 The Git Reporter</span>

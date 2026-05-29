@@ -6,8 +6,8 @@
   <title>The Next CLI UX Battle Is Agent Forensics | The Git Reporter</title>
   <meta name="description" content="The most important agent upgrade this week is not another tool. It’s the growing ability to reconstruct why an agent touched files, spent tokens, and arrived at a code change in the first place.">
   <link rel="icon" href="/assets/mark.svg">
-  <link rel="stylesheet" href="/assets/site.css?v=2026-05-23-engraver-draft-1">
-  <script defer src="/assets/feedback.js?v=2026-05-23-engraver-draft-1"></script>
+  <link rel="stylesheet" href="/assets/site.css?v=2026-05-29-article-evidence-unified-1">
+  <script defer src="/assets/feedback.js?v=2026-05-29-article-evidence-unified-1"></script>
 </head>
 <body>
   <div class="site">
@@ -27,7 +27,7 @@
         <div class="nav-rule"></div>
       </div>
     </header>
-    <main class="wrap page-shell">
+    <main class="wrap page-shell article-page">
       <section class="page-hero story-front">
         <div class="story-topline">
           <span>Daily Edition</span>
@@ -49,8 +49,12 @@
     </div>
     <div class="commit-line">&gt; e07eaff / March 24, 2026 / Daily Edition</div>
   </div>
+        <div class="article-route-row">
+          <a href="/editions/2026-03-24/">Open Edition</a>
+          <a href="#evidence">Evidence below</a>
+        </div>
       </section>
-      <section class="story-layout">
+      <section class="story-reader">
         <article class="story-shell story-body">
           <p>Agent tooling has spent the last year obsessed with capability.</p>
       <p>More tools. More autonomy. More parallelism. More subagents. More wow.</p>
@@ -119,7 +123,146 @@
       <p>So here’s the open question: <strong>as agent tooling gets better at leaving a reconstructable trail, does that change where teams draw the line between “assist me” and “go do it”?</strong></p>
 
       <p>If you build agent products, watch this layer closely. Then push your own tools to leave sharper evidence behind. That is how agent trust graduates from a vibe into an interface.</p>
-          <section class="reader-feedback"
+        </article>
+      </section>
+      <section class="evidence-section" id="evidence" aria-labelledby="evidence-title">
+    <div class="evidence-head">
+      <div>
+        <div class="eyebrow">Evidence Trail</div>
+        <h2 id="evidence-title">Receipts below the story</h2>
+        <p>The article above is the public narrative. This section keeps the source trail, limits, and reporting notes on the same page.</p>
+      </div>
+      <a class="paper-button" href="/editions/2026-03-24/">Edition</a>
+    </div>
+    <div class="evidence-table evidence-summary">
+      <div class="evidence-line"><span>Date</span><span>March 24, 2026</span></div>
+      <div class="evidence-line"><span>Lane</span><span>Daily Edition</span></div>
+      <div class="evidence-line"><span>Confidence</span><span>78%</span></div>
+      <div class="evidence-line"><span>Sources</span><span>3</span></div>
+      <div class="evidence-line"><span>Repos</span><span>openai/codex, google-gemini/gemini-cli</span></div>
+    </div>
+    <div class="markdown evidence-copy evidence-copy-block"><h3>Reporter Notes</h3><h1>Daily Article Notes — 2026-03-24</h1>
+<h2>Chosen angle</h2>
+<p>**The next CLI UX battle is agent forensics**</p>
+<p>Thesis: both Codex and Gemini CLI are adding the plumbing needed to reconstruct agent behavior after the fact. Codex is measuring turns as debuggable cost/action units; Gemini is exposing how context was discovered and attaching trace identifiers to edit offers.</p>
+<h2>Candidate angles considered</h2>
+<p>1. **Agent observability moves inside the runtime**</p>
+<ul>
+<li>Strong evidence, but a bit generic.</li>
+</ul>
+<p>2. **Context becomes measurable**</p>
+<ul>
+<li>Good, but too close to the 2026-03-14 context-sensor piece.</li>
+</ul>
+<p>3. **The next UX battle is agent forensics** ✅</p>
+<ul>
+<li>Freshest frame, best reader payoff, least overlap.</li>
+</ul>
+<h2>Why this is different from yesterday</h2>
+<p>Yesterday was about execution context becoming first-class (forks vs threads, explicit loop context).</p>
+<p>Today is about **post-hoc reconstruction**: cost, tool activity, discovered context, and traceable edit offers.</p>
+<h2>Grounding evidence</h2>
+<h3>Codex</h3>
+<ul>
+<li>Repo: <code>openai/codex</code></li>
+<li>GitHub repo metadata via <code>gh repo view</code></li>
+<li>pushedAt: <code>2026-03-24T05:00:35Z</code></li>
+<li>stars: <code>67170</code></li>
+<li>Commit <code>e07eaff0d32c</code> — <code>feat: add metric for per-turn tool count and add tmp_mem flag (#13456)</code></li>
+<li>emits <code>codex.turn.tool.call</code></li>
+<li>tags metrics with <code>tmp_mem_enabled</code></li>
+<li>Commit <code>49634b7f9c07</code> — <code>add metric for per-turn token usage (#13454)</code></li>
+<li>snapshots total token usage at turn start</li>
+<li>diffs totals at turn end to emit per-turn histograms</li>
+<li>Code evidence from <code>codex-rs/core/src/tasks/mod.rs</code></li>
+<li>lines ~243-301 emit:</li>
+<li><code>codex.turn.tool.call</code></li>
+<li><code>codex.turn.token_usage</code> with <code>token_type=total/input/cached_input/output/reasoning_output</code></li>
+<li>all tagged with <code>tmp_mem_enabled</code></li>
+</ul>
+<h3>Gemini CLI</h3>
+<ul>
+<li>Repo: <code>google-gemini/gemini-cli</code></li>
+<li>GitHub repo metadata via <code>gh repo view</code></li>
+<li>pushedAt: <code>2026-03-24T04:59:00Z</code></li>
+<li>stars: <code>98849</code></li>
+<li>Commit <code>7b4a822b0eba</code> — <code>feat(core): instrument file system tools for JIT context discovery (#22082)</code></li>
+<li>adds <code>discoverJitContext()</code></li>
+<li>appends <code>--- Newly Discovered Project Context ---</code> to tool outputs</li>
+<li>wired into file tools like <code>read-file</code></li>
+<li>Commit <code>d7d53981f3c1</code> — <code>feat(core): add trajectoryId to ConversationOffered telemetry (#22214)</code></li>
+<li><code>recordConversationOffered(... trajectoryId)</code></li>
+<li><code>createConversationOffered(... trajectoryId)</code></li>
+<li>includes <code>trajectoryId</code> in returned telemetry payload</li>
+<li>Code evidence from:</li>
+<li><code>packages/core/src/tools/jit-context.ts</code></li>
+<li><code>packages/core/src/tools/read-file.ts</code></li>
+<li><code>packages/core/src/code_assist/telemetry.ts</code></li>
+</ul>
+<h2>gsio evidence</h2>
+<h3>Query: <code>tmp_mem tool count token usage</code></h3>
+<p>Top codex hits included:</p>
+<ul>
+<li><code>e07eaff0d32c</code> — per-turn tool count + tmp_mem flag</li>
+<li><code>49634b7f9c07</code> — per-turn token usage metrics</li>
+</ul>
+<h3>Query: <code>JIT context trajectory telemetry parallel tools</code></h3>
+<p>Top gemini-cli hits included:</p>
+<ul>
+<li><code>7b4a822b0eba</code> — shared JIT context discovery utility</li>
+<li><code>d7d53981f3c1</code> — trajectoryId on ConversationOffered telemetry</li>
+<li>additional tracing / context / memory commits clustered nearby</li>
+</ul>
+<h2>Web data used</h2>
+<ul>
+<li>GitHub commit pages fetched for:</li>
+<li><code>openai/codex@e07eaff0d32c...</code></li>
+<li><code>google-gemini/gemini-cli@7b4a822b0eba...</code></li>
+<li><code>google-gemini/gemini-cli@d7d53981f3c1...</code></li>
+<li>GitHub repo pages / API metadata via <code>gh repo view</code></li>
+</ul>
+<h2>llm review summary (gpt-5.4)</h2>
+<p>Winner: **The next UX battle is agent forensics**</p>
+<p>Reason: freshest framing; avoids overlap with context-sensor and execution-context pieces by centering on after-action explainability.</p></div>
+    <div class="markdown evidence-copy evidence-copy-block">
+      <h1>Sources — 2026-03-24</h1>
+<h2>Repo metadata</h2>
+<ul>
+<li><code>gh repo view openai/codex --json name,description,url,defaultBranchRef,stargazerCount,pushedAt</code></li>
+<li><code>gh repo view google-gemini/gemini-cli --json name,description,url,defaultBranchRef,stargazerCount,pushedAt</code></li>
+</ul>
+<h2>Git history and code</h2>
+<ul>
+<li><code>git -C projects/agentic-workflows-gemini-vs-codex/repos/codex log --oneline -n 20</code></li>
+<li><code>git -C projects/agentic-workflows-gemini-vs-codex/repos/gemini-cli log --oneline -n 30</code></li>
+<li><code>git -C .../codex show --stat --summary e07eaff0d32caaec47cc4b0616d1b32c086e904f</code></li>
+<li><code>git -C .../codex show --stat --summary 49634b7f9c0702598bbd5a233ddcb8bad5302e79</code></li>
+<li><code>git -C .../gemini-cli show --stat --summary 7b4a822b0ebaa44f6fe12dd1acc6f956d39cfc1e</code></li>
+<li><code>git -C .../gemini-cli show --stat --summary d7d53981f3c12e5d00963cb9a276732857ec53e8</code></li>
+<li><code>sed -n '1,220p' .../gemini-cli/packages/core/src/tools/jit-context.ts</code></li>
+<li><code>sed -n '1,220p' .../codex/codex-rs/core/src/tasks/mod.rs</code></li>
+<li><code>sed -n '1,220p' .../gemini-cli/packages/core/src/code_assist/telemetry.ts</code></li>
+<li>targeted line extraction for <code>read-file.ts</code>, <code>telemetry.ts</code>, <code>tasks/mod.rs</code></li>
+</ul>
+<h2>gsio</h2>
+<ul>
+<li><code>[local source path] search q 'tmp_mem tool count token usage' -p openai/codex --output summary</code></li>
+<li><code>[local source path] search q 'JIT context trajectory telemetry parallel tools' -p google-gemini/gemini-cli --output summary</code></li>
+</ul>
+<h2>Web fetches</h2>
+<ul>
+<li><a href="https://github.com/openai/codex/commit/e07eaff0d32caaec47cc4b0616d1b32c086e904f">https://github.com/openai/codex/commit/e07eaff0d32caaec47cc4b0616d1b32c086e904f</a></li>
+<li><a href="https://github.com/google-gemini/gemini-cli/commit/7b4a822b0ebaa44f6fe12dd1acc6f956d39cfc1e">https://github.com/google-gemini/gemini-cli/commit/7b4a822b0ebaa44f6fe12dd1acc6f956d39cfc1e</a></li>
+<li><a href="https://github.com/google-gemini/gemini-cli/commit/d7d53981f3c12e5d00963cb9a276732857ec53e8">https://github.com/google-gemini/gemini-cli/commit/d7d53981f3c12e5d00963cb9a276732857ec53e8</a></li>
+</ul>
+<h2>Model review</h2>
+<ul>
+<li><code>llm -m gpt-5.4</code> with candidate angles A/B/C and overlap constraints from past articles</li>
+</ul>
+    </div>
+    
+  </section>
+      <section class="reader-feedback"
     data-tgr-feedback
     data-article-slug="2026-03-24-daily-the-next-cli-ux-battle-is-agent-forensics"
     data-article-title="The Next CLI UX Battle Is Agent Forensics"
@@ -156,28 +299,34 @@
       </div>
     </form>
   </section>
-        </article>
-        <aside class="side-panel">
-          <h2>Evidence</h2>
-          <div class="evidence-table">
-            <div class="evidence-line"><span>Date</span><span>March 24, 2026</span></div>
-            <div class="evidence-line"><span>Lane</span><span>Daily Edition</span></div>
-            <div class="evidence-line"><span>Confidence</span><span>78%</span></div>
-            <div class="evidence-line"><span>Sources</span><span>3</span></div>
-            <div class="evidence-line"><span>Repos</span><span>openai/codex, google-gemini/gemini-cli</span></div>
-          </div>
-          <div class="actions">
-            <a class="paper-button primary" href="/evidence/2026-03-24-daily-the-next-cli-ux-battle-is-agent-forensics/">View Evidence</a>
-            <a class="paper-button" href="/editions/2026-03-24/">Edition</a>
-          </div>
-          <div class="related-list">
-                  <h3>Same Edition</h3>
-                  <a href="/articles/2026-03-24-agent-daily-subagents-are-getting-job-titles-badge-checks-and-a-manager-chain/">
-                        <span>Pattern</span>
-                        Subagents Are Getting Job Titles, Badge Checks, and a Manager Chain
-                      </a>
-                </div>
-        </aside>
+      <section class="related-edition-section">
+        <div class="section-title-row">
+          <h2>Same Edition</h2>
+          <a href="/editions/2026-03-24/">Open issue &rsaquo;</a>
+        </div>
+        <div class="updates-list">
+          <a class="update-card" href="/articles/2026-03-24-agent-daily-subagents-are-getting-job-titles-badge-checks-and-a-manager-chain/">
+    <div class="update-stripe"></div>
+    <div class="update-main">
+      <div class="update-meta">
+        <span>Pattern</span>
+        <span class="source-plus">+3</span>
+        <span>Mar 24, 2026</span>
+      </div>
+      <h3>Subagents Are Getting Job Titles, Badge Checks, and a Manager Chain</h3>
+      <div class="update-receipt">
+        <span>openai/codex</span>
+        <span class="branch-pill">main</span>
+      </div>
+      <div class="update-foot">
+        <span>3 sources</span>
+        <span>3 repos</span>
+        <span>source trail</span>
+      </div>
+    </div>
+    <span class="update-arrow" aria-hidden="true">&rsaquo;</span>
+  </a>
+        </div>
       </section>
     </main>
     <footer class="wrap site-footer">

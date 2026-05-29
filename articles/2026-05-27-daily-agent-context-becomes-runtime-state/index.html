@@ -6,8 +6,8 @@
   <title>Agent Context Becomes Runtime State | The Git Reporter</title>
   <meta name="description" content="Fresh commits in Codex, Gemini CLI, and Hermes point to a quieter agent shift: context is being stored, routed, measured, and traced instead of merely stuffed into prompts.">
   <link rel="icon" href="/assets/mark.svg">
-  <link rel="stylesheet" href="/assets/site.css?v=2026-05-23-engraver-draft-1">
-  <script defer src="/assets/feedback.js?v=2026-05-23-engraver-draft-1"></script>
+  <link rel="stylesheet" href="/assets/site.css?v=2026-05-29-article-evidence-unified-1">
+  <script defer src="/assets/feedback.js?v=2026-05-29-article-evidence-unified-1"></script>
 </head>
 <body>
   <div class="site">
@@ -27,7 +27,7 @@
         <div class="nav-rule"></div>
       </div>
     </header>
-    <main class="wrap page-shell">
+    <main class="wrap page-shell article-page">
       <section class="page-hero story-front">
         <div class="story-topline">
           <span>Daily Edition</span>
@@ -52,8 +52,12 @@
     </div>
     <div class="commit-line">&gt; 768848a / May 27, 2026 / Daily Edition</div>
   </div>
+        <div class="article-route-row">
+          <a href="/editions/2026-05-27/">Open Edition</a>
+          <a href="#evidence">Evidence below</a>
+        </div>
       </section>
-      <section class="story-layout">
+      <section class="story-reader">
         <article class="story-shell story-body">
           <p>The old way to talk about agent context was simple: make the prompt bigger, summarize harder, hope the model remembers the right things. The source trail from the last day points somewhere more operational. Context is becoming a runtime object.</p>
   <p>That continues a beat from <a href="/articles/2026-05-21-daily-agent-goals-are-becoming-runtime-state/">the May 21 edition</a>, which followed goals becoming explicit runtime state. Today's evidence moves the same question one layer closer to the model. What the agent knows, where that knowledge came from, which thread inherited it, and which tools can feed it are starting to get their own protocol fields, databases, metrics, and pickers.</p>
@@ -76,7 +80,67 @@
   <h2>The prompt is no longer the whole surface</h2>
   <p>These are independent commits, not a shared standard. They do not prove that every agent project is adopting the same architecture. But they do rhyme around a useful engineering pressure: context is too important to remain an invisible blob of prompt text.</p>
   <p>Once context becomes runtime state, it can have ownership boundaries, provenance, metrics, routing policy, and tool selection. It can also become something users eventually need to inspect. The next editions should watch whether these hidden surfaces turn into visible debugging controls: not just what the agent answered, but what context it received, which memory store it touched, which thread it forked from, and which tools were allowed into the room.</p>
-          <section class="reader-feedback"
+        </article>
+      </section>
+      <section class="evidence-section" id="evidence" aria-labelledby="evidence-title">
+    <div class="evidence-head">
+      <div>
+        <div class="eyebrow">Evidence Trail</div>
+        <h2 id="evidence-title">Receipts below the story</h2>
+        <p>The article above is the public narrative. This section keeps the source trail, limits, and reporting notes on the same page.</p>
+      </div>
+      <a class="paper-button" href="/editions/2026-05-27/">Edition</a>
+    </div>
+    <div class="evidence-table evidence-summary">
+      <div class="evidence-line"><span>Date</span><span>May 27, 2026</span></div>
+      <div class="evidence-line"><span>Lane</span><span>Daily Edition</span></div>
+      <div class="evidence-line"><span>Confidence</span><span>87%</span></div>
+      <div class="evidence-line"><span>Sources</span><span>8</span></div>
+      <div class="evidence-line"><span>Repos</span><span>openai/codex, google-gemini/gemini-cli, NousResearch/hermes-agent</span></div>
+    </div>
+    <div class="markdown evidence-copy evidence-copy-block"><h3>Reporter Notes</h3><ul>
+<li>The most defensible thesis is not &quot;memory is new&quot; or &quot;MCP is standardizing.&quot; It is narrower: context is becoming runtime state with protocol, storage, provenance, observability, and selection surfaces.</li>
+<li>Codex supplies the densest evidence: <code>additionalContext</code> makes external context a typed turn input, <code>memories_1.sqlite</code> separates memory pipeline data from durable thread records, memory tool metrics make memory operations observable, and fork/session IDs make lineage groupable.</li>
+<li>Gemini CLI broadens the arc with routing aliases for default roles. This is not memory, but it is a context-shaping decision moved into named configuration rather than hard-coded model choice.</li>
+<li>Hermes broadens the arc through tool context: curated MCP entries and tool selection decide which external tool context can enter an agent session.</li>
+<li>The article should keep &quot;state &gt; prompt&quot; as an interpretation, not a literal implementation claim across all repos.</li>
+</ul></div>
+    <div class="markdown evidence-copy evidence-copy-block">
+      <h2>Primary Evidence</h2>
+<ul>
+<li>OpenAI Codex commit &quot;Add experimental turn additional context (#24154)&quot;: <a href="https://github.com/openai/codex/commit/768848ab6fc6f05f19c447786fd76fd233fa1d69">https://github.com/openai/codex/commit/768848ab6fc6f05f19c447786fd76fd233fa1d69</a></li>
+<li>Evidence used: adds experimental <code>additionalContext</code> support to turn start/steer calls, including separate <code>untrusted</code> and <code>application</code> kinds, hidden contextual message insertion, dedupe/reset behavior, and tests for the flow.</li>
+<li>OpenAI Codex commit &quot;Move memory state to a dedicated SQLite DB (#24591)&quot;: <a href="https://github.com/openai/codex/commit/aad59a0916baea1875f9a609a4b1d0a9062f24f6">https://github.com/openai/codex/commit/aad59a0916baea1875f9a609a4b1d0a9062f24f6</a></li>
+<li>Evidence used: moves memory-owned tables and jobs into a dedicated <code>memories_1.sqlite</code> runtime database while keeping thread metadata in the state database.</li>
+<li>OpenAI Codex commit &quot;Add ad-hoc memory note tool (#24562)&quot;: <a href="https://github.com/openai/codex/commit/3936ed221d90278a64d70a423fd7b456799f112b">https://github.com/openai/codex/commit/3936ed221d90278a64d70a423fd7b456799f112b</a></li>
+<li>Evidence used: adds a <code>memories/add_ad_hoc_note</code> tool behind the memories backend, validates append-only note filenames, rejects path-like names and empty notes, and keeps the surface behind existing registration controls.</li>
+<li>OpenAI Codex commit &quot;Add memory tool call metrics to memories extension (#24583)&quot;: <a href="https://github.com/openai/codex/commit/01a8bf0ae3e73d1697d2572a6666d5b47554f87f">https://github.com/openai/codex/commit/01a8bf0ae3e73d1697d2572a6666d5b47554f87f</a></li>
+<li>Evidence used: adds a <code>codex.memories.tool.call</code> counter and tags memory tool calls by tool, operation, scope, status, and truncation state.</li>
+<li>OpenAI Codex commit &quot;Add forked_from_thread_id turn metadata (#24160)&quot;: <a href="https://github.com/openai/codex/commit/1911021c0eae972e622c8445d136ae04545a530f">https://github.com/openai/codex/commit/1911021c0eae972e622c8445d136ae04545a530f</a></li>
+<li>Evidence used: adds turn metadata for fork lineage and protects Codex-owned lineage fields from turn-scoped client metadata overrides.</li>
+<li>OpenAI Codex commit &quot;[codex-analytics] add grouped session id to runtime events (#24655)&quot;: <a href="https://github.com/openai/codex/commit/487521733bea0a0a37559cffb519a1f6fb6bb444">https://github.com/openai/codex/commit/487521733bea0a0a37559cffb519a1f6fb6bb444</a></li>
+<li>Evidence used: adds session IDs to thread, turn, steer, compaction, and guardian review analytics so related root and subagent activity can be grouped.</li>
+<li>Google Gemini CLI commit &quot;Update default auto routing (#27071)&quot;: <a href="https://github.com/google-gemini/gemini-cli/commit/4a5d5cfc9f4baf314c966970a3041336a6ae2ec3">https://github.com/google-gemini/gemini-cli/commit/4a5d5cfc9f4baf314c966970a3041336a6ae2ec3</a></li>
+<li>Evidence used: changes several documented roles from a fixed <code>gemini-2.5-flash-lite</code> model to a <code>flash-lite</code> routing alias and updates related CLI/model dialog tests.</li>
+<li>NousResearch Hermes Agent commit &quot;feat(mcp): Nous-approved MCP catalog with interactive picker (#30870)&quot;: <a href="https://github.com/NousResearch/hermes-agent/commit/8b69ec03af50de892ae0bca1f7e2384a8f6eb5a8">https://github.com/NousResearch/hermes-agent/commit/8b69ec03af50de892ae0bca1f7e2384a8f6eb5a8</a></li>
+<li>Evidence used: adds a curated MCP catalog, interactive picker, install command, optional MCP manifests, and install-time tool selection controls.</li>
+</ul>
+<h2>Evidence Limits</h2>
+<ul>
+<li>These sources show independent project changes during the same daily scan window; they do not prove coordination, a shared standard, or equivalent implementation choices.</li>
+<li>The Codex memory note tool commit says the new tool surface is kept behind an existing registration path, so the article treats it as an implemented surface, not a broadly shipped user feature.</li>
+<li>The Gemini CLI evidence supports a routing/configuration surface, not a claim about model quality or production rollout behavior beyond the cited commit.</li>
+<li>The Hermes evidence supports a curated MCP catalog and picker in that repo, not an industry-wide MCP approval model.</li>
+</ul>
+    </div>
+    <div class="markdown evidence-copy evidence-copy-block"><h3>Open Questions</h3><ul>
+<li>Is Codex's <code>additionalContext</code> intended for long-term public clients or only experimental app-server consumers?</li>
+<li>How soon, if ever, will the Codex ad-hoc memory note tool be exposed through app-server registration?</li>
+<li>Does Gemini CLI's <code>flash-lite</code> alias select dynamically across models in all environments, or is it a named alias resolved by local policy/catalog code?</li>
+<li>Will curated MCP catalogs converge across projects, or remain repo-specific trust lists?</li>
+</ul></div>
+  </section>
+      <section class="reader-feedback"
     data-tgr-feedback
     data-article-slug="2026-05-27-daily-agent-context-becomes-runtime-state"
     data-article-title="Agent Context Becomes Runtime State"
@@ -113,23 +177,7 @@
       </div>
     </form>
   </section>
-        </article>
-        <aside class="side-panel">
-          <h2>Evidence</h2>
-          <div class="evidence-table">
-            <div class="evidence-line"><span>Date</span><span>May 27, 2026</span></div>
-            <div class="evidence-line"><span>Lane</span><span>Daily Edition</span></div>
-            <div class="evidence-line"><span>Confidence</span><span>87%</span></div>
-            <div class="evidence-line"><span>Sources</span><span>8</span></div>
-            <div class="evidence-line"><span>Repos</span><span>openai/codex, google-gemini/gemini-cli, NousResearch/hermes-agent</span></div>
-          </div>
-          <div class="actions">
-            <a class="paper-button primary" href="/evidence/2026-05-27-daily-agent-context-becomes-runtime-state/">View Evidence</a>
-            <a class="paper-button" href="/editions/2026-05-27/">Edition</a>
-          </div>
-          
-        </aside>
-      </section>
+      
     </main>
     <footer class="wrap site-footer">
       <span>&copy; 2026 The Git Reporter</span>

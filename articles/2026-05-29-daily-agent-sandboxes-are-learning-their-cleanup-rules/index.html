@@ -1,0 +1,215 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Agent Sandboxes Are Learning Their Cleanup Rules | The Git Reporter</title>
+  <meta name="description" content="Fresh Codex and Hermes commits point to a practical agent shift: the local machine is becoming part of the runtime contract, with workspace roots, filesystem denies, Docker persistence, orphan cleanup, and lifecycle commands written down in code.">
+  <link rel="icon" href="/assets/mark.svg">
+  <link rel="stylesheet" href="/assets/site.css?v=2026-05-29-article-evidence-unified-1">
+  <script defer src="/assets/feedback.js?v=2026-05-29-article-evidence-unified-1"></script>
+</head>
+<body>
+  <div class="site">
+    <header class="site-header" id="top">
+      <div class="wrap utility-row">
+        <a class="icon-link menu-icon" href="/archive/" aria-label="Open edition history"><span></span><span></span><span></span></a>
+        <a class="icon-link search-icon" href="/archive/" aria-label="Search edition history"></a>
+      </div>
+      <div class="wrap masthead-lockup">
+        <a class="masthead-title" href="/">THE GIT REPORTER</a>
+        <div class="masthead-ornament" aria-hidden="true"></div>
+      </div>
+      <div class="wrap nav-wrap">
+        <nav class="paper-nav" aria-label="Primary navigation">
+    <a class="" href="/">Today</a><a class="active" href="/archive/">Editions</a><a class="" href="/atlas/">Agent Atlas</a><a class="" href="/repos/">Repos</a>
+  </nav>
+        <div class="nav-rule"></div>
+      </div>
+    </header>
+    <main class="wrap page-shell article-page">
+      <section class="page-hero story-front">
+        <div class="story-topline">
+          <span>Daily Edition</span>
+          <span>Sources <strong>+7</strong></span>
+        </div>
+        <h1>Agent Sandboxes Are Learning Their Cleanup Rules</h1>
+        <p class="summary">Fresh Codex and Hermes commits point to a practical agent shift: the local machine is becoming part of the runtime contract, with workspace roots, filesystem denies, Docker persistence, orphan cleanup, and lifecycle commands written down in code.</p>
+        <figure class="story-illustration article-illustration">
+    <img src="/assets/illustrations/2026-05-29-agent-sandboxes-are-learning-their-cleanup-rules-diagram-punk-v1.jpg" alt="A rough Diagram Punk poster titled The agent has a machine now, with Codex and Hermes source cards pointing to a circled Cleanup is part of trust conclusion and a caveat stamp saying independent fixes, not a standard." loading="lazy" decoding="async">
+    <figcaption><span>Draft illustration</span>Diagram Punk: cleanup is part of trust.</figcaption>
+  </figure>
+        <div class="receipt">
+    <div class="receipt-line">
+      <span class="receipt-icon">repo</span>
+      <span class="receipt-main">openai/codex</span>
+      <span class="branch-pill">main</span>
+    </div>
+    <div class="receipt-line receipt-muted">
+      <span>7 source signals</span>
+      <span>2 repos</span>
+      <span>7cd9f5b</span>
+    </div>
+    <div class="commit-line">&gt; 7cd9f5b / May 29, 2026 / Daily Edition</div>
+  </div>
+        <div class="article-route-row">
+          <a href="/editions/2026-05-29/">Open Edition</a>
+          <a href="#evidence">Evidence below</a>
+        </div>
+      </section>
+      <section class="story-reader">
+        <article class="story-shell story-body">
+          <p>The most important agent failure may not look like a bad answer. It may look like a command running with the wrong workspace roots, a denied path that the reviewer cannot see, a long-running container killed when one session closes, or an old sandbox left behind after a process dies.</p>
+  <p><a href="/articles/2026-05-28-daily-agent-ui-is-becoming-the-control-room/">Yesterday's edition</a> followed the user-facing control room: links, interrupts, session switching, and keyboard behavior. Today's source trail moves underneath that room. If agents are going to run real commands on real machines, the runtime has to know where the work is allowed to happen, what should survive, what should be cleaned up, and which container lifecycle commands deserve human approval.</p>
+  <h2>Codex makes workspace roots explicit</h2>
+  <p>OpenAI Codex commit <a href="https://github.com/openai/codex/commit/986c60467b96ca13850217f6e5adadef6ba70ab3"><code>986c60467</code></a> changes the Windows sandbox path from a single runtime anchor toward explicit workspace roots. The commit says symbolic <code>:workspace_roots</code> entries need to be materialized for every effective root before the command runner chooses token mode or builds access-control plans.</p>
+  <p>The patch threads <code>Config::effective_workspace_roots()</code> through core execution, unified exec, TUI setup and read-grant flows, app-server setup, app-server command execution, and debug sandbox paths on Windows. It also updates elevated runner IPC to carry <code>workspace_roots</code> and adds resolver coverage for exact and glob workspace-root entries across multiple roots.</p>
+  <p>That is not a flashy model feature. It is a boundary feature. A multi-root agent session cannot safely treat "the workspace" as whatever the current directory happens to be. The runtime has to carry the roots as data.</p>
+  <h2>The filesystem policy enters the prompt context</h2>
+  <p>A companion Codex commit, <a href="https://github.com/openai/codex/commit/e7dda8070e4eb2ba9de215545ff0db3b0ee4c519"><code>e7dda807</code></a>, makes the same pressure visible to the model and approval reviewer. The commit says legacy sandbox summaries could omit permission-profile filesystem entries from escalation decisions, including denied reads under workspace roots.</p>
+  <p>The new environment context renders the effective filesystem profile, workspace roots, and non-escalatable deny entries. It also persists effective workspace roots in turn context and passes the parent turn's denied-read context into automatic approval reviews.</p>
+  <p>The article should not oversell that as full security. The narrower source-grounded claim is stronger: Codex is turning filesystem policy into explicit context so the model and review path can reason about active limits instead of inferring them from a coarse sandbox label.</p>
+  <h2>Hermes treats Docker containers as session state</h2>
+  <p>NousResearch Hermes Agent shows the same maturity pressure from the container side. Commit <a href="https://github.com/NousResearch/hermes-agent/commit/ac8e238bc87ffd37c5c04d0f401d2aab697068b3"><code>ac8e238b</code></a> says the Docker backend docs promised one long-lived container shared across sessions, new tasks, resets, and delegated subagents, but the code only honored that contract inside one Python process.</p>
+  <p>The fix adds cross-process container discovery using Hermes labels, reuses running or stopped matching containers, replaces racy detached-shell cleanup with a thread that uses bounded <code>subprocess.run</code>, adds <code>wait_for_cleanup</code>, and wires a new <code>terminal.docker_persist_across_processes</code> setting.</p>
+  <p>Commit <a href="https://github.com/NousResearch/hermes-agent/commit/5c2170a7c62b9cfd18431de78b462116df57d199"><code>5c2170a7</code></a> tightens the semantics further: in persist mode, cleanup becomes a no-op for the container, so background processes and filesystem state can survive session cleanup. Explicit teardown still exists through <code>force_remove=True</code>. Commit <a href="https://github.com/NousResearch/hermes-agent/commit/2f0f03c40d133d568e786d45275ad6a1bffdebd7"><code>2f0f03c4</code></a> then corrects <code>cleanup_vm()</code> so a TUI or gateway session close honors persist mode instead of killing a shared container by default.</p>
+  <p>This is where the abstraction becomes practical. If an agent is running tests, watchers, servers, or delegated work inside a container, "session closed" and "destroy the machine" cannot be the same event unless the user asked for that.</p>
+  <h2>Cleanup has to cover the ugly exits</h2>
+  <p>Containers also fail messily. Hermes commit <a href="https://github.com/NousResearch/hermes-agent/commit/d77d877665bab7a6035140d142d5670cc05ad15d"><code>d77d8776</code></a> adds a startup orphan reaper for containers left behind when normal cleanup cannot run. The commit specifically names SIGKILL, OOM kill, and terminal-window close as exits where <code>atexit</code> handlers do not fire.</p>
+  <p>The implementation described in the commit filters for Hermes-labeled exited containers, optionally scopes by profile, inspects finish times, removes old candidates, and continues after individual failures. It is deliberately conservative about running containers because those may belong to another Hermes process.</p>
+  <p>That caveat is the story. Cleanup is no longer just "delete the old thing." It has to know which environment is abandoned, which one might still be in use, which profile it belongs to, and how old is old enough.</p>
+  <h2>Some Docker commands become approval events</h2>
+  <p>The clearest reader-facing boundary appears in Hermes commit <a href="https://github.com/NousResearch/hermes-agent/commit/54bf798765d3d529978dd04e3bfc95d93d6504eb"><code>54bf7987</code></a>. It adds <code>docker restart</code>, <code>docker stop</code>, <code>docker kill</code>, and Docker Compose lifecycle commands to dangerous approval patterns.</p>
+  <p>The commit message gives the reason: when <code>docker.sock</code> is mounted, an agent can restart, stop, or kill containers without user approval. Hermes already protected gateway restart, but not the Docker forms. The observed failure was a self-termination loop: the agent restarted the Hermes container, Docker restarted it, and the resumed session repeated the same action.</p>
+  <p>That is the whole pattern in one bug. Once an agent has a machine, the runtime has to decide which machine operations are ordinary work and which ones are control-plane actions that need a human checkpoint.</p>
+  <h2>The machine boundary is becoming part of trust</h2>
+  <p>None of these commits prove a shared standard. They do not prove that sandboxes are solved. Codex and Hermes are different projects with different architecture. But the independent movement is still visible: local execution assumptions are being pulled into named roots, rendered policies, cleanup modes, reaper rules, and approval patterns.</p>
+  <p>That is how agent trust becomes less magical. Not by assuming the model will remember every boundary, and not by hiding the machine behind a friendly chat. Trust improves when the runtime can say: these are the workspace roots; these paths are denied; this container should survive; this orphan is safe to reap; this Docker command can kill the room and needs approval.</p>
+  <p>The next thing to watch is whether these machine-boundary contracts become inspectable product surfaces. The control room needs buttons, but it also needs a floor plan: what machine the agent is using, what it can touch, what is still running, and what cleanup will actually do.</p>
+        </article>
+      </section>
+      <section class="evidence-section" id="evidence" aria-labelledby="evidence-title">
+    <div class="evidence-head">
+      <div>
+        <div class="eyebrow">Evidence Trail</div>
+        <h2 id="evidence-title">Receipts below the story</h2>
+        <p>The article above is the public narrative. This section keeps the source trail, limits, and reporting notes on the same page.</p>
+      </div>
+      <a class="paper-button" href="/editions/2026-05-29/">Edition</a>
+    </div>
+    <div class="evidence-table evidence-summary">
+      <div class="evidence-line"><span>Date</span><span>May 29, 2026</span></div>
+      <div class="evidence-line"><span>Lane</span><span>Daily Edition</span></div>
+      <div class="evidence-line"><span>Confidence</span><span>87%</span></div>
+      <div class="evidence-line"><span>Sources</span><span>7</span></div>
+      <div class="evidence-line"><span>Repos</span><span>openai/codex, NousResearch/hermes-agent</span></div>
+    </div>
+    <div class="markdown evidence-copy evidence-copy-block"><h3>Reporter Notes</h3><h1>Notes</h1>
+<h2>Reporting Notes</h2>
+<ul>
+<li>The story angle won because it gives a concrete machine-level consequence for recent agent tooling: not just what the model sees, but what the runtime is allowed to touch, keep alive, clean up, or require approval for.</li>
+<li>The clearest shared pattern is &quot;implicit local environment assumptions are being turned into explicit contracts.&quot;</li>
+<li>Codex contributes workspace-root and filesystem-policy evidence.</li>
+<li>Hermes contributes Docker container lifecycle, orphan cleanup, and dangerous command approval evidence.</li>
+<li>The article should avoid saying &quot;sandboxes are secure now.&quot; The evidence is about surfaced rules and repaired lifecycle semantics, not complete safety.</li>
+<li>The article should avoid treating Hermes and Codex as coordinated. The sources show independent movement.</li>
+</ul>
+<h2>Candidate Angles Considered</h2>
+<ul>
+<li>Runtime governance: too broad and overlapped with the last two editions.</li>
+<li>Tool ecosystems and MCP plumbing: evidence was present, but it would have repeated the &quot;control plane&quot; arc without a sharper consequence.</li>
+<li>Human interface for agent work: rejected as too close to the May 28 edition.</li>
+<li>Trust and permission boundaries: strong, but needed a more specific machine-level frame.</li>
+<li>Sandbox/container lifecycle: selected because the evidence is concrete, new, and reader-legible.</li>
+</ul>
+<h2>Strongest Claims</h2>
+<ul>
+<li>Codex is making workspace roots explicit in Windows sandbox execution and permission-profile context.</li>
+<li>Hermes is making Docker container persistence and cleanup rules explicit across process/session boundaries.</li>
+<li>Hermes is also moving Docker stop/restart/kill/down commands into approval-pattern protection.</li>
+<li>Together, the commits show local execution environments becoming part of the agent product contract.</li>
+</ul>
+<h2>Uncertainties</h2>
+<ul>
+<li>The evidence does not prove a shared standard between projects.</li>
+<li>The evidence does not prove complete sandbox or container safety.</li>
+<li>The Codex claims are limited to the cited workspace-root and permission-profile commits.</li>
+<li>The Hermes claims are limited to the cited Docker persistence, cleanup, orphan-reaper, and approval-pattern commits.</li>
+</ul></div>
+    <div class="markdown evidence-copy evidence-copy-block">
+      <h2>Primary Evidence</h2>
+<ul>
+<li>OpenAI Codex commit &quot;windows-sandbox: pass workspace roots to runner (#24108)&quot;: <a href="https://github.com/openai/codex/commit/986c60467b96ca13850217f6e5adadef6ba70ab3">https://github.com/openai/codex/commit/986c60467b96ca13850217f6e5adadef6ba70ab3</a></li>
+<li>Evidence used: the commit says Codex replaces single-cwd Windows sandbox plumbing with explicit <code>workspace_roots</code>, threads effective roots through execution/app-server/TUI/debug paths, updates elevated runner IPC, and adds resolver coverage.</li>
+<li>OpenAI Codex commit &quot;Surface filesystem permission profiles in prompt context (#23924)&quot;: <a href="https://github.com/openai/codex/commit/e7dda8070e4eb2ba9de215545ff0db3b0ee4c519">https://github.com/openai/codex/commit/e7dda8070e4eb2ba9de215545ff0db3b0ee4c519</a></li>
+<li>Evidence used: the commit says the environment context now renders effective filesystem profiles, workspace roots, and non-escalatable deny entries, and that automatic approval review receives denied-read context.</li>
+<li>NousResearch Hermes Agent commit &quot;fix(docker): reuse containers across processes + fix cleanup leaks&quot;: <a href="https://github.com/NousResearch/hermes-agent/commit/ac8e238bc87ffd37c5c04d0f401d2aab697068b3">https://github.com/NousResearch/hermes-agent/commit/ac8e238bc87ffd37c5c04d0f401d2aab697068b3</a></li>
+<li>Evidence used: the commit says Hermes adds cross-process Docker container discovery/reuse with labels, rewrites cleanup to avoid racy detached shell cleanup, adds <code>wait_for_cleanup</code>, and introduces <code>terminal.docker_persist_across_processes</code>.</li>
+<li>NousResearch Hermes Agent commit &quot;fix(docker): startup orphan reaper for crashed-process containers&quot;: <a href="https://github.com/NousResearch/hermes-agent/commit/d77d877665bab7a6035140d142d5670cc05ad15d">https://github.com/NousResearch/hermes-agent/commit/d77d877665bab7a6035140d142d5670cc05ad15d</a></li>
+<li>Evidence used: the commit says Hermes adds a startup orphan reaper for long-exited Hermes-labeled Docker containers after exits where <code>atexit</code> does not run, including SIGKILL, OOM kill, and terminal-window close.</li>
+<li>NousResearch Hermes Agent commit &quot;fix(docker): persist-mode cleanup is no-op; add force_remove kwarg (#20561)&quot;: <a href="https://github.com/NousResearch/hermes-agent/commit/5c2170a7c62b9cfd18431de78b462116df57d199">https://github.com/NousResearch/hermes-agent/commit/5c2170a7c62b9cfd18431de78b462116df57d199</a></li>
+<li>Evidence used: the commit says persist-mode cleanup should leave the container running so background processes and filesystem state survive, while <code>force_remove=True</code> remains available for explicit teardown.</li>
+<li>NousResearch Hermes Agent commit &quot;fix(docker): cleanup_vm() default honors persist mode (don't kill container on session close)&quot;: <a href="https://github.com/NousResearch/hermes-agent/commit/2f0f03c40d133d568e786d45275ad6a1bffdebd7">https://github.com/NousResearch/hermes-agent/commit/2f0f03c40d133d568e786d45275ad6a1bffdebd7</a></li>
+<li>Evidence used: the commit says session lifecycle cleanup should honor persist mode and avoid killing a shared container when a TUI or gateway session closes.</li>
+<li>NousResearch Hermes Agent commit &quot;approval: add docker restart/stop/kill to DANGEROUS_PATTERNS (#33438)&quot;: <a href="https://github.com/NousResearch/hermes-agent/commit/54bf798765d3d529978dd04e3bfc95d93d6504eb">https://github.com/NousResearch/hermes-agent/commit/54bf798765d3d529978dd04e3bfc95d93d6504eb</a></li>
+<li>Evidence used: the commit says Docker restart/stop/kill/down commands are now treated as dangerous approval patterns because an agent with docker.sock could restart, stop, or kill containers, including its own runtime.</li>
+</ul>
+<h2>Evidence Limits</h2>
+<ul>
+<li>These sources do not prove a shared standard across Codex and Hermes.</li>
+<li>They do not prove that either project has solved sandboxing or container safety in general.</li>
+<li>The Codex evidence is specific to permission-profile context and Windows sandbox workspace-root handling.</li>
+<li>The Hermes evidence is specific to Docker-backed terminal environments, container persistence, orphan cleanup, and approval-pattern checks.</li>
+<li>The public evidence supports a pattern of independent hardening around local execution boundaries, not a claim of coordination or product availability beyond the cited commits.</li>
+</ul>
+    </div>
+    
+  </section>
+      <section class="reader-feedback"
+    data-tgr-feedback
+    data-article-slug="2026-05-29-daily-agent-sandboxes-are-learning-their-cleanup-rules"
+    data-article-title="Agent Sandboxes Are Learning Their Cleanup Rules"
+    data-article-url="/articles/2026-05-29-daily-agent-sandboxes-are-learning-their-cleanup-rules/"
+    data-edition-date="2026-05-29"
+    data-lane="Daily Edition"
+    data-tags="Permissions,Memory,Delegation,Tools"
+    data-repos="openai/codex,NousResearch/hermes-agent">
+    <div class="reader-feedback-head">
+      <div>
+        <div class="eyebrow">Letters &amp; Corrections</div>
+        <h2>Send a note to the desk</h2>
+      </div>
+      <p>Corrections, missing context, or a follow-up lead.</p>
+    </div>
+    <form class="feedback-form">
+      <div class="feedback-votes" role="group" aria-label="Choose signal type">
+        <button class="feedback-choice" type="button" data-vote="follow-up" aria-pressed="false">
+          <span aria-hidden="true">+</span>
+          <span>Follow-up</span>
+        </button>
+        <button class="feedback-choice" type="button" data-vote="correction" aria-pressed="false">
+          <span aria-hidden="true">!</span>
+          <span>Correction</span>
+        </button>
+      </div>
+      <label class="feedback-comment">
+        <span>Note for the editor</span>
+        <textarea name="comment" rows="3" maxlength="320" placeholder="What did we miss, or what should we follow next?"></textarea>
+      </label>
+      <div class="feedback-submit-row">
+        <p class="feedback-status" aria-live="polite"></p>
+        <button class="paper-button primary feedback-submit" type="submit">Send to desk</button>
+      </div>
+    </form>
+  </section>
+      
+    </main>
+    <footer class="wrap site-footer">
+      <span>&copy; 2026 The Git Reporter</span>
+      <a href="/atlas/">About</a>
+      <a href="/articles.json">Manifest JSON</a>
+      <a href="/repos/">Sources</a>
+    </footer>
+  </div>
+</body>
+</html>

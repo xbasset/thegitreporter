@@ -6,8 +6,8 @@
   <title>AI Coding Agents Are Turning Compaction Into a Policy Engine | The Git Reporter</title>
   <meta name="description" content="The next contest is not just who gets the biggest context window. It is who decides, with discipline, what survives when the window starts to fill.">
   <link rel="icon" href="/assets/mark.svg">
-  <link rel="stylesheet" href="/assets/site.css?v=2026-05-23-engraver-draft-1">
-  <script defer src="/assets/feedback.js?v=2026-05-23-engraver-draft-1"></script>
+  <link rel="stylesheet" href="/assets/site.css?v=2026-05-29-article-evidence-unified-1">
+  <script defer src="/assets/feedback.js?v=2026-05-29-article-evidence-unified-1"></script>
 </head>
 <body>
   <div class="site">
@@ -27,7 +27,7 @@
         <div class="nav-rule"></div>
       </div>
     </header>
-    <main class="wrap page-shell">
+    <main class="wrap page-shell article-page">
       <section class="page-hero story-front">
         <div class="story-topline">
           <span>Agent Daily</span>
@@ -49,8 +49,12 @@
     </div>
     <div class="commit-line">&gt; 9a94883 / March 29, 2026 / Agent Daily</div>
   </div>
+        <div class="article-route-row">
+          <a href="/editions/2026-03-29/">Open Edition</a>
+          <a href="#evidence">Evidence below</a>
+        </div>
       </section>
-      <section class="story-layout">
+      <section class="story-reader">
         <article class="story-shell story-body">
           <p>Context windows keep getting marketed like warehouse space.</p>
       <p>One million tokens. Bigger buffers. Longer sessions. Fewer resets.</p>
@@ -151,7 +155,126 @@
           <li><code>openclaw/openclaw</code> — <code>src/agents/compaction.ts</code>, <code>src/agents/pi-extensions/compaction-safeguard.ts</code>, <code>src/auto-reply/reply/post-compaction-context.ts</code>; gsio commit anchors <code>89c4c674d178</code>, <code>3fdd7c9e0047</code>, <code>e0dfc776bba8</code>; local git commit <code>c6968c39d6</code></li>
         </ul>
       </div>
-          <section class="reader-feedback"
+        </article>
+      </section>
+      <section class="evidence-section" id="evidence" aria-labelledby="evidence-title">
+    <div class="evidence-head">
+      <div>
+        <div class="eyebrow">Evidence Trail</div>
+        <h2 id="evidence-title">Receipts below the story</h2>
+        <p>The article above is the public narrative. This section keeps the source trail, limits, and reporting notes on the same page.</p>
+      </div>
+      <a class="paper-button" href="/editions/2026-03-29/">Edition</a>
+    </div>
+    <div class="evidence-table evidence-summary">
+      <div class="evidence-line"><span>Date</span><span>March 29, 2026</span></div>
+      <div class="evidence-line"><span>Lane</span><span>Agent Daily</span></div>
+      <div class="evidence-line"><span>Confidence</span><span>91%</span></div>
+      <div class="evidence-line"><span>Sources</span><span>12</span></div>
+      <div class="evidence-line"><span>Repos</span><span>openai/codex, google-gemini/gemini-cli, openclaw/openclaw</span></div>
+    </div>
+    <div class="markdown evidence-copy evidence-copy-block"><h3>Reporter Notes</h3><h1>Agent Daily notes — 2026-03-29 — compaction-control-plane</h1>
+<h2>Candidate angles considered</h2>
+<p>1. **Compaction becomes a runtime control plane** ✅ selected</p>
+<ul>
+<li>Strong cross-repo evidence in Codex, Gemini CLI, and OpenClaw.</li>
+<li>Distinct from yesterday's continuity article: this angle is not just about surviving interruption, but about how systems actively budget, summarize, verify, expose, and govern shrinking context.</li>
+<li>Strong product signal from active issue traffic and user-facing commands/hooks.</li>
+</ul>
+<p>2. **Model-aware context settings**</p>
+<ul>
+<li>Interesting, but too narrow as a single-repo Codex-heavy angle.</li>
+<li>Better as a supporting tension inside the compaction story.</li>
+</ul>
+<p>3. **Guided/manual compression UX**</p>
+<ul>
+<li>Real signal in Gemini CLI (<code>/compress</code> prompts) and Codex (<code>/compact</code>), but weaker cross-repo depth than the broader compaction-control-plane pattern.</li>
+</ul>
+<h2>Why compaction won</h2>
+<ul>
+<li>Multiple repos now treat compaction as a first-class subsystem, not a hidden summarizer.</li>
+<li>The code shows explicit token budgets, preservation policies, retry loops, verification passes, hooks, safeguards, quality checks, and operator-visible commands.</li>
+<li>Recent issue traffic suggests users feel the operational edge cases directly: stale settings, missed auto-compaction, death spirals, guided compression requests.</li>
+</ul>
+<h2>Repo evidence</h2>
+<h3>openai/codex</h3>
+<ul>
+<li><code>codex-rs/core/src/compact.rs</code></li>
+<li><code>COMPACT_USER_MESSAGE_MAX_TOKENS = 20_000</code></li>
+<li>Trims oldest history items when compaction prompt itself exceeds context.</li>
+<li>Mid-turn compaction reinjects initial context **before the last real user message** so the model keeps the right boundary.</li>
+<li>Emits warning: long threads and multiple compactions can reduce accuracy.</li>
+<li>gsio commit signals:</li>
+<li><code>9a948836bf00</code> — adds <code>/compact</code> chat command.</li>
+<li><code>2621ba17e3d1</code> — extends remote conversation compaction requests with same tool calls/context handling.</li>
+<li><code>50a77dc138f3</code> — moves conversation compaction into dedicated module.</li>
+<li>GitHub issue signals:</li>
+<li><code>#16140</code> model-aware context window + auto-compaction settings.</li>
+<li><code>#15889</code> compaction may leave Codex responding to an earlier request.</li>
+<li><code>#13279</code> compaction death spiral.</li>
+</ul>
+<h3>google-gemini/gemini-cli</h3>
+<ul>
+<li><code>packages/core/src/services/chatCompressionService.ts</code></li>
+<li><code>DEFAULT_COMPRESSION_TOKEN_THRESHOLD = 0.5</code></li>
+<li><code>COMPRESSION_PRESERVE_THRESHOLD = 0.3</code></li>
+<li><code>COMPRESSION_FUNCTION_RESPONSE_TOKEN_BUDGET = 50_000</code></li>
+<li>Reverse token-budget strategy preserves newest tool outputs, truncates older large tool responses to placeholders + temp files.</li>
+<li>Chooses between original history and truncated history before sending to summarizer.</li>
+<li>Runs a second verification pass asking the model to critique its own <code>&lt;state_snapshot&gt;</code> and regenerate if details were lost.</li>
+<li><code>packages/cli/src/ui/commands/compressCommand.ts</code></li>
+<li><code>/compress</code> (aliases <code>summarize</code>, <code>compact</code>) is a first-class built-in command.</li>
+<li>UI blocks double-starts with <code>Already compressing...</code> pending-state handling.</li>
+<li>gsio commit signals:</li>
+<li><code>6ae75c9f32a9</code> — configurable auto-compression threshold.</li>
+<li><code>ffcd9963667f</code> — decision logic relies on previous prompt token count.</li>
+<li><code>e59c872b3dea</code> — token counts made nullable end-to-end for compression.</li>
+<li>GitHub issue signals:</li>
+<li><code>#21892</code> Guided Compression — retain specific details during manual <code>/compress</code>.</li>
+<li>workstream issues around compression/coherence/checkpoints (<code>#21792</code>, <code>#21888</code>, <code>#21890</code>).</li>
+</ul>
+<h3>openclaw/openclaw</h3>
+<ul>
+<li><code>src/agents/compaction.ts</code></li>
+<li>Adaptive chunk ratio, safety margin, staged summarization, oversized-message fallback, history-pruning by token share.</li>
+<li>Explicit identifier-preservation instructions for hashes, IDs, URLs, file names.</li>
+<li>Repairs tool-use/tool-result pairing after dropping chunks.</li>
+<li><code>src/agents/pi-extensions/compaction-safeguard.ts</code></li>
+<li>Required summary sections: Decisions / Open TODOs / Constraints / Pending user asks / Exact identifiers.</li>
+<li>Preserves recent turns verbatim.</li>
+<li>Audits summary quality for missing identifiers and whether latest user ask is reflected.</li>
+<li>Summarizes dropped chunks separately if new content eats too much history budget.</li>
+<li>Adds hooks / safeguard behavior to avoid compaction re-trigger loops.</li>
+<li><code>src/auto-reply/reply/post-compaction-context.ts</code></li>
+<li>Injects AGENTS.md critical sections back after compaction so startup/safety rules survive summary shrinkage.</li>
+<li>local git signal:</li>
+<li><code>c6968c39d6</code> — truncate session JSONL after compaction to prevent unbounded growth.</li>
+<li>gsio commit signals:</li>
+<li><code>89c4c674d178</code> — safeguard-specific compaction cancel reasons.</li>
+<li><code>3fdd7c9e0047</code> — compaction hook/token-estimation/post-compaction side-effect split.</li>
+<li><code>e0dfc776bba8</code> — memory compaction flush config/prompt construction extracted.</li>
+</ul>
+<h2>Web / context signals used</h2>
+<ul>
+<li>GitHub issue pages and issue lists for Codex and Gemini CLI show compaction as active product surface, not just internal plumbing.</li>
+<li>Gemini CLI README still markets 1M-token context and checkpointing, which sharpens the contrast: even in a large-window era, teams still build explicit compression systems.</li>
+</ul>
+<h2>Draft thesis</h2>
+<p>Compaction is quietly graduating from cleanup routine to **control plane**. The interesting work is no longer just “summarize old messages.” Teams are defining what must be preserved, what can be truncated, how tool outputs get budgeted, how summaries are checked, and how operators can manually trigger or guide the process. That turns token pressure into a design surface.</p>
+<h2>Distinction from recent published pieces</h2>
+<ul>
+<li>Not yesterday's &quot;keeping work intact&quot; continuity frame.</li>
+<li>Not baseline's &quot;backpressure&quot; frame, though related.</li>
+<li>This story is narrower and more code-specific: compaction as policy/governance over context, not just session survival or busy-state flow control.</li>
+</ul>
+<h2>llm review plan</h2>
+<p>Use <code>llm -m gpt-5.4</code> for headline + structure critique. If unavailable, fall back to best available GPT-5.x and note it.</p></div>
+    <div class="markdown evidence-copy evidence-copy-block">
+      <p>No standalone sources file is available for this article. The article body remains the primary evidence-bearing artifact.</p>
+    </div>
+    
+  </section>
+      <section class="reader-feedback"
     data-tgr-feedback
     data-article-slug="2026-03-29-agent-daily-ai-coding-agents-are-turning-compaction-into-a-policy-engine"
     data-article-title="AI Coding Agents Are Turning Compaction Into a Policy Engine"
@@ -188,28 +311,34 @@
       </div>
     </form>
   </section>
-        </article>
-        <aside class="side-panel">
-          <h2>Evidence</h2>
-          <div class="evidence-table">
-            <div class="evidence-line"><span>Date</span><span>March 29, 2026</span></div>
-            <div class="evidence-line"><span>Lane</span><span>Agent Daily</span></div>
-            <div class="evidence-line"><span>Confidence</span><span>91%</span></div>
-            <div class="evidence-line"><span>Sources</span><span>12</span></div>
-            <div class="evidence-line"><span>Repos</span><span>openai/codex, google-gemini/gemini-cli, openclaw/openclaw</span></div>
-          </div>
-          <div class="actions">
-            <a class="paper-button primary" href="/evidence/2026-03-29-agent-daily-ai-coding-agents-are-turning-compaction-into-a-policy-engine/">View Evidence</a>
-            <a class="paper-button" href="/editions/2026-03-29/">Edition</a>
-          </div>
-          <div class="related-list">
-                  <h3>Same Edition</h3>
-                  <a href="/articles/2026-03-29-daily-from-tool-chatter-to-chapters-agent-clis-are-inventing-a-narrative-layer/">
-                        <span>Context</span>
-                        From Tool Chatter to Chapters: Agent CLIs Are Inventing a Narrative Layer
-                      </a>
-                </div>
-        </aside>
+      <section class="related-edition-section">
+        <div class="section-title-row">
+          <h2>Same Edition</h2>
+          <a href="/editions/2026-03-29/">Open issue &rsaquo;</a>
+        </div>
+        <div class="updates-list">
+          <a class="update-card" href="/articles/2026-03-29-daily-from-tool-chatter-to-chapters-agent-clis-are-inventing-a-narrative-layer/">
+    <div class="update-stripe"></div>
+    <div class="update-main">
+      <div class="update-meta">
+        <span>Context</span>
+        <span class="source-plus">+4</span>
+        <span>Mar 29, 2026</span>
+      </div>
+      <h3>From Tool Chatter to Chapters: Agent CLIs Are Inventing a Narrative Layer</h3>
+      <div class="update-receipt">
+        <span>openai/codex</span>
+        <span class="branch-pill">main</span>
+      </div>
+      <div class="update-foot">
+        <span>4 sources</span>
+        <span>2 repos</span>
+        <span>source trail</span>
+      </div>
+    </div>
+    <span class="update-arrow" aria-hidden="true">&rsaquo;</span>
+  </a>
+        </div>
       </section>
     </main>
     <footer class="wrap site-footer">

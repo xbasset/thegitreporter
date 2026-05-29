@@ -6,8 +6,8 @@
   <title>Gemini Lets the Model Schedule Parallel Tools. Codex Makes the Runtime Decide. | The Git Reporter</title>
   <meta name="description" content="Terminal agents are learning the same trick — run more tools at once — but Gemini CLI and OpenAI Codex disagree on who should be in charge of that decision. One pushes dependency control up into the prompt and tool schema. The other keeps it down in runtime metadata and locks.">
   <link rel="icon" href="/assets/mark.svg">
-  <link rel="stylesheet" href="/assets/site.css?v=2026-05-23-engraver-draft-1">
-  <script defer src="/assets/feedback.js?v=2026-05-23-engraver-draft-1"></script>
+  <link rel="stylesheet" href="/assets/site.css?v=2026-05-29-article-evidence-unified-1">
+  <script defer src="/assets/feedback.js?v=2026-05-29-article-evidence-unified-1"></script>
 </head>
 <body>
   <div class="site">
@@ -27,7 +27,7 @@
         <div class="nav-rule"></div>
       </div>
     </header>
-    <main class="wrap page-shell">
+    <main class="wrap page-shell article-page">
       <section class="page-hero story-front">
         <div class="story-topline">
           <span>Daily Edition</span>
@@ -49,8 +49,12 @@
     </div>
     <div class="commit-line">&gt; source trail / March 19, 2026 / Daily Edition</div>
   </div>
+        <div class="article-route-row">
+          <a href="/editions/2026-03-19/">Open Edition</a>
+          <a href="#evidence">Evidence below</a>
+        </div>
       </section>
-      <section class="story-layout">
+      <section class="story-reader">
         <article class="story-shell story-body">
           <main class="wrap">
     <div class="eyebrow">TheGitReporter · Daily code story</div>
@@ -98,7 +102,145 @@
     <p>As terminal agents grow more autonomous, which control plane will age better: a model that can mark dependency barriers on the fly, or a runtime that enforces concurrency rules whether the model asked for them or not?</p>
     <p>If you’re building agent tooling, that’s the design fork worth watching — and probably worth arguing about in public.</p>
   </main>
-          <section class="reader-feedback"
+        </article>
+      </section>
+      <section class="evidence-section" id="evidence" aria-labelledby="evidence-title">
+    <div class="evidence-head">
+      <div>
+        <div class="eyebrow">Evidence Trail</div>
+        <h2 id="evidence-title">Receipts below the story</h2>
+        <p>The article above is the public narrative. This section keeps the source trail, limits, and reporting notes on the same page.</p>
+      </div>
+      <a class="paper-button" href="/editions/2026-03-19/">Edition</a>
+    </div>
+    <div class="evidence-table evidence-summary">
+      <div class="evidence-line"><span>Date</span><span>March 19, 2026</span></div>
+      <div class="evidence-line"><span>Lane</span><span>Daily Edition</span></div>
+      <div class="evidence-line"><span>Confidence</span><span>78%</span></div>
+      <div class="evidence-line"><span>Sources</span><span>5</span></div>
+      <div class="evidence-line"><span>Repos</span><span>openai/codex, google-gemini/gemini-cli</span></div>
+    </div>
+    <div class="markdown evidence-copy evidence-copy-block"><h3>Reporter Notes</h3><h1>Notes — 2026-03-19</h1>
+<h2>Selected angle</h2>
+<p>**Gemini lets the model mark dependency barriers for parallel tool execution; Codex encodes concurrency permission in tool metadata and enforces it in the runtime.**</p>
+<p>Why this won:</p>
+<ul>
+<li>Distinct from yesterday's subagent/trust story</li>
+<li>Strong code evidence on both sides</li>
+<li>Broadly legible: same goal, different control plane</li>
+</ul>
+<h2>Candidate angles considered</h2>
+<p>1. Picked: model-directed vs runtime-enforced tool parallelism</p>
+<p>2. A2A fabric vs threaded app-server protocol</p>
+<p>3. Terminal agents hiding latency via UI/runtime changes</p>
+<h2>Key evidence</h2>
+<h3>Gemini CLI</h3>
+<ul>
+<li>PR #21933: model-driven parallel tool scheduler</li>
+<li><code>packages/core/src/scheduler/scheduler.ts</code></li>
+<li>batches contiguous parallelizable calls</li>
+<li><code>_isParallelizable()</code> checks <code>wait_for_previous</code>; default is parallel</li>
+<li><code>packages/core/src/tools/tools.ts</code></li>
+<li>injects <code>wait_for_previous</code> into every tool schema</li>
+<li><code>packages/core/src/prompts/snippets.ts</code></li>
+<li>prompt explicitly tells the model tools run in parallel by default</li>
+<li>instructs setting <code>wait_for_previous=true</code> for dependent tools</li>
+<li><code>packages/core/src/scheduler/scheduler_parallel.test.ts</code></li>
+<li>verifies wave scheduling and dependent/sequential cases</li>
+</ul>
+<h3>Codex</h3>
+<ul>
+<li><code>codex-rs/core/src/tools/registry.rs</code></li>
+<li><code>ConfiguredToolSpec { supports_parallel_tool_calls: bool }</code></li>
+<li><code>codex-rs/core/src/tools/router.rs</code></li>
+<li><code>tool_supports_parallel()</code> reads metadata from configured specs</li>
+<li><code>codex-rs/core/src/tools/parallel.rs</code></li>
+<li><code>ToolCallRuntime</code> owns <code>parallel_execution: Arc&lt;RwLock&lt;()&gt;&gt;</code></li>
+<li>parallel-safe tools take a read lock, others take a write lock</li>
+<li>Mar 12 commit <code>09ba6b47ae5c</code>: reuses turn-scoped <code>ToolCallRuntime</code> in code mode worker</li>
+<li>gsio search on Codex points to earlier commits plumbing model parallel tool support plus race/ordering fixes, but the runtime code is the clearest grounding.</li>
+</ul>
+<h2>Repo freshness / trend signal</h2>
+<ul>
+<li><code>gh repo view openai/codex --json stargazerCount,forkCount,updatedAt</code></li>
+<li>66,195 stars, 8,835 forks, updated 2026-03-19T05:01:31Z</li>
+<li><code>gh repo view google-gemini/gemini-cli --json stargazerCount,forkCount,updatedAt</code></li>
+<li>98,301 stars, 12,405 forks, updated 2026-03-19T04:56:44Z</li>
+<li>Gemini merged PRs within ~24h include gateway auth via ACP and resilient subagent tool rejection, so the repo is clearly active; the scheduler change from Mar 12 still stands out as the sharper architecture story.</li>
+</ul>
+<h2>Editorial guardrails</h2>
+<ul>
+<li>Do **not** say Gemini has no runtime scheduler</li>
+<li>Do **not** say Codex has no model planning role</li>
+<li>Frame as different **primary control planes**, not absolute opposites</li>
+<li>Avoid overlap with yesterday by focusing on concurrency/scheduling, not trust/isolation</li>
+</ul>
+<h2>CTA / ending question</h2>
+<p>Which control plane will age better as terminal agents grow more autonomous: model-planned parallelism, or runtime-enforced parallelism?</p></div>
+    <div class="markdown evidence-copy evidence-copy-block">
+      <h1>Sources — 2026-03-19</h1>
+<h2>Published article target</h2>
+<ul>
+<li>Edition route: /editions/2026-03-19/</li>
+</ul>
+<h2>GitHub / web sources</h2>
+<ul>
+<li>Gemini CLI PR #21933 — model-driven parallel tool scheduler  </li>
+</ul>
+<p>  <a href="https://github.com/google-gemini/gemini-cli/pull/21933">https://github.com/google-gemini/gemini-cli/pull/21933</a></p>
+<ul>
+<li>OpenAI Codex repository  </li>
+</ul>
+<p>  <a href="https://github.com/openai/codex">https://github.com/openai/codex</a></p>
+<ul>
+<li>Google Gemini CLI repository  </li>
+</ul>
+<p>  <a href="https://github.com/google-gemini/gemini-cli">https://github.com/google-gemini/gemini-cli</a></p>
+<h2>Local repo source files</h2>
+<h3>Gemini CLI</h3>
+<ul>
+<li><code>repo source/gemini-cli/packages/core/src/scheduler/scheduler.ts</code></li>
+<li><code>repo source/gemini-cli/packages/core/src/tools/tools.ts</code></li>
+<li><code>repo source/gemini-cli/packages/core/src/prompts/snippets.ts</code></li>
+<li><code>repo source/gemini-cli/packages/core/src/scheduler/scheduler_parallel.test.ts</code></li>
+</ul>
+<h3>Codex</h3>
+<ul>
+<li><code>repo source/codex/codex-rs/core/src/tools/parallel.rs</code></li>
+<li><code>repo source/codex/codex-rs/core/src/tools/router.rs</code></li>
+<li><code>repo source/codex/codex-rs/core/src/tools/registry.rs</code></li>
+</ul>
+<h2>Supporting command evidence</h2>
+<h3>Repo freshness / popularity</h3>
+<pre><code>
+gh repo view openai/codex --json stargazerCount,forkCount,updatedAt,description,url
+gh repo view google-gemini/gemini-cli --json stargazerCount,forkCount,updatedAt,description,url
+</code></pre>
+<h3>Gemini scheduler evidence</h3>
+<pre><code>
+rg -n &quot;wait_for_previous|parallel&quot; \
+  packages/core/src/scheduler/scheduler.ts \
+  packages/core/src/tools/tools.ts \
+  packages/core/src/prompts/snippets.ts \
+  packages/core/src/scheduler/scheduler_parallel.test.ts
+</code></pre>
+<h3>Codex runtime evidence</h3>
+<pre><code>
+rg -n &quot;supports_parallel_tool_calls|tool_supports_parallel|RwLock|parallel_execution&quot; \
+  codex-rs/core/src/tools/parallel.rs \
+  codex-rs/core/src/tools/router.rs \
+  codex-rs/core/src/tools/registry.rs \
+  codex-rs/core/src/client_common.rs
+</code></pre>
+<h3>gsio trend queries</h3>
+<pre><code>
+[local source path] search q 'parallel scheduler wait_for_previous tool' -p google-gemini/gemini-cli --output summary
+[local source path] search q 'supports_parallel_tool_calls parallel tool runtime lock' -p openai/codex --output summary
+</code></pre>
+    </div>
+    
+  </section>
+      <section class="reader-feedback"
     data-tgr-feedback
     data-article-slug="2026-03-19-daily-gemini-lets-the-model-schedule-parallel-tools-codex-makes-the-runtime-decide"
     data-article-title="Gemini Lets the Model Schedule Parallel Tools. Codex Makes the Runtime Decide."
@@ -135,23 +277,7 @@
       </div>
     </form>
   </section>
-        </article>
-        <aside class="side-panel">
-          <h2>Evidence</h2>
-          <div class="evidence-table">
-            <div class="evidence-line"><span>Date</span><span>March 19, 2026</span></div>
-            <div class="evidence-line"><span>Lane</span><span>Daily Edition</span></div>
-            <div class="evidence-line"><span>Confidence</span><span>78%</span></div>
-            <div class="evidence-line"><span>Sources</span><span>5</span></div>
-            <div class="evidence-line"><span>Repos</span><span>openai/codex, google-gemini/gemini-cli</span></div>
-          </div>
-          <div class="actions">
-            <a class="paper-button primary" href="/evidence/2026-03-19-daily-gemini-lets-the-model-schedule-parallel-tools-codex-makes-the-runtime-decide/">View Evidence</a>
-            <a class="paper-button" href="/editions/2026-03-19/">Edition</a>
-          </div>
-          
-        </aside>
-      </section>
+      
     </main>
     <footer class="wrap site-footer">
       <span>&copy; 2026 The Git Reporter</span>

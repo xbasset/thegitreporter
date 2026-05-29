@@ -6,8 +6,8 @@
   <title>Agent Runtimes Are Learning to Audit Their Own Tools | The Git Reporter</title>
   <meta name="description" content="Fresh Codex and Gemini CLI changes show agent projects treating tool calls, plugins, MCP servers, and subagents as auditable runtime events instead of invisible helper work.">
   <link rel="icon" href="/assets/mark.svg">
-  <link rel="stylesheet" href="/assets/site.css?v=2026-05-23-engraver-draft-1">
-  <script defer src="/assets/feedback.js?v=2026-05-23-engraver-draft-1"></script>
+  <link rel="stylesheet" href="/assets/site.css?v=2026-05-29-article-evidence-unified-1">
+  <script defer src="/assets/feedback.js?v=2026-05-29-article-evidence-unified-1"></script>
 </head>
 <body>
   <div class="site">
@@ -27,7 +27,7 @@
         <div class="nav-rule"></div>
       </div>
     </header>
-    <main class="wrap page-shell">
+    <main class="wrap page-shell article-page">
       <section class="page-hero story-front">
         <div class="story-topline">
           <span>Daily Edition</span>
@@ -49,8 +49,12 @@
     </div>
     <div class="commit-line">&gt; c69cde3 / May 19, 2026 / Daily Edition</div>
   </div>
+        <div class="article-route-row">
+          <a href="/editions/2026-05-19/">Open Edition</a>
+          <a href="#evidence">Evidence below</a>
+        </div>
       </section>
-      <section class="story-layout">
+      <section class="story-reader">
         <article class="story-shell story-body">
           <p>The next serious feature in coding agents may not look like a new button. It may look like a receipt.</p>
   <p>In the last week of watched changes, OpenAI Codex and Google Gemini CLI both moved in that direction. Codex added a typed lifecycle interface so extensions can observe when host-owned tools start and finish. Gemini CLI added a session-backed path for local subagents, plus a flag to route subagent invocations through the AgentSession protocol. A nearby Gemini documentation change spells out how sensitive host environment variables are redacted before MCP servers see them.</p>
@@ -70,7 +74,66 @@
   <p>Early agent coverage often asked whether a system had tools, memory, or subagents. The fresher question is whether the runtime can govern those pieces once they exist. Codex is adding lifecycle and provenance hooks around tool calls. Gemini is moving subagents into a session protocol with activity and cancellation semantics. Gemini's MCP docs are making environment handling explicit.</p>
   <p>That does not prove a shared standard is forming. It does show convergent pressure. As coding agents become less like single prompts and more like operating environments, tool execution needs audit trails, not just output text.</p>
   <p>Watch the next round of changes for three things: whether lifecycle hooks become public extension contracts, whether session-backed subagents become the default path, and whether MCP provenance becomes visible enough for users to understand which tool actually touched their work.</p>
-          <section class="reader-feedback"
+        </article>
+      </section>
+      <section class="evidence-section" id="evidence" aria-labelledby="evidence-title">
+    <div class="evidence-head">
+      <div>
+        <div class="eyebrow">Evidence Trail</div>
+        <h2 id="evidence-title">Receipts below the story</h2>
+        <p>The article above is the public narrative. This section keeps the source trail, limits, and reporting notes on the same page.</p>
+      </div>
+      <a class="paper-button" href="/editions/2026-05-19/">Edition</a>
+    </div>
+    <div class="evidence-table evidence-summary">
+      <div class="evidence-line"><span>Date</span><span>May 19, 2026</span></div>
+      <div class="evidence-line"><span>Lane</span><span>Daily Edition</span></div>
+      <div class="evidence-line"><span>Confidence</span><span>87%</span></div>
+      <div class="evidence-line"><span>Sources</span><span>8</span></div>
+      <div class="evidence-line"><span>Repos</span><span>openai/codex, google-gemini/gemini-cli</span></div>
+    </div>
+    <div class="markdown evidence-copy evidence-copy-block"><h3>Reporter Notes</h3><p>The final angle is a runtime-governance story rather than a feature-launch story.</p>
+<p>Codex's <code>ToolLifecycleContributor</code> work matters because it gives extensions a host-owned observation point for tool execution. The notable detail is the split between observation and control: the PR says lifecycle contributors can observe accepted starts and finishes, while policy hooks and tool handlers still own blocking, rewriting, and execution. That is a trust architecture move, not just a logging addition.</p>
+<p>Codex's plugin MCP metadata work complements that lifecycle hook. If a tool call comes from plugin-backed MCP, the host can carry plugin provenance in request metadata. That is a small field, but it answers a hard operational question: when several layers can provide tools, which layer was responsible for this one?</p>
+<p>Gemini CLI's <code>LocalSessionInvocation</code> points at the same pressure from the subagent side. It turns local subagent execution into a session-backed invocation, publishes activity through a message bus, records running/completed/error/cancelled states, sanitizes activity content, and wires abort behavior. The companion flag, <code>experimental.adk.agentSessionSubagentEnabled</code>, frames this as a path away from legacy executors and toward AgentSession protocol routing.</p>
+<p>Gemini's MCP environment documentation adds the security edge: the project is making explicit which host environment variables should not leak to arbitrary MCP servers, and how a user should intentionally pass a token when a server really needs it.</p>
+<p>Taken together, the evidence supports a cautious claim: the next agent CLI layer is less about raw tool count and more about auditable boundaries around tools and subagents.</p></div>
+    <div class="markdown evidence-copy evidence-copy-block">
+      <h2>Primary Evidence</h2>
+<ul>
+<li>OpenAI Codex commit <code>c69cde3547c87c3423434ff37273dcadbcce8817</code>, <code>Add tool lifecycle extension contributor (#23309)</code>: <a href="https://github.com/openai/codex/commit/c69cde3547c87c3423434ff37273dcadbcce8817">https://github.com/openai/codex/commit/c69cde3547c87c3423434ff37273dcadbcce8817</a></li>
+<li>Evidence used: adds <code>ToolLifecycleContributor</code>, typed tool start and finish callbacks, source metadata for direct and code-mode calls, and outcomes for completed, blocked, failed, and aborted tool calls.</li>
+<li>OpenAI Codex PR #23309, <code>Add tool lifecycle extension contributor</code>: <a href="https://github.com/openai/codex/pull/23309">https://github.com/openai/codex/pull/23309</a></li>
+<li>Evidence used: PR framing that lifecycle contributors observe accepted tool starts and finishes while other runtime layers remain responsible for policy and execution.</li>
+<li>OpenAI Codex commit <code>a66e0e9c4b2978121ed1cd4242f7f62dd027423f</code>, <code>Include plugin id in plugin MCP tool metadata (#23353)</code>: <a href="https://github.com/openai/codex/commit/a66e0e9c4b2978121ed1cd4242f7f62dd027423f">https://github.com/openai/codex/commit/a66e0e9c4b2978121ed1cd4242f7f62dd027423f</a></li>
+<li>Evidence used: plugin-backed MCP tool calls now carry plugin provenance in request metadata, with test coverage for <code>MCP_TOOL_PLUGIN_ID_META_KEY</code>.</li>
+<li>Google Gemini CLI commit <code>6973b963aebf3397d53c8c42eb0357b2d9eb5edb</code>, <code>feat(core): add LocalSessionInvocation (#26665)</code>: <a href="https://github.com/google-gemini/gemini-cli/commit/6973b963aebf3397d53c8c42eb0357b2d9eb5edb">https://github.com/google-gemini/gemini-cli/commit/6973b963aebf3397d53c8c42eb0357b2d9eb5edb</a></li>
+<li>Evidence used: adds session-backed local subagent invocation, subagent activity events, sanitized activity display, result formatting, cancellation/error states, abort wiring, and parent observer cleanup tests.</li>
+<li>Google Gemini CLI commit <code>5611ff40e7ace8157fbeee97d459178e988862f3</code>, <code>feat(core): add adk.agentSessionSubagentEnabled flag (#26947)</code>: <a href="https://github.com/google-gemini/gemini-cli/commit/5611ff40e7ace8157fbeee97d459178e988862f3">https://github.com/google-gemini/gemini-cli/commit/5611ff40e7ace8157fbeee97d459178e988862f3</a></li>
+<li>Evidence used: adds <code>agentSessionSubagentEnabled</code> configuration support and documents routing subagent invocations through the AgentSession protocol instead of legacy executors.</li>
+<li>Google Gemini CLI PR #26947, <code>feat(core): add adk.agentSessionSubagentEnabled flag</code>: <a href="https://github.com/google-gemini/gemini-cli/pull/26947">https://github.com/google-gemini/gemini-cli/pull/26947</a></li>
+<li>Evidence used: merged PR and changed files tying the new setting to ADK AgentSession-based subagent execution.</li>
+<li>Google Gemini CLI commit <code>0c0d88d90b2878e34126737ef9218f9e7e3dec3e</code>, <code>docs(extensions): clarify env var sanitization policy for MCP and ext... (#22854)</code>: <a href="https://github.com/google-gemini/gemini-cli/commit/0c0d88d90b2878e34126737ef9218f9e7e3dec3e">https://github.com/google-gemini/gemini-cli/commit/0c0d88d90b2878e34126737ef9218f9e7e3dec3e</a></li>
+<li>Evidence used: clarifies that sensitive host environment variables are redacted before third-party MCP servers receive environment data, with explicit configuration as the trusted override path.</li>
+<li>Google Gemini CLI MCP server documentation: <a href="https://github.com/google-gemini/gemini-cli/blob/main/docs/tools/mcp-server.md">https://github.com/google-gemini/gemini-cli/blob/main/docs/tools/mcp-server.md</a></li>
+<li>Evidence used: public documentation for MCP server environment handling and sensitive variable redaction.</li>
+</ul>
+<h2>Evidence Limits</h2>
+<ul>
+<li>The article does not claim Codex and Gemini share an implementation, standard, or coordinated roadmap.</li>
+<li>The article treats lifecycle contributors, plugin metadata, session-backed subagents, and MCP environment redaction as evidence of convergent runtime-governance pressure, not as proof of feature parity.</li>
+<li>The Gemini AgentSession subagent setting is explicit rollout plumbing; this evidence does not prove that AgentSession-backed subagents are the default path for all users.</li>
+<li>Commit and PR evidence can show what changed in source, but it does not prove release timing, downstream adoption, or how every end-user installation behaves.</li>
+</ul>
+    </div>
+    <div class="markdown evidence-copy evidence-copy-block"><h3>Open Questions</h3><ul>
+<li>Whether Codex's lifecycle contributor API becomes a general extension contract or remains focused on specific internal contributors such as goal progress accounting.</li>
+<li>Whether Gemini CLI makes AgentSession-backed subagents the default after the experimental flag proves stable.</li>
+<li>Whether the two ecosystems converge on similar names for tool provenance, lifecycle outcomes, and subagent activity, or keep incompatible host-specific contracts.</li>
+<li>Whether readers care more about the security angle, the debugging angle, or the product UX angle. Letters &amp; Corrections should ask for that feedback.</li>
+</ul></div>
+  </section>
+      <section class="reader-feedback"
     data-tgr-feedback
     data-article-slug="2026-05-19-daily-agent-runtimes-are-learning-to-audit-their-own-tools"
     data-article-title="Agent Runtimes Are Learning to Audit Their Own Tools"
@@ -107,23 +170,7 @@
       </div>
     </form>
   </section>
-        </article>
-        <aside class="side-panel">
-          <h2>Evidence</h2>
-          <div class="evidence-table">
-            <div class="evidence-line"><span>Date</span><span>May 19, 2026</span></div>
-            <div class="evidence-line"><span>Lane</span><span>Daily Edition</span></div>
-            <div class="evidence-line"><span>Confidence</span><span>87%</span></div>
-            <div class="evidence-line"><span>Sources</span><span>8</span></div>
-            <div class="evidence-line"><span>Repos</span><span>openai/codex, google-gemini/gemini-cli</span></div>
-          </div>
-          <div class="actions">
-            <a class="paper-button primary" href="/evidence/2026-05-19-daily-agent-runtimes-are-learning-to-audit-their-own-tools/">View Evidence</a>
-            <a class="paper-button" href="/editions/2026-05-19/">Edition</a>
-          </div>
-          
-        </aside>
-      </section>
+      
     </main>
     <footer class="wrap site-footer">
       <span>&copy; 2026 The Git Reporter</span>

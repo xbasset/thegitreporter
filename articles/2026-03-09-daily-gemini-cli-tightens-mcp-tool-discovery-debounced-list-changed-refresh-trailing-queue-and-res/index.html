@@ -6,8 +6,8 @@
   <title>Gemini CLI tightens MCP tool discovery: debounced list_changed refresh, trailing queue, and resilient retries | The Git Reporter</title>
   <meta name="description" content="Gemini CLI’s MCP integration has been steadily gaining real-time awareness of server-side tool changes. A local search trail points to early MCP notifications support landing on 2026-01-08 (...">
   <link rel="icon" href="/assets/mark.svg">
-  <link rel="stylesheet" href="/assets/site.css?v=2026-05-23-engraver-draft-1">
-  <script defer src="/assets/feedback.js?v=2026-05-23-engraver-draft-1"></script>
+  <link rel="stylesheet" href="/assets/site.css?v=2026-05-29-article-evidence-unified-1">
+  <script defer src="/assets/feedback.js?v=2026-05-29-article-evidence-unified-1"></script>
 </head>
 <body>
   <div class="site">
@@ -27,7 +27,7 @@
         <div class="nav-rule"></div>
       </div>
     </header>
-    <main class="wrap page-shell">
+    <main class="wrap page-shell article-page">
       <section class="page-hero story-front">
         <div class="story-topline">
           <span>Daily Edition</span>
@@ -49,8 +49,12 @@
     </div>
     <div class="commit-line">&gt; 5f60281 / March 9, 2026 / Daily Edition</div>
   </div>
+        <div class="article-route-row">
+          <a href="/editions/2026-03-09/">Open Edition</a>
+          <a href="#evidence">Evidence below</a>
+        </div>
       </section>
-      <section class="story-layout">
+      <section class="story-reader">
         <article class="story-shell story-body">
           <p>
       Gemini CLI’s MCP integration has been steadily gaining real-time awareness of server-side tool changes. A local search trail points to early MCP notifications support landing on 2026-01-08 (commit <code>5f60281d2528</code>), when <code>list_changed</code> began showing up as a first-class signal in the codebase. But as more servers started emitting frequent change events, a subtle set of reliability issues emerged: refresh storms, missed updates during in-flight executions, and “empty discovery” edge cases that could leave the client thinking no tools existed at all.
@@ -99,7 +103,78 @@
         Local gsio search output: “<code>list_changed</code> results showing MCP notifications support added on 2026-01-08 (commit <code>5f60281d2528</code>)”
       </li>
     </ul>
-          <section class="reader-feedback"
+        </article>
+      </section>
+      <section class="evidence-section" id="evidence" aria-labelledby="evidence-title">
+    <div class="evidence-head">
+      <div>
+        <div class="eyebrow">Evidence Trail</div>
+        <h2 id="evidence-title">Receipts below the story</h2>
+        <p>The article above is the public narrative. This section keeps the source trail, limits, and reporting notes on the same page.</p>
+      </div>
+      <a class="paper-button" href="/editions/2026-03-09/">Edition</a>
+    </div>
+    <div class="evidence-table evidence-summary">
+      <div class="evidence-line"><span>Date</span><span>March 9, 2026</span></div>
+      <div class="evidence-line"><span>Lane</span><span>Daily Edition</span></div>
+      <div class="evidence-line"><span>Confidence</span><span>78%</span></div>
+      <div class="evidence-line"><span>Sources</span><span>3</span></div>
+      <div class="evidence-line"><span>Repos</span><span>openai/codex, google-gemini/gemini-cli</span></div>
+    </div>
+    <div class="markdown evidence-copy evidence-copy-block"><h3>Reporter Notes</h3><h1>Notes</h1>
+<ul>
+<li>Date: 2026-03-09</li>
+<li>Repo: google-gemini/gemini-cli</li>
+<li>Focus: MCP notifications/tools/list_changed reliability fixes.</li>
+<li>Core changes: debounced refresh, trailing execution queue, empty-discovery retry, handler registration even when listChanged capability absent; tests expanded (TDD).</li>
+<li>Anchors: PR #21050, commit 352fb0c9; prior list_changed support in 5f60281d2528 (2026-01-08).</li>
+<li>Output HTML: daily edition corpus/2026-03-09/index.html</li>
+<li>Edition route: /editions/2026-03-09/</li>
+</ul></div>
+    <div class="markdown evidence-copy evidence-copy-block">
+      <h1>Sources</h1>
+<h2>Git commit (gemini-cli)</h2>
+<pre><code>
+commit 352fb0c97680b11578f88277f9e0265aa9a2191a
+Author: Jacob Richman &lt;jacob314@gmail.com&gt;
+Date:   Wed Mar 4 06:46:17 2026 -0800
+
+    fix(mcp): Notifications/tools/list_changed support not working (#21050)
+
+    Co-authored-by: Bryan Morgan &lt;bryanmorgan@google.com&gt;
+
+ packages/core/src/resources/resource-registry.ts |  13 ++
+ packages/core/src/tools/mcp-client-manager.ts    |  50 ++++-
+ packages/core/src/tools/mcp-client.test.ts       | 244 +++++++++++++++++++----
+ packages/core/src/tools/mcp-client.ts            | 144 +++++++++++--
+ 4 files changed, 378 insertions(+), 73 deletions(-)
+</code></pre>
+<h2>PR summary (gh)</h2>
+<pre><code>
+title: fix(mcp): Notifications/tools/list_changed support not working
+state: MERGED
+number: 21050
+url: https://github.com/google-gemini/gemini-cli/pull/21050
+additions: 378
+deletions: 73
+
+Summary:
+- Improved MCP context refresh with debouncing, queued trailing execution, and pending refresh processing.
+- Registers list_changed notification handlers even when listChanged capability is absent.
+- Adds retry when tool discovery returns empty/no changes.
+- Updates unit tests with TDD coverage.
+</code></pre>
+<h2>gsio search (local)</h2>
+<pre><code>
+query: list_changed
+project: google-gemini/gemini-cli
+result: commit 5f60281d2528 (2026-01-08)
+summary: Enable MCP clients to react to `notifications/tools/list_changed` by refreshing tools.
+</code></pre>
+    </div>
+    
+  </section>
+      <section class="reader-feedback"
     data-tgr-feedback
     data-article-slug="2026-03-09-daily-gemini-cli-tightens-mcp-tool-discovery-debounced-list-changed-refresh-trailing-queue-and-res"
     data-article-title="Gemini CLI tightens MCP tool discovery: debounced list_changed refresh, trailing queue, and resilient retries"
@@ -136,23 +211,7 @@
       </div>
     </form>
   </section>
-        </article>
-        <aside class="side-panel">
-          <h2>Evidence</h2>
-          <div class="evidence-table">
-            <div class="evidence-line"><span>Date</span><span>March 9, 2026</span></div>
-            <div class="evidence-line"><span>Lane</span><span>Daily Edition</span></div>
-            <div class="evidence-line"><span>Confidence</span><span>78%</span></div>
-            <div class="evidence-line"><span>Sources</span><span>3</span></div>
-            <div class="evidence-line"><span>Repos</span><span>openai/codex, google-gemini/gemini-cli</span></div>
-          </div>
-          <div class="actions">
-            <a class="paper-button primary" href="/evidence/2026-03-09-daily-gemini-cli-tightens-mcp-tool-discovery-debounced-list-changed-refresh-trailing-queue-and-res/">View Evidence</a>
-            <a class="paper-button" href="/editions/2026-03-09/">Edition</a>
-          </div>
-          
-        </aside>
-      </section>
+      
     </main>
     <footer class="wrap site-footer">
       <span>&copy; 2026 The Git Reporter</span>
