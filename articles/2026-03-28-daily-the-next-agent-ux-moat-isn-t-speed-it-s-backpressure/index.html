@@ -6,15 +6,15 @@
   <title>The Next Agent UX Moat Isn’t Speed. It’s Backpressure. | The Git Reporter</title>
   <meta name="description" content="The hard problem in terminal agents is no longer just getting them to do more. It’s deciding what happens when the human tries to steer while the runtime is already busy.">
   <link rel="icon" href="/assets/mark.svg">
-  <link rel="stylesheet" href="/assets/site.css?v=2026-05-29-article-evidence-unified-1">
-  <script defer src="/assets/feedback.js?v=2026-05-29-article-evidence-unified-1"></script>
+  <link rel="stylesheet" href="/assets/site.css?v=2026-05-30-about-page-1">
+  <script defer src="/assets/feedback.js?v=2026-05-30-about-page-1"></script>
 </head>
 <body>
   <div class="site">
     <header class="site-header" id="top">
       <div class="wrap utility-row">
         <a class="icon-link menu-icon" href="/archive/" aria-label="Open edition history"><span></span><span></span><span></span></a>
-        <a class="icon-link search-icon" href="/archive/" aria-label="Search edition history"></a>
+        <a class="icon-link archive-icon" href="/archive/" aria-label="Open edition history"></a>
       </div>
       <div class="wrap masthead-lockup">
         <a class="masthead-title" href="/">THE GIT REPORTER</a>
@@ -22,7 +22,7 @@
       </div>
       <div class="wrap nav-wrap">
         <nav class="paper-nav" aria-label="Primary navigation">
-    <a class="" href="/">Today</a><a class="active" href="/archive/">Editions</a><a class="" href="/atlas/">Agent Atlas</a><a class="" href="/repos/">Repos</a>
+    <a class="" href="/">Today</a><a class="active" href="/archive/">Editions</a><a class="" href="/about/">About</a><a class="" href="/atlas/">Agent Atlas</a><a class="" href="/repos/">Repos</a>
   </nav>
         <div class="nav-rule"></div>
       </div>
@@ -38,16 +38,16 @@
         
         <div class="receipt">
     <div class="receipt-line">
-      <span class="receipt-icon">repo</span>
-      <span class="receipt-main">openai/codex</span>
-      <span class="branch-pill">main</span>
+      <span class="receipt-icon">repos</span>
+      <span class="receipt-main">openai/codex + google-gemini/gemini-cli</span>
+      <span class="branch-pill">evidence</span>
     </div>
     <div class="receipt-line receipt-muted">
       <span>8 source signals</span>
       <span>2 repos</span>
-      <span>source trail</span>
+      <span>8 source signals</span>
     </div>
-    <div class="commit-line">&gt; source trail / March 28, 2026 / Daily Edition</div>
+    <div class="commit-line">Evidence: 8 source signals / March 28, 2026 / Daily Edition</div>
   </div>
         <div class="article-route-row">
           <a href="/editions/2026-03-28/">Open Edition</a>
@@ -147,131 +147,33 @@
       <div class="evidence-line"><span>Sources</span><span>8</span></div>
       <div class="evidence-line"><span>Repos</span><span>openai/codex, google-gemini/gemini-cli</span></div>
     </div>
-    <div class="markdown evidence-copy evidence-copy-block"><h3>Reporter Notes</h3><h1>Daily article notes — 2026-03-28</h1>
-<h2>Selected angle</h2>
-<p>**The next CLI moat is backpressure control.**</p>
-<p>Core thesis: the interesting shift in Codex and Gemini CLI is not just more tools, more subagents, or more speed. It is that both are starting to treat user interruption, queueing, compression, resume, approvals, and mid-task steering as runtime design problems. The terminal agent is becoming a backpressure system.</p>
-<h2>Why this angle is new versus prior articles</h2>
-<ul>
-<li>Different from yesterday’s containment story: that piece was about safer delegated workers and stricter boundaries.</li>
-<li>Different from the March 24 forensics piece: this is about live flow control while work is in progress, not post-hoc inspection.</li>
-<li>Different from the March 23 execution-context piece: this is about what happens when the human and the runtime both want to act at once.</li>
-<li>Different from the March 21 “agents stop failing silently” piece: this is specifically about queueing, compression chokepoints, resume semantics, and safe-point intervention.</li>
-</ul>
-<h2>Candidate angles considered</h2>
-<p>1. **Agent backpressure becomes the next CLI UX moat.** Chosen.</p>
-<p>2. Agent runtimes are turning user interruptions into first-class events.</p>
-<p>3. Memory is becoming scoped and routable. Rejected as too close to earlier memory articles.</p>
-<h2>Fresh signals scanned</h2>
-<h3>Codex</h3>
-<ul>
-<li>PR #16062: stabilize zsh-fork approvals and <code>resume --last</code></li>
-<li>Issue #16068: custom <code>model_context_window</code> breaks auto-compaction after overflow</li>
-<li>Issue #16060: proposed SIGUSR1 inbox for safe-point mid-task instruction injection</li>
-<li><code>docs/tui-chat-composer.md</code>: queueing behavior in steer mode when task already running</li>
-<li><code>core/src/compact.rs</code>: mid-turn compaction behavior, trimming, and warning on repeated compactions</li>
-</ul>
-<h3>Gemini CLI</h3>
-<ul>
-<li>Issue #24071: request to queue a message while compression is running</li>
-<li>Issue #24064: user complaint about dramatic slowness</li>
-<li><code>packages/a2a-server/src/agent/executor.ts</code>: secondary execution loop can process a user message while task already executing</li>
-<li><code>packages/a2a-server/src/agent/task.ts</code>: pre-register pending tool calls, wait for pending tools, reflect background work state</li>
-<li><code>docs/reference/keyboard-shortcuts.md</code>: plan mode skipped when agent is busy</li>
-<li><code>docs/reference/commands.md</code> + <code>docs/reference/configuration.md</code>: <code>/compress</code>, <code>model.compressionThreshold</code>, and <code>hooks.PreCompress</code></li>
-</ul>
-<h2>Supporting insight from llm review</h2>
-<p>The strongest non-redundant framing is that both products are converging on the same operational question: when the user tries to change course while the machine is already busy, what gets queued, what gets rejected, what gets summarized, and what resumes cleanly?</p>
-<h2>Article structure</h2>
-<p>1. Hook: agent demos used to sell raw horsepower; now the harder problem is keeping the lane clear when humans interrupt.</p>
-<p>2. Codex evidence: queued steer mode, resume narrowing, approval timing hardening, compaction edge cases, explicit request for inbox-style intervention.</p>
-<p>3. Gemini evidence: secondary execution loop, pending-tool scheduler, busy-state UI restrictions, operator-visible compression controls, active user pain around waiting during compression.</p>
-<p>4. Synthesis: CLIs are becoming flow-control systems for human+agent concurrency.</p>
-<p>5. Close: open question + CTA on whether better backpressure design makes agents trustworthy enough for longer-lived work.</p></div>
+    
     <div class="markdown evidence-copy evidence-copy-block">
-      <h1>Sources — 2026-03-28</h1>
-<h2>Prior state and archive review</h2>
+      <h2>Source Trail</h2>
 <ul>
-<li><code>daily edition corpus/_state.json</code></li>
-<li>Reviewed article titles from <code>daily edition corpus/*/index.html</code></li>
+<li>Repo: <code><a href="https://github.com/openai/codex">https://github.com/openai/codex</a></code>
+</li>
+<li>URL: <a href="https://github.com/openai/codex/pull/16062">https://github.com/openai/codex/pull/16062</a>
+</li>
+<li>URL: <a href="https://github.com/openai/codex/issues/16068">https://github.com/openai/codex/issues/16068</a>
+</li>
+<li>URL: <a href="https://github.com/openai/codex/issues/16060">https://github.com/openai/codex/issues/16060</a>
+</li>
+<li>Repo: <code><a href="https://github.com/google-gemini/gemini-cli">https://github.com/google-gemini/gemini-cli</a></code>
+</li>
+<li>URL: <a href="https://github.com/google-gemini/gemini-cli/issues/24071">https://github.com/google-gemini/gemini-cli/issues/24071</a>
+</li>
+<li>URL: <a href="https://github.com/google-gemini/gemini-cli/issues/24064">https://github.com/google-gemini/gemini-cli/issues/24064</a>
+</li>
+<li>URL: <a href="https://github.com/google-gemini/gemini-cli/pull/24080">https://github.com/google-gemini/gemini-cli/pull/24080</a>
+</li>
 </ul>
-<h2>gsio</h2>
+<h2>Evidence Limits</h2>
 <ul>
-<li><code>gsio projects scope --project openai/codex --project google-gemini/gemini-cli</code></li>
-<li>Coverage: 100% for both repos in local index</li>
-<li>Freshness: synced on 2026-03-28</li>
-<li><code>gsio search q 'compression queue resume approvals subagent running task' -p openai/codex -p google-gemini/gemini-cli --output summary</code></li>
-<li>Surfaced related indexed commits around thread-scoped approvals, subagent execution inheritance, safe concurrent commands, event-driven scheduling, and reactive subagent status</li>
-</ul>
-<h2>Codex repo truth</h2>
-<p>Repo: <code><a href="https://github.com/openai/codex">https://github.com/openai/codex</a></code></p>
-<p>Local clone: <code>repo source/codex</code></p>
-<h3>Code/docs</h3>
-<ul>
-<li><code>docs/tui-chat-composer.md:100-103</code></li>
-<li>Evidence: when steer mode is enabled, <code>Tab</code> requests queuing if a task is already running; <code>Enter</code> submits immediately.</li>
-<li><code>codex-rs/core/src/compact.rs:37-43</code></li>
-<li>Evidence: mid-turn compaction must inject initial context before the last real user message.</li>
-<li><code>codex-rs/core/src/compact.rs:96-114</code></li>
-<li>Evidence: compaction is a distinct turn item and reuses one client session to survive retries within the compact turn.</li>
-<li><code>codex-rs/core/src/compact.rs:140-159</code></li>
-<li>Evidence: older thread items are trimmed to fit context window; overflow during compaction removes oldest history items and retries.</li>
-<li><code>codex-rs/core/src/compact.rs:227-229</code></li>
-<li>Evidence: repeated long-thread compactions can reduce accuracy; user is warned to start a new thread.</li>
-</ul>
-<h3>Fresh GitHub activity</h3>
-<ul>
-<li>PR <code>#16062</code> — <code>stabilize zsh-fork approvals and resume --last</code></li>
-<li>URL: <a href="https://github.com/openai/codex/pull/16062">https://github.com/openai/codex/pull/16062</a></li>
-<li>Evidence: keeps approval flow stable on macOS and narrows <code>resume --last</code> to top-level resumable thread sources instead of internal sub-agent rollouts.</li>
-<li>Issue <code>#16068</code> — <code>Setting model_context_window in config.toml breaks auto-compaction (fill_to_context_window resets token counter)</code></li>
-<li>URL: <a href="https://github.com/openai/codex/issues/16068">https://github.com/openai/codex/issues/16068</a></li>
-<li>Evidence: custom context window can poison token accounting after overflow, preventing further auto-compaction.</li>
-<li>Issue <code>#16060</code> — <code>feature: SIGUSR1 handler for mid-task instruction injection via inbox file</code></li>
-<li>URL: <a href="https://github.com/openai/codex/issues/16060">https://github.com/openai/codex/issues/16060</a></li>
-<li>Evidence: explicit request for orchestrator-to-agent communication at safe points instead of hard interruption.</li>
-</ul>
-<h2>Gemini CLI repo truth</h2>
-<p>Repo: <code><a href="https://github.com/google-gemini/gemini-cli">https://github.com/google-gemini/gemini-cli</a></code></p>
-<p>Local clone: <code>repo source/gemini-cli</code></p>
-<h3>Code/docs</h3>
-<ul>
-<li><code>packages/a2a-server/src/agent/executor.ts:450-465</code></li>
-<li>Evidence: if a task already has a pending execution, the executor processes the user message in a secondary execution loop and yields back to the original execution.</li>
-<li><code>packages/a2a-server/src/agent/executor.ts:521-533</code></li>
-<li>Evidence: tool call requests are batched, scheduled, then the executor explicitly waits for pending tools before continuing.</li>
-<li><code>packages/a2a-server/src/agent/task.ts:189-219</code></li>
-<li>Evidence: pending tool calls are registered, resolved, and awaited with explicit counts.</li>
-<li><code>packages/a2a-server/src/agent/task.ts:755-764</code></li>
-<li>Evidence: tool calls are pre-registered before async scheduling so pending work is visible immediately.</li>
-<li><code>packages/a2a-server/src/agent/task.ts:1141-1158</code></li>
-<li>Evidence: pure confirmation turns can keep the task in a <code>working</code> state while background activity continues.</li>
-<li><code>docs/reference/keyboard-shortcuts.md:106</code> and <code>220-221</code></li>
-<li>Evidence: plan mode is skipped when the agent is busy.</li>
-<li><code>docs/reference/commands.md:98-103</code></li>
-<li>Evidence: <code>/compress</code> is a first-class command that replaces chat context with a summary.</li>
-<li><code>docs/reference/configuration.md:410-415</code></li>
-<li>Evidence: <code>model.compressionThreshold</code> controls when compression triggers.</li>
-<li><code>docs/reference/configuration.md:1154-1156</code></li>
-<li>Evidence: <code>hooks.PreCompress</code> runs before chat history compression.</li>
-</ul>
-<h3>Fresh GitHub activity</h3>
-<ul>
-<li>Issue <code>#24071</code> — <code>Let users queue a message while compression is running</code></li>
-<li>URL: <a href="https://github.com/google-gemini/gemini-cli/issues/24071">https://github.com/google-gemini/gemini-cli/issues/24071</a></li>
-<li>Evidence: users explicitly want queued input during compression wait time.</li>
-<li>Issue <code>#24064</code></li>
-<li>URL: <a href="https://github.com/google-gemini/gemini-cli/issues/24064">https://github.com/google-gemini/gemini-cli/issues/24064</a></li>
-<li>Evidence: user reports severe slowness and degraded responsiveness.</li>
-<li>PR <code>#24080</code> — <code>feat(cli): add gemini update command</code></li>
-<li>URL: <a href="https://github.com/google-gemini/gemini-cli/pull/24080">https://github.com/google-gemini/gemini-cli/pull/24080</a></li>
-<li>Evidence: less central to thesis, but part of the broader operator-facing maturation of the CLI.</li>
-</ul>
-<h2>Editorial synthesis</h2>
-<ul>
-<li><code>llm prompt -m gpt-5.4</code></li>
-<li>Prompted with yesterday’s topic, archive titles, and fresh repo/GitHub evidence.</li>
-<li>Outcome: strongest non-redundant angle was backpressure as the next CLI UX moat.</li>
+<li>This older source trail predates the current public evidence format.
+</li>
+<li>Treat it as a compact source map for the article, not a complete source dossier.
+</li>
 </ul>
     </div>
     
@@ -329,13 +231,13 @@
       </div>
       <h3>AI Coding Agents Have a New Bottleneck: Keeping Work Intact</h3>
       <div class="update-receipt">
-        <span>openai/codex</span>
-        <span class="branch-pill">main</span>
+        <span>openai/codex + 2 more</span>
+        <span class="branch-pill">evidence</span>
       </div>
       <div class="update-foot">
         <span>4 sources</span>
         <span>3 repos</span>
-        <span>320c8ab</span>
+        <span>4 source signals</span>
       </div>
     </div>
     <span class="update-arrow" aria-hidden="true">&rsaquo;</span>
@@ -345,7 +247,7 @@
     </main>
     <footer class="wrap site-footer">
       <span>&copy; 2026 The Git Reporter</span>
-      <a href="/atlas/">About</a>
+      <a href="/about/">About</a>
       <a href="/articles.json">Manifest JSON</a>
       <a href="/repos/">Sources</a>
     </footer>

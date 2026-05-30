@@ -6,15 +6,15 @@
   <title>AI Coding Agents Are Turning Approval Settings Into Operating Modes | The Git Reporter</title>
   <meta name="description" content="What used to look like a boring permissions menu is starting to behave like a gearbox. Across agent CLIs, “plan,” “review,” “yolo,” and model-shaped tool policies are becoming distinct runtime states with different prompts, tools, and output contracts.">
   <link rel="icon" href="/assets/mark.svg">
-  <link rel="stylesheet" href="/assets/site.css?v=2026-05-29-article-evidence-unified-1">
-  <script defer src="/assets/feedback.js?v=2026-05-29-article-evidence-unified-1"></script>
+  <link rel="stylesheet" href="/assets/site.css?v=2026-05-30-about-page-1">
+  <script defer src="/assets/feedback.js?v=2026-05-30-about-page-1"></script>
 </head>
 <body>
   <div class="site">
     <header class="site-header" id="top">
       <div class="wrap utility-row">
         <a class="icon-link menu-icon" href="/archive/" aria-label="Open edition history"><span></span><span></span><span></span></a>
-        <a class="icon-link search-icon" href="/archive/" aria-label="Search edition history"></a>
+        <a class="icon-link archive-icon" href="/archive/" aria-label="Open edition history"></a>
       </div>
       <div class="wrap masthead-lockup">
         <a class="masthead-title" href="/">THE GIT REPORTER</a>
@@ -22,7 +22,7 @@
       </div>
       <div class="wrap nav-wrap">
         <nav class="paper-nav" aria-label="Primary navigation">
-    <a class="" href="/">Today</a><a class="active" href="/archive/">Editions</a><a class="" href="/atlas/">Agent Atlas</a><a class="" href="/repos/">Repos</a>
+    <a class="" href="/">Today</a><a class="active" href="/archive/">Editions</a><a class="" href="/about/">About</a><a class="" href="/atlas/">Agent Atlas</a><a class="" href="/repos/">Repos</a>
   </nav>
         <div class="nav-rule"></div>
       </div>
@@ -38,16 +38,16 @@
         
         <div class="receipt">
     <div class="receipt-line">
-      <span class="receipt-icon">repo</span>
-      <span class="receipt-main">openai/codex</span>
-      <span class="branch-pill">main</span>
+      <span class="receipt-icon">repos</span>
+      <span class="receipt-main">openai/codex + 3 more</span>
+      <span class="branch-pill">evidence</span>
     </div>
     <div class="receipt-line receipt-muted">
       <span>4 source signals</span>
       <span>4 repos</span>
-      <span>2d332fc</span>
+      <span>4 source signals</span>
     </div>
-    <div class="commit-line">&gt; 2d332fc / March 27, 2026 / Agent Daily</div>
+    <div class="commit-line">Evidence: 4 source signals / March 27, 2026 / Agent Daily</div>
   </div>
         <div class="article-route-row">
           <a href="/editions/2026-03-27/">Open Edition</a>
@@ -151,139 +151,20 @@
       <div class="evidence-line"><span>Sources</span><span>4</span></div>
       <div class="evidence-line"><span>Repos</span><span>openai/codex, google-gemini/gemini-cli, openclaw/openclaw, charmbracelet/crush</span></div>
     </div>
-    <div class="markdown evidence-copy evidence-copy-block"><h3>Reporter Notes</h3><h1>Agent Daily Run Notes — 2026-03-27</h1>
-<h2>Candidate angles</h2>
-<p>1. **Approval settings are turning into operating modes**</p>
-<ul>
-<li>Gemini CLI: Plan Mode is read-only, tool-restricted, and now enabled by default in docs/settings.</li>
-<li>Codex: Review Mode is a first-class protocol op with isolated history, dedicated prompt, and structured review output.</li>
-<li>Crush: <code>--yolo</code> skips permission requests entirely, effectively switching the runtime into a trust-first mode.</li>
-<li>OpenClaw: provider/model-aware tool policies let the same agent expose different tool envelopes depending on provider/model.</li>
-</ul>
-<p>2. **Structured review is becoming a product surface**</p>
-<ul>
-<li>Codex Review Mode + structured JSON findings.</li>
-<li>OpenClaw review helper changes.</li>
-<li>Could be good, but more narrow and too Codex-heavy for today.</li>
-</ul>
-<p>3. **Tool policy is becoming model policy**</p>
-<ul>
-<li>OpenClaw provider-specific tool policy.</li>
-<li>Gemini policy engine / YOLO / Plan interactions.</li>
-<li>Strong, but angle 1 is broader and more legible to readers.</li>
-</ul>
-<h2>Chosen angle</h2>
-<p>**Approval settings are turning into operating modes.**</p>
-<p>Why it wins:</p>
-<ul>
-<li>Fresh versus recent agent-daily/baseline topics.</li>
-<li>Cross-repo convergence with a real tension: more autonomy vs more constrained specialist modes.</li>
-<li>Clear code-grounded evidence from 4 repos.</li>
-<li>Connects UI labels (plan, review, yolo, provider policy) to deeper architecture changes.</li>
-</ul>
-<h2>Recent article overlap check</h2>
-<h3>agent-daily recent</h3>
-<ul>
-<li>2026-03-24 — Subagents Are Getting Job Titles, Badge Checks, and a Manager Chain</li>
-<li>2026-03-25 — Sandboxing Is Starting to Look Like a Runtime Layer for AI Coding Agents</li>
-<li>2026-03-26 — Web Fetch Is Emerging as a Security Boundary for AI Agents</li>
-</ul>
-<h3>baseline recent</h3>
-<ul>
-<li>2026-03-25 — The New CLI Moat Isn’t UX. It’s How Agent Skills Get Shipped</li>
-<li>2026-03-26 — The CLI Is Quietly Becoming an Agent Router</li>
-<li>2026-03-27 — Subagents Aren’t Just Getting Smarter. They’re Getting Contained.</li>
-</ul>
-<p>This run avoids those surfaces and focuses on named operating modes inside the agent runtime.</p>
-<h2>Code-grounded evidence</h2>
-<h3>1) Gemini CLI — Plan Mode becomes a product-default operating mode</h3>
-<p>**Commit:** <code>35ee2a841a7e</code> — <code>feat(plan): enable Plan Mode by default (#21713)</code></p>
-<p>**Files:**</p>
-<ul>
-<li><code>docs/cli/plan-mode.md</code></li>
-<li><code>packages/cli/src/config/settingsSchema.ts</code></li>
-</ul>
-<p>**Key evidence:**</p>
-<ul>
-<li><code>docs/cli/plan-mode.md:3-12</code> describes Plan Mode as a **read-only environment** and says it is **enabled by default**.</li>
-<li><code>docs/cli/plan-mode.md:100-120</code> constrains tools to read/search/interaction plus <code>.md</code> plan-file writes only.</li>
-<li><code>packages/cli/src/config/settingsSchema.ts:198-214</code> defines <code>defaultApprovalMode</code> options including <code>default</code>, <code>auto_edit</code>, and <code>plan</code>, with <code>plan</code> described as **read-only mode**.</li>
-</ul>
-<p>**Why it matters:**</p>
-<p>Plan is no longer just “say no to writes.” It is an explicit product state with its own tool envelope and workflow.</p>
-<h3>2) OpenAI Codex — Review Mode is a first-class protocol state</h3>
-<p>**Commit:** <code>90a0fd342f5d</code> — <code>Review Mode (Core) (#3401)</code></p>
-<p>**Files:**</p>
-<ul>
-<li><code>codex-rs/core/review_prompt.md</code></li>
-<li><code>codex-rs/protocol/src/protocol.rs</code></li>
-</ul>
-<p>**Key evidence:**</p>
-<ul>
-<li><code>protocol.rs:170-175</code> adds <code>Op::Review { review_request: ReviewRequest }</code>.</li>
-<li><code>protocol.rs:512-516</code> adds <code>EnteredReviewMode(...)</code> and <code>ExitedReviewMode(...)</code> events.</li>
-<li><code>protocol.rs:982-989</code> defines structured <code>ReviewOutputEvent</code> with <code>findings</code>, <code>overall_correctness</code>, <code>overall_explanation</code>, and confidence.</li>
-<li><code>review_prompt.md:3-18</code> + <code>61-80</code> show a dedicated reviewer prompt and exact JSON schema.</li>
-</ul>
-<p>**Why it matters:**</p>
-<p>Codex is not merely flipping an approval toggle. It is spinning up a distinct review persona/protocol with separate history, prompt, and output contract.</p>
-<h3>3) Crush — YOLO is an explicit trust mode, not just a convenience flag</h3>
-<p>**Commit:** <code>2d332fc6c164</code> — <code>feat(permissions): add --yolo flag for auto-accepting all permissions</code></p>
-<p>**Files:**</p>
-<ul>
-<li><code>internal/config/config.go</code></li>
-<li><code>internal/permission/permission.go</code></li>
-</ul>
-<p>**Key evidence:**</p>
-<ul>
-<li><code>config.go:121-124</code> defines <code>SkipPermissionsRequests</code> with comment: automatically accept all permissions (YOLO mode).</li>
-<li><code>permission.go:80-90</code> returns <code>true</code> immediately when <code>skip</code> or <code>autoApproveSession</code> is active.</li>
-</ul>
-<p>**Why it matters:**</p>
-<p>Crush turns trust posture into a deliberate mode switch. That’s a runtime behavior change, not just a UI shortcut.</p>
-<h3>4) OpenClaw — tool policy now varies by provider/model</h3>
-<p>**Commit:** <code>fa8d9b91892f</code> — <code>feat: add provider-specific tool policies</code></p>
-<p>**Files:**</p>
-<ul>
-<li><code>src/agents/pi-tools.policy.ts</code></li>
-<li><code>src/agents/pi-tools.ts</code></li>
-</ul>
-<p>**Key evidence:**</p>
-<ul>
-<li><code>pi-tools.policy.ts:62-96</code> resolves tool policy by <code>modelProvider</code> and <code>modelId</code>.</li>
-<li><code>pi-tools.policy.ts:99-130</code> composes global, agent, and provider-level policies into an effective tool envelope.</li>
-<li><code>pi-tools.ts:89-100</code> passes <code>modelProvider</code>/<code>modelId</code> into coding-tool creation.</li>
-</ul>
-<p>**Why it matters:**</p>
-<p>The agent’s behavior envelope now depends on which model is active. That is mode logic, even when the UI doesn’t call it a “mode.”</p>
-<h2>Web/context signals</h2>
-<h3>OpenAI Introducing Codex page</h3>
-<ul>
-<li>Emphasizes isolated task environments, verifiable evidence, terminal logs, and review before integration.</li>
-<li>Supports framing that the market wants controllable, inspectable agent states.</li>
-</ul>
-<h3>GitHub README pages</h3>
-<ul>
-<li>Gemini CLI positions itself as a terminal-first open-source agent with built-in tools.</li>
-<li>Crush positions itself as a multi-model coding agent wired to tools/workflows.</li>
-<li>These pages reinforce that these aren’t toy experiments; they are productized developer surfaces.</li>
-</ul>
-<h2>Working thesis</h2>
-<p>The biggest shift is not that coding agents are getting more tools. It’s that they are being split into named, constrained, trust-calibrated operating modes: planner, reviewer, coder, yolo runner, provider-shaped runtime. The approval dropdown is becoming a product control plane.</p>
-<h2>Repo list used in article</h2>
-<ul>
-<li><code>google-gemini/gemini-cli</code></li>
-<li><code>openai/codex</code></li>
-<li><code>charmbracelet/crush</code></li>
-<li><code>openclaw/openclaw</code></li>
-</ul>
-<h2>Model review note</h2>
-<ul>
-<li><code>llm</code> **does have gpt-5.4 available** in this environment.</li>
-<li>Use <code>llm -m gpt-5.4</code> for review/synthesis.</li>
-</ul></div>
+    
     <div class="markdown evidence-copy evidence-copy-block">
-      <p>No standalone sources file is available for this article. The article body remains the primary evidence-bearing artifact.</p>
+      <h2>Source Trail</h2>
+<ul>
+<li>The article body carries the public source references available for this older story.
+</li>
+</ul>
+<h2>Evidence Limits</h2>
+<ul>
+<li>This older source trail predates the current public evidence format.
+</li>
+<li>Treat it as a compact source map for the article, not a complete source dossier.
+</li>
+</ul>
     </div>
     
   </section>
@@ -340,13 +221,13 @@
       </div>
       <h3>Subagents Aren’t Just Getting Smarter. They’re Getting Contained.</h3>
       <div class="update-receipt">
-        <span>openai/codex</span>
-        <span class="branch-pill">main</span>
+        <span>openai/codex + google-gemini/gemini-cli</span>
+        <span class="branch-pill">evidence</span>
       </div>
       <div class="update-foot">
         <span>8 sources</span>
         <span>2 repos</span>
-        <span>5fa14db</span>
+        <span>8 source signals</span>
       </div>
     </div>
     <span class="update-arrow" aria-hidden="true">&rsaquo;</span>
@@ -356,7 +237,7 @@
     </main>
     <footer class="wrap site-footer">
       <span>&copy; 2026 The Git Reporter</span>
-      <a href="/atlas/">About</a>
+      <a href="/about/">About</a>
       <a href="/articles.json">Manifest JSON</a>
       <a href="/repos/">Sources</a>
     </footer>

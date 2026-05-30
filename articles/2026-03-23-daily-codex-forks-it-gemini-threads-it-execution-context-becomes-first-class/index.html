@@ -6,15 +6,15 @@
   <title>Codex forks it, Gemini threads it: execution context becomes first-class | The Git Reporter</title>
   <meta name="description" content="The next big agent primitive is not another tool call. It’s the bundle of permissions, environment, policy, and wiring that tells an agent how to exist for this turn, in this loop, right now.">
   <link rel="icon" href="/assets/mark.svg">
-  <link rel="stylesheet" href="/assets/site.css?v=2026-05-29-article-evidence-unified-1">
-  <script defer src="/assets/feedback.js?v=2026-05-29-article-evidence-unified-1"></script>
+  <link rel="stylesheet" href="/assets/site.css?v=2026-05-30-about-page-1">
+  <script defer src="/assets/feedback.js?v=2026-05-30-about-page-1"></script>
 </head>
 <body>
   <div class="site">
     <header class="site-header" id="top">
       <div class="wrap utility-row">
         <a class="icon-link menu-icon" href="/archive/" aria-label="Open edition history"><span></span><span></span><span></span></a>
-        <a class="icon-link search-icon" href="/archive/" aria-label="Search edition history"></a>
+        <a class="icon-link archive-icon" href="/archive/" aria-label="Open edition history"></a>
       </div>
       <div class="wrap masthead-lockup">
         <a class="masthead-title" href="/">THE GIT REPORTER</a>
@@ -22,7 +22,7 @@
       </div>
       <div class="wrap nav-wrap">
         <nav class="paper-nav" aria-label="Primary navigation">
-    <a class="" href="/">Today</a><a class="active" href="/archive/">Editions</a><a class="" href="/atlas/">Agent Atlas</a><a class="" href="/repos/">Repos</a>
+    <a class="" href="/">Today</a><a class="active" href="/archive/">Editions</a><a class="" href="/about/">About</a><a class="" href="/atlas/">Agent Atlas</a><a class="" href="/repos/">Repos</a>
   </nav>
         <div class="nav-rule"></div>
       </div>
@@ -38,16 +38,16 @@
         
         <div class="receipt">
     <div class="receipt-line">
-      <span class="receipt-icon">repo</span>
-      <span class="receipt-main">openai/codex</span>
-      <span class="branch-pill">main</span>
+      <span class="receipt-icon">repos</span>
+      <span class="receipt-main">openai/codex + google-gemini/gemini-cli</span>
+      <span class="branch-pill">evidence</span>
     </div>
     <div class="receipt-line receipt-muted">
       <span>3 source signals</span>
       <span>2 repos</span>
-      <span>de656f0</span>
+      <span>2 linked commits</span>
     </div>
-    <div class="commit-line">&gt; de656f0 / March 23, 2026 / Daily Edition</div>
+    <div class="commit-line">Evidence: 2 linked commits / March 23, 2026 / Daily Edition</div>
   </div>
         <div class="article-route-row">
           <a href="/editions/2026-03-23/">Open Edition</a>
@@ -156,85 +156,23 @@
       <div class="evidence-line"><span>Sources</span><span>3</span></div>
       <div class="evidence-line"><span>Repos</span><span>openai/codex, google-gemini/gemini-cli</span></div>
     </div>
-    <div class="markdown evidence-copy evidence-copy-block"><h3>Reporter Notes</h3><h1>Notes — 2026-03-23</h1>
-<h2>Yesterday's topic to avoid</h2>
-<ul>
-<li>2026-03-22: parallel agents getting real addresses / worktrees + AgentPath identity.</li>
-</ul>
-<h2>Candidate angles considered</h2>
-<p>1. **Execution context becomes a first-class runtime object**</p>
-<ul>
-<li>Codex: PR #15443 snapshots exactly what a forked first request inherits.</li>
-<li>Gemini: <code>AgentLoopContext</code> migration moves tools/message bus/client behind an execution-scoped interface.</li>
-<li>Distinct from yesterday because this is about inherited runtime state, not naming or workspace location.</li>
-</ul>
-<p>2. **Approval becomes durable state**</p>
-<ul>
-<li>Gemini: <code>web_fetch</code> can now receive session/global persistent approval.</li>
-<li>Codex: approval policy changes appear directly inside fork startup + turn override context.</li>
-<li>Strong sub-theme, but narrower than candidate 1.</li>
-</ul>
-<p>3. **Invisible runtime plumbing is outrunning visible UI polish**</p>
-<ul>
-<li>True, but too vague and easier to overlap with prior pieces.</li>
-</ul>
-<h2>Why candidate 1 won</h2>
-<ul>
-<li>Strongest architectural through-line across both repos.</li>
-<li>Deeper than feature-level changes.</li>
-<li>Backed by code, tests, and neighboring commits/artifacts.</li>
-</ul>
-<h2>Evidence to cite</h2>
-<h3>Codex</h3>
-<ul>
-<li>PR #15443 adds <code>fork_startup_context_then_first_turn_diff_snapshot()</code>.</li>
-<li>Snapshot shows inherited permissions + environment context, then a fork-specific developer block carrying changed approval policy and collaboration mode instructions, then the user's new input.</li>
-<li>gsio related artifacts show this is part of a longer trend:</li>
-<li><code>d3603ae5d38a</code>: spawn a sub-agent by forking the parent thread’s rollout</li>
-<li><code>c2e126f92ad5</code>: inherit and reuse parent session user turn state</li>
-<li><code>84f4e7b39d17</code>: inherit parent thread exec policy on spawn/resume</li>
-</ul>
-<h3>Gemini CLI</h3>
-<ul>
-<li><code>AgentLoopContext</code> interface defines execution-scoped <code>config</code>, <code>promptId</code>, <code>toolRegistry</code>, <code>messageBus</code>, <code>geminiClient</code>.</li>
-<li><code>Config implements AgentLoopContext</code> and marks direct getters as deprecated: “Use the injected AgentLoopContext instead.”</li>
-<li>Commit <code>de656f01d760</code> rewires core code to use that injected context.</li>
-<li>Commit <code>39d3b0e28c1a</code> partially threads <code>AgentLoopContext</code> through ACP client and command execution.</li>
-<li>Commit <code>4a3d9414ef75</code> on <code>web_fetch</code> shows why this matters: approval behavior can become session/global policy because the runtime has a clearer place to hang execution-scoped state.</li>
-</ul>
-<h2>Thesis</h2>
-<p>The agent race is shifting from &quot;what can the model do&quot; to &quot;what execution context does the runtime hand the model.&quot; Codex is snapshotting and transporting inherited fork context; Gemini is formalizing that context into a typed object.</p></div>
+    
     <div class="markdown evidence-copy evidence-copy-block">
-      <h1>Sources — 2026-03-23</h1>
-<h2>Primary repos</h2>
+      <h2>Source Trail</h2>
 <ul>
-<li>Local repo: <code>projects/agentic-workflows-gemini-vs-codex/repos/codex</code></li>
-<li>Local repo: <code>projects/agentic-workflows-gemini-vs-codex/repos/gemini-cli</code></li>
+<li>Codex PR #15443 — &lt;<a href="https://github.com/openai/codex/pull/15443&gt;">https://github.com/openai/codex/pull/15443&gt;</a>
+</li>
+<li>Gemini commit <code>de656f01d760</code> — &lt;<a href="https://github.com/google-gemini/gemini-cli/commit/de656f01d760&gt;">https://github.com/google-gemini/gemini-cli/commit/de656f01d760&gt;</a>
+</li>
+<li>Gemini commit <code>4a3d9414ef75</code> — &lt;<a href="https://github.com/google-gemini/gemini-cli/commit/4a3d9414ef75&gt;">https://github.com/google-gemini/gemini-cli/commit/4a3d9414ef75&gt;</a>
+</li>
 </ul>
-<h2>State / prior coverage</h2>
+<h2>Evidence Limits</h2>
 <ul>
-<li><code>projects/agentic-workflows-gemini-vs-codex/daily/_state.json</code></li>
-<li>Prior article titles extracted from <code>projects/agentic-workflows-gemini-vs-codex/daily/*/index.html</code></li>
-</ul>
-<h2>Git / GitHub evidence</h2>
-<ul>
-<li>Codex PR #15443 — &lt;<a href="https://github.com/openai/codex/pull/15443&gt;">https://github.com/openai/codex/pull/15443&gt;</a></li>
-<li>Gemini commit <code>de656f01d760</code> — &lt;<a href="https://github.com/google-gemini/gemini-cli/commit/de656f01d760&gt;">https://github.com/google-gemini/gemini-cli/commit/de656f01d760&gt;</a></li>
-<li>Gemini commit <code>39d3b0e28c1a</code> — partial threading of AgentLoopContext</li>
-<li>Gemini commit <code>4a3d9414ef75</code> — &lt;<a href="https://github.com/google-gemini/gemini-cli/commit/4a3d9414ef75&gt;">https://github.com/google-gemini/gemini-cli/commit/4a3d9414ef75&gt;</a></li>
-<li><code>gh pr list -R openai/codex --state merged --limit 8</code></li>
-<li><code>gh pr list -R google-gemini/gemini-cli --state merged --limit 12</code></li>
-</ul>
-<h2>gsio evidence</h2>
-<ul>
-<li><code>gsio projects scope --project openai/codex --project google-gemini/gemini-cli</code></li>
-<li><code>gsio search q 'snapshot fork startup context injection subagent' -p openai/codex --summary --top-k 5</code></li>
-<li><code>gsio search q 'AgentLoopContext migrate packages core context' -p google-gemini/gemini-cli --summary --top-k 5</code></li>
-<li><code>gsio search q 'persistent approval web_fetch session approval' -p google-gemini/gemini-cli --summary --top-k 5</code></li>
-</ul>
-<h2>LLM review</h2>
-<ul>
-<li><code>llm -m gpt-5.4 prompt -f /tmp/daily_article_review_prompt.txt</code></li>
+<li>This older source trail predates the current public evidence format.
+</li>
+<li>Treat it as a compact source map for the article, not a complete source dossier.
+</li>
 </ul>
     </div>
     
@@ -280,7 +218,7 @@
     </main>
     <footer class="wrap site-footer">
       <span>&copy; 2026 The Git Reporter</span>
-      <a href="/atlas/">About</a>
+      <a href="/about/">About</a>
       <a href="/articles.json">Manifest JSON</a>
       <a href="/repos/">Sources</a>
     </footer>

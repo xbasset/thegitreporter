@@ -6,15 +6,15 @@
   <title>Agent Reliability Is Moving Into the Test Rig | The Git Reporter</title>
   <meta name="description" content="The newest source-readable trail points away from model mystique and toward the workflows that test, trace, serialize, and maintain agent behavior.">
   <link rel="icon" href="/assets/mark.svg">
-  <link rel="stylesheet" href="/assets/site.css?v=2026-05-29-article-evidence-unified-1">
-  <script defer src="/assets/feedback.js?v=2026-05-29-article-evidence-unified-1"></script>
+  <link rel="stylesheet" href="/assets/site.css?v=2026-05-30-about-page-1">
+  <script defer src="/assets/feedback.js?v=2026-05-30-about-page-1"></script>
 </head>
 <body>
   <div class="site">
     <header class="site-header" id="top">
       <div class="wrap utility-row">
         <a class="icon-link menu-icon" href="/archive/" aria-label="Open edition history"><span></span><span></span><span></span></a>
-        <a class="icon-link search-icon" href="/archive/" aria-label="Search edition history"></a>
+        <a class="icon-link archive-icon" href="/archive/" aria-label="Open edition history"></a>
       </div>
       <div class="wrap masthead-lockup">
         <a class="masthead-title" href="/">THE GIT REPORTER</a>
@@ -22,7 +22,7 @@
       </div>
       <div class="wrap nav-wrap">
         <nav class="paper-nav" aria-label="Primary navigation">
-    <a class="" href="/">Today</a><a class="active" href="/archive/">Editions</a><a class="" href="/atlas/">Agent Atlas</a><a class="" href="/repos/">Repos</a>
+    <a class="" href="/">Today</a><a class="active" href="/archive/">Editions</a><a class="" href="/about/">About</a><a class="" href="/atlas/">Agent Atlas</a><a class="" href="/repos/">Repos</a>
   </nav>
         <div class="nav-rule"></div>
       </div>
@@ -38,16 +38,16 @@
         
         <div class="receipt">
     <div class="receipt-line">
-      <span class="receipt-icon">repo</span>
-      <span class="receipt-main">google-gemini/gemini-cli</span>
-      <span class="branch-pill">main</span>
+      <span class="receipt-icon">repos</span>
+      <span class="receipt-main">google-gemini/gemini-cli + langchain-ai/langchain</span>
+      <span class="branch-pill">evidence</span>
     </div>
     <div class="receipt-line receipt-muted">
       <span>5 source signals</span>
       <span>2 repos</span>
-      <span>11cdce9</span>
+      <span>5 linked commits</span>
     </div>
-    <div class="commit-line">&gt; 11cdce9 / May 25, 2026 / Daily Edition</div>
+    <div class="commit-line">Evidence: 5 linked commits / May 25, 2026 / Daily Edition</div>
   </div>
         <div class="article-route-row">
           <a href="/editions/2026-05-25/">Open Edition</a>
@@ -95,36 +95,54 @@
       <div class="evidence-line"><span>Sources</span><span>5</span></div>
       <div class="evidence-line"><span>Repos</span><span>google-gemini/gemini-cli, langchain-ai/langchain</span></div>
     </div>
-    <div class="markdown evidence-copy evidence-copy-block"><h3>Reporter Notes</h3><h1>Notes</h1>
-<p>The article should not claim that these projects solved agent reliability. The supported claim is narrower: reliability work is moving into test, eval, trace, and triage infrastructure around agent systems.</p>
-<p>LangChain is the strongest center of gravity. One commit creates a manually dispatched real-model eval workflow for middleware changes. Another adds trace metadata to scheduled integration tests. A third serializes overlapping test shards so live provider credentials are not hammered by concurrent runs.</p>
+    <div class="markdown evidence-copy evidence-copy-block"><h3>Reporter Notes</h3><p>LangChain is the strongest center of gravity. One commit creates a manually dispatched real-model eval workflow for middleware changes. Another adds trace metadata to scheduled integration tests. A third serializes overlapping test shards so live provider credentials are not hammered by concurrent runs.</p>
 <p>Gemini CLI gives the maintenance-queue half of the story. Its issue lifecycle changes make stale handling more cautious about human activity, bot activity, dry-run behavior, and close reasons. Its label application changes aggregate multiple automated analyses instead of treating a single model-shaped output as the whole truth.</p>
 <p>This is a continuation of the control-plane beat, but the public frame should pivot away from &quot;saying no&quot; and toward &quot;making reliability observable and repeatable.&quot;</p></div>
     <div class="markdown evidence-copy evidence-copy-block">
       <h2>Primary Evidence</h2>
 <ul>
-<li>LangChain commit <code>11cdce91d</code>, &quot;ci(infra): add middleware evals workflow for <code>workflow_dispatch</code> discovery (#37644)&quot;: <a href="https://github.com/langchain-ai/langchain/commit/11cdce91dc4867613a8ff49fb942c5a72fe2ff96">https://github.com/langchain-ai/langchain/commit/11cdce91dc4867613a8ff49fb942c5a72fe2ff96</a></li>
-<li>Evidence used: adds a manually dispatched Middleware Evals workflow for live model-provider tests, documents required provider secrets, records traces through LangSmith, and passes user-controlled workflow inputs through environment variables rather than direct shell interpolation.</li>
-<li>LangChain commit <code>bdd7f71a</code>, &quot;ci(infra): trace scheduled integration tests (#37615)&quot;: <a href="https://github.com/langchain-ai/langchain/commit/bdd7f71a1b426675a83915dbd68107ceca069fc8">https://github.com/langchain-ai/langchain/commit/bdd7f71a1b426675a83915dbd68107ceca069fc8</a></li>
-<li>Evidence used: scheduled integration tests build GitHub Actions metadata and send LangSmith trace fields for workflow run, run attempt, SHA, event, ref, working directory, and Python version.</li>
-<li>LangChain commit <code>33875fde</code>, &quot;ci(infra): serialize integration test shards across runs (#37648)&quot;: <a href="https://github.com/langchain-ai/langchain/commit/33875fde2acf6ffb717915a895638274a6098ec2">https://github.com/langchain-ai/langchain/commit/33875fde2acf6ffb717915a895638274a6098ec2</a></li>
-<li>Evidence used: scheduled integration tests add job-level concurrency keyed by package and Python version so overlapping live-provider test shards do not race the same credentials.</li>
-<li>Gemini CLI commit <code>906f8a315</code>, &quot;ci: robust stale issue lifecycle and consolidated triage labels (#27015)&quot;: <a href="https://github.com/google-gemini/gemini-cli/commit/906f8a31513dcc322e4e6acbc03ca165f5ad97d1">https://github.com/google-gemini/gemini-cli/commit/906f8a31513dcc322e4e6acbc03ca165f5ad97d1</a></li>
-<li>Evidence used: issue lifecycle automation adds fuller pagination, dry-run logging, bot filtering, meaningful-activity stale removal, and explicit close reasons.</li>
-<li>Gemini CLI commit <code>854f811be</code>, &quot;perf: optimize issue triage and lifecycle management (#27346)&quot;: <a href="https://github.com/google-gemini/gemini-cli/commit/854f811be0391d7a7d8bc1a15e372eb5318bde7f">https://github.com/google-gemini/gemini-cli/commit/854f811be0391d7a7d8bc1a15e372eb5318bde7f</a></li>
-<li>Evidence used: automated issue labeling aggregates multiple triage outputs by issue, parses noisy JSON more defensively, merges explanations, and resolves label conflicts.</li>
+<li>LangChain commit <code>11cdce91d</code>, &quot;ci(infra): add middleware evals workflow for <code>workflow_dispatch</code> discovery (#37644)&quot;: <a href="https://github.com/langchain-ai/langchain/commit/11cdce91dc4867613a8ff49fb942c5a72fe2ff96">https://github.com/langchain-ai/langchain/commit/11cdce91dc4867613a8ff49fb942c5a72fe2ff96</a>
+<ul>
+<li>Evidence used: adds a manually dispatched Middleware Evals workflow for live model-provider tests, documents required provider secrets, records traces through LangSmith, and passes user-controlled workflow inputs through environment variables rather than direct shell interpolation.
+</li>
+</ul>
+</li>
+<li>LangChain commit <code>bdd7f71a</code>, &quot;ci(infra): trace scheduled integration tests (#37615)&quot;: <a href="https://github.com/langchain-ai/langchain/commit/bdd7f71a1b426675a83915dbd68107ceca069fc8">https://github.com/langchain-ai/langchain/commit/bdd7f71a1b426675a83915dbd68107ceca069fc8</a>
+<ul>
+<li>Evidence used: scheduled integration tests build GitHub Actions metadata and send LangSmith trace fields for workflow run, run attempt, SHA, event, ref, working directory, and Python version.
+</li>
+</ul>
+</li>
+<li>LangChain commit <code>33875fde</code>, &quot;ci(infra): serialize integration test shards across runs (#37648)&quot;: <a href="https://github.com/langchain-ai/langchain/commit/33875fde2acf6ffb717915a895638274a6098ec2">https://github.com/langchain-ai/langchain/commit/33875fde2acf6ffb717915a895638274a6098ec2</a>
+<ul>
+<li>Evidence used: scheduled integration tests add job-level concurrency keyed by package and Python version so overlapping live-provider test shards do not race the same credentials.
+</li>
+</ul>
+</li>
+<li>Gemini CLI commit <code>906f8a315</code>, &quot;ci: robust stale issue lifecycle and consolidated triage labels (#27015)&quot;: <a href="https://github.com/google-gemini/gemini-cli/commit/906f8a31513dcc322e4e6acbc03ca165f5ad97d1">https://github.com/google-gemini/gemini-cli/commit/906f8a31513dcc322e4e6acbc03ca165f5ad97d1</a>
+<ul>
+<li>Evidence used: issue lifecycle automation adds fuller pagination, dry-run logging, bot filtering, meaningful-activity stale removal, and explicit close reasons.
+</li>
+</ul>
+</li>
+<li>Gemini CLI commit <code>854f811be</code>, &quot;perf: optimize issue triage and lifecycle management (#27346)&quot;: <a href="https://github.com/google-gemini/gemini-cli/commit/854f811be0391d7a7d8bc1a15e372eb5318bde7f">https://github.com/google-gemini/gemini-cli/commit/854f811be0391d7a7d8bc1a15e372eb5318bde7f</a>
+<ul>
+<li>Evidence used: automated issue labeling aggregates multiple triage outputs by issue, parses noisy JSON more defensively, merges explanations, and resolves label conflicts.
+</li>
+</ul>
+</li>
 </ul>
 <h2>Evidence Limits</h2>
 <ul>
-<li>These commits show reliability work in project infrastructure and maintenance workflows; they do not prove end-user agent behavior improved.</li>
-<li>The evidence is strongest for LangChain's CI and eval workflows and Gemini CLI's issue-management automation, not for a shared industry standard.</li>
-<li>The evidence is commit-level. It does not establish release timing, downstream adoption, or how every installation behaves.</li>
+<li>These commits show reliability work in project infrastructure and maintenance workflows; they do not prove end-user agent behavior improved.
+</li>
+<li>The evidence is strongest for LangChain's CI and eval workflows and Gemini CLI's issue-management automation, not for a shared industry standard.
+</li>
+<li>The evidence is commit-level. It does not establish release timing, downstream adoption, or how every installation behaves.
+</li>
 </ul>
     </div>
-    <div class="markdown evidence-copy evidence-copy-block"><h3>Open Questions</h3><ul>
-<li>Do readers find CI and issue-triage infrastructure compelling enough as a Daily Edition lead, or should future editions reserve this layer for shorter updates?</li>
-<li>Tomorrow's run should check whether fresh commits return to product-facing runtime behavior or continue the reliability-infrastructure thread.</li>
-</ul></div>
+    
   </section>
       <section class="reader-feedback"
     data-tgr-feedback
@@ -167,7 +185,7 @@
     </main>
     <footer class="wrap site-footer">
       <span>&copy; 2026 The Git Reporter</span>
-      <a href="/atlas/">About</a>
+      <a href="/about/">About</a>
       <a href="/articles.json">Manifest JSON</a>
       <a href="/repos/">Sources</a>
     </footer>

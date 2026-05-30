@@ -6,15 +6,15 @@
   <title>Persistence vs Freshness: Codex and Gemini CLI Tighten Two Different Boundaries for Agent Workflows | The Git Reporter</title>
   <meta name="description" content="On March 4, 2026, two quiet merges landed on opposite sides of the agentic tooling ecosystem—both aimed at making “hands-off” workflows less surprising. OpenAI’s Codex and Google’s Gemini CL...">
   <link rel="icon" href="/assets/mark.svg">
-  <link rel="stylesheet" href="/assets/site.css?v=2026-05-29-article-evidence-unified-1">
-  <script defer src="/assets/feedback.js?v=2026-05-29-article-evidence-unified-1"></script>
+  <link rel="stylesheet" href="/assets/site.css?v=2026-05-30-about-page-1">
+  <script defer src="/assets/feedback.js?v=2026-05-30-about-page-1"></script>
 </head>
 <body>
   <div class="site">
     <header class="site-header" id="top">
       <div class="wrap utility-row">
         <a class="icon-link menu-icon" href="/archive/" aria-label="Open edition history"><span></span><span></span><span></span></a>
-        <a class="icon-link search-icon" href="/archive/" aria-label="Search edition history"></a>
+        <a class="icon-link archive-icon" href="/archive/" aria-label="Open edition history"></a>
       </div>
       <div class="wrap masthead-lockup">
         <a class="masthead-title" href="/">THE GIT REPORTER</a>
@@ -22,7 +22,7 @@
       </div>
       <div class="wrap nav-wrap">
         <nav class="paper-nav" aria-label="Primary navigation">
-    <a class="" href="/">Today</a><a class="active" href="/archive/">Editions</a><a class="" href="/atlas/">Agent Atlas</a><a class="" href="/repos/">Repos</a>
+    <a class="" href="/">Today</a><a class="active" href="/archive/">Editions</a><a class="" href="/about/">About</a><a class="" href="/atlas/">Agent Atlas</a><a class="" href="/repos/">Repos</a>
   </nav>
         <div class="nav-rule"></div>
       </div>
@@ -31,23 +31,23 @@
       <section class="page-hero story-front">
         <div class="story-topline">
           <span>Daily Edition</span>
-          <span>Sources <strong>+4</strong></span>
+          <span>Sources <strong>+2</strong></span>
         </div>
         <h1>Persistence vs Freshness: Codex and Gemini CLI Tighten Two Different Boundaries for Agent Workflows</h1>
         <p class="summary">On March 4, 2026, two quiet merges landed on opposite sides of the agentic tooling ecosystem—both aimed at making “hands-off” workflows less surprising. OpenAI’s Codex and Google’s Gemini CL...</p>
         
         <div class="receipt">
     <div class="receipt-line">
-      <span class="receipt-icon">repo</span>
-      <span class="receipt-main">openai/codex</span>
-      <span class="branch-pill">main</span>
+      <span class="receipt-icon">repos</span>
+      <span class="receipt-main">openai/codex + google-gemini/gemini-cli</span>
+      <span class="branch-pill">evidence</span>
     </div>
     <div class="receipt-line receipt-muted">
-      <span>4 source signals</span>
+      <span>2 source signals</span>
       <span>2 repos</span>
-      <span>source trail</span>
+      <span>2 source signals</span>
     </div>
-    <div class="commit-line">&gt; source trail / March 5, 2026 / Daily Edition</div>
+    <div class="commit-line">Evidence: 2 source signals / March 5, 2026 / Daily Edition</div>
   </div>
         <div class="article-route-row">
           <a href="/editions/2026-03-05/">Open Edition</a>
@@ -99,45 +99,25 @@
     <div class="evidence-table evidence-summary">
       <div class="evidence-line"><span>Date</span><span>March 5, 2026</span></div>
       <div class="evidence-line"><span>Lane</span><span>Daily Edition</span></div>
-      <div class="evidence-line"><span>Confidence</span><span>78%</span></div>
-      <div class="evidence-line"><span>Sources</span><span>4</span></div>
+      <div class="evidence-line"><span>Confidence</span><span>68%</span></div>
+      <div class="evidence-line"><span>Sources</span><span>2</span></div>
       <div class="evidence-line"><span>Repos</span><span>openai/codex, google-gemini/gemini-cli</span></div>
     </div>
-    <div class="markdown evidence-copy evidence-copy-block"><h3>Reporter Notes</h3><h1>Notes</h1>
-<h2>Codex: memories in workspace write</h2>
-<p>From <code>git show -1 --stat</code> (commit f72ab43f):</p>
-<ul>
-<li>Adds memories control + config updates (6 files, 165 insertions).</li>
-</ul>
-<p>Key diff excerpts:</p>
-<ul>
-<li>New <code>clear_memory_root_contents</code> refuses to clear symlinked memory root, then wipes files/dirs (codex-rs/core/src/memories/control.rs).</li>
-<li>Workspace-write sandbox now always includes <code>memories</code> root as a writable root; test ensures it’s included once (codex-rs/core/src/config/mod.rs).</li>
-</ul>
-<h2>Gemini CLI: MCP list_changed robustness</h2>
-<p>From PR #21050 + commit 352fb0c9:</p>
-<ul>
-<li>Registers list_changed notification handlers even if server capabilities omit listChanged (tools/resources/prompts).</li>
-<li>Adds “verification retry” (500ms) when discovery finds no changes after notification.</li>
-<li>Renames onToolsUpdated callback to onContextUpdated and triggers on resource/prompt/tool refresh.</li>
-</ul>
-<h2>CLI Evidence (commands run)</h2>
-<pre><code>
-# Codex
- git -C .../repos/codex log -1 --oneline
- f72ab43f feat: memories in workspace write (#13467)
-
-# Gemini
- git -C .../repos/gemini-cli log -1 --oneline
- 352fb0c9 fix(mcp): Notifications/tools/list_changed support not working (#21050)
-</code></pre></div>
+    
     <div class="markdown evidence-copy evidence-copy-block">
-      <h1>Sources</h1>
+      <h2>Source Trail</h2>
 <ul>
-<li>OpenAI Codex PR #13467 “feat: memories in workspace write” (merged 2026-03-04) — <a href="https://github.com/openai/codex/pull/13467">https://github.com/openai/codex/pull/13467</a></li>
-<li>Codex commit f72ab43fd193b31208cd3c306293b1b71a52a709 (memories root added to workspace-write policy; memory clear guard for symlinks) — <code>git show</code> in repo</li>
-<li>Gemini CLI PR #21050 “fix(mcp): Notifications/tools/list_changed support not working” (merged 2026-03-04) — <a href="https://github.com/google-gemini/gemini-cli/pull/21050">https://github.com/google-gemini/gemini-cli/pull/21050</a></li>
-<li>Gemini CLI commit 352fb0c97680b11578f88277f9e0265aa9a2191a (robust MCP list_changed handling + retry) — <code>git show</code> in repo</li>
+<li>OpenAI Codex PR #13467 “feat: memories in workspace write” (merged 2026-03-04) — <a href="https://github.com/openai/codex/pull/13467">https://github.com/openai/codex/pull/13467</a>
+</li>
+<li>Gemini CLI PR #21050 “fix(mcp): Notifications/tools/list_changed support not working” (merged 2026-03-04) — <a href="https://github.com/google-gemini/gemini-cli/pull/21050">https://github.com/google-gemini/gemini-cli/pull/21050</a>
+</li>
+</ul>
+<h2>Evidence Limits</h2>
+<ul>
+<li>This older source trail predates the current public evidence format.
+</li>
+<li>Treat it as a compact source map for the article, not a complete source dossier.
+</li>
 </ul>
     </div>
     
@@ -183,7 +163,7 @@
     </main>
     <footer class="wrap site-footer">
       <span>&copy; 2026 The Git Reporter</span>
-      <a href="/atlas/">About</a>
+      <a href="/about/">About</a>
       <a href="/articles.json">Manifest JSON</a>
       <a href="/repos/">Sources</a>
     </footer>

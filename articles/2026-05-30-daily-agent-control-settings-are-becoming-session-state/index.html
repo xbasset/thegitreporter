@@ -1,0 +1,230 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Agent Control Settings Are Becoming Session State | The Git Reporter</title>
+  <meta name="description" content="Fresh Codex and Hermes commits show a quieter agent shift: permissions, tool behavior, lineage, approval context, and auth fallbacks are being treated as state that has to survive the next turn.">
+  <link rel="icon" href="/assets/mark.svg">
+  <link rel="stylesheet" href="/assets/site.css?v=2026-05-30-about-page-1">
+  <script defer src="/assets/feedback.js?v=2026-05-30-about-page-1"></script>
+</head>
+<body>
+  <div class="site">
+    <header class="site-header" id="top">
+      <div class="wrap utility-row">
+        <a class="icon-link menu-icon" href="/archive/" aria-label="Open edition history"><span></span><span></span><span></span></a>
+        <a class="icon-link archive-icon" href="/archive/" aria-label="Open edition history"></a>
+      </div>
+      <div class="wrap masthead-lockup">
+        <a class="masthead-title" href="/">THE GIT REPORTER</a>
+        <div class="masthead-ornament" aria-hidden="true"></div>
+      </div>
+      <div class="wrap nav-wrap">
+        <nav class="paper-nav" aria-label="Primary navigation">
+    <a class="" href="/">Today</a><a class="active" href="/archive/">Editions</a><a class="" href="/about/">About</a><a class="" href="/atlas/">Agent Atlas</a><a class="" href="/repos/">Repos</a>
+  </nav>
+        <div class="nav-rule"></div>
+      </div>
+    </header>
+    <main class="wrap page-shell article-page">
+      <section class="page-hero story-front">
+        <div class="story-topline">
+          <span>Daily Edition</span>
+          <span>Sources <strong>+6</strong></span>
+        </div>
+        <h1>Agent Control Settings Are Becoming Session State</h1>
+        <p class="summary">Fresh Codex and Hermes commits show a quieter agent shift: permissions, tool behavior, lineage, approval context, and auth fallbacks are being treated as state that has to survive the next turn.</p>
+        <figure class="story-illustration article-illustration">
+    <img src="/assets/illustrations/2026-05-30-agent-control-settings-are-becoming-session-state-diagram-punk-v1.jpg" alt="Rough zine-style diagram showing agent control settings as evidence cards feeding into a circled session state notebook, with a caveat stamp reading Not a standard yet." loading="lazy" decoding="async">
+    <figcaption><span>Diagram Punk</span>the control settings have to survive the session.</figcaption>
+  </figure>
+        <div class="receipt">
+    <div class="receipt-line">
+      <span class="receipt-icon">repos</span>
+      <span class="receipt-main">openai/codex + NousResearch/hermes-agent</span>
+      <span class="branch-pill">evidence</span>
+    </div>
+    <div class="receipt-line receipt-muted">
+      <span>6 source signals</span>
+      <span>2 repos</span>
+      <span>6 linked commits</span>
+    </div>
+    <div class="commit-line">Evidence: 6 linked commits / May 30, 2026 / Daily Edition</div>
+  </div>
+        <div class="article-route-row">
+          <a href="/editions/2026-05-30/">Open Edition</a>
+          <a href="#evidence">Evidence below</a>
+        </div>
+      </section>
+      <section class="story-reader">
+        <article class="story-shell story-body">
+          <p>The control plane of an agent used to be easy to imagine as a settings screen: pick a model, choose an approval mode, select a sandbox, start working. This week's code is less tidy. It suggests that real agent control has to travel with the work.</p>
+  <p>For builders, operators, and teams evaluating agent tools, that is the practical question. When a session resumes, a model changes, a subagent starts, or a tool worker thread runs code on the user's behalf, does the same control contract come along, or does it quietly fall back to whatever that layer happens to know?</p>
+  <p><a href="/articles/2026-05-29-daily-agent-sandboxes-are-learning-their-cleanup-rules/">Yesterday's edition</a> followed machine boundaries: workspace roots, denied reads, Docker persistence, and cleanup rules. <a href="/articles/2026-05-28-daily-agent-ui-is-becoming-the-control-room/">The day before</a> followed the visible control room. Today's evidence sits between those layers. It is about the data structures that let an agent remember what kind of control room it is supposed to be in.</p>
+  <h2>Codex stores the permission profile, not just the old sandbox label</h2>
+  <p>OpenAI Codex commit <a href="https://github.com/openai/codex/commit/a1ecf0cf1c25985b2c0e01103b7ddf8cf9fcc051"><code>a1ecf0cf</code></a> is blunt about the problem. The older <code>SandboxPolicy</code> shape remained in thread-store APIs, which kept consumers tied to a legacy representation and prevented richer permission-profile data from round-tripping through thread metadata.</p>
+  <p>The change replaces thread-store sandbox policy fields with canonical <code>PermissionProfile</code> fields. It also persists permission-profile metadata as canonical JSON while continuing to read older legacy sandbox values. Local storage, in-memory storage, live metadata sync, and rollout extraction paths are updated to propagate <code>TurnContextItem::permission_profile()</code>.</p>
+  <p>That matters because a permission profile is not just a label for a prompt. It is part of the session's operating contract. If a thread is listed, reopened, reconciled from rollout data, or summarized from stored state, the permissions need to be recoverable as the same kind of object the runtime uses.</p>
+  <h2>The model's tool mode becomes turn state</h2>
+  <p>Another Codex commit, <a href="https://github.com/openai/codex/commit/5577a9e1482ed867318dad51a01e5d18a5c5e5fa"><code>5577a9e1</code></a>, moves a different control decision into the turn. The commit adds optional model metadata for tool mode: <code>direct</code>, <code>code_mode</code>, and <code>code_mode_only</code>. If that metadata is missing or unknown, the client falls back to existing feature flags.</p>
+  <p>The key implementation detail is where the resolved value lands. Codex carries the resolved <code>ToolMode</code> directly on <code>TurnContext</code>, outside the static config object, and uses it for turn creation, model switches, review turns, tool planning, and code execution.</p>
+  <p>The public consequence is subtle but important. Tool behavior is not merely a global preference once the agent is running. It can be model-specific, it can change when the model changes, and it has to be available to the runtime paths that decide what tools the model will actually get.</p>
+  <h2>Subagents get lineage in the outbound metadata</h2>
+  <p>Codex commit <a href="https://github.com/openai/codex/commit/fc9cf62efb8098fce40b5198d3e7cfc45b4ce441"><code>fc9cf62e</code></a> adds another kind of control memory: lineage. The commit says <code>forked_from_thread_id</code> was already available to trace where a thread's context came from, but Codex also needed to know which parent thread spawned a subagent and what kind of subagent it was.</p>
+  <p>The patch adds <code>parent_thread_id</code> and <code>subagent_kind</code> to the <code>x-codex-turn-metadata</code> header sent to the Responses API. It also restores persisted session and thread source from resumed session metadata, so cold-resumed subagent threads keep lineage on later API requests.</p>
+  <p>This is not a claim that subagents are solved. It is a narrower claim: delegation is easier to reason about when the child carries explicit parentage instead of relying on an observer to infer it from history.</p>
+  <h2>The labels have to match the control state</h2>
+  <p>The UI side is smaller but still relevant. Codex commit <a href="https://github.com/openai/codex/commit/1333f4a68907e82e6477256c76997c004e363289"><code>1333f4a6</code></a> aligns TUI permission labels with the app. The changed files touch config persistence, permission popups, permission menus, status surfaces, tests, and snapshots.</p>
+  <p>That is the user-facing half of the same problem. If the runtime stores richer permission profiles but the terminal and app use different language, the human is left comparing surfaces instead of reviewing one control model. Naming is not the whole trust layer, but mismatched names are where trust starts to leak.</p>
+  <h2>Hermes shows the boundary from the worker-thread side</h2>
+  <p>NousResearch Hermes Agent has a different architecture, but two fresh commits point in the same direction. Commit <a href="https://github.com/NousResearch/hermes-agent/commit/1083977261ec96a3234851c74f2dada0eec20518"><code>10839772</code></a> restores approval context in <code>execute_code</code> RPC threads. The commit says local Unix-domain-socket and remote file-RPC threads are wrapped with context propagation so gateway sessions do not fall into a non-interactive auto-approve branch.</p>
+  <p>The same change adds a guard for <code>execute_code</code> itself: a fail-closed approval check for the whole script before the child process starts. It also narrows environment passthrough by dropping broad <code>HERMES_</code> forwarding in favor of an explicit allowlist and additional secret substrings.</p>
+  <p>That is the thread-level version of the story. A worker thread that executes code is not outside the control plane just because it is one layer down. If it can call tools or run commands for the agent, it needs the same approval context the user thought they were operating under.</p>
+  <h2>Implicit auth fallback is getting less comfortable</h2>
+  <p>Hermes commit <a href="https://github.com/NousResearch/hermes-agent/commit/41ff6e593a4ec2771f9f5806afadf775d9e9db6f"><code>41ff6e59</code></a> tightens a separate boundary: auth fallback. Its title says the legacy Nous session-key fallback is disabled. The patch changes auth, credential pool, runtime provider, proxy adapter, web server, and tests.</p>
+  <p>The article should not overstate that as a universal security fix. The grounded point is narrower: another implicit control path is being removed from the normal flow. In an agent runtime, credentials are part of the same control story as permissions and approvals. Silent fallback behavior may be convenient, but it also makes the active contract harder to inspect.</p>
+  <h2>The settings panel is becoming a runtime record</h2>
+  <p>Taken together, these commits do not prove a shared standard. They do not prove complete safety. They do not even prove that every user can see these controls clearly today.</p>
+  <p>They do show the same engineering pressure from multiple angles. Permission profiles have to persist. Model tool behavior has to be resolved for the turn that is actually running. Subagents need lineage. Worker threads need approval context. Auth fallback behavior has to be explicit enough that the runtime can explain what path it used.</p>
+  <p>That is the next trust layer for agent tooling. The question is no longer only "what is the agent allowed to do?" It is "where is that answer stored, and does it survive the next boundary?"</p>
+        </article>
+      </section>
+      <section class="evidence-section" id="evidence" aria-labelledby="evidence-title">
+    <div class="evidence-head">
+      <div>
+        <div class="eyebrow">Evidence Trail</div>
+        <h2 id="evidence-title">Receipts below the story</h2>
+        <p>The article above is the public narrative. This section keeps the source trail, limits, and reporting notes on the same page.</p>
+      </div>
+      <a class="paper-button" href="/editions/2026-05-30/">Edition</a>
+    </div>
+    <div class="evidence-table evidence-summary">
+      <div class="evidence-line"><span>Date</span><span>May 30, 2026</span></div>
+      <div class="evidence-line"><span>Lane</span><span>Daily Edition</span></div>
+      <div class="evidence-line"><span>Confidence</span><span>87%</span></div>
+      <div class="evidence-line"><span>Sources</span><span>6</span></div>
+      <div class="evidence-line"><span>Repos</span><span>openai/codex, NousResearch/hermes-agent</span></div>
+    </div>
+    <div class="markdown evidence-copy evidence-copy-block"><h3>Reporter Notes</h3><p>The strongest story is not &quot;permissions are solved.&quot; It is narrower and more useful: agent systems are promoting control decisions into state that can survive across boundaries. Codex is the main evidence because the same-day commit cluster touches several layers:</p>
+<ul>
+<li>storage: thread-store now carries <code>PermissionProfile</code> rather than only <code>SandboxPolicy</code>;
+</li>
+<li>model/runtime behavior: model metadata can select tool mode, and resolved tool mode lives on <code>TurnContext</code>;
+</li>
+<li>delegation provenance: parent thread and subagent kind become turn metadata;
+</li>
+<li>user surface: TUI permission labels move toward app vocabulary.
+</li>
+</ul>
+<p>Hermes makes the pattern cross-repo without overstating sameness:</p>
+<ul>
+<li><code>execute_code</code> now propagates approval context into RPC worker threads, preventing a child tool path from losing the user's approval routing;
+</li>
+<li>auth code disables a legacy session-key fallback, reducing implicit credential behavior.
+</li>
+</ul></div>
+    <div class="markdown evidence-copy evidence-copy-block">
+      <h2>Primary Evidence</h2>
+<ul>
+<li>OpenAI Codex commit &quot;thread-store: store permission profiles (#23165)&quot;: <a href="https://github.com/openai/codex/commit/a1ecf0cf1c25985b2c0e01103b7ddf8cf9fcc051">https://github.com/openai/codex/commit/a1ecf0cf1c25985b2c0e01103b7ddf8cf9fcc051</a>
+<ul>
+<li>Evidence used: the commit says Codex replaces thread-store <code>sandbox_policy</code> API fields with canonical <code>PermissionProfile</code> fields, persists new permission-profile metadata, keeps legacy sandbox-policy reads compatible, and propagates permission profiles through local, in-memory, live metadata sync, and rollout extraction paths.
+</li>
+</ul>
+</li>
+<li>OpenAI Codex commit &quot;[codex] Add model tool mode selector (#25031)&quot;: <a href="https://github.com/openai/codex/commit/5577a9e1482ed867318dad51a01e5d18a5c5e5fa">https://github.com/openai/codex/commit/5577a9e1482ed867318dad51a01e5d18a5c5e5fa</a>
+<ul>
+<li>Evidence used: the commit says model catalog metadata can select <code>direct</code>, <code>code_mode</code>, or <code>code_mode_only</code>; unknown or omitted wire values fall back safely; the resolved <code>ToolMode</code> is carried on <code>TurnContext</code> and used for turn creation, model switches, review turns, tool planning, and code execution.
+</li>
+</ul>
+</li>
+<li>OpenAI Codex commit &quot;Add subagent lineage metadata for responsesapi (#24161)&quot;: <a href="https://github.com/openai/codex/commit/fc9cf62efb8098fce40b5198d3e7cfc45b4ce441">https://github.com/openai/codex/commit/fc9cf62efb8098fce40b5198d3e7cfc45b4ce441</a>
+<ul>
+<li>Evidence used: the commit says Codex adds <code>parent_thread_id</code> and <code>subagent_kind</code> to <code>x-codex-turn-metadata</code>, restores persisted session/thread source when sessions resume, and centralizes parent-thread extraction for Responses API, analytics, agent control, and state parsing.
+</li>
+</ul>
+</li>
+<li>OpenAI Codex commit &quot;Align TUI permissions labels with app (#25017)&quot;: <a href="https://github.com/openai/codex/commit/1333f4a68907e82e6477256c76997c004e363289">https://github.com/openai/codex/commit/1333f4a68907e82e6477256c76997c004e363289</a>
+<ul>
+<li>Evidence used: the changed files show permission menu, popup, status surface, config persistence, tests, and snapshots updated to align terminal permission labels with the app.
+</li>
+</ul>
+</li>
+<li>NousResearch Hermes Agent commit &quot;fix(code-exec): restore approval context in execute_code RPC threads + guard entry&quot;: <a href="https://github.com/NousResearch/hermes-agent/commit/1083977261ec96a3234851c74f2dada0eec20518">https://github.com/NousResearch/hermes-agent/commit/1083977261ec96a3234851c74f2dada0eec20518</a>
+<ul>
+<li>Evidence used: the commit says Hermes wraps local and remote <code>execute_code</code> RPC threads with context propagation, adds a fail-closed approval guard before the child script starts, and narrows child environment passthrough.
+</li>
+</ul>
+</li>
+<li>NousResearch Hermes Agent commit &quot;refactor(auth): Disable Nous legacy session key fallback&quot;: <a href="https://github.com/NousResearch/hermes-agent/commit/41ff6e593a4ec2771f9f5806afadf775d9e9db6f">https://github.com/NousResearch/hermes-agent/commit/41ff6e593a4ec2771f9f5806afadf775d9e9db6f</a>
+<ul>
+<li>Evidence used: the commit shows auth, runtime provider, proxy adapter, web server, and tests changed to remove or disable the normal legacy Nous session-key fallback path.
+</li>
+</ul>
+</li>
+</ul>
+<h2>Evidence Limits</h2>
+<ul>
+<li>These sources do not prove that Codex and Hermes are coordinating on one shared control-plane design.
+</li>
+<li>They do not prove the controls are complete, secure in every deployment, or already exposed in every product surface.
+</li>
+<li>The Codex evidence is strongest for persisted permission profiles, model/tool-mode selection, subagent lineage metadata, and permission-label consistency.
+</li>
+<li>The Hermes evidence is strongest for approval context propagation across <code>execute_code</code> worker threads and explicit auth fallback tightening.
+</li>
+<li>The story supports a pattern of agent-control metadata becoming durable runtime state, not a claim that any single implementation is the final standard.
+</li>
+</ul>
+    </div>
+    
+  </section>
+      <section class="reader-feedback"
+    data-tgr-feedback
+    data-article-slug="2026-05-30-daily-agent-control-settings-are-becoming-session-state"
+    data-article-title="Agent Control Settings Are Becoming Session State"
+    data-article-url="/articles/2026-05-30-daily-agent-control-settings-are-becoming-session-state/"
+    data-edition-date="2026-05-30"
+    data-lane="Daily Edition"
+    data-tags="Permissions,Memory,Delegation,Tools"
+    data-repos="openai/codex,NousResearch/hermes-agent">
+    <div class="reader-feedback-head">
+      <div>
+        <div class="eyebrow">Letters &amp; Corrections</div>
+        <h2>Send a note to the desk</h2>
+      </div>
+      <p>Corrections, missing context, or a follow-up lead.</p>
+    </div>
+    <form class="feedback-form">
+      <div class="feedback-votes" role="group" aria-label="Choose signal type">
+        <button class="feedback-choice" type="button" data-vote="follow-up" aria-pressed="false">
+          <span aria-hidden="true">+</span>
+          <span>Follow-up</span>
+        </button>
+        <button class="feedback-choice" type="button" data-vote="correction" aria-pressed="false">
+          <span aria-hidden="true">!</span>
+          <span>Correction</span>
+        </button>
+      </div>
+      <label class="feedback-comment">
+        <span>Note for the editor</span>
+        <textarea name="comment" rows="3" maxlength="320" placeholder="What did we miss, or what should we follow next?"></textarea>
+      </label>
+      <div class="feedback-submit-row">
+        <p class="feedback-status" aria-live="polite"></p>
+        <button class="paper-button primary feedback-submit" type="submit">Send to desk</button>
+      </div>
+    </form>
+  </section>
+      
+    </main>
+    <footer class="wrap site-footer">
+      <span>&copy; 2026 The Git Reporter</span>
+      <a href="/about/">About</a>
+      <a href="/articles.json">Manifest JSON</a>
+      <a href="/repos/">Sources</a>
+    </footer>
+  </div>
+</body>
+</html>

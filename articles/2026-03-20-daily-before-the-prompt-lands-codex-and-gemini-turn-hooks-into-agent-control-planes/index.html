@@ -6,15 +6,15 @@
   <title>Before the Prompt Lands: Codex and Gemini Turn Hooks Into Agent Control Planes | The Git Reporter</title>
   <meta name="description" content="Terminal agents are growing a new kind of muscle: not just better tools, but better middleware. In both Codex and Gemini CLI, the moment right after you hit Enter is becoming programmable territory.">
   <link rel="icon" href="/assets/mark.svg">
-  <link rel="stylesheet" href="/assets/site.css?v=2026-05-29-article-evidence-unified-1">
-  <script defer src="/assets/feedback.js?v=2026-05-29-article-evidence-unified-1"></script>
+  <link rel="stylesheet" href="/assets/site.css?v=2026-05-30-about-page-1">
+  <script defer src="/assets/feedback.js?v=2026-05-30-about-page-1"></script>
 </head>
 <body>
   <div class="site">
     <header class="site-header" id="top">
       <div class="wrap utility-row">
         <a class="icon-link menu-icon" href="/archive/" aria-label="Open edition history"><span></span><span></span><span></span></a>
-        <a class="icon-link search-icon" href="/archive/" aria-label="Search edition history"></a>
+        <a class="icon-link archive-icon" href="/archive/" aria-label="Open edition history"></a>
       </div>
       <div class="wrap masthead-lockup">
         <a class="masthead-title" href="/">THE GIT REPORTER</a>
@@ -22,7 +22,7 @@
       </div>
       <div class="wrap nav-wrap">
         <nav class="paper-nav" aria-label="Primary navigation">
-    <a class="" href="/">Today</a><a class="active" href="/archive/">Editions</a><a class="" href="/atlas/">Agent Atlas</a><a class="" href="/repos/">Repos</a>
+    <a class="" href="/">Today</a><a class="active" href="/archive/">Editions</a><a class="" href="/about/">About</a><a class="" href="/atlas/">Agent Atlas</a><a class="" href="/repos/">Repos</a>
   </nav>
         <div class="nav-rule"></div>
       </div>
@@ -38,16 +38,16 @@
         
         <div class="receipt">
     <div class="receipt-line">
-      <span class="receipt-icon">repo</span>
-      <span class="receipt-main">openai/codex</span>
-      <span class="branch-pill">main</span>
+      <span class="receipt-icon">repos</span>
+      <span class="receipt-main">openai/codex + google-gemini/gemini-cli</span>
+      <span class="branch-pill">evidence</span>
     </div>
     <div class="receipt-line receipt-muted">
       <span>2 source signals</span>
       <span>2 repos</span>
-      <span>6fef421</span>
+      <span>commit 6fef421</span>
     </div>
-    <div class="commit-line">&gt; 6fef421 / March 20, 2026 / Daily Edition</div>
+    <div class="commit-line">Evidence: commit 6fef421 / March 20, 2026 / Daily Edition</div>
   </div>
         <div class="article-route-row">
           <a href="/editions/2026-03-20/">Open Edition</a>
@@ -122,236 +122,21 @@
       <div class="evidence-line"><span>Sources</span><span>2</span></div>
       <div class="evidence-line"><span>Repos</span><span>openai/codex, google-gemini/gemini-cli</span></div>
     </div>
-    <div class="markdown evidence-copy evidence-copy-block"><h3>Reporter Notes</h3><h1>Notes — 2026-03-20</h1>
-<h2>Selected angle</h2>
-<p>**Before the prompt lands, both Codex and Gemini now expose a real control plane for shaping a turn.**</p>
-<p>This story focuses on pre-turn interception, not tool concurrency. That keeps it clearly distinct from 2026-03-19's article on parallel tool scheduling.</p>
-<h2>Candidate angles considered</h2>
-<p>1. **Picked:** pre-turn hook interception as agent middleware</p>
-<p>2. Approval memory inheritance across subagents / policy layers</p>
-<p>3. CLI-to-runtime decoupling via app-server / AgentLoopContext plumbing</p>
-<h2>Why this angle won</h2>
-<ul>
-<li>Different layer of the stack from yesterday: prompt ingress, not tool execution</li>
-<li>Strong, recent Codex evidence from a Mar 17 hook addition</li>
-<li>Strong Gemini counterpoint from existing docs and core client code</li>
-<li>Human-readable framing: middleware before the model sees the turn</li>
-</ul>
-<h2>Key evidence</h2>
-<h3>Codex</h3>
-<ul>
-<li>Commit <code>6fef42165</code> adds <code>UserPromptSubmit</code> hooks.</li>
-<li><code>codex-rs/hooks/src/events/user_prompt_submit.rs</code></li>
-<li>serializes a dedicated hook input with session, cwd, transcript path, model, permission mode, and prompt</li>
-<li>hook output can stop, block, or add extra context</li>
-<li>plain-text stdout can also become additional context</li>
-<li><code>codex-rs/core/src/hook_runtime.rs</code></li>
-<li><code>inspect_pending_input()</code> runs <code>UserPromptSubmit</code> before pending user input is accepted</li>
-<li>accepted input is later recorded with <code>record_pending_input()</code></li>
-<li>extra context is transformed into <code>DeveloperInstructions</code></li>
-<li><code>codex-rs/core/src/state/turn.rs</code></li>
-<li>turn state explicitly buffers <code>pending_input</code>, making the interception window visible in runtime state</li>
-</ul>
-<h3>Gemini CLI</h3>
-<ul>
-<li><code>docs/hooks/index.md</code></li>
-<li>hooks run synchronously in the agent loop</li>
-<li><code>BeforeAgent</code> fires after user submits prompt, before planning</li>
-<li>common uses include adding context, validating prompts, and blocking turns</li>
-<li><code>packages/core/src/core/client.ts</code></li>
-<li><code>fireBeforeAgentHookSafe()</code> deduplicates once per <code>prompt_id</code></li>
-<li>the hook can stop, block, or return <code>additionalContext</code></li>
-<li><code>sendMessageStream()</code> appends <code>&lt;hook_context&gt;...&lt;/hook_context&gt;</code> to the request before processing the turn</li>
-<li><code>packages/core/src/hooks/types.test.ts</code></li>
-<li>additional context is sanitized by escaping <code>&lt;</code> and <code>&lt;/hook_context&gt;</code> delimiters</li>
-</ul>
-<h2>Freshness / trend signal</h2>
-<ul>
-<li><code>gh repo view openai/codex --json stargazerCount,forkCount,updatedAt</code></li>
-<li>66,427 stars, 8,868 forks, updated <code>2026-03-20T05:01:45Z</code></li>
-<li><code>gh repo view google-gemini/gemini-cli --json stargazerCount,forkCount,updatedAt</code></li>
-<li>98,419 stars, 12,442 forks, updated <code>2026-03-20T04:45:10Z</code></li>
-<li>Recent merged PRs suggest active runtime/governance work:</li>
-<li>Codex: remote plugin sync, hooks-on-Windows disable, exec capture policy</li>
-<li>Gemini CLI: admin-forced MCP installs, plan-mode clarification, ACP token usage metadata</li>
-<li><code>gsio projects scope</code> reports 100% analyzed coverage and fresh sync for both repos on 2026-03-20</li>
-</ul>
-<h2>Editorial guardrails</h2>
-<ul>
-<li>Do **not** claim both systems are identical</li>
-<li>Do **not** claim hooks guarantee safety or correctness</li>
-<li>Do **not** say Codex already has the same breadth of hook surface as Gemini</li>
-<li>Emphasize **pre-turn middleware** / **ingress control**, not generic safety rhetoric</li>
-</ul>
-<h2>Ending question / CTA</h2>
-<p>If prompt submission becomes a programmable control surface, who should own that layer in practice: repo authors, platform teams, or end users building their own agent rituals?</p>
-<p>Invite builders to inspect their own agent loops and publish where their real control plane lives.</p></div>
+    
     <div class="markdown evidence-copy evidence-copy-block">
-      <h1>Sources — 2026-03-20</h1>
-<h2>Repo / trend checks</h2>
-<h3><code>gh repo view openai/codex --json stargazerCount,forkCount,updatedAt,url</code></h3>
-<pre><code>
-{&quot;forkCount&quot;:8868,&quot;stargazerCount&quot;:66427,&quot;updatedAt&quot;:&quot;2026-03-20T05:01:45Z&quot;,&quot;url&quot;:&quot;https://github.com/openai/codex&quot;}
-</code></pre>
-<h3><code>gh repo view google-gemini/gemini-cli --json stargazerCount,forkCount,updatedAt,url</code></h3>
-<pre><code>
-{&quot;forkCount&quot;:12442,&quot;stargazerCount&quot;:98419,&quot;updatedAt&quot;:&quot;2026-03-20T04:45:10Z&quot;,&quot;url&quot;:&quot;https://github.com/google-gemini/gemini-cli&quot;}
-</code></pre>
-<h3><code>gsio --output json projects scope -p openai/codex -p google-gemini/gemini-cli</code></h3>
-<pre><code>
-{
-  &quot;summary&quot;: {
-    &quot;project_count&quot;: 2,
-    &quot;commits_total&quot;: 10111,
-    &quot;commits_analyzed&quot;: 10111,
-    &quot;commits_missing&quot;: 0,
-    &quot;coverage&quot;: &quot;100%&quot;,
-    &quot;stale_projects&quot;: 0,
-    &quot;stale_threshold_hours&quot;: 168
-  },
-  &quot;projects&quot;: [
-    {
-      &quot;project&quot;: &quot;google-gemini/gemini-cli&quot;,
-      &quot;coverage&quot;: &quot;100%&quot;,
-      &quot;analyzed&quot;: 5393,
-      &quot;missing&quot;: 0,
-      &quot;total&quot;: 5393,
-      &quot;run&quot;: &quot;success&quot;,
-      &quot;synced_at&quot;: &quot;2026-03-20T02:02:39.394Z&quot;,
-      &quot;stale&quot;: false
-    },
-    {
-      &quot;project&quot;: &quot;openai/codex&quot;,
-      &quot;coverage&quot;: &quot;100%&quot;,
-      &quot;analyzed&quot;: 4718,
-      &quot;missing&quot;: 0,
-      &quot;total&quot;: 4718,
-      &quot;run&quot;: &quot;success&quot;,
-      &quot;synced_at&quot;: &quot;2026-03-20T02:05:21.358Z&quot;,
-      &quot;stale&quot;: false
-    }
-  ]
-}
-</code></pre>
-<h3>Recent merged PRs</h3>
-<pre><code>
-openai/codex
-#15264 feat: Add One-Time Startup Remote Plugin Sync
-#15263 fix: Distinguish missing and empty plugin products
-#15254 core: add a full-buffer exec capture policy
-#15253 Split features into codex-features crate
-#15252 Disable hooks on windows for now
-
-google-gemini/gemini-cli
-#23163 feat(core): add support for admin-forced MCP server installations
-#23158 fix(plan): clarify that plan mode policies are combined with normal mode
-#23148 feat: ACP: Add token usage metadata to the `send` method's return value
-</code></pre>
-<h2>Codex evidence</h2>
-<h3><code>git show 6fef42165:codex-rs/hooks/src/events/user_prompt_submit.rs</code></h3>
-<pre><code>
-19  pub struct UserPromptSubmitRequest {
-20      pub session_id: ThreadId,
-21      pub turn_id: String,
-22      pub cwd: PathBuf,
-23      pub transcript_path: Option&lt;PathBuf&gt;,
-24      pub model: String,
-25      pub permission_mode: String,
-26      pub prompt: String,
-27  }
-...
-59  pub(crate) async fn run(
-64      let matched = dispatcher::select_handlers(
-65          handlers,
-66          HookEventName::UserPromptSubmit,
-...
-106     let should_stop = results.iter().any(|result| result.data.should_stop);
-110     let additional_contexts = common::flatten_additional_contexts(
-...
-145             let trimmed_stdout = run_result.stdout.trim();
-147             } else if let Some(parsed) =
-148                 output_parser::parse_user_prompt_submit(&amp;run_result.stdout)
-...
-156                 if parsed.invalid_block_reason.is_none()
-157                     &amp;&amp; let Some(additional_context) = parsed.additional_context
-...
-166                 if !parsed.universal.continue_processing {
-...
-182                 } else if parsed.should_block {
-...
-200                 let additional_context = trimmed_stdout.to_string();
-</code></pre>
-<h3><code>git show 6fef42165:codex-rs/core/src/hook_runtime.rs</code></h3>
-<pre><code>
-112 pub(crate) async fn run_user_prompt_submit_hooks(
-117     let request = UserPromptSubmitRequest {
-...
-136 pub(crate) async fn inspect_pending_input(
-141     let response_item = ResponseItem::from(pending_input_item);
-142     if let Some(TurnItem::UserMessage(user_message)) = parse_turn_item(&amp;response_item) {
-143         let user_prompt_submit_outcome =
-144             run_user_prompt_submit_hooks(sess, turn_context, user_message.message()).await;
-145         if user_prompt_submit_outcome.should_stop {
-146             PendingInputHookDisposition::Blocked {
-147                 additional_contexts: user_prompt_submit_outcome.additional_contexts,
-148             }
-149         } else {
-150             PendingInputHookDisposition::Accepted(Box::new(PendingInputRecord::UserMessage {
-...
-163 pub(crate) async fn record_pending_input(
-174             sess.record_user_prompt_and_emit_turn_item(
-180             record_additional_contexts(sess, turn_context, additional_contexts).await;
-218 pub(crate) async fn record_additional_contexts(
-</code></pre>
-<h3><code>git show 6fef42165:codex-rs/core/src/state/turn.rs</code></h3>
-<pre><code>
-77  pub(crate) struct TurnState {
-83      pending_input: Vec&lt;ResponseInputItem&gt;,
-...
-178 pub(crate) fn push_pending_input(&amp;mut self, input: ResponseInputItem) {
-179     self.pending_input.push(input);
-182 pub(crate) fn prepend_pending_input(&amp;mut self, mut input: Vec&lt;ResponseInputItem&gt;) {
-187     input.append(&amp;mut self.pending_input);
-188     self.pending_input = input;
-191 pub(crate) fn take_pending_input(&amp;mut self) -&gt; Vec&lt;ResponseInputItem&gt; {
-</code></pre>
-<h2>Gemini evidence</h2>
-<h3><code>docs/hooks/index.md</code></h3>
-<pre><code>
-9  Hooks run synchronously as part of the agent loop—when a hook event fires,
-10 Gemini CLI waits for all matching hooks to complete before continuing.
-...
-42 | `BeforeAgent` | After user submits prompt, before planning | Block Turn / Context | Add context, validate prompts, block turns |
-</code></pre>
-<h3><code>packages/core/src/core/client.ts</code></h3>
-<pre><code>
-142   private async fireBeforeAgentHookSafe(
-167     const hookOutput = await this.config
-168       .getHookSystem()
-169       ?.fireBeforeAgentEvent(partToString(request));
-172     if (hookOutput?.shouldStopExecution()) {
-182     if (hookOutput?.isBlockingDecision()) {
-192     const additionalContext = hookOutput?.getAdditionalContext();
-193     if (additionalContext) {
-194       return { additionalContext };
-...
-881   if (hooksEnabled &amp;&amp; messageBus) {
-882     const hookResult = await this.fireBeforeAgentHookSafe(request, prompt_id);
-898     } else if ('additionalContext' in hookResult) {
-904       { text: `&lt;hook_context&gt;${additionalContext}&lt;/hook_context&gt;` },
-</code></pre>
-<h3><code>packages/core/src/hooks/types.test.ts</code></h3>
-<pre><code>
-183 it('getAdditionalContext should return additional context if present', () =&gt; {
-190 it('getAdditionalContext should sanitize context by escaping &lt;', () =&gt; {
-193   additionalContext: 'context with &lt;tag&gt; and &lt;/hook_context&gt;',
-196   expect(output.getAdditionalContext()).toBe(
-197     'context with &amp;lt;tag&amp;gt; and &amp;lt;/hook_context&amp;gt;',
-</code></pre>
-<h2>LLM review</h2>
+      <h2>Source Trail</h2>
 <ul>
-<li>Model used: <code>llm -m gpt-5.4</code></li>
-<li>Verdict: pick the pre-turn hook interception angle because it is distinct from yesterday's concurrency story and easier to explain to a general technical audience.</li>
+<li>{&quot;forkCount&quot;:8868,&quot;stargazerCount&quot;:66427,&quot;updatedAt&quot;:&quot;2026-03-20T05:01:45Z&quot;,&quot;url&quot;:&quot;<a href="https://github.com/openai/codex&quot;}">https://github.com/openai/codex&quot;}</a>
+</li>
+<li>{&quot;forkCount&quot;:12442,&quot;stargazerCount&quot;:98419,&quot;updatedAt&quot;:&quot;2026-03-20T04:45:10Z&quot;,&quot;url&quot;:&quot;<a href="https://github.com/google-gemini/gemini-cli&quot;}">https://github.com/google-gemini/gemini-cli&quot;}</a>
+</li>
+</ul>
+<h2>Evidence Limits</h2>
+<ul>
+<li>This older source trail predates the current public evidence format.
+</li>
+<li>Treat it as a compact source map for the article, not a complete source dossier.
+</li>
 </ul>
     </div>
     
@@ -397,7 +182,7 @@ google-gemini/gemini-cli
     </main>
     <footer class="wrap site-footer">
       <span>&copy; 2026 The Git Reporter</span>
-      <a href="/atlas/">About</a>
+      <a href="/about/">About</a>
       <a href="/articles.json">Manifest JSON</a>
       <a href="/repos/">Sources</a>
     </footer>

@@ -6,15 +6,15 @@
   <title>Agent Runtimes Are Learning Where to Say No | The Git Reporter</title>
   <meta name="description" content="After shipping more visible control planes, agent projects are now tightening the places where tools, plugins, credentials, chat context, and test runs are allowed to flow.">
   <link rel="icon" href="/assets/mark.svg">
-  <link rel="stylesheet" href="/assets/site.css?v=2026-05-29-article-evidence-unified-1">
-  <script defer src="/assets/feedback.js?v=2026-05-29-article-evidence-unified-1"></script>
+  <link rel="stylesheet" href="/assets/site.css?v=2026-05-30-about-page-1">
+  <script defer src="/assets/feedback.js?v=2026-05-30-about-page-1"></script>
 </head>
 <body>
   <div class="site">
     <header class="site-header" id="top">
       <div class="wrap utility-row">
         <a class="icon-link menu-icon" href="/archive/" aria-label="Open edition history"><span></span><span></span><span></span></a>
-        <a class="icon-link search-icon" href="/archive/" aria-label="Search edition history"></a>
+        <a class="icon-link archive-icon" href="/archive/" aria-label="Open edition history"></a>
       </div>
       <div class="wrap masthead-lockup">
         <a class="masthead-title" href="/">THE GIT REPORTER</a>
@@ -22,7 +22,7 @@
       </div>
       <div class="wrap nav-wrap">
         <nav class="paper-nav" aria-label="Primary navigation">
-    <a class="" href="/">Today</a><a class="active" href="/archive/">Editions</a><a class="" href="/atlas/">Agent Atlas</a><a class="" href="/repos/">Repos</a>
+    <a class="" href="/">Today</a><a class="active" href="/archive/">Editions</a><a class="" href="/about/">About</a><a class="" href="/atlas/">Agent Atlas</a><a class="" href="/repos/">Repos</a>
   </nav>
         <div class="nav-rule"></div>
       </div>
@@ -38,16 +38,16 @@
         
         <div class="receipt">
     <div class="receipt-line">
-      <span class="receipt-icon">repo</span>
-      <span class="receipt-main">openai/codex</span>
-      <span class="branch-pill">main</span>
+      <span class="receipt-icon">repos</span>
+      <span class="receipt-main">openai/codex + 2 more</span>
+      <span class="branch-pill">evidence</span>
     </div>
     <div class="receipt-line receipt-muted">
       <span>6 source signals</span>
       <span>3 repos</span>
-      <span>5c20513</span>
+      <span>6 linked commits</span>
     </div>
-    <div class="commit-line">&gt; 5c20513 / May 24, 2026 / Daily Edition</div>
+    <div class="commit-line">Evidence: 6 linked commits / May 24, 2026 / Daily Edition</div>
   </div>
         <div class="article-route-row">
           <a href="/editions/2026-05-24/">Open Edition</a>
@@ -101,9 +101,7 @@
       <div class="evidence-line"><span>Sources</span><span>6</span></div>
       <div class="evidence-line"><span>Repos</span><span>openai/codex, langchain-ai/langchain, NousResearch/hermes-agent</span></div>
     </div>
-    <div class="markdown evidence-copy evidence-copy-block"><h3>Reporter Notes</h3><h1>Notes</h1>
-<h2>Reporter Notes</h2>
-<p>The May 24 story continues the control-plane beat but tightens the claim. The</p>
+    <div class="markdown evidence-copy evidence-copy-block"><h3>Reporter Notes</h3><p>The May 24 story continues the control-plane beat but tightens the claim. The</p>
 <p>new evidence is about refusal and isolation: hooks before local function tools,</p>
 <p>archive checks before plugin bundles cross a boundary, read denials around</p>
 <p>credential stores, Telegram observed context kept out of replayable user turns,</p>
@@ -117,34 +115,54 @@
     <div class="markdown evidence-copy evidence-copy-block">
       <h2>Primary Evidence</h2>
 <ul>
-<li>OpenAI Codex commit <code>5c20513a1</code>, &quot;Default function tools into tool hooks (#23757)&quot;: <a href="https://github.com/openai/codex/commit/5c20513a1b3d15898429abd92b3676b76795a892">https://github.com/openai/codex/commit/5c20513a1b3d15898429abd92b3676b76795a892</a></li>
-<li>Evidence used: ordinary local function tools gain default PreToolUse and PostToolUse hook payloads, default updated-input rewriting, and tests for blocking and rewriting local function calls.</li>
-<li>OpenAI Codex commit <code>7d47056e</code>, &quot;fix: plugin bundle archive handling for upload and install (#23983)&quot;: <a href="https://github.com/openai/codex/commit/7d47056ea42636271ac020b86347fbbef49490aa">https://github.com/openai/codex/commit/7d47056ea42636271ac020b86347fbbef49490aa</a></li>
-<li>Evidence used: plugin bundle packing and unpacking move into a shared helper with checks for manifest presence, size limits, path traversal, link entries, and unsupported archive entry types.</li>
-<li>Hermes Agent commit <code>97e975ed</code>, &quot;fix(file-safety): widen read-deny to .env, mcp-tokens/, webhook secrets, root&quot;: <a href="https://github.com/NousResearch/hermes-agent/commit/97e975edd2cd666b09412cca5ee22d3e5ad431de">https://github.com/NousResearch/hermes-agent/commit/97e975edd2cd666b09412cca5ee22d3e5ad431de</a></li>
-<li>Evidence used: direct read denials expand to credential and secret stores, while the code comments explicitly describe the mechanism as defense-in-depth and auditability rather than a hard security boundary.</li>
-<li>Hermes Agent commit <code>4a91e364</code>, &quot;fix(gateway): separate observed Telegram group context&quot;: <a href="https://github.com/NousResearch/hermes-agent/commit/4a91e36495e86e54dfa3ef52bad04b31b084525a">https://github.com/NousResearch/hermes-agent/commit/4a91e36495e86e54dfa3ef52bad04b31b084525a</a></li>
-<li>Evidence used: observed Telegram group context is withheld from normal replay history and wrapped as context for the current addressed message instead of being treated as pending user requests.</li>
-<li>LangChain commit <code>33875fde</code>, &quot;ci(infra): serialize integration test shards across runs (#37648)&quot;: <a href="https://github.com/langchain-ai/langchain/commit/33875fde2acf6ffb717915a895638274a6098ec2">https://github.com/langchain-ai/langchain/commit/33875fde2acf6ffb717915a895638274a6098ec2</a></li>
-<li>Evidence used: scheduled integration test shards add job-level concurrency keyed by package and Python version so overlapping runs do not hit the same live API credentials at once.</li>
-<li>LangChain commit <code>bdd7f71a</code>, &quot;ci(infra): trace scheduled integration tests (#37615)&quot;: <a href="https://github.com/langchain-ai/langchain/commit/bdd7f71a1b426675a83915dbd68107ceca069fc8">https://github.com/langchain-ai/langchain/commit/bdd7f71a1b426675a83915dbd68107ceca069fc8</a></li>
-<li>Evidence used: scheduled integration tests attach GitHub workflow, run, SHA, matrix, and Python-version metadata to traces so failures can be linked back to their originating CI run.</li>
+<li>OpenAI Codex commit <code>5c20513a1</code>, &quot;Default function tools into tool hooks (#23757)&quot;: <a href="https://github.com/openai/codex/commit/5c20513a1b3d15898429abd92b3676b76795a892">https://github.com/openai/codex/commit/5c20513a1b3d15898429abd92b3676b76795a892</a>
+<ul>
+<li>Evidence used: ordinary local function tools gain default PreToolUse and PostToolUse hook payloads, default updated-input rewriting, and tests for blocking and rewriting local function calls.
+</li>
+</ul>
+</li>
+<li>OpenAI Codex commit <code>7d47056e</code>, &quot;fix: plugin bundle archive handling for upload and install (#23983)&quot;: <a href="https://github.com/openai/codex/commit/7d47056ea42636271ac020b86347fbbef49490aa">https://github.com/openai/codex/commit/7d47056ea42636271ac020b86347fbbef49490aa</a>
+<ul>
+<li>Evidence used: plugin bundle packing and unpacking move into a shared helper with checks for manifest presence, size limits, path traversal, link entries, and unsupported archive entry types.
+</li>
+</ul>
+</li>
+<li>Hermes Agent commit <code>97e975ed</code>, &quot;fix(file-safety): widen read-deny to .env, mcp-tokens/, webhook secrets, root&quot;: <a href="https://github.com/NousResearch/hermes-agent/commit/97e975edd2cd666b09412cca5ee22d3e5ad431de">https://github.com/NousResearch/hermes-agent/commit/97e975edd2cd666b09412cca5ee22d3e5ad431de</a>
+<ul>
+<li>Evidence used: direct read denials expand to credential and secret stores, while the code comments explicitly describe the mechanism as defense-in-depth and auditability rather than a hard security boundary.
+</li>
+</ul>
+</li>
+<li>Hermes Agent commit <code>4a91e364</code>, &quot;fix(gateway): separate observed Telegram group context&quot;: <a href="https://github.com/NousResearch/hermes-agent/commit/4a91e36495e86e54dfa3ef52bad04b31b084525a">https://github.com/NousResearch/hermes-agent/commit/4a91e36495e86e54dfa3ef52bad04b31b084525a</a>
+<ul>
+<li>Evidence used: observed Telegram group context is withheld from normal replay history and wrapped as context for the current addressed message instead of being treated as pending user requests.
+</li>
+</ul>
+</li>
+<li>LangChain commit <code>33875fde</code>, &quot;ci(infra): serialize integration test shards across runs (#37648)&quot;: <a href="https://github.com/langchain-ai/langchain/commit/33875fde2acf6ffb717915a895638274a6098ec2">https://github.com/langchain-ai/langchain/commit/33875fde2acf6ffb717915a895638274a6098ec2</a>
+<ul>
+<li>Evidence used: scheduled integration test shards add job-level concurrency keyed by package and Python version so overlapping runs do not hit the same live API credentials at once.
+</li>
+</ul>
+</li>
+<li>LangChain commit <code>bdd7f71a</code>, &quot;ci(infra): trace scheduled integration tests (#37615)&quot;: <a href="https://github.com/langchain-ai/langchain/commit/bdd7f71a1b426675a83915dbd68107ceca069fc8">https://github.com/langchain-ai/langchain/commit/bdd7f71a1b426675a83915dbd68107ceca069fc8</a>
+<ul>
+<li>Evidence used: scheduled integration tests attach GitHub workflow, run, SHA, matrix, and Python-version metadata to traces so failures can be linked back to their originating CI run.
+</li>
+</ul>
+</li>
 </ul>
 <h2>Evidence Limits</h2>
 <ul>
-<li>These commits show project-level movement toward narrower runtime boundaries; they do not prove a common standard across agent tools.</li>
-<li>The Hermes file-safety commit explicitly says the read-deny is not a complete security boundary because shell access can still bypass it.</li>
-<li>Commit evidence does not prove release timing, downstream adoption, or how every installation behaves.</li>
+<li>These commits show project-level movement toward narrower runtime boundaries; they do not prove a common standard across agent tools.
+</li>
+<li>The Hermes file-safety commit explicitly says the read-deny is not a complete security boundary because shell access can still bypass it.
+</li>
+<li>Commit evidence does not prove release timing, downstream adoption, or how every installation behaves.
+</li>
 </ul>
     </div>
-    <div class="markdown evidence-copy evidence-copy-block"><h3>Open Questions</h3><ul>
-<li>Should tomorrow's edition keep following trust boundaries, or shift to a</li>
-</ul>
-<p>  fresher beat if the next scan repeats the same broad control-plane theme?</p>
-<ul>
-<li>Are readers finding cross-repo pattern pieces more useful than narrower</li>
-</ul>
-<p>  single-repo mechanism stories?</p></div>
+    
   </section>
       <section class="reader-feedback"
     data-tgr-feedback
@@ -187,7 +205,7 @@
     </main>
     <footer class="wrap site-footer">
       <span>&copy; 2026 The Git Reporter</span>
-      <a href="/atlas/">About</a>
+      <a href="/about/">About</a>
       <a href="/articles.json">Manifest JSON</a>
       <a href="/repos/">Sources</a>
     </footer>

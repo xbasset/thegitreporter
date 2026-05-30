@@ -6,15 +6,15 @@
   <title>Gemini CLI and Codex Level Up MCP Safety and Setup: Trust Prompts vs Auto-Install Skills | The Git Reporter</title>
   <meta name="description" content="Two CLI assistants walk into the same tooling bar. One checks IDs at the door; the other quietly installs the band’s gear before the show starts. Gemini’s new “trust, but verify” moment Gemi...">
   <link rel="icon" href="/assets/mark.svg">
-  <link rel="stylesheet" href="/assets/site.css?v=2026-05-29-article-evidence-unified-1">
-  <script defer src="/assets/feedback.js?v=2026-05-29-article-evidence-unified-1"></script>
+  <link rel="stylesheet" href="/assets/site.css?v=2026-05-30-about-page-1">
+  <script defer src="/assets/feedback.js?v=2026-05-30-about-page-1"></script>
 </head>
 <body>
   <div class="site">
     <header class="site-header" id="top">
       <div class="wrap utility-row">
         <a class="icon-link menu-icon" href="/archive/" aria-label="Open edition history"><span></span><span></span><span></span></a>
-        <a class="icon-link search-icon" href="/archive/" aria-label="Search edition history"></a>
+        <a class="icon-link archive-icon" href="/archive/" aria-label="Open edition history"></a>
       </div>
       <div class="wrap masthead-lockup">
         <a class="masthead-title" href="/">THE GIT REPORTER</a>
@@ -22,7 +22,7 @@
       </div>
       <div class="wrap nav-wrap">
         <nav class="paper-nav" aria-label="Primary navigation">
-    <a class="" href="/">Today</a><a class="active" href="/archive/">Editions</a><a class="" href="/atlas/">Agent Atlas</a><a class="" href="/repos/">Repos</a>
+    <a class="" href="/">Today</a><a class="active" href="/archive/">Editions</a><a class="" href="/about/">About</a><a class="" href="/atlas/">Agent Atlas</a><a class="" href="/repos/">Repos</a>
   </nav>
         <div class="nav-rule"></div>
       </div>
@@ -38,16 +38,16 @@
         
         <div class="receipt">
     <div class="receipt-line">
-      <span class="receipt-icon">repo</span>
-      <span class="receipt-main">openai/codex</span>
-      <span class="branch-pill">main</span>
+      <span class="receipt-icon">repos</span>
+      <span class="receipt-main">openai/codex + google-gemini/gemini-cli</span>
+      <span class="branch-pill">evidence</span>
     </div>
     <div class="receipt-line receipt-muted">
       <span>2 source signals</span>
       <span>2 repos</span>
-      <span>2e57989</span>
+      <span>2 linked commits</span>
     </div>
-    <div class="commit-line">&gt; 2e57989 / March 6, 2026 / Daily Edition</div>
+    <div class="commit-line">Evidence: 2 linked commits / March 6, 2026 / Daily Edition</div>
   </div>
         <div class="article-route-row">
           <a href="/editions/2026-03-06/">Open Edition</a>
@@ -136,53 +136,21 @@
       <div class="evidence-line"><span>Sources</span><span>2</span></div>
       <div class="evidence-line"><span>Repos</span><span>openai/codex, google-gemini/gemini-cli</span></div>
     </div>
-    <div class="markdown evidence-copy evidence-copy-block"><h3>Reporter Notes</h3><h1>Notes</h1>
-<h2>Key observation</h2>
-<p>Gemini CLI and Codex both tightened MCP safety/ergonomics, but in different layers: Gemini prompts before running untrusted MCP tools (trust + allowlist), while Codex lets skills declare MCP dependencies and then offers to auto-install/login those servers when a skill is explicitly invoked. One adds execution-time guardrails; the other adds setup-time automation.</p>
-<h2>Evidence (Gemini CLI)</h2>
-<ul>
-<li>Adds <code>trust</code> flag in MCP server config.</li>
-<li>Introduces MCP-specific confirmation details with options: allow once / always allow tool / always allow server / cancel.</li>
-<li>UI in ToolConfirmationMessage shows server + tool, then asks for permission.</li>
-</ul>
-<h2>Evidence (Codex)</h2>
-<ul>
-<li>Adds <code>dependencies</code> to SkillMetadata + protocol (SkillDependencies + SkillToolDependency).</li>
-<li>Parses dependencies from SKILL.json.</li>
-<li>Adds new <code>skill_dependencies.rs</code> to prompt for missing MCP servers, auto-install into global config, and run OAuth login when supported.</li>
-<li>Feature flag <code>skill_mcp_dependency_install</code> default enabled.</li>
-</ul>
-<h2>Possible title ideas</h2>
-<ul>
-<li>“MCP Trust vs MCP Setup: Gemini Prompts, Codex Auto-Installs”</li>
-<li>“Two Safety Levers for MCP: Confirmations in Gemini, Dependency Auto-Install in Codex”</li>
-<li>“Guardrails and Onboarding: How Gemini and Codex Tame MCP Tooling”</li>
-</ul></div>
+    
     <div class="markdown evidence-copy evidence-copy-block">
-      <h1>Sources</h1>
-<h2>google-gemini/gemini-cli</h2>
+      <h2>Source Trail</h2>
 <ul>
-<li>Commit: 2e57989aec569055a11f21762f72b961377281ab — “confirm mcp tool executions from untrusted servers (per &quot;trust&quot; setting)”</li>
-<li><a href="https://github.com/google-gemini/gemini-cli/commit/2e57989aec569055a11f21762f72b961377281ab">https://github.com/google-gemini/gemini-cli/commit/2e57989aec569055a11f21762f72b961377281ab</a></li>
-<li>Files touched:</li>
-<li>packages/server/src/tools/mcp-tool.ts (adds MCP tool confirmation + allowlist)</li>
-<li>packages/cli/src/ui/components/messages/ToolConfirmationMessage.tsx (UI prompt options)</li>
-<li>packages/server/src/config/config.ts (trust flag)</li>
+<li><a href="https://github.com/google-gemini/gemini-cli/commit/2e57989aec569055a11f21762f72b961377281ab">https://github.com/google-gemini/gemini-cli/commit/2e57989aec569055a11f21762f72b961377281ab</a>
+</li>
+<li><a href="https://github.com/openai/codex/commit/3bb8e69dd33fee1022825154cacc81fb40278750">https://github.com/openai/codex/commit/3bb8e69dd33fee1022825154cacc81fb40278750</a>
+</li>
 </ul>
-<h2>openai/codex</h2>
+<h2>Evidence Limits</h2>
 <ul>
-<li>Commit: 3bb8e69dd33fee1022825154cacc81fb40278750 — “[skills] Auto install MCP dependencies when running skills with dependency specs.”</li>
-<li><a href="https://github.com/openai/codex/commit/3bb8e69dd33fee1022825154cacc81fb40278750">https://github.com/openai/codex/commit/3bb8e69dd33fee1022825154cacc81fb40278750</a></li>
-<li>Files touched:</li>
-<li>codex-rs/core/src/mcp/skill_dependencies.rs (new auto-install flow + prompt)</li>
-<li>codex-rs/core/src/skills/loader.rs (SKILL.json dependencies parsing)</li>
-<li>codex-rs/protocol/src/protocol.rs (dependencies added to protocol)</li>
-</ul>
-<h2>Local evidence</h2>
-<ul>
-<li>git show --stat 2e57989aec56 (gemini-cli repo)</li>
-<li>git show --stat 3bb8e69dd33f (codex repo)</li>
-<li>gsio search q &quot;mcp&quot; across projects (openai/codex + google-gemini/gemini-cli)</li>
+<li>This older source trail predates the current public evidence format.
+</li>
+<li>Treat it as a compact source map for the article, not a complete source dossier.
+</li>
 </ul>
     </div>
     
@@ -228,7 +196,7 @@
     </main>
     <footer class="wrap site-footer">
       <span>&copy; 2026 The Git Reporter</span>
-      <a href="/atlas/">About</a>
+      <a href="/about/">About</a>
       <a href="/articles.json">Manifest JSON</a>
       <a href="/repos/">Sources</a>
     </footer>

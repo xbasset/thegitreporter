@@ -6,15 +6,15 @@
   <title>AI Coding Agents Have a New Bottleneck: Keeping Work Intact | The Git Reporter</title>
   <meta name="description" content="The next battle is not just who gets the biggest context window. It is who can keep a task alive when the window trims, the app reloads, the session name drifts, or the agent gets interrupted mid-run.">
   <link rel="icon" href="/assets/mark.svg">
-  <link rel="stylesheet" href="/assets/site.css?v=2026-05-29-article-evidence-unified-1">
-  <script defer src="/assets/feedback.js?v=2026-05-29-article-evidence-unified-1"></script>
+  <link rel="stylesheet" href="/assets/site.css?v=2026-05-30-about-page-1">
+  <script defer src="/assets/feedback.js?v=2026-05-30-about-page-1"></script>
 </head>
 <body>
   <div class="site">
     <header class="site-header" id="top">
       <div class="wrap utility-row">
         <a class="icon-link menu-icon" href="/archive/" aria-label="Open edition history"><span></span><span></span><span></span></a>
-        <a class="icon-link search-icon" href="/archive/" aria-label="Search edition history"></a>
+        <a class="icon-link archive-icon" href="/archive/" aria-label="Open edition history"></a>
       </div>
       <div class="wrap masthead-lockup">
         <a class="masthead-title" href="/">THE GIT REPORTER</a>
@@ -22,7 +22,7 @@
       </div>
       <div class="wrap nav-wrap">
         <nav class="paper-nav" aria-label="Primary navigation">
-    <a class="" href="/">Today</a><a class="active" href="/archive/">Editions</a><a class="" href="/atlas/">Agent Atlas</a><a class="" href="/repos/">Repos</a>
+    <a class="" href="/">Today</a><a class="active" href="/archive/">Editions</a><a class="" href="/about/">About</a><a class="" href="/atlas/">Agent Atlas</a><a class="" href="/repos/">Repos</a>
   </nav>
         <div class="nav-rule"></div>
       </div>
@@ -38,16 +38,16 @@
         
         <div class="receipt">
     <div class="receipt-line">
-      <span class="receipt-icon">repo</span>
-      <span class="receipt-main">openai/codex</span>
-      <span class="branch-pill">main</span>
+      <span class="receipt-icon">repos</span>
+      <span class="receipt-main">openai/codex + 2 more</span>
+      <span class="branch-pill">evidence</span>
     </div>
     <div class="receipt-line receipt-muted">
       <span>4 source signals</span>
       <span>3 repos</span>
-      <span>320c8ab</span>
+      <span>4 source signals</span>
     </div>
-    <div class="commit-line">&gt; 320c8ab / March 28, 2026 / Agent Daily</div>
+    <div class="commit-line">Evidence: 4 source signals / March 28, 2026 / Agent Daily</div>
   </div>
         <div class="article-route-row">
           <a href="/editions/2026-03-28/">Open Edition</a>
@@ -161,123 +161,20 @@
       <div class="evidence-line"><span>Sources</span><span>4</span></div>
       <div class="evidence-line"><span>Repos</span><span>openai/codex, google-gemini/gemini-cli, openclaw/openclaw</span></div>
     </div>
-    <div class="markdown evidence-copy evidence-copy-block"><h3>Reporter Notes</h3><h1>Agent Daily Run Notes — 2026-03-28</h1>
-<h2>Candidate angles</h2>
-<p>1. **Session continuity is becoming infrastructure**</p>
-<ul>
-<li>Gemini CLI lands <code>AgentHistoryProvider</code> to truncate old turns, summarize them, and merge continuity back into active history.</li>
-<li>Gemini also adds configurable <code>memoryBoundaryMarkers</code>, making project memory scope explicit instead of accidental.</li>
-<li>Codex improves thread resume/rejoin so history rebuilds from rollout items and resume-by-name remains reliable.</li>
-<li>OpenClaw adds orphan subagent recovery after gateway restarts and cleans up stale resume processes.</li>
-</ul>
-<p>2. **History is becoming a managed subsystem, not just a context dump**</p>
-<ul>
-<li>Strong technical angle, but a bit abstract for a general audience.</li>
-</ul>
-<p>3. **Interruption tolerance is the next moat for terminal agents**</p>
-<ul>
-<li>Good framing, but overlaps too closely with the baseline article on backpressure from 2026-03-28.</li>
-</ul>
-<h2>Chosen angle</h2>
-<p>**Session continuity is becoming infrastructure.**</p>
-<p>Why it wins:</p>
-<ul>
-<li>Fresh relative to recent topics on subagents, sandboxing, web fetch, operating modes, containment, and backpressure.</li>
-<li>Cross-repo evidence from 3 major agent repos with a coherent shared problem: long-running work should survive truncation, restarts, reconnects, and naming mismatches.</li>
-<li>Human-readable pattern: the competition is shifting from “how much context can you stuff into the model?” to “how well can the system preserve a thread of work?”</li>
-</ul>
-<h2>Recent overlap check</h2>
-<h3>agent-daily recent</h3>
-<ul>
-<li>2026-03-24 — Subagents Are Getting Job Titles, Badge Checks, and a Manager Chain</li>
-<li>2026-03-25 — Sandboxing Is Starting to Look Like a Runtime Layer for AI Coding Agents</li>
-<li>2026-03-26 — Web Fetch Is Emerging as a Security Boundary for AI Agents</li>
-<li>2026-03-27 — AI Coding Agents Are Turning Approval Settings Into Operating Modes</li>
-</ul>
-<h3>baseline recent</h3>
-<ul>
-<li>2026-03-24 — The Next CLI UX Battle Is Agent Forensics</li>
-<li>2026-03-25 — The New CLI Moat Isn’t UX. It’s How Agent Skills Get Shipped</li>
-<li>2026-03-26 — The CLI Is Quietly Becoming an Agent Router</li>
-<li>2026-03-27 — Subagents Aren’t Just Getting Smarter. They’re Getting Contained.</li>
-<li>2026-03-28 — The Next Agent UX Moat Isn’t Speed. It’s Backpressure.</li>
-</ul>
-<p>This run avoids those surfaces and focuses on continuity layers: truncation, replay, boundary marking, resume, rejoin, and restart recovery.</p>
-<h2>Code-grounded evidence</h2>
-<h3>1) Gemini CLI — history now has its own provider and summarizer</h3>
-<p>**Commit:** <code>320c8aba4ce1</code> — <code>feat(core): Land AgentHistoryProvider. (#23978)</code></p>
-<p>**Files:**</p>
-<ul>
-<li><code>packages/core/src/services/agentHistoryProvider.ts</code></li>
-<li><code>packages/core/src/config/defaultModelConfigs.ts</code></li>
-<li><code>packages/core/src/utils/memoryDiscovery.ts</code> (related boundary work via separate commit <code>4034c030e711</code>)</li>
-</ul>
-<p>**Key evidence:**</p>
-<ul>
-<li><code>agentHistoryProvider.ts:24-49</code> evaluates history, decides whether to truncate, and merges a continuity summary back into active messages.</li>
-<li><code>agentHistoryProvider.ts:153-184</code> generates an “agent-continuity focused intent summary” that captures original mandate, agent strategy, and evolving context.</li>
-<li><code>defaultModelConfigs.ts:246-249</code> assigns a dedicated <code>agent-history-provider-summarizer</code> model config.</li>
-<li><code>memoryDiscovery.ts:149-170, 216-220</code> adds configurable <code>boundaryMarkers</code> for finding project roots and memory scope.</li>
-</ul>
-<p>**Why it matters:**</p>
-<p>Gemini is treating continuity as a managed subsystem with explicit compression and scoped memory boundaries, not as a passive side effect of a long context window.</p>
-<h3>2) OpenAI Codex — resume/rejoin depends on explicit thread-history reconstruction</h3>
-<p>**Commit:** <code>b06f91c4fe52</code> — <code>app-server: improve thread resume rejoin flow (#11776)</code></p>
-<p>**Files:**</p>
-<ul>
-<li><code>codex-rs/app-server-protocol/src/protocol/thread_history.rs</code></li>
-<li><code>codex-rs/tui_app_server/src/lib.rs</code> (related fix in commit <code>8e24d5aaea1c</code>)</li>
-</ul>
-<p>**Key evidence:**</p>
-<ul>
-<li><code>thread_history.rs:54-64</code> rebuilds turns from persisted rollout items so resumed history preserves original turn identifiers.</li>
-<li><code>thread_history.rs:107-160</code> uses a shared reducer for persisted rollout replay and in-memory current-turn tracking during resume/rejoin.</li>
-<li><code>tui_app_server/src/lib.rs:1897-1951</code> regression test shows resume-by-name now finds saved sessions even when the rollout title and stored thread name differ.</li>
-</ul>
-<p>**Why it matters:**</p>
-<p>Codex is moving continuity from “best effort restoration” into protocol-aware replay logic. Session identity and history reconstruction are becoming product-critical.</p>
-<h3>3) OpenClaw — restart recovery now actively restitches interrupted agent work</h3>
-<p>**Commit:** <code>c780b6a6ab2a</code> — <code>fix: ... implement resume context and config idempotency guard</code></p>
-<p>**Files:**</p>
-<ul>
-<li><code>src/agents/subagent-orphan-recovery.ts</code></li>
-<li><code>src/agents/cli-runner.ts</code> (related cleanup commit <code>8edf2146ae59</code>)</li>
-</ul>
-<p>**Key evidence:**</p>
-<ul>
-<li><code>subagent-orphan-recovery.ts:32-49</code> builds a synthetic resume message that includes the original task and last user message.</li>
-<li><code>subagent-orphan-recovery.ts:115-125, 193-229</code> scans for orphaned sessions after restart, retries resume, and preserves <code>abortedLastRun</code> when recovery fails so the next restart can retry.</li>
-<li><code>subagent-orphan-recovery.ts:201-203</code> adds a config-change hint to avoid re-applying changes after interruption.</li>
-<li><code>cli-runner.ts:39-64</code> proactively kills stale resume processes that could otherwise leave duplicate resumptions hanging around.</li>
-</ul>
-<p>**Why it matters:**</p>
-<p>OpenClaw is making interruption recovery an active runtime behavior. The system now works to restore a job’s narrative thread after infrastructure churn.</p>
-<h2>Web/context signals</h2>
-<h3>Gemini CLI repo page</h3>
-<ul>
-<li>Explicitly advertises **conversation checkpointing to save and resume complex sessions**.</li>
-<li>Reinforces that continuity is now user-facing product value, not hidden plumbing.</li>
-</ul>
-<h3>OpenAI Codex launch page</h3>
-<ul>
-<li>Emphasizes independent tasks, real-time progress monitoring, and verifiable evidence through logs and test outputs.</li>
-<li>Supports the framing that long-running agent work needs durable, inspectable state rather than one-shot completions.</li>
-</ul>
-<h2>Working thesis</h2>
-<p>The competitive frontier is shifting from raw context-window size to continuity engineering. Agent teams are building systems that compress, replay, scope, recover, and re-identify work so a task can survive interruptions without losing its plot.</p>
-<h2>Repo list used in article</h2>
-<ul>
-<li><code>google-gemini/gemini-cli</code></li>
-<li><code>openai/codex</code></li>
-<li><code>openclaw/openclaw</code></li>
-</ul>
-<h2>Model review note</h2>
-<ul>
-<li><code>llm</code> is available in this environment.</li>
-<li>Use <code>llm -m gpt-5.4</code> for review/synthesis. If it fails, fall back to the best available GPT-5.x model and record that in the trail log.</li>
-</ul></div>
+    
     <div class="markdown evidence-copy evidence-copy-block">
-      <p>No standalone sources file is available for this article. The article body remains the primary evidence-bearing artifact.</p>
+      <h2>Source Trail</h2>
+<ul>
+<li>The article body carries the public source references available for this older story.
+</li>
+</ul>
+<h2>Evidence Limits</h2>
+<ul>
+<li>This older source trail predates the current public evidence format.
+</li>
+<li>Treat it as a compact source map for the article, not a complete source dossier.
+</li>
+</ul>
     </div>
     
   </section>
@@ -334,13 +231,13 @@
       </div>
       <h3>The Next Agent UX Moat Isn’t Speed. It’s Backpressure.</h3>
       <div class="update-receipt">
-        <span>openai/codex</span>
-        <span class="branch-pill">main</span>
+        <span>openai/codex + google-gemini/gemini-cli</span>
+        <span class="branch-pill">evidence</span>
       </div>
       <div class="update-foot">
         <span>8 sources</span>
         <span>2 repos</span>
-        <span>source trail</span>
+        <span>8 source signals</span>
       </div>
     </div>
     <span class="update-arrow" aria-hidden="true">&rsaquo;</span>
@@ -350,7 +247,7 @@
     </main>
     <footer class="wrap site-footer">
       <span>&copy; 2026 The Git Reporter</span>
-      <a href="/atlas/">About</a>
+      <a href="/about/">About</a>
       <a href="/articles.json">Manifest JSON</a>
       <a href="/repos/">Sources</a>
     </footer>

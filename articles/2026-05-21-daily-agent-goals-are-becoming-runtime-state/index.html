@@ -6,15 +6,15 @@
   <title>Agent Goals Are Becoming Runtime State | The Git Reporter</title>
   <meta name="description" content="Recent Codex and Hermes Agent changes show coding agents turning goals from chat commands into durable metadata, resumable session state, and queued work control.">
   <link rel="icon" href="/assets/mark.svg">
-  <link rel="stylesheet" href="/assets/site.css?v=2026-05-29-article-evidence-unified-1">
-  <script defer src="/assets/feedback.js?v=2026-05-29-article-evidence-unified-1"></script>
+  <link rel="stylesheet" href="/assets/site.css?v=2026-05-30-about-page-1">
+  <script defer src="/assets/feedback.js?v=2026-05-30-about-page-1"></script>
 </head>
 <body>
   <div class="site">
     <header class="site-header" id="top">
       <div class="wrap utility-row">
         <a class="icon-link menu-icon" href="/archive/" aria-label="Open edition history"><span></span><span></span><span></span></a>
-        <a class="icon-link search-icon" href="/archive/" aria-label="Search edition history"></a>
+        <a class="icon-link archive-icon" href="/archive/" aria-label="Open edition history"></a>
       </div>
       <div class="wrap masthead-lockup">
         <a class="masthead-title" href="/">THE GIT REPORTER</a>
@@ -22,7 +22,7 @@
       </div>
       <div class="wrap nav-wrap">
         <nav class="paper-nav" aria-label="Primary navigation">
-    <a class="" href="/">Today</a><a class="active" href="/archive/">Editions</a><a class="" href="/atlas/">Agent Atlas</a><a class="" href="/repos/">Repos</a>
+    <a class="" href="/">Today</a><a class="active" href="/archive/">Editions</a><a class="" href="/about/">About</a><a class="" href="/atlas/">Agent Atlas</a><a class="" href="/repos/">Repos</a>
   </nav>
         <div class="nav-rule"></div>
       </div>
@@ -38,16 +38,16 @@
         
         <div class="receipt">
     <div class="receipt-line">
-      <span class="receipt-icon">repo</span>
-      <span class="receipt-main">openai/codex</span>
-      <span class="branch-pill">main</span>
+      <span class="receipt-icon">repos</span>
+      <span class="receipt-main">openai/codex + NousResearch/hermes-agent</span>
+      <span class="branch-pill">evidence</span>
     </div>
     <div class="receipt-line receipt-muted">
       <span>7 source signals</span>
       <span>2 repos</span>
-      <span>f10ddc3</span>
+      <span>7 source signals</span>
     </div>
-    <div class="commit-line">&gt; f10ddc3 / May 21, 2026 / Daily Edition</div>
+    <div class="commit-line">Evidence: 7 source signals / May 21, 2026 / Daily Edition</div>
   </div>
         <div class="article-route-row">
           <a href="/editions/2026-05-21/">Open Edition</a>
@@ -96,31 +96,54 @@
     <div class="markdown evidence-copy evidence-copy-block">
       <h2>Primary Evidence</h2>
 <ul>
-<li>OpenAI Codex PR #21981, <code>Use goal preview metadata for goal-first threads</code>: <a href="https://github.com/openai/codex/pull/21981">https://github.com/openai/codex/pull/21981</a></li>
-<li>Evidence used: merged on May 11, 2026; adds internal thread <code>preview</code> metadata; treats <code>ThreadGoalUpdated</code> as preview-bearing metadata; keeps <code>first_user_message</code> distinct; merge commit <code>f10ddc3</code>.</li>
-<li>OpenAI Codex PR #21489, <code>Show goal-started threads in resume lists</code>: <a href="https://github.com/openai/codex/pull/21489">https://github.com/openai/codex/pull/21489</a></li>
-<li>Evidence used: opened on May 7, 2026; earlier approach persisted <code>ThreadGoalUpdated</code> events and synthesized <code>first_user_message</code> from the goal objective; review feedback questioned the shape.</li>
-<li>OpenAI Codex issue #21477, <code>/goal rejects long pasted input before Codex can normalize the objective</code>: <a href="https://github.com/openai/codex/issues/21477">https://github.com/openai/codex/issues/21477</a></li>
-<li>Evidence used: the issue distinguishes raw <code>/goal</code> source text from a bounded persisted <code>ThreadGoal.objective</code>.</li>
-<li>Hermes Agent releases page: <a href="https://github.com/NousResearch/hermes-agent/releases">https://github.com/NousResearch/hermes-agent/releases</a></li>
-<li>Evidence used: v0.13.0 release on May 7, 2026 says <code>/goal</code> keeps the agent locked on a target across turns and ACP <code>/steer</code> and <code>/queue</code> direct in-flight or follow-up work. v0.14.0 on May 16, 2026 establishes current project activity.</li>
-<li>Hermes Agent <code>RELEASE_v0.13.0.md</code>: <a href="https://github.com/NousResearch/hermes-agent/blob/main/RELEASE_v0.13.0.md">https://github.com/NousResearch/hermes-agent/blob/main/RELEASE_v0.13.0.md</a></li>
-<li>Evidence used: persistent <code>/goal</code> PRs #18262, #18275, and #21287; ACP <code>/steer</code> and <code>/queue</code> PR #18114; session persistence PRs #20279 and #20296; checkpoints v2 PR #20709.</li>
-<li>Hermes Agent issue #22617, <code>[Feature]: Support for queueing goals (goal queue)</code>: <a href="https://github.com/NousResearch/hermes-agent/issues/22617">https://github.com/NousResearch/hermes-agent/issues/22617</a></li>
-<li>Evidence used: proposed <code>/queue-goal &lt;text&gt;</code>, automatic promotion after current goal completion, persistence across session restarts, and <code>/goal status</code>.</li>
+<li>OpenAI Codex PR #21981, <code>Use goal preview metadata for goal-first threads</code>: <a href="https://github.com/openai/codex/pull/21981">https://github.com/openai/codex/pull/21981</a>
+<ul>
+<li>Evidence used: merged on May 11, 2026; adds internal thread <code>preview</code> metadata; treats <code>ThreadGoalUpdated</code> as preview-bearing metadata; keeps <code>first_user_message</code> distinct; merge commit <code>f10ddc3</code>.
+</li>
+</ul>
+</li>
+<li>OpenAI Codex PR #21489, <code>Show goal-started threads in resume lists</code>: <a href="https://github.com/openai/codex/pull/21489">https://github.com/openai/codex/pull/21489</a>
+<ul>
+<li>Evidence used: opened on May 7, 2026; earlier approach persisted <code>ThreadGoalUpdated</code> events and synthesized <code>first_user_message</code> from the goal objective; review feedback questioned the shape.
+</li>
+</ul>
+</li>
+<li>OpenAI Codex issue #21477, <code>/goal rejects long pasted input before Codex can normalize the objective</code>: <a href="https://github.com/openai/codex/issues/21477">https://github.com/openai/codex/issues/21477</a>
+<ul>
+<li>Evidence used: the issue distinguishes raw <code>/goal</code> source text from a bounded persisted <code>ThreadGoal.objective</code>.
+</li>
+</ul>
+</li>
+<li>Hermes Agent releases page: <a href="https://github.com/NousResearch/hermes-agent/releases">https://github.com/NousResearch/hermes-agent/releases</a>
+<ul>
+<li>Evidence used: v0.13.0 release on May 7, 2026 says <code>/goal</code> keeps the agent locked on a target across turns and ACP <code>/steer</code> and <code>/queue</code> direct in-flight or follow-up work. v0.14.0 on May 16, 2026 establishes current project activity.
+</li>
+</ul>
+</li>
+<li>Hermes Agent <code>RELEASE_v0.13.0.md</code>: <a href="https://github.com/NousResearch/hermes-agent/blob/main/RELEASE_v0.13.0.md">https://github.com/NousResearch/hermes-agent/blob/main/RELEASE_v0.13.0.md</a>
+<ul>
+<li>Evidence used: persistent <code>/goal</code> PRs #18262, #18275, and #21287; ACP <code>/steer</code> and <code>/queue</code> PR #18114; session persistence PRs #20279 and #20296; checkpoints v2 PR #20709.
+</li>
+</ul>
+</li>
+<li>Hermes Agent issue #22617, <code>[Feature]: Support for queueing goals (goal queue)</code>: <a href="https://github.com/NousResearch/hermes-agent/issues/22617">https://github.com/NousResearch/hermes-agent/issues/22617</a>
+<ul>
+<li>Evidence used: proposed <code>/queue-goal &lt;text&gt;</code>, automatic promotion after current goal completion, persistence across session restarts, and <code>/goal status</code>.
+</li>
+</ul>
+</li>
 </ul>
 <h2>Evidence Limits</h2>
 <ul>
-<li>This article does not claim Codex and Hermes share a goal implementation or standard.</li>
-<li>Codex review discussion described goals as experimental, so the article treats the metadata design as current evidence rather than final architecture.</li>
-<li>Hermes issue #22617 is a feature request. It is evidence of user/operator pressure, not proof that <code>/queue-goal</code> has shipped.</li>
+<li>This article does not claim Codex and Hermes share a goal implementation or standard.
+</li>
+<li>Codex review discussion described goals as experimental, so the article treats the metadata design as current evidence rather than final architecture.
+</li>
+<li>Hermes issue #22617 is a feature request. It is evidence of user/operator pressure, not proof that <code>/queue-goal</code> has shipped.
+</li>
 </ul>
     </div>
-    <div class="markdown evidence-copy evidence-copy-block"><h3>Open Questions</h3><ul>
-<li>Codex goals were described as experimental in review discussion, so the article should not claim the shape is final.</li>
-<li>Hermes issue #22617 is a feature request, not an accepted or merged implementation.</li>
-<li>The accessible evidence supports convergence around durable objective state, but not a shared standard or shared implementation between projects.</li>
-</ul></div>
+    
   </section>
       <section class="reader-feedback"
     data-tgr-feedback
@@ -163,7 +186,7 @@
     </main>
     <footer class="wrap site-footer">
       <span>&copy; 2026 The Git Reporter</span>
-      <a href="/atlas/">About</a>
+      <a href="/about/">About</a>
       <a href="/articles.json">Manifest JSON</a>
       <a href="/repos/">Sources</a>
     </footer>
