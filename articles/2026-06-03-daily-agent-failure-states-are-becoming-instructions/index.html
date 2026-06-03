@@ -1,0 +1,302 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Agent Failure States Are Becoming Instructions | The Git Reporter</title>
+  <meta name="description" content="Fresh LangChain, Crush, Gemini CLI, and OpenClaw commits show agent tools turning denial, fallback, routing, and policy drift into explicit next steps.">
+  <meta name="robots" content="index,follow">
+  <link rel="canonical" href="https://thegitreporter.com/articles/2026-06-03-daily-agent-failure-states-are-becoming-instructions/">
+  <link rel="alternate" type="application/rss+xml" title="The Git Reporter" href="https://thegitreporter.com/feed.xml">
+  <meta property="og:site_name" content="The Git Reporter">
+  <meta property="og:locale" content="en_US">
+  <meta property="og:title" content="Agent Failure States Are Becoming Instructions | The Git Reporter">
+  <meta property="og:description" content="Fresh LangChain, Crush, Gemini CLI, and OpenClaw commits show agent tools turning denial, fallback, routing, and policy drift into explicit next steps.">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://thegitreporter.com/articles/2026-06-03-daily-agent-failure-states-are-becoming-instructions/">
+  <meta property="og:image" content="https://thegitreporter.com/assets/social/2026-06-03-daily-agent-failure-states-are-becoming-instructions-og.jpg">
+  <meta property="og:image:secure_url" content="https://thegitreporter.com/assets/social/2026-06-03-daily-agent-failure-states-are-becoming-instructions-og.jpg">
+  <meta property="og:image:type" content="image/jpeg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Rough zine-style Diagram Punk poster titled Failure Is Becoming a Prompt, with four evidence cards for LangChain, Crush, Gemini CLI, and OpenClaw feeding into a circled Explicit Next State conclusion and a caveat stamp that the commits are independent, not a standard.">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:site" content="@TheGitReporter">
+  <meta name="twitter:creator" content="@TheGitReporter">
+  <meta name="twitter:title" content="Agent Failure States Are Becoming Instructions | The Git Reporter">
+  <meta name="twitter:description" content="Fresh LangChain, Crush, Gemini CLI, and OpenClaw commits show agent tools turning denial, fallback, routing, and policy drift into explicit next steps.">
+  <meta name="twitter:url" content="https://thegitreporter.com/articles/2026-06-03-daily-agent-failure-states-are-becoming-instructions/">
+  <meta name="twitter:domain" content="thegitreporter.com">
+  <meta name="twitter:image" content="https://thegitreporter.com/assets/social/2026-06-03-daily-agent-failure-states-are-becoming-instructions-og.jpg">
+  <meta name="twitter:image:alt" content="Rough zine-style Diagram Punk poster titled Failure Is Becoming a Prompt, with four evidence cards for LangChain, Crush, Gemini CLI, and OpenClaw feeding into a circled Explicit Next State conclusion and a caveat stamp that the commits are independent, not a standard.">
+  <meta property="article:published_time" content="2026-06-03T12:00:00Z">
+  <meta property="article:modified_time" content="2026-06-03T12:00:00Z">
+  <meta property="article:section" content="Daily Edition">
+  <meta property="article:tag" content="Memory">
+  <meta property="article:tag" content="Tools">
+  <meta property="article:tag" content="Runtime">
+  <meta property="article:tag" content="openai/codex">
+  <meta property="article:tag" content="google-gemini/gemini-cli">
+  <meta property="article:tag" content="openclaw/openclaw">
+  <meta property="article:tag" content="charmbracelet/crush">
+  <meta property="article:tag" content="langchain-ai/langchain">
+  <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"https://thegitreporter.com/#organization","name":"The Git Reporter","url":"https://thegitreporter.com","logo":{"@type":"ImageObject","url":"https://thegitreporter.com/assets/mark.svg"},"sameAs":["https://x.com/TheGitReporter"]},{"@type":"WebSite","@id":"https://thegitreporter.com/#website","name":"The Git Reporter","url":"https://thegitreporter.com","publisher":{"@id":"https://thegitreporter.com/#organization"}},{"@type":"NewsArticle","mainEntityOfPage":{"@type":"WebPage","@id":"https://thegitreporter.com/articles/2026-06-03-daily-agent-failure-states-are-becoming-instructions/"},"headline":"Agent Failure States Are Becoming Instructions","description":"Fresh LangChain, Crush, Gemini CLI, and OpenClaw commits show agent tools turning denial, fallback, routing, and policy drift into explicit next steps.","image":["https://thegitreporter.com/assets/social/2026-06-03-daily-agent-failure-states-are-becoming-instructions-og.jpg"],"datePublished":"2026-06-03T12:00:00Z","dateModified":"2026-06-03T12:00:00Z","author":[{"@type":"Organization","name":"The Git Reporter","url":"https://thegitreporter.com"}],"publisher":{"@type":"Organization","@id":"https://thegitreporter.com/#organization","name":"The Git Reporter","url":"https://thegitreporter.com","logo":{"@type":"ImageObject","url":"https://thegitreporter.com/assets/mark.svg"},"sameAs":["https://x.com/TheGitReporter"]},"articleSection":"Daily Edition","keywords":"Memory, Tools, Runtime, openai/codex, google-gemini/gemini-cli, openclaw/openclaw, charmbracelet/crush, langchain-ai/langchain"}]}</script>
+  <link rel="icon" href="/assets/mark.svg">
+  <link rel="stylesheet" href="/assets/site.css?v=2026-05-30-about-layout-social-1">
+  <script defer src="/assets/feedback.js?v=2026-05-30-about-layout-social-1"></script>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-CH19T7M0T1"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){window.dataLayer.push(arguments);}
+    gtag("js", new Date());
+    gtag("config", "G-CH19T7M0T1");
+  </script>
+</head>
+<body>
+  <div class="site">
+    <header class="site-header" id="top">
+      <div class="wrap utility-row">
+        <a class="icon-link menu-icon" href="/archive/" aria-label="Open edition history"><span></span><span></span><span></span></a>
+        <a class="icon-link archive-icon" href="/archive/" aria-label="Open edition history"></a>
+      </div>
+      <div class="wrap masthead-lockup">
+        <a class="masthead-title" href="/">THE GIT REPORTER</a>
+        <div class="masthead-ornament" aria-hidden="true"></div>
+      </div>
+      <div class="wrap nav-wrap">
+        <nav class="paper-nav" aria-label="Primary navigation">
+    <a class="" href="/">Today</a><a class="active" href="/archive/">Editions</a><a class="" href="/about/">About</a><a class="" href="/atlas/">Agent Atlas</a><a class="" href="/repos/">Repos</a>
+  </nav>
+        <div class="nav-rule"></div>
+      </div>
+    </header>
+    <main class="wrap page-shell article-page">
+      <section class="page-hero story-front">
+        <div class="story-topline">
+          <span>Daily Edition</span>
+          <span>Sources <strong>+5</strong></span>
+        </div>
+        <h1>Agent Failure States Are Becoming Instructions</h1>
+        <p class="summary">Fresh LangChain, Crush, Gemini CLI, and OpenClaw commits show agent tools turning denial, fallback, routing, and policy drift into explicit next steps.</p>
+        <figure class="story-illustration article-illustration">
+    <img src="/assets/illustrations/2026-06-03-agent-failure-states-are-becoming-instructions-diagram-punk-v1.jpg" alt="Rough zine-style Diagram Punk poster titled Failure Is Becoming a Prompt, with four evidence cards for LangChain, Crush, Gemini CLI, and OpenClaw feeding into a circled Explicit Next State conclusion and a caveat stamp that the commits are independent, not a standard." loading="lazy" decoding="async">
+    <figcaption><span>Diagram Punk</span>explicit next state beats vague failure.</figcaption>
+  </figure>
+        <div class="receipt">
+    <div class="receipt-line">
+      <span class="receipt-icon">repos</span>
+      <span class="receipt-main">openai/codex + 4 more</span>
+      <span class="branch-pill">evidence</span>
+    </div>
+    <div class="receipt-line receipt-muted">
+      <span>5 source signals</span>
+      <span>5 repos</span>
+      <span>4 linked commits</span>
+    </div>
+    <div class="commit-line">Evidence: 4 linked commits / June 3, 2026 / Daily Edition</div>
+  </div>
+        <div class="article-route-row">
+          <a href="/editions/2026-06-03/">Open Edition</a>
+          <a href="#evidence">Evidence below</a>
+        </div>
+      </section>
+      <section class="story-reader">
+        <article class="story-shell story-body">
+          <p>The most useful sentence in an agent runtime may be the one that tells the agent what did not happen.</p>
+  <p>That sounds small until a tool call is denied, a provider catalog changes under a CLI, a model rollout sits behind an availability flag, or a privacy policy check needs to explain what posture the workspace is actually in. In those moments, vague failure is dangerous. The runtime needs a specific instruction: do not retry, use this fallback, route through this policy, emit this finding.</p>
+  <p>That is the pattern in a fresh set of commits from LangChain, Charmbracelet Crush, Google Gemini CLI, and OpenClaw. These projects are not implementing one shared standard. They are independently tightening the language around bad or gated states so agents and operators have something concrete to do next.</p>
+  <h2>A rejected tool call now carries guidance</h2>
+  <p>LangChain commit <a href="https://github.com/langchain-ai/langchain/commit/17d1c274c4f9078ca3a875e07505f0dbc105cae0"><code>17d1c274c</code></a> changes the default behavior for a human-in-the-loop reject decision.</p>
+  <p>Before this patch, the default rejection message told the model that the user rejected the tool call. The new default is sharper: it says the tool was not executed and tells the model not to retry the same tool call unless the user explicitly asks for it.</p>
+  <p>That is more than copy editing. In an agent loop, a rejected tool call is still part of the transcript the model sees. If the message only says "rejected," a model can treat the denial as a temporary obstacle and try again. LangChain's new default turns the denial into a runtime instruction.</p>
+  <p>The tests show the intent. Unit coverage asserts the exact default error ToolMessage. A new integration test runs the middleware through a real agent, resumes with a reject decision, and checks that the model does not trigger the same tool call again. The commit also points to a matching docs pull request for custom rejection messages, so teams can supply domain-specific guidance instead of relying only on the default.</p>
+  <h2>Missing models become fallbacks, not startup blockers</h2>
+  <p>Charmbracelet Crush commit <a href="https://github.com/charmbracelet/crush/commit/ffaeec192ff121408b9a115b14e3be9965ca138e"><code>ffaeec192f</code></a> handles a different kind of bad state: a provider's configured default model is no longer present.</p>
+  <p>The commit message names the edge case directly. A model can be removed from a provider catalog, and that should not be important enough to stop Crush from starting when another model is available. The code now warns when the default large or small model is missing, then uses the first configured provider model as a fallback.</p>
+  <p>The boundary is still explicit. If the provider has no models, Crush still returns an error. The change is narrower and more useful than pretending nothing went wrong: model missing means warn and choose a fallback; no models means fail.</p>
+  <h2>Rollout state moves into model policy</h2>
+  <p>Google Gemini CLI commit <a href="https://github.com/google-gemini/gemini-cli/commit/665228e983c611007c4e2d36550e67b34f75055e"><code>665228e983</code></a> shows the same instinct in model routing. The patch adds Gemini 3.5 Flash configuration and threads a <code>useGemini3_5Flash</code> availability condition through model policy resolution.</p>
+  <p>The important part is not a broad availability claim. The evidence is narrower: the CLI's model config and policy helpers now have a way to route Flash aliases toward <code>gemini-3.5-flash</code> when the relevant flag is present, while preserving fallback paths when it is not.</p>
+  <p>That is how a rollout becomes operational state. The choice is not only "which string is the default model?" It is "which model chain should this user see under these conditions?" For agent tools that route requests automatically, that distinction is part of reliability.</p>
+  <h2>Policy drift gets named as data-handling posture</h2>
+  <p>OpenClaw commit <a href="https://github.com/openclaw/openclaw/commit/1d3cfc4b016898fb6266a48daccee19b52432e0f"><code>1d3cfc4b</code></a> adds data-handling conformance checks to the policy plugin.</p>
+  <p>The new policy evidence covers sensitive logging redaction, telemetry content capture, session retention maintenance, and session transcript memory indexing. The doctor checks add named findings for disabled redaction, telemetry content capture, unenforced session retention, and enabled session transcript memory indexing.</p>
+  <p>The docs caveat is important: these checks observe configuration conformance. They do not inspect raw logs, telemetry exports, transcripts, memory files, secrets, or personal data. Even with that limit, the move matters. A privacy-sensitive posture becomes a visible finding instead of an invisible assumption.</p>
+  <h2>The pattern is explicit next state</h2>
+  <p>This is not the same story as yesterday's <a href="/articles/2026-06-02-daily-agent-work-is-getting-a-back-button/">agent recovery piece</a>. Recovery asks how a user backs out after work has begun. Today's commits ask what the system says when a step is denied, unavailable, gated, or nonconforming.</p>
+  <p>LangChain says the rejected tool did not run, so do not retry it unless asked. Crush says the default model is missing, so warn and use the first available model. Gemini CLI says model routing depends on an availability condition. OpenClaw says data-handling posture should produce explicit policy evidence and findings.</p>
+  <p>Those are small changes with a shared consequence: agent infrastructure is becoming less tolerant of ambiguous states. A serious agent runtime cannot only know that something went wrong. It has to encode what kind of wrong it was, what remains safe to do, and what the user or operator should see next.</p>
+        </article>
+      </section>
+      <section class="evidence-section" id="evidence" aria-labelledby="evidence-title">
+    <div class="evidence-head">
+      <div>
+        <div class="eyebrow">Evidence Trail</div>
+        <h2 id="evidence-title">Receipts below the story</h2>
+        <p>The article above is the public narrative. This section keeps the source trail, limits, and reporting notes on the same page.</p>
+      </div>
+      <a class="paper-button" href="/editions/2026-06-03/">Edition</a>
+    </div>
+    <div class="evidence-table evidence-summary">
+      <div class="evidence-line"><span>Date</span><span>June 3, 2026</span></div>
+      <div class="evidence-line"><span>Lane</span><span>Daily Edition</span></div>
+      <div class="evidence-line"><span>Confidence</span><span>78%</span></div>
+      <div class="evidence-line"><span>Sources</span><span>5</span></div>
+      <div class="evidence-line"><span>Repos</span><span>openai/codex, google-gemini/gemini-cli, openclaw/openclaw, charmbracelet/crush, langchain-ai/langchain</span></div>
+    </div>
+    <div class="markdown evidence-copy evidence-copy-block"><h3>Reporter Notes</h3><ul>
+<li>The strongest novelty signal is source diversity. The last three public
+</li>
+</ul>
+<p>  editions used OpenAI Codex and NousResearch Hermes Agent as the primary source</p>
+<p>  set. Today's source-coverage audit explicitly required inspection of</p>
+<p>  under-covered LangChain and OpenClaw. The chosen story uses LangChain, Crush,</p>
+<p>  Gemini CLI, and OpenClaw as primary evidence.</p>
+<ul>
+<li>LangChain is the lead because the mechanism is unusually legible: a human
+</li>
+</ul>
+<p>  rejects a tool call, and the runtime now tells the model that the tool was not</p>
+<p>  executed and should not be retried unless the user explicitly asks. That is a</p>
+<p>  failure state becoming an instruction.</p>
+<ul>
+<li>Crush supplies the operational fallback: when a provider's default model ID is
+</li>
+</ul>
+<p>  absent, startup should not fail if another model is available. The code warns,</p>
+<p>  selects the first configured model, and preserves the error path for providers</p>
+<p>  with no models.</p>
+<ul>
+<li>Gemini CLI supplies availability routing: a model rollout is represented as a
+</li>
+</ul>
+<p>  narrow: it is a routing and config-policy change, not a product-launch claim.</p>
+<ul>
+<li>OpenClaw supplies policy conformance: data-handling posture becomes explicit
+</li>
+</ul>
+<p>  doctor findings and evidence entries. The docs caveat matters: these checks</p>
+<p>  observe config conformance and do not inspect raw logs, telemetry exports,</p>
+<p>  transcripts, memory files, secrets, or personal data.</p></div>
+    <div class="markdown evidence-copy evidence-copy-block">
+      <h2>Primary Evidence</h2>
+<ul>
+<li>LangChain commit <code>17d1c274c</code>, &quot;fix(langchain): improve HITL rejection guidance (#37859)&quot;: <a href="https://github.com/langchain-ai/langchain/commit/17d1c274c4f9078ca3a875e07505f0dbc105cae0">https://github.com/langchain-ai/langchain/commit/17d1c274c4f9078ca3a875e07505f0dbc105cae0</a>
+<ul>
+<li>Evidence used: The commit changes the default human-in-the-loop rejection
+</li>
+</ul>
+</li>
+</ul>
+<p>    message so the model is told the action was denied, the tool was not</p>
+<p>    executed, and the same call should not be retried unless the user asks.</p>
+<ul>
+<li>LangChain docs pull request <code>#4269</code>, linked from the rejection-guidance commit: <a href="https://github.com/langchain-ai/docs/pull/4269">https://github.com/langchain-ai/docs/pull/4269</a>
+<ul>
+<li>Evidence used: The implementation commit points to matching documentation
+</li>
+</ul>
+</li>
+</ul>
+<p>    work for custom rejection messages, supporting the article's claim that the</p>
+<p>    behavior is meant to be configurable guidance rather than only a test fix.</p>
+<ul>
+<li>Charmbracelet Crush commit <code>ffaeec192f</code>, &quot;fix: avoid startup crash if unable to find default models (#3066)&quot;: <a href="https://github.com/charmbracelet/crush/commit/ffaeec192ff121408b9a115b14e3be9965ca138e">https://github.com/charmbracelet/crush/commit/ffaeec192ff121408b9a115b14e3be9965ca138e</a>
+<ul>
+<li>Evidence used: The commit changes default model selection to warn and use
+</li>
+</ul>
+</li>
+</ul>
+<p>    the provider's first configured model when a provider's default model ID is</p>
+<p>    missing, while still erroring if the provider has no models.</p>
+<ul>
+<li>Google Gemini CLI commit <code>665228e983</code>, &quot;Transition to flash GA model when experiment flag is present. (#27570)&quot;: <a href="https://github.com/google-gemini/gemini-cli/commit/665228e983c611007c4e2d36550e67b34f75055e">https://github.com/google-gemini/gemini-cli/commit/665228e983c611007c4e2d36550e67b34f75055e</a>
+<ul>
+<li>Evidence used: The commit adds Gemini 3.5 Flash configuration and threads a
+</li>
+</ul>
+</li>
+</ul>
+<p>    <code>useGemini3_5Flash</code> availability flag through model policy resolution.</p>
+<ul>
+<li>OpenClaw commit <code>1d3cfc4b</code>, &quot;Policy: add data handling conformance checks (#87056)&quot;: <a href="https://github.com/openclaw/openclaw/commit/1d3cfc4b016898fb6266a48daccee19b52432e0f">https://github.com/openclaw/openclaw/commit/1d3cfc4b016898fb6266a48daccee19b52432e0f</a>
+<ul>
+<li>Evidence used: The commit adds policy evidence and doctor checks for
+</li>
+</ul>
+</li>
+</ul>
+<p>    sensitive logging redaction, telemetry content capture, session retention,</p>
+<p>    and session transcript memory indexing.</p>
+<h2>Evidence Limits</h2>
+<ul>
+<li>These sources do not prove coordination among LangChain, Crush, Gemini CLI,
+</li>
+</ul>
+<p>  and OpenClaw.</p>
+<ul>
+<li>The commits do not prove every feature is generally available to every user.
+</li>
+<li>The OpenClaw evidence is cited as source-level evidence only; the local
+</li>
+</ul>
+<p>  scanner marked the repository's wider scan window as partially degraded, so</p>
+<p>  the article relies only on directly inspected public commit evidence.</p>
+<ul>
+<li>The article treats the commits as a pattern in how agent tools encode failure,
+</li>
+</ul>
+<p>  denial, fallback, routing, and conformance states; it does not claim a shared</p>
+<p>  protocol or standard.</p>
+    </div>
+    
+  </section>
+      <section class="reader-feedback"
+    data-tgr-feedback
+    data-article-slug="2026-06-03-daily-agent-failure-states-are-becoming-instructions"
+    data-article-title="Agent Failure States Are Becoming Instructions"
+    data-article-url="/articles/2026-06-03-daily-agent-failure-states-are-becoming-instructions/"
+    data-edition-date="2026-06-03"
+    data-lane="Daily Edition"
+    data-tags="Memory,Tools,Runtime"
+    data-repos="openai/codex,google-gemini/gemini-cli,openclaw/openclaw,charmbracelet/crush,langchain-ai/langchain">
+    <div class="reader-feedback-head">
+      <div>
+        <div class="eyebrow">Letters &amp; Corrections</div>
+        <h2>Send a note to the desk</h2>
+      </div>
+      <p>Corrections, missing context, or a follow-up lead.</p>
+    </div>
+    <form class="feedback-form">
+      <div class="feedback-votes" role="group" aria-label="Choose signal type">
+        <button class="feedback-choice" type="button" data-vote="follow-up" aria-pressed="false">
+          <span aria-hidden="true">+</span>
+          <span>Follow-up</span>
+        </button>
+        <button class="feedback-choice" type="button" data-vote="correction" aria-pressed="false">
+          <span aria-hidden="true">!</span>
+          <span>Correction</span>
+        </button>
+      </div>
+      <label class="feedback-comment">
+        <span>Note for the editor</span>
+        <textarea name="comment" rows="3" maxlength="320" placeholder="What did we miss, or what should we follow next?"></textarea>
+      </label>
+      <div class="feedback-submit-row">
+        <p class="feedback-status" aria-live="polite"></p>
+        <button class="paper-button primary feedback-submit" type="submit">Send to desk</button>
+      </div>
+    </form>
+  </section>
+      
+    </main>
+    <footer class="wrap site-footer">
+      <span>&copy; 2026 The Git Reporter</span>
+      <a href="/about/">About</a>
+      <a href="/articles.json">Manifest JSON</a>
+      <a href="/repos/">Sources</a>
+    </footer>
+  </div>
+</body>
+</html>
