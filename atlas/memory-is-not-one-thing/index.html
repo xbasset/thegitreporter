@@ -1,0 +1,159 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Memory Is Not One Thing - How AI Agents Work | The Git Reporter</title>
+  <meta name="description" content="Agent memory is a stack: current context, prior responses, summaries, files, vector stores, policy state, project instructions, human notes, and opaque compaction artifacts.">
+  <meta name="robots" content="index,follow">
+  <link rel="canonical" href="https://thegitreporter.com/atlas/memory-is-not-one-thing/">
+  <link rel="alternate" type="application/rss+xml" title="The Git Reporter" href="https://thegitreporter.com/feed.xml">
+  <meta property="og:site_name" content="The Git Reporter">
+  <meta property="og:locale" content="en_US">
+  <meta property="og:title" content="Memory Is Not One Thing - How AI Agents Work | The Git Reporter">
+  <meta property="og:description" content="Agent memory is a stack: current context, prior responses, summaries, files, vector stores, policy state, project instructions, human notes, and opaque compaction artifacts.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://thegitreporter.com/atlas/memory-is-not-one-thing/">
+  <meta property="og:image" content="https://thegitreporter.com/assets/social/thegitreporter-default-og.jpg">
+  <meta property="og:image:secure_url" content="https://thegitreporter.com/assets/social/thegitreporter-default-og.jpg">
+  <meta property="og:image:type" content="image/jpeg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="The Git Reporter editorial illustration.">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:site" content="@TheGitReporter">
+  <meta name="twitter:creator" content="@TheGitReporter">
+  <meta name="twitter:title" content="Memory Is Not One Thing - How AI Agents Work | The Git Reporter">
+  <meta name="twitter:description" content="Agent memory is a stack: current context, prior responses, summaries, files, vector stores, policy state, project instructions, human notes, and opaque compaction artifacts.">
+  <meta name="twitter:url" content="https://thegitreporter.com/atlas/memory-is-not-one-thing/">
+  <meta name="twitter:domain" content="thegitreporter.com">
+  <meta name="twitter:image" content="https://thegitreporter.com/assets/social/thegitreporter-default-og.jpg">
+  <meta name="twitter:image:alt" content="The Git Reporter editorial illustration.">
+  <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"https://thegitreporter.com/#organization","name":"The Git Reporter","url":"https://thegitreporter.com","logo":{"@type":"ImageObject","url":"https://thegitreporter.com/assets/mark.svg"},"sameAs":["https://x.com/TheGitReporter"]},{"@type":"WebSite","@id":"https://thegitreporter.com/#website","name":"The Git Reporter","url":"https://thegitreporter.com","publisher":{"@id":"https://thegitreporter.com/#organization"}}]}</script>
+  <link rel="icon" href="/assets/mark.svg">
+  <link rel="stylesheet" href="/assets/site.css?v=2026-05-30-about-layout-social-1">
+  <script defer src="/assets/feedback.js?v=2026-05-30-about-layout-social-1"></script>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-CH19T7M0T1"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){window.dataLayer.push(arguments);}
+    gtag("js", new Date());
+    gtag("config", "G-CH19T7M0T1");
+  </script>
+</head>
+<body>
+  <div class="site">
+    <header class="site-header" id="top">
+      <div class="wrap utility-row">
+        <a class="icon-link menu-icon" href="/archive/" aria-label="Open edition history"><span></span><span></span><span></span></a>
+        <a class="icon-link archive-icon" href="/archive/" aria-label="Open edition history"></a>
+      </div>
+      <div class="wrap masthead-lockup">
+        <a class="masthead-title" href="/">THE GIT REPORTER</a>
+        <div class="masthead-ornament" aria-hidden="true"></div>
+      </div>
+      <div class="wrap nav-wrap">
+        <nav class="paper-nav" aria-label="Primary navigation">
+    <a class="" href="/">Today</a><a class="" href="/archive/">Editions</a><a class="" href="/about/">About</a><a class="active" href="/atlas/">Agent Atlas</a><a class="" href="/repos/">Repos</a>
+  </nav>
+        <div class="nav-rule"></div>
+      </div>
+    </header>
+    <main class="wrap page-shell atlas-chapter-page">
+        <section class="page-hero atlas-chapter-hero">
+          <div class="eyebrow">Agent Atlas / Chapter 6</div>
+          <h1>Memory Is Not One Thing</h1>
+          <p class="summary">Agent memory is a stack: current context, prior responses, summaries, files, vector stores, policy state, project instructions, human notes, and opaque compaction artifacts.</p>
+          <div class="atlas-chapter-nav" aria-label="Atlas chapter navigation">
+    <a href="/atlas/when-one-agent-becomes-many/">&lsaquo; Chapter 5: When One Agent Becomes Many</a>
+    <a href="/atlas/">Season map</a>
+    <a href="/atlas/friction-safety-and-approval/">Chapter 7: Friction, Safety, and Approval &rsaquo;</a>
+  </div>
+        </section>
+
+        <figure class="atlas-figure">
+          <img src="/assets/atlas/atlas-06-memory-is-not-one-thing.svg" alt="Memory Is Not One Thing diagram from Agent Atlas." loading="eager" decoding="async">
+          <figcaption><span>What does an agent really remember?</span>Memory is not a magic trait. It is a set of storage and retrieval choices.</figcaption>
+        </figure>
+
+        <section class="story-layout atlas-layout">
+          <article class="story-shell story-body atlas-story-body">
+            <blockquote>Memory is not a magic trait. It is a set of storage and retrieval choices.</blockquote>
+            <section class="atlas-source-moment">
+        <h2>From the Daily trail</h2>
+        <p><a href="/articles/2026-03-31-agent-daily-ai-agent-summaries-are-becoming-infrastructure/">AI Agent Summaries Are Becoming Infrastructure</a>: Direct connection for summaries as operational memory.</p><p><a href="/articles/2026-04-01-agent-daily-ai-agents-are-turning-compaction-into-state-surgery/">AI Agents Are Turning Compaction Into State Surgery</a>: Shows compaction as deliberate state intervention.</p>
+      </section><section>
+        <h2>Remembering is many different jobs</h2>
+        <p>People ask whether an agent has memory as if memory were one switch. The source evidence refuses that simplicity. One layer remembers the last few messages. Another remembers durable conversation state. Another writes summaries. Another stores project instructions. Another compacts a long run into a smaller payload. Another puts facts in a retrieval store.</p><p>Each layer has a different failure mode. Short-term context can overflow. Summaries can distort. File memory can go stale. Vector memory can retrieve the wrong thing. Human-readable notes can be ignored. Opaque compaction can preserve continuity while hiding exactly what was preserved.</p>
+      </section><section>
+        <h2>The Daily Edition has been watching memory become infrastructure</h2>
+        <p>Codex memory writable roots, OpenViking's filesystem-like memory, agent summaries, compaction policy, and state surgery all point to the same pressure: long-running agent work cannot rely on a single transcript. It needs designed persistence.</p><p>OpenAI's conversation-state and compaction docs make the outside vocabulary explicit: state can be managed manually, through durable conversation objects, through previous response IDs, or through compaction that carries forward key prior state in fewer tokens. LangGraph similarly names short-term and long-term memory as part of stateful agent infrastructure.</p>
+      </section><section>
+        <h2>The awe is in the bookkeeping</h2>
+        <p>The remarkable thing is not that agents remember. It is that builders are inventing memory systems that look like journalism, version control, and operations at the same time: preserve the plot, keep the receipts, compress the noise, expose what matters, and know when a human should curate the record.</p><p>A reader who sees memory this way will stop asking whether the agent remembers and start asking a sharper question: which memory layer is speaking right now?</p>
+      </section>
+          </article>
+          <aside class="side-panel atlas-side-panel">
+            <h2>Chapter Receipts</h2>
+            <div class="evidence-table">
+              <div class="evidence-line"><span>Status</span><span>Published Atlas chapter</span></div>
+              <div class="evidence-line"><span>Question</span><span>What does an agent really remember?</span></div>
+              <div class="evidence-line"><span>Evidence mix</span><span>Daily articles, repo knowledge base, official docs, public repos, research paper</span></div>
+            </div>
+
+            <section class="atlas-side-section">
+              <h3>Journal Connections</h3>
+              <div class="atlas-link-list">
+    <a href="/articles/2026-03-31-agent-daily-ai-agent-summaries-are-becoming-infrastructure/">
+          <span>AI Agent Summaries Are Becoming Infrastructure</span>
+          <p>Direct connection for summaries as operational memory.</p>
+        </a><a href="/articles/2026-04-01-agent-daily-ai-agents-are-turning-compaction-into-state-surgery/">
+          <span>AI Agents Are Turning Compaction Into State Surgery</span>
+          <p>Shows compaction as deliberate state intervention.</p>
+        </a><a href="/articles/2026-03-10-daily-codex-makes-memories-a-first-class-writable-root-and-stops-cleaning-through-symlinks/">
+          <span>Codex Makes Memories a First-Class Writable Root</span>
+          <p>Grounds durable memory in filesystem and sandbox boundaries.</p>
+        </a>
+  </div>
+            </section>
+
+            <section class="atlas-side-section">
+              <h3>External Sources</h3>
+              <div class="atlas-link-list">
+    <a href="https://developers.openai.com/api/docs/guides/conversation-state">
+          <span>OpenAI conversation state</span>
+          <p>Primary source for manual state, conversation objects, and previous-response chaining.</p>
+        </a><a href="https://developers.openai.com/api/docs/guides/compaction">
+          <span>OpenAI compaction</span>
+          <p>Primary source for preserving needed state while reducing context size.</p>
+        </a><a href="https://github.com/langchain-ai/langgraph">
+          <span>LangGraph</span>
+          <p>Names short-term and long-term memory as part of stateful agent infrastructure.</p>
+        </a>
+  </div>
+            </section>
+
+            <section class="atlas-side-section">
+              <h3>Watch Next</h3>
+              <ul class="atlas-watch-list">
+    <li>Whether memory artifacts are human-readable, opaque, or both.</li><li>Whether memory is local to a project, user, thread, or organization.</li><li>Whether memory can be corrected when it preserves the wrong lesson.</li>
+  </ul>
+            </section>
+          </aside>
+        </section>
+
+        <div class="atlas-chapter-nav" aria-label="Atlas chapter navigation">
+    <a href="/atlas/when-one-agent-becomes-many/">&lsaquo; Chapter 5: When One Agent Becomes Many</a>
+    <a href="/atlas/">Season map</a>
+    <a href="/atlas/friction-safety-and-approval/">Chapter 7: Friction, Safety, and Approval &rsaquo;</a>
+  </div>
+      </main>
+    <footer class="wrap site-footer">
+      <span>&copy; 2026 The Git Reporter</span>
+      <a href="/about/">About</a>
+      <a href="/articles.json">Manifest JSON</a>
+      <a href="/repos/">Sources</a>
+    </footer>
+  </div>
+</body>
+</html>
