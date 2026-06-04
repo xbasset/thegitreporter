@@ -3,15 +3,15 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>The Loop - How AI Agents Work | The Git Reporter</title>
-  <meta name="description" content="The loop is the skeleton of agency: observe, decide, act, inspect, recover, and continue until the job is done or the system knows it should stop.">
+  <title>Loops, Workflows, and Recovery - How AI Agents Work | The Git Reporter</title>
+  <meta name="description" content="Repeated model-tool interaction is only one control structure. Production runtimes combine probabilistic loops with host-defined workflows, queues, interrupts, terminal states, and recovery operations.">
   <meta name="robots" content="index,follow">
   <link rel="canonical" href="https://thegitreporter.com/atlas/the-loop/">
   <link rel="alternate" type="application/rss+xml" title="The Git Reporter" href="https://thegitreporter.com/feed.xml">
   <meta property="og:site_name" content="The Git Reporter">
   <meta property="og:locale" content="en_US">
-  <meta property="og:title" content="The Loop - How AI Agents Work | The Git Reporter">
-  <meta property="og:description" content="The loop is the skeleton of agency: observe, decide, act, inspect, recover, and continue until the job is done or the system knows it should stop.">
+  <meta property="og:title" content="Loops, Workflows, and Recovery - How AI Agents Work | The Git Reporter">
+  <meta property="og:description" content="Repeated model-tool interaction is only one control structure. Production runtimes combine probabilistic loops with host-defined workflows, queues, interrupts, terminal states, and recovery operations.">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://thegitreporter.com/atlas/the-loop/">
   <meta property="og:image" content="https://thegitreporter.com/assets/social/thegitreporter-default-og.jpg">
@@ -23,8 +23,8 @@
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:site" content="@TheGitReporter">
   <meta name="twitter:creator" content="@TheGitReporter">
-  <meta name="twitter:title" content="The Loop - How AI Agents Work | The Git Reporter">
-  <meta name="twitter:description" content="The loop is the skeleton of agency: observe, decide, act, inspect, recover, and continue until the job is done or the system knows it should stop.">
+  <meta name="twitter:title" content="Loops, Workflows, and Recovery - How AI Agents Work | The Git Reporter">
+  <meta name="twitter:description" content="Repeated model-tool interaction is only one control structure. Production runtimes combine probabilistic loops with host-defined workflows, queues, interrupts, terminal states, and recovery operations.">
   <meta name="twitter:url" content="https://thegitreporter.com/atlas/the-loop/">
   <meta name="twitter:domain" content="thegitreporter.com">
   <meta name="twitter:image" content="https://thegitreporter.com/assets/social/thegitreporter-default-og.jpg">
@@ -62,55 +62,155 @@
     <main class="wrap page-shell atlas-chapter-page">
         <section class="page-hero atlas-chapter-hero">
           <div class="eyebrow">Agent Atlas / Chapter 4</div>
-          <h1>The Loop</h1>
-          <p class="summary">The loop is the skeleton of agency: observe, decide, act, inspect, recover, and continue until the job is done or the system knows it should stop.</p>
+          <h1>Loops, Workflows, and Recovery</h1>
+          <p class="summary">Repeated model-tool interaction is only one control structure. Production runtimes combine probabilistic loops with host-defined workflows, queues, interrupts, terminal states, and recovery operations.</p>
+          <div class="atlas-chapter-invariant">
+            <span>Working question</span>
+            <p>Who decides the next step, and what happens when execution must stop or change direction?</p>
+            <strong>A loop lets observations influence the next proposal. A workflow constrains which transitions are possible.</strong>
+          </div>
           <div class="atlas-chapter-nav" aria-label="Atlas chapter navigation">
-    <a href="/atlas/hands-in-the-world/">&lsaquo; Chapter 3: Hands in the World</a>
-    <a href="/atlas/">Season map</a>
-    <a href="/atlas/when-one-agent-becomes-many/">Chapter 5: When One Agent Becomes Many &rsaquo;</a>
+    <a href="/atlas/hands-in-the-world/">&lsaquo; Chapter 3: Tool Calls: Contract, Authorization, Execution</a>
+    <a href="/atlas/">Atlas index</a>
+    <a href="/atlas/when-one-agent-becomes-many/">Chapter 5: Delegation Is a Distributed System &rsaquo;</a>
   </div>
         </section>
 
         <figure class="atlas-figure">
-          <img src="/assets/atlas/atlas-04-the-loop.svg" alt="The Loop diagram from Agent Atlas." loading="eager" decoding="async">
-          <figcaption><span>Why do agents feel persistent instead of reactive?</span>Agents feel intelligent because they keep a controlled relationship with action and revision over time.</figcaption>
+          <picture>
+            <source media="(max-width: 47.99rem)" srcset="/assets/atlas/atlas-04-the-loop-mobile.svg">
+            <img src="/assets/atlas/atlas-04-the-loop.svg" alt="A recovery workflow shows load, model proposal, policy gate, bound execution, and an environment effect branching into either an observed outcome or an unknown outcome that must be reconciled before retry." loading="eager" decoding="async">
+          </picture>
+          <figcaption>
+            <span>Workflow edges around a model loop</span>
+            The workflow owns admissible transitions and blocks retry when an external effect may have committed without a known outcome.
+            <a href="/assets/atlas/atlas-04-the-loop.svg">Open full-size diagram</a>
+          </figcaption>
         </figure>
 
         <section class="story-layout atlas-layout">
           <article class="story-shell story-body atlas-story-body">
-            <blockquote>Agents feel intelligent because they keep a controlled relationship with action and revision over time.</blockquote>
-            <section class="atlas-source-moment">
-        <h2>From the Daily trail</h2>
-        <p><a href="/articles/2026-06-02-daily-agent-work-is-getting-a-back-button/">Agent Work Is Getting a Back Button</a>: Shows reversibility entering long-running agent work.</p><p><a href="/articles/2026-06-03-daily-agent-failure-states-are-becoming-instructions/">Agent Failure States Are Becoming Instructions</a>: Shows failure state becoming part of runtime guidance.</p>
-      </section><section>
-        <h2>One answer is not an agent</h2>
-        <p>A model can generate a response. In the agentic runtimes this series follows, the useful behavior usually comes from a loop. The system sees the current state, chooses an action, receives the result, updates its understanding, and decides whether to continue. This is the quiet engine behind the feeling that an agent is working on something rather than answering about something.</p><p>The ReAct paper made the research shape legible: reasoning and action interleave, and external observations can correct the trajectory. Production agent systems make that loop operational through retries, tool results, telemetry, state stores, cancellation, recovery, and human interruption.</p>
-      </section><section>
-        <h2>The loop has failure modes</h2>
-        <p>Loops can spin, drift, forget, over-act, under-act, or end too early. The Daily Edition has tracked agents getting back buttons, failure states becoming instructions, and reliability moving into test rigs. Those are not side quests. They are attempts to make the loop survivable.</p><p>A loop with no recovery is a slot machine. A loop with no stop condition is a hazard. A loop with no visible trace is a trust problem. The art is not making the agent keep going forever. The art is teaching it when to continue, when to pause, and when to hand the evidence back.</p>
-      </section><section>
-        <h2>Persistence is engineered</h2>
-        <p>LangGraph's public framing around durable execution, human-in-the-loop state inspection, memory, and debugging gives the industry vocabulary for long-running work. The same shape appears in coding agents when sessions resume, subagents report back, tool calls return structured evidence, and UI surfaces reveal what happened.</p><p>The loop is where agency stops being a metaphor. It is a program structure with consequences.</p>
+            <section class="atlas-case-file">
+    <div class="atlas-case-kicker">Case file 04 / Rejection becomes input</div>
+    <h2>A denied tool call must not become an automatic retry</h2>
+    <p>LangChain commit 17d1c274 changes the default human-in-the-loop rejection message. The model is told that the tool did not execute and should not retry the same call unless the user asks. An integration test resumes after rejection and asserts that the agent does not interrupt for the tool again.</p><p>The host workflow owns the interrupt, rejection decision, and resume transition. The model loop chooses what to propose after receiving the rejection. Policy prevents execution; the message guides later behavior. Those are different controls.</p>
+  </section><section class="atlas-mechanism">
+    <div class="atlas-case-kicker">Mechanism trace</div>
+    <h2>What actually happens</h2>
+    <ol>
+      <li>
+            <span>Load run state</span>
+            <p>identity, queue, budgets</p>
+          </li><li>
+            <span>Propose action</span>
+            <p>probabilistic next step</p>
+          </li><li>
+            <span>Gate transition</span>
+            <p>authorize, block, pause</p>
+          </li><li>
+            <span>Bound executor</span>
+            <p>invoke selected principal</p>
+          </li><li>
+            <span>Environment effect</span>
+            <p>may commit before reply</p>
+          </li><li>
+            <span>Observed outcome</span>
+            <p>known success or failure</p>
+          </li><li>
+            <span>Unknown outcome</span>
+            <p>effect may exist</p>
+          </li><li>
+            <span>Reconcile before retry</span>
+            <p>lookup, dedupe, compensate</p>
+          </li>
+    </ol>
+  </section><section>
+        <h2>A loop is not a workflow</h2>
+        <p>In an agent loop, observations return to a model that may propose another tool call, produce an answer, or stop. The next action is partly probabilistic. A workflow instead defines host-owned transitions through a sequence, state machine, queue, event handler, or graph.</p><p>A deterministic workflow may contain probabilistic model calls without surrendering control of its edges. That distinction determines where budgets, stop conditions, approvals, and recovery rules can be enforced.</p>
       </section>
+      <aside class="atlas-inline-receipt">
+    <div class="atlas-receipt-head">
+      <span>Code receipt</span>
+      <a href="https://github.com/langchain-ai/langchain/commit/17d1c274c4f9078ca3a875e07505f0dbc105cae0">Rejected transition</a>
+    </div>
+    <p><strong>Mechanism:</strong> LangChain commit 17d1c274 tells the model that a rejected tool did not execute and should not be retried unless requested.</p>
+    <p><strong>Implication:</strong> A denied action becomes explicit input to the next model decision.</p>
+    <p><strong>Limit:</strong> The message guides behavior; only host policy guarantees that execution did not happen.</p>
+  </aside><section>
+        <h2>Repeated execution requires explicit state ownership</h2>
+        <p>Codex replaces an override side channel with queued ThreadSettings and moves pending input, next-turn items, and mailbox coordination into InputQueue. Ordered state prevents later iterations from observing an accidental mixture of settings and input.</p><p>Concurrent work also needs narrower identity than a session ID. Crush carries a caller-supplied RunID through error events and ignores failures from unrelated prompts sharing the event channel. Without that boundary, one run can capture another run's failure.</p>
+      </section>
+      <section>
+        <h2>Reject, cancel, rewind, and compensate are different</h2>
+        <p>A rejection means an action was not authorized. Cancellation means active work must receive a termination path. Codex keeps interrupted shell dispatch alive long enough to send SIGTERM, wait briefly, and then hard-kill remaining descendants.</p><p>Hermes undo marks transcript rows inactive, retains them for audit, evicts cached state, and rebuilds from active history. It rewinds conversational state, not files, API calls, or processes already changed. External effects need separate compensation.</p><p>A timeout creates another state: the effect may have committed even though the runtime never observed success. Safe recovery needs an explicit unknown-outcome state, idempotency keys or deduplication, and an effect journal before any retry.</p>
+      </section>
+      <aside class="atlas-inline-receipt">
+    <div class="atlas-receipt-head">
+      <span>Code receipt</span>
+      <a href="https://github.com/NousResearch/hermes-agent/commit/0622a70eb48c375fb81242616a610b8a1d083ed5">Conversation rewind</a>
+    </div>
+    <p><strong>Mechanism:</strong> Hermes commit 0622a70e soft-deletes rows, evicts cached state, and rebuilds from active history.</p>
+    <p><strong>Implication:</strong> A workflow can recover conversational state without destroying its audit trail.</p>
+    <p><strong>Limit:</strong> The operation does not reverse external side effects.</p>
+  </aside><section>
+        <h2>Reliability belongs in transition tests</h2>
+        <p>Tests should assert transition invariants, not merely inspect a final answer: a rejected tool is not re-invoked, a foreign RunID error does not abort the current run, cancellation emits a terminal state, and rewind excludes inactive rows from the next context.</p><p>A serious test rig records workflow, run, attempt, source revision, provider, and environment metadata. These controls separate model variance from orchestration races and test-environment failures.</p>
+      </section>
+      <aside class="atlas-inline-receipt">
+    <div class="atlas-receipt-head">
+      <span>Code receipt</span>
+      <a href="https://github.com/langchain-ai/langchain/commit/11cdce91dc4867613a8ff49fb942c5a72fe2ff96">Deterministic evaluation workflow</a>
+    </div>
+    <p><strong>Mechanism:</strong> LangChain commit 11cdce91 adds a manually dispatched workflow with selected models, tiers, categories, credentials, and tracing.</p>
+    <p><strong>Implication:</strong> A deterministic workflow can repeatedly evaluate a probabilistic agent loop.</p>
+    <p><strong>Limit:</strong> The lane incurs provider cost and does not prove end-user reliability.</p>
+  </aside><section class="atlas-failure-section">
+    <div class="atlas-case-kicker">Failure modes</div>
+    <h2>Where the contract breaks</h2>
+    <div class="atlas-failure-grid">
+      <article>
+            <h3>Unbounded retry</h3>
+            <p>A denial or deterministic failure is interpreted as a transient observation.</p>
+            <div><span>Failure signal</span>The same call recurs after blocked or rejected outcomes.</div>
+          </article><article>
+            <h3>Cross-run event capture</h3>
+            <p>Session-wide events are treated as belonging to every concurrent run.</p>
+            <div><span>Failure signal</span>A run stops after receiving a missing or foreign RunID.</div>
+          </article><article>
+            <h3>Transcript rollback mistaken for world rollback</h3>
+            <p>Removing messages is assumed to reverse performed actions.</p>
+            <div><span>Failure signal</span>Files or remote systems retain changes absent from active history.</div>
+          </article><article>
+            <h3>Unknown outcome after timeout</h3>
+            <p>The environment commits an effect but the runtime loses the success response.</p>
+            <div><span>Failure signal</span>A retry begins without an idempotency key, effect lookup, or explicit unknown-outcome state.</div>
+          </article>
+    </div>
+  </section><section class="atlas-inspection">
+    <div class="atlas-case-kicker">Release tests</div>
+    <h2>What the product must prove</h2>
+    <ol><li>Label every transition as model-owned, workflow-owned, policy-owned, human-owned, or executor-owned.</li><li>Enumerate budgets, stop predicates, terminal outcomes, cancellation paths, checkpoints, and irreversible effects.</li><li>Replay denial, cancellation, foreign-event, and rewind traces; assert state and side-effect invariants.</li><li>Force a timeout after an external commit; block retry unless the runtime can prove whether the effect occurred.</li></ol>
+  </section>
           </article>
           <aside class="side-panel atlas-side-panel">
-            <h2>Chapter Receipts</h2>
+            <h2>Source Index</h2>
             <div class="evidence-table">
-              <div class="evidence-line"><span>Status</span><span>Published Atlas chapter</span></div>
-              <div class="evidence-line"><span>Question</span><span>Why do agents feel persistent instead of reactive?</span></div>
-              <div class="evidence-line"><span>Evidence mix</span><span>Daily articles, repo knowledge base, official docs, public repos, research paper</span></div>
+              <div class="evidence-line"><span>Inline receipts</span><span>3 mechanisms</span></div>
+              <div class="evidence-line"><span>Journal trails</span><span>3 articles</span></div>
+              <div class="evidence-line"><span>External sources</span><span>3 sources</span></div>
+              
             </div>
 
             <section class="atlas-side-section">
               <h3>Journal Connections</h3>
               <div class="atlas-link-list">
-    <a href="/articles/2026-06-02-daily-agent-work-is-getting-a-back-button/">
+    <a href="/articles/2026-06-02-daily-agent-work-is-getting-a-back-button/#evidence">
           <span>Agent Work Is Getting a Back Button</span>
           <p>Shows reversibility entering long-running agent work.</p>
-        </a><a href="/articles/2026-06-03-daily-agent-failure-states-are-becoming-instructions/">
+        </a><a href="/articles/2026-06-03-daily-agent-failure-states-are-becoming-instructions/#evidence">
           <span>Agent Failure States Are Becoming Instructions</span>
           <p>Shows failure state becoming part of runtime guidance.</p>
-        </a><a href="/articles/2026-05-25-daily-agent-reliability-is-moving-into-the-test-rig/">
+        </a><a href="/articles/2026-05-25-daily-agent-reliability-is-moving-into-the-test-rig/#evidence">
           <span>Agent Reliability Is Moving Into the Test Rig</span>
           <p>Shows reliability being measured as agent behavior, not vibe.</p>
         </a>
@@ -133,19 +233,13 @@
   </div>
             </section>
 
-            <section class="atlas-side-section">
-              <h3>Watch Next</h3>
-              <ul class="atlas-watch-list">
-    <li>Whether the loop exposes progress and uncertainty.</li><li>Whether recovery is tested, not merely hoped for.</li><li>Whether humans can interrupt or revise the loop without destroying the work.</li>
-  </ul>
-            </section>
           </aside>
         </section>
 
         <div class="atlas-chapter-nav" aria-label="Atlas chapter navigation">
-    <a href="/atlas/hands-in-the-world/">&lsaquo; Chapter 3: Hands in the World</a>
-    <a href="/atlas/">Season map</a>
-    <a href="/atlas/when-one-agent-becomes-many/">Chapter 5: When One Agent Becomes Many &rsaquo;</a>
+    <a href="/atlas/hands-in-the-world/">&lsaquo; Chapter 3: Tool Calls: Contract, Authorization, Execution</a>
+    <a href="/atlas/">Atlas index</a>
+    <a href="/atlas/when-one-agent-becomes-many/">Chapter 5: Delegation Is a Distributed System &rsaquo;</a>
   </div>
       </main>
     <footer class="wrap site-footer">

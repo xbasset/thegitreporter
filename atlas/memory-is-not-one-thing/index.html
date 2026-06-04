@@ -3,15 +3,15 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Memory Is Not One Thing - How AI Agents Work | The Git Reporter</title>
-  <meta name="description" content="Agent memory is a stack: current context, prior responses, summaries, files, vector stores, policy state, project instructions, human notes, and opaque compaction artifacts.">
+  <title>Memory Is a Typed Storage Contract - How AI Agents Work | The Git Reporter</title>
+  <meta name="description" content="Calling every retained fact memory obscures incompatible stores and guarantees. Thread history, notes, retrieval indexes, summaries, caches, and archives have different owners, lifetimes, and deletion behavior.">
   <meta name="robots" content="index,follow">
   <link rel="canonical" href="https://thegitreporter.com/atlas/memory-is-not-one-thing/">
   <link rel="alternate" type="application/rss+xml" title="The Git Reporter" href="https://thegitreporter.com/feed.xml">
   <meta property="og:site_name" content="The Git Reporter">
   <meta property="og:locale" content="en_US">
-  <meta property="og:title" content="Memory Is Not One Thing - How AI Agents Work | The Git Reporter">
-  <meta property="og:description" content="Agent memory is a stack: current context, prior responses, summaries, files, vector stores, policy state, project instructions, human notes, and opaque compaction artifacts.">
+  <meta property="og:title" content="Memory Is a Typed Storage Contract - How AI Agents Work | The Git Reporter">
+  <meta property="og:description" content="Calling every retained fact memory obscures incompatible stores and guarantees. Thread history, notes, retrieval indexes, summaries, caches, and archives have different owners, lifetimes, and deletion behavior.">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://thegitreporter.com/atlas/memory-is-not-one-thing/">
   <meta property="og:image" content="https://thegitreporter.com/assets/social/thegitreporter-default-og.jpg">
@@ -23,8 +23,8 @@
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:site" content="@TheGitReporter">
   <meta name="twitter:creator" content="@TheGitReporter">
-  <meta name="twitter:title" content="Memory Is Not One Thing - How AI Agents Work | The Git Reporter">
-  <meta name="twitter:description" content="Agent memory is a stack: current context, prior responses, summaries, files, vector stores, policy state, project instructions, human notes, and opaque compaction artifacts.">
+  <meta name="twitter:title" content="Memory Is a Typed Storage Contract - How AI Agents Work | The Git Reporter">
+  <meta name="twitter:description" content="Calling every retained fact memory obscures incompatible stores and guarantees. Thread history, notes, retrieval indexes, summaries, caches, and archives have different owners, lifetimes, and deletion behavior.">
   <meta name="twitter:url" content="https://thegitreporter.com/atlas/memory-is-not-one-thing/">
   <meta name="twitter:domain" content="thegitreporter.com">
   <meta name="twitter:image" content="https://thegitreporter.com/assets/social/thegitreporter-default-og.jpg">
@@ -62,55 +62,142 @@
     <main class="wrap page-shell atlas-chapter-page">
         <section class="page-hero atlas-chapter-hero">
           <div class="eyebrow">Agent Atlas / Chapter 6</div>
-          <h1>Memory Is Not One Thing</h1>
-          <p class="summary">Agent memory is a stack: current context, prior responses, summaries, files, vector stores, policy state, project instructions, human notes, and opaque compaction artifacts.</p>
+          <h1>Memory Is a Typed Storage Contract</h1>
+          <p class="summary">Calling every retained fact memory obscures incompatible stores and guarantees. Thread history, notes, retrieval indexes, summaries, caches, and archives have different owners, lifetimes, and deletion behavior.</p>
+          <div class="atlas-chapter-invariant">
+            <span>Working question</span>
+            <p>Where is agent state written, how is it selected for a turn, and what does forgetting actually remove?</p>
+            <strong>Continuity emerges from explicit write, read, correction, compaction, archive, and forget semantics.</strong>
+          </div>
           <div class="atlas-chapter-nav" aria-label="Atlas chapter navigation">
-    <a href="/atlas/when-one-agent-becomes-many/">&lsaquo; Chapter 5: When One Agent Becomes Many</a>
-    <a href="/atlas/">Season map</a>
-    <a href="/atlas/friction-safety-and-approval/">Chapter 7: Friction, Safety, and Approval &rsaquo;</a>
+    <a href="/atlas/when-one-agent-becomes-many/">&lsaquo; Chapter 5: Delegation Is a Distributed System</a>
+    <a href="/atlas/">Atlas index</a>
+    <a href="/atlas/friction-safety-and-approval/">Chapter 7: The Approval Trap &rsaquo;</a>
   </div>
         </section>
 
         <figure class="atlas-figure">
-          <img src="/assets/atlas/atlas-06-memory-is-not-one-thing.svg" alt="Memory Is Not One Thing diagram from Agent Atlas." loading="eager" decoding="async">
-          <figcaption><span>What does an agent really remember?</span>Memory is not a magic trait. It is a set of storage and retrieval choices.</figcaption>
+          <picture>
+            <source media="(max-width: 47.99rem)" srcset="/assets/atlas/atlas-06-memory-is-not-one-thing-mobile.svg">
+            <img src="/assets/atlas/atlas-06-memory-is-not-one-thing.svg" alt="Five nested storage layers move from short-lived high-fidelity turn context to durable records with increasing persistence and distortion risk." loading="eager" decoding="async">
+          </picture>
+          <figcaption>
+            <span>Memory is a stack of contracts</span>
+            Memory layers differ in lifespan, fidelity, ownership, retrieval cost, and correction path.
+            <a href="/assets/atlas/atlas-06-memory-is-not-one-thing.svg">Open full-size diagram</a>
+          </figcaption>
         </figure>
 
         <section class="story-layout atlas-layout">
           <article class="story-shell story-body atlas-story-body">
-            <blockquote>Memory is not a magic trait. It is a set of storage and retrieval choices.</blockquote>
-            <section class="atlas-source-moment">
-        <h2>From the Daily trail</h2>
-        <p><a href="/articles/2026-03-31-agent-daily-ai-agent-summaries-are-becoming-infrastructure/">AI Agent Summaries Are Becoming Infrastructure</a>: Direct connection for summaries as operational memory.</p><p><a href="/articles/2026-04-01-agent-daily-ai-agents-are-turning-compaction-into-state-surgery/">AI Agents Are Turning Compaction Into State Surgery</a>: Shows compaction as deliberate state intervention.</p>
-      </section><section>
-        <h2>Remembering is many different jobs</h2>
-        <p>People ask whether an agent has memory as if memory were one switch. The source evidence refuses that simplicity. One layer remembers the last few messages. Another remembers durable conversation state. Another writes summaries. Another stores project instructions. Another compacts a long run into a smaller payload. Another puts facts in a retrieval store.</p><p>Each layer has a different failure mode. Short-term context can overflow. Summaries can distort. File memory can go stale. Vector memory can retrieve the wrong thing. Human-readable notes can be ignored. Opaque compaction can preserve continuity while hiding exactly what was preserved.</p>
-      </section><section>
-        <h2>The Daily Edition has been watching memory become infrastructure</h2>
-        <p>Codex memory writable roots, OpenViking's filesystem-like memory, agent summaries, compaction policy, and state surgery all point to the same pressure: long-running agent work cannot rely on a single transcript. It needs designed persistence.</p><p>OpenAI's conversation-state and compaction docs make the outside vocabulary explicit: state can be managed manually, through durable conversation objects, through previous response IDs, or through compaction that carries forward key prior state in fewer tokens. LangGraph similarly names short-term and long-term memory as part of stateful agent infrastructure.</p>
-      </section><section>
-        <h2>The awe is in the bookkeeping</h2>
-        <p>The remarkable thing is not that agents remember. It is that builders are inventing memory systems that look like journalism, version control, and operations at the same time: preserve the plot, keep the receipts, compress the noise, expose what matters, and know when a human should curate the record.</p><p>A reader who sees memory this way will stop asking whether the agent remembers and start asking a sharper question: which memory layer is speaking right now?</p>
+            <section class="atlas-case-file">
+    <div class="atlas-case-kicker">Case file 06 / Undo does not mean delete</div>
+    <h2>A forgotten turn can still exist</h2>
+    <p>Hermes implements undo by marking transcript rows inactive rather than deleting them. The rows remain available for audit but disappear from active prompts and search. Hermes then evicts cached agent state so the next message rebuilds from active-only history.</p><p>Forgetting therefore requires coordinated storage, query, and cache behavior. Codex draws another boundary by moving memory-owned tables and jobs into memories_1.sqlite while durable thread metadata remains elsewhere. Rewindable conversation state and rebuildable memory pipelines are not the same store.</p>
+  </section><section class="atlas-mechanism">
+    <div class="atlas-case-kicker">Mechanism trace</div>
+    <h2>What actually happens</h2>
+    <ol>
+      <li>
+            <span>Turn context</span>
+            <p>selected, short-lived, high fidelity</p>
+          </li><li>
+            <span>Thread history</span>
+            <p>durable conversational record</p>
+          </li><li>
+            <span>Notes and memories</span>
+            <p>typed writes with provenance</p>
+          </li><li>
+            <span>Indexes and caches</span>
+            <p>derived and rebuildable</p>
+          </li><li>
+            <span>Archive and audit</span>
+            <p>long-lived, costly to correct</p>
+          </li>
+    </ol>
+  </section><section>
+        <h2>Name the store before calling it memory</h2>
+        <p>A useful inventory distinguishes active turn context, durable thread history, append-only notes, extracted memories, retrieval indexes, cached agents, archived sessions, and inactive transcript rows. Each needs an owner, schema, namespace, retention policy, rebuild rule, and authority model.</p><p>Codex's separate memory database makes pipeline state independently rebuildable while preserving thread metadata. OpenViking's abstract, overview, and full-content layers expose another typed distinction: different reads trade detail for context cost.</p>
       </section>
+      <aside class="atlas-inline-receipt">
+    <div class="atlas-receipt-head">
+      <span>Code receipt</span>
+      <a href="https://github.com/openai/codex/commit/aad59a0916baea1875f9a609a4b1d0a9062f24f6">Typed persistence boundary</a>
+    </div>
+    <p><strong>Mechanism:</strong> Codex commit aad59a09 moves memory-owned tables and jobs into memories_1.sqlite while retaining durable thread metadata elsewhere.</p>
+    <p><strong>Implication:</strong> Memory-pipeline data can be rebuilt or migrated independently.</p>
+    <p><strong>Limit:</strong> Separate stores increase the need for consistency checks during delete, resume, and migration.</p>
+  </aside><section>
+        <h2>Writes need authority and conflict semantics</h2>
+        <p>Codex's ad hoc note path validates filenames, rejects path-like names and empty notes, and uses create-new semantics. Those constraints prevent accidental overwrite and namespace traversal. The tool remains behind a disabled registration path, treating exposure as a separate rollout decision.</p><p>Every memory write should record source, author, trust class, scope, timestamp, and idempotency key. It also needs correction and conflict rules: append, supersede, reject, or merge. A model-generated note without provenance is an assertion, not durable knowledge.</p>
+      </section>
+      <aside class="atlas-inline-receipt">
+    <div class="atlas-receipt-head">
+      <span>Code receipt</span>
+      <a href="https://github.com/openai/codex/commit/3936ed221d90278a64d70a423fd7b456799f112b">Constrained append-only write</a>
+    </div>
+    <p><strong>Mechanism:</strong> Codex commit 3936ed22 adds an ad hoc note path with filename validation, empty-note rejection, path rejection, and create-new semantics.</p>
+    <p><strong>Implication:</strong> The write path has concrete namespace and overwrite protections.</p>
+    <p><strong>Limit:</strong> Validation does not establish factual correctness, provenance quality, retention, or conflict resolution.</p>
+  </aside><section>
+        <h2>Reads are selection and injection</h2>
+        <p>Codex additionalContext entries carry trust kinds and support deduplication, reset, and truncation before hidden injection. Reading is an explicit selection pipeline, not an invisible dump of everything previously stored.</p><p>A read contract should identify the selected source version, trust class, retrieval score, token budget, and injection location. Stale or low-authority memories must not silently outrank current user instructions.</p>
+      </section>
+      <section>
+        <h2>Forget is a family of operations</h2>
+        <p>Soft deletion hides records from active reads while retaining audit history. Archive allows restoration. Hard deletion removes durable data. Cache eviction removes derived runtime state. Index deletion prevents retrieval. These operations are related but not equivalent.</p><p>Compaction is also not deletion. A summary can reduce context cost while preserving original archives, unsummarized tails, and sensitive or incorrect source records elsewhere.</p>
+      </section>
+      <aside class="atlas-inline-receipt">
+    <div class="atlas-receipt-head">
+      <span>Code receipt</span>
+      <a href="https://github.com/NousResearch/hermes-agent/commit/0622a70eb48c375fb81242616a610b8a1d083ed5">Soft forget with read rebuild</a>
+    </div>
+    <p><strong>Mechanism:</strong> Hermes commit 0622a70e hides inactive rows from active prompts and search, evicts cached state, and rebuilds.</p>
+    <p><strong>Implication:</strong> Undo changes future reads while preserving an audit trail.</p>
+    <p><strong>Limit:</strong> Inactive content may remain in indexes, logs, backups, or downstream tool state.</p>
+  </aside><section class="atlas-failure-section">
+    <div class="atlas-case-kicker">Failure modes</div>
+    <h2>Where the contract breaks</h2>
+    <div class="atlas-failure-grid">
+      <article>
+            <h3>Cross-store forgetting mismatch</h3>
+            <p>A row is hidden while caches, indexes, summaries, or backups still contain it.</p>
+            <div><span>Failure signal</span>Forgotten content reappears after restart, retrieval, compaction, or resume.</div>
+          </article><article>
+            <h3>Poisoned or conflicting write</h3>
+            <p>Untrusted content is persisted without provenance or collision handling.</p>
+            <div><span>Failure signal</span>A memory write lacks source metadata, scope, or supersession rules.</div>
+          </article><article>
+            <h3>Lossy or stale read</h3>
+            <p>Compaction omits a constraint or retrieval selects obsolete state.</p>
+            <div><span>Failure signal</span>Injected context cannot identify its source version or trust class.</div>
+          </article>
+    </div>
+  </section><section class="atlas-inspection">
+    <div class="atlas-case-kicker">Release tests</div>
+    <h2>What the product must prove</h2>
+    <ol><li>Inventory every store with owner, schema, namespace, retention, rebuildability, and deletion guarantees.</li><li>Trace one fact through write, index, cache, read injection, correction, archive, and forget operations.</li><li>Verify telemetry records operation, scope, status, truncation, provenance, and compaction markers without leaking content.</li></ol>
+  </section>
           </article>
           <aside class="side-panel atlas-side-panel">
-            <h2>Chapter Receipts</h2>
+            <h2>Source Index</h2>
             <div class="evidence-table">
-              <div class="evidence-line"><span>Status</span><span>Published Atlas chapter</span></div>
-              <div class="evidence-line"><span>Question</span><span>What does an agent really remember?</span></div>
-              <div class="evidence-line"><span>Evidence mix</span><span>Daily articles, repo knowledge base, official docs, public repos, research paper</span></div>
+              <div class="evidence-line"><span>Inline receipts</span><span>3 mechanisms</span></div>
+              <div class="evidence-line"><span>Journal trails</span><span>3 articles</span></div>
+              <div class="evidence-line"><span>External sources</span><span>3 sources</span></div>
+              
             </div>
 
             <section class="atlas-side-section">
               <h3>Journal Connections</h3>
               <div class="atlas-link-list">
-    <a href="/articles/2026-03-31-agent-daily-ai-agent-summaries-are-becoming-infrastructure/">
+    <a href="/articles/2026-03-31-agent-daily-ai-agent-summaries-are-becoming-infrastructure/#evidence">
           <span>AI Agent Summaries Are Becoming Infrastructure</span>
           <p>Direct connection for summaries as operational memory.</p>
-        </a><a href="/articles/2026-04-01-agent-daily-ai-agents-are-turning-compaction-into-state-surgery/">
+        </a><a href="/articles/2026-04-01-agent-daily-ai-agents-are-turning-compaction-into-state-surgery/#evidence">
           <span>AI Agents Are Turning Compaction Into State Surgery</span>
           <p>Shows compaction as deliberate state intervention.</p>
-        </a><a href="/articles/2026-03-10-daily-codex-makes-memories-a-first-class-writable-root-and-stops-cleaning-through-symlinks/">
+        </a><a href="/articles/2026-03-10-daily-codex-makes-memories-a-first-class-writable-root-and-stops-cleaning-through-symlinks/#evidence">
           <span>Codex Makes Memories a First-Class Writable Root</span>
           <p>Grounds durable memory in filesystem and sandbox boundaries.</p>
         </a>
@@ -133,19 +220,13 @@
   </div>
             </section>
 
-            <section class="atlas-side-section">
-              <h3>Watch Next</h3>
-              <ul class="atlas-watch-list">
-    <li>Whether memory artifacts are human-readable, opaque, or both.</li><li>Whether memory is local to a project, user, thread, or organization.</li><li>Whether memory can be corrected when it preserves the wrong lesson.</li>
-  </ul>
-            </section>
           </aside>
         </section>
 
         <div class="atlas-chapter-nav" aria-label="Atlas chapter navigation">
-    <a href="/atlas/when-one-agent-becomes-many/">&lsaquo; Chapter 5: When One Agent Becomes Many</a>
-    <a href="/atlas/">Season map</a>
-    <a href="/atlas/friction-safety-and-approval/">Chapter 7: Friction, Safety, and Approval &rsaquo;</a>
+    <a href="/atlas/when-one-agent-becomes-many/">&lsaquo; Chapter 5: Delegation Is a Distributed System</a>
+    <a href="/atlas/">Atlas index</a>
+    <a href="/atlas/friction-safety-and-approval/">Chapter 7: The Approval Trap &rsaquo;</a>
   </div>
       </main>
     <footer class="wrap site-footer">

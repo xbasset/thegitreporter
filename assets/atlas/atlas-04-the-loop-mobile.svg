@@ -1,0 +1,109 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 360 1045" role="img" aria-labelledby="title desc">
+  <title id="title">How AI Agents Work - Chapter 4: Workflow edges around a model loop</title>
+  <desc id="desc">A recovery workflow shows load, model proposal, policy gate, bound execution, and an environment effect branching into either an observed outcome or an unknown outcome that must be reconciled before retry.</desc>
+  <defs>
+    <marker id="arrow" viewBox="0 0 12 12" refX="10" refY="6" markerWidth="10" markerHeight="10" orient="auto-start-reverse">
+      <path d="M1 1L11 6L1 11Z" fill="#1b1a16"/>
+    </marker>
+    <pattern id="hatch" width="12" height="12" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
+      <line x1="0" y1="0" x2="0" y2="12" stroke="#c3bbab" stroke-width="4"/>
+    </pattern>
+  </defs>
+  <rect width="360" height="1045" fill="#f7f3e8"/>
+  <line x1="18" y1="62" x2="342" y2="62" stroke="#1b1a16" stroke-width="2"/>
+  <text x="18" y="38" font-family="SFMono-Regular, Consolas, monospace" font-size="15" font-weight="800" fill="#2e6231">RUNTIME DIAGRAM 04</text>
+  <text x="342" y="38" text-anchor="end" font-family="SFMono-Regular, Consolas, monospace" font-size="15" font-weight="800" fill="#8b441c">RECOVERY</text>
+  <path d="M180 188L180 208" fill="none" stroke="#1b1a16" stroke-width="2" marker-end="url(#arrow)"/>
+<path d="M180 308L180 328" fill="none" stroke="#1b1a16" stroke-width="2" marker-end="url(#arrow)"/>
+<path d="M180 428L180 448" fill="none" stroke="#1b1a16" stroke-width="2" marker-end="url(#arrow)"/>
+<path d="M180 548L180 568" fill="none" stroke="#1b1a16" stroke-width="2" marker-end="url(#arrow)"/>
+    <path d="M180 668L95 730" fill="none" stroke="#1b1a16" stroke-width="2" marker-end="url(#arrow)"/>
+    <path d="M180 668L265 730" fill="none" stroke="#1b1a16" stroke-width="2" marker-end="url(#arrow)" stroke-dasharray="6 6"/>
+    <path d="M265 845L265 900" fill="none" stroke="#1b1a16" stroke-width="2" marker-end="url(#arrow)"/>
+    <path d="M20 788H6V140H24" fill="none" stroke="#1b1a16" stroke-width="2" marker-end="url(#arrow)"/>
+    <path d="M340 958H354V140H336" fill="none" stroke="#1b1a16" stroke-width="2" stroke-dasharray="6 6" marker-end="url(#arrow)"/>
+    <g>
+    <rect x="24" y="92" width="312" height="96" fill="#eee6d2" stroke="#1b1a16" stroke-width="2"/>
+    <text x="38" y="108" font-family="SFMono-Regular, Consolas, monospace" font-size="16" font-weight="800" fill="#8b441c">RUNTIME</text>
+    <text x="180" y="134" text-anchor="middle" font-family="Georgia, 'Times New Roman', serif" font-size="18" font-weight="900" fill="#10100d">
+    <tspan x="180" dy="0">Load run state</tspan>
+  </text>
+    <text x="180" y="170" text-anchor="middle" font-family="SFMono-Regular, Consolas, monospace" font-size="15" font-weight="700" fill="#6c665a">
+    <tspan x="180" dy="0">identity, queue, budgets</tspan>
+  </text>
+  </g>
+<g>
+    <rect x="24" y="212" width="312" height="96" fill="#e2eadc" stroke="#1b1a16" stroke-width="2"/>
+    <text x="38" y="228" font-family="SFMono-Regular, Consolas, monospace" font-size="16" font-weight="800" fill="#8b441c">MODEL</text>
+    <text x="180" y="254" text-anchor="middle" font-family="Georgia, 'Times New Roman', serif" font-size="18" font-weight="900" fill="#10100d">
+    <tspan x="180" dy="0">Propose action</tspan>
+  </text>
+    <text x="180" y="290" text-anchor="middle" font-family="SFMono-Regular, Consolas, monospace" font-size="15" font-weight="700" fill="#6c665a">
+    <tspan x="180" dy="0">probabilistic next step</tspan>
+  </text>
+  </g>
+<g>
+    <rect x="24" y="332" width="312" height="96" fill="#eee6d2" stroke="#1b1a16" stroke-width="2"/>
+    <text x="38" y="348" font-family="SFMono-Regular, Consolas, monospace" font-size="16" font-weight="800" fill="#8b441c">RUNTIME</text>
+    <text x="180" y="374" text-anchor="middle" font-family="Georgia, 'Times New Roman', serif" font-size="18" font-weight="900" fill="#10100d">
+    <tspan x="180" dy="0">Gate transition</tspan>
+  </text>
+    <text x="180" y="410" text-anchor="middle" font-family="SFMono-Regular, Consolas, monospace" font-size="15" font-weight="700" fill="#6c665a">
+    <tspan x="180" dy="0">authorize, block, pause</tspan>
+  </text>
+  </g>
+<g>
+    <rect x="24" y="452" width="312" height="96" fill="#eee6d2" stroke="#1b1a16" stroke-width="2"/>
+    <text x="38" y="468" font-family="SFMono-Regular, Consolas, monospace" font-size="16" font-weight="800" fill="#8b441c">RUNTIME</text>
+    <text x="180" y="494" text-anchor="middle" font-family="Georgia, 'Times New Roman', serif" font-size="18" font-weight="900" fill="#10100d">
+    <tspan x="180" dy="0">Bound executor</tspan>
+  </text>
+    <text x="180" y="530" text-anchor="middle" font-family="SFMono-Regular, Consolas, monospace" font-size="15" font-weight="700" fill="#6c665a">
+    <tspan x="180" dy="0">invoke selected principal</tspan>
+  </text>
+  </g>
+<g>
+    <rect x="24" y="572" width="312" height="96" fill="#e7e3da" stroke="#1b1a16" stroke-width="2"/>
+    <text x="38" y="588" font-family="SFMono-Regular, Consolas, monospace" font-size="16" font-weight="800" fill="#8b441c">ENVIRONMENT</text>
+    <text x="180" y="614" text-anchor="middle" font-family="Georgia, 'Times New Roman', serif" font-size="18" font-weight="900" fill="#10100d">
+    <tspan x="180" dy="0">Environment effect</tspan>
+  </text>
+    <text x="180" y="650" text-anchor="middle" font-family="SFMono-Regular, Consolas, monospace" font-size="15" font-weight="700" fill="#6c665a">
+    <tspan x="180" dy="0">may commit before reply</tspan>
+  </text>
+  </g>
+    <g>
+    <rect x="20" y="730" width="150" height="115" fill="#eee6d2" stroke="#1b1a16" stroke-width="2"/>
+    <text x="34" y="746" font-family="SFMono-Regular, Consolas, monospace" font-size="16" font-weight="800" fill="#8b441c">RUNTIME</text>
+    <text x="95" y="762" text-anchor="middle" font-family="Georgia, 'Times New Roman', serif" font-size="18" font-weight="900" fill="#10100d">
+    <tspan x="95" dy="0">Observed</tspan>
+    <tspan x="95" dy="20">outcome</tspan>
+  </text>
+    <text x="95" y="799.5" text-anchor="middle" font-family="SFMono-Regular, Consolas, monospace" font-size="15" font-weight="700" fill="#6c665a">
+    <tspan x="95" dy="0">known success</tspan>
+    <tspan x="95" dy="17">or failure</tspan>
+  </text>
+  </g>
+    <g>
+    <rect x="190" y="730" width="150" height="115" fill="#eee6d2" stroke="#1b1a16" stroke-width="2"/>
+    <text x="204" y="746" font-family="SFMono-Regular, Consolas, monospace" font-size="16" font-weight="800" fill="#8b441c">RUNTIME</text>
+    <text x="265" y="762" text-anchor="middle" font-family="Georgia, 'Times New Roman', serif" font-size="18" font-weight="900" fill="#10100d">
+    <tspan x="265" dy="0">Unknown</tspan>
+    <tspan x="265" dy="20">outcome</tspan>
+  </text>
+    <text x="265" y="799.5" text-anchor="middle" font-family="SFMono-Regular, Consolas, monospace" font-size="15" font-weight="700" fill="#6c665a">
+    <tspan x="265" dy="0">effect may</tspan>
+    <tspan x="265" dy="17">exist</tspan>
+  </text>
+  </g>
+    <g>
+    <rect x="20" y="900" width="320" height="115" fill="#eee6d2" stroke="#1b1a16" stroke-width="2"/>
+    <text x="34" y="916" font-family="SFMono-Regular, Consolas, monospace" font-size="16" font-weight="800" fill="#8b441c">RUNTIME</text>
+    <text x="180" y="942" text-anchor="middle" font-family="Georgia, 'Times New Roman', serif" font-size="18" font-weight="900" fill="#10100d">
+    <tspan x="180" dy="0">Reconcile before retry</tspan>
+  </text>
+    <text x="180" y="978" text-anchor="middle" font-family="SFMono-Regular, Consolas, monospace" font-size="15" font-weight="700" fill="#6c665a">
+    <tspan x="180" dy="0">lookup, dedupe, compensate</tspan>
+  </text>
+  </g>
+</svg>

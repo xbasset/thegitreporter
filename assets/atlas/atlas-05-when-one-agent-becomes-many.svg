@@ -1,47 +1,73 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 675" role="img" aria-labelledby="title desc">
-  <title id="title">How AI Agents Work - Chapter 5: When One Agent Becomes Many</title>
-  <desc id="desc">Diagram Punk newspaper map for Why are agent systems turning one worker into a team?</desc>
-  <rect width="1200" height="675" fill="#f7f3e8"/>
-  <path d="M0 86H1200M0 588H1200" stroke="#1b1a16" stroke-width="5"/>
-  <path d="M64 126H1136M64 548H1136" stroke="#b8b09f" stroke-width="2"/>
-  <text x="72" y="70" font-family="Georgia, 'Times New Roman', serif" font-size="42" font-weight="900" fill="#10100d">AGENT ATLAS</text>
-  <text x="1128" y="68" text-anchor="end" font-family="SFMono-Regular, Consolas, monospace" font-size="24" font-weight="800" fill="#2e6231">CHAPTER 5</text>
-  <rect x="405" y="215" width="390" height="206" rx="0" fill="#eee6d2" stroke="#10100d" stroke-width="5"/>
-  <text x="600" y="247" text-anchor="middle" font-family="Georgia, 'Times New Roman', serif" font-size="42" font-weight="900" fill="#10100d">
-    <tspan x="600" dy="0">When One Agent Becomes</tspan>
-    <tspan x="600" dy="46">Many</tspan>
-  </text>
-  <text x="600" y="337" text-anchor="middle" font-family="SFMono-Regular, Consolas, monospace" font-size="22" font-weight="800" fill="#a45a25">
-    <tspan x="600" dy="0">Why are agent systems turning one</tspan>
-    <tspan x="600" dy="26">worker into a team?</tspan>
-  </text>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 680" role="img" aria-labelledby="title desc">
+  <title id="title">How AI Agents Work - Chapter 5: Delegation control plane</title>
+  <desc id="desc">A parent run scopes three child workers with separate identities and authority, then verifies lineage, freshness, and results before merging.</desc>
+  <defs>
+    <marker id="arrow" viewBox="0 0 12 12" refX="10" refY="6" markerWidth="10" markerHeight="10" orient="auto-start-reverse">
+      <path d="M1 1L11 6L1 11Z" fill="#1b1a16"/>
+    </marker>
+    <pattern id="hatch" width="12" height="12" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
+      <line x1="0" y1="0" x2="0" y2="12" stroke="#c3bbab" stroke-width="4"/>
+    </pattern>
+  </defs>
+  <rect width="1200" height="680" fill="#f7f3e8"/>
+  <line x1="42" y1="78" x2="1158" y2="78" stroke="#1b1a16" stroke-width="3"/>
+  <text x="42" y="48" font-family="SFMono-Regular, Consolas, monospace" font-size="24" font-weight="800" fill="#2e6231">RUNTIME DIAGRAM 05</text>
+  <text x="1158" y="48" text-anchor="end" font-family="SFMono-Regular, Consolas, monospace" font-size="19" font-weight="800" fill="#8b441c">TREE</text>
   <g>
-        <line x1="600" y1="318" x2="165" y2="366" stroke="#1b1a16" stroke-width="3" stroke-dasharray="10 10"/>
-        <rect x="73" y="366" width="184" height="108" rx="0" fill="#fffdf5" stroke="#1b1a16" stroke-width="3"/>
-        <text x="165" y="428" text-anchor="middle" font-family="SFMono-Regular, Consolas, monospace" font-size="26" font-weight="800" fill="#2e6231">manager</text>
-      </g>
-<g>
-        <line x1="600" y1="318" x2="365" y2="196" stroke="#1b1a16" stroke-width="3" stroke-dasharray="10 10"/>
-        <rect x="273" y="196" width="184" height="108" rx="0" fill="#fffdf5" stroke="#1b1a16" stroke-width="3"/>
-        <text x="365" y="258" text-anchor="middle" font-family="SFMono-Regular, Consolas, monospace" font-size="26" font-weight="800" fill="#2e6231">specialist</text>
-      </g>
-<g>
-        <line x1="600" y1="318" x2="600" y2="366" stroke="#1b1a16" stroke-width="3" stroke-dasharray="10 10"/>
-        <rect x="508" y="366" width="184" height="108" rx="0" fill="#fffdf5" stroke="#1b1a16" stroke-width="3"/>
-        <text x="600" y="428" text-anchor="middle" font-family="SFMono-Regular, Consolas, monospace" font-size="26" font-weight="800" fill="#2e6231">handoff</text>
-      </g>
-<g>
-        <line x1="600" y1="318" x2="835" y2="196" stroke="#1b1a16" stroke-width="3" stroke-dasharray="10 10"/>
-        <rect x="743" y="196" width="184" height="108" rx="0" fill="#fffdf5" stroke="#1b1a16" stroke-width="3"/>
-        <text x="835" y="258" text-anchor="middle" font-family="SFMono-Regular, Consolas, monospace" font-size="26" font-weight="800" fill="#2e6231">report</text>
-      </g>
-<g>
-        <line x1="600" y1="318" x2="1035" y2="366" stroke="#1b1a16" stroke-width="3" stroke-dasharray="10 10"/>
-        <rect x="943" y="366" width="184" height="108" rx="0" fill="#fffdf5" stroke="#1b1a16" stroke-width="3"/>
-        <text x="1035" y="428" text-anchor="middle" font-family="SFMono-Regular, Consolas, monospace" font-size="26" font-weight="800" fill="#2e6231">supervise</text>
-      </g>
-  <text x="600" y="605" text-anchor="middle" font-family="Georgia, 'Times New Roman', serif" font-size="26" font-weight="700" fill="#10100d">
-    <tspan x="600" dy="0">Multi-agent systems are not impressive because there are more agents. They</tspan>
-    <tspan x="600" dy="30">matter when delegated work becomes legible, bounded, and recoverable.</tspan>
+    <rect x="475" y="115" width="250" height="120" fill="#eee6d2" stroke="#1b1a16" stroke-width="3"/>
+    <text x="489" y="135" font-family="SFMono-Regular, Consolas, monospace" font-size="11" font-weight="800" fill="#8b441c">RUNTIME</text>
+    <text x="600" y="167" text-anchor="middle" font-family="Georgia, 'Times New Roman', serif" font-size="21" font-weight="900" fill="#10100d">
+    <tspan x="600" dy="0">Parent run</tspan>
   </text>
+    <text x="600" y="209" text-anchor="middle" font-family="SFMono-Regular, Consolas, monospace" font-size="14" font-weight="700" fill="#6c665a">
+    <tspan x="600" dy="0">goal, topology, authority</tspan>
+  </text>
+  </g>
+  <g>
+    <rect x="90" y="330" width="200" height="120" fill="#eee6d2" stroke="#1b1a16" stroke-width="3"/>
+    <text x="104" y="350" font-family="SFMono-Regular, Consolas, monospace" font-size="11" font-weight="800" fill="#8b441c">RUNTIME</text>
+    <text x="190" y="382" text-anchor="middle" font-family="Georgia, 'Times New Roman', serif" font-size="21" font-weight="900" fill="#10100d">
+    <tspan x="190" dy="0">Child A</tspan>
+  </text>
+    <text x="190" y="416" text-anchor="middle" font-family="SFMono-Regular, Consolas, monospace" font-size="14" font-weight="700" fill="#6c665a">
+    <tspan x="190" dy="0">scoped task and</tspan>
+    <tspan x="190" dy="16">context</tspan>
+  </text>
+  </g>
+<g>
+    <rect x="500" y="330" width="200" height="120" fill="#eee6d2" stroke="#1b1a16" stroke-width="3"/>
+    <text x="514" y="350" font-family="SFMono-Regular, Consolas, monospace" font-size="11" font-weight="800" fill="#8b441c">RUNTIME</text>
+    <text x="600" y="382" text-anchor="middle" font-family="Georgia, 'Times New Roman', serif" font-size="21" font-weight="900" fill="#10100d">
+    <tspan x="600" dy="0">Child B</tspan>
+  </text>
+    <text x="600" y="424" text-anchor="middle" font-family="SFMono-Regular, Consolas, monospace" font-size="14" font-weight="700" fill="#6c665a">
+    <tspan x="600" dy="0">separate lifecycle</tspan>
+  </text>
+  </g>
+<g>
+    <rect x="910" y="330" width="200" height="120" fill="#eee6d2" stroke="#1b1a16" stroke-width="3"/>
+    <text x="924" y="350" font-family="SFMono-Regular, Consolas, monospace" font-size="11" font-weight="800" fill="#8b441c">RUNTIME</text>
+    <text x="1010" y="382" text-anchor="middle" font-family="Georgia, 'Times New Roman', serif" font-size="21" font-weight="900" fill="#10100d">
+    <tspan x="1010" dy="0">Child C</tspan>
+  </text>
+    <text x="1010" y="424" text-anchor="middle" font-family="SFMono-Regular, Consolas, monospace" font-size="14" font-weight="700" fill="#6c665a">
+    <tspan x="1010" dy="0">correlated events</tspan>
+  </text>
+  </g>
+  <path d="M600 235L190 330" fill="none" stroke="#1b1a16" stroke-width="3" marker-end="url(#arrow)"/>
+<path d="M600 235L600 330" fill="none" stroke="#1b1a16" stroke-width="3" marker-end="url(#arrow)"/>
+<path d="M600 235L1010 330" fill="none" stroke="#1b1a16" stroke-width="3" marker-end="url(#arrow)"/>
+  <path d="M190 450L600 540" fill="none" stroke="#1b1a16" stroke-width="3" marker-end="url(#arrow)"/>
+<path d="M600 450L600 540" fill="none" stroke="#1b1a16" stroke-width="3" marker-end="url(#arrow)"/>
+<path d="M1010 450L600 540" fill="none" stroke="#1b1a16" stroke-width="3" marker-end="url(#arrow)"/>
+  <g>
+    <rect x="450" y="540" width="300" height="105" fill="#eee6d2" stroke="#1b1a16" stroke-width="3"/>
+    <text x="464" y="560" font-family="SFMono-Regular, Consolas, monospace" font-size="11" font-weight="800" fill="#8b441c">RUNTIME</text>
+    <text x="600" y="592" text-anchor="middle" font-family="Georgia, 'Times New Roman', serif" font-size="21" font-weight="900" fill="#10100d">
+    <tspan x="600" dy="0">Verify and merge</tspan>
+  </text>
+    <text x="600" y="631" text-anchor="middle" font-family="SFMono-Regular, Consolas, monospace" font-size="14" font-weight="700" fill="#6c665a">
+    <tspan x="600" dy="0">lineage, freshness, result</tspan>
+  </text>
+  </g>
 </svg>

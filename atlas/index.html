@@ -4,14 +4,14 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>How AI Agents Work | The Git Reporter</title>
-  <meta name="description" content="A source-code-grounded season about the hidden machinery that turns a language model into an actor: context, tools, loops, memory, delegation, safety, interface, and trust.">
+  <meta name="description" content="A field guide to coding-agent runtimes: what the model can see, what the runtime coordinates, what the operator can approve, and what the environment actually enforces.">
   <meta name="robots" content="index,follow">
   <link rel="canonical" href="https://thegitreporter.com/atlas/">
   <link rel="alternate" type="application/rss+xml" title="The Git Reporter" href="https://thegitreporter.com/feed.xml">
   <meta property="og:site_name" content="The Git Reporter">
   <meta property="og:locale" content="en_US">
   <meta property="og:title" content="How AI Agents Work | The Git Reporter">
-  <meta property="og:description" content="A source-code-grounded season about the hidden machinery that turns a language model into an actor: context, tools, loops, memory, delegation, safety, interface, and trust.">
+  <meta property="og:description" content="A field guide to coding-agent runtimes: what the model can see, what the runtime coordinates, what the operator can approve, and what the environment actually enforces.">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://thegitreporter.com/atlas/">
   <meta property="og:image" content="https://thegitreporter.com/assets/social/thegitreporter-default-og.jpg">
@@ -24,7 +24,7 @@
   <meta name="twitter:site" content="@TheGitReporter">
   <meta name="twitter:creator" content="@TheGitReporter">
   <meta name="twitter:title" content="How AI Agents Work | The Git Reporter">
-  <meta name="twitter:description" content="A source-code-grounded season about the hidden machinery that turns a language model into an actor: context, tools, loops, memory, delegation, safety, interface, and trust.">
+  <meta name="twitter:description" content="A field guide to coding-agent runtimes: what the model can see, what the runtime coordinates, what the operator can approve, and what the environment actually enforces.">
   <meta name="twitter:url" content="https://thegitreporter.com/atlas/">
   <meta name="twitter:domain" content="thegitreporter.com">
   <meta name="twitter:image" content="https://thegitreporter.com/assets/social/thegitreporter-default-og.jpg">
@@ -63,110 +63,139 @@
         <section class="page-hero atlas-hero">
           <div class="eyebrow">Agent Atlas</div>
           <h1>How AI Agents Work</h1>
-          <p class="summary">A source-code-grounded season about the hidden machinery that turns a language model into an actor: context, tools, loops, memory, delegation, safety, interface, and trust.</p>
+          <p class="summary">A field guide to coding-agent runtimes: what the model can see, what the runtime coordinates, what the operator can approve, and what the environment actually enforces.</p>
         </section>
 
         <section class="atlas-season-note">
-          <div class="about-rule-label">Season Promise</div>
-          <p>The reader starts with a familiar shortcut: an agent is a chatbot that can use tools. The season replaces that shortcut with a working map: an agent is a layered software system that assembles a world, acts through constrained interfaces, keeps state, asks for permission, delegates work, and leaves evidence behind.</p>
+          <div class="about-rule-label">The Problem</div>
+          <p>The phrase AI agent hides several different systems. A model proposes. A runtime assembles context, authorizes requests, and coordinates work. An operator supplies intent and approves scoped requests. An executor acts under a bound principal. The environment accepts, rejects, and persists effects. Confusing those roles makes failures look mysterious and trust impossible to justify.</p>
         </section>
+
+        <section class="atlas-scope-note">
+                <div class="about-rule-label">Evidence Boundary</div>
+                <p>Coding agents provide unusually inspectable evidence because their runtimes, tools, permissions, and failure handling often develop in public. This Atlas uses that evidence to explain mechanisms that also appear elsewhere, without claiming that coding-agent implementations represent every agent domain.</p>
+              </section>
+
+        <figure class="atlas-reference-figure">
+                <picture>
+                  <source media="(max-width: 47.99rem)" srcset="/assets/atlas/atlas-reference-architecture-mobile.svg">
+                  <img src="/assets/atlas/atlas-reference-architecture.svg" alt="A reference flow shows an operator goal entering a session and context compiler, a model proposing actions, a runtime orchestrator and policy layer authorizing tools, and a bound executor producing effects in an environment." loading="eager" decoding="async">
+                </picture>
+                <figcaption>No single plane is the agent. Agency emerges where context, authorization, execution, and evidence cross explicit boundaries.</figcaption>
+              </figure>
 
         <section class="section atlas-section atlas-why-now">
                 <div class="section-title-row">
-                  <h2>Why This Matters Now</h2>
+                  <h2>The Stakes</h2>
                   <a href="/">Today &rsaquo;</a>
                 </div>
-                <p>This matters now because the Daily Edition has spent recent issues watching the same architecture emerge from separate source trails: failure states turning into instructions, agent work getting a back button, policy arriving through delivered layers, tool menus becoming runtime infrastructure, and context becoming state.</p><p>Agent Atlas is the map behind those front pages. It lets a reader move from today's commit-level story to the durable anatomy of the systems being built.</p>
+                <p>The most consequential changes in agent systems increasingly arrive outside model releases. They appear in context assemblers, tool brokers, permission rules, memory stores, delegation paths, recovery controls, and evidence trails.</p><p>Those mechanisms decide whether a capable model becomes a bounded worker, an accountable team member, or an opaque process with access to the world.</p>
                 <div class="atlas-link-list">
-    <a href="/articles/2026-06-03-daily-agent-failure-states-are-becoming-instructions/">
+    <a href="/articles/2026-06-03-daily-agent-failure-states-are-becoming-instructions/#evidence">
           <span>Agent Failure States Are Becoming Instructions</span>
           <p>Today's runtime story: failure is being turned into guidance.</p>
-        </a><a href="/articles/2026-06-02-daily-agent-work-is-getting-a-back-button/">
+        </a><a href="/articles/2026-06-02-daily-agent-work-is-getting-a-back-button/#evidence">
           <span>Agent Work Is Getting a Back Button</span>
           <p>The recovery story: long-running agent work needs reversibility.</p>
-        </a><a href="/articles/2026-06-01-daily-agent-policy-is-moving-into-delivered-layers/">
+        </a><a href="/articles/2026-06-01-daily-agent-policy-is-moving-into-delivered-layers/#evidence">
           <span>Agent Policy Is Moving Into Delivered Layers</span>
           <p>The control story: rules increasingly arrive through layered config and entitlement paths.</p>
         </a>
   </div>
               </section>
 
+        <section class="section atlas-section atlas-comparison">
+    <div class="section-title-row">
+      <h2>Where Runtimes Disagree</h2>
+    </div>
+    <p>The projects do not converge on one implementation. Their disagreements reveal where architecture is still unsettled.</p>
+    <div class="atlas-comparison-grid">
+      <article>
+            <h3>Before the first request</h3>
+            <p>Codex inspects pending input and starts children through hooks; Gemini CLI can block or add context before agent work.</p>
+            <div><span>Open tension</span>Hidden preparation can improve control while making the effective request harder for the operator to reconstruct.</div>
+          </article><article>
+            <h3>Tool authorization</h3>
+            <p>Crush classifies concrete shell composition; Hermes propagates approval context into worker threads; Codex gates tool registration and hooks.</p>
+            <div><span>Open tension</span>A valid schema, a registered tool, an approved request, and an executor's actual authority remain different facts.</div>
+          </article><article>
+            <h3>Recovery</h3>
+            <p>Hermes soft-deletes transcript rows for auditable undo; Codex restores only early-cancelled input before substantive work becomes visible.</p>
+            <div><span>Open tension</span>Conversation recovery is improving faster than reliable reversal of external effects.</div>
+          </article><article>
+            <h3>Delegation and identity</h3>
+            <p>Codex separates parentage from copied history; Hermes emits correlated lifecycle identities; Crush scopes errors to a caller RunID.</p>
+            <div><span>Open tension</span>Parallel work becomes useful only when events and results retain a return address.</div>
+          </article>
+    </div>
+  </section>
+
         <section class="section atlas-section">
           <div class="section-title-row">
-            <h2>The Season</h2>
+            <h2>The Case Files</h2>
             <span>10 chapters</span>
           </div>
           <div class="atlas-chapter-grid">
             <a class="atlas-chapter-card" href="/atlas/birth-of-an-agent/">
     <div class="atlas-chapter-number">Chapter 1 / 10</div>
-    <img src="/assets/atlas/atlas-01-birth-of-an-agent.svg" alt="Birth of an Agent diagram from Agent Atlas." loading="lazy" decoding="async">
-    <h3>Birth of an Agent</h3>
-    <p>An agent is not born when a user types a prompt. It begins when software turns raw model capability into a bounded actor with identity, context, tools, permissions, and a route back to the human.</p>
-    <div class="atlas-card-question">When does an agent actually begin?</div>
+    <h3>Before the First Model Request</h3>
+    <p>A prompt reaches the model only after the runtime has restored state, resolved permissions, selected tool behavior, run interception hooks, and decided which hidden instructions belong in the request.</p>
+    <div class="atlas-card-question">The visible prompt is one input to a runtime sequence that resolves identity, control state, and hidden instructions.</div>
   </a><a class="atlas-chapter-card" href="/atlas/what-an-agent-can-see/">
     <div class="atlas-chapter-number">Chapter 2 / 10</div>
-    <img src="/assets/atlas/atlas-02-what-an-agent-can-see.svg" alt="What an Agent Can See diagram from Agent Atlas." loading="lazy" decoding="async">
-    <h3>What an Agent Can See</h3>
-    <p>An agent's intelligence is inseparable from its perception machinery: files, thread history, tool schemas, memory, repo state, policy, logs, and the parts deliberately left outside the window.</p>
-    <div class="atlas-card-question">What enters the agent's world before it acts?</div>
+    <h3>The Invisible Prompt</h3>
+    <p>The model acts on an assembled viewport containing visible messages, hidden turn context, path-triggered instructions, memory records, tool schemas, permissions, and inherited state.</p>
+    <div class="atlas-card-question">The model request is assembled from visible and hidden layers; excluded information remains outside the decision viewport.</div>
   </a><a class="atlas-chapter-card" href="/atlas/hands-in-the-world/">
     <div class="atlas-chapter-number">Chapter 3 / 10</div>
-    <img src="/assets/atlas/atlas-03-hands-in-the-world.svg" alt="Hands in the World diagram from Agent Atlas." loading="lazy" decoding="async">
-    <h3>Hands in the World</h3>
-    <p>Tools are the agent's hands, but also its legal system: in mature agent systems, capabilities are increasingly named, described, parameterized, logged, blocked, retried, or exposed to human approval.</p>
-    <div class="atlas-card-question">How does an agent move from text to action?</div>
+    <h3>Tool Calls: Contract, Authorization, Execution</h3>
+    <p>A tool call crosses independently governed boundaries: schema, registration, policy, approval, execution authority, result handling, and audit.</p>
+    <div class="atlas-card-question">A tool request becomes an action only after validation, policy, any required operator decision, bound execution, and environment enforcement.</div>
   </a><a class="atlas-chapter-card" href="/atlas/the-loop/">
     <div class="atlas-chapter-number">Chapter 4 / 10</div>
-    <img src="/assets/atlas/atlas-04-the-loop.svg" alt="The Loop diagram from Agent Atlas." loading="lazy" decoding="async">
-    <h3>The Loop</h3>
-    <p>The loop is the skeleton of agency: observe, decide, act, inspect, recover, and continue until the job is done or the system knows it should stop.</p>
-    <div class="atlas-card-question">Why do agents feel persistent instead of reactive?</div>
+    <h3>Loops, Workflows, and Recovery</h3>
+    <p>Repeated model-tool interaction is only one control structure. Production runtimes combine probabilistic loops with host-defined workflows, queues, interrupts, terminal states, and recovery operations.</p>
+    <div class="atlas-card-question">The workflow owns admissible transitions and blocks retry when an external effect may have committed without a known outcome.</div>
   </a><a class="atlas-chapter-card" href="/atlas/when-one-agent-becomes-many/">
     <div class="atlas-chapter-number">Chapter 5 / 10</div>
-    <img src="/assets/atlas/atlas-05-when-one-agent-becomes-many.svg" alt="When One Agent Becomes Many diagram from Agent Atlas." loading="lazy" decoding="async">
-    <h3>When One Agent Becomes Many</h3>
-    <p>Delegation changes the shape of agency: roles, handoffs, subagents, thread identity, isolated context windows, and supervision turn a single loop into an organization.</p>
-    <div class="atlas-card-question">Why are agent systems turning one worker into a team?</div>
+    <h3>Delegation Is a Distributed System</h3>
+    <p>A subagent is a remote worker with its own lifecycle, context snapshot, authority, failures, and result stream. Treating delegation as a prompt trick hides the contracts that determine whether the work can be trusted.</p>
+    <div class="atlas-card-question">Delegated work crosses control, policy, execution, observation, and integration boundaries.</div>
   </a><a class="atlas-chapter-card" href="/atlas/memory-is-not-one-thing/">
     <div class="atlas-chapter-number">Chapter 6 / 10</div>
-    <img src="/assets/atlas/atlas-06-memory-is-not-one-thing.svg" alt="Memory Is Not One Thing diagram from Agent Atlas." loading="lazy" decoding="async">
-    <h3>Memory Is Not One Thing</h3>
-    <p>Agent memory is a stack: current context, prior responses, summaries, files, vector stores, policy state, project instructions, human notes, and opaque compaction artifacts.</p>
-    <div class="atlas-card-question">What does an agent really remember?</div>
+    <h3>Memory Is a Typed Storage Contract</h3>
+    <p>Calling every retained fact memory obscures incompatible stores and guarantees. Thread history, notes, retrieval indexes, summaries, caches, and archives have different owners, lifetimes, and deletion behavior.</p>
+    <div class="atlas-card-question">Memory layers differ in lifespan, fidelity, ownership, retrieval cost, and correction path.</div>
   </a><a class="atlas-chapter-card" href="/atlas/friction-safety-and-approval/">
     <div class="atlas-chapter-number">Chapter 7 / 10</div>
-    <img src="/assets/atlas/atlas-07-friction-safety-and-approval.svg" alt="Friction, Safety, and Approval diagram from Agent Atlas." loading="lazy" decoding="async">
-    <h3>Friction, Safety, and Approval</h3>
-    <p>Friction is not the opposite of agency. In powerful systems, approval prompts, sandbox rules, deny lists, entitlement checks, and guardrails are how agency becomes survivable.</p>
-    <div class="atlas-card-question">Why do useful agents keep stopping to ask?</div>
+    <h3>The Approval Trap</h3>
+    <p>Approval is useful only when it catches a meaningful change in authority, explains that change, and keeps the decision attached to the work.</p>
+    <div class="atlas-card-question">Useful friction appears where authority changes; repeated low-value prompts feed broad bypass modes.</div>
   </a><a class="atlas-chapter-card" href="/atlas/the-human-interface/">
     <div class="atlas-chapter-number">Chapter 8 / 10</div>
-    <img src="/assets/atlas/atlas-08-the-human-interface.svg" alt="The Human Interface diagram from Agent Atlas." loading="lazy" decoding="async">
-    <h3>The Human Interface</h3>
-    <p>The interface is not decoration. Status lines, traces, threads, approvals, diffs, queues, summaries, back buttons, and source receipts are how humans remain in command.</p>
-    <div class="atlas-card-question">How do humans stay oriented while agents work?</div>
+    <h3>The Human Control Loop</h3>
+    <p>A useful interface exposes active work, gives intervention a defined runtime effect, preserves evidence during correction, and resumes the intended session.</p>
+    <div class="atlas-card-question">Every intervention must return evidence showing what changed before work resumes.</div>
   </a><a class="atlas-chapter-card" href="/atlas/the-architecture-of-trust/">
-    <div class="atlas-chapter-number">Chapter 9 / 10</div>
-    <img src="/assets/atlas/atlas-09-the-architecture-of-trust.svg" alt="The Architecture of Trust diagram from Agent Atlas." loading="lazy" decoding="async">
-    <h3>The Architecture of Trust</h3>
-    <p>Trust is not a brand claim. It emerges from explicit state, visible boundaries, reversible work, careful memory, scoped tools, lineage, test rigs, and evidence trails.</p>
-    <div class="atlas-card-question">Why do some agents feel reliable while others feel uncanny?</div>
+    <div class="atlas-chapter-number">Synthesis / Chapter 9 / 10</div>
+    <h3>Trust Must Make Its Case</h3>
+    <p>Trustworthy behavior is not a personality trait or product promise. It is an assurance case built from inspectable policy provenance, durable control state, bounded execution, traceable lineage, recoverable records, and explicit residual risk.</p>
+    <div class="atlas-card-question">A trust claim requires policy, runtime, lineage, and recovery evidence while unresolved risks remain visible.</div>
   </a><a class="atlas-chapter-card" href="/atlas/what-comes-next/">
-    <div class="atlas-chapter-number">Chapter 10 / 10</div>
-    <img src="/assets/atlas/atlas-10-what-comes-next.svg" alt="What Comes Next diagram from Agent Atlas." loading="lazy" decoding="async">
-    <h3>What Comes Next</h3>
-    <p>The next agent era is not a single invention. It is a convergence of protocols, tool markets, delegated workers, memory layers, managed policy, recoverable loops, and interfaces that make machine work discussable.</p>
-    <div class="atlas-card-question">What future is already visible in today's source code?</div>
+    <div class="atlas-chapter-number">Forecast / Chapter 10 / 10</div>
+    <h3>The Future Has Three Branches</h3>
+    <p>There is no single inevitable agent future. Current source evidence supports three competing scenarios: supervised software organizations, governed capability markets, and managed but less inspectable runtime stacks.</p>
+    <div class="atlas-card-question">Current mechanisms branch into competing futures depending on whether identity, capabilities, and managed policy become more inspectable or more opaque.</div>
   </a>
           </div>
         </section>
 
         <section class="section atlas-section">
           <div class="section-title-row">
-            <h2>Reporting Method</h2>
+            <h2>Source Discipline</h2>
           </div>
           <div class="atlas-method-list">
-    <div>Start from source evidence, not product mythology.</div><div>Use real agent repos and official docs as anatomy, not as brand protagonists.</div><div>Connect each long-form chapter back to Daily Edition reporting so readers can see the field changing in public.</div><div>Name the uncertainty: one implementation does not prove a standard, but repeated pressure across repos reveals the shape of the stack.</div>
+    <div>Begin with a source-visible mechanism, not a product claim.</div><div>Keep model proposals, runtime control, operator supervision, and environment enforcement distinct.</div><div>Place evidence beside the claim it supports, then state what the evidence cannot prove.</div><div>Name failure signals and give readers an inspection test they can reuse.</div>
   </div>
         </section>
 

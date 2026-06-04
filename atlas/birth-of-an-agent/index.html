@@ -3,15 +3,15 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Birth of an Agent - How AI Agents Work | The Git Reporter</title>
-  <meta name="description" content="An agent is not born when a user types a prompt. It begins when software turns raw model capability into a bounded actor with identity, context, tools, permissions, and a route back to the human.">
+  <title>Before the First Model Request - How AI Agents Work | The Git Reporter</title>
+  <meta name="description" content="A prompt reaches the model only after the runtime has restored state, resolved permissions, selected tool behavior, run interception hooks, and decided which hidden instructions belong in the request.">
   <meta name="robots" content="index,follow">
   <link rel="canonical" href="https://thegitreporter.com/atlas/birth-of-an-agent/">
   <link rel="alternate" type="application/rss+xml" title="The Git Reporter" href="https://thegitreporter.com/feed.xml">
   <meta property="og:site_name" content="The Git Reporter">
   <meta property="og:locale" content="en_US">
-  <meta property="og:title" content="Birth of an Agent - How AI Agents Work | The Git Reporter">
-  <meta property="og:description" content="An agent is not born when a user types a prompt. It begins when software turns raw model capability into a bounded actor with identity, context, tools, permissions, and a route back to the human.">
+  <meta property="og:title" content="Before the First Model Request - How AI Agents Work | The Git Reporter">
+  <meta property="og:description" content="A prompt reaches the model only after the runtime has restored state, resolved permissions, selected tool behavior, run interception hooks, and decided which hidden instructions belong in the request.">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://thegitreporter.com/atlas/birth-of-an-agent/">
   <meta property="og:image" content="https://thegitreporter.com/assets/social/thegitreporter-default-og.jpg">
@@ -23,8 +23,8 @@
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:site" content="@TheGitReporter">
   <meta name="twitter:creator" content="@TheGitReporter">
-  <meta name="twitter:title" content="Birth of an Agent - How AI Agents Work | The Git Reporter">
-  <meta name="twitter:description" content="An agent is not born when a user types a prompt. It begins when software turns raw model capability into a bounded actor with identity, context, tools, permissions, and a route back to the human.">
+  <meta name="twitter:title" content="Before the First Model Request - How AI Agents Work | The Git Reporter">
+  <meta name="twitter:description" content="A prompt reaches the model only after the runtime has restored state, resolved permissions, selected tool behavior, run interception hooks, and decided which hidden instructions belong in the request.">
   <meta name="twitter:url" content="https://thegitreporter.com/atlas/birth-of-an-agent/">
   <meta name="twitter:domain" content="thegitreporter.com">
   <meta name="twitter:image" content="https://thegitreporter.com/assets/social/thegitreporter-default-og.jpg">
@@ -62,64 +62,154 @@
     <main class="wrap page-shell atlas-chapter-page">
         <section class="page-hero atlas-chapter-hero">
           <div class="eyebrow">Agent Atlas / Chapter 1</div>
-          <h1>Birth of an Agent</h1>
-          <p class="summary">An agent is not born when a user types a prompt. It begins when software turns raw model capability into a bounded actor with identity, context, tools, permissions, and a route back to the human.</p>
+          <h1>Before the First Model Request</h1>
+          <p class="summary">A prompt reaches the model only after the runtime has restored state, resolved permissions, selected tool behavior, run interception hooks, and decided which hidden instructions belong in the request.</p>
+          <div class="atlas-chapter-invariant">
+            <span>Working question</span>
+            <p>What has the runtime already decided when the model receives its first request?</p>
+            <strong>An agent begins when the runtime commits an operating envelope, not when the model produces text.</strong>
+          </div>
           <div class="atlas-chapter-nav" aria-label="Atlas chapter navigation">
     <span>First chapter</span>
-    <a href="/atlas/">Season map</a>
-    <a href="/atlas/what-an-agent-can-see/">Chapter 2: What an Agent Can See &rsaquo;</a>
+    <a href="/atlas/">Atlas index</a>
+    <a href="/atlas/what-an-agent-can-see/">Chapter 2: The Invisible Prompt &rsaquo;</a>
   </div>
         </section>
 
         <figure class="atlas-figure">
-          <img src="/assets/atlas/atlas-01-birth-of-an-agent.svg" alt="Birth of an Agent diagram from Agent Atlas." loading="eager" decoding="async">
-          <figcaption><span>When does an agent actually begin?</span>The model supplies capability. The harness turns capability into conduct.</figcaption>
+          <picture>
+            <source media="(max-width: 47.99rem)" srcset="/assets/atlas/atlas-01-birth-of-an-agent-mobile.svg">
+            <img src="/assets/atlas/atlas-01-birth-of-an-agent.svg" alt="A six-step flow shows thread restoration, tool-mode resolution, pending input, prompt hooks, policy decisions, and the assembled model request." loading="eager" decoding="async">
+          </picture>
+          <figcaption>
+            <span>Before the first model request</span>
+            The visible prompt is one input to a runtime sequence that resolves identity, control state, and hidden instructions.
+            <a href="/assets/atlas/atlas-01-birth-of-an-agent.svg">Open full-size diagram</a>
+          </figcaption>
         </figure>
 
         <section class="story-layout atlas-layout">
           <article class="story-shell story-body atlas-story-body">
-            <blockquote>The model supplies capability. The harness turns capability into conduct.</blockquote>
-            <section class="atlas-source-moment">
-        <h2>From the Daily trail</h2>
-        <p><a href="/articles/2026-03-20-daily-before-the-prompt-lands-codex-and-gemini-turn-hooks-into-agent-control-planes/">Before the Prompt Lands: Codex and Gemini Turn Hooks Into Agent Control Planes</a>: Shows that agent work can be inspected, enriched, blocked, or reshaped before the model sees the task.</p><p><a href="/articles/2026-03-23-daily-codex-forks-it-gemini-threads-it-execution-context-becomes-first-class/">Codex forks it, Gemini threads it: execution context becomes first-class</a>: Connects birth to thread identity, execution context, and forked work.</p>
-      </section><section>
-        <h2>The prompt is not the first moment</h2>
-        <p>The public myth says the agent begins at the prompt. The source trail says something more interesting: serious agent systems do work before the model says anything. They resolve a session, choose a role, attach policy, prepare the workspace, expose tools, and decide what kind of state will survive the turn.</p><p>That is why two products using similarly strong models can feel radically different. One feels like a cautious local worker, another like a team manager, another like a terminal-native collaborator. The difference is not only model quality. It is birth architecture.</p>
-      </section><section>
-        <h2>Birth means bounded identity</h2>
-        <p>The Daily Edition makes this concrete through hooks, thread identity, goals, context state, permission profiles, tool modes, and subagent lineage. Codex reporting repeatedly shows spawned work inheriting or carrying role, thread, permission, and parentage state. Gemini CLI's public docs and repo frame a terminal agent with built-in tools, MCP support, and subagent machinery.</p><p>The chapter's useful line is simple: identity is not only personality. It is also the set of boundaries that tells a model where it is, what job it has, what it may touch, and how its actions will be seen.</p>
-      </section><section>
-        <h2>Why this changes the reader's mental model</h2>
-        <p>A chatbot can answer. An agent is prepared to act. That preparation is the first architectural commitment. Before output, the system has already answered questions the user may never see: is this local or remote, ephemeral or durable, solo or delegated, sandboxed or trusted, interactive or backgrounded?</p><p>Once readers see birth as architecture, every later chapter becomes easier. Context is not just prompt text. Tools are not just buttons. Memory is not just a transcript. Safety is not an interruption. The agent is a designed actor from its first breath.</p>
+            <section class="atlas-case-file">
+    <div class="atlas-case-kicker">Case file 01 / A prompt before acceptance</div>
+    <h2>The prompt that had not yet entered the conversation</h2>
+    <p>In Codex, submitted text can wait in pending input while a UserPromptSubmit hook inspects the session, turn, working directory, transcript, model, permission mode, and prompt. Only after that inspection does the runtime commit the message into the turn.</p><p>The hook can allow the prompt, block it with a reason, stop processing, or attach context. Plain-text hook output can become DeveloperInstructions, placing machine-supplied material above ordinary user text. The first model request can therefore differ materially from the sentence visible in the composer.</p>
+  </section><section class="atlas-mechanism">
+    <div class="atlas-case-kicker">Mechanism trace</div>
+    <h2>What actually happens</h2>
+    <ol>
+      <li>
+            <span>Restore thread</span>
+            <p>goal, lineage, permissions</p>
+          </li><li>
+            <span>Resolve tool mode</span>
+            <p>model-specific action surface</p>
+          </li><li>
+            <span>Buffer prompt</span>
+            <p>pending input</p>
+          </li><li>
+            <span>Run hooks</span>
+            <p>inspect, block, add context</p>
+          </li><li>
+            <span>Commit turn</span>
+            <p>record accepted state</p>
+          </li><li>
+            <span>Invoke model</span>
+            <p>assembled decision envelope</p>
+          </li>
+    </ol>
+  </section><section>
+        <h2>The first request carries a contract</h2>
+        <p>Codex commit a1ecf0cf replaces thread-store SandboxPolicy fields with canonical PermissionProfile fields. The runtime persists the profile as JSON, continues reading legacy values, and propagates it through local storage, in-memory storage, live metadata synchronization, and rollout extraction. Permission is durable session data rather than a transient prompt label.</p><p>Commit 5577a9e1 resolves model tool behavior into direct, code_mode, or code_mode_only. The selected ToolMode lives on TurnContext and participates in turn creation, model switches, review turns, tool planning, and code execution. Two turns with identical visible prompts can receive different action surfaces.</p>
       </section>
+      <aside class="atlas-inline-receipt">
+    <div class="atlas-receipt-head">
+      <span>Code receipt</span>
+      <a href="https://github.com/openai/codex/commit/a1ecf0cf1c25985b2c0e01103b7ddf8cf9fcc051">Permission profile persistence</a>
+    </div>
+    <p><strong>Mechanism:</strong> Codex commit a1ecf0cf carries canonical PermissionProfile metadata through storage, synchronization, and rollout paths.</p>
+    <p><strong>Implication:</strong> A resumed turn can recover the operating permissions under which the thread is meant to run.</p>
+    <p><strong>Limit:</strong> Persistence does not prove that every surface displays or enforces the effective profile.</p>
+  </aside><section>
+        <h2>The prompt crosses an execution boundary</h2>
+        <p>Codex places prompt inspection before history is finalized. That ordering lets policy or project automation reject malformed work, add repository-specific instructions, or prevent a turn from starting. It also creates a privileged boundary where invisible software can rewrite the effective request before the model sees it.</p><p>Gemini CLI exposes a comparable boundary through BeforeAgent. Hook output can block execution or return additionalContext, which is appended inside a delimiter. Tests escape delimiter-like text, acknowledging that injected context is itself an input-security surface.</p>
+      </section>
+      <aside class="atlas-inline-receipt">
+    <div class="atlas-receipt-head">
+      <span>Code receipt</span>
+      <a href="/articles/2026-03-20-daily-before-the-prompt-lands-codex-and-gemini-turn-hooks-into-agent-control-planes/#evidence">Prompt interception before turn acceptance</a>
+    </div>
+    <p><strong>Mechanism:</strong> pending_input is inspected by UserPromptSubmit before the turn records it; hook output can block the turn or become DeveloperInstructions.</p>
+    <p><strong>Implication:</strong> The effective first request is assembled by runtime code and may differ from the visible prompt.</p>
+    <p><strong>Limit:</strong> An interception point does not prove that added instructions are correct, disclosed, or consistently enforced.</p>
+  </aside><section>
+        <h2>The task gets a record separate from the message</h2>
+        <p>Codex PR 21981 fixed threads that began with a goal but failed to appear in resume lists because discovery depended on a normal first user message. The design added a separate thread preview field so the goal can supply display metadata without pretending the objective was literally the first message.</p><p>Separating goal, preview, and user-message fields prevents one value from carrying incompatible meanings. A runtime can preserve the objective, render a useful session label, and retain the original conversation without quietly rewriting one into another.</p>
+      </section>
+      <section>
+        <h2>A delegated worker has another first moment</h2>
+        <p>Codex commit d661ab70 adds SubagentStart, which runs after a child is created but before its first model request. The hook receives the child agent ID and resolved agent type, and its output can add context to the child conversation. The child begins inside a separately assembled envelope.</p><p>Later lineage fields make that envelope traceable. parent_thread_id identifies the spawning thread, subagent_kind records the child's role, and forked_from_thread_id records copied history. Parentage and inherited history are distinct facts; collapsing them makes permission, recovery, and audit records tell the wrong story.</p>
+      </section>
+      <aside class="atlas-inline-receipt">
+    <div class="atlas-receipt-head">
+      <span>Code receipt</span>
+      <a href="https://github.com/openai/codex/commit/d661ab70eda6bde758d7e48d6bf3638523cb014c">Subagent startup boundary</a>
+    </div>
+    <p><strong>Mechanism:</strong> Codex commit d661ab70 runs SubagentStart before a spawned child's first model request and can add child-specific context.</p>
+    <p><strong>Implication:</strong> A delegated worker receives a separately constructed identity and context before acting.</p>
+    <p><strong>Limit:</strong> The hook does not prove that inherited permissions or injected context are correct.</p>
+  </aside><section class="atlas-failure-section">
+    <div class="atlas-case-kicker">Failure modes</div>
+    <h2>Where the contract breaks</h2>
+    <div class="atlas-failure-grid">
+      <article>
+            <h3>Invisible instruction escalation</h3>
+            <p>Hook output can enter the request with more authority than ordinary user text.</p>
+            <div><span>Failure signal</span>The model follows a rule absent from the visible conversation.</div>
+          </article><article>
+            <h3>Control state disappears at a boundary</h3>
+            <p>A resume, model switch, worker, or child falls back when permission context is not propagated.</p>
+            <div><span>Failure signal</span>The same task gains different tools or sandbox access after a transition.</div>
+          </article><article>
+            <h3>Lineage fields collapse distinct relationships</h3>
+            <p>Parentage and copied history describe different inheritance paths.</p>
+            <div><span>Failure signal</span>Audit or recovery attributes work to the wrong originating thread.</div>
+          </article>
+    </div>
+  </section><section class="atlas-inspection">
+    <div class="atlas-case-kicker">Release tests</div>
+    <h2>What the product must prove</h2>
+    <ol><li>Show the resolved PermissionProfile, ToolMode, model, working directory, and hook results before the first request.</li><li>Distinguish submitted text, blocked text, and hook-added instructions in the input history.</li><li>Expose parent thread, fork source, child kind, and effective child context before delegated work starts.</li></ol>
+  </section>
           </article>
           <aside class="side-panel atlas-side-panel">
-            <h2>Chapter Receipts</h2>
+            <h2>Source Index</h2>
             <div class="evidence-table">
-              <div class="evidence-line"><span>Status</span><span>Published Atlas chapter</span></div>
-              <div class="evidence-line"><span>Question</span><span>When does an agent actually begin?</span></div>
-              <div class="evidence-line"><span>Evidence mix</span><span>Daily articles, repo knowledge base, official docs, public repos, research paper</span></div>
+              <div class="evidence-line"><span>Inline receipts</span><span>3 mechanisms</span></div>
+              <div class="evidence-line"><span>Journal trails</span><span>6 articles</span></div>
+              <div class="evidence-line"><span>External sources</span><span>3 sources</span></div>
+              
             </div>
 
             <section class="atlas-side-section">
               <h3>Journal Connections</h3>
               <div class="atlas-link-list">
-    <a href="/articles/2026-03-20-daily-before-the-prompt-lands-codex-and-gemini-turn-hooks-into-agent-control-planes/">
+    <a href="/articles/2026-03-20-daily-before-the-prompt-lands-codex-and-gemini-turn-hooks-into-agent-control-planes/#evidence">
           <span>Before the Prompt Lands: Codex and Gemini Turn Hooks Into Agent Control Planes</span>
           <p>Shows that agent work can be inspected, enriched, blocked, or reshaped before the model sees the task.</p>
-        </a><a href="/articles/2026-03-23-daily-codex-forks-it-gemini-threads-it-execution-context-becomes-first-class/">
+        </a><a href="/articles/2026-03-23-daily-codex-forks-it-gemini-threads-it-execution-context-becomes-first-class/#evidence">
           <span>Codex forks it, Gemini threads it: execution context becomes first-class</span>
           <p>Connects birth to thread identity, execution context, and forked work.</p>
-        </a><a href="/articles/2026-05-21-daily-agent-goals-are-becoming-runtime-state/">
+        </a><a href="/articles/2026-05-21-daily-agent-goals-are-becoming-runtime-state/#evidence">
           <span>Agent Goals Are Becoming Runtime State</span>
           <p>Shows the task envelope becoming durable runtime state.</p>
-        </a><a href="/articles/2026-05-27-daily-agent-context-becomes-runtime-state/">
+        </a><a href="/articles/2026-05-27-daily-agent-context-becomes-runtime-state/#evidence">
           <span>Agent Context Becomes Runtime State</span>
           <p>Shows context, permissions, and delegation state traveling through execution.</p>
-        </a><a href="/articles/2026-05-30-daily-agent-control-settings-are-becoming-session-state/">
+        </a><a href="/articles/2026-05-30-daily-agent-control-settings-are-becoming-session-state/#evidence">
           <span>Agent Control Settings Are Becoming Session State</span>
           <p>Shows permissions, tool modes, and subagent lineage moving into turn/session metadata.</p>
-        </a><a href="/articles/2026-05-23-daily-agent-runtimes-are-learning-to-ship-their-control-plane/">
+        </a><a href="/articles/2026-05-23-daily-agent-runtimes-are-learning-to-ship-their-control-plane/#evidence">
           <span>Agent Runtimes Are Learning to Ship Their Control Plane</span>
           <p>Shows the control plane becoming productized instead of hidden in runtime machinery.</p>
         </a>
@@ -142,19 +232,13 @@
   </div>
             </section>
 
-            <section class="atlas-side-section">
-              <h3>Watch Next</h3>
-              <ul class="atlas-watch-list">
-    <li>Which parts of agent identity become explicit in manifests, role files, or config?</li><li>Which parts remain hidden in runtime defaults?</li><li>Whether subagents inherit the parent's trust contract or quietly start a new one.</li>
-  </ul>
-            </section>
           </aside>
         </section>
 
         <div class="atlas-chapter-nav" aria-label="Atlas chapter navigation">
     <span>First chapter</span>
-    <a href="/atlas/">Season map</a>
-    <a href="/atlas/what-an-agent-can-see/">Chapter 2: What an Agent Can See &rsaquo;</a>
+    <a href="/atlas/">Atlas index</a>
+    <a href="/atlas/what-an-agent-can-see/">Chapter 2: The Invisible Prompt &rsaquo;</a>
   </div>
       </main>
     <footer class="wrap site-footer">
