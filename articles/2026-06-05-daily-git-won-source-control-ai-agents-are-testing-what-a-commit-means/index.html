@@ -1,0 +1,517 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Git Won Source Control. AI Agents Are Testing What a Commit Means | The Git Reporter</title>
+  <meta name="description" content="Linus Torvalds&#39;s first eleven-file commit made content-addressed history the durable core of software collaboration. Twenty-one years later, agents are multiplying branches, worktrees, commits, and pull requests - and forcing source management to answer who acted, why, and who is accountable.">
+  <meta name="robots" content="index,follow">
+  <link rel="canonical" href="https://thegitreporter.com/articles/2026-06-05-daily-git-won-source-control-ai-agents-are-testing-what-a-commit-means/">
+  <link rel="alternate" type="application/rss+xml" title="The Git Reporter" href="https://thegitreporter.com/feed.xml">
+  <meta property="og:site_name" content="The Git Reporter">
+  <meta property="og:locale" content="en_US">
+  <meta property="og:title" content="Git Won Source Control. AI Agents Are Testing What a Commit Means | The Git Reporter">
+  <meta property="og:description" content="Linus Torvalds&#39;s first eleven-file commit made content-addressed history the durable core of software collaboration. Twenty-one years later, agents are multiplying branches, worktrees, commits, and pull requests - and forcing source management to answer who acted, why, and who is accountable.">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://thegitreporter.com/articles/2026-06-05-daily-git-won-source-control-ai-agents-are-testing-what-a-commit-means/">
+  <meta property="og:image" content="https://thegitreporter.com/assets/social/2026-06-05-daily-git-won-source-control-ai-agents-are-testing-what-a-commit-means-og.jpg">
+  <meta property="og:image:secure_url" content="https://thegitreporter.com/assets/social/2026-06-05-daily-git-won-source-control-ai-agents-are-testing-what-a-commit-means-og.jpg">
+  <meta property="og:image:type" content="image/jpeg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="A rough zine diagram connects Git&#39;s compact 2005 root-commit record through a forge layer of review and checks to three parallel agent worktrees, while a missing-context strip lists delegation and session details outside the commit.">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:site" content="@TheGitReporter">
+  <meta name="twitter:creator" content="@TheGitReporter">
+  <meta name="twitter:title" content="Git Won Source Control. AI Agents Are Testing What a Commit Means | The Git Reporter">
+  <meta name="twitter:description" content="Linus Torvalds&#39;s first eleven-file commit made content-addressed history the durable core of software collaboration. Twenty-one years later, agents are multiplying branches, worktrees, commits, and pull requests - and forcing source management to answer who acted, why, and who is accountable.">
+  <meta name="twitter:url" content="https://thegitreporter.com/articles/2026-06-05-daily-git-won-source-control-ai-agents-are-testing-what-a-commit-means/">
+  <meta name="twitter:domain" content="thegitreporter.com">
+  <meta name="twitter:image" content="https://thegitreporter.com/assets/social/2026-06-05-daily-git-won-source-control-ai-agents-are-testing-what-a-commit-means-og.jpg">
+  <meta name="twitter:image:alt" content="A rough zine diagram connects Git&#39;s compact 2005 root-commit record through a forge layer of review and checks to three parallel agent worktrees, while a missing-context strip lists delegation and session details outside the commit.">
+  <meta property="article:published_time" content="2026-06-05T12:00:00Z">
+  <meta property="article:modified_time" content="2026-06-05T12:00:00Z">
+  <meta property="article:section" content="Daily Edition">
+  <meta property="article:tag" content="Permissions">
+  <meta property="article:tag" content="Memory">
+  <meta property="article:tag" content="Delegation">
+  <meta property="article:tag" content="Tools">
+  <meta property="article:tag" content="git/git">
+  <meta property="article:tag" content="openai/codex">
+  <meta property="article:tag" content="google-gemini/gemini-cli">
+  <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"https://thegitreporter.com/#organization","name":"The Git Reporter","url":"https://thegitreporter.com","logo":{"@type":"ImageObject","url":"https://thegitreporter.com/assets/mark.svg"},"sameAs":["https://x.com/TheGitReporter"]},{"@type":"WebSite","@id":"https://thegitreporter.com/#website","name":"The Git Reporter","url":"https://thegitreporter.com","publisher":{"@id":"https://thegitreporter.com/#organization"}},{"@type":"NewsArticle","mainEntityOfPage":{"@type":"WebPage","@id":"https://thegitreporter.com/articles/2026-06-05-daily-git-won-source-control-ai-agents-are-testing-what-a-commit-means/"},"headline":"Git Won Source Control. AI Agents Are Testing What a Commit Means","description":"Linus Torvalds's first eleven-file commit made content-addressed history the durable core of software collaboration. Twenty-one years later, agents are multiplying branches, worktrees, commits, and pull requests - and forcing source management to answer who acted, why, and who is accountable.","image":["https://thegitreporter.com/assets/social/2026-06-05-daily-git-won-source-control-ai-agents-are-testing-what-a-commit-means-og.jpg"],"datePublished":"2026-06-05T12:00:00Z","dateModified":"2026-06-05T12:00:00Z","author":[{"@type":"Organization","name":"The Git Reporter","url":"https://thegitreporter.com"}],"publisher":{"@type":"Organization","@id":"https://thegitreporter.com/#organization","name":"The Git Reporter","url":"https://thegitreporter.com","logo":{"@type":"ImageObject","url":"https://thegitreporter.com/assets/mark.svg"},"sameAs":["https://x.com/TheGitReporter"]},"articleSection":"Daily Edition","keywords":"Permissions, Memory, Delegation, Tools, git/git, openai/codex, google-gemini/gemini-cli"}]}</script>
+  <link rel="icon" href="/assets/mark.svg">
+  <link rel="stylesheet" href="/assets/site.css?v=2026-05-30-about-layout-social-1">
+  <script defer src="/assets/feedback.js?v=2026-05-30-about-layout-social-1"></script>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-CH19T7M0T1"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){window.dataLayer.push(arguments);}
+    gtag("js", new Date());
+    gtag("config", "G-CH19T7M0T1");
+  </script>
+</head>
+<body>
+  <div class="site">
+    <header class="site-header" id="top">
+      <div class="wrap utility-row">
+        <a class="icon-link menu-icon" href="/archive/" aria-label="Open edition history"><span></span><span></span><span></span></a>
+        <a class="icon-link archive-icon" href="/archive/" aria-label="Open edition history"></a>
+      </div>
+      <div class="wrap masthead-lockup">
+        <a class="masthead-title" href="/">THE GIT REPORTER</a>
+        <div class="masthead-ornament" aria-hidden="true"></div>
+      </div>
+      <div class="wrap nav-wrap">
+        <nav class="paper-nav" aria-label="Primary navigation">
+    <a class="" href="/">Today</a><a class="active" href="/archive/">Editions</a><a class="" href="/about/">About</a><a class="" href="/atlas/">Agent Atlas</a><a class="" href="/repos/">Repos</a>
+  </nav>
+        <div class="nav-rule"></div>
+      </div>
+    </header>
+    <main class="wrap page-shell article-page">
+      <section class="page-hero story-front">
+        <div class="story-topline">
+          <span>Daily Edition</span>
+          <span>Sources <strong>+16</strong></span>
+        </div>
+        <h1>Git Won Source Control. AI Agents Are Testing What a Commit Means</h1>
+        <p class="summary">Linus Torvalds's first eleven-file commit made content-addressed history the durable core of software collaboration. Twenty-one years later, agents are multiplying branches, worktrees, commits, and pull requests - and forcing source management to answer who acted, why, and who is accountable.</p>
+        <figure class="story-illustration article-illustration">
+    <img src="/assets/illustrations/2026-06-05-git-won-source-control-ai-agents-are-testing-what-a-commit-means-diagram-punk-v1.jpg" alt="A rough zine diagram connects Git's compact 2005 root-commit record through a forge layer of review and checks to three parallel agent worktrees, while a missing-context strip lists delegation and session details outside the commit." loading="lazy" decoding="async">
+    <figcaption><span>Diagram Punk</span>Git still records the change; the agent era is forcing accountability into the layers around it.</figcaption>
+  </figure>
+        <div class="receipt">
+    <div class="receipt-line">
+      <span class="receipt-icon">repos</span>
+      <span class="receipt-main">git/git + 2 more</span>
+      <span class="branch-pill">evidence</span>
+    </div>
+    <div class="receipt-line receipt-muted">
+      <span>16 source signals</span>
+      <span>3 repos</span>
+      <span>3 linked commits</span>
+    </div>
+    <div class="commit-line">Evidence: 3 linked commits / June 5, 2026 / Daily Edition</div>
+  </div>
+        <div class="article-route-row">
+          <a href="/editions/2026-06-05/">Open Edition</a>
+          <a href="#evidence">Evidence below</a>
+        </div>
+      </section>
+      <section class="story-reader">
+        <article class="story-shell story-body">
+          <p>On April 7, 2005, Linus Torvalds committed eleven files and 1,244 lines to a new project with a deliberately hostile description: <a href="https://github.com/git/git/commit/e83c5163316f89bfbde7d9ab23ca2e25604af290">"Initial revision of 'git', the information manager from hell."</a></p>
+  <p>The repository did not yet contain the Git most developers know. There was no polished <code>git</code> command, no pull request, no merge queue, no web interface, no cloud runner, and no policy engine asking whether a change had passed review. There was a small collection of programs for writing objects, constructing trees, creating commits, reading a cache, and showing differences.</p>
+  <p>It was enough.</p>
+  <p>That first commit established a compact idea that would outlast almost every interface later built around it: software history could be represented as a graph of content-addressed objects, and a commit could point to a project state, its parent history, an author, a committer, and a message. Git would make the result durable and inspectable. People and institutions would decide whether to trust it.</p>
+  <p>Twenty-one years later, Git is still the substrate beneath most modern source collaboration. It is also being asked to carry a kind of work its first commit never described: changes proposed by AI agents operating in parallel, following repository instructions, invoking tools, inheriting permissions, and acting on behalf of people who may never touch the final diff.</p>
+  <p>The agents fit surprisingly well into the system Git helped create. They get branches. They get worktrees. They make commits. They open pull requests. They wait for checks and review. But the fit is revealing a gap between a commit as a record of content and a commit as a record of accountability.</p>
+  <p>Git won source control by keeping that distinction small and sharp. The next era may depend on what the software world builds around it.</p>
+
+  <h2>The first commit already drew the trust boundary</h2>
+  <p>Git began during a crisis in the Linux kernel's development process. The <a href="https://git-scm.com/book/en/v2/Getting-Started-A-Short-History-of-Git">official Git history</a> describes how the relationship between the Linux community and the commercial BitKeeper system broke down in 2005. Torvalds and other kernel developers needed a replacement that was fast, distributed, able to support non-linear development, and capable of handling a project as large as Linux.</p>
+  <p>Torvalds's <a href="https://lkml.org/lkml/2005/4/7/273">announcement to the Linux kernel mailing list</a> on the day of the first commit was practical rather than triumphant. He described a database intended to back up all history, said the goal was eventually to reach the capabilities the project had relied on before, and noted that early merge conflicts would still need to be resolved manually. Git did not arrive as a finished product. It arrived as a recoverable foundation.</p>
+  <p>The first README called it <strong>"the stupid content tracker"</strong> and described it as a fast directory content manager. Its object model separated raw file contents, directory trees, and changesets. Names and permissions lived in trees rather than blobs. History appeared through commits that connected a resulting tree to zero, one, or more parents.</p>
+  <p>The most consequential sentence in that README was not about speed. It was about trust: Git handled content integrity, while trust had to come from outside.</p>
+  <p>That was not a defect. It was an architectural decision. Git could tell whether an object matched its identifier and whether a history graph connected. It did not need to decide whether the person named as author had authority to make the change, whether a reviewer understood it, whether a test environment was trustworthy, or whether a release should reach production.</p>
+  <p>The core commit object still reflects that boundary. The <a href="https://git-scm.com/docs/git-commit-tree">current <code>git commit-tree</code> documentation</a> describes a commit constructed from a tree, parent commits, a log message, author and committer identity, and optional signing. The root commit had no parent because there was no history before it. Every later layer of social meaning could remain outside that object.</p>
+  <p>This separation made Git unusually adaptable. It also created the exact opening that today's agent systems are now trying to fill.</p>
+
+  <h2>Git became a toolkit before it became a product</h2>
+  <p>The first weeks of Git's history read like a source-control system assembling itself in public.</p>
+  <p>On April 8, the repository gained an early integrity checker. On April 9 came checkout and tree-diff tools. By April 11, revision traversal had appeared and the hidden database directory had been renamed from <code>.dircache</code> to <code>.git</code>. Patch scripts began tying the low-level commands into a usable workflow. Contributions from developers including Petr Baudis and Junio C Hamano appeared within days.</p>
+  <p>The pattern mattered. Git's early programs were deliberately small and composable. They made the graph visible and let higher-level workflows emerge around it. By May, <code>GIT_DIR</code> made the repository location configurable. By November, the project introduced a unified <code>git</code> command wrapper over the growing collection of tools. The porcelain became friendlier, but the plumbing remained available.</p>
+  <p>Git also outgrew its founder quickly. Torvalds created the core under pressure, but the public history became a community history. Junio C Hamano became the project's maintainer, and thousands of contributors spent the next two decades making the same object model work across new operating systems, network protocols, repository sizes, signing systems, storage formats, and collaboration habits.</p>
+  <p>The durability is visible in the current project. The <a href="https://git-scm.com/install/source.html">official source page lists Git 2.54.0 as the latest release</a> in April 2026. Its release work includes experiments in history inspection, improvements to worktrees and sparse repositories, object-source APIs, signing, tracing, and the continuing transition path away from assumptions tied to SHA-1. Git has not stopped evolving. It has kept evolving without abandoning the compact graph that made the first commit legible.</p>
+
+  <h2>The forge gave commits a social life</h2>
+  <p>Git solved distributed history. It did not, by itself, solve the institutional process of changing important software.</p>
+  <p>That work accumulated in the forge layer: GitHub, GitLab, Bitbucket, Gerrit, mailing-list workflows, CI services, release systems, and internal developer platforms. These systems turned a branch into a proposal and a commit into an object that could be discussed, checked, approved, queued, deployed, reverted, and audited.</p>
+  <p>GitHub's <a href="https://github.blog/news-insights/pull-requests-2-0/">2010 redesign of pull requests</a> made this transformation explicit by combining a request to merge code with issue-like conversation and review. The pull request became a social wrapper around Git's graph: a place to explain intent, challenge an implementation, attach checks, and decide whether the change belonged.</p>
+  <p>Over time, that wrapper became policy infrastructure. <a href="https://docs.github.com/en/repositories/configuring-branches-and-merges-in-your-repository/managing-protected-branches/about-protected-branches">Protected branches</a> can require approving reviews, status checks, signed commits, linear history, deployments, and code-owner approval. <a href="https://docs.github.com/en/repositories/configuring-branches-and-merges-in-your-repository/configuring-pull-request-merges/managing-a-merge-queue">Merge queues</a> test proposed changes against the state they will actually enter instead of trusting that each branch remains compatible with a moving target.</p>
+  <p>None of this needed a new Git commit format. The forge could store policy, conversation, test results, and approval state around the commit. Git stayed portable. The organization supplied the trust.</p>
+  <p>This division of labor is one reason Git became so difficult to displace. Competing workflows could share the same repository format. A developer could use a command line, an IDE, a graphical client, or a hosted forge without changing the underlying history. A company could add stricter policy without forking the object model. New tools did not have to replace Git to change how software was made.</p>
+
+  <h2>Agents arrived through the forge</h2>
+  <p>AI coding agents are entering source management through the same outer layers.</p>
+  <p>GitHub's <a href="https://docs.github.com/en/copilot/concepts/agents/cloud-agent/about-cloud-agent">cloud coding agent</a> works in an ephemeral GitHub Actions environment. It explores one repository, changes files, commits the result, pushes a branch, and opens a pull request for a person to review and merge. The agent is new. The delivery contract is familiar.</p>
+  <p>Local and terminal agents are converging on a similar pattern. In April, Gemini CLI merged <a href="https://github.com/google-gemini/gemini-cli/pull/22973">Git worktree support for isolated parallel sessions</a>. Each session can operate on its own branch and files while sharing repository history, reducing collisions when several agents or people work at once. OpenAI Codex added a <a href="https://github.com/openai/codex/commit/5a6efcf183cce7309a35cddcbdb5349f78de45a8">managed worktree workflow</a> in May and has continued refining how repository-specific files and settings reach those linked workspaces.</p>
+  <p>This is a striking reuse of a feature Git introduced long before multi-agent coding. <a href="https://git-scm.com/docs/git-worktree">Linked worktrees</a> let one repository provide multiple checked-out working trees. For an agent runtime, that becomes an isolation primitive: one task, one branch, one working directory, shared object storage.</p>
+  <p>The reuse is evidence of Git's strength. An agent does not need a special AI-native repository to do useful work. It can inherit the same branching, diffing, rebasing, checking, and review practices already understood by teams.</p>
+  <p>But agents are also generating new context that does not naturally live in a commit. Repositories increasingly contain instruction files that tell agents how to behave. GitHub supports <a href="https://docs.github.com/en/copilot/customizing-copilot/adding-repository-custom-instructions-for-github-copilot">repository-wide and path-specific Copilot instructions</a>. Codex's June 4 work on <a href="https://github.com/openai/codex/commit/e64b469bbcf2c2a6bb575ef0a58368f02147e899"><code>AGENTS.md</code> loading and provenance</a> preserves the ordered sources of instructions when a session starts, resumes, or forks.</p>
+  <p>The repository is no longer only the material an agent changes. It is also part of the control surface that tells the agent what it is allowed and expected to do.</p>
+
+  <h2>A commit can show the result, not the delegation</h2>
+  <p>Consider what Git can preserve after an agent completes a task.</p>
+  <p>The commit can identify the resulting tree. It can connect the result to its parents. It can name an author and committer, carry a message, and be signed. The diff can show exactly which tracked bytes changed. The branch and pull request can preserve discussion and checks.</p>
+  <p>But the commit does not inherently answer a growing set of questions:</p>
+  <ul>
+    <li>Which person delegated the work, and what authority did that person have?</li>
+    <li>Which agent, model, runtime version, tools, and permissions produced the result?</li>
+    <li>Which repository instructions and path-specific rules were loaded?</li>
+    <li>Was the session resumed, forked, handed off, or assembled from multiple agents?</li>
+    <li>What evidence did the agent inspect, and which uncertainty did it leave unresolved?</li>
+    <li>Which tests ran, in what environment, and who accepted the remaining risk?</li>
+  </ul>
+  <p>Some of these questions already existed for human-written code. Git author identity has never been a complete account of how a change came to exist. A developer can copy a patch, pair with a colleague, use a code generator, or make a commit on behalf of someone else. The forge and the organization carry much of the real accountability.</p>
+  <p>Agents increase the pressure because delegated work can be faster, more parallel, more persistent, and less directly observed. A person may approve a pull request containing changes created across several agent sessions without having watched any of them operate. The diff remains essential evidence, but it may be an incomplete explanation of the process that produced it.</p>
+  <p>The June 4 edition described how <a href="/articles/2026-06-04-daily-agent-events-are-getting-return-addresses/">agent events are getting return addresses</a>: runtimes are adding correlation and provenance so an event can be tied to the correct run, session, surface, and device. Source management is approaching the same problem at a longer timescale. A commit has an address in the history graph. Agent-made work also needs a legible address in the chain of delegation.</p>
+
+  <h2>The new bottleneck is not producing a diff</h2>
+  <p>For most of Git's life, creating a coherent patch required scarce human attention. Source-management workflows were built around reviewing a manageable stream of proposed changes.</p>
+  <p>Agents change that constraint. They can explore multiple approaches, prepare parallel branches, update tests, and keep working while the person who delegated the task does something else. The likely result is not the disappearance of review. It is more review pressure.</p>
+  <p>A pull request can prove that checks passed and record that someone clicked approve. It cannot guarantee that the reviewer understood the semantic consequences, noticed a missing requirement, or challenged a plausible but incorrect implementation. When producing code becomes cheaper, proving that a change should exist becomes more valuable.</p>
+  <p>This shifts source management toward questions of selection and accountability. Which agent branch deserves attention? Which changes can be merged together? Which decisions require human judgment? Which tests are meaningful rather than merely green? Which evidence should survive after the agent session disappears?</p>
+  <p>Merge queues and branch protection already offer part of the answer because they turn integration into a policy-governed process. Worktrees provide isolation. Pull requests provide a review boundary. Signed commits and attestations can strengthen identity and supply-chain claims. None of these alone explains the intent and delegated authority behind machine-made work.</p>
+
+  <h2>The Git-compatible future may live above Git</h2>
+  <p>The most interesting source-management experiments are not necessarily trying to replace Git's storage and interoperability. Many are trying to make the layer above it better suited to a world of abundant, parallel change.</p>
+  <p><a href="https://docs.jj-vcs.dev/latest/">Jujutsu</a> is a Git-compatible version-control system that treats the working copy as a commit, records repository operations in an operation log, automatically rebases descendant work, and makes conflicts first-class objects. Its <a href="https://docs.jj-vcs.dev/latest/git-compatibility/">Git compatibility layer</a> can use a colocated Git repository so changes remain visible to both systems. Its <a href="https://docs.jj-vcs.dev/latest/operation-log/">operation log</a> preserves actions that ordinary Git history does not, allowing a user to inspect, undo, and restore source-control operations.</p>
+  <p>That richer operational history is relevant to agents. If several automated workers reshape a stack of changes, the final commits may not be the only useful record. The sequence of operations, abandoned approaches, conflict resolutions, and handoffs can matter during review or recovery.</p>
+  <p>GitButler approaches the problem from another direction. Its <a href="https://docs.gitbutler.com/features/agents">agent workflows</a> tie parallel agents to branches, while its <a href="https://docs.gitbutler.com/features/virtual-branches/integration">virtual-branch integration</a> keeps additional workspace metadata outside the project's ordinary files and still produces normal Git branches at the repository boundary. The tool can change the working model without demanding that the rest of the software world stop speaking Git.</p>
+  <p>These projects do not prove that one replacement model will win. They show the design space opening around Git's stable core: richer operation logs, virtual or stacked changes, agent-session metadata, automated rebasing, and more explicit control over parallel work.</p>
+
+  <h2>The questions ahead</h2>
+  <p>Git's first commit survived because it did not try to encode every future workflow. That restraint remains a strength. It also means the next source-management contract is likely to be negotiated across repositories, agent runtimes, forges, CI systems, and organizational policy rather than delivered by one new commit field.</p>
+  <p>The unresolved questions are concrete.</p>
+  <p><strong>Who is the author of delegated work?</strong> A human may define the goal, an agent may write the code, another agent may revise it, a maintainer may commit it, and a reviewer may authorize the merge. Those are different roles. Collapsing them into one author line loses information; preserving all of them without creating unusable noise is a design problem.</p>
+  <p><strong>What provenance should travel with a change?</strong> Model and runtime versions, instruction sources, tool calls, test environments, approvals, and session lineage can improve auditability. They can also expose private prompts, internal paths, credentials, or sensitive reasoning. More context is not automatically more trustworthy.</p>
+  <p><strong>How will review scale?</strong> If agents can produce more branches than people can deeply inspect, status checks and policy engines will carry more weight. That makes the quality, ownership, and transparency of those checks part of source governance rather than mere automation.</p>
+  <p><strong>What is the durable unit of work?</strong> A commit is excellent at naming a project state. A pull request adds proposal and review. An agent session adds delegation and process. An operation log adds recovery. Future systems may need to connect all four without making repositories impossible to move or understand.</p>
+  <p><strong>Where does accountability stop?</strong> The first Git README placed trust outside the content tracker. In the agent era, "outside" is becoming a dense stack of people, policies, models, tools, and services. Teams will need to decide which layer is allowed to say a change is ready and which person remains answerable when it is not.</p>
+
+  <h2>The first commit is still the clue</h2>
+  <p>Git's legendary first commit did not win because it predicted pull requests, cloud CI, protected branches, worktrees, merge queues, or coding agents. It won because it created a durable way to name content and connect changes into history while leaving room for those systems to grow around it.</p>
+  <p>That architecture is holding. Agents are using Git rather than routing around it. They are making its isolation primitives and collaboration conventions more valuable. At the same time, they are making visible how much meaning has always lived outside the commit.</p>
+  <p>The next era of source management may not begin with a replacement for Git. It may begin with a more demanding answer to the question Git intentionally left open: if content integrity is the tracker's job, what evidence is required before everyone else should trust the change?</p>
+        </article>
+      </section>
+      <section class="evidence-section" id="evidence" aria-labelledby="evidence-title">
+    <div class="evidence-head">
+      <div>
+        <div class="eyebrow">Evidence Trail</div>
+        <h2 id="evidence-title">Receipts below the story</h2>
+        <p>The article above is the public narrative. This section keeps the source trail, limits, and reporting notes on the same page.</p>
+      </div>
+      <a class="paper-button" href="/editions/2026-06-05/">Edition</a>
+    </div>
+    <div class="evidence-table evidence-summary">
+      <div class="evidence-line"><span>Date</span><span>June 5, 2026</span></div>
+      <div class="evidence-line"><span>Lane</span><span>Daily Edition</span></div>
+      <div class="evidence-line"><span>Confidence</span><span>91%</span></div>
+      <div class="evidence-line"><span>Sources</span><span>16</span></div>
+      <div class="evidence-line"><span>Repos</span><span>git/git, openai/codex, google-gemini/gemini-cli</span></div>
+    </div>
+    <div class="markdown evidence-copy evidence-copy-block"><h3>Reporter Notes</h3><p>The story's strongest evidence is the continuity between Git's original trust</p>
+<p>boundary and current source-management architecture. The first README says the</p>
+<p>content tracker handles integrity while trust comes from outside. The commit</p>
+<p>object remains compact. Pull requests, checks, review, branch protection, and</p>
+<p>merge queues are all examples of the outside trust layer becoming more</p>
+<p>capable.</p>
+<p>The first commit is not framed as a polished launch. It is framed as a durable</p>
+<p>foundation built during the BitKeeper break. The rapid sequence of early</p>
+<p>commits, public contributions, <code>.git</code> rename, <code>GIT_DIR</code>, and unified command</p>
+<p>supports the description of Git assembling itself into a usable toolkit.</p>
+<p>The agent-era evidence supports adaptation, not replacement. GitHub's cloud</p>
+<p>agent, Gemini CLI, and Codex all deliver work through familiar Git/forge</p>
+<p>boundaries. Gemini CLI and Codex specifically reuse linked worktrees for</p>
+<p>isolation. This is evidence that Git remains useful under new pressure.</p>
+<p>The accountability gap is an editorial inference, but it is tightly bounded.</p>
+<p>A commit records a resulting tree, parent history, author, committer, message,</p>
+<p>and optional signature. Current agent systems separately preserve instruction</p>
+<p>sources, session lineage, tool/runtime context, and pull-request logs. The</p>
+<p>article argues that the separation is becoming more consequential; it does not</p>
+<p>claim a commit ever represented the complete process behind human-written</p>
+<p>code.</p>
+<p>Jujutsu and GitButler are included as Git-compatible design signals, not</p>
+<p>predicted winners. Both show that richer operations or parallel-work metadata</p>
+<p>can live above or beside Git while retaining Git interoperability.</p>
+<p>The one-day production scan found no same-day Git commit. That is not hidden.</p>
+<p>This is a human-directed historical companion using the full prefetched Git</p>
+<p>history and current examples from other tracked repositories.</p></div>
+    <div class="markdown evidence-copy evidence-copy-block">
+      <h2>Primary Evidence</h2>
+<ul>
+<li>Git root commit, April 7, 2005: <a href="https://github.com/git/git/commit/e83c5163316f89bfbde7d9ab23ca2e25604af290">https://github.com/git/git/commit/e83c5163316f89bfbde7d9ab23ca2e25604af290</a>
+<ul>
+<li>Evidence used: Linus Torvalds's first Git commit contained eleven files and
+</li>
+</ul>
+</li>
+</ul>
+<p>    1,244 additions and was titled &quot;Initial revision of 'git', the information</p>
+<p>    manager from hell.&quot;</p>
+<ul>
+<li>Git official book, &quot;A Short History of Git&quot;: <a href="https://git-scm.com/book/en/v2/Getting-Started-A-Short-History-of-Git">https://git-scm.com/book/en/v2/Getting-Started-A-Short-History-of-Git</a>
+<ul>
+<li>Evidence used: Git emerged after the Linux kernel community's BitKeeper
+</li>
+</ul>
+</li>
+</ul>
+<p>    relationship broke down, with goals including speed, simple design,</p>
+<p>    non-linear development, distributed operation, and large-project scale.</p>
+<ul>
+<li>Linus Torvalds's April 7, 2005 LKML announcement: <a href="https://lkml.org/lkml/2005/4/7/273">https://lkml.org/lkml/2005/4/7/273</a>
+<ul>
+<li>Evidence used: the first-day project was described as a history database
+</li>
+</ul>
+</li>
+</ul>
+<p>    still working toward the capabilities Linux development needed.</p>
+<ul>
+<li>Git <code>commit-tree</code> documentation: <a href="https://git-scm.com/docs/git-commit-tree">https://git-scm.com/docs/git-commit-tree</a>
+<ul>
+<li>Evidence used: a Git commit is built from a tree, parent history, a log
+</li>
+</ul>
+</li>
+</ul>
+<p>    message, author and committer identity, and optional signing.</p>
+<ul>
+<li>Git worktree documentation: <a href="https://git-scm.com/docs/git-worktree">https://git-scm.com/docs/git-worktree</a>
+<ul>
+<li>Evidence used: Git already supports multiple linked working trees sharing
+</li>
+</ul>
+</li>
+</ul>
+<p>    one repository, the primitive agent tools now use for task isolation.</p>
+<ul>
+<li>Git current source release page: <a href="https://git-scm.com/install/source.html">https://git-scm.com/install/source.html</a>
+<ul>
+<li>Evidence used: Git remains actively maintained, with v2.54.0 listed as the
+</li>
+</ul>
+</li>
+</ul>
+<p>    latest release in April 2026.</p>
+<ul>
+<li>GitHub, &quot;Pull Requests 2.0&quot;: <a href="https://github.blog/news-insights/pull-requests-2-0/">https://github.blog/news-insights/pull-requests-2-0/</a>
+<ul>
+<li>Evidence used: pull requests became a discussion and review surface around
+</li>
+</ul>
+</li>
+</ul>
+<p>    Git changes, adding social meaning outside the commit object.</p>
+<ul>
+<li>GitHub protected-branch documentation: <a href="https://docs.github.com/en/repositories/configuring-branches-and-merges-in-your-repository/managing-protected-branches/about-protected-branches">https://docs.github.com/en/repositories/configuring-branches-and-merges-in-your-repository/managing-protected-branches/about-protected-branches</a>
+<ul>
+<li>Evidence used: modern source governance adds reviews, checks, signing,
+</li>
+</ul>
+</li>
+</ul>
+<p>    code-owner approval, deployments, and other policies around Git history.</p>
+<ul>
+<li>GitHub merge-queue documentation: <a href="https://docs.github.com/en/repositories/configuring-branches-and-merges-in-your-repository/configuring-pull-request-merges/managing-a-merge-queue">https://docs.github.com/en/repositories/configuring-branches-and-merges-in-your-repository/configuring-pull-request-merges/managing-a-merge-queue</a>
+<ul>
+<li>Evidence used: integration policy now includes testing proposed changes
+</li>
+</ul>
+</li>
+</ul>
+<p>    against the state they are expected to enter.</p>
+<ul>
+<li>GitHub cloud coding agent documentation: <a href="https://docs.github.com/en/copilot/concepts/agents/cloud-agent/about-cloud-agent">https://docs.github.com/en/copilot/concepts/agents/cloud-agent/about-cloud-agent</a>
+<ul>
+<li>Evidence used: a current cloud agent works in an ephemeral environment,
+</li>
+</ul>
+</li>
+</ul>
+<p>    commits changes to a branch, opens a pull request, and leaves merge</p>
+<p>    authority with a human reviewer.</p>
+<ul>
+<li>Gemini CLI pull request #22973: <a href="https://github.com/google-gemini/gemini-cli/pull/22973">https://github.com/google-gemini/gemini-cli/pull/22973</a>
+<ul>
+<li>Evidence used: Gemini CLI added Git worktrees for isolated parallel agent
+</li>
+</ul>
+</li>
+</ul>
+<p>    sessions.</p>
+<ul>
+<li>OpenAI Codex managed-worktree commit: <a href="https://github.com/openai/codex/commit/5a6efcf183cce7309a35cddcbdb5349f78de45a8">https://github.com/openai/codex/commit/5a6efcf183cce7309a35cddcbdb5349f78de45a8</a>
+<ul>
+<li>Evidence used: Codex also made linked worktrees part of its managed agent
+</li>
+</ul>
+</li>
+</ul>
+<p>    workflow.</p>
+<ul>
+<li>OpenAI Codex <code>AGENTS.md</code> provenance commit: <a href="https://github.com/openai/codex/commit/e64b469bbcf2c2a6bb575ef0a58368f02147e899">https://github.com/openai/codex/commit/e64b469bbcf2c2a6bb575ef0a58368f02147e899</a>
+<ul>
+<li>Evidence used: agent tooling is recording ordered repository-instruction
+</li>
+</ul>
+</li>
+</ul>
+<p>    sources and preserving their provenance across session start, resume, and</p>
+<p>    fork.</p>
+<ul>
+<li>GitHub repository custom-instruction documentation: <a href="https://docs.github.com/en/copilot/customizing-copilot/adding-repository-custom-instructions-for-github-copilot">https://docs.github.com/en/copilot/customizing-copilot/adding-repository-custom-instructions-for-github-copilot</a>
+<ul>
+<li>Evidence used: repositories increasingly store instructions that shape
+</li>
+</ul>
+</li>
+</ul>
+<p>    agent behavior in addition to source code.</p>
+<ul>
+<li>Jujutsu documentation and operation log: <a href="https://docs.jj-vcs.dev/latest/operation-log/">https://docs.jj-vcs.dev/latest/operation-log/</a>
+<ul>
+<li>Evidence used: a Git-compatible system can preserve repository operations,
+</li>
+</ul>
+</li>
+</ul>
+<p>    undo them, and restore prior operation states beyond ordinary commit</p>
+<p>    history.</p>
+<ul>
+<li>GitButler agent documentation: <a href="https://docs.gitbutler.com/features/agents">https://docs.gitbutler.com/features/agents</a>
+<ul>
+<li>Evidence used: another Git-compatible workflow binds parallel agents to
+</li>
+</ul>
+</li>
+</ul>
+<p>    branches and delivers their work through Git.</p>
+<h2>Evidence Limits</h2>
+<ul>
+<li>The first Git README's trust-boundary language was verified in the public
+</li>
+</ul>
+<p>  Git source history. The linked GitHub root commit is the public entry point,</p>
+<p>  but GitHub's rendered page may not expose every historical README passage in</p>
+<p>  the same view.</p>
+<ul>
+<li>The article does not claim that Git is obsolete, that agents require a new
+</li>
+</ul>
+<p>  repository format, or that Git will be replaced.</p>
+<ul>
+<li>A commit has never been a complete record of human authorship, intent, or
+</li>
+</ul>
+<p>  accountability. Agents increase pressure on an existing boundary rather</p>
+<p>  than creating it from nothing.</p>
+<ul>
+<li>The article infers an emerging accountability and provenance gap from Git's
+</li>
+</ul>
+<p>  commit model and the additional session/instruction context current agent</p>
+<p>  systems preserve. No shared standard is claimed.</p>
+<ul>
+<li>Worktrees isolate working directories and branches, but they do not by
+</li>
+</ul>
+<p>  themselves solve review, provenance, cleanup, cross-repository</p>
+<p>  coordination, or accountability.</p>
+<ul>
+<li>GitHub, Gemini CLI, Codex, Jujutsu, and GitButler are examples of current
+</li>
+</ul>
+<p>  approaches, not a representative survey of all source-management or agent</p>
+<p>  systems.</p>
+<ul>
+<li>Product documentation and repository state are a June 4, 2026 snapshot and
+</li>
+</ul>
+<p>  can change.</p>
+    </div>
+    
+  </section>
+      <section class="related-edition-section atlas-context-section">
+    <div class="section-title-row">
+      <h2>Atlas Context</h2>
+      <a href="/atlas/">Open Atlas &rsaquo;</a>
+    </div>
+    <div class="updates-list">
+      <a class="article-card" href="/atlas/memory-is-not-one-thing/">
+            <div class="article-meta"><span class="lane">Agent Atlas</span><span>Chapter 6</span></div>
+            <h3>Memory Is a Typed Storage Contract</h3>
+            <p>Calling every retained fact memory obscures incompatible stores and guarantees. Thread history, notes, retrieval indexes, summaries, caches, and archives have different owners, lifetimes, and deletion behavior.</p>
+          </a>
+    </div>
+  </section>
+      <section class="reader-feedback"
+    data-tgr-feedback
+    data-article-slug="2026-06-05-daily-git-won-source-control-ai-agents-are-testing-what-a-commit-means"
+    data-article-title="Git Won Source Control. AI Agents Are Testing What a Commit Means"
+    data-article-url="/articles/2026-06-05-daily-git-won-source-control-ai-agents-are-testing-what-a-commit-means/"
+    data-edition-date="2026-06-05"
+    data-lane="Daily Edition"
+    data-tags="Permissions,Memory,Delegation,Tools"
+    data-repos="git/git,openai/codex,google-gemini/gemini-cli">
+    <div class="reader-feedback-head">
+      <div>
+        <div class="eyebrow">Letters &amp; Corrections</div>
+        <h2>Send a note to the desk</h2>
+      </div>
+      <p>Corrections, missing context, or a follow-up lead.</p>
+    </div>
+    <form class="feedback-form">
+      <div class="feedback-votes" role="group" aria-label="Choose signal type">
+        <button class="feedback-choice" type="button" data-vote="follow-up" aria-pressed="false">
+          <span aria-hidden="true">+</span>
+          <span>Follow-up</span>
+        </button>
+        <button class="feedback-choice" type="button" data-vote="correction" aria-pressed="false">
+          <span aria-hidden="true">!</span>
+          <span>Correction</span>
+        </button>
+      </div>
+      <label class="feedback-comment">
+        <span>Note for the editor</span>
+        <textarea name="comment" rows="3" maxlength="320" placeholder="What did we miss, or what should we follow next?"></textarea>
+      </label>
+      <div class="feedback-submit-row">
+        <p class="feedback-status" aria-live="polite"></p>
+        <button class="paper-button primary feedback-submit" type="submit">Send to desk</button>
+      </div>
+    </form>
+  </section>
+      <section class="related-edition-section">
+        <div class="section-title-row">
+          <h2>Same Edition</h2>
+          <a href="/editions/2026-06-05/">Open issue &rsaquo;</a>
+        </div>
+        <div class="updates-list">
+          <a class="update-card" href="/articles/2026-06-05-daily-agent-identity-is-becoming-runtime-infrastructure/">
+    <div class="update-stripe"></div>
+    <div class="update-main">
+      <div class="update-meta">
+        <span>Context</span>
+        <span class="source-plus">+6</span>
+        <span>Jun 5, 2026</span>
+      </div>
+      <h3>Agent Identity Is Becoming Runtime Infrastructure</h3>
+      <div class="update-receipt">
+        <span>openai/codex + 2 more</span>
+        <span class="branch-pill">evidence</span>
+      </div>
+      <div class="update-foot">
+        <span>6 sources</span>
+        <span>3 repos</span>
+        <span>6 linked commits</span>
+      </div>
+    </div>
+    <span class="update-arrow" aria-hidden="true">&rsaquo;</span>
+  </a>
+        </div>
+      </section>
+    </main>
+    <footer class="wrap site-footer">
+      <span>&copy; 2026 The Git Reporter</span>
+      <a href="/about/">About</a>
+      <a href="/articles.json">Manifest JSON</a>
+      <a href="/repos/">Sources</a>
+    </footer>
+  </div>
+</body>
+</html>
