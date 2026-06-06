@@ -1,0 +1,350 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>The Twelve-Parent Octopus That Made Git Blink | The Git Reporter</title>
+  <meta name="description" content="In January 2006, ACPI maintainer Len Brown folded eleven Linux topic branches into one twelve-parent merge commit. It looked almost comic, pushed Git&#39;s own tools to grow sharper eyes, and now reads like a warning label for the agent era: clean integration is not the same as clear accountability.">
+  <meta name="robots" content="index,follow">
+  <link rel="canonical" href="https://thegitreporter.com/articles/2026-06-06-daily-the-twelve-parent-octopus-that-made-git-blink/">
+  <link rel="alternate" type="application/rss+xml" title="The Git Reporter" href="https://thegitreporter.com/feed.xml">
+  <meta property="og:site_name" content="The Git Reporter">
+  <meta property="og:locale" content="en_US">
+  <meta property="og:title" content="The Twelve-Parent Octopus That Made Git Blink | The Git Reporter">
+  <meta property="og:description" content="In January 2006, ACPI maintainer Len Brown folded eleven Linux topic branches into one twelve-parent merge commit. It looked almost comic, pushed Git&#39;s own tools to grow sharper eyes, and now reads like a warning label for the agent era: clean integration is not the same as clear accountability.">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://thegitreporter.com/articles/2026-06-06-daily-the-twelve-parent-octopus-that-made-git-blink/">
+  <meta property="og:image" content="https://thegitreporter.com/assets/social/2026-06-06-daily-the-twelve-parent-octopus-that-made-git-blink-og.jpg">
+  <meta property="og:image:secure_url" content="https://thegitreporter.com/assets/social/2026-06-06-daily-the-twelve-parent-octopus-that-made-git-blink-og.jpg">
+  <meta property="og:image:type" content="image/jpeg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="A rough zine diagram shows twelve parent lines feeding into Linux commit 9fdb62af above a Len Brown ACPI maintainer desk, then points to a row of agent pull requests with the warning that a clean merge is not clear accountability.">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:site" content="@TheGitReporter">
+  <meta name="twitter:creator" content="@TheGitReporter">
+  <meta name="twitter:title" content="The Twelve-Parent Octopus That Made Git Blink | The Git Reporter">
+  <meta name="twitter:description" content="In January 2006, ACPI maintainer Len Brown folded eleven Linux topic branches into one twelve-parent merge commit. It looked almost comic, pushed Git&#39;s own tools to grow sharper eyes, and now reads like a warning label for the agent era: clean integration is not the same as clear accountability.">
+  <meta name="twitter:url" content="https://thegitreporter.com/articles/2026-06-06-daily-the-twelve-parent-octopus-that-made-git-blink/">
+  <meta name="twitter:domain" content="thegitreporter.com">
+  <meta name="twitter:image" content="https://thegitreporter.com/assets/social/2026-06-06-daily-the-twelve-parent-octopus-that-made-git-blink-og.jpg">
+  <meta name="twitter:image:alt" content="A rough zine diagram shows twelve parent lines feeding into Linux commit 9fdb62af above a Len Brown ACPI maintainer desk, then points to a row of agent pull requests with the warning that a clean merge is not clear accountability.">
+  <meta property="article:published_time" content="2026-06-06T12:00:00Z">
+  <meta property="article:modified_time" content="2026-06-06T12:00:00Z">
+  <meta property="article:section" content="Daily Edition">
+  <meta property="article:tag" content="Permissions">
+  <meta property="article:tag" content="Memory">
+  <meta property="article:tag" content="Tools">
+  <meta property="article:tag" content="UX">
+  <meta property="article:tag" content="git/git">
+  <meta property="article:tag" content="github/copilot">
+  <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"https://thegitreporter.com/#organization","name":"The Git Reporter","url":"https://thegitreporter.com","logo":{"@type":"ImageObject","url":"https://thegitreporter.com/assets/mark.svg"},"sameAs":["https://x.com/TheGitReporter"]},{"@type":"WebSite","@id":"https://thegitreporter.com/#website","name":"The Git Reporter","url":"https://thegitreporter.com","publisher":{"@id":"https://thegitreporter.com/#organization"}},{"@type":"NewsArticle","mainEntityOfPage":{"@type":"WebPage","@id":"https://thegitreporter.com/articles/2026-06-06-daily-the-twelve-parent-octopus-that-made-git-blink/"},"headline":"The Twelve-Parent Octopus That Made Git Blink","description":"In January 2006, ACPI maintainer Len Brown folded eleven Linux topic branches into one twelve-parent merge commit. It looked almost comic, pushed Git's own tools to grow sharper eyes, and now reads like a warning label for the agent era: clean integration is not the same as clear accountability.","image":["https://thegitreporter.com/assets/social/2026-06-06-daily-the-twelve-parent-octopus-that-made-git-blink-og.jpg"],"datePublished":"2026-06-06T12:00:00Z","dateModified":"2026-06-06T12:00:00Z","author":[{"@type":"Organization","name":"The Git Reporter","url":"https://thegitreporter.com"}],"publisher":{"@type":"Organization","@id":"https://thegitreporter.com/#organization","name":"The Git Reporter","url":"https://thegitreporter.com","logo":{"@type":"ImageObject","url":"https://thegitreporter.com/assets/mark.svg"},"sameAs":["https://x.com/TheGitReporter"]},"articleSection":"Daily Edition","keywords":"Permissions, Memory, Tools, UX, git/git, github/copilot"}]}</script>
+  <link rel="icon" href="/assets/mark.svg">
+  <link rel="stylesheet" href="/assets/site.css?v=2026-05-30-about-layout-social-1">
+  <script defer src="/assets/feedback.js?v=2026-05-30-about-layout-social-1"></script>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-CH19T7M0T1"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){window.dataLayer.push(arguments);}
+    gtag("js", new Date());
+    gtag("config", "G-CH19T7M0T1");
+  </script>
+</head>
+<body>
+  <div class="site">
+    <header class="site-header" id="top">
+      <div class="wrap utility-row">
+        <a class="icon-link menu-icon" href="/archive/" aria-label="Open edition history"><span></span><span></span><span></span></a>
+        <a class="icon-link archive-icon" href="/archive/" aria-label="Open edition history"></a>
+      </div>
+      <div class="wrap masthead-lockup">
+        <a class="masthead-title" href="/">THE GIT REPORTER</a>
+        <div class="masthead-ornament" aria-hidden="true"></div>
+      </div>
+      <div class="wrap nav-wrap">
+        <nav class="paper-nav" aria-label="Primary navigation">
+    <a class="" href="/">Today</a><a class="active" href="/archive/">Editions</a><a class="" href="/about/">About</a><a class="" href="/atlas/">Agent Atlas</a><a class="" href="/repos/">Repos</a>
+  </nav>
+        <div class="nav-rule"></div>
+      </div>
+    </header>
+    <main class="wrap page-shell article-page">
+      <section class="page-hero story-front">
+        <div class="story-topline">
+          <span>Daily Edition</span>
+          <span>Sources <strong>+7</strong></span>
+        </div>
+        <h1>The Twelve-Parent Octopus That Made Git Blink</h1>
+        <p class="summary">In January 2006, ACPI maintainer Len Brown folded eleven Linux topic branches into one twelve-parent merge commit. It looked almost comic, pushed Git's own tools to grow sharper eyes, and now reads like a warning label for the agent era: clean integration is not the same as clear accountability.</p>
+        <figure class="story-illustration article-illustration">
+    <img src="/assets/illustrations/2026-06-06-the-twelve-parent-octopus-that-made-git-blink-diagram-punk-v1.jpg" alt="A rough zine diagram shows twelve parent lines feeding into Linux commit 9fdb62af above a Len Brown ACPI maintainer desk, then points to a row of agent pull requests with the warning that a clean merge is not clear accountability." loading="lazy" decoding="async">
+    <figcaption><span>Diagram Punk</span>the old octopus was a graph stunt; the agent-era version is a judgment problem.</figcaption>
+  </figure>
+        <div class="receipt">
+    <div class="receipt-line">
+      <span class="receipt-icon">repos</span>
+      <span class="receipt-main">git/git + github/copilot</span>
+      <span class="branch-pill">evidence</span>
+    </div>
+    <div class="receipt-line receipt-muted">
+      <span>7 source signals</span>
+      <span>2 repos</span>
+      <span>3 linked commits</span>
+    </div>
+    <div class="commit-line">Evidence: 3 linked commits / June 6, 2026 / Daily Edition</div>
+  </div>
+        <div class="article-route-row">
+          <a href="/editions/2026-06-06/">Open Edition</a>
+          <a href="#evidence">Evidence below</a>
+        </div>
+      </section>
+      <section class="story-reader">
+        <article class="story-shell story-body">
+          <p>The commit is only one line of public drama.</p>
+  <p>On January 24, 2006, Len Brown pushed <a href="https://kernel.googlesource.com/pub/scm/linux/kernel/git/torvalds/linux/+/9fdb62af92c741addbea15545f214a6e89460865">Linux commit <code>9fdb62af</code></a>, an ACPI merge whose message reads like a maintainer emptied a desk drawer into history: <code>3549 4320 4485 4588 4980 5483 5651 acpica asus fops pnpacpi</code> all went into <code>release</code>.</p>
+  <p>The graph is the spectacle. Gitiles shows twelve parent commits attached to the object. In normal speech, that means Brown merged eleven side branches while preserving the release branch as the first parent. In Git folklore, it became Len's twelve-way octopus.</p>
+  <p>There is no victory lap in the commit message. No essay. No "behold." Just an ACPI subject line and a Signed-off-by from Brown at Intel.</p>
+  <p>That is part of why the commit is funny. The humblest possible way to drop a chandelier through the ceiling is to write a merge message that looks like a grocery receipt.</p>
+
+  <h2>Why it was spectacular</h2>
+  <p>Git was less than a year old. Linux was already the project Git had been born to serve. ACPI, the kernel subsystem Brown maintained, sat in the swampy borderlands between firmware promises, hardware behavior, operating-system policy, laptop bugs, power management, and vendor-specific surprises.</p>
+  <p>An octopus merge is not magic. Git's <a href="https://git-scm.com/docs/merge-strategies">current merge-strategies documentation</a> says the octopus strategy resolves cases with more than two heads, but refuses a complex merge that needs manual resolution. It is meant for bundling topic branch heads together.</p>
+  <p>That sentence is the trapdoor under the circus act. A clean octopus is only impressive when the branches are independent enough to land together. If they fight, Git should refuse rather than invite a maintainer to hand-edit a many-headed conflict while pretending the result is still a tidy bundle.</p>
+  <p>So Brown's merge was not spectacular because it proved one heroic human could manually reconcile eleven disasters at once. It was spectacular because the graph compressed a maintainer's pre-work into one object. The discipline happened before the merge: topic branches shaped, collisions avoided, review risk accepted, and release history made to swallow the set whole.</p>
+  <p>That is the maintainer job in miniature. The public object is a node. The real work is judgment.</p>
+
+  <h2>The legend was assigned afterward</h2>
+  <p>The best evidence that <code>9fdb62af</code> became famous is not a celebratory blog post. It is Git's own source history flinching and improving.</p>
+  <p>On February 2, 2006, Junio C Hamano fixed a combined-diff display issue and named the test case directly: <a href="https://github.com/git/git/commit/823bcd6edc7f7330714486b228b052953c2f4229">Len's twelve-way octopus in <code>linux-2.6</code></a>. The note even points to a specific file and hunk where the display had been wrong.</p>
+  <p>The next day, Hamano changed merge-message formatting so Git could include one-line summaries of the commits being merged. The commit says the work was <a href="https://github.com/git/git/commit/1cb303872ab1ba73fcc52167c61fc4211c843cf5">prompted by Len's twelve-way octopus</a>. In other words, a merge with that many parents made the old "here are some branch names" summary feel too thin.</p>
+  <p>By April, Hamano added the <a href="https://github.com/git/git/commit/ea4a19e172e8db52779c06723b1e99cc12f228c9"><code>rev^@</code> shorthand</a> for "all parents of this commit." The commit message is wonderfully human: typing <code>funmerge^1 funmerge^2 funmerge^3</code> onward was too painful when inspecting Len's infamous twelve-way octopus.</p>
+  <p>This is how a maintainer becomes legendary in open source without wearing a cape. You make one integration choice so extreme that the tools around you need new affordances to talk about it.</p>
+  <p>Brown's public posture in the object itself is humble. The graph is not. The graph is a grin hidden inside plumbing.</p>
+
+  <h2>What the octopus was really testing</h2>
+  <p>The obvious challenge was arithmetic: twelve parents is a lot of parents.</p>
+  <p>The real challenge was legibility. How should a reviewer inspect such a thing? How should a release manager know what entered? How should a tool explain parentage without turning the command line into a typing punishment? How should a future reader distinguish "cleanly bundled independent topics" from "a giant semantic bet wrapped in one commit"?</p>
+  <p>Git's answer was not to ban the shape. It made the shape more inspectable. Combined diffs had to be more faithful. Merge messages had to carry better summaries. Parent shorthand had to make the graph easier to address.</p>
+  <p>That is the healthy lesson. A scary commit should leave better instruments behind.</p>
+  <p>It is also why this old octopus connects so neatly to AI coding agents. Agents are not making Git obsolete. They are making old Git stress cases feel ordinary.</p>
+
+  <h2>Now imagine twelve agent branches</h2>
+  <p>In 2006, a twelve-parent kernel merge was weird enough to enter Git lore.</p>
+  <p>In 2026, a twelve-branch queue no longer sounds like science fiction. GitHub's <a href="https://docs.github.com/en/copilot/concepts/agents/cloud-agent/about-cloud-agent">Copilot cloud agent documentation</a> describes an agent working in an ephemeral GitHub Actions environment where it can explore code, make changes, run tests, and prepare pull requests. GitHub's product writing says agent work still flows through ordinary branches, commits, draft pull requests, logs, checks, and branch protections.</p>
+  <p>That delivery shape is intentionally familiar. The machine writes a diff. The forge asks a human, or a policy-controlled queue, whether the diff may enter.</p>
+  <p>Now scale it. One maintainer wakes up to twelve agent-prepared branches: a refactor, a test expansion, a documentation sweep, a dependency bump, a flaky-test fix, a performance tweak, a migration script, a lint cleanup, and four "small follow-ups" that are never small in aggregate.</p>
+  <p>Git can probably represent the final object. That is not the interesting question.</p>
+  <p>The interesting question is whether anyone should want the final object to look like Brown's octopus.</p>
+
+  <h2>Clean merge, unclear accountability</h2>
+  <p>A clean octopus can say the branches did not textually collide. It cannot say the combined change makes sense.</p>
+  <p>That distinction mattered in 2006, but the maintainer's mental model was still mostly human. Brown had subsystem context. The branches had names. The kernel had a known release flow. If the merge was boring enough for Git's octopus strategy to accept, it still sat inside a maintainer culture where one person was visibly taking responsibility.</p>
+  <p>Agent branches complicate that picture. A clean merge might combine twelve locally reasonable changes produced from twelve prompts, twelve instruction contexts, twelve tool environments, and twelve partial understandings of the codebase. Each branch may pass tests. The set can still be wrong.</p>
+  <p>The failure mode is not always a conflict marker. It is drift: duplicated abstractions, incompatible assumptions, tests that certify the old question, permission changes nobody noticed, documentation that confidently explains behavior the code no longer has, or a migration path that works only if the other eleven branches land in exactly the expected order.</p>
+  <p>Brown's octopus made Git ask: how do we inspect many parents?</p>
+  <p>The agent-era octopus asks: how do we inspect many delegations?</p>
+
+  <h2>The maintainer becomes the bottleneck again</h2>
+  <p>There is a tempting fantasy that agents make the maintainer less central. If code generation gets cheaper, surely integration becomes more automatic.</p>
+  <p>The octopus suggests the opposite. The more branches arrive, the more valuable the integrator becomes.</p>
+  <p>Brown's merge was possible because somebody had already decided which branches belonged together. Hamano's follow-on Git work mattered because somebody needed to make that decision legible to others. In the agent era, the maintainer role becomes even less like typing and even more like air-traffic control for intent.</p>
+  <p>The job is not "can these patches merge?" It is:</p>
+  <ul>
+    <li>Do these changes answer the same product reality?</li>
+    <li>Which agent had the right context, and which one guessed?</li>
+    <li>Which tests actually exercised the combined behavior?</li>
+    <li>What hidden instruction, permission, or environment shaped the result?</li>
+    <li>Who is accountable after the session logs scroll away?</li>
+  </ul>
+  <p>That is why the old merge is more than a party trick. It separates integration mechanics from integration authority.</p>
+
+  <h2>The humble legend, or the quiet flex</h2>
+  <p>Was Len Brown humble? The public commit is. It is practically anti-mythological. It does not explain itself because kernel maintainers were not writing for future folklore collectors. They were moving code.</p>
+  <p>Was the merge humble? Absolutely not.</p>
+  <p>A twelve-parent merge is a quiet flex precisely because it does not announce itself as one. It trusts that the graph will tell the joke to anyone who knows how to read it. Hamano read it. Git learned from it. The rest of us get to point at the commit years later and say: there, that is what "maintainer" means when the work is no longer just writing code.</p>
+  <p>The fun part is that AI agents may bring the octopus back without the glamour. Twelve branches might become Tuesday. The spectacle will drain out of the parent count and move into the audit trail around it.</p>
+  <p>Yesterday's Git piece argued that <a href="/articles/2026-06-05-daily-git-won-source-control-ai-agents-are-testing-what-a-commit-means/">agents are testing what a commit means</a>. Brown's octopus gives the sharper version: agents are testing what a merge means.</p>
+
+  <h2>The next octopus should leave better instruments</h2>
+  <p>The lesson from <code>9fdb62af</code> is not "do giant octopus merges." It is not "never do giant octopus merges." It is that source-control history has always been a compact public trace of a much richer human process.</p>
+  <p>When the process gets strange, the trace needs better tools around it.</p>
+  <p>For AI-assisted development, that probably means merge interfaces that show session lineage, prompt scope, instruction sources, test coverage, review ownership, dependency between branches, and why a set of changes was accepted together. The commit can still name the tree. The pull request can still host the conversation. The maintainer still has to make the call.</p>
+  <p>Brown's octopus was spectacular because one maintainer made a many-branch integration visible enough that Git had to sharpen its eyes.</p>
+  <p>The agent era will need the same thing, just with more receipts. A clean merge is a technical fact. Trusting it is an editorial act.</p>
+        </article>
+      </section>
+      <section class="evidence-section" id="evidence" aria-labelledby="evidence-title">
+    <div class="evidence-head">
+      <div>
+        <div class="eyebrow">Evidence Trail</div>
+        <h2 id="evidence-title">Receipts below the story</h2>
+        <p>The article above is the public narrative. This section keeps the source trail, limits, and reporting notes on the same page.</p>
+      </div>
+      <a class="paper-button" href="/editions/2026-06-06/">Edition</a>
+    </div>
+    <div class="evidence-table evidence-summary">
+      <div class="evidence-line"><span>Date</span><span>June 6, 2026</span></div>
+      <div class="evidence-line"><span>Lane</span><span>Daily Edition</span></div>
+      <div class="evidence-line"><span>Confidence</span><span>87%</span></div>
+      <div class="evidence-line"><span>Sources</span><span>7</span></div>
+      <div class="evidence-line"><span>Repos</span><span>git/git, github/copilot</span></div>
+    </div>
+    <div class="markdown evidence-copy evidence-copy-block"><h3>Reporter Notes</h3><p>The story treats the octopus merge as a legibility event, not a raw-size contest.</p>
+<p>The parent count is the hook, but the stronger evidence is Git's own response:</p>
+<p>combined-diff, merge-message, and parent-addressing improvements all cite Len's</p>
+<p>twelve-way merge.</p>
+<p>The maintainer profile is deliberately bounded. The public record supports Len</p>
+<p>Brown as the ACPI maintainer who authored and committed the merge. It does not</p>
+<p>support a broad personality claim. The article's &quot;humble or not&quot; section stays</p>
+<p>with what the commit shows: a terse public message attached to an audacious</p>
+<p>graph.</p>
+<p>The agent-era argument should be read as a governance question. Git can already</p>
+<p>represent many parents. The harder modern problem is preserving and reviewing</p>
+<p>the delegation trail behind many machine-prepared branches.</p></div>
+    <div class="markdown evidence-copy evidence-copy-block">
+      <h2>Primary Evidence</h2>
+<ul>
+<li>Linux commit <code>9fdb62af92c741addbea15545f214a6e89460865</code>: <a href="https://kernel.googlesource.com/pub/scm/linux/kernel/git/torvalds/linux/+/9fdb62af92c741addbea15545f214a6e89460865">https://kernel.googlesource.com/pub/scm/linux/kernel/git/torvalds/linux/+/9fdb62af92c741addbea15545f214a6e89460865</a>
+<ul>
+<li>Evidence used: the January 24, 2006 ACPI merge object, Len Brown authorship and sign-off, twelve parent commits, and the branch names merged into <code>release</code>.
+</li>
+</ul>
+</li>
+<li>Git commit <code>823bcd6edc7f7330714486b228b052953c2f4229</code>: <a href="https://github.com/git/git/commit/823bcd6edc7f7330714486b228b052953c2f4229">https://github.com/git/git/commit/823bcd6edc7f7330714486b228b052953c2f4229</a>
+<ul>
+<li>Evidence used: Git's combined-diff fix names Len's twelve-way octopus and points to <code>9fdb62af</code> as a display stress case.
+</li>
+</ul>
+</li>
+<li>Git commit <code>1cb303872ab1ba73fcc52167c61fc4211c843cf5</code>: <a href="https://github.com/git/git/commit/1cb303872ab1ba73fcc52167c61fc4211c843cf5">https://github.com/git/git/commit/1cb303872ab1ba73fcc52167c61fc4211c843cf5</a>
+<ul>
+<li>Evidence used: Git's merge-message-summary work says it was prompted by Len's twelve-way octopus.
+</li>
+</ul>
+</li>
+<li>Git commit <code>ea4a19e172e8db52779c06723b1e99cc12f228c9</code>: <a href="https://github.com/git/git/commit/ea4a19e172e8db52779c06723b1e99cc12f228c9">https://github.com/git/git/commit/ea4a19e172e8db52779c06723b1e99cc12f228c9</a>
+<ul>
+<li>Evidence used: Git introduced <code>rev^@</code> shorthand for all parents and explicitly cites the pain of inspecting Len's infamous twelve-way octopus.
+</li>
+</ul>
+</li>
+<li>Git merge-strategies documentation: <a href="https://git-scm.com/docs/merge-strategies">https://git-scm.com/docs/merge-strategies</a>
+<ul>
+<li>Evidence used: the octopus strategy is for more than two heads, refuses complex manual-resolution merges, and is mainly for bundling topic heads.
+</li>
+</ul>
+</li>
+<li>GitHub Copilot cloud-agent documentation: <a href="https://docs.github.com/en/copilot/concepts/agents/cloud-agent/about-cloud-agent">https://docs.github.com/en/copilot/concepts/agents/cloud-agent/about-cloud-agent</a>
+<ul>
+<li>Evidence used: current agent work can happen in an ephemeral GitHub Actions environment where the agent explores code, makes changes, runs checks, and prepares repository work.
+</li>
+</ul>
+</li>
+<li>GitHub Copilot coding-agent PR documentation: <a href="https://docs.github.com/en/copilot/how-tos/use-copilot-agents/coding-agent/assign-copilot-to-an-issue">https://docs.github.com/en/copilot/how-tos/use-copilot-agents/coding-agent/assign-copilot-to-an-issue</a>
+<ul>
+<li>Evidence used: Copilot coding agent can act on a prompt and open a pull request in the current repository.
+</li>
+</ul>
+</li>
+</ul>
+<h2>Evidence Limits</h2>
+<ul>
+<li>This evidence does not prove <code>9fdb62af</code> was the all-time largest octopus merge. It proves it was a famous high-parent-count merge that Git's own history named and adapted around.
+</li>
+<li>The article does not claim Len Brown personally sought fame from the merge. The &quot;legend&quot; frame comes from the commit's later role in Git tooling history.
+</li>
+<li>The AI-agent comparison is an editorial inference from current agent pull-request workflows and the historical octopus merge, not evidence that twelve-parent agent-created octopus merges are now standard practice.
+</li>
+</ul>
+    </div>
+    
+  </section>
+      <section class="related-edition-section atlas-context-section">
+    <div class="section-title-row">
+      <h2>Atlas Context</h2>
+      <a href="/atlas/">Open Atlas &rsaquo;</a>
+    </div>
+    <div class="updates-list">
+      <a class="article-card" href="/atlas/hands-in-the-world/">
+            <div class="article-meta"><span class="lane">Agent Atlas</span><span>Chapter 3</span></div>
+            <h3>Tool Calls: Contract, Authorization, Execution</h3>
+            <p>A tool call crosses independently governed boundaries: schema, registration, policy, approval, execution authority, result handling, and audit.</p>
+          </a>
+    </div>
+  </section>
+      <section class="reader-feedback"
+    data-tgr-feedback
+    data-article-slug="2026-06-06-daily-the-twelve-parent-octopus-that-made-git-blink"
+    data-article-title="The Twelve-Parent Octopus That Made Git Blink"
+    data-article-url="/articles/2026-06-06-daily-the-twelve-parent-octopus-that-made-git-blink/"
+    data-edition-date="2026-06-06"
+    data-lane="Daily Edition"
+    data-tags="Permissions,Memory,Tools,UX"
+    data-repos="git/git,github/copilot">
+    <div class="reader-feedback-head">
+      <div>
+        <div class="eyebrow">Letters &amp; Corrections</div>
+        <h2>Send a note to the desk</h2>
+      </div>
+      <p>Corrections, missing context, or a follow-up lead.</p>
+    </div>
+    <form class="feedback-form">
+      <div class="feedback-votes" role="group" aria-label="Choose signal type">
+        <button class="feedback-choice" type="button" data-vote="follow-up" aria-pressed="false">
+          <span aria-hidden="true">+</span>
+          <span>Follow-up</span>
+        </button>
+        <button class="feedback-choice" type="button" data-vote="correction" aria-pressed="false">
+          <span aria-hidden="true">!</span>
+          <span>Correction</span>
+        </button>
+      </div>
+      <label class="feedback-comment">
+        <span>Note for the editor</span>
+        <textarea name="comment" rows="3" maxlength="320" placeholder="What did we miss, or what should we follow next?"></textarea>
+      </label>
+      <div class="feedback-submit-row">
+        <p class="feedback-status" aria-live="polite"></p>
+        <button class="paper-button primary feedback-submit" type="submit">Send to desk</button>
+      </div>
+    </form>
+  </section>
+      <section class="related-edition-section">
+        <div class="section-title-row">
+          <h2>Same Edition</h2>
+          <a href="/editions/2026-06-06/">Open issue &rsaquo;</a>
+        </div>
+        <div class="updates-list">
+          <a class="update-card" href="/articles/2026-06-06-daily-agent-control-is-moving-into-the-live-interface/">
+    <div class="update-stripe"></div>
+    <div class="update-main">
+      <div class="update-meta">
+        <span>Context</span>
+        <span class="source-plus">+5</span>
+        <span>Jun 6, 2026</span>
+      </div>
+      <h3>Agent Control Is Moving Into the Live Interface</h3>
+      <div class="update-receipt">
+        <span>openai/codex + 3 more</span>
+        <span class="branch-pill">evidence</span>
+      </div>
+      <div class="update-foot">
+        <span>5 sources</span>
+        <span>4 repos</span>
+        <span>5 linked commits</span>
+      </div>
+    </div>
+    <span class="update-arrow" aria-hidden="true">&rsaquo;</span>
+  </a>
+        </div>
+      </section>
+    </main>
+    <footer class="wrap site-footer">
+      <span>&copy; 2026 The Git Reporter</span>
+      <a href="/about/">About</a>
+      <a href="/articles.json">Manifest JSON</a>
+      <a href="/repos/">Sources</a>
+    </footer>
+  </div>
+</body>
+</html>

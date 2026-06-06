@@ -1,0 +1,289 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Agent Control Is Moving Into the Live Interface | The Git Reporter</title>
+  <meta name="description" content="Fresh OpenClaw, Crush, Hermes Agent, and Codex commits show approvals, steering, and configuration errors moving from background policy into the moments where a human can actually change an agent run.">
+  <meta name="robots" content="index,follow">
+  <link rel="canonical" href="https://thegitreporter.com/articles/2026-06-06-daily-agent-control-is-moving-into-the-live-interface/">
+  <link rel="alternate" type="application/rss+xml" title="The Git Reporter" href="https://thegitreporter.com/feed.xml">
+  <meta property="og:site_name" content="The Git Reporter">
+  <meta property="og:locale" content="en_US">
+  <meta property="og:title" content="Agent Control Is Moving Into the Live Interface | The Git Reporter">
+  <meta property="og:description" content="Fresh OpenClaw, Crush, Hermes Agent, and Codex commits show approvals, steering, and configuration errors moving from background policy into the moments where a human can actually change an agent run.">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://thegitreporter.com/articles/2026-06-06-daily-agent-control-is-moving-into-the-live-interface/">
+  <meta property="og:image" content="https://thegitreporter.com/assets/social/2026-06-06-daily-agent-control-is-moving-into-the-live-interface-og.jpg">
+  <meta property="og:image:secure_url" content="https://thegitreporter.com/assets/social/2026-06-06-daily-agent-control-is-moving-into-the-live-interface-og.jpg">
+  <meta property="og:image:type" content="image/jpeg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="A rough zine-style diagram shows four evidence cards for OpenClaw, Crush, Hermes, and Codex feeding a central running-agent box, with a circled conclusion that human control is moving into the run and a caveat stamp that the commits are not a shared standard.">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:site" content="@TheGitReporter">
+  <meta name="twitter:creator" content="@TheGitReporter">
+  <meta name="twitter:title" content="Agent Control Is Moving Into the Live Interface | The Git Reporter">
+  <meta name="twitter:description" content="Fresh OpenClaw, Crush, Hermes Agent, and Codex commits show approvals, steering, and configuration errors moving from background policy into the moments where a human can actually change an agent run.">
+  <meta name="twitter:url" content="https://thegitreporter.com/articles/2026-06-06-daily-agent-control-is-moving-into-the-live-interface/">
+  <meta name="twitter:domain" content="thegitreporter.com">
+  <meta name="twitter:image" content="https://thegitreporter.com/assets/social/2026-06-06-daily-agent-control-is-moving-into-the-live-interface-og.jpg">
+  <meta name="twitter:image:alt" content="A rough zine-style diagram shows four evidence cards for OpenClaw, Crush, Hermes, and Codex feeding a central running-agent box, with a circled conclusion that human control is moving into the run and a caveat stamp that the commits are not a shared standard.">
+  <meta property="article:published_time" content="2026-06-06T12:00:00Z">
+  <meta property="article:modified_time" content="2026-06-06T12:00:00Z">
+  <meta property="article:section" content="Daily Edition">
+  <meta property="article:tag" content="Permissions">
+  <meta property="article:tag" content="Memory">
+  <meta property="article:tag" content="Tools">
+  <meta property="article:tag" content="UX">
+  <meta property="article:tag" content="openai/codex">
+  <meta property="article:tag" content="openclaw/openclaw">
+  <meta property="article:tag" content="charmbracelet/crush">
+  <meta property="article:tag" content="NousResearch/hermes-agent">
+  <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"https://thegitreporter.com/#organization","name":"The Git Reporter","url":"https://thegitreporter.com","logo":{"@type":"ImageObject","url":"https://thegitreporter.com/assets/mark.svg"},"sameAs":["https://x.com/TheGitReporter"]},{"@type":"WebSite","@id":"https://thegitreporter.com/#website","name":"The Git Reporter","url":"https://thegitreporter.com","publisher":{"@id":"https://thegitreporter.com/#organization"}},{"@type":"NewsArticle","mainEntityOfPage":{"@type":"WebPage","@id":"https://thegitreporter.com/articles/2026-06-06-daily-agent-control-is-moving-into-the-live-interface/"},"headline":"Agent Control Is Moving Into the Live Interface","description":"Fresh OpenClaw, Crush, Hermes Agent, and Codex commits show approvals, steering, and configuration errors moving from background policy into the moments where a human can actually change an agent run.","image":["https://thegitreporter.com/assets/social/2026-06-06-daily-agent-control-is-moving-into-the-live-interface-og.jpg"],"datePublished":"2026-06-06T12:00:00Z","dateModified":"2026-06-06T12:00:00Z","author":[{"@type":"Organization","name":"The Git Reporter","url":"https://thegitreporter.com"}],"publisher":{"@type":"Organization","@id":"https://thegitreporter.com/#organization","name":"The Git Reporter","url":"https://thegitreporter.com","logo":{"@type":"ImageObject","url":"https://thegitreporter.com/assets/mark.svg"},"sameAs":["https://x.com/TheGitReporter"]},"articleSection":"Daily Edition","keywords":"Permissions, Memory, Tools, UX, openai/codex, openclaw/openclaw, charmbracelet/crush, NousResearch/hermes-agent"}]}</script>
+  <link rel="icon" href="/assets/mark.svg">
+  <link rel="stylesheet" href="/assets/site.css?v=2026-05-30-about-layout-social-1">
+  <script defer src="/assets/feedback.js?v=2026-05-30-about-layout-social-1"></script>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-CH19T7M0T1"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){window.dataLayer.push(arguments);}
+    gtag("js", new Date());
+    gtag("config", "G-CH19T7M0T1");
+  </script>
+</head>
+<body>
+  <div class="site">
+    <header class="site-header" id="top">
+      <div class="wrap utility-row">
+        <a class="icon-link menu-icon" href="/archive/" aria-label="Open edition history"><span></span><span></span><span></span></a>
+        <a class="icon-link archive-icon" href="/archive/" aria-label="Open edition history"></a>
+      </div>
+      <div class="wrap masthead-lockup">
+        <a class="masthead-title" href="/">THE GIT REPORTER</a>
+        <div class="masthead-ornament" aria-hidden="true"></div>
+      </div>
+      <div class="wrap nav-wrap">
+        <nav class="paper-nav" aria-label="Primary navigation">
+    <a class="" href="/">Today</a><a class="active" href="/archive/">Editions</a><a class="" href="/about/">About</a><a class="" href="/atlas/">Agent Atlas</a><a class="" href="/repos/">Repos</a>
+  </nav>
+        <div class="nav-rule"></div>
+      </div>
+    </header>
+    <main class="wrap page-shell article-page">
+      <section class="page-hero story-front">
+        <div class="story-topline">
+          <span>Daily Edition</span>
+          <span>Sources <strong>+5</strong></span>
+        </div>
+        <h1>Agent Control Is Moving Into the Live Interface</h1>
+        <p class="summary">Fresh OpenClaw, Crush, Hermes Agent, and Codex commits show approvals, steering, and configuration errors moving from background policy into the moments where a human can actually change an agent run.</p>
+        <figure class="story-illustration article-illustration">
+    <img src="/assets/illustrations/2026-06-06-agent-control-is-moving-into-the-live-interface-diagram-punk-v1.jpg" alt="A rough zine-style diagram shows four evidence cards for OpenClaw, Crush, Hermes, and Codex feeding a central running-agent box, with a circled conclusion that human control is moving into the run and a caveat stamp that the commits are not a shared standard." loading="lazy" decoding="async">
+    <figcaption><span>Diagram Punk</span>the policy matters only if the operator can touch it mid-run.</figcaption>
+  </figure>
+        <div class="receipt">
+    <div class="receipt-line">
+      <span class="receipt-icon">repos</span>
+      <span class="receipt-main">openai/codex + 3 more</span>
+      <span class="branch-pill">evidence</span>
+    </div>
+    <div class="receipt-line receipt-muted">
+      <span>5 source signals</span>
+      <span>4 repos</span>
+      <span>5 linked commits</span>
+    </div>
+    <div class="commit-line">Evidence: 5 linked commits / June 6, 2026 / Daily Edition</div>
+  </div>
+        <div class="article-route-row">
+          <a href="/editions/2026-06-06/">Open Edition</a>
+          <a href="#evidence">Evidence below</a>
+        </div>
+      </section>
+      <section class="story-reader">
+        <article class="story-shell story-body">
+          <p>The practical question for agent builders is no longer just "what is the policy?" It is "where does the human touch the policy while the agent is already moving?"</p>
+  <p>Today's code answers from several directions. OpenClaw turns Google Chat approval prompts into native cards with callback tokens. Crush adds a grace period so a stray keystroke cannot accidentally resolve a permission dialog the instant it appears. Hermes gives desktop users a steering control for a live run, then hardens the prompt path so the model can trust that mid-turn message without mistaking it for tool-output injection. Codex improves TUI configuration errors so the operator sees the actionable cause, not just the wrapper.</p>
+  <p>The one-sentence map is this: agent control is becoming a live interface problem. The important surface is not only the settings file or the sandbox policy; it is the button, keypress, inline transcript note, and error message that decide whether a person can safely steer, approve, deny, or repair an agent at the right moment.</p>
+  <h2>Approvals are becoming native chat objects</h2>
+  <p>OpenClaw commit <a href="https://github.com/openclaw/openclaw/commit/d7759c6a35acd0df949f283c1c8804772b88720d"><code>d7759c6a</code></a> adds native Google Chat approval cards for exec and plugin approvals that originate in Google Chat spaces or threads. The docs say those cards appear when a stable <code>users/&lt;id&gt;</code> approver is configured, and that the card buttons use opaque callback tokens while manual <code>/approve</code> text remains the fallback when native delivery is unavailable.</p>
+  <p>That sounds like channel polish until you look at the risk surface. The new runtime code binds a token to the account, approval id, approval kind, allowed decisions, space, message, optional thread, and expiry. The click handler rejects unknown, expired, account-mismatched, space-mismatched, message-mismatched, unauthorized, and duplicate in-flight clicks before resolving the approval through the gateway.</p>
+  <p>In other words, the approval moved closer to the user without becoming a dumb button. The interface is doing provenance work. The human sees "Allow Once" in the place where the request started, while the runtime still has to know who clicked, which message they clicked, which decision was allowed, and whether the card is still valid.</p>
+  <h2>A keypress can be a safety bug</h2>
+  <p>Crush commit <a href="https://github.com/charmbracelet/crush/commit/7da9695fc10b16cd52bfe01788c1b4e7256e393d"><code>7da9695f</code></a> is much smaller, but it carries the same lesson. Permission dialogs now open with an input grace period. For a short window, the overlay absorbs keypresses that may have been meant for the previously focused component. Each absorbed key resets the quiet timer, and a maximum delay prevents auto-repeat from keeping the dialog disarmed forever.</p>
+  <p>The commit applies that grace path to permission and authentication dialogs. Tests separately confirm which keys resolve permissions, then cover the dialog behavior around remote grants, denies, and pending notifications.</p>
+  <p>This is the kind of change that tells you an agent product has left the happy-path demo. In a terminal agent, a single keystroke can mean "type another character" or "allow the tool." The boundary between those meanings is user interface timing, not abstract policy. If the dialog appears asynchronously, the product has to defend the approval surface from input that was already in flight.</p>
+  <h2>Steering is becoming a first-class mid-run lane</h2>
+  <p>Hermes Agent commit <a href="https://github.com/NousResearch/hermes-agent/commit/40aef6af91e6913c98b29d238effaa32c0e0322d"><code>40aef6af</code></a> adds an explicit desktop affordance for steering a live run. When the agent is busy and the draft is text-only, the composer can show a steering-wheel button. <code>Cmd/Ctrl+Enter</code> sends the draft through <code>session.steer</code>, and plain Enter still queues the message for the next turn. If the gateway rejects the steer because there is no live tool window, the words are re-queued so the user does not lose them.</p>
+  <p>That is an important distinction. Queueing says "use this later." Steering says "change course now, without interrupting." For long-running agent work, that can be the difference between letting a bad path finish and nudging the agent before the next tool call.</p>
+  <p>Minutes later, Hermes commit <a href="https://github.com/NousResearch/hermes-agent/commit/0f45509daf725e01d063c73d90eadfac6315c4ee"><code>0f45509d</code></a> hardens the model side of that lane. A mid-turn steer has to ride inside a tool result because that is the role-alternation-safe slot. A bare "User guidance" line was being treated as untrusted tool content. The patch wraps the steer in an explicit out-of-band user-message marker, adds a system-prompt note telling the model to trust that exact marker and ignore lookalikes in tool, web, or file output, and changes the desktop acknowledgement from a toast to an inline transcript note.</p>
+  <p>The useful pattern is not "Hermes added a button." It is that a new live-control surface needed UI affordance, fallback behavior, transcript evidence, prompt-channel attribution, and injection caveats. A control that reaches the model mid-turn has to be treated as interface and security boundary at the same time.</p>
+  <h2>Repair has to show the cause</h2>
+  <p>OpenAI Codex commit <a href="https://github.com/openai/codex/commit/3acd71fedb1284e0f27f400e2d354a942b273421"><code>3acd71fe</code></a> is about configuration errors rather than approvals. The TUI already wrapped app-server failures with local context such as a batch-write failure. The problem was that user-visible paths could show only the wrapper, hiding the actionable source message.</p>
+  <p>The patch adds a formatter for the error source chain and uses it across model persistence, feature persistence, project trust, status line writes, hook trust, and hook enablement. New snapshots cover chained errors in chat history and trust-directory onboarding.</p>
+  <p>This belongs in the same story because live control fails if the operator cannot tell what went wrong. A permission button, a steering action, and a config update all need a repair loop. If the interface shows only "failed," the human is present but powerless. If it shows the validation constraint or read-only home cause, the operator has a next action.</p>
+  <h2>The control plane is becoming touchable</h2>
+  <p>Recent editions covered adjacent layers: <a href="/articles/2026-06-03-daily-agent-failure-states-are-becoming-instructions/">failure states becoming instructions</a>, events getting return addresses, and identity becoming runtime infrastructure. Today's movement is more tactile. It is about the last inch between the running agent and the person responsible for it.</p>
+  <p>OpenClaw is bringing approvals into the chat surface where the run began. Crush is making sure the permission dialog does not inherit accidental keystrokes. Hermes is making live steering reachable, attributed, and visible in the transcript. Codex is turning hidden error causes into operator-facing diagnostics.</p>
+  <p>This does not prove a shared interface standard, and it does not prove every project will choose the same chat cards, keyboard grace periods, steering markers, or error formatters. It does show a category consequence for agent products: safety and usability are converging in the live control surface. The system can have the right policy on paper and still fail the human if the approval arrives in the wrong place, the wrong key resolves it, the mid-turn instruction looks like tool injection, or the repair message hides the cause.</p>
+  <p>The next thing to watch is whether these live controls become auditable records. Once a human can steer, approve, deny, or repair an agent mid-run, the product has to preserve not just what the agent did, but which interface let the human change it.</p>
+        </article>
+      </section>
+      <section class="evidence-section" id="evidence" aria-labelledby="evidence-title">
+    <div class="evidence-head">
+      <div>
+        <div class="eyebrow">Evidence Trail</div>
+        <h2 id="evidence-title">Receipts below the story</h2>
+        <p>The article above is the public narrative. This section keeps the source trail, limits, and reporting notes on the same page.</p>
+      </div>
+      <a class="paper-button" href="/editions/2026-06-06/">Edition</a>
+    </div>
+    <div class="evidence-table evidence-summary">
+      <div class="evidence-line"><span>Date</span><span>June 6, 2026</span></div>
+      <div class="evidence-line"><span>Lane</span><span>Daily Edition</span></div>
+      <div class="evidence-line"><span>Confidence</span><span>78%</span></div>
+      <div class="evidence-line"><span>Sources</span><span>5</span></div>
+      <div class="evidence-line"><span>Repos</span><span>openai/codex, openclaw/openclaw, charmbracelet/crush, NousResearch/hermes-agent</span></div>
+    </div>
+    
+    <div class="markdown evidence-copy evidence-copy-block">
+      <h2>Reporter Notes</h2>
+<p>The article focuses on a same-day cross-project pattern: agent control is</p>
+<p>becoming a live operator interface. The cited commits support one arc across</p>
+<p>four mechanisms: native approval cards, permission-dialog input grace, live-run</p>
+<p>steering, prompt-channel steering attribution, and operator-facing config-error</p>
+<p>causes.</p>
+<h2>Primary Evidence</h2>
+<ul>
+<li>OpenClaw commit <code>d7759c6a35acd0df949f283c1c8804772b88720d</code>: <a href="https://github.com/openclaw/openclaw/commit/d7759c6a35acd0df949f283c1c8804772b88720d">https://github.com/openclaw/openclaw/commit/d7759c6a35acd0df949f283c1c8804772b88720d</a>
+<ul>
+<li>Evidence used: OpenClaw adds native Google Chat approval cards for exec and plugin approvals, documents stable <code>users/&lt;id&gt;</code> approvers and manual fallback behavior, and implements callback-token binding and resolution logic for card clicks.
+</li>
+</ul>
+</li>
+<li>Crush commit <code>7da9695fc10b16cd52bfe01788c1b4e7256e393d</code>: <a href="https://github.com/charmbracelet/crush/commit/7da9695fc10b16cd52bfe01788c1b4e7256e393d">https://github.com/charmbracelet/crush/commit/7da9695fc10b16cd52bfe01788c1b4e7256e393d</a>
+<ul>
+<li>Evidence used: Crush adds <code>OpenDialogWithGrace</code>, absorbs keypresses during a quiet-period/max-delay window, and routes permission/authentication dialogs through that grace path.
+</li>
+</ul>
+</li>
+<li>Hermes Agent commit <code>40aef6af91e6913c98b29d238effaa32c0e0322d</code>: <a href="https://github.com/NousResearch/hermes-agent/commit/40aef6af91e6913c98b29d238effaa32c0e0322d">https://github.com/NousResearch/hermes-agent/commit/40aef6af91e6913c98b29d238effaa32c0e0322d</a>
+<ul>
+<li>Evidence used: Hermes adds a desktop steering affordance for a live run, supports <code>Cmd/Ctrl+Enter</code>, sends text through <code>session.steer</code>, and re-queues text if the live steer is rejected.
+</li>
+</ul>
+</li>
+<li>Hermes Agent commit <code>0f45509daf725e01d063c73d90eadfac6315c4ee</code>: <a href="https://github.com/NousResearch/hermes-agent/commit/0f45509daf725e01d063c73d90eadfac6315c4ee">https://github.com/NousResearch/hermes-agent/commit/0f45509daf725e01d063c73d90eadfac6315c4ee</a>
+<ul>
+<li>Evidence used: Hermes wraps mid-turn steering in an out-of-band user-message marker, adds system-prompt guidance for trusting only that marker, and records the steer as an inline transcript note.
+</li>
+</ul>
+</li>
+<li>OpenAI Codex commit <code>3acd71fedb1284e0f27f400e2d354a942b273421</code>: <a href="https://github.com/openai/codex/commit/3acd71fedb1284e0f27f400e2d354a942b273421">https://github.com/openai/codex/commit/3acd71fedb1284e0f27f400e2d354a942b273421</a>
+<ul>
+<li>Evidence used: Codex formats TUI config write error source chains and uses the formatted cause in model persistence, feature persistence, project trust, hook trust, hook enablement, and status-line write paths.
+</li>
+</ul>
+</li>
+</ul>
+<h2>Evidence Limits</h2>
+<ul>
+<li>This evidence does not prove a shared interface standard, protocol, or coordinated release.
+</li>
+<li>The article groups independent project changes by the practical human-control problem they expose.
+</li>
+<li>The evidence does not show that every agent product needs native chat cards, keyboard grace windows, mid-turn steering, or chained error displays; it shows those mechanisms appearing in active agent tools as live control surfaces.
+</li>
+</ul>
+    </div>
+    
+  </section>
+      <section class="related-edition-section atlas-context-section">
+    <div class="section-title-row">
+      <h2>Atlas Context</h2>
+      <a href="/atlas/">Open Atlas &rsaquo;</a>
+    </div>
+    <div class="updates-list">
+      <a class="article-card" href="/atlas/the-human-interface/">
+            <div class="article-meta"><span class="lane">Agent Atlas</span><span>Chapter 8</span></div>
+            <h3>The Human Control Loop</h3>
+            <p>A useful interface exposes active work, gives intervention a defined runtime effect, preserves evidence during correction, and resumes the intended session.</p>
+          </a>
+    </div>
+  </section>
+      <section class="reader-feedback"
+    data-tgr-feedback
+    data-article-slug="2026-06-06-daily-agent-control-is-moving-into-the-live-interface"
+    data-article-title="Agent Control Is Moving Into the Live Interface"
+    data-article-url="/articles/2026-06-06-daily-agent-control-is-moving-into-the-live-interface/"
+    data-edition-date="2026-06-06"
+    data-lane="Daily Edition"
+    data-tags="Permissions,Memory,Tools,UX"
+    data-repos="openai/codex,openclaw/openclaw,charmbracelet/crush,NousResearch/hermes-agent">
+    <div class="reader-feedback-head">
+      <div>
+        <div class="eyebrow">Letters &amp; Corrections</div>
+        <h2>Send a note to the desk</h2>
+      </div>
+      <p>Corrections, missing context, or a follow-up lead.</p>
+    </div>
+    <form class="feedback-form">
+      <div class="feedback-votes" role="group" aria-label="Choose signal type">
+        <button class="feedback-choice" type="button" data-vote="follow-up" aria-pressed="false">
+          <span aria-hidden="true">+</span>
+          <span>Follow-up</span>
+        </button>
+        <button class="feedback-choice" type="button" data-vote="correction" aria-pressed="false">
+          <span aria-hidden="true">!</span>
+          <span>Correction</span>
+        </button>
+      </div>
+      <label class="feedback-comment">
+        <span>Note for the editor</span>
+        <textarea name="comment" rows="3" maxlength="320" placeholder="What did we miss, or what should we follow next?"></textarea>
+      </label>
+      <div class="feedback-submit-row">
+        <p class="feedback-status" aria-live="polite"></p>
+        <button class="paper-button primary feedback-submit" type="submit">Send to desk</button>
+      </div>
+    </form>
+  </section>
+      <section class="related-edition-section">
+        <div class="section-title-row">
+          <h2>Same Edition</h2>
+          <a href="/editions/2026-06-06/">Open issue &rsaquo;</a>
+        </div>
+        <div class="updates-list">
+          <a class="update-card" href="/articles/2026-06-06-daily-the-twelve-parent-octopus-that-made-git-blink/">
+    <div class="update-stripe"></div>
+    <div class="update-main">
+      <div class="update-meta">
+        <span>Context</span>
+        <span class="source-plus">+7</span>
+        <span>Jun 6, 2026</span>
+      </div>
+      <h3>The Twelve-Parent Octopus That Made Git Blink</h3>
+      <div class="update-receipt">
+        <span>git/git + github/copilot</span>
+        <span class="branch-pill">evidence</span>
+      </div>
+      <div class="update-foot">
+        <span>7 sources</span>
+        <span>2 repos</span>
+        <span>3 linked commits</span>
+      </div>
+    </div>
+    <span class="update-arrow" aria-hidden="true">&rsaquo;</span>
+  </a>
+        </div>
+      </section>
+    </main>
+    <footer class="wrap site-footer">
+      <span>&copy; 2026 The Git Reporter</span>
+      <a href="/about/">About</a>
+      <a href="/articles.json">Manifest JSON</a>
+      <a href="/repos/">Sources</a>
+    </footer>
+  </div>
+</body>
+</html>
