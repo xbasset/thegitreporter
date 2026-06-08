@@ -1,0 +1,287 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Agent Automation Is Becoming Scheduled Operations | The Git Reporter</title>
+  <meta name="description" content="Fresh OpenClaw, Codex, and Hermes Agent commits show agent work moving beyond the foreground chat turn into scheduled jobs, background threads, heartbeat runs, and provenance-aware session rotation.">
+  <meta name="robots" content="index,follow">
+  <link rel="canonical" href="https://thegitreporter.com/articles/2026-06-08-daily-agent-automation-is-becoming-scheduled-operations/">
+  <link rel="alternate" type="application/rss+xml" title="The Git Reporter" href="https://thegitreporter.com/feed.xml">
+  <meta property="og:site_name" content="The Git Reporter">
+  <meta property="og:locale" content="en_US">
+  <meta property="og:title" content="Agent Automation Is Becoming Scheduled Operations | The Git Reporter">
+  <meta property="og:description" content="Fresh OpenClaw, Codex, and Hermes Agent commits show agent work moving beyond the foreground chat turn into scheduled jobs, background threads, heartbeat runs, and provenance-aware session rotation.">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://thegitreporter.com/articles/2026-06-08-daily-agent-automation-is-becoming-scheduled-operations/">
+  <meta property="og:image" content="https://thegitreporter.com/assets/social/2026-06-08-daily-agent-automation-is-becoming-scheduled-operations-og.jpg">
+  <meta property="og:image:secure_url" content="https://thegitreporter.com/assets/social/2026-06-08-daily-agent-automation-is-becoming-scheduled-operations-og.jpg">
+  <meta property="og:image:type" content="image/jpeg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="A rough marker diagram showing scheduled agent operations evidence cards for OpenClaw cron, preserved payloads, Codex thread status, Hermes provenance, and heartbeat output.">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:site" content="@TheGitReporter">
+  <meta name="twitter:creator" content="@TheGitReporter">
+  <meta name="twitter:title" content="Agent Automation Is Becoming Scheduled Operations | The Git Reporter">
+  <meta name="twitter:description" content="Fresh OpenClaw, Codex, and Hermes Agent commits show agent work moving beyond the foreground chat turn into scheduled jobs, background threads, heartbeat runs, and provenance-aware session rotation.">
+  <meta name="twitter:url" content="https://thegitreporter.com/articles/2026-06-08-daily-agent-automation-is-becoming-scheduled-operations/">
+  <meta name="twitter:domain" content="thegitreporter.com">
+  <meta name="twitter:image" content="https://thegitreporter.com/assets/social/2026-06-08-daily-agent-automation-is-becoming-scheduled-operations-og.jpg">
+  <meta name="twitter:image:alt" content="A rough marker diagram showing scheduled agent operations evidence cards for OpenClaw cron, preserved payloads, Codex thread status, Hermes provenance, and heartbeat output.">
+  <meta property="article:published_time" content="2026-06-08T12:00:00Z">
+  <meta property="article:modified_time" content="2026-06-08T12:00:00Z">
+  <meta property="article:section" content="Daily Edition">
+  <meta property="article:tag" content="Permissions">
+  <meta property="article:tag" content="Memory">
+  <meta property="article:tag" content="Delegation">
+  <meta property="article:tag" content="Tools">
+  <meta property="article:tag" content="openai/codex">
+  <meta property="article:tag" content="openclaw/openclaw">
+  <meta property="article:tag" content="NousResearch/hermes-agent">
+  <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"https://thegitreporter.com/#organization","name":"The Git Reporter","url":"https://thegitreporter.com","logo":{"@type":"ImageObject","url":"https://thegitreporter.com/assets/mark.svg"},"sameAs":["https://x.com/TheGitReporter"]},{"@type":"WebSite","@id":"https://thegitreporter.com/#website","name":"The Git Reporter","url":"https://thegitreporter.com","publisher":{"@id":"https://thegitreporter.com/#organization"}},{"@type":"NewsArticle","mainEntityOfPage":{"@type":"WebPage","@id":"https://thegitreporter.com/articles/2026-06-08-daily-agent-automation-is-becoming-scheduled-operations/"},"headline":"Agent Automation Is Becoming Scheduled Operations","description":"Fresh OpenClaw, Codex, and Hermes Agent commits show agent work moving beyond the foreground chat turn into scheduled jobs, background threads, heartbeat runs, and provenance-aware session rotation.","image":["https://thegitreporter.com/assets/social/2026-06-08-daily-agent-automation-is-becoming-scheduled-operations-og.jpg"],"datePublished":"2026-06-08T12:00:00Z","dateModified":"2026-06-08T12:00:00Z","author":[{"@type":"Organization","name":"The Git Reporter","url":"https://thegitreporter.com"}],"publisher":{"@type":"Organization","@id":"https://thegitreporter.com/#organization","name":"The Git Reporter","url":"https://thegitreporter.com","logo":{"@type":"ImageObject","url":"https://thegitreporter.com/assets/mark.svg"},"sameAs":["https://x.com/TheGitReporter"]},"articleSection":"Daily Edition","keywords":"Permissions, Memory, Delegation, Tools, openai/codex, openclaw/openclaw, NousResearch/hermes-agent"}]}</script>
+  <link rel="icon" href="/assets/mark.svg">
+  <link rel="stylesheet" href="/assets/site.css?v=2026-05-30-about-layout-social-1">
+  <script defer src="/assets/feedback.js?v=2026-05-30-about-layout-social-1"></script>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-CH19T7M0T1"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){window.dataLayer.push(arguments);}
+    gtag("js", new Date());
+    gtag("config", "G-CH19T7M0T1");
+  </script>
+</head>
+<body>
+  <div class="site">
+    <header class="site-header" id="top">
+      <div class="wrap utility-row">
+        <a class="icon-link menu-icon" href="/archive/" aria-label="Open edition history"><span></span><span></span><span></span></a>
+        <a class="icon-link archive-icon" href="/archive/" aria-label="Open edition history"></a>
+      </div>
+      <div class="wrap masthead-lockup">
+        <a class="masthead-title" href="/">THE GIT REPORTER</a>
+        <div class="masthead-ornament" aria-hidden="true"></div>
+      </div>
+      <div class="wrap nav-wrap">
+        <nav class="paper-nav" aria-label="Primary navigation">
+    <a class="" href="/">Today</a><a class="active" href="/archive/">Editions</a><a class="" href="/about/">About</a><a class="" href="/atlas/">Agent Atlas</a><a class="" href="/repos/">Repos</a>
+  </nav>
+        <div class="nav-rule"></div>
+      </div>
+    </header>
+    <main class="wrap page-shell article-page">
+      <section class="page-hero story-front">
+        <div class="story-topline">
+          <span>Daily Edition</span>
+          <span>Sources <strong>+6</strong></span>
+        </div>
+        <h1>Agent Automation Is Becoming Scheduled Operations</h1>
+        <p class="summary">Fresh OpenClaw, Codex, and Hermes Agent commits show agent work moving beyond the foreground chat turn into scheduled jobs, background threads, heartbeat runs, and provenance-aware session rotation.</p>
+        <figure class="story-illustration article-illustration">
+    <img src="/assets/illustrations/2026-06-08-agent-automation-is-becoming-scheduled-operations-diagram-punk-v1.jpg" alt="A rough marker diagram showing scheduled agent operations evidence cards for OpenClaw cron, preserved payloads, Codex thread status, Hermes provenance, and heartbeat output." loading="lazy" decoding="async">
+    <figcaption><span>Diagram Punk</span>the agent runs after you leave, so the receipts have to move with it.</figcaption>
+  </figure>
+        <div class="receipt">
+    <div class="receipt-line">
+      <span class="receipt-icon">repos</span>
+      <span class="receipt-main">openai/codex + 2 more</span>
+      <span class="branch-pill">evidence</span>
+    </div>
+    <div class="receipt-line receipt-muted">
+      <span>6 source signals</span>
+      <span>3 repos</span>
+      <span>6 linked commits</span>
+    </div>
+    <div class="commit-line">Evidence: 6 linked commits / June 8, 2026 / Daily Edition</div>
+  </div>
+        <div class="article-route-row">
+          <a href="/editions/2026-06-08/">Open Edition</a>
+          <a href="#evidence">Evidence below</a>
+        </div>
+      </section>
+      <section class="story-reader">
+        <article class="story-shell story-body">
+          <p>The uncomfortable question for agent software is no longer only whether a human can steer the next turn.</p>
+  <p>It is what happens when the work keeps moving after the human leaves the foreground.</p>
+  <p>Today's source trail points at that next layer. OpenClaw adds command-backed cron jobs that run deterministic scripts inside the Gateway scheduler, then immediately fences that capability away from model-visible cron tools. The same repo fixes cron payload preservation and heartbeat error output. Codex scopes MCP startup diagnostics to the thread that owns them, so a subagent's failing server does not spill into the parent transcript. Hermes Agent exposes compression-driven session rotation as ACP metadata and keeps logging correlation aligned when an internal session id changes mid-turn.</p>
+  <p>The one-sentence map is this: agent automation is becoming scheduled operations. Once agent work can be timed, resumed, delegated, compressed, or run in a side thread, the product has to preserve the job's authority, prompt, output, thread, and lineage without assuming a person is staring at the same chat window.</p>
+
+  <h2>The scheduler gets a command lane</h2>
+  <p>OpenClaw commit <a href="https://github.com/openclaw/openclaw/commit/b8adc11977ab9dc1eb558dc070bfe63df75911c5"><code>b8adc119</code></a> is the clearest new line in today's evidence. It adds command cron payloads to the Gateway scheduler. The docs now show an operator creating a cron job with <code>--command</code>, <code>--command-cwd</code>, optional environment, stdin, timeout, no-output timeout, output byte limit, and delivery through the same announce, webhook, or silent modes used by other cron jobs.</p>
+  <p>The important caveat is built into the patch. Command cron is documented as an operator-admin Gateway automation surface, not an agent <code>tools.exec</code> call. The agent-facing cron tool rejects command payload creation and editing. In other words, OpenClaw is adding a way for the scheduler to run deterministic scripts, while keeping that lane separate from model-visible exec approvals and per-agent tool allowlists.</p>
+  <p>That distinction matters. A scheduled command job can check a queue, export a report, or run a probe without invoking a model-backed isolated turn. But because it executes on the Gateway host, it has to be authored through an operator surface, bounded by timeouts, and cleaned up as a process tree. The patch adds POSIX process group handling and Windows tree cleanup fallback for command timeouts. The product is not just "letting agents run commands later." It is carving out an operations lane with its own authority model.</p>
+
+  <h2>A cron job needs its original prompt</h2>
+  <p>Once work is scheduled, the payload becomes part of the receipt. OpenClaw commit <a href="https://github.com/openclaw/openclaw/commit/4780546c124de2144b0ddbfbd9c1125aa1572dd4"><code>4780546</code></a> fixes isolated cron agent prompt construction so it reads the persisted <code>job.payload.message</code> for agent-turn jobs, rather than trusting a malformed dispatch message.</p>
+  <p>The regression test is deliberately concrete. A stored payload tells the agent to reply with a marker token. The dispatch message is shaped like a malformed serialization probe. After the fix, the embedded agent prompt contains the stored payload and not the malformed dispatch body or <code>[object Object]</code>. Another regression test covers manual runs rehydrated from SQLite.</p>
+  <p>That is small, but it is exactly the kind of small that scheduled operations require. In a foreground chat turn, a human can often see the wrong prompt immediately. In a cron run, the system has to recover the intended job from durable state, not from whatever malformed wrapper happens to trigger dispatch.</p>
+
+  <h2>Heartbeat work needs useful output</h2>
+  <p>OpenClaw commit <a href="https://github.com/openclaw/openclaw/commit/b2c1de77acc7f332365baeb046b2d72ff3ed7bde"><code>b2c1de7</code></a> handles the other end of the unattended run: what comes back when a heartbeat-triggered task fails. The patch threads heartbeat trigger state into embedded-runner payload formatting so exec-like failures include captured details instead of generic fallback text.</p>
+  <p>The new test builds a heartbeat payload around an exec-like failure and expects the warning to surface a readable title and the useful error detail. The code comment explains the policy: heartbeat runs usually have no assistant reply to carry command output, so exec details should stay in the warning instead of collapsing into a generic label.</p>
+  <p>This is the operational consequence of moving beyond live chat. If the agent is triggered by a heartbeat, the warning may be the only artifact an operator sees. A generic "something failed" is not a receipt. A bounded, relevant fragment of command output is.</p>
+
+  <h2>Background threads need their own diagnostics</h2>
+  <p>OpenAI Codex commit <a href="https://github.com/openai/codex/commit/5a440c03f2f3393169c5df517d1fd8eee969e45e"><code>5a440c0</code></a> attacks the same problem from the multi-threaded agent side. MCP startup failures from spawned subagents were rendered as global notifications, so a child thread's failure could pollute the visible parent transcript.</p>
+  <p>The patch adds a nullable <code>threadId</code> to <code>mcpServer/startupStatus/updated</code>, populates it from the current app-server conversation, treats null as app-scoped, routes thread-owned MCP startup notifications in the TUI, preserves buffered startup events across child session refresh, seeds expected server state before replay, and suppresses identical repeated failure warnings within one startup round.</p>
+  <p>The commit message is explicit about the product expectation: MCP startup diagnostics should remain visible in the thread that owns the startup without affecting other transcripts. That is the same scheduled-operations rule in another form. Background work cannot be allowed to smear its status across the wrong operator surface.</p>
+
+  <h2>Session rotation needs provenance</h2>
+  <p>Hermes Agent commit <a href="https://github.com/NousResearch/hermes-agent/commit/777dc9da625c891ea4525eae8ed6c83936b07242"><code>777dc9d</code></a> adds provenance metadata for a different invisible transition: context compression rotating the internal Hermes session head while the ACP session id remains the stable client handle.</p>
+  <p>The new <code>acp_adapter/provenance.py</code> derives <code>_meta.hermes.sessionProvenance</code> from existing session database fields such as parent session id and end reason. It can expose the ACP session id, current Hermes session id, root Hermes session id, parent id, session kind, compression depth, previous internal id, and a compression reason when the head rotated during the turn. The commit emphasizes that this is additive metadata: no new persisted state, no schema change, and no ACP protocol change.</p>
+  <p>Hermes commit <a href="https://github.com/NousResearch/hermes-agent/commit/cb5c24e37d2328d982fff0527b289d981a46557c"><code>cb5c24e</code></a> closes the loop for logs. When compaction rotates <code>agent.session_id</code>, Hermes already updated the gateway/tools session context. The fix also updates the separate logging session context so post-compaction log lines carry the new id rather than a stale old one.</p>
+  <p>These two commits show why provenance is not a luxury feature. If the public client handle stays stable while the internal session head moves, clients, logs, and operators need a way to understand the boundary. Otherwise the moment when context is compressed is also the moment when correlation breaks.</p>
+
+  <h2>The operations layer is the new trust surface</h2>
+  <p>The June 4 edition argued that <a href="/articles/2026-06-04-daily-agent-events-are-getting-return-addresses/">agent events are getting return addresses</a>. Today's movement asks what happens after those return addresses leave the foreground turn. Scheduled work needs more than an event route. It needs an operations layer.</p>
+  <p>OpenClaw is splitting deterministic command cron from model-visible exec tools, preserving stored cron prompts, bounding command execution, and making heartbeat failures carry useful output. Codex is making child-thread MCP diagnostics belong to the child thread. Hermes is making compression rotation visible to ACP clients and logs.</p>
+  <p>This does not prove a shared standard. It does not prove command cron is generally available in every deployment, that every scheduled script is safe, that every MCP startup status should be thread-scoped forever, or that compression provenance solves all lineage questions. The evidence is narrower and more useful: independent agent systems are discovering that unattended work needs receipts at a different layer than chat.</p>
+  <p>The category consequence is practical. If agent products want to become reliable automation surfaces, they cannot treat "the model answered" as the only unit of work. They need job authorship, payload durability, bounded execution, thread-local diagnostics, heartbeat output, and session lineage. The next thing to watch is whether these receipts become inspectable by default, because scheduled agent work without inspectable receipts is not automation. It is a black box with a timer.</p>
+        </article>
+      </section>
+      <section class="evidence-section" id="evidence" aria-labelledby="evidence-title">
+    <div class="evidence-head">
+      <div>
+        <div class="eyebrow">Evidence Trail</div>
+        <h2 id="evidence-title">Receipts below the story</h2>
+        <p>The article above is the public narrative. This section keeps the source trail, limits, and reporting notes on the same page.</p>
+      </div>
+      <a class="paper-button" href="/editions/2026-06-08/">Edition</a>
+    </div>
+    <div class="evidence-table evidence-summary">
+      <div class="evidence-line"><span>Date</span><span>June 8, 2026</span></div>
+      <div class="evidence-line"><span>Lane</span><span>Daily Edition</span></div>
+      <div class="evidence-line"><span>Confidence</span><span>87%</span></div>
+      <div class="evidence-line"><span>Sources</span><span>6</span></div>
+      <div class="evidence-line"><span>Repos</span><span>openai/codex, openclaw/openclaw, NousResearch/hermes-agent</span></div>
+    </div>
+    <div class="markdown evidence-copy evidence-copy-block"><h3>Reporter Notes</h3><p>The strongest claim is that scheduled/background agent work needs an operations</p>
+<p>receipt layer. The article uses three kinds of evidence:</p>
+<ul>
+<li>scheduled execution: OpenClaw command cron and cron prompt preservation;
+</li>
+<li>unattended output: OpenClaw heartbeat exec-like warning details;
+</li>
+<li>background ownership and lineage: Codex thread-scoped MCP diagnostics plus
+</li>
+</ul>
+<p>  Hermes ACP provenance/logging context updates.</p>
+<p>The story should avoid saying these repos coordinate or implement the same</p>
+<p>standard. They are independent examples of adjacent pressure.</p></div>
+    <div class="markdown evidence-copy evidence-copy-block">
+      <h2>Primary Evidence</h2>
+<ul>
+<li>OpenClaw command cron support commit: <a href="https://github.com/openclaw/openclaw/commit/b8adc11977ab9dc1eb558dc070bfe63df75911c5">https://github.com/openclaw/openclaw/commit/b8adc11977ab9dc1eb558dc070bfe63df75911c5</a>
+<ul>
+<li>Evidence used: Adds command cron payloads, CLI and docs coverage, protocol schema support, command-runner timeout/process-tree cleanup, UI handling for locked command payloads, and agent-tool rejection for command payload creation or editing.
+</li>
+</ul>
+</li>
+<li>OpenClaw cron payload preservation commit: <a href="https://github.com/openclaw/openclaw/commit/4780546c124de2144b0ddbfbd9c1125aa1572dd4">https://github.com/openclaw/openclaw/commit/4780546c124de2144b0ddbfbd9c1125aa1572dd4</a>
+<ul>
+<li>Evidence used: Changes isolated cron agent prompt construction to use the persisted <code>job.payload.message</code> and adds regression coverage for malformed dispatch messages and SQLite-rehydrated manual runs.
+</li>
+</ul>
+</li>
+<li>OpenClaw heartbeat output detail commit: <a href="https://github.com/openclaw/openclaw/commit/b2c1de77acc7f332365baeb046b2d72ff3ed7bde">https://github.com/openclaw/openclaw/commit/b2c1de77acc7f332365baeb046b2d72ff3ed7bde</a>
+<ul>
+<li>Evidence used: Threads heartbeat trigger state into embedded-runner payload formatting so heartbeat exec-like failures can include captured output details instead of generic fallback text.
+</li>
+</ul>
+</li>
+<li>OpenAI Codex thread-scoped MCP startup commit: <a href="https://github.com/openai/codex/commit/5a440c03f2f3393169c5df517d1fd8eee969e45e">https://github.com/openai/codex/commit/5a440c03f2f3393169c5df517d1fd8eee969e45e</a>
+<ul>
+<li>Evidence used: Adds nullable <code>threadId</code> ownership to MCP startup status notifications, routes thread-owned diagnostics in the TUI, preserves buffered events across refresh, and deduplicates repeated startup warnings.
+</li>
+</ul>
+</li>
+<li>Hermes Agent ACP session provenance commit: <a href="https://github.com/NousResearch/hermes-agent/commit/777dc9da625c891ea4525eae8ed6c83936b07242">https://github.com/NousResearch/hermes-agent/commit/777dc9da625c891ea4525eae8ed6c83936b07242</a>
+<ul>
+<li>Evidence used: Adds additive <code>_meta.hermes.sessionProvenance</code> derived from existing compression-chain state so clients can see internal session rotation while the ACP session id stays stable.
+</li>
+</ul>
+</li>
+<li>Hermes Agent logging session context commit: <a href="https://github.com/NousResearch/hermes-agent/commit/cb5c24e37d2328d982fff0527b289d981a46557c">https://github.com/NousResearch/hermes-agent/commit/cb5c24e37d2328d982fff0527b289d981a46557c</a>
+<ul>
+<li>Evidence used: Updates the logging session context when compression rotates <code>agent.session_id</code>, keeping post-compaction log correlation aligned with the new internal session id.
+</li>
+</ul>
+</li>
+</ul>
+<h2>Evidence Limits</h2>
+<ul>
+<li>These sources do not prove a shared standard across OpenClaw, Codex, and Hermes Agent.
+</li>
+<li>They do not prove every feature is available in a stable release or in every deployment.
+</li>
+<li>The OpenClaw command cron evidence shows an operator-admin automation lane, not a model-visible exec permission expansion.
+</li>
+<li>The Codex evidence concerns MCP startup diagnostics and thread ownership, not all possible background agent events.
+</li>
+<li>The Hermes evidence concerns compression-driven session rotation provenance and logging correlation, not a complete provenance model for every kind of session branch or delegation.
+</li>
+</ul>
+    </div>
+    
+  </section>
+      <section class="related-edition-section atlas-context-section">
+    <div class="section-title-row">
+      <h2>Atlas Context</h2>
+      <a href="/atlas/">Open Atlas &rsaquo;</a>
+    </div>
+    <div class="updates-list">
+      <a class="article-card" href="/atlas/what-an-agent-can-see/">
+            <div class="article-meta"><span class="lane">Agent Atlas</span><span>Chapter 2</span></div>
+            <h3>The Invisible Prompt</h3>
+            <p>The model acts on an assembled viewport containing visible messages, hidden turn context, path-triggered instructions, memory records, tool schemas, permissions, and inherited state.</p>
+          </a>
+    </div>
+  </section>
+      <section class="reader-feedback"
+    data-tgr-feedback
+    data-article-slug="2026-06-08-daily-agent-automation-is-becoming-scheduled-operations"
+    data-article-title="Agent Automation Is Becoming Scheduled Operations"
+    data-article-url="/articles/2026-06-08-daily-agent-automation-is-becoming-scheduled-operations/"
+    data-edition-date="2026-06-08"
+    data-lane="Daily Edition"
+    data-tags="Permissions,Memory,Delegation,Tools"
+    data-repos="openai/codex,openclaw/openclaw,NousResearch/hermes-agent">
+    <div class="reader-feedback-head">
+      <div>
+        <div class="eyebrow">Letters &amp; Corrections</div>
+        <h2>Send a note to the desk</h2>
+      </div>
+      <p>Corrections, missing context, or a follow-up lead.</p>
+    </div>
+    <form class="feedback-form">
+      <div class="feedback-votes" role="group" aria-label="Choose signal type">
+        <button class="feedback-choice" type="button" data-vote="follow-up" aria-pressed="false">
+          <span aria-hidden="true">+</span>
+          <span>Follow-up</span>
+        </button>
+        <button class="feedback-choice" type="button" data-vote="correction" aria-pressed="false">
+          <span aria-hidden="true">!</span>
+          <span>Correction</span>
+        </button>
+      </div>
+      <label class="feedback-comment">
+        <span>Note for the editor</span>
+        <textarea name="comment" rows="3" maxlength="320" placeholder="What did we miss, or what should we follow next?"></textarea>
+      </label>
+      <div class="feedback-submit-row">
+        <p class="feedback-status" aria-live="polite"></p>
+        <button class="paper-button primary feedback-submit" type="submit">Send to desk</button>
+      </div>
+    </form>
+  </section>
+      
+    </main>
+    <footer class="wrap site-footer">
+      <span>&copy; 2026 The Git Reporter</span>
+      <a href="/about/">About</a>
+      <a href="/articles.json">Manifest JSON</a>
+      <a href="/repos/">Sources</a>
+    </footer>
+  </div>
+</body>
+</html>
