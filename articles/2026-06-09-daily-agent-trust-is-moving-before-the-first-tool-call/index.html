@@ -1,0 +1,312 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Agent Trust Is Moving Before the First Tool Call | The Git Reporter</title>
+  <meta name="description" content="Fresh Pi, OpenClaw, and Codex changes point to a quieter layer of agent safety: decide what a project may load, what a gateway may carry, and what execution context a thread owns before the model starts acting.">
+  <meta name="robots" content="index,follow">
+  <link rel="canonical" href="https://thegitreporter.com/articles/2026-06-09-daily-agent-trust-is-moving-before-the-first-tool-call/">
+  <link rel="alternate" type="application/rss+xml" title="The Git Reporter" href="https://thegitreporter.com/feed.xml">
+  <meta property="og:site_name" content="The Git Reporter">
+  <meta property="og:locale" content="en_US">
+  <meta property="og:title" content="Agent Trust Is Moving Before the First Tool Call | The Git Reporter">
+  <meta property="og:description" content="Fresh Pi, OpenClaw, and Codex changes point to a quieter layer of agent safety: decide what a project may load, what a gateway may carry, and what execution context a thread owns before the model starts acting.">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://thegitreporter.com/articles/2026-06-09-daily-agent-trust-is-moving-before-the-first-tool-call/">
+  <meta property="og:image" content="https://thegitreporter.com/assets/social/2026-06-09-daily-agent-trust-is-moving-before-the-first-tool-call-og.jpg">
+  <meta property="og:image:secure_url" content="https://thegitreporter.com/assets/social/2026-06-09-daily-agent-trust-is-moving-before-the-first-tool-call-og.jpg">
+  <meta property="og:image:type" content="image/jpeg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Diagram Punk poster showing a preflight trust gate before the first tool call, with evidence cards for Pi project trust, OpenClaw gateway authority, stale approval sessions, and Codex cwd/environment pairing.">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:site" content="@TheGitReporter">
+  <meta name="twitter:creator" content="@TheGitReporter">
+  <meta name="twitter:title" content="Agent Trust Is Moving Before the First Tool Call | The Git Reporter">
+  <meta name="twitter:description" content="Fresh Pi, OpenClaw, and Codex changes point to a quieter layer of agent safety: decide what a project may load, what a gateway may carry, and what execution context a thread owns before the model starts acting.">
+  <meta name="twitter:url" content="https://thegitreporter.com/articles/2026-06-09-daily-agent-trust-is-moving-before-the-first-tool-call/">
+  <meta name="twitter:domain" content="thegitreporter.com">
+  <meta name="twitter:image" content="https://thegitreporter.com/assets/social/2026-06-09-daily-agent-trust-is-moving-before-the-first-tool-call-og.jpg">
+  <meta name="twitter:image:alt" content="Diagram Punk poster showing a preflight trust gate before the first tool call, with evidence cards for Pi project trust, OpenClaw gateway authority, stale approval sessions, and Codex cwd/environment pairing.">
+  <meta property="article:published_time" content="2026-06-09T12:00:00Z">
+  <meta property="article:modified_time" content="2026-06-09T12:00:00Z">
+  <meta property="article:section" content="Daily Edition">
+  <meta property="article:tag" content="Permissions">
+  <meta property="article:tag" content="Memory">
+  <meta property="article:tag" content="Tools">
+  <meta property="article:tag" content="UX">
+  <meta property="article:tag" content="openai/codex">
+  <meta property="article:tag" content="openclaw/openclaw">
+  <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"https://thegitreporter.com/#organization","name":"The Git Reporter","url":"https://thegitreporter.com","logo":{"@type":"ImageObject","url":"https://thegitreporter.com/assets/mark.svg"},"sameAs":["https://x.com/TheGitReporter"]},{"@type":"WebSite","@id":"https://thegitreporter.com/#website","name":"The Git Reporter","url":"https://thegitreporter.com","publisher":{"@id":"https://thegitreporter.com/#organization"}},{"@type":"NewsArticle","mainEntityOfPage":{"@type":"WebPage","@id":"https://thegitreporter.com/articles/2026-06-09-daily-agent-trust-is-moving-before-the-first-tool-call/"},"headline":"Agent Trust Is Moving Before the First Tool Call","description":"Fresh Pi, OpenClaw, and Codex changes point to a quieter layer of agent safety: decide what a project may load, what a gateway may carry, and what execution context a thread owns before the model starts acting.","image":["https://thegitreporter.com/assets/social/2026-06-09-daily-agent-trust-is-moving-before-the-first-tool-call-og.jpg"],"datePublished":"2026-06-09T12:00:00Z","dateModified":"2026-06-09T12:00:00Z","author":[{"@type":"Organization","name":"The Git Reporter","url":"https://thegitreporter.com"}],"publisher":{"@type":"Organization","@id":"https://thegitreporter.com/#organization","name":"The Git Reporter","url":"https://thegitreporter.com","logo":{"@type":"ImageObject","url":"https://thegitreporter.com/assets/mark.svg"},"sameAs":["https://x.com/TheGitReporter"]},"articleSection":"Daily Edition","keywords":"Permissions, Memory, Tools, UX, openai/codex, openclaw/openclaw"}]}</script>
+  <link rel="icon" href="/assets/mark.svg">
+  <link rel="stylesheet" href="/assets/site.css?v=2026-05-30-about-layout-social-1">
+  <script defer src="/assets/feedback.js?v=2026-05-30-about-layout-social-1"></script>
+  <script defer src="/assets/analytics.js?v=2026-05-30-about-layout-social-1"></script>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-CH19T7M0T1"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){window.dataLayer.push(arguments);}
+    gtag("js", new Date());
+    gtag("config", "G-CH19T7M0T1");
+  </script>
+</head>
+<body>
+  <div class="site">
+    <header class="site-header" id="top">
+      <div class="wrap utility-row">
+        <a class="icon-link menu-icon" href="/archive/" aria-label="Open edition history"><span></span><span></span><span></span></a>
+        <a class="icon-link archive-icon" href="/archive/" aria-label="Open edition history"></a>
+      </div>
+      <div class="wrap masthead-lockup">
+        <a class="masthead-title" href="/">THE GIT REPORTER</a>
+        <div class="masthead-ornament" aria-hidden="true"></div>
+      </div>
+      <div class="wrap nav-wrap">
+        <nav class="paper-nav" aria-label="Primary navigation">
+    <a class="" href="/">Today</a><a class="active" href="/archive/">Editions</a><a class="" href="/about/">About</a><a class="" href="/atlas/">Agent Atlas</a><a class="" href="/repos/">Repos</a>
+  </nav>
+        <div class="nav-rule"></div>
+      </div>
+    </header>
+    <main class="wrap page-shell article-page">
+      <section class="page-hero story-front">
+        <div class="story-topline">
+          <span>Daily Edition</span>
+          <span>Sources <strong>+7</strong></span>
+        </div>
+        <h1>Agent Trust Is Moving Before the First Tool Call</h1>
+        <p class="summary">Fresh Pi, OpenClaw, and Codex changes point to a quieter layer of agent safety: decide what a project may load, what a gateway may carry, and what execution context a thread owns before the model starts acting.</p>
+        <figure class="story-illustration article-illustration">
+    <img src="/assets/illustrations/2026-06-09-agent-trust-is-moving-before-the-first-tool-call-diagram-punk-v1.jpg" alt="Diagram Punk poster showing a preflight trust gate before the first tool call, with evidence cards for Pi project trust, OpenClaw gateway authority, stale approval sessions, and Codex cwd/environment pairing." loading="lazy" decoding="async">
+    <figcaption><span>Diagram Punk</span>the trust boundary moves before the first tool call.</figcaption>
+  </figure>
+        <div class="receipt">
+    <div class="receipt-line">
+      <span class="receipt-icon">repos</span>
+      <span class="receipt-main">openai/codex + openclaw/openclaw</span>
+      <span class="branch-pill">evidence</span>
+    </div>
+    <div class="receipt-line receipt-muted">
+      <span>7 source signals</span>
+      <span>2 repos</span>
+      <span>7 linked commits</span>
+    </div>
+    <div class="commit-line">Evidence: 7 linked commits / June 9, 2026 / Daily Edition</div>
+  </div>
+        <div class="article-route-row">
+          <a href="/editions/2026-06-09/">Open Edition</a>
+          <a href="#evidence">Evidence below</a>
+        </div>
+      </section>
+      <section class="story-reader">
+        <article class="story-shell story-body">
+          <p>The important trust decision in an agent session is not always the dramatic one where a model asks to run a command.</p>
+  <p>This morning's strongest code trail sits earlier. Pi is adding project trust decisions before project-local instructions, settings, packages, and extensions are loaded. OpenClaw is refusing to send local approval-runtime authority to gateways that might be remote or environment-selected. Codex is pairing thread working directory and environment settings so the next turn does not inherit a half-updated execution context.</p>
+  <p>Together, the commits describe a practical shift: agent systems are moving trust into preflight state. Before the first tool call, the runtime has to know which local files are allowed to shape the agent, which endpoint is allowed to receive local approval tokens, and which environment belongs to the thread.</p>
+
+  <h2>Pi puts project trust before project inputs</h2>
+  <p>Pi's new project-trust work is the clearest version of the pattern. In commit <a href="https://github.com/earendil-works/pi/commit/718215bd95b6fc6fa251580d27ea8aab857de390">718215bd</a>, the coding-agent docs and resource loader introduce an explicit rule: before a project is trusted, Pi loads only user/global extensions and command-line extensions that can participate in the trust decision. Project-local extensions, package-managed extensions, project settings, and project instructions wait until the project has been trusted.</p>
+  <p>That boundary matters because a coding agent's first "context" is not neutral. Files such as `AGENTS.md`, `.pi` settings, skills, packages, and local extensions can all steer the model or runtime. If those inputs load before the user or a trusted policy extension has decided whether the folder is safe, the trust prompt arrives too late.</p>
+  <p>The follow-up commit <a href="https://github.com/earendil-works/pi/commit/d8aef0feff2bf0ce6aa7f5769da2ed210c14ab74">d8aef0fe</a> makes the trust API more composable. Project-trust handlers can return yes, no, or undecided. That lets one extension defer to another handler or to the built-in trust flow instead of forcing every policy hook to become the final authority.</p>
+
+  <h2>The safety line is narrow on purpose</h2>
+  <p>Pi's security documentation keeps the claim honest. Commit <a href="https://github.com/earendil-works/pi/commit/ce3a72444e1cc1eaa50475fb3378c7ffbb53ef49">ce3a7244</a> documents the local coding agent's security model: Pi runs with the permissions of the user account. Project trust controls whether project-local inputs are loaded; it is not a sandbox for commands, filesystem access, network access, or credentials.</p>
+  <p>That distinction is the useful part. Pi is not pretending a trust prompt can replace OS isolation. The v0.79.0 release commit <a href="https://github.com/earendil-works/pi/commit/c10fb95fd993a1f6a92d5f770258fada1a20b55a">c10fb95f</a> presents project trust as a local-input gate and extension surface, not as a universal permission system.</p>
+  <p>So the claim is precise: Pi is moving trust earlier in the input-loading path. The hard isolation boundary still belongs to an external sandbox, container, micro-VM, remote runner, or policy layer.</p>
+
+  <h2>OpenClaw fences the approval runtime</h2>
+  <p>OpenClaw shows the same preflight problem from a different angle. Commit <a href="https://github.com/openclaw/openclaw/commit/43acf3a4a243c76375179b78cad959f04d9a8a30">43acf3a4</a> changes gateway behavior so local approval-runtime tokens are only sent to local targets. The commit message and tests focus on an easy-to-miss case: an environment-selected gateway URL may point to a tunnel or another remote gateway even if the local process is the one making the call.</p>
+  <p>The code responds by resolving a gateway target as local or remote before deciding whether to attach local approval authority. Remote or explicitly configured gateway calls do not receive the local approval-runtime token; environment-selected calls get device identity instead.</p>
+  <p>That is not a new model capability. It is a runtime guardrail around where authority is allowed to travel. The trust question is answered before the request is sent.</p>
+
+  <h2>Old approvals need a session boundary</h2>
+  <p>Another OpenClaw fix, commit <a href="https://github.com/openclaw/openclaw/commit/2ffbea20d2f66855c90f0f9791fa78bd038ffc46">2ffbea20</a>, catches stale approval follow-ups after a session rebind. The bug shape is familiar to anyone building long-running agent interfaces: an approval request is made in one session, the user starts or resets into another session, and the resolved follow-up can land in the wrong place if it is routed only by a broad session key.</p>
+  <p>The fix captures the expected session id when the approval request is made and drops the follow-up if that key has been rebound. It is another early binding decision. Before carrying approval output forward, the runtime checks whether the session identity still matches.</p>
+
+  <h2>Codex pairs the execution context</h2>
+  <p>Codex's <a href="https://github.com/openai/codex/commit/f3c1283411edadcc0522bea376d0adc6961d5ca3">f3c1283</a> commit is less visibly about security, but it belongs in the same article because it protects the shape of the next turn. The commit explains that thread working directory and environment selections are one logical setting in core; updating one without the other can silently desynchronize the next-turn execution context.</p>
+  <p>The change moves the pair through internal thread settings, preserving the public parameter shape while aligning the core state that subsequent turns inherit. In agent systems, "where am I running?" and "which environment am I using?" are not cosmetic labels. They decide what files, tools, and assumptions a model sees when it acts.</p>
+
+  <h2>The pattern is preflight state</h2>
+  <p>The common thread is not that Pi, OpenClaw, and Codex have adopted one shared standard. They have not. The code shows independent repairs in different layers: local project loading, gateway authority, approval follow-ups, and thread environment state.</p>
+  <p>The pattern is that agent trust is becoming less like a single pop-up and more like a chain of early bindings. Which project inputs may load? Which extension may decide trust? Which gateway can receive approval authority? Which session owns this follow-up? Which environment belongs to this thread?</p>
+  <p>Those questions sound mundane until they fail. Then the model can be steered by local files it should not have loaded, an approval token can travel to the wrong endpoint, a stale action can appear in a new session, or the next turn can run in an environment the user did not mean to select.</p>
+  <p>That is why today's edition pairs this lead with a <a href="/articles/2026-06-09-daily-pi-coding-agent-you-can-keep-rewriting/">long-form Pi companion</a>. Pi is now on the watchlist not just because it is a coding agent, but because its source makes this preflight trust layer unusually visible.</p>
+        </article>
+      </section>
+      <section class="evidence-section" id="evidence" aria-labelledby="evidence-title">
+    <div class="evidence-head">
+      <div>
+        <div class="eyebrow">Evidence Trail</div>
+        <h2 id="evidence-title">Receipts below the story</h2>
+        <p>The article above is the public narrative. This section keeps the source trail, limits, and reporting notes on the same page.</p>
+      </div>
+      <a class="paper-button" href="/editions/2026-06-09/">Edition</a>
+    </div>
+    <div class="evidence-table evidence-summary">
+      <div class="evidence-line"><span>Date</span><span>June 9, 2026</span></div>
+      <div class="evidence-line"><span>Lane</span><span>Daily Edition</span></div>
+      <div class="evidence-line"><span>Confidence</span><span>87%</span></div>
+      <div class="evidence-line"><span>Sources</span><span>7</span></div>
+      <div class="evidence-line"><span>Repos</span><span>openai/codex, openclaw/openclaw</span></div>
+    </div>
+    <div class="markdown evidence-copy evidence-copy-block"><h3>Reporter Notes</h3><p>This lead was written to repair the missed June 9 materialization path. The</p>
+<p>morning preparation artifacts existed, but no <code>content/daily/2026-06-09</code></p>
+<p>edition files had been generated and the scheduled Pi companion remained only</p>
+<p>in <code>content/daily-runs</code>.</p>
+<p>The strongest fresh angle came from the June 9 source coverage gate:</p>
+<p><code>earendil-works/pi</code> was under-covered and had multiple trust-boundary commits.</p>
+<p>The article pairs Pi with OpenClaw and Codex because each source shows a</p>
+<p>different early-binding trust or authority decision.</p></div>
+    <div class="markdown evidence-copy evidence-copy-block">
+      <h2>Primary Evidence</h2>
+<ul>
+<li>Pi project trust decision commit: <a href="https://github.com/earendil-works/pi/commit/718215bd95b6fc6fa251580d27ea8aab857de390">https://github.com/earendil-works/pi/commit/718215bd95b6fc6fa251580d27ea8aab857de390</a>
+<ul>
+<li>Evidence used: adds project trust extension decisions and documents that user/global or CLI-provided extensions may handle trust before project-local extensions, settings, packages, resources, and instructions load.
+</li>
+</ul>
+</li>
+<li>Pi project trust deferral commit: <a href="https://github.com/earendil-works/pi/commit/d8aef0feff2bf0ce6aa7f5769da2ed210c14ab74">https://github.com/earendil-works/pi/commit/d8aef0feff2bf0ce6aa7f5769da2ed210c14ab74</a>
+<ul>
+<li>Evidence used: lets trust handlers return yes, no, or undecided, making project-trust policy composable instead of forcing every handler to decide.
+</li>
+</ul>
+</li>
+<li>Pi security model documentation commit: <a href="https://github.com/earendil-works/pi/commit/ce3a72444e1cc1eaa50475fb3378c7ffbb53ef49">https://github.com/earendil-works/pi/commit/ce3a72444e1cc1eaa50475fb3378c7ffbb53ef49</a>
+<ul>
+<li>Evidence used: states that Pi runs with the user's process permissions, that project trust controls local input loading, and that sandboxing requires an external environment.
+</li>
+</ul>
+</li>
+<li>Pi v0.79.0 release commit: <a href="https://github.com/earendil-works/pi/commit/c10fb95fd993a1f6a92d5f770258fada1a20b55a">https://github.com/earendil-works/pi/commit/c10fb95fd993a1f6a92d5f770258fada1a20b55a</a>
+<ul>
+<li>Evidence used: release notes surface project trust for local inputs and extension-controlled trust decisions as features.
+</li>
+</ul>
+</li>
+<li>OpenClaw gateway approval runtime auth commit: <a href="https://github.com/openclaw/openclaw/commit/43acf3a4a243c76375179b78cad959f04d9a8a30">https://github.com/openclaw/openclaw/commit/43acf3a4a243c76375179b78cad959f04d9a8a30</a>
+<ul>
+<li>Evidence used: resolves gateway target locality before sending approval-runtime authority and prevents local approval-runtime tokens from being attached to remote or environment-selected gateway calls.
+</li>
+</ul>
+</li>
+<li>OpenClaw stale approval follow-up commit: <a href="https://github.com/openclaw/openclaw/commit/2ffbea20d2f66855c90f0f9791fa78bd038ffc46">https://github.com/openclaw/openclaw/commit/2ffbea20d2f66855c90f0f9791fa78bd038ffc46</a>
+<ul>
+<li>Evidence used: captures expected session identity at approval-request time and drops stale approval follow-ups after a session key is rebound.
+</li>
+</ul>
+</li>
+<li>OpenAI Codex paired thread environment settings commit: <a href="https://github.com/openai/codex/commit/f3c1283411edadcc0522bea376d0adc6961d5ca3">https://github.com/openai/codex/commit/f3c1283411edadcc0522bea376d0adc6961d5ca3</a>
+<ul>
+<li>Evidence used: treats thread cwd and environment selection as one logical internal setting so subsequent turns do not inherit a split execution context.
+</li>
+</ul>
+</li>
+</ul>
+<h2>Evidence Limits</h2>
+<ul>
+<li>These sources do not prove a shared standard across Pi, OpenClaw, and Codex.
+</li>
+<li>Pi project trust is not sandboxing; the cited security documentation says stronger isolation must come from the execution environment.
+</li>
+<li>OpenClaw evidence covers local approval-runtime authority and stale follow-up routing, not every approval or gateway behavior.
+</li>
+<li>Codex evidence covers thread cwd/environment pairing, not a broad new security model.
+</li>
+</ul>
+    </div>
+    
+  </section>
+      <section class="related-edition-section atlas-context-section">
+    <div class="section-title-row">
+      <h2>Atlas Context</h2>
+      <a href="/atlas/">Open Atlas &rsaquo;</a>
+    </div>
+    <div class="updates-list">
+      <a class="article-card" href="/atlas/friction-safety-and-approval/">
+            <div class="article-meta"><span class="lane">Agent Atlas</span><span>Chapter 7</span></div>
+            <h3>The Approval Trap</h3>
+            <p>Approval is useful only when it catches a meaningful change in authority, explains that change, and keeps the decision attached to the work.</p>
+          </a>
+    </div>
+  </section>
+      <section class="reader-feedback"
+    data-tgr-feedback
+    data-article-slug="2026-06-09-daily-agent-trust-is-moving-before-the-first-tool-call"
+    data-article-title="Agent Trust Is Moving Before the First Tool Call"
+    data-article-url="/articles/2026-06-09-daily-agent-trust-is-moving-before-the-first-tool-call/"
+    data-edition-date="2026-06-09"
+    data-lane="Daily Edition"
+    data-tags="Permissions,Memory,Tools,UX"
+    data-repos="openai/codex,openclaw/openclaw">
+    <div class="reader-feedback-head">
+      <div>
+        <div class="eyebrow">Letters &amp; Corrections</div>
+        <h2>Send a note to the desk</h2>
+      </div>
+      <p>Corrections, missing context, or a follow-up lead.</p>
+    </div>
+    <form class="feedback-form">
+      <div class="feedback-votes" role="group" aria-label="Choose signal type">
+        <button class="feedback-choice" type="button" data-vote="follow-up" aria-pressed="false">
+          <span aria-hidden="true">+</span>
+          <span>Follow-up</span>
+        </button>
+        <button class="feedback-choice" type="button" data-vote="correction" aria-pressed="false">
+          <span aria-hidden="true">!</span>
+          <span>Correction</span>
+        </button>
+      </div>
+      <label class="feedback-comment">
+        <span>Note for the editor</span>
+        <textarea name="comment" rows="3" maxlength="320" placeholder="What did we miss, or what should we follow next?"></textarea>
+      </label>
+      <div class="feedback-submit-row">
+        <p class="feedback-status" aria-live="polite"></p>
+        <button class="paper-button primary feedback-submit" type="submit">Send to desk</button>
+      </div>
+    </form>
+  </section>
+      <section class="related-edition-section">
+        <div class="section-title-row">
+          <h2>Same Edition</h2>
+          <a href="/editions/2026-06-09/">Open issue &rsaquo;</a>
+        </div>
+        <div class="updates-list">
+          <a class="update-card" href="/articles/2026-06-09-daily-pi-coding-agent-you-can-keep-rewriting/">
+    <div class="update-stripe"></div>
+    <div class="update-main">
+      <div class="update-meta">
+        <span>Context</span>
+        <span class="source-plus">+15</span>
+        <span>Jun 9, 2026</span>
+      </div>
+      <h3>Pi Coding Agent You Can Keep Rewriting</h3>
+      <div class="update-receipt">
+        <span>openai/codex + google-gemini/gemini-cli</span>
+        <span class="branch-pill">evidence</span>
+      </div>
+      <div class="update-foot">
+        <span>15 sources</span>
+        <span>2 repos</span>
+        <span>15 source signals</span>
+      </div>
+    </div>
+    <span class="update-arrow" aria-hidden="true">&rsaquo;</span>
+  </a>
+        </div>
+      </section>
+    </main>
+    <footer class="wrap site-footer">
+      <span>&copy; 2026 The Git Reporter</span>
+      <a href="/about/">About</a>
+      <a href="/feed.xml">RSS</a>
+      <a href="https://x.com/TheGitReporter">Follow on X</a>
+      <a href="/articles.json">Manifest JSON</a>
+      <a href="/repos/">Sources</a>
+    </footer>
+  </div>
+</body>
+</html>
