@@ -1,0 +1,298 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Agent Context Gets Filesystem Boundaries | The Git Reporter</title>
+  <meta name="description" content="Fresh Crush, Codex, OpenClaw, and OpenCode changes show agent runtimes separating user memory, project context, and sandbox paths before work starts.">
+  <meta name="robots" content="index,follow">
+  <link rel="canonical" href="https://thegitreporter.com/articles/2026-06-13-daily-agent-context-gets-filesystem-boundaries/">
+  <link rel="alternate" type="application/rss+xml" title="The Git Reporter" href="https://thegitreporter.com/feed.xml">
+  <meta property="og:site_name" content="The Git Reporter">
+  <meta property="og:locale" content="en_US">
+  <meta property="og:title" content="Agent Context Gets Filesystem Boundaries | The Git Reporter">
+  <meta property="og:description" content="Fresh Crush, Codex, OpenClaw, and OpenCode changes show agent runtimes separating user memory, project context, and sandbox paths before work starts.">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://thegitreporter.com/articles/2026-06-13-daily-agent-context-gets-filesystem-boundaries/">
+  <meta property="og:image" content="https://thegitreporter.com/assets/social/2026-06-13-daily-agent-context-gets-filesystem-boundaries-og.jpg">
+  <meta property="og:image:secure_url" content="https://thegitreporter.com/assets/social/2026-06-13-daily-agent-context-gets-filesystem-boundaries-og.jpg">
+  <meta property="og:image:type" content="image/jpeg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Diagram-style zine poster saying Context has a border, with source cards for Crush, Codex, OpenClaw, and OpenCode feeding into a circled filesystem boundary.">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:site" content="@TheGitReporter">
+  <meta name="twitter:creator" content="@TheGitReporter">
+  <meta name="twitter:title" content="Agent Context Gets Filesystem Boundaries | The Git Reporter">
+  <meta name="twitter:description" content="Fresh Crush, Codex, OpenClaw, and OpenCode changes show agent runtimes separating user memory, project context, and sandbox paths before work starts.">
+  <meta name="twitter:url" content="https://thegitreporter.com/articles/2026-06-13-daily-agent-context-gets-filesystem-boundaries/">
+  <meta name="twitter:domain" content="thegitreporter.com">
+  <meta name="twitter:image" content="https://thegitreporter.com/assets/social/2026-06-13-daily-agent-context-gets-filesystem-boundaries-og.jpg">
+  <meta name="twitter:image:alt" content="Diagram-style zine poster saying Context has a border, with source cards for Crush, Codex, OpenClaw, and OpenCode feeding into a circled filesystem boundary.">
+  <meta property="article:published_time" content="2026-06-13T12:00:00Z">
+  <meta property="article:modified_time" content="2026-06-13T12:00:00Z">
+  <meta property="article:section" content="Daily Edition">
+  <meta property="article:tag" content="Context">
+  <meta property="article:tag" content="Filesystem">
+  <meta property="article:tag" content="Memory">
+  <meta property="article:tag" content="Runtime">
+  <meta property="article:tag" content="charmbracelet/crush">
+  <meta property="article:tag" content="openai/codex">
+  <meta property="article:tag" content="openclaw/openclaw">
+  <meta property="article:tag" content="anomalyco/opencode">
+  <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"https://thegitreporter.com/#organization","name":"The Git Reporter","url":"https://thegitreporter.com","logo":{"@type":"ImageObject","url":"https://thegitreporter.com/assets/mark.svg"},"sameAs":["https://x.com/TheGitReporter"]},{"@type":"WebSite","@id":"https://thegitreporter.com/#website","name":"The Git Reporter","url":"https://thegitreporter.com","publisher":{"@id":"https://thegitreporter.com/#organization"}},{"@type":"NewsArticle","mainEntityOfPage":{"@type":"WebPage","@id":"https://thegitreporter.com/articles/2026-06-13-daily-agent-context-gets-filesystem-boundaries/"},"headline":"Agent Context Gets Filesystem Boundaries","description":"Fresh Crush, Codex, OpenClaw, and OpenCode changes show agent runtimes separating user memory, project context, and sandbox paths before work starts.","image":["https://thegitreporter.com/assets/social/2026-06-13-daily-agent-context-gets-filesystem-boundaries-og.jpg"],"datePublished":"2026-06-13T12:00:00Z","dateModified":"2026-06-13T12:00:00Z","author":[{"@type":"Organization","name":"The Git Reporter","url":"https://thegitreporter.com"}],"publisher":{"@type":"Organization","@id":"https://thegitreporter.com/#organization","name":"The Git Reporter","url":"https://thegitreporter.com","logo":{"@type":"ImageObject","url":"https://thegitreporter.com/assets/mark.svg"},"sameAs":["https://x.com/TheGitReporter"]},"articleSection":"Daily Edition","keywords":"Context, Filesystem, Memory, Runtime, charmbracelet/crush, openai/codex, openclaw/openclaw, anomalyco/opencode"}]}</script>
+  <link rel="icon" href="/assets/mark.svg">
+  <link rel="stylesheet" href="/assets/site.css?v=2026-05-30-about-layout-social-1">
+  <script defer src="/assets/feedback.js?v=2026-05-30-about-layout-social-1"></script>
+  <script defer src="/assets/analytics.js?v=2026-05-30-about-layout-social-1"></script>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-CH19T7M0T1"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){window.dataLayer.push(arguments);}
+    gtag("js", new Date());
+    gtag("config", "G-CH19T7M0T1");
+  </script>
+</head>
+<body>
+  <div class="site">
+    <header class="site-header" id="top">
+      <div class="wrap utility-row">
+        <a class="icon-link menu-icon" href="/archive/" aria-label="Open edition history"><span></span><span></span><span></span></a>
+        <a class="icon-link archive-icon" href="/archive/" aria-label="Open edition history"></a>
+      </div>
+      <div class="wrap masthead-lockup">
+        <a class="masthead-title" href="/">THE GIT REPORTER</a>
+        <div class="masthead-ornament" aria-hidden="true"></div>
+      </div>
+      <div class="wrap nav-wrap">
+        <nav class="paper-nav" aria-label="Primary navigation">
+    <a class="" href="/">Today</a><a class="active" href="/archive/">Editions</a><a class="" href="/about/">About</a><a class="" href="/atlas/">Agent Atlas</a><a class="" href="/repos/">Repos</a>
+  </nav>
+        <div class="nav-rule"></div>
+      </div>
+    </header>
+    <main class="wrap page-shell article-page">
+      <section class="page-hero story-front">
+        <div class="story-topline">
+          <span>Daily Edition</span>
+          <span>Sources <strong>+4</strong></span>
+        </div>
+        <h1>Agent Context Gets Filesystem Boundaries</h1>
+        <p class="summary">Fresh Crush, Codex, OpenClaw, and OpenCode changes show agent runtimes separating user memory, project context, and sandbox paths before work starts.</p>
+        <figure class="story-illustration article-illustration">
+    <img src="/assets/illustrations/2026-06-13-agent-context-gets-filesystem-boundaries-diagram-punk-v1.jpg" alt="Diagram-style zine poster saying Context has a border, with source cards for Crush, Codex, OpenClaw, and OpenCode feeding into a circled filesystem boundary." loading="lazy" decoding="async">
+    <figcaption><span>Diagram Punk</span>context now needs a filesystem border.</figcaption>
+  </figure>
+        <div class="receipt">
+    <div class="receipt-line">
+      <span class="receipt-icon">repos</span>
+      <span class="receipt-main">charmbracelet/crush + 3 more</span>
+      <span class="branch-pill">evidence</span>
+    </div>
+    <div class="receipt-line receipt-muted">
+      <span>4 source signals</span>
+      <span>4 repos</span>
+      <span>4 linked commits</span>
+    </div>
+    <div class="commit-line">Evidence: 4 linked commits / June 13, 2026 / Daily Edition</div>
+  </div>
+        <div class="article-route-row">
+          <a href="/editions/2026-06-13/">Open Edition</a>
+          <a href="#evidence">Evidence below</a>
+        </div>
+      </section>
+      <section class="story-reader">
+        <article class="story-shell story-body">
+          <p><code>charmbracelet/crush</code> merged Amolith's commit <a href="https://github.com/charmbracelet/crush/commit/6242e4f47743190fe60a27ba881ba3d6a9b36deb">6242e4f4</a>, adding default user-level context files that are loaded separately from project context.</p>
+
+  <h2>Facts</h2>
+  <ul>
+    <li>Crush now reads <code>CRUSH.md</code> and generic <code>AGENTS.md</code> files from user config paths and exposes <code>global_context_paths</code> in configuration.</li>
+    <li>OpenAI Codex migrated sandbox current-working-directory inputs to <code>PathUri</code>, keeping URI semantics until the receiving host validates them.</li>
+    <li>OpenClaw preserved memory prompt registration in its Codex runtime plugin, while OpenCode refactored project-copy handling around project directory strategy.</li>
+  </ul>
+
+  <h2>Evidence</h2>
+  <p>The receipts are Crush commit <a href="https://github.com/charmbracelet/crush/commit/6242e4f47743190fe60a27ba881ba3d6a9b36deb">6242e4f4</a>, Codex commit <a href="https://github.com/openai/codex/commit/52a50aec709d1934522d7ebdd9ceb4dc75c198f9">52a50aec</a>, OpenClaw commit <a href="https://github.com/openclaw/openclaw/commit/7387083a9574a0b7a79579790f09e0f3510fda36">7387083a</a>, and OpenCode commit <a href="https://github.com/anomalyco/opencode/commit/c2e6b1807d1e17c7ac0f019b2b1e270065a6d996">c2e6b180</a>.</p>
+
+  <h2>Context</h2>
+  <p>This continues the trust-boundary arc from <a href="/articles/2026-06-12-daily-agent-tools-are-getting-credential-boundaries/">Friday's credential story</a>, but the boundary has moved inward: builders now have to ask which instructions, paths, and project copies become part of an agent run.</p>
+
+  <h2>Limits</h2>
+  <p>These are independent patches, not one shared design. The evidence shows local context being routed more carefully; it does not prove that every agent has solved stale memory, unsafe path handling, or user/project instruction conflicts.</p>
+        </article>
+      </section>
+      <section class="evidence-section" id="evidence" aria-labelledby="evidence-title">
+    <div class="evidence-head">
+      <div>
+        <div class="eyebrow">Evidence Trail</div>
+        <h2 id="evidence-title">Receipts below the story</h2>
+        <p>The article above is the public narrative. This section keeps the source trail, limits, and reporting notes on the same page.</p>
+      </div>
+      <a class="paper-button" href="/editions/2026-06-13/">Edition</a>
+    </div>
+    <div class="evidence-table evidence-summary">
+      <div class="evidence-line"><span>Date</span><span>June 13, 2026</span></div>
+      <div class="evidence-line"><span>Lane</span><span>Daily Edition</span></div>
+      <div class="evidence-line"><span>Confidence</span><span>78%</span></div>
+      <div class="evidence-line"><span>Sources</span><span>4</span></div>
+      <div class="evidence-line"><span>Repos</span><span>charmbracelet/crush, openai/codex, openclaw/openclaw, anomalyco/opencode</span></div>
+    </div>
+    <div class="markdown evidence-copy evidence-copy-block"><h3>Reporter Notes</h3><p>The interesting movement is not &quot;agents have memory.&quot; It is that the runtime</p>
+<p>now has to distinguish global user preference files, project-specific context,</p>
+<p>sandbox cwd values, memory prompt registration, and project copy directories.</p>
+<p>Those objects carry different risk and lifetime assumptions.</p>
+<p>The most reader-friendly version is: context has a border. Builders need to</p>
+<p>know which side of the border an instruction, path, or project copy came from.</p></div>
+    <div class="markdown evidence-copy evidence-copy-block">
+      <h2>Reporter Notes</h2>
+<p>This article groups independent patches around one operating pressure: agent</p>
+<p>runtimes need to know whether context came from the user, the project, a</p>
+<p>sandboxed working directory, a registered memory prompt, or a project copy.</p>
+<h2>Primary Evidence</h2>
+<ul>
+<li>Crush commit &quot;feat(config): load user-level context files&quot;: <a href="https://github.com/charmbracelet/crush/commit/6242e4f47743190fe60a27ba881ba3d6a9b36deb">https://github.com/charmbracelet/crush/commit/6242e4f47743190fe60a27ba881ba3d6a9b36deb</a>
+<ul>
+<li>Evidence used: adds default global context paths, separates global context
+</li>
+</ul>
+</li>
+</ul>
+<p>    files from project context files in prompt data, and documents</p>
+<p>    <code>global_context_paths</code>.</p>
+<ul>
+<li>OpenAI Codex commit &quot;sandboxing: migrate cwd inputs to PathUri&quot;: <a href="https://github.com/openai/codex/commit/52a50aec709d1934522d7ebdd9ceb4dc75c198f9">https://github.com/openai/codex/commit/52a50aec709d1934522d7ebdd9ceb4dc75c198f9</a>
+<ul>
+<li>Evidence used: carries sandbox cwd values as URI semantics until validation
+</li>
+</ul>
+</li>
+</ul>
+<p>    and extends sandbox, protocol, and runtime tests.</p>
+<ul>
+<li>OpenClaw commit &quot;fix(codex): preserve memory prompt registration&quot;: <a href="https://github.com/openclaw/openclaw/commit/7387083a9574a0b7a79579790f09e0f3510fda36">https://github.com/openclaw/openclaw/commit/7387083a9574a0b7a79579790f09e0f3510fda36</a>
+<ul>
+<li>Evidence used: preserves memory prompt registration in the Codex runtime
+</li>
+</ul>
+</li>
+</ul>
+<p>    plugin and adds tests around runtime plugin behavior.</p>
+<ul>
+<li>OpenCode commit &quot;feat(core): refactor project copies for v2&quot;: <a href="https://github.com/anomalyco/opencode/commit/c2e6b1807d1e17c7ac0f019b2b1e270065a6d996">https://github.com/anomalyco/opencode/commit/c2e6b1807d1e17c7ac0f019b2b1e270065a6d996</a>
+<ul>
+<li>Evidence used: adds project directory strategy and project-copy handling
+</li>
+</ul>
+</li>
+</ul>
+<p>    surfaces with database, server, TUI, and test changes.</p>
+<h2>Evidence Limits</h2>
+<ul>
+<li>These are independent changes, not a coordinated standard.
+</li>
+<li>The Crush commit concerns configured context-file loading, not all memory.
+</li>
+<li>The Codex commit is path and sandbox transport groundwork, not a complete
+</li>
+</ul>
+<p>  policy for every file access.</p>
+<ul>
+<li>The OpenClaw and OpenCode commits support the broader context-boundary arc
+</li>
+</ul>
+<p>  but do not prove the same implementation choice as Crush or Codex.</p>
+    </div>
+    
+  </section>
+      <section class="related-edition-section atlas-context-section">
+    <div class="section-title-row">
+      <h2>Atlas Context</h2>
+      <a href="/atlas/">Open Atlas &rsaquo;</a>
+    </div>
+    <div class="updates-list">
+      <a class="article-card" href="/atlas/what-an-agent-can-see/">
+            <div class="article-meta"><span class="lane">Agent Atlas</span><span>Chapter 2</span></div>
+            <h3>The Invisible Prompt</h3>
+            <p>The model acts on an assembled viewport containing visible messages, hidden turn context, path-triggered instructions, memory records, tool schemas, permissions, and inherited state.</p>
+          </a>
+    </div>
+  </section>
+      <section class="reader-feedback"
+    data-tgr-feedback
+    data-article-slug="2026-06-13-daily-agent-context-gets-filesystem-boundaries"
+    data-article-title="Agent Context Gets Filesystem Boundaries"
+    data-article-url="/articles/2026-06-13-daily-agent-context-gets-filesystem-boundaries/"
+    data-edition-date="2026-06-13"
+    data-lane="Daily Edition"
+    data-tags="Context,Filesystem,Memory,Runtime"
+    data-repos="charmbracelet/crush,openai/codex,openclaw/openclaw,anomalyco/opencode">
+    <div class="reader-feedback-head">
+      <div>
+        <div class="eyebrow">Letters &amp; Corrections</div>
+        <h2>Send a note to the desk</h2>
+      </div>
+      <p>Corrections, missing context, or a follow-up lead.</p>
+    </div>
+    <form class="feedback-form">
+      <div class="feedback-votes" role="group" aria-label="Choose signal type">
+        <button class="feedback-choice" type="button" data-vote="follow-up" aria-pressed="false">
+          <span aria-hidden="true">+</span>
+          <span>Follow-up</span>
+        </button>
+        <button class="feedback-choice" type="button" data-vote="correction" aria-pressed="false">
+          <span aria-hidden="true">!</span>
+          <span>Correction</span>
+        </button>
+      </div>
+      <label class="feedback-comment">
+        <span>Note for the editor</span>
+        <textarea name="comment" rows="3" maxlength="320" placeholder="What did we miss, or what should we follow next?"></textarea>
+      </label>
+      <div class="feedback-submit-row">
+        <p class="feedback-status" aria-live="polite"></p>
+        <button class="paper-button primary feedback-submit" type="submit">Send to desk</button>
+      </div>
+    </form>
+  </section>
+      <section class="related-edition-section">
+        <div class="section-title-row">
+          <h2>Same Edition</h2>
+          <a href="/editions/2026-06-13/">Open issue &rsaquo;</a>
+        </div>
+        <div class="updates-list">
+          <a class="update-card" href="/articles/2026-06-13-daily-mistral-vibes-contributor-door-is-half-open/">
+    <div class="update-stripe"></div>
+    <div class="update-main">
+      <div class="update-meta">
+        <span>Reported</span>
+        <span class="source-plus">+12</span>
+        <span>Jun 13, 2026</span>
+      </div>
+      <h3>Mistral Vibe's Contributor Door Is Half Open</h3>
+      <div class="update-receipt">
+        <span>mistralai/mistral-vibe</span>
+        <span class="branch-pill">evidence</span>
+      </div>
+      <div class="update-foot">
+        <span>12 sources</span>
+        <span>1 repo</span>
+        <span>12 source signals</span>
+      </div>
+    </div>
+    <span class="update-arrow" aria-hidden="true">&rsaquo;</span>
+  </a>
+        </div>
+      </section>
+    </main>
+    <footer class="wrap site-footer">
+      <span>&copy; 2026 The Git Reporter</span>
+      <a href="/about/">About</a>
+      <a href="/feed.xml">RSS</a>
+      <a href="https://x.com/TheGitReporter">Follow on X</a>
+      <a href="/articles.json">Manifest JSON</a>
+      <a href="/repos/">Sources</a>
+    </footer>
+  </div>
+</body>
+</html>
