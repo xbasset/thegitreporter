@@ -1,0 +1,282 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Agent Tools Are Moving Safety Into Boundaries | The Git Reporter</title>
+  <meta name="description" content="Gemini CLI, LangChain, and Codex landed fresh patches that put agent safety in filesystem checks, type gates, pending-tool waits, and permission-path parsing.">
+  <meta name="robots" content="index,follow">
+  <link rel="canonical" href="https://thegitreporter.com/articles/2026-06-16-daily-agent-tools-are-moving-safety-into-boundaries/">
+  <link rel="alternate" type="application/rss+xml" title="The Git Reporter" href="https://thegitreporter.com/feed.xml">
+  <meta property="og:site_name" content="The Git Reporter">
+  <meta property="og:locale" content="en_US">
+  <meta property="og:title" content="Agent Tools Are Moving Safety Into Boundaries | The Git Reporter">
+  <meta property="og:description" content="Gemini CLI, LangChain, and Codex landed fresh patches that put agent safety in filesystem checks, type gates, pending-tool waits, and permission-path parsing.">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://thegitreporter.com/articles/2026-06-16-daily-agent-tools-are-moving-safety-into-boundaries/">
+  <meta property="og:image" content="https://thegitreporter.com/assets/social/2026-06-16-daily-agent-tools-are-moving-safety-into-boundaries-og.jpg">
+  <meta property="og:image:secure_url" content="https://thegitreporter.com/assets/social/2026-06-16-daily-agent-tools-are-moving-safety-into-boundaries-og.jpg">
+  <meta property="og:image:type" content="image/jpeg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="A rough zine-style Diagram Punk poster with Gemini CLI, LangChain, and Codex evidence cards pointing to a circled conclusion that safety moves into boundaries.">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:site" content="@TheGitReporter">
+  <meta name="twitter:creator" content="@TheGitReporter">
+  <meta name="twitter:title" content="Agent Tools Are Moving Safety Into Boundaries | The Git Reporter">
+  <meta name="twitter:description" content="Gemini CLI, LangChain, and Codex landed fresh patches that put agent safety in filesystem checks, type gates, pending-tool waits, and permission-path parsing.">
+  <meta name="twitter:url" content="https://thegitreporter.com/articles/2026-06-16-daily-agent-tools-are-moving-safety-into-boundaries/">
+  <meta name="twitter:domain" content="thegitreporter.com">
+  <meta name="twitter:image" content="https://thegitreporter.com/assets/social/2026-06-16-daily-agent-tools-are-moving-safety-into-boundaries-og.jpg">
+  <meta name="twitter:image:alt" content="A rough zine-style Diagram Punk poster with Gemini CLI, LangChain, and Codex evidence cards pointing to a circled conclusion that safety moves into boundaries.">
+  <meta property="article:published_time" content="2026-06-16T12:00:00Z">
+  <meta property="article:modified_time" content="2026-06-16T12:00:00Z">
+  <meta property="article:section" content="Daily Edition">
+  <meta property="article:tag" content="Security">
+  <meta property="article:tag" content="Permissions">
+  <meta property="article:tag" content="Tools">
+  <meta property="article:tag" content="Runtime">
+  <meta property="article:tag" content="Reliability">
+  <meta property="article:tag" content="google-gemini/gemini-cli">
+  <meta property="article:tag" content="langchain-ai/langchain">
+  <meta property="article:tag" content="openai/codex">
+  <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"https://thegitreporter.com/#organization","name":"The Git Reporter","url":"https://thegitreporter.com","logo":{"@type":"ImageObject","url":"https://thegitreporter.com/assets/mark.svg"},"sameAs":["https://x.com/TheGitReporter"]},{"@type":"WebSite","@id":"https://thegitreporter.com/#website","name":"The Git Reporter","url":"https://thegitreporter.com","publisher":{"@id":"https://thegitreporter.com/#organization"}},{"@type":"NewsArticle","mainEntityOfPage":{"@type":"WebPage","@id":"https://thegitreporter.com/articles/2026-06-16-daily-agent-tools-are-moving-safety-into-boundaries/"},"headline":"Agent Tools Are Moving Safety Into Boundaries","description":"Gemini CLI, LangChain, and Codex landed fresh patches that put agent safety in filesystem checks, type gates, pending-tool waits, and permission-path parsing.","image":["https://thegitreporter.com/assets/social/2026-06-16-daily-agent-tools-are-moving-safety-into-boundaries-og.jpg"],"datePublished":"2026-06-16T12:00:00Z","dateModified":"2026-06-16T12:00:00Z","author":[{"@type":"Organization","name":"The Git Reporter","url":"https://thegitreporter.com"}],"publisher":{"@type":"Organization","@id":"https://thegitreporter.com/#organization","name":"The Git Reporter","url":"https://thegitreporter.com","logo":{"@type":"ImageObject","url":"https://thegitreporter.com/assets/mark.svg"},"sameAs":["https://x.com/TheGitReporter"]},"articleSection":"Daily Edition","keywords":"Security, Permissions, Tools, Runtime, Reliability, google-gemini/gemini-cli, langchain-ai/langchain, openai/codex"}]}</script>
+  <link rel="icon" href="/assets/mark.svg">
+  <link rel="stylesheet" href="/assets/site.css?v=2026-05-30-about-layout-social-1">
+  <script defer src="/assets/feedback.js?v=2026-05-30-about-layout-social-1"></script>
+  <script defer src="/assets/analytics.js?v=2026-05-30-about-layout-social-1"></script>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-CH19T7M0T1"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){window.dataLayer.push(arguments);}
+    gtag("js", new Date());
+    gtag("config", "G-CH19T7M0T1");
+  </script>
+</head>
+<body>
+  <div class="site">
+    <header class="site-header" id="top">
+      <div class="wrap utility-row">
+        <a class="icon-link menu-icon" href="/archive/" aria-label="Open edition history"><span></span><span></span><span></span></a>
+        <a class="icon-link archive-icon" href="/archive/" aria-label="Open edition history"></a>
+      </div>
+      <div class="wrap masthead-lockup">
+        <a class="masthead-title" href="/">THE GIT REPORTER</a>
+        <div class="masthead-ornament" aria-hidden="true"></div>
+      </div>
+      <div class="wrap nav-wrap">
+        <nav class="paper-nav" aria-label="Primary navigation">
+    <a class="" href="/">Today</a><a class="active" href="/archive/">Editions</a><a class="" href="/about/">About</a><a class="" href="/agent-pulse/">Agent Pulse</a><a class="" href="/atlas/">Agent Atlas</a><a class="" href="/repos/">Repos</a>
+  </nav>
+        <div class="nav-rule"></div>
+      </div>
+    </header>
+    <main class="wrap page-shell article-page">
+      <section class="page-hero story-front">
+        <div class="story-topline">
+          <span>Daily Edition</span>
+          <span>Sources <strong>+4</strong></span>
+        </div>
+        <h1>Agent Tools Are Moving Safety Into Boundaries</h1>
+        <p class="summary">Gemini CLI, LangChain, and Codex landed fresh patches that put agent safety in filesystem checks, type gates, pending-tool waits, and permission-path parsing.</p>
+        <figure class="story-illustration article-illustration">
+    <img src="/assets/illustrations/2026-06-16-agent-tools-are-moving-safety-into-boundaries-diagram-punk-v1.jpg" alt="A rough zine-style Diagram Punk poster with Gemini CLI, LangChain, and Codex evidence cards pointing to a circled conclusion that safety moves into boundaries." loading="lazy" decoding="async">
+    <figcaption><span>Diagram Punk</span>safety moves into the code boundaries.</figcaption>
+  </figure>
+        <div class="receipt">
+    <div class="receipt-line">
+      <span class="receipt-icon">repos</span>
+      <span class="receipt-main">google-gemini/gemini-cli + 2 more</span>
+      <span class="branch-pill">evidence</span>
+    </div>
+    <div class="receipt-line receipt-muted">
+      <span>4 source signals</span>
+      <span>3 repos</span>
+      <span>4 linked commits</span>
+    </div>
+    <div class="commit-line">Evidence: 4 linked commits / June 16, 2026 / Daily Edition</div>
+  </div>
+        <div class="article-route-row">
+          <a href="/editions/2026-06-16/">Open Edition</a>
+          <a href="#evidence">Evidence below</a>
+        </div>
+      </section>
+      <section class="story-reader">
+        <article class="story-shell story-body">
+          <p><code>google-gemini/gemini-cli</code> merged commit <a href="https://github.com/google-gemini/gemini-cli/commit/bca5667fc65517b0a328ae3f0746fee274c059bf">bca5667</a> on June 15 to block path traversal during skill installation and uninstallation, adding tests for <code>..</code>, absolute-path names, unsafe subpaths, and sibling-directory deletion attempts.</p>
+
+  <h2>Facts</h2>
+  <ul>
+    <li>Gemini CLI commit <a href="https://github.com/google-gemini/gemini-cli/commit/0f8a157e5eccef81fd41e74b2abbc79039feea54">0f8a157</a> makes the A2A server yield when tools are still waiting for approval and routes task configuration through explicit trust handling.</li>
+    <li>LangChain commit <a href="https://github.com/langchain-ai/langchain/commit/afff89a9f799927b11fc7dd7285d9514edc7609d">afff89a</a> removes the <code>disallow_any_generics = false</code> mypy escape hatch and adjusts core message, prompt, and runnable types.</li>
+    <li>OpenAI Codex commit <a href="https://github.com/openai/codex/commit/46f17930b606bce51c054dc14d71c4d3dbba3975">46f1793</a> switches filesystem permission paths for the exec server to <code>PathUri</code>, a stricter boundary representation in core session tooling.</li>
+  </ul>
+
+  <h2>Evidence</h2>
+  <p>The common move is guardrail work: sanitize the folder a skill can write to, pause while tools need user approval, make generic typing explicit, and normalize permission paths.</p>
+
+  <h2>Context</h2>
+  <p>For builders and operators, these are the places agent systems fail quietly: a skill archive escaping its directory, a pending tool continuing as if approved, a permissive type alias hiding shape, or a permission path being parsed loosely.</p>
+
+  <h2>Limits</h2>
+  <p>The commits are independent and mostly infrastructure-level. They do not prove one shared safety architecture, but they show active projects pushing safety out of policy language and into code boundaries readers can inspect.</p>
+        </article>
+      </section>
+      <section class="evidence-section" id="evidence" aria-labelledby="evidence-title">
+    <div class="evidence-head">
+      <div>
+        <div class="eyebrow">Evidence Trail</div>
+        <h2 id="evidence-title">Receipts below the story</h2>
+        <p>The article above is the public narrative. This section keeps the source trail, limits, and reporting notes on the same page.</p>
+      </div>
+      <a class="paper-button" href="/editions/2026-06-16/">Edition</a>
+    </div>
+    <div class="evidence-table evidence-summary">
+      <div class="evidence-line"><span>Date</span><span>June 16, 2026</span></div>
+      <div class="evidence-line"><span>Lane</span><span>Daily Edition</span></div>
+      <div class="evidence-line"><span>Confidence</span><span>78%</span></div>
+      <div class="evidence-line"><span>Sources</span><span>4</span></div>
+      <div class="evidence-line"><span>Repos</span><span>google-gemini/gemini-cli, langchain-ai/langchain, openai/codex</span></div>
+    </div>
+    <div class="markdown evidence-copy evidence-copy-block"><h3>Reporter Notes</h3><ul>
+<li>Gemini CLI's skill patch is the strongest concrete fact because it names a vulnerable class of bug and shows tests that prevent directory escape during install, link, and uninstall flows.
+</li>
+<li>Gemini CLI's pending-tools patch supplies the runtime approval dimension: when tools are not approved yet, the server yields instead of treating the turn as finished.
+</li>
+<li>LangChain's typing change is a boundary in a different layer. It is not an agent runtime feature, but it matters because LangChain core is a shared library surface for message and runnable shapes.
+</li>
+<li>Codex's PathUri patch adds another filesystem-boundary example without making OpenAI/Codex the dominant source set again.
+</li>
+</ul></div>
+    <div class="markdown evidence-copy evidence-copy-block">
+      <h2>Primary Evidence</h2>
+<ul>
+<li>Gemini CLI skill path traversal prevention commit: <a href="https://github.com/google-gemini/gemini-cli/commit/bca5667fc65517b0a328ae3f0746fee274c059bf">https://github.com/google-gemini/gemini-cli/commit/bca5667fc65517b0a328ae3f0746fee274c059bf</a>
+<ul>
+<li>Evidence used: the diff changes skill install/link/uninstall path resolution, rejects traversal subpaths and invalid skill names, and adds tests for <code>..</code>, absolute-path names, unsafe subpaths, and sibling-directory deletion attempts.
+</li>
+</ul>
+</li>
+<li>Gemini CLI pending tools and trust overrides commit: <a href="https://github.com/google-gemini/gemini-cli/commit/0f8a157e5eccef81fd41e74b2abbc79039feea54">https://github.com/google-gemini/gemini-cli/commit/0f8a157e5eccef81fd41e74b2abbc79039feea54</a>
+<ul>
+<li>Evidence used: the A2A executor now yields when pending tools still need approval, and configuration trust handling moves through <code>setIsTrusted</code>.
+</li>
+</ul>
+</li>
+<li>LangChain <code>disallow_any_generics</code> commit: <a href="https://github.com/langchain-ai/langchain/commit/afff89a9f799927b11fc7dd7285d9514edc7609d">https://github.com/langchain-ai/langchain/commit/afff89a9f799927b11fc7dd7285d9514edc7609d</a>
+<ul>
+<li>Evidence used: the commit removes <code>disallow_any_generics = false</code> from <code>libs/core/pyproject.toml</code> and adjusts core message, prompt, and runnable typing.
+</li>
+</ul>
+</li>
+<li>OpenAI Codex PathUri permission paths commit: <a href="https://github.com/openai/codex/commit/46f17930b606bce51c054dc14d71c4d3dbba3975">https://github.com/openai/codex/commit/46f17930b606bce51c054dc14d71c4d3dbba3975</a>
+<ul>
+<li>Evidence used: the commit title and diff identify a move to <code>PathUri</code> in filesystem permission paths for exec-server related core session tooling.
+</li>
+</ul>
+</li>
+</ul>
+<h2>Evidence Limits</h2>
+<ul>
+<li>The article does not claim the projects coordinated or adopted one shared safety architecture.
+</li>
+<li>The evidence is implementation-level. It does not prove user-facing security posture, release timing, or exploit history.
+</li>
+<li>The lead uses commit-level public evidence; it does not rely on private scanner output or local-only paths.
+</li>
+</ul>
+    </div>
+    
+  </section>
+      <section class="related-edition-section atlas-context-section">
+    <div class="section-title-row">
+      <h2>Atlas Context</h2>
+      <a href="/atlas/">Open Atlas &rsaquo;</a>
+    </div>
+    <div class="updates-list">
+      <a class="article-card" href="/atlas/friction-safety-and-approval/">
+            <div class="article-meta"><span class="lane">Agent Atlas</span><span>Chapter 7</span></div>
+            <h3>The Approval Trap</h3>
+            <p>Approval is useful only when it catches a meaningful change in authority, explains that change, and keeps the decision attached to the work.</p>
+          </a>
+    </div>
+  </section>
+      <section class="reader-feedback"
+    data-tgr-feedback
+    data-article-slug="2026-06-16-daily-agent-tools-are-moving-safety-into-boundaries"
+    data-article-title="Agent Tools Are Moving Safety Into Boundaries"
+    data-article-url="/articles/2026-06-16-daily-agent-tools-are-moving-safety-into-boundaries/"
+    data-edition-date="2026-06-16"
+    data-lane="Daily Edition"
+    data-tags="Security,Permissions,Tools,Runtime,Reliability"
+    data-repos="google-gemini/gemini-cli,langchain-ai/langchain,openai/codex">
+    <div class="reader-feedback-head">
+      <div>
+        <div class="eyebrow">Letters &amp; Corrections</div>
+        <h2>Send a note to the desk</h2>
+      </div>
+      <p>Corrections, missing context, or a follow-up lead.</p>
+    </div>
+    <form class="feedback-form">
+      <div class="feedback-votes" role="group" aria-label="Choose signal type">
+        <button class="feedback-choice" type="button" data-vote="follow-up" aria-pressed="false">
+          <span aria-hidden="true">+</span>
+          <span>Follow-up</span>
+        </button>
+        <button class="feedback-choice" type="button" data-vote="correction" aria-pressed="false">
+          <span aria-hidden="true">!</span>
+          <span>Correction</span>
+        </button>
+      </div>
+      <label class="feedback-comment">
+        <span>Note for the editor</span>
+        <textarea name="comment" rows="3" maxlength="320" placeholder="What did we miss, or what should we follow next?"></textarea>
+      </label>
+      <div class="feedback-submit-row">
+        <p class="feedback-status" aria-live="polite"></p>
+        <button class="paper-button primary feedback-submit" type="submit">Send to desk</button>
+      </div>
+    </form>
+  </section>
+      <section class="related-edition-section">
+        <div class="section-title-row">
+          <h2>Same Edition</h2>
+          <a href="/editions/2026-06-16/">Open issue &rsaquo;</a>
+        </div>
+        <div class="updates-list">
+          <a class="update-card" href="/articles/2026-06-16-daily-om-patels-gemini-patch-kept-skills-in-their-folder/">
+    <div class="update-stripe"></div>
+    <div class="update-main">
+      <div class="update-meta">
+        <span>Reported</span>
+        <span class="source-plus">+4</span>
+        <span>Jun 16, 2026</span>
+      </div>
+      <h3>Om Patel's Gemini Patch Kept Skills In Their Folder</h3>
+      <div class="update-receipt">
+        <span>google-gemini/gemini-cli</span>
+        <span class="branch-pill">evidence</span>
+      </div>
+      <div class="update-foot">
+        <span>4 sources</span>
+        <span>1 repo</span>
+        <span>commit bca5667</span>
+      </div>
+    </div>
+    <span class="update-arrow" aria-hidden="true">&rsaquo;</span>
+  </a>
+        </div>
+      </section>
+    </main>
+    <footer class="wrap site-footer">
+      <span>&copy; 2026 The Git Reporter</span>
+      <a href="/about/">About</a>
+      <a href="/agent-pulse/">Agent Pulse</a>
+      <a href="/feed.xml">RSS</a>
+      <a href="https://x.com/TheGitReporter">Follow on X</a>
+      <a href="/articles.json">Manifest JSON</a>
+      <a href="/repos/">Sources</a>
+    </footer>
+  </div>
+</body>
+</html>
