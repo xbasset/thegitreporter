@@ -1,0 +1,288 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Agent Control Panels Move Into The Terminal | The Git Reporter</title>
+  <meta name="description" content="Hermes Agent, OpenClaw, and Codex all moved user-facing control surfaces closer to the agent runtime, from billing and provider setup to structured MCP prompts.">
+  <meta name="robots" content="index,follow">
+  <link rel="canonical" href="https://thegitreporter.com/articles/2026-06-19-daily-agent-control-panels-move-into-the-terminal/">
+  <link rel="alternate" type="application/rss+xml" title="The Git Reporter" href="https://thegitreporter.com/feed.xml">
+  <meta property="og:site_name" content="The Git Reporter">
+  <meta property="og:locale" content="en_US">
+  <meta property="og:title" content="Agent Control Panels Move Into The Terminal | The Git Reporter">
+  <meta property="og:description" content="Hermes Agent, OpenClaw, and Codex all moved user-facing control surfaces closer to the agent runtime, from billing and provider setup to structured MCP prompts.">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://thegitreporter.com/articles/2026-06-19-daily-agent-control-panels-move-into-the-terminal/">
+  <meta property="og:image" content="https://thegitreporter.com/assets/social/2026-06-19-daily-agent-control-panels-move-into-the-terminal-og.jpg">
+  <meta property="og:image:secure_url" content="https://thegitreporter.com/assets/social/2026-06-19-daily-agent-control-panels-move-into-the-terminal-og.jpg">
+  <meta property="og:image:type" content="image/jpeg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Diagram Punk poster showing Hermes billing, OpenClaw provider catalog, and Codex openai/form cards feeding into runtime controls facing users.">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:site" content="@TheGitReporter">
+  <meta name="twitter:creator" content="@TheGitReporter">
+  <meta name="twitter:title" content="Agent Control Panels Move Into The Terminal | The Git Reporter">
+  <meta name="twitter:description" content="Hermes Agent, OpenClaw, and Codex all moved user-facing control surfaces closer to the agent runtime, from billing and provider setup to structured MCP prompts.">
+  <meta name="twitter:url" content="https://thegitreporter.com/articles/2026-06-19-daily-agent-control-panels-move-into-the-terminal/">
+  <meta name="twitter:domain" content="thegitreporter.com">
+  <meta name="twitter:image" content="https://thegitreporter.com/assets/social/2026-06-19-daily-agent-control-panels-move-into-the-terminal-og.jpg">
+  <meta name="twitter:image:alt" content="Diagram Punk poster showing Hermes billing, OpenClaw provider catalog, and Codex openai/form cards feeding into runtime controls facing users.">
+  <meta property="article:published_time" content="2026-06-19T12:00:00Z">
+  <meta property="article:modified_time" content="2026-06-19T12:00:00Z">
+  <meta property="article:section" content="Daily Edition">
+  <meta property="article:tag" content="Runtime">
+  <meta property="article:tag" content="Billing">
+  <meta property="article:tag" content="Providers">
+  <meta property="article:tag" content="MCP">
+  <meta property="article:tag" content="Terminal">
+  <meta property="article:tag" content="NousResearch/hermes-agent">
+  <meta property="article:tag" content="openclaw/openclaw">
+  <meta property="article:tag" content="openai/codex">
+  <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"https://thegitreporter.com/#organization","name":"The Git Reporter","url":"https://thegitreporter.com","logo":{"@type":"ImageObject","url":"https://thegitreporter.com/assets/mark.svg"},"sameAs":["https://x.com/TheGitReporter"]},{"@type":"WebSite","@id":"https://thegitreporter.com/#website","name":"The Git Reporter","url":"https://thegitreporter.com","publisher":{"@id":"https://thegitreporter.com/#organization"}},{"@type":"NewsArticle","mainEntityOfPage":{"@type":"WebPage","@id":"https://thegitreporter.com/articles/2026-06-19-daily-agent-control-panels-move-into-the-terminal/"},"headline":"Agent Control Panels Move Into The Terminal","description":"Hermes Agent, OpenClaw, and Codex all moved user-facing control surfaces closer to the agent runtime, from billing and provider setup to structured MCP prompts.","image":["https://thegitreporter.com/assets/social/2026-06-19-daily-agent-control-panels-move-into-the-terminal-og.jpg"],"datePublished":"2026-06-19T12:00:00Z","dateModified":"2026-06-19T12:00:00Z","author":[{"@type":"Organization","name":"The Git Reporter","url":"https://thegitreporter.com"}],"publisher":{"@type":"Organization","@id":"https://thegitreporter.com/#organization","name":"The Git Reporter","url":"https://thegitreporter.com","logo":{"@type":"ImageObject","url":"https://thegitreporter.com/assets/mark.svg"},"sameAs":["https://x.com/TheGitReporter"]},"articleSection":"Daily Edition","keywords":"Runtime, Billing, Providers, MCP, Terminal, NousResearch/hermes-agent, openclaw/openclaw, openai/codex"}]}</script>
+  <link rel="icon" href="/assets/mark.svg">
+  <link rel="stylesheet" href="/assets/site.css?v=2026-05-30-about-layout-social-1">
+  <script defer src="/assets/feedback.js?v=2026-05-30-about-layout-social-1"></script>
+  <script defer src="/assets/analytics.js?v=2026-05-30-about-layout-social-1"></script>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-CH19T7M0T1"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){window.dataLayer.push(arguments);}
+    gtag("js", new Date());
+    gtag("config", "G-CH19T7M0T1");
+  </script>
+</head>
+<body>
+  <div class="site">
+    <header class="site-header" id="top">
+      <div class="wrap utility-row">
+        <a class="icon-link menu-icon" href="/archive/" aria-label="Open edition history"><span></span><span></span><span></span></a>
+        <a class="icon-link archive-icon" href="/archive/" aria-label="Open edition history"></a>
+      </div>
+      <div class="wrap masthead-lockup">
+        <a class="masthead-title" href="/">THE GIT REPORTER</a>
+        <div class="masthead-ornament" aria-hidden="true"></div>
+      </div>
+      <div class="wrap nav-wrap">
+        <nav class="paper-nav" aria-label="Primary navigation">
+    <a class="" href="/">Today</a><a class="active" href="/archive/">Editions</a><a class="" href="/about/">About</a><a class="" href="/agent-pulse/">Agent Pulse</a><a class="" href="/atlas/">Agent Atlas</a><a class="" href="/repos/">Repos</a>
+  </nav>
+        <div class="nav-rule"></div>
+      </div>
+    </header>
+    <main class="wrap page-shell article-page">
+      <section class="page-hero story-front">
+        <div class="story-topline">
+          <span>Daily Edition</span>
+          <span>Sources <strong>+6</strong></span>
+        </div>
+        <h1>Agent Control Panels Move Into The Terminal</h1>
+        <p class="summary">Hermes Agent, OpenClaw, and Codex all moved user-facing control surfaces closer to the agent runtime, from billing and provider setup to structured MCP prompts.</p>
+        <figure class="story-illustration article-illustration">
+    <img src="/assets/illustrations/2026-06-19-agent-control-panels-move-into-the-terminal-diagram-punk-v1.jpg" alt="Diagram Punk poster showing Hermes billing, OpenClaw provider catalog, and Codex openai/form cards feeding into runtime controls facing users." loading="lazy" decoding="async">
+    <figcaption><span>Diagram Punk</span>terminal agents are turning runtime controls into user-facing surfaces.</figcaption>
+  </figure>
+        <div class="receipt">
+    <div class="receipt-line">
+      <span class="receipt-icon">repos</span>
+      <span class="receipt-main">NousResearch/hermes-agent + 2 more</span>
+      <span class="branch-pill">evidence</span>
+    </div>
+    <div class="receipt-line receipt-muted">
+      <span>6 source signals</span>
+      <span>3 repos</span>
+      <span>3 linked commits</span>
+    </div>
+    <div class="commit-line">Evidence: 3 linked commits / June 19, 2026 / Daily Edition</div>
+  </div>
+        <div class="article-route-row">
+          <a href="/editions/2026-06-19/">Open Edition</a>
+          <a href="#evidence">Evidence below</a>
+        </div>
+      </section>
+      <section class="story-reader">
+        <article class="story-shell story-body">
+          <p>On June 19, <code>NousResearch/hermes-agent</code> merged commit <a href="https://github.com/NousResearch/hermes-agent/commit/73cd8622f9fcd5e368060d1a1678e08bd3d0a794">73cd8622f</a>, adding a <code>/billing</code> terminal flow with CLI, TUI, gateway, auth, and tests.</p>
+
+  <h2>Facts</h2>
+  <ul>
+    <li>Hermes added billing state, charge, auto-reload, scope step-up, portal-link, and polling paths across Python CLI code and Ink TUI screens.</li>
+    <li><code>openclaw/openclaw</code> commit <a href="https://github.com/openclaw/openclaw/commit/21728777dfa06ced1d74b96cca78cd2a0aa8c87c">21728777df</a> externalized official provider and plugin catalogs while updating provider docs and install/auth helpers.</li>
+    <li><code>openai/codex</code> commit <a href="https://github.com/openai/codex/commit/21a599fa56472a7cea8132c5a47a4374d4d5aa17">21a599fa56</a> let App Server clients opt into <code>openai/form</code> MCP elicitations.</li>
+  </ul>
+
+  <h2>Evidence</h2>
+  <p>The shared movement is not one standard. It is a product pressure: agent clients are exposing operational choices that used to sit outside the loop as separate account pages, config files, or ad hoc prompts.</p>
+
+  <h2>Context</h2>
+  <p>For operators and builders, the practical question is who gets to see and approve runtime decisions: the model, the terminal user, the app client, or a provider catalog maintained outside the core loop.</p>
+
+  <h2>Limits</h2>
+  <p>The evidence does not prove coordination or equal maturity. It shows three public projects making control surfaces more inspectable as agent tooling moves from demos toward operated software.</p>
+        </article>
+      </section>
+      <section class="evidence-section" id="evidence" aria-labelledby="evidence-title">
+    <div class="evidence-head">
+      <div>
+        <div class="eyebrow">Evidence Trail</div>
+        <h2 id="evidence-title">Receipts below the story</h2>
+        <p>The article above is the public narrative. This section keeps the source trail, limits, and reporting notes on the same page.</p>
+      </div>
+      <a class="paper-button" href="/editions/2026-06-19/">Edition</a>
+    </div>
+    <div class="evidence-table evidence-summary">
+      <div class="evidence-line"><span>Date</span><span>June 19, 2026</span></div>
+      <div class="evidence-line"><span>Lane</span><span>Daily Edition</span></div>
+      <div class="evidence-line"><span>Confidence</span><span>87%</span></div>
+      <div class="evidence-line"><span>Sources</span><span>6</span></div>
+      <div class="evidence-line"><span>Repos</span><span>NousResearch/hermes-agent, openclaw/openclaw, openai/codex</span></div>
+    </div>
+    <div class="markdown evidence-copy evidence-copy-block"><h3>Reporter Notes</h3><p>The common pattern is user-visible runtime control, not a shared implementation.</p>
+<p>Hermes makes money/account state part of terminal operation. OpenClaw makes</p>
+<p>provider/plugin choice catalog-driven and installable. Codex makes structured</p>
+<p>MCP prompts opt-in for App Server clients.</p></div>
+    <div class="markdown evidence-copy evidence-copy-block">
+      <h2>Primary Evidence</h2>
+<ul>
+<li>Hermes Agent <code>/billing</code> terminal billing commit: <a href="https://github.com/NousResearch/hermes-agent/commit/73cd8622f9fcd5e368060d1a1678e08bd3d0a794">https://github.com/NousResearch/hermes-agent/commit/73cd8622f9fcd5e368060d1a1678e08bd3d0a794</a>
+<ul>
+<li>Evidence used: the commit adds a billing state/client layer, CLI screens, TUI screens, gateway JSON-RPC methods, scope step-up, portal-link handling, and tests for terminal billing.
+</li>
+</ul>
+</li>
+<li>Hermes Agent billing state code: <a href="https://github.com/NousResearch/hermes-agent/blob/73cd8622f9fcd5e368060d1a1678e08bd3d0a794/agent/billing_view.py">https://github.com/NousResearch/hermes-agent/blob/73cd8622f9fcd5e368060d1a1678e08bd3d0a794/agent/billing_view.py</a>
+<ul>
+<li>Evidence used: billing amounts, idempotency keys, auto-reload state, and error handling are represented as runtime data rather than only as account-page copy.
+</li>
+</ul>
+</li>
+<li>Hermes Agent TUI billing command: <a href="https://github.com/NousResearch/hermes-agent/blob/73cd8622f9fcd5e368060d1a1678e08bd3d0a794/ui-tui/src/app/slash/commands/billing.ts">https://github.com/NousResearch/hermes-agent/blob/73cd8622f9fcd5e368060d1a1678e08bd3d0a794/ui-tui/src/app/slash/commands/billing.ts</a>
+<ul>
+<li>Evidence used: the terminal UI adds overview, buy, confirm, auto-reload, limit, polling, and step-up states.
+</li>
+</ul>
+</li>
+<li>OpenClaw official provider/plugin externalization commit: <a href="https://github.com/openclaw/openclaw/commit/21728777dfa06ced1d74b96cca78cd2a0aa8c87c">https://github.com/openclaw/openclaw/commit/21728777dfa06ced1d74b96cca78cd2a0aa8c87c</a>
+<ul>
+<li>Evidence used: the patch externalizes provider and plugin catalogs, updates provider docs, and changes provider/plugin install and auth-choice logic.
+</li>
+</ul>
+</li>
+<li>OpenClaw official external provider catalog: <a href="https://github.com/openclaw/openclaw/blob/21728777dfa06ced1d74b96cca78cd2a0aa8c87c/scripts/lib/official-external-provider-catalog.json">https://github.com/openclaw/openclaw/blob/21728777dfa06ced1d74b96cca78cd2a0aa8c87c/scripts/lib/official-external-provider-catalog.json</a>
+<ul>
+<li>Evidence used: provider choices are represented as catalog data that runtime and install logic can consume.
+</li>
+</ul>
+</li>
+<li>Codex <code>openai/form</code> MCP elicitation commit: <a href="https://github.com/openai/codex/commit/21a599fa56472a7cea8132c5a47a4374d4d5aa17">https://github.com/openai/codex/commit/21a599fa56472a7cea8132c5a47a4374d4d5aa17</a>
+<ul>
+<li>Evidence used: App Server clients can opt into structured form elicitations for MCP, making user prompts part of the client/runtime protocol.
+</li>
+</ul>
+</li>
+</ul>
+<h2>Evidence Limits</h2>
+<ul>
+<li>The article does not claim Hermes Agent, OpenClaw, and Codex coordinated or adopted a shared standard.
+</li>
+<li>The public sources show implementation and protocol surfaces, not field adoption or production reliability.
+</li>
+<li>Billing, provider catalogs, and structured elicitations are different mechanisms; the shared claim is limited to operational controls moving closer to user-facing agent sessions.
+</li>
+</ul>
+    </div>
+    
+  </section>
+      <section class="related-edition-section atlas-context-section">
+    <div class="section-title-row">
+      <h2>Atlas Context</h2>
+      <a href="/atlas/">Open Atlas &rsaquo;</a>
+    </div>
+    <div class="updates-list">
+      <a class="article-card" href="/atlas/what-an-agent-can-see/">
+            <div class="article-meta"><span class="lane">Agent Atlas</span><span>Chapter 2</span></div>
+            <h3>The Invisible Prompt</h3>
+            <p>The model acts on an assembled viewport containing visible messages, hidden turn context, path-triggered instructions, memory records, tool schemas, permissions, and inherited state.</p>
+          </a>
+    </div>
+  </section>
+      <section class="reader-feedback"
+    data-tgr-feedback
+    data-article-slug="2026-06-19-daily-agent-control-panels-move-into-the-terminal"
+    data-article-title="Agent Control Panels Move Into The Terminal"
+    data-article-url="/articles/2026-06-19-daily-agent-control-panels-move-into-the-terminal/"
+    data-edition-date="2026-06-19"
+    data-lane="Daily Edition"
+    data-tags="Runtime,Billing,Providers,MCP,Terminal"
+    data-repos="NousResearch/hermes-agent,openclaw/openclaw,openai/codex">
+    <div class="reader-feedback-head">
+      <div>
+        <div class="eyebrow">Letters &amp; Corrections</div>
+        <h2>Send a note to the desk</h2>
+      </div>
+      <p>Corrections, missing context, or a follow-up lead.</p>
+    </div>
+    <form class="feedback-form">
+      <div class="feedback-votes" role="group" aria-label="Choose signal type">
+        <button class="feedback-choice" type="button" data-vote="follow-up" aria-pressed="false">
+          <span aria-hidden="true">+</span>
+          <span>Follow-up</span>
+        </button>
+        <button class="feedback-choice" type="button" data-vote="correction" aria-pressed="false">
+          <span aria-hidden="true">!</span>
+          <span>Correction</span>
+        </button>
+      </div>
+      <label class="feedback-comment">
+        <span>Note for the editor</span>
+        <textarea name="comment" rows="3" maxlength="320" placeholder="What did we miss, or what should we follow next?"></textarea>
+      </label>
+      <div class="feedback-submit-row">
+        <p class="feedback-status" aria-live="polite"></p>
+        <button class="paper-button primary feedback-submit" type="submit">Send to desk</button>
+      </div>
+    </form>
+  </section>
+      <section class="related-edition-section">
+        <div class="section-title-row">
+          <h2>Same Edition</h2>
+          <a href="/editions/2026-06-19/">Open issue &rsaquo;</a>
+        </div>
+        <div class="updates-list">
+          <a class="update-card" href="/articles/2026-06-19-daily-jesse-merhi-rebuilt-openclaws-command-approval-path/">
+    <div class="update-stripe"></div>
+    <div class="update-main">
+      <div class="update-meta">
+        <span>Trust</span>
+        <span class="source-plus">+5</span>
+        <span>Jun 19, 2026</span>
+      </div>
+      <h3>Jesse Merhi Rebuilt OpenClaw's Command Approval Path</h3>
+      <div class="update-receipt">
+        <span>openclaw/openclaw</span>
+        <span class="branch-pill">evidence</span>
+      </div>
+      <div class="update-foot">
+        <span>5 sources</span>
+        <span>1 repo</span>
+        <span>commit c9707ab</span>
+      </div>
+    </div>
+    <span class="update-arrow" aria-hidden="true">&rsaquo;</span>
+  </a>
+        </div>
+      </section>
+    </main>
+    <footer class="wrap site-footer">
+      <span>&copy; 2026 The Git Reporter</span>
+      <a href="/about/">About</a>
+      <a href="/agent-pulse/">Agent Pulse</a>
+      <a href="/feed.xml">RSS</a>
+      <a href="https://x.com/TheGitReporter">Follow on X</a>
+      <a href="/articles.json">Manifest JSON</a>
+      <a href="/repos/">Sources</a>
+    </footer>
+  </div>
+</body>
+</html>
