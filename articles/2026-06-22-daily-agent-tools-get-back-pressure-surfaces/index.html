@@ -1,0 +1,303 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Agent Tools Get Back-Pressure Surfaces | The Git Reporter</title>
+  <meta name="description" content="Fresh Gemini CLI and OpenWork patches show agent products turning hangs, publish failures, voice quotas, and provider outages into explicit runtime behavior.">
+  <meta name="robots" content="index,follow">
+  <link rel="canonical" href="https://thegitreporter.com/articles/2026-06-22-daily-agent-tools-get-back-pressure-surfaces/">
+  <link rel="alternate" type="application/rss+xml" title="The Git Reporter" href="https://thegitreporter.com/feed.xml">
+  <meta property="og:site_name" content="The Git Reporter">
+  <meta property="og:locale" content="en_US">
+  <meta property="og:title" content="Agent Tools Get Back-Pressure Surfaces | The Git Reporter">
+  <meta property="og:description" content="Fresh Gemini CLI and OpenWork patches show agent products turning hangs, publish failures, voice quotas, and provider outages into explicit runtime behavior.">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://thegitreporter.com/articles/2026-06-22-daily-agent-tools-get-back-pressure-surfaces/">
+  <meta property="og:image" content="https://thegitreporter.com/assets/social/2026-06-22-daily-agent-tools-get-back-pressure-surfaces-og.jpg">
+  <meta property="og:image:secure_url" content="https://thegitreporter.com/assets/social/2026-06-22-daily-agent-tools-get-back-pressure-surfaces-og.jpg">
+  <meta property="og:image:type" content="image/jpeg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="A rough marker diagram titled The Hang Became A Signal, with evidence cards for Gemini CLI, OpenWork, Antigravity, and rate limits pointing to failures becoming runtime surfaces.">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:site" content="@TheGitReporter">
+  <meta name="twitter:creator" content="@TheGitReporter">
+  <meta name="twitter:title" content="Agent Tools Get Back-Pressure Surfaces | The Git Reporter">
+  <meta name="twitter:description" content="Fresh Gemini CLI and OpenWork patches show agent products turning hangs, publish failures, voice quotas, and provider outages into explicit runtime behavior.">
+  <meta name="twitter:url" content="https://thegitreporter.com/articles/2026-06-22-daily-agent-tools-get-back-pressure-surfaces/">
+  <meta name="twitter:domain" content="thegitreporter.com">
+  <meta name="twitter:image" content="https://thegitreporter.com/assets/social/2026-06-22-daily-agent-tools-get-back-pressure-surfaces-og.jpg">
+  <meta name="twitter:image:alt" content="A rough marker diagram titled The Hang Became A Signal, with evidence cards for Gemini CLI, OpenWork, Antigravity, and rate limits pointing to failures becoming runtime surfaces.">
+  <meta property="article:published_time" content="2026-06-22T12:00:00Z">
+  <meta property="article:modified_time" content="2026-06-22T12:00:00Z">
+  <meta property="article:section" content="Daily Edition">
+  <meta property="article:tag" content="Runtime">
+  <meta property="article:tag" content="Reliability">
+  <meta property="article:tag" content="Voice">
+  <meta property="article:tag" content="Release">
+  <meta property="article:tag" content="Back Pressure">
+  <meta property="article:tag" content="google-gemini/gemini-cli">
+  <meta property="article:tag" content="different-ai/openwork">
+  <meta property="article:tag" content="google-antigravity/antigravity-cli">
+  <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"https://thegitreporter.com/#organization","name":"The Git Reporter","url":"https://thegitreporter.com","logo":{"@type":"ImageObject","url":"https://thegitreporter.com/assets/mark.svg"},"sameAs":["https://x.com/TheGitReporter"]},{"@type":"WebSite","@id":"https://thegitreporter.com/#website","name":"The Git Reporter","url":"https://thegitreporter.com","publisher":{"@id":"https://thegitreporter.com/#organization"}},{"@type":"NewsArticle","mainEntityOfPage":{"@type":"WebPage","@id":"https://thegitreporter.com/articles/2026-06-22-daily-agent-tools-get-back-pressure-surfaces/"},"headline":"Agent Tools Get Back-Pressure Surfaces","description":"Fresh Gemini CLI and OpenWork patches show agent products turning hangs, publish failures, voice quotas, and provider outages into explicit runtime behavior.","image":["https://thegitreporter.com/assets/social/2026-06-22-daily-agent-tools-get-back-pressure-surfaces-og.jpg"],"datePublished":"2026-06-22T12:00:00Z","dateModified":"2026-06-22T12:00:00Z","author":[{"@type":"Organization","name":"The Git Reporter","url":"https://thegitreporter.com"}],"publisher":{"@type":"Organization","@id":"https://thegitreporter.com/#organization","name":"The Git Reporter","url":"https://thegitreporter.com","logo":{"@type":"ImageObject","url":"https://thegitreporter.com/assets/mark.svg"},"sameAs":["https://x.com/TheGitReporter"]},"articleSection":"Daily Edition","keywords":"Runtime, Reliability, Voice, Release, Back Pressure, google-gemini/gemini-cli, different-ai/openwork, google-antigravity/antigravity-cli"}]}</script>
+  <link rel="icon" href="/assets/mark.svg">
+  <link rel="stylesheet" href="/assets/site.css?v=2026-05-30-about-layout-social-1">
+  <script defer src="/assets/feedback.js?v=2026-05-30-about-layout-social-1"></script>
+  <script defer src="/assets/analytics.js?v=2026-05-30-about-layout-social-1"></script>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-CH19T7M0T1"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){window.dataLayer.push(arguments);}
+    gtag("js", new Date());
+    gtag("config", "G-CH19T7M0T1");
+  </script>
+</head>
+<body>
+  <div class="site">
+    <header class="site-header" id="top">
+      <div class="wrap utility-row">
+        <a class="icon-link menu-icon" href="/archive/" aria-label="Open edition history"><span></span><span></span><span></span></a>
+        <a class="icon-link archive-icon" href="/archive/" aria-label="Open edition history"></a>
+      </div>
+      <div class="wrap masthead-lockup">
+        <a class="masthead-title" href="/">THE GIT REPORTER</a>
+        <div class="masthead-ornament" aria-hidden="true"></div>
+      </div>
+      <div class="wrap nav-wrap">
+        <nav class="paper-nav" aria-label="Primary navigation">
+    <a class="" href="/">Today</a><a class="active" href="/archive/">Editions</a><a class="" href="/about/">About</a><a class="" href="/agent-pulse/">Agent Pulse</a><a class="" href="/atlas/">Agent Atlas</a><a class="" href="/repos/">Repos</a>
+  </nav>
+        <div class="nav-rule"></div>
+      </div>
+    </header>
+    <main class="wrap page-shell article-page">
+      <section class="page-hero story-front">
+        <div class="story-topline">
+          <span>Daily Edition</span>
+          <span>Sources <strong>+7</strong></span>
+        </div>
+        <h1>Agent Tools Get Back-Pressure Surfaces</h1>
+        <p class="summary">Fresh Gemini CLI and OpenWork patches show agent products turning hangs, publish failures, voice quotas, and provider outages into explicit runtime behavior.</p>
+        <figure class="story-illustration article-illustration">
+    <img src="/assets/illustrations/2026-06-22-agent-tools-get-back-pressure-surfaces-diagram-punk-v1.jpg" alt="A rough marker diagram titled The Hang Became A Signal, with evidence cards for Gemini CLI, OpenWork, Antigravity, and rate limits pointing to failures becoming runtime surfaces." loading="lazy" decoding="async">
+    <figcaption><span>Diagram Punk</span>independent patches turn hidden failure into runtime surface.</figcaption>
+  </figure>
+        <div class="receipt">
+    <div class="receipt-line">
+      <span class="receipt-icon">repos</span>
+      <span class="receipt-main">google-gemini/gemini-cli + 2 more</span>
+      <span class="branch-pill">evidence</span>
+    </div>
+    <div class="receipt-line receipt-muted">
+      <span>7 source signals</span>
+      <span>3 repos</span>
+      <span>2 linked commits</span>
+    </div>
+    <div class="commit-line">Evidence: 2 linked commits / June 22, 2026 / Daily Edition</div>
+  </div>
+        <div class="article-route-row">
+          <a href="/editions/2026-06-22/">Open Edition</a>
+          <a href="#evidence">Evidence below</a>
+        </div>
+      </section>
+      <section class="story-reader">
+        <article class="story-shell story-body">
+          <p><code>google-gemini/gemini-cli</code> merged Ramón Medrano Llamas's June 21 PR <a href="https://github.com/google-gemini/gemini-cli/pull/28063">#28063</a>, replacing a scheduler busy wait with a timer yield after the PR described macOS parallel tool calls hanging at full CPU.</p>
+
+  <h2>Facts</h2>
+  <ul>
+    <li>The Gemini CLI commit <a href="https://github.com/google-gemini/gemini-cli/commit/be7ba2c22adf095880b81da26f1afcc48520eebc">be7ba2c22</a> changes <code>packages/core/src/scheduler/scheduler.ts</code> from <code>queueMicrotask</code> to <code>setTimeout(resolve, 10)</code>.</li>
+    <li>The same PR adds <code>--ignore-scripts</code> to workspace package publishing and extends the parallel-tools integration test timeout.</li>
+    <li><code>different-ai/openwork</code> commit <a href="https://github.com/different-ai/openwork/commit/831d6adfa07585a34364de5bc74df3a78b7801d7">831d6ad</a> adds managed OpenWork Models voice sessions with rate-limit handling, broker response validation, and direct OpenAI fallback on broker 503.</li>
+    <li>Antigravity CLI release <a href="https://github.com/google-antigravity/antigravity-cli/releases/tag/1.0.10">1.0.10</a> adds log-path exposure, auth handling, shell fixes, permission matching fixes, and settings preservation.</li>
+  </ul>
+
+  <h2>Evidence</h2>
+  <p>The receipts are a Gemini scheduler diff, a release-publish action diff, OpenWork voice broker code, OpenWork usage-limit code, and Antigravity release notes. They are separate patches with the same operational shape: make failure, slowdown, or fallback visible.</p>
+
+  <h2>Context</h2>
+  <p>For builders and operators, this is the unglamorous layer that decides whether an agent system feels dependable. A hung tool wave, exhausted voice bucket, broken publish job, or failed auth path becomes easier to diagnose when the product exposes a surface for it.</p>
+
+  <h2>Limits</h2>
+  <p>This is not a shared standard and it is not proof that the failures are solved everywhere. Antigravity's authentication issue <a href="https://github.com/google-antigravity/antigravity-cli/issues/415">#415</a> remains open in public metadata, and OpenWork's managed voice path depends on configured broker credentials.</p>
+        </article>
+      </section>
+      <section class="evidence-section" id="evidence" aria-labelledby="evidence-title">
+    <div class="evidence-head">
+      <div>
+        <div class="eyebrow">Evidence Trail</div>
+        <h2 id="evidence-title">Receipts below the story</h2>
+        <p>The article above is the public narrative. This section keeps the source trail, limits, and reporting notes on the same page.</p>
+      </div>
+      <a class="paper-button" href="/editions/2026-06-22/">Edition</a>
+    </div>
+    <div class="evidence-table evidence-summary">
+      <div class="evidence-line"><span>Date</span><span>June 22, 2026</span></div>
+      <div class="evidence-line"><span>Lane</span><span>Daily Edition</span></div>
+      <div class="evidence-line"><span>Confidence</span><span>87%</span></div>
+      <div class="evidence-line"><span>Sources</span><span>7</span></div>
+      <div class="evidence-line"><span>Repos</span><span>google-gemini/gemini-cli, different-ai/openwork, google-antigravity/antigravity-cli</span></div>
+    </div>
+    <div class="markdown evidence-copy evidence-copy-block"><h3>Reporter Notes</h3><ul>
+<li>The source coverage gate required inspecting <code>google-gemini/gemini-cli</code> and <code>different-ai/openwork</code> before choosing a lead. Both became the primary source set.
+</li>
+<li>Gemini CLI gave the cleanest first paragraph because PR #28063 has a precise cause and mechanism: scheduler starvation caused by microtask yielding while waiting on active calls.
+</li>
+<li>OpenWork adds the second leg: managed voice does not only create a Realtime session; it handles configured broker credentials, validates broker payloads, emits rate-limit headers, charges usage, and falls back to direct OpenAI Realtime on broker 503 when possible.
+</li>
+<li>Antigravity 1.0.10 was useful as a release-surface example, but it stayed a supporting source because its public repo shows changelog/release notes rather than implementation diffs.
+</li>
+</ul></div>
+    <div class="markdown evidence-copy evidence-copy-block">
+      <h2>Primary Evidence</h2>
+<ul>
+<li>Gemini CLI PR #28063: <a href="https://github.com/google-gemini/gemini-cli/pull/28063">https://github.com/google-gemini/gemini-cli/pull/28063</a>
+<ul>
+<li>Evidence used: the PR describes workspace publish failures and scheduler event-loop starvation during parallel tool execution on macOS.
+</li>
+</ul>
+</li>
+<li>Gemini CLI merge commit <code>be7ba2c22</code>: <a href="https://github.com/google-gemini/gemini-cli/commit/be7ba2c22adf095880b81da26f1afcc48520eebc">https://github.com/google-gemini/gemini-cli/commit/be7ba2c22adf095880b81da26f1afcc48520eebc</a>
+<ul>
+<li>Evidence used: the commit changes scheduler yielding, release publishing, and parallel-tool integration tests.
+</li>
+</ul>
+</li>
+<li>Gemini CLI scheduler source after the merge: <a href="https://github.com/google-gemini/gemini-cli/blob/be7ba2c22adf095880b81da26f1afcc48520eebc/packages/core/src/scheduler/scheduler.ts">https://github.com/google-gemini/gemini-cli/blob/be7ba2c22adf095880b81da26f1afcc48520eebc/packages/core/src/scheduler/scheduler.ts</a>
+<ul>
+<li>Evidence used: waiting active calls now yield with <code>setTimeout(resolve, 10)</code>.
+</li>
+</ul>
+</li>
+<li>OpenWork managed voice commit <code>831d6ad</code>: <a href="https://github.com/different-ai/openwork/commit/831d6adfa07585a34364de5bc74df3a78b7801d7">https://github.com/different-ai/openwork/commit/831d6adfa07585a34364de5bc74df3a78b7801d7</a>
+<ul>
+<li>Evidence used: the commit adds managed voice sessions, broker response validation, 503 fallback, and charging transaction notes.
+</li>
+</ul>
+</li>
+<li>OpenWork inference voice route: <a href="https://github.com/different-ai/openwork/blob/831d6adfa07585a34364de5bc74df3a78b7801d7/ee/apps/inference/src/voice.ts">https://github.com/different-ai/openwork/blob/831d6adfa07585a34364de5bc74df3a78b7801d7/ee/apps/inference/src/voice.ts</a>
+<ul>
+<li>Evidence used: the route returns rate-limit status, retry headers, and usage-limit messages when voice buckets are exhausted.
+</li>
+</ul>
+</li>
+<li>Antigravity CLI 1.0.10 release: <a href="https://github.com/google-antigravity/antigravity-cli/releases/tag/1.0.10">https://github.com/google-antigravity/antigravity-cli/releases/tag/1.0.10</a>
+<ul>
+<li>Evidence used: release notes list log-path exposure, auth handling, permission matching, settings preservation, and shell fixes.
+</li>
+</ul>
+</li>
+<li>Antigravity issue #415: <a href="https://github.com/google-antigravity/antigravity-cli/issues/415">https://github.com/google-antigravity/antigravity-cli/issues/415</a>
+<ul>
+<li>Evidence used: public issue metadata and thread keep the 1.0.9 authentication breakage unresolved as a limit.
+</li>
+</ul>
+</li>
+</ul>
+<h2>Evidence Limits</h2>
+<ul>
+<li>These are independent project changes, not a common standard or coordinated release.
+</li>
+<li>The evidence shows product and runtime surfaces for failure and recovery; it does not prove all named failures are fully fixed.
+</li>
+<li>OpenWork's managed voice path depends on configured OpenWork Models or OpenAI credentials.
+</li>
+<li>Antigravity's public repo exposes release notes and issue traffic, not full implementation diffs for the 1.0.10 changes.
+</li>
+</ul>
+    </div>
+    
+  </section>
+      <section class="related-edition-section atlas-context-section">
+    <div class="section-title-row">
+      <h2>Atlas Context</h2>
+      <a href="/atlas/">Open Atlas &rsaquo;</a>
+    </div>
+    <div class="updates-list">
+      <a class="article-card" href="/atlas/hands-in-the-world/">
+            <div class="article-meta"><span class="lane">Agent Atlas</span><span>Chapter 3</span></div>
+            <h3>Tool Calls: Contract, Authorization, Execution</h3>
+            <p>A tool call crosses independently governed boundaries: schema, registration, policy, approval, execution authority, result handling, and audit.</p>
+          </a>
+    </div>
+  </section>
+      <section class="reader-feedback"
+    data-tgr-feedback
+    data-article-slug="2026-06-22-daily-agent-tools-get-back-pressure-surfaces"
+    data-article-title="Agent Tools Get Back-Pressure Surfaces"
+    data-article-url="/articles/2026-06-22-daily-agent-tools-get-back-pressure-surfaces/"
+    data-edition-date="2026-06-22"
+    data-lane="Daily Edition"
+    data-tags="Runtime,Reliability,Voice,Release,Back Pressure"
+    data-repos="google-gemini/gemini-cli,different-ai/openwork,google-antigravity/antigravity-cli">
+    <div class="reader-feedback-head">
+      <div>
+        <div class="eyebrow">Letters &amp; Corrections</div>
+        <h2>Send a note to the desk</h2>
+      </div>
+      <p>Corrections, missing context, or a follow-up lead.</p>
+    </div>
+    <form class="feedback-form">
+      <div class="feedback-votes" role="group" aria-label="Choose signal type">
+        <button class="feedback-choice" type="button" data-vote="follow-up" aria-pressed="false">
+          <span aria-hidden="true">+</span>
+          <span>Follow-up</span>
+        </button>
+        <button class="feedback-choice" type="button" data-vote="correction" aria-pressed="false">
+          <span aria-hidden="true">!</span>
+          <span>Correction</span>
+        </button>
+      </div>
+      <label class="feedback-comment">
+        <span>Note for the editor</span>
+        <textarea name="comment" rows="3" maxlength="320" placeholder="What did we miss, or what should we follow next?"></textarea>
+      </label>
+      <div class="feedback-submit-row">
+        <p class="feedback-status" aria-live="polite"></p>
+        <button class="paper-button primary feedback-submit" type="submit">Send to desk</button>
+      </div>
+    </form>
+  </section>
+      <section class="related-edition-section">
+        <div class="section-title-row">
+          <h2>Same Edition</h2>
+          <a href="/editions/2026-06-22/">Open issue &rsaquo;</a>
+        </div>
+        <div class="updates-list">
+          <a class="update-card" href="/articles/2026-06-22-daily-ram-n-medrano-llamas-let-gemini-cli-breathe/">
+    <div class="update-stripe"></div>
+    <div class="update-main">
+      <div class="update-meta">
+        <span>Reported</span>
+        <span class="source-plus">+5</span>
+        <span>Jun 22, 2026</span>
+      </div>
+      <h3>Ramón Medrano Llamas Let Gemini CLI Breathe</h3>
+      <div class="update-receipt">
+        <span>google-gemini/gemini-cli</span>
+        <span class="branch-pill">evidence</span>
+      </div>
+      <div class="update-foot">
+        <span>5 sources</span>
+        <span>1 repo</span>
+        <span>commit be7ba2c</span>
+      </div>
+    </div>
+    <span class="update-arrow" aria-hidden="true">&rsaquo;</span>
+  </a>
+        </div>
+      </section>
+    </main>
+    <footer class="wrap site-footer">
+      <span>&copy; 2026 The Git Reporter</span>
+      <a href="/about/">About</a>
+      <a href="/agent-pulse/">Agent Pulse</a>
+      <a href="/feed.xml">RSS</a>
+      <a href="https://x.com/TheGitReporter">Follow on X</a>
+      <a href="/articles.json">Manifest JSON</a>
+      <a href="/repos/">Sources</a>
+    </footer>
+  </div>
+</body>
+</html>
