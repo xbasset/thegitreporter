@@ -1,0 +1,287 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Agent Control Hints Become Runtime Contracts | The Git Reporter</title>
+  <meta name="description" content="Fresh OpenClaw, Codex, and Hermes changes show agent projects turning speed modes, chat metadata, and worker instructions into explicit runtime surfaces.">
+  <meta name="robots" content="index,follow">
+  <link rel="canonical" href="https://thegitreporter.com/articles/2026-06-23-daily-agent-control-hints-become-runtime-contracts/">
+  <link rel="alternate" type="application/rss+xml" title="The Git Reporter" href="https://thegitreporter.com/feed.xml">
+  <meta property="og:site_name" content="The Git Reporter">
+  <meta property="og:locale" content="en_US">
+  <meta property="og:title" content="Agent Control Hints Become Runtime Contracts | The Git Reporter">
+  <meta property="og:description" content="Fresh OpenClaw, Codex, and Hermes changes show agent projects turning speed modes, chat metadata, and worker instructions into explicit runtime surfaces.">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://thegitreporter.com/articles/2026-06-23-daily-agent-control-hints-become-runtime-contracts/">
+  <meta property="og:image" content="https://thegitreporter.com/assets/social/2026-06-23-daily-agent-control-hints-become-runtime-contracts-og.jpg">
+  <meta property="og:image:secure_url" content="https://thegitreporter.com/assets/social/2026-06-23-daily-agent-control-hints-become-runtime-contracts-og.jpg">
+  <meta property="og:image:type" content="image/jpeg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Diagram Punk poster showing OpenClaw fastMode auto, Codex typed passthrough, Hermes injected guidance, and a not-a-shared-standard caveat.">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:site" content="@TheGitReporter">
+  <meta name="twitter:creator" content="@TheGitReporter">
+  <meta name="twitter:title" content="Agent Control Hints Become Runtime Contracts | The Git Reporter">
+  <meta name="twitter:description" content="Fresh OpenClaw, Codex, and Hermes changes show agent projects turning speed modes, chat metadata, and worker instructions into explicit runtime surfaces.">
+  <meta name="twitter:url" content="https://thegitreporter.com/articles/2026-06-23-daily-agent-control-hints-become-runtime-contracts/">
+  <meta name="twitter:domain" content="thegitreporter.com">
+  <meta name="twitter:image" content="https://thegitreporter.com/assets/social/2026-06-23-daily-agent-control-hints-become-runtime-contracts-og.jpg">
+  <meta name="twitter:image:alt" content="Diagram Punk poster showing OpenClaw fastMode auto, Codex typed passthrough, Hermes injected guidance, and a not-a-shared-standard caveat.">
+  <meta property="article:published_time" content="2026-06-23T12:00:00Z">
+  <meta property="article:modified_time" content="2026-06-23T12:00:00Z">
+  <meta property="article:section" content="Daily Edition">
+  <meta property="article:tag" content="Runtime">
+  <meta property="article:tag" content="Protocol">
+  <meta property="article:tag" content="Metadata">
+  <meta property="article:tag" content="Orchestration">
+  <meta property="article:tag" content="Control Plane">
+  <meta property="article:tag" content="openclaw/openclaw">
+  <meta property="article:tag" content="openai/codex">
+  <meta property="article:tag" content="NousResearch/hermes-agent">
+  <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"https://thegitreporter.com/#organization","name":"The Git Reporter","url":"https://thegitreporter.com","logo":{"@type":"ImageObject","url":"https://thegitreporter.com/assets/mark.svg"},"sameAs":["https://x.com/TheGitReporter"]},{"@type":"WebSite","@id":"https://thegitreporter.com/#website","name":"The Git Reporter","url":"https://thegitreporter.com","publisher":{"@id":"https://thegitreporter.com/#organization"}},{"@type":"NewsArticle","mainEntityOfPage":{"@type":"WebPage","@id":"https://thegitreporter.com/articles/2026-06-23-daily-agent-control-hints-become-runtime-contracts/"},"headline":"Agent Control Hints Become Runtime Contracts","description":"Fresh OpenClaw, Codex, and Hermes changes show agent projects turning speed modes, chat metadata, and worker instructions into explicit runtime surfaces.","image":["https://thegitreporter.com/assets/social/2026-06-23-daily-agent-control-hints-become-runtime-contracts-og.jpg"],"datePublished":"2026-06-23T12:00:00Z","dateModified":"2026-06-23T12:00:00Z","author":[{"@type":"Organization","name":"The Git Reporter","url":"https://thegitreporter.com"}],"publisher":{"@type":"Organization","@id":"https://thegitreporter.com/#organization","name":"The Git Reporter","url":"https://thegitreporter.com","logo":{"@type":"ImageObject","url":"https://thegitreporter.com/assets/mark.svg"},"sameAs":["https://x.com/TheGitReporter"]},"articleSection":"Daily Edition","keywords":"Runtime, Protocol, Metadata, Orchestration, Control Plane, openclaw/openclaw, openai/codex, NousResearch/hermes-agent"}]}</script>
+  <link rel="icon" href="/assets/mark.svg">
+  <link rel="stylesheet" href="/assets/site.css?v=2026-05-30-about-layout-social-1">
+  <script defer src="/assets/feedback.js?v=2026-05-30-about-layout-social-1"></script>
+  <script defer src="/assets/analytics.js?v=2026-05-30-about-layout-social-1"></script>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-CH19T7M0T1"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){window.dataLayer.push(arguments);}
+    gtag("js", new Date());
+    gtag("config", "G-CH19T7M0T1");
+  </script>
+</head>
+<body>
+  <div class="site">
+    <header class="site-header" id="top">
+      <div class="wrap utility-row">
+        <a class="icon-link menu-icon" href="/archive/" aria-label="Open edition history"><span></span><span></span><span></span></a>
+        <a class="icon-link archive-icon" href="/archive/" aria-label="Open edition history"></a>
+      </div>
+      <div class="wrap masthead-lockup">
+        <a class="masthead-title" href="/">THE GIT REPORTER</a>
+        <div class="masthead-ornament" aria-hidden="true"></div>
+      </div>
+      <div class="wrap nav-wrap">
+        <nav class="paper-nav" aria-label="Primary navigation">
+    <a class="" href="/">Today</a><a class="active" href="/archive/">Editions</a><a class="" href="/about/">About</a><a class="" href="/agent-pulse/">Agent Pulse</a><a class="" href="/atlas/">Agent Atlas</a><a class="" href="/repos/">Repos</a>
+  </nav>
+        <div class="nav-rule"></div>
+      </div>
+    </header>
+    <main class="wrap page-shell article-page">
+      <section class="page-hero story-front">
+        <div class="story-topline">
+          <span>Daily Edition</span>
+          <span>Sources <strong>+6</strong></span>
+        </div>
+        <h1>Agent Control Hints Become Runtime Contracts</h1>
+        <p class="summary">Fresh OpenClaw, Codex, and Hermes changes show agent projects turning speed modes, chat metadata, and worker instructions into explicit runtime surfaces.</p>
+        <figure class="story-illustration article-illustration">
+    <img src="/assets/illustrations/2026-06-23-agent-control-hints-become-runtime-contracts-diagram-punk-v1.jpg" alt="Diagram Punk poster showing OpenClaw fastMode auto, Codex typed passthrough, Hermes injected guidance, and a not-a-shared-standard caveat." loading="lazy" decoding="async">
+    <figcaption><span>Diagram Punk</span>control hints are contracts now, but not a shared standard.</figcaption>
+  </figure>
+        <div class="receipt">
+    <div class="receipt-line">
+      <span class="receipt-icon">repos</span>
+      <span class="receipt-main">openclaw/openclaw + 2 more</span>
+      <span class="branch-pill">evidence</span>
+    </div>
+    <div class="receipt-line receipt-muted">
+      <span>6 source signals</span>
+      <span>3 repos</span>
+      <span>3 linked commits</span>
+    </div>
+    <div class="commit-line">Evidence: 3 linked commits / June 23, 2026 / Daily Edition</div>
+  </div>
+        <div class="article-route-row">
+          <a href="/editions/2026-06-23/">Open Edition</a>
+          <a href="#evidence">Evidence below</a>
+        </div>
+      </section>
+      <section class="story-reader">
+        <article class="story-shell story-body">
+          <p><code>openclaw/openclaw</code> commit <a href="https://github.com/openclaw/openclaw/commit/2b75806197ab0626a9f0d7517f9a6ba1a5d64c15">2b75806197</a> adds one-turn <code>fastMode: "auto"</code> support to <code>chat.send</code>, making a speed hint time-bound protocol behavior rather than a persistent hidden toggle.</p>
+
+  <h2>Facts</h2>
+  <ul>
+    <li>OpenClaw now documents <code>fastMode: "auto"</code> with a default 60-second cutoff and per-model or per-request <code>fastAutoOnSeconds</code> overrides.</li>
+    <li><code>openai/codex</code> commit <a href="https://github.com/openai/codex/commit/5b95745eae1b13be75d6c395a6baec8e7b7ad99b">5b95745eae</a> replaces generic <code>ResponseItem.metadata</code> with typed <code>internal_chat_message_metadata_passthrough</code>.</li>
+    <li><code>NousResearch/hermes-agent</code> commit <a href="https://github.com/NousResearch/hermes-agent/commit/84e1d31e5442eeff0bfcf1c2ffab6acf7fe95f45">84e1d31e5</a> moves kanban worker and orchestrator rules from bundled skills into injected guidance.</li>
+  </ul>
+
+  <h2>Evidence</h2>
+  <p>The receipts are OpenClaw gateway protocol text and runner code, Codex protocol schemas and Rust models, and the Hermes kanban guidance diff. Each turns an implicit control hint into a named interface the runtime can preserve, route, or display.</p>
+
+  <h2>Context</h2>
+  <p>For agent operators, the practical question is no longer only whether a model can act. It is whether speed, provenance, and delegated work are represented as contracts that clients and maintainers can inspect before something goes wrong.</p>
+
+  <h2>Limits</h2>
+  <p>These are independent patches, not a shared standard. They do not prove that the controls are stable across clients. Watch whether future releases expose these contracts in user-facing diagnostics, logs, and compatibility promises.</p>
+        </article>
+      </section>
+      <section class="evidence-section" id="evidence" aria-labelledby="evidence-title">
+    <div class="evidence-head">
+      <div>
+        <div class="eyebrow">Evidence Trail</div>
+        <h2 id="evidence-title">Receipts below the story</h2>
+        <p>The article above is the public narrative. This section keeps the source trail, limits, and reporting notes on the same page.</p>
+      </div>
+      <a class="paper-button" href="/editions/2026-06-23/">Edition</a>
+    </div>
+    <div class="evidence-table evidence-summary">
+      <div class="evidence-line"><span>Date</span><span>June 23, 2026</span></div>
+      <div class="evidence-line"><span>Lane</span><span>Daily Edition</span></div>
+      <div class="evidence-line"><span>Confidence</span><span>87%</span></div>
+      <div class="evidence-line"><span>Sources</span><span>6</span></div>
+      <div class="evidence-line"><span>Repos</span><span>openclaw/openclaw, openai/codex, NousResearch/hermes-agent</span></div>
+    </div>
+    
+    <div class="markdown evidence-copy evidence-copy-block">
+      <h2>Primary Evidence</h2>
+<ul>
+<li>OpenClaw commit <code>2b75806197</code>: <a href="https://github.com/openclaw/openclaw/commit/2b75806197ab0626a9f0d7517f9a6ba1a5d64c15">https://github.com/openclaw/openclaw/commit/2b75806197ab0626a9f0d7517f9a6ba1a5d64c15</a>
+<ul>
+<li>Evidence used: the commit adds fast-mode auto behavior across gateway protocol, runner code, tests, and docs.
+</li>
+</ul>
+</li>
+<li>OpenClaw gateway protocol at <code>2b75806197</code>: <a href="https://github.com/openclaw/openclaw/blob/2b75806197ab0626a9f0d7517f9a6ba1a5d64c15/docs/gateway/protocol.md">https://github.com/openclaw/openclaw/blob/2b75806197ab0626a9f0d7517f9a6ba1a5d64c15/docs/gateway/protocol.md</a>
+<ul>
+<li>Evidence used: <code>chat.send</code> accepts one-turn <code>fastMode: &quot;auto&quot;</code> and optional <code>fastAutoOnSeconds</code>.
+</li>
+</ul>
+</li>
+<li>OpenClaw shared fast-mode helper: <a href="https://github.com/openclaw/openclaw/blob/2b75806197ab0626a9f0d7517f9a6ba1a5d64c15/src/shared/fast-mode.ts">https://github.com/openclaw/openclaw/blob/2b75806197ab0626a9f0d7517f9a6ba1a5d64c15/src/shared/fast-mode.ts</a>
+<ul>
+<li>Evidence used: the default auto cutoff is 60 seconds and the helper resolves elapsed fast-mode state.
+</li>
+</ul>
+</li>
+<li>Codex commit <code>5b95745eae</code>: <a href="https://github.com/openai/codex/commit/5b95745eae1b13be75d6c395a6baec8e7b7ad99b">https://github.com/openai/codex/commit/5b95745eae1b13be75d6c395a6baec8e7b7ad99b</a>
+<ul>
+<li>Evidence used: the commit renames generic response item metadata to an internal chat-message metadata passthrough.
+</li>
+</ul>
+</li>
+<li>Codex typed passthrough metadata file: <a href="https://github.com/openai/codex/blob/5b95745eae1b13be75d6c395a6baec8e7b7ad99b/codex-rs/app-server-protocol/schema/typescript/InternalChatMessageMetadataPassthrough.ts">https://github.com/openai/codex/blob/5b95745eae1b13be75d6c395a6baec8e7b7ad99b/codex-rs/app-server-protocol/schema/typescript/InternalChatMessageMetadataPassthrough.ts</a>
+<ul>
+<li>Evidence used: the generated type says the payload is strongly typed and should not change without Responses API approval.
+</li>
+</ul>
+</li>
+<li>Hermes commit <code>84e1d31e5</code>: <a href="https://github.com/NousResearch/hermes-agent/commit/84e1d31e5442eeff0bfcf1c2ffab6acf7fe95f45">https://github.com/NousResearch/hermes-agent/commit/84e1d31e5442eeff0bfcf1c2ffab6acf7fe95f45</a>
+<ul>
+<li>Evidence used: the commit removes bundled kanban worker/orchestrator skills and moves load-bearing rules into injected guidance.
+</li>
+</ul>
+</li>
+</ul>
+<h2>Evidence Limits</h2>
+<ul>
+<li>These commits are from independent projects; they do not prove a common standard.
+</li>
+<li>The evidence shows protocol, metadata, and guidance surfaces, not user adoption.
+</li>
+<li>The OpenClaw evidence is broad and includes many files; the article relies only on the fast-mode auto protocol and runner behavior.
+</li>
+<li>The Hermes evidence concerns kanban worker guidance, not all forms of multi-agent orchestration.
+</li>
+</ul>
+    </div>
+    
+  </section>
+      <section class="related-edition-section atlas-context-section">
+    <div class="section-title-row">
+      <h2>Atlas Context</h2>
+      <a href="/atlas/">Open Atlas &rsaquo;</a>
+    </div>
+    <div class="updates-list">
+      <a class="article-card" href="/atlas/the-loop/">
+            <div class="article-meta"><span class="lane">Agent Atlas</span><span>Chapter 4</span></div>
+            <h3>Loops, Workflows, and Recovery</h3>
+            <p>Repeated model-tool interaction is only one control structure. Production runtimes combine probabilistic loops with host-defined workflows, queues, interrupts, terminal states, and recovery operations.</p>
+          </a>
+    </div>
+  </section>
+      <section class="reader-feedback"
+    data-tgr-feedback
+    data-article-slug="2026-06-23-daily-agent-control-hints-become-runtime-contracts"
+    data-article-title="Agent Control Hints Become Runtime Contracts"
+    data-article-url="/articles/2026-06-23-daily-agent-control-hints-become-runtime-contracts/"
+    data-edition-date="2026-06-23"
+    data-lane="Daily Edition"
+    data-tags="Runtime,Protocol,Metadata,Orchestration,Control Plane"
+    data-repos="openclaw/openclaw,openai/codex,NousResearch/hermes-agent">
+    <div class="reader-feedback-head">
+      <div>
+        <div class="eyebrow">Letters &amp; Corrections</div>
+        <h2>Send a note to the desk</h2>
+      </div>
+      <p>Corrections, missing context, or a follow-up lead.</p>
+    </div>
+    <form class="feedback-form">
+      <div class="feedback-votes" role="group" aria-label="Choose signal type">
+        <button class="feedback-choice" type="button" data-vote="follow-up" aria-pressed="false">
+          <span aria-hidden="true">+</span>
+          <span>Follow-up</span>
+        </button>
+        <button class="feedback-choice" type="button" data-vote="correction" aria-pressed="false">
+          <span aria-hidden="true">!</span>
+          <span>Correction</span>
+        </button>
+      </div>
+      <label class="feedback-comment">
+        <span>Note for the editor</span>
+        <textarea name="comment" rows="3" maxlength="320" placeholder="What did we miss, or what should we follow next?"></textarea>
+      </label>
+      <div class="feedback-submit-row">
+        <p class="feedback-status" aria-live="polite"></p>
+        <button class="paper-button primary feedback-submit" type="submit">Send to desk</button>
+      </div>
+    </form>
+  </section>
+      <section class="related-edition-section">
+        <div class="section-title-row">
+          <h2>Same Edition</h2>
+          <a href="/editions/2026-06-23/">Open issue &rsaquo;</a>
+        </div>
+        <div class="updates-list">
+          <a class="update-card" href="/articles/2026-06-23-daily-google-antigravity-after-the-transition/">
+    <div class="update-stripe"></div>
+    <div class="update-main">
+      <div class="update-meta">
+        <span>Reported</span>
+        <span class="source-plus">+12</span>
+        <span>Jun 23, 2026</span>
+      </div>
+      <h3>Google Antigravity After the Transition</h3>
+      <div class="update-receipt">
+        <span>google-antigravity/antigravity-cli + google-gemini/gemini-cli</span>
+        <span class="branch-pill">evidence</span>
+      </div>
+      <div class="update-foot">
+        <span>12 sources</span>
+        <span>2 repos</span>
+        <span>2 linked commits</span>
+      </div>
+    </div>
+    <span class="update-arrow" aria-hidden="true">&rsaquo;</span>
+  </a>
+        </div>
+      </section>
+    </main>
+    <footer class="wrap site-footer">
+      <span>&copy; 2026 The Git Reporter</span>
+      <a href="/about/">About</a>
+      <a href="/agent-pulse/">Agent Pulse</a>
+      <a href="/feed.xml">RSS</a>
+      <a href="https://x.com/TheGitReporter">Follow on X</a>
+      <a href="/articles.json">Manifest JSON</a>
+      <a href="/repos/">Sources</a>
+    </footer>
+  </div>
+</body>
+</html>
