@@ -1,0 +1,297 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>API Discovery: API Geo Turns French Places Into Agent Inputs | The Git Reporter</title>
+  <meta name="description" content="The api.gouv.fr catalog records API Geo as an open public geography API with a technical definition, rate limit, WGS-84 coordinates, and GeoJSON support.">
+  <meta name="robots" content="index,follow">
+  <link rel="canonical" href="https://thegitreporter.com/articles/2026-06-30-daily-api-discovery-api-geo-turns-french-places-into-agent-inputs/">
+  <link rel="alternate" type="application/rss+xml" title="The Git Reporter" href="https://thegitreporter.com/feed.xml">
+  <meta property="og:site_name" content="The Git Reporter">
+  <meta property="og:locale" content="en_US">
+  <meta property="og:title" content="API Discovery: API Geo Turns French Places Into Agent Inputs | The Git Reporter">
+  <meta property="og:description" content="The api.gouv.fr catalog records API Geo as an open public geography API with a technical definition, rate limit, WGS-84 coordinates, and GeoJSON support.">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://thegitreporter.com/articles/2026-06-30-daily-api-discovery-api-geo-turns-french-places-into-agent-inputs/">
+  <meta property="og:image" content="https://thegitreporter.com/assets/social/2026-06-30-daily-api-discovery-api-geo-turns-french-places-into-agent-inputs-og.jpg">
+  <meta property="og:image:secure_url" content="https://thegitreporter.com/assets/social/2026-06-30-daily-api-discovery-api-geo-turns-french-places-into-agent-inputs-og.jpg">
+  <meta property="og:image:type" content="image/jpeg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Diagram Punk poster showing a French place-name note becoming structured API Geo cards with source, rate-limit, and caveat labels.">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:site" content="@TheGitReporter">
+  <meta name="twitter:creator" content="@TheGitReporter">
+  <meta name="twitter:title" content="API Discovery: API Geo Turns French Places Into Agent Inputs | The Git Reporter">
+  <meta name="twitter:description" content="The api.gouv.fr catalog records API Geo as an open public geography API with a technical definition, rate limit, WGS-84 coordinates, and GeoJSON support.">
+  <meta name="twitter:url" content="https://thegitreporter.com/articles/2026-06-30-daily-api-discovery-api-geo-turns-french-places-into-agent-inputs/">
+  <meta name="twitter:domain" content="thegitreporter.com">
+  <meta name="twitter:image" content="https://thegitreporter.com/assets/social/2026-06-30-daily-api-discovery-api-geo-turns-french-places-into-agent-inputs-og.jpg">
+  <meta name="twitter:image:alt" content="Diagram Punk poster showing a French place-name note becoming structured API Geo cards with source, rate-limit, and caveat labels.">
+  <meta property="article:published_time" content="2026-06-30T12:00:00Z">
+  <meta property="article:modified_time" content="2026-06-30T12:00:00Z">
+  <meta property="article:section" content="Daily Edition">
+  <meta property="article:tag" content="API Discovery">
+  <meta property="article:tag" content="API Geo">
+  <meta property="article:tag" content="Public APIs">
+  <meta property="article:tag" content="Agents">
+  <meta property="article:tag" content="France">
+  <meta property="article:tag" content="betagouv/api.gouv.fr">
+  <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"https://thegitreporter.com/#organization","name":"The Git Reporter","url":"https://thegitreporter.com","logo":{"@type":"ImageObject","url":"https://thegitreporter.com/assets/mark.svg"},"sameAs":["https://x.com/TheGitReporter"]},{"@type":"WebSite","@id":"https://thegitreporter.com/#website","name":"The Git Reporter","url":"https://thegitreporter.com","publisher":{"@id":"https://thegitreporter.com/#organization"}},{"@type":"NewsArticle","mainEntityOfPage":{"@type":"WebPage","@id":"https://thegitreporter.com/articles/2026-06-30-daily-api-discovery-api-geo-turns-french-places-into-agent-inputs/"},"headline":"API Discovery: API Geo Turns French Places Into Agent Inputs","description":"The api.gouv.fr catalog records API Geo as an open public geography API with a technical definition, rate limit, WGS-84 coordinates, and GeoJSON support.","image":["https://thegitreporter.com/assets/social/2026-06-30-daily-api-discovery-api-geo-turns-french-places-into-agent-inputs-og.jpg"],"datePublished":"2026-06-30T12:00:00Z","dateModified":"2026-06-30T12:00:00Z","author":[{"@type":"Organization","name":"The Git Reporter","url":"https://thegitreporter.com"}],"publisher":{"@type":"Organization","@id":"https://thegitreporter.com/#organization","name":"The Git Reporter","url":"https://thegitreporter.com","logo":{"@type":"ImageObject","url":"https://thegitreporter.com/assets/mark.svg"},"sameAs":["https://x.com/TheGitReporter"]},"articleSection":"Daily Edition","keywords":"API Discovery, API Geo, Public APIs, Agents, France, betagouv/api.gouv.fr"}]}</script>
+  <link rel="icon" href="/assets/mark.svg">
+  <link rel="stylesheet" href="/assets/site.css?v=2026-05-30-about-layout-social-1">
+  <script defer src="/assets/feedback.js?v=2026-05-30-about-layout-social-1"></script>
+  <script defer src="/assets/analytics.js?v=2026-05-30-about-layout-social-1"></script>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-CH19T7M0T1"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){window.dataLayer.push(arguments);}
+    gtag("js", new Date());
+    gtag("config", "G-CH19T7M0T1");
+  </script>
+</head>
+<body>
+  <div class="site">
+    <header class="site-header" id="top">
+      <div class="wrap utility-row">
+        <a class="icon-link menu-icon" href="/archive/" aria-label="Open edition history"><span></span><span></span><span></span></a>
+        <a class="icon-link archive-icon" href="/archive/" aria-label="Open edition history"></a>
+      </div>
+      <div class="wrap masthead-lockup">
+        <a class="masthead-title" href="/">THE GIT REPORTER</a>
+        <div class="masthead-ornament" aria-hidden="true"></div>
+      </div>
+      <div class="wrap nav-wrap">
+        <nav class="paper-nav" aria-label="Primary navigation">
+    <a class="" href="/">Today</a><a class="active" href="/archive/">Editions</a><a class="" href="/about/">About</a><a class="" href="/agent-pulse/">Agent Pulse</a><a class="" href="/atlas/">Agent Atlas</a><a class="" href="/repos/">Repos</a>
+  </nav>
+        <div class="nav-rule"></div>
+      </div>
+    </header>
+    <main class="wrap page-shell article-page">
+      <section class="page-hero story-front">
+        <div class="story-topline">
+          <span>Daily Edition</span>
+          <span>Sources <strong>+3</strong></span>
+        </div>
+        <h1>API Discovery: API Geo Turns French Places Into Agent Inputs</h1>
+        <p class="summary">The api.gouv.fr catalog records API Geo as an open public geography API with a technical definition, rate limit, WGS-84 coordinates, and GeoJSON support.</p>
+        <figure class="story-illustration article-illustration">
+    <img src="/assets/illustrations/2026-06-30-api-discovery-api-geo-turns-french-places-into-agent-inputs-diagram-punk-v1.png" alt="Diagram Punk poster showing a French place-name note becoming structured API Geo cards with source, rate-limit, and caveat labels." loading="lazy" decoding="async">
+    <figcaption><span>Diagram Punk</span>API Geo turns place names into sourced agent inputs.</figcaption>
+  </figure>
+        <div class="receipt">
+    <div class="receipt-line">
+      <span class="receipt-icon">repo</span>
+      <span class="receipt-main">betagouv/api.gouv.fr</span>
+      <span class="branch-pill">evidence</span>
+    </div>
+    <div class="receipt-line receipt-muted">
+      <span>3 source signals</span>
+      <span>1 repo</span>
+      <span>3 source signals</span>
+    </div>
+    <div class="commit-line">Evidence: 3 source signals / June 30, 2026 / Daily Edition</div>
+  </div>
+        <div class="article-route-row">
+          <a href="/editions/2026-06-30/">Open Edition</a>
+          <a href="#evidence">Evidence below</a>
+        </div>
+      </section>
+      <section class="story-reader">
+        <article class="story-shell story-body">
+          <p><code>betagouv/api.gouv.fr</code> carries an <a href="https://github.com/betagouv/api.gouv.fr/blob/master/_data/api/api-geo.md">API Geo catalog record</a> for France's administrative geography API. The receipt is not a fresh commit; it is today's API Discovery source brief because the repo exposes a testable public API surface an agent can use safely.</p>
+
+  <p>Provider: API Geo, listed through api.gouv.fr. Source receipt: the catalog points to <a href="https://geo.api.gouv.fr/definition.yml">the public technical definition</a>, says the API is fully open, and records a 50 calls per second per IP limit.</p>
+
+  <p>Creative example: ask an agent to turn a messy civic note into structured French geography. Copy-paste instruction: <code>Use API Geo to look up the commune, department, and region for "Saint-Denis 93200"; return JSON with source URL, coordinates if available, and one caveat about name ambiguity.</code></p>
+
+  <p>Test caveat: respect the rate limit, use WGS-84 coordinates, and do not treat a place-name lookup as identity or eligibility proof. Why it is not the lead: there was no same-day api.gouv.fr code movement, but the catalog receipt is useful enough to keep public APIs in the daily source habit.</p>
+        </article>
+      </section>
+      <section class="evidence-section" id="evidence" aria-labelledby="evidence-title">
+    <div class="evidence-head">
+      <div>
+        <div class="eyebrow">Evidence Trail</div>
+        <h2 id="evidence-title">Receipts below the story</h2>
+        <p>The article above is the public narrative. This section keeps the source trail, limits, and reporting notes on the same page.</p>
+      </div>
+      <a class="paper-button" href="/editions/2026-06-30/">Edition</a>
+    </div>
+    <div class="evidence-table evidence-summary">
+      <div class="evidence-line"><span>Date</span><span>June 30, 2026</span></div>
+      <div class="evidence-line"><span>Lane</span><span>Daily Edition</span></div>
+      <div class="evidence-line"><span>Confidence</span><span>78%</span></div>
+      <div class="evidence-line"><span>Sources</span><span>3</span></div>
+      <div class="evidence-line"><span>Repos</span><span>betagouv/api.gouv.fr</span></div>
+    </div>
+    <div class="markdown evidence-copy evidence-copy-block"><h3>Reporter Notes</h3><p>API Discovery thesis: API Geo is a useful first source brief because the catalog record is open, caveated, and immediately testable. The copy-paste instruction should stay modest and should not claim identity, eligibility, or residence proof.</p></div>
+    <div class="markdown evidence-copy evidence-copy-block">
+      <h2>Reporter Notes</h2>
+<p>This is the first daily API Discovery source brief. It is intentionally compact: the source shelf had no same-day api.gouv.fr commit, but the catalog record is a useful, testable public API receipt.</p>
+<h2>Primary Evidence</h2>
+<ul>
+<li>API Geo catalog record in api.gouv.fr: <a href="https://github.com/betagouv/api.gouv.fr/blob/master/_data/api/api-geo.md">https://github.com/betagouv/api.gouv.fr/blob/master/_data/api/api-geo.md</a>
+<ul>
+<li>Evidence used: API title, open status, rate limit, scope, WGS-84/GeoJSON notes, and technical definition link.
+</li>
+</ul>
+</li>
+<li>API Geo technical definition: <a href="https://geo.api.gouv.fr/definition.yml">https://geo.api.gouv.fr/definition.yml</a>
+<ul>
+<li>Evidence used: public machine-readable API definition readers can test.
+</li>
+</ul>
+</li>
+<li>api.gouv.fr API endpoint implementation: <a href="https://github.com/betagouv/api.gouv.fr/blob/master/pages/api/v1/%5B...slug%5D.tsx">https://github.com/betagouv/api.gouv.fr/blob/master/pages/api/v1/%5B...slug%5D.tsx</a>
+<ul>
+<li>Evidence used: shows the catalog can expose API records and proxy documentation when configured.
+</li>
+</ul>
+</li>
+</ul>
+<h2>Evidence Limits</h2>
+<ul>
+<li>There was no same-day api.gouv.fr code movement.
+</li>
+<li>API Geo place lookup is not identity, eligibility, residence, or official address proof.
+</li>
+<li>Readers should respect the cataloged rate limit and handle ambiguous place names.
+</li>
+</ul>
+    </div>
+    
+  </section>
+      <section class="related-edition-section atlas-context-section">
+    <div class="section-title-row">
+      <h2>Atlas Context</h2>
+      <a href="/atlas/">Open Atlas &rsaquo;</a>
+    </div>
+    <div class="updates-list">
+      <a class="article-card" href="/atlas/friction-safety-and-approval/">
+            <div class="article-meta"><span class="lane">Agent Atlas</span><span>Chapter 7</span></div>
+            <h3>The Approval Trap</h3>
+            <p>Approval is useful only when it catches a meaningful change in authority, explains that change, and keeps the decision attached to the work.</p>
+          </a>
+    </div>
+  </section>
+      <section class="reader-feedback"
+    data-tgr-feedback
+    data-article-slug="2026-06-30-daily-api-discovery-api-geo-turns-french-places-into-agent-inputs"
+    data-article-title="API Discovery: API Geo Turns French Places Into Agent Inputs"
+    data-article-url="/articles/2026-06-30-daily-api-discovery-api-geo-turns-french-places-into-agent-inputs/"
+    data-edition-date="2026-06-30"
+    data-lane="Daily Edition"
+    data-tags="API Discovery,API Geo,Public APIs,Agents,France"
+    data-repos="betagouv/api.gouv.fr">
+    <div class="reader-feedback-head">
+      <div>
+        <div class="eyebrow">Letters &amp; Corrections</div>
+        <h2>Send a note to the desk</h2>
+      </div>
+      <p>Corrections, missing context, or a follow-up lead.</p>
+    </div>
+    <form class="feedback-form">
+      <div class="feedback-votes" role="group" aria-label="Choose signal type">
+        <button class="feedback-choice" type="button" data-vote="follow-up" aria-pressed="false">
+          <span aria-hidden="true">+</span>
+          <span>Follow-up</span>
+        </button>
+        <button class="feedback-choice" type="button" data-vote="correction" aria-pressed="false">
+          <span aria-hidden="true">!</span>
+          <span>Correction</span>
+        </button>
+      </div>
+      <label class="feedback-comment">
+        <span>Note for the editor</span>
+        <textarea name="comment" rows="3" maxlength="320" placeholder="What did we miss, or what should we follow next?"></textarea>
+      </label>
+      <div class="feedback-submit-row">
+        <p class="feedback-status" aria-live="polite"></p>
+        <button class="paper-button primary feedback-submit" type="submit">Send to desk</button>
+      </div>
+    </form>
+  </section>
+      <section class="related-edition-section">
+        <div class="section-title-row">
+          <h2>Same Edition</h2>
+          <a href="/editions/2026-06-30/">Open issue &rsaquo;</a>
+        </div>
+        <div class="updates-list">
+          <a class="update-card" href="/articles/2026-06-30-daily-openclaw-narrows-who-can-wake-an-agent/">
+    <div class="update-stripe"></div>
+    <div class="update-main">
+      <div class="update-meta">
+        <span>Trust</span>
+        <span class="source-plus">+4</span>
+        <span>Jun 30, 2026</span>
+      </div>
+      <h3>OpenClaw Narrows Who Can Wake An Agent</h3>
+      <div class="update-receipt">
+        <span>openclaw/openclaw</span>
+        <span class="branch-pill">evidence</span>
+      </div>
+      <div class="update-foot">
+        <span>4 sources</span>
+        <span>1 repo</span>
+        <span>3 linked commits</span>
+      </div>
+    </div>
+    <span class="update-arrow" aria-hidden="true">&rsaquo;</span>
+  </a><a class="update-card" href="/articles/2026-06-30-daily-mario-zechner-kept-pi-compaction-visible/">
+    <div class="update-stripe"></div>
+    <div class="update-main">
+      <div class="update-meta">
+        <span>Reported</span>
+        <span class="source-plus">+4</span>
+        <span>Jun 30, 2026</span>
+      </div>
+      <h3>Mario Zechner Kept Pi Compaction Visible</h3>
+      <div class="update-receipt">
+        <span>earendil-works/pi</span>
+        <span class="branch-pill">evidence</span>
+      </div>
+      <div class="update-foot">
+        <span>4 sources</span>
+        <span>1 repo</span>
+        <span>2 linked commits</span>
+      </div>
+    </div>
+    <span class="update-arrow" aria-hidden="true">&rsaquo;</span>
+  </a><a class="update-card" href="/articles/2026-06-30-daily-crush-stops-writing-to-vanished-shell-sessions/">
+    <div class="update-stripe"></div>
+    <div class="update-main">
+      <div class="update-meta">
+        <span>Reported</span>
+        <span class="source-plus">+3</span>
+        <span>Jun 30, 2026</span>
+      </div>
+      <h3>Crush Stops Writing To Vanished Shell Sessions</h3>
+      <div class="update-receipt">
+        <span>charmbracelet/crush</span>
+        <span class="branch-pill">evidence</span>
+      </div>
+      <div class="update-foot">
+        <span>3 sources</span>
+        <span>1 repo</span>
+        <span>2 linked commits</span>
+      </div>
+    </div>
+    <span class="update-arrow" aria-hidden="true">&rsaquo;</span>
+  </a>
+        </div>
+      </section>
+    </main>
+    <footer class="wrap site-footer">
+      <span>&copy; 2026 The Git Reporter</span>
+      <a href="/about/">About</a>
+      <a href="/agent-pulse/">Agent Pulse</a>
+      <a href="/feed.xml">RSS</a>
+      <a href="https://x.com/TheGitReporter">Follow on X</a>
+      <a href="/articles.json">Manifest JSON</a>
+      <a href="/repos/">Sources</a>
+    </footer>
+  </div>
+</body>
+</html>

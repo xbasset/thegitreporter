@@ -1,0 +1,312 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>OpenClaw Narrows Who Can Wake An Agent | The Git Reporter</title>
+  <meta name="description" content="A cluster of OpenClaw commits put scheduled wakes, ACP runtime controls, and browser proxy invocation behind narrower target and scope checks.">
+  <meta name="robots" content="index,follow">
+  <link rel="canonical" href="https://thegitreporter.com/articles/2026-06-30-daily-openclaw-narrows-who-can-wake-an-agent/">
+  <link rel="alternate" type="application/rss+xml" title="The Git Reporter" href="https://thegitreporter.com/feed.xml">
+  <meta property="og:site_name" content="The Git Reporter">
+  <meta property="og:locale" content="en_US">
+  <meta property="og:title" content="OpenClaw Narrows Who Can Wake An Agent | The Git Reporter">
+  <meta property="og:description" content="A cluster of OpenClaw commits put scheduled wakes, ACP runtime controls, and browser proxy invocation behind narrower target and scope checks.">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://thegitreporter.com/articles/2026-06-30-daily-openclaw-narrows-who-can-wake-an-agent/">
+  <meta property="og:image" content="https://thegitreporter.com/assets/social/2026-06-30-daily-openclaw-narrows-who-can-wake-an-agent-og.jpg">
+  <meta property="og:image:secure_url" content="https://thegitreporter.com/assets/social/2026-06-30-daily-openclaw-narrows-who-can-wake-an-agent-og.jpg">
+  <meta property="og:image:type" content="image/jpeg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Diagram Punk poster showing OpenClaw commits as source cards narrowing scheduled wake and gateway control paths toward a scoped permission circle.">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:site" content="@TheGitReporter">
+  <meta name="twitter:creator" content="@TheGitReporter">
+  <meta name="twitter:title" content="OpenClaw Narrows Who Can Wake An Agent | The Git Reporter">
+  <meta name="twitter:description" content="A cluster of OpenClaw commits put scheduled wakes, ACP runtime controls, and browser proxy invocation behind narrower target and scope checks.">
+  <meta name="twitter:url" content="https://thegitreporter.com/articles/2026-06-30-daily-openclaw-narrows-who-can-wake-an-agent/">
+  <meta name="twitter:domain" content="thegitreporter.com">
+  <meta name="twitter:image" content="https://thegitreporter.com/assets/social/2026-06-30-daily-openclaw-narrows-who-can-wake-an-agent-og.jpg">
+  <meta name="twitter:image:alt" content="Diagram Punk poster showing OpenClaw commits as source cards narrowing scheduled wake and gateway control paths toward a scoped permission circle.">
+  <meta property="article:published_time" content="2026-06-30T12:00:00Z">
+  <meta property="article:modified_time" content="2026-06-30T12:00:00Z">
+  <meta property="article:section" content="Daily Edition">
+  <meta property="article:tag" content="OpenClaw">
+  <meta property="article:tag" content="Runtime Controls">
+  <meta property="article:tag" content="Cron">
+  <meta property="article:tag" content="Browser Proxy">
+  <meta property="article:tag" content="Permissions">
+  <meta property="article:tag" content="openclaw/openclaw">
+  <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"https://thegitreporter.com/#organization","name":"The Git Reporter","url":"https://thegitreporter.com","logo":{"@type":"ImageObject","url":"https://thegitreporter.com/assets/mark.svg"},"sameAs":["https://x.com/TheGitReporter"]},{"@type":"WebSite","@id":"https://thegitreporter.com/#website","name":"The Git Reporter","url":"https://thegitreporter.com","publisher":{"@id":"https://thegitreporter.com/#organization"}},{"@type":"NewsArticle","mainEntityOfPage":{"@type":"WebPage","@id":"https://thegitreporter.com/articles/2026-06-30-daily-openclaw-narrows-who-can-wake-an-agent/"},"headline":"OpenClaw Narrows Who Can Wake An Agent","description":"A cluster of OpenClaw commits put scheduled wakes, ACP runtime controls, and browser proxy invocation behind narrower target and scope checks.","image":["https://thegitreporter.com/assets/social/2026-06-30-daily-openclaw-narrows-who-can-wake-an-agent-og.jpg"],"datePublished":"2026-06-30T12:00:00Z","dateModified":"2026-06-30T12:00:00Z","author":[{"@type":"Organization","name":"The Git Reporter","url":"https://thegitreporter.com"}],"publisher":{"@type":"Organization","@id":"https://thegitreporter.com/#organization","name":"The Git Reporter","url":"https://thegitreporter.com","logo":{"@type":"ImageObject","url":"https://thegitreporter.com/assets/mark.svg"},"sameAs":["https://x.com/TheGitReporter"]},"articleSection":"Daily Edition","keywords":"OpenClaw, Runtime Controls, Cron, Browser Proxy, Permissions, openclaw/openclaw"}]}</script>
+  <link rel="icon" href="/assets/mark.svg">
+  <link rel="stylesheet" href="/assets/site.css?v=2026-05-30-about-layout-social-1">
+  <script defer src="/assets/feedback.js?v=2026-05-30-about-layout-social-1"></script>
+  <script defer src="/assets/analytics.js?v=2026-05-30-about-layout-social-1"></script>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-CH19T7M0T1"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){window.dataLayer.push(arguments);}
+    gtag("js", new Date());
+    gtag("config", "G-CH19T7M0T1");
+  </script>
+</head>
+<body>
+  <div class="site">
+    <header class="site-header" id="top">
+      <div class="wrap utility-row">
+        <a class="icon-link menu-icon" href="/archive/" aria-label="Open edition history"><span></span><span></span><span></span></a>
+        <a class="icon-link archive-icon" href="/archive/" aria-label="Open edition history"></a>
+      </div>
+      <div class="wrap masthead-lockup">
+        <a class="masthead-title" href="/">THE GIT REPORTER</a>
+        <div class="masthead-ornament" aria-hidden="true"></div>
+      </div>
+      <div class="wrap nav-wrap">
+        <nav class="paper-nav" aria-label="Primary navigation">
+    <a class="" href="/">Today</a><a class="active" href="/archive/">Editions</a><a class="" href="/about/">About</a><a class="" href="/agent-pulse/">Agent Pulse</a><a class="" href="/atlas/">Agent Atlas</a><a class="" href="/repos/">Repos</a>
+  </nav>
+        <div class="nav-rule"></div>
+      </div>
+    </header>
+    <main class="wrap page-shell article-page">
+      <section class="page-hero story-front">
+        <div class="story-topline">
+          <span>Daily Edition</span>
+          <span>Sources <strong>+4</strong></span>
+        </div>
+        <h1>OpenClaw Narrows Who Can Wake An Agent</h1>
+        <p class="summary">A cluster of OpenClaw commits put scheduled wakes, ACP runtime controls, and browser proxy invocation behind narrower target and scope checks.</p>
+        <figure class="story-illustration article-illustration">
+    <img src="/assets/illustrations/2026-06-30-openclaw-narrows-who-can-wake-an-agent-diagram-punk-v1.png" alt="Diagram Punk poster showing OpenClaw commits as source cards narrowing scheduled wake and gateway control paths toward a scoped permission circle." loading="lazy" decoding="async">
+    <figcaption><span>Diagram Punk</span>OpenClaw turns wake and gateway control into scoped permissions.</figcaption>
+  </figure>
+        <div class="receipt">
+    <div class="receipt-line">
+      <span class="receipt-icon">repo</span>
+      <span class="receipt-main">openclaw/openclaw</span>
+      <span class="branch-pill">evidence</span>
+    </div>
+    <div class="receipt-line receipt-muted">
+      <span>4 source signals</span>
+      <span>1 repo</span>
+      <span>3 linked commits</span>
+    </div>
+    <div class="commit-line">Evidence: 3 linked commits / June 30, 2026 / Daily Edition</div>
+  </div>
+        <div class="article-route-row">
+          <a href="/editions/2026-06-30/">Open Edition</a>
+          <a href="#evidence">Evidence below</a>
+        </div>
+      </section>
+      <section class="story-reader">
+        <article class="story-shell story-body">
+          <p><code>openclaw/openclaw</code> merged <a href="https://github.com/openclaw/openclaw/commit/4aa07513fe89db11bc0335971f0a69cd5f03f8d5">commit 4aa0751</a> on June 29, adding target scoping to cron-based agent wakes so scheduled work reaches the intended agent surface instead of a broader wake path.</p>
+
+  <p>For agent operators, the morning decision is to audit scheduled and remote-control surfaces as permissions, not convenience features. Agent Pulse made the assignment concrete: its latest snapshot put OpenClaw at the top of active and hardening signals before today's source shelf added more control-boundary commits.</p>
+
+  <h2>Facts</h2>
+  <ul>
+    <li>The cron patch changed <code>cron-tool.ts</code>, gateway cron handling, validation tests, and prompt snapshots around targeted wake behavior.</li>
+    <li>A second commit, <a href="https://github.com/openclaw/openclaw/commit/6ead092302842a0c082b3126c08319b0da133a4a">6ead092</a>, required an owner for ACP runtime controls and documented the constraint.</li>
+    <li>A third commit, <a href="https://github.com/openclaw/openclaw/commit/456c48f368cb1978433f21f295a7da7cb1faec9b">456c48f</a>, required admin scope for browser proxy invocation and added request-scope plumbing.</li>
+  </ul>
+
+  <h2>Evidence</h2>
+  <p>The strongest receipt is the cron patch because it turns wake targeting into tested gateway behavior. The ACP and browser-proxy commits show the same pressure on adjacent runtime controls: privileged actions need a named owner or scope before they execute.</p>
+
+  <h2>Limits</h2>
+  <p>The evidence proves source-level hardening, not a shipped release, complete security audit, or guarantee that every OpenClaw plugin surface is scoped the same way. Watch whether the next release notes and docs make these controls visible to operators before incidents force the lesson.</p>
+        </article>
+      </section>
+      <section class="evidence-section" id="evidence" aria-labelledby="evidence-title">
+    <div class="evidence-head">
+      <div>
+        <div class="eyebrow">Evidence Trail</div>
+        <h2 id="evidence-title">Receipts below the story</h2>
+        <p>The article above is the public narrative. This section keeps the source trail, limits, and reporting notes on the same page.</p>
+      </div>
+      <a class="paper-button" href="/editions/2026-06-30/">Edition</a>
+    </div>
+    <div class="evidence-table evidence-summary">
+      <div class="evidence-line"><span>Date</span><span>June 30, 2026</span></div>
+      <div class="evidence-line"><span>Lane</span><span>Daily Edition</span></div>
+      <div class="evidence-line"><span>Confidence</span><span>78%</span></div>
+      <div class="evidence-line"><span>Sources</span><span>4</span></div>
+      <div class="evidence-line"><span>Repos</span><span>openclaw/openclaw</span></div>
+    </div>
+    <div class="markdown evidence-copy evidence-copy-block"><h3>Reporter Notes</h3><p>Lead thesis: OpenClaw is narrowing agent runtime controls around scheduled wakes and privileged gateway actions. The practical reader decision is act-now for agent operators: audit wake, owner, admin, and browser-proxy scopes before treating them as reliable automation surfaces.</p></div>
+    <div class="markdown evidence-copy evidence-copy-block">
+      <h2>Reporter Notes</h2>
+<p>This lead is a risk-and-control map. Agent Pulse pointed toward OpenClaw hardening, but the article relies on public commits that scoped scheduled wakes, ACP runtime controls, and browser proxy invocation.</p>
+<h2>Primary Evidence</h2>
+<ul>
+<li>OpenClaw commit <code>4aa0751</code>: <a href="https://github.com/openclaw/openclaw/commit/4aa07513fe89db11bc0335971f0a69cd5f03f8d5">https://github.com/openclaw/openclaw/commit/4aa07513fe89db11bc0335971f0a69cd5f03f8d5</a>
+<ul>
+<li>Evidence used: adds target scoping for cron-based agent wakes and tests the gateway behavior.
+</li>
+</ul>
+</li>
+<li>OpenClaw PR <code>#97949</code>: <a href="https://github.com/openclaw/openclaw/pull/97949">https://github.com/openclaw/openclaw/pull/97949</a>
+<ul>
+<li>Evidence used: public PR trail for the cron wake-target change.
+</li>
+</ul>
+</li>
+<li>OpenClaw commit <code>6ead092</code>: <a href="https://github.com/openclaw/openclaw/commit/6ead092302842a0c082b3126c08319b0da133a4a">https://github.com/openclaw/openclaw/commit/6ead092302842a0c082b3126c08319b0da133a4a</a>
+<ul>
+<li>Evidence used: requires owner scope for ACP runtime controls and updates docs.
+</li>
+</ul>
+</li>
+<li>OpenClaw commit <code>456c48f</code>: <a href="https://github.com/openclaw/openclaw/commit/456c48f368cb1978433f21f295a7da7cb1faec9b">https://github.com/openclaw/openclaw/commit/456c48f368cb1978433f21f295a7da7cb1faec9b</a>
+<ul>
+<li>Evidence used: requires admin scope for browser proxy invocation and adds gateway request-scope plumbing.
+</li>
+</ul>
+</li>
+</ul>
+<h2>Evidence Limits</h2>
+<ul>
+<li>The evidence shows source-level hardening, not a public release guarantee.
+</li>
+<li>It does not prove a complete security audit across every OpenClaw plugin or privileged tool surface.
+</li>
+<li>Agent Pulse is used as assignment pressure only; the public claim rests on the cited source receipts.
+</li>
+</ul>
+    </div>
+    
+  </section>
+      <section class="related-edition-section atlas-context-section">
+    <div class="section-title-row">
+      <h2>Atlas Context</h2>
+      <a href="/atlas/">Open Atlas &rsaquo;</a>
+    </div>
+    <div class="updates-list">
+      <a class="article-card" href="/atlas/the-loop/">
+            <div class="article-meta"><span class="lane">Agent Atlas</span><span>Chapter 4</span></div>
+            <h3>Loops, Workflows, and Recovery</h3>
+            <p>Repeated model-tool interaction is only one control structure. Production runtimes combine probabilistic loops with host-defined workflows, queues, interrupts, terminal states, and recovery operations.</p>
+          </a>
+    </div>
+  </section>
+      <section class="reader-feedback"
+    data-tgr-feedback
+    data-article-slug="2026-06-30-daily-openclaw-narrows-who-can-wake-an-agent"
+    data-article-title="OpenClaw Narrows Who Can Wake An Agent"
+    data-article-url="/articles/2026-06-30-daily-openclaw-narrows-who-can-wake-an-agent/"
+    data-edition-date="2026-06-30"
+    data-lane="Daily Edition"
+    data-tags="OpenClaw,Runtime Controls,Cron,Browser Proxy,Permissions"
+    data-repos="openclaw/openclaw">
+    <div class="reader-feedback-head">
+      <div>
+        <div class="eyebrow">Letters &amp; Corrections</div>
+        <h2>Send a note to the desk</h2>
+      </div>
+      <p>Corrections, missing context, or a follow-up lead.</p>
+    </div>
+    <form class="feedback-form">
+      <div class="feedback-votes" role="group" aria-label="Choose signal type">
+        <button class="feedback-choice" type="button" data-vote="follow-up" aria-pressed="false">
+          <span aria-hidden="true">+</span>
+          <span>Follow-up</span>
+        </button>
+        <button class="feedback-choice" type="button" data-vote="correction" aria-pressed="false">
+          <span aria-hidden="true">!</span>
+          <span>Correction</span>
+        </button>
+      </div>
+      <label class="feedback-comment">
+        <span>Note for the editor</span>
+        <textarea name="comment" rows="3" maxlength="320" placeholder="What did we miss, or what should we follow next?"></textarea>
+      </label>
+      <div class="feedback-submit-row">
+        <p class="feedback-status" aria-live="polite"></p>
+        <button class="paper-button primary feedback-submit" type="submit">Send to desk</button>
+      </div>
+    </form>
+  </section>
+      <section class="related-edition-section">
+        <div class="section-title-row">
+          <h2>Same Edition</h2>
+          <a href="/editions/2026-06-30/">Open issue &rsaquo;</a>
+        </div>
+        <div class="updates-list">
+          <a class="update-card" href="/articles/2026-06-30-daily-mario-zechner-kept-pi-compaction-visible/">
+    <div class="update-stripe"></div>
+    <div class="update-main">
+      <div class="update-meta">
+        <span>Reported</span>
+        <span class="source-plus">+4</span>
+        <span>Jun 30, 2026</span>
+      </div>
+      <h3>Mario Zechner Kept Pi Compaction Visible</h3>
+      <div class="update-receipt">
+        <span>earendil-works/pi</span>
+        <span class="branch-pill">evidence</span>
+      </div>
+      <div class="update-foot">
+        <span>4 sources</span>
+        <span>1 repo</span>
+        <span>2 linked commits</span>
+      </div>
+    </div>
+    <span class="update-arrow" aria-hidden="true">&rsaquo;</span>
+  </a><a class="update-card" href="/articles/2026-06-30-daily-api-discovery-api-geo-turns-french-places-into-agent-inputs/">
+    <div class="update-stripe"></div>
+    <div class="update-main">
+      <div class="update-meta">
+        <span>Reported</span>
+        <span class="source-plus">+3</span>
+        <span>Jun 30, 2026</span>
+      </div>
+      <h3>API Discovery: API Geo Turns French Places Into Agent Inputs</h3>
+      <div class="update-receipt">
+        <span>betagouv/api.gouv.fr</span>
+        <span class="branch-pill">evidence</span>
+      </div>
+      <div class="update-foot">
+        <span>3 sources</span>
+        <span>1 repo</span>
+        <span>3 source signals</span>
+      </div>
+    </div>
+    <span class="update-arrow" aria-hidden="true">&rsaquo;</span>
+  </a><a class="update-card" href="/articles/2026-06-30-daily-crush-stops-writing-to-vanished-shell-sessions/">
+    <div class="update-stripe"></div>
+    <div class="update-main">
+      <div class="update-meta">
+        <span>Reported</span>
+        <span class="source-plus">+3</span>
+        <span>Jun 30, 2026</span>
+      </div>
+      <h3>Crush Stops Writing To Vanished Shell Sessions</h3>
+      <div class="update-receipt">
+        <span>charmbracelet/crush</span>
+        <span class="branch-pill">evidence</span>
+      </div>
+      <div class="update-foot">
+        <span>3 sources</span>
+        <span>1 repo</span>
+        <span>2 linked commits</span>
+      </div>
+    </div>
+    <span class="update-arrow" aria-hidden="true">&rsaquo;</span>
+  </a>
+        </div>
+      </section>
+    </main>
+    <footer class="wrap site-footer">
+      <span>&copy; 2026 The Git Reporter</span>
+      <a href="/about/">About</a>
+      <a href="/agent-pulse/">Agent Pulse</a>
+      <a href="/feed.xml">RSS</a>
+      <a href="https://x.com/TheGitReporter">Follow on X</a>
+      <a href="/articles.json">Manifest JSON</a>
+      <a href="/repos/">Sources</a>
+    </footer>
+  </div>
+</body>
+</html>

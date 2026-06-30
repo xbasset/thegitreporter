@@ -1,0 +1,302 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Crush Stops Writing To Vanished Shell Sessions | The Git Reporter</title>
+  <meta name="description" content="A public Crush patch moved shell-message persistence behind a session-existence check, turning a disappearing workspace edge case into tested agent reliability work.">
+  <meta name="robots" content="index,follow">
+  <link rel="canonical" href="https://thegitreporter.com/articles/2026-06-30-daily-crush-stops-writing-to-vanished-shell-sessions/">
+  <link rel="alternate" type="application/rss+xml" title="The Git Reporter" href="https://thegitreporter.com/feed.xml">
+  <meta property="og:site_name" content="The Git Reporter">
+  <meta property="og:locale" content="en_US">
+  <meta property="og:title" content="Crush Stops Writing To Vanished Shell Sessions | The Git Reporter">
+  <meta property="og:description" content="A public Crush patch moved shell-message persistence behind a session-existence check, turning a disappearing workspace edge case into tested agent reliability work.">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://thegitreporter.com/articles/2026-06-30-daily-crush-stops-writing-to-vanished-shell-sessions/">
+  <meta property="og:image" content="https://thegitreporter.com/assets/social/2026-06-30-daily-crush-stops-writing-to-vanished-shell-sessions-og.jpg">
+  <meta property="og:image:secure_url" content="https://thegitreporter.com/assets/social/2026-06-30-daily-crush-stops-writing-to-vanished-shell-sessions-og.jpg">
+  <meta property="og:image:type" content="image/jpeg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Diagram Punk poster showing a Crush shell transcript blocked from writing to a missing session by a tested persistence guard.">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:site" content="@TheGitReporter">
+  <meta name="twitter:creator" content="@TheGitReporter">
+  <meta name="twitter:title" content="Crush Stops Writing To Vanished Shell Sessions | The Git Reporter">
+  <meta name="twitter:description" content="A public Crush patch moved shell-message persistence behind a session-existence check, turning a disappearing workspace edge case into tested agent reliability work.">
+  <meta name="twitter:url" content="https://thegitreporter.com/articles/2026-06-30-daily-crush-stops-writing-to-vanished-shell-sessions/">
+  <meta name="twitter:domain" content="thegitreporter.com">
+  <meta name="twitter:image" content="https://thegitreporter.com/assets/social/2026-06-30-daily-crush-stops-writing-to-vanished-shell-sessions-og.jpg">
+  <meta name="twitter:image:alt" content="Diagram Punk poster showing a Crush shell transcript blocked from writing to a missing session by a tested persistence guard.">
+  <meta property="article:published_time" content="2026-06-30T12:00:00Z">
+  <meta property="article:modified_time" content="2026-06-30T12:00:00Z">
+  <meta property="article:section" content="Daily Edition">
+  <meta property="article:tag" content="Crush">
+  <meta property="article:tag" content="Shell Sessions">
+  <meta property="article:tag" content="Persistence">
+  <meta property="article:tag" content="Contributors">
+  <meta property="article:tag" content="Reliability">
+  <meta property="article:tag" content="charmbracelet/crush">
+  <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"https://thegitreporter.com/#organization","name":"The Git Reporter","url":"https://thegitreporter.com","logo":{"@type":"ImageObject","url":"https://thegitreporter.com/assets/mark.svg"},"sameAs":["https://x.com/TheGitReporter"]},{"@type":"WebSite","@id":"https://thegitreporter.com/#website","name":"The Git Reporter","url":"https://thegitreporter.com","publisher":{"@id":"https://thegitreporter.com/#organization"}},{"@type":"NewsArticle","mainEntityOfPage":{"@type":"WebPage","@id":"https://thegitreporter.com/articles/2026-06-30-daily-crush-stops-writing-to-vanished-shell-sessions/"},"headline":"Crush Stops Writing To Vanished Shell Sessions","description":"A public Crush patch moved shell-message persistence behind a session-existence check, turning a disappearing workspace edge case into tested agent reliability work.","image":["https://thegitreporter.com/assets/social/2026-06-30-daily-crush-stops-writing-to-vanished-shell-sessions-og.jpg"],"datePublished":"2026-06-30T12:00:00Z","dateModified":"2026-06-30T12:00:00Z","author":[{"@type":"Organization","name":"The Git Reporter","url":"https://thegitreporter.com"}],"publisher":{"@type":"Organization","@id":"https://thegitreporter.com/#organization","name":"The Git Reporter","url":"https://thegitreporter.com","logo":{"@type":"ImageObject","url":"https://thegitreporter.com/assets/mark.svg"},"sameAs":["https://x.com/TheGitReporter"]},"articleSection":"Daily Edition","keywords":"Crush, Shell Sessions, Persistence, Contributors, Reliability, charmbracelet/crush"}]}</script>
+  <link rel="icon" href="/assets/mark.svg">
+  <link rel="stylesheet" href="/assets/site.css?v=2026-05-30-about-layout-social-1">
+  <script defer src="/assets/feedback.js?v=2026-05-30-about-layout-social-1"></script>
+  <script defer src="/assets/analytics.js?v=2026-05-30-about-layout-social-1"></script>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-CH19T7M0T1"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){window.dataLayer.push(arguments);}
+    gtag("js", new Date());
+    gtag("config", "G-CH19T7M0T1");
+  </script>
+</head>
+<body>
+  <div class="site">
+    <header class="site-header" id="top">
+      <div class="wrap utility-row">
+        <a class="icon-link menu-icon" href="/archive/" aria-label="Open edition history"><span></span><span></span><span></span></a>
+        <a class="icon-link archive-icon" href="/archive/" aria-label="Open edition history"></a>
+      </div>
+      <div class="wrap masthead-lockup">
+        <a class="masthead-title" href="/">THE GIT REPORTER</a>
+        <div class="masthead-ornament" aria-hidden="true"></div>
+      </div>
+      <div class="wrap nav-wrap">
+        <nav class="paper-nav" aria-label="Primary navigation">
+    <a class="" href="/">Today</a><a class="active" href="/archive/">Editions</a><a class="" href="/about/">About</a><a class="" href="/agent-pulse/">Agent Pulse</a><a class="" href="/atlas/">Agent Atlas</a><a class="" href="/repos/">Repos</a>
+  </nav>
+        <div class="nav-rule"></div>
+      </div>
+    </header>
+    <main class="wrap page-shell article-page">
+      <section class="page-hero story-front">
+        <div class="story-topline">
+          <span>Daily Edition</span>
+          <span>Sources <strong>+3</strong></span>
+        </div>
+        <h1>Crush Stops Writing To Vanished Shell Sessions</h1>
+        <p class="summary">A public Crush patch moved shell-message persistence behind a session-existence check, turning a disappearing workspace edge case into tested agent reliability work.</p>
+        <figure class="story-illustration article-illustration">
+    <img src="/assets/illustrations/2026-06-30-crush-stops-writing-to-vanished-shell-sessions-diagram-punk-v1.png" alt="Diagram Punk poster showing a Crush shell transcript blocked from writing to a missing session by a tested persistence guard." loading="lazy" decoding="async">
+    <figcaption><span>Diagram Punk</span>Crush stops shell transcripts from writing into vanished sessions.</figcaption>
+  </figure>
+        <div class="receipt">
+    <div class="receipt-line">
+      <span class="receipt-icon">repo</span>
+      <span class="receipt-main">charmbracelet/crush</span>
+      <span class="branch-pill">evidence</span>
+    </div>
+    <div class="receipt-line receipt-muted">
+      <span>3 source signals</span>
+      <span>1 repo</span>
+      <span>2 linked commits</span>
+    </div>
+    <div class="commit-line">Evidence: 2 linked commits / June 30, 2026 / Daily Edition</div>
+  </div>
+        <div class="article-route-row">
+          <a href="/editions/2026-06-30/">Open Edition</a>
+          <a href="#evidence">Evidence below</a>
+        </div>
+      </section>
+      <section class="story-reader">
+        <article class="story-shell story-body">
+          <p><a href="https://github.com/syf2211">syf2211</a> authored <a href="https://github.com/charmbracelet/crush/commit/a9e3a57f7a9f40cd411e5ac1b98156b8240ed1fb">commit a9e3a57</a> on June 30, adding <code>persist_message.go</code> and a regression test so Crush skips shell persistence when the session no longer exists.</p>
+
+  <p>The visible pressure is ordinary and important: an agent shell can outlive the workspace record it thinks it is writing to. The intervention pulls that edge case into a small helper and a test instead of letting persistence stay hidden in backend flow.</p>
+
+  <h2>The public trail</h2>
+  <p>The patch changed four files with 115 insertions and 19 deletions. The new test covers the missing-session path directly, while <code>agent.go</code> and <code>app_workspace.go</code> delegate message persistence into the new shell helper.</p>
+
+  <h2>Public work context</h2>
+  <p>The same public source shelf shows syf2211 also fixing non-ASCII directory trimming in <a href="https://github.com/charmbracelet/crush/commit/188dea64">commit 188dea6</a>. That context earns its place because both patches are maintenance work at the human edge of agent tooling: shell output and file paths must not corrupt the operator's view.</p>
+
+  <h2>Why it matters</h2>
+  <p>For agent operators, this is a reliability story rather than a feature story. Long-running shell tools are useful only if the transcript they leave behind reflects a live session. The fairness limit is tight: the article credits public commits and public profile evidence only, not private motive or maintainer status.</p>
+        </article>
+      </section>
+      <section class="evidence-section" id="evidence" aria-labelledby="evidence-title">
+    <div class="evidence-head">
+      <div>
+        <div class="eyebrow">Evidence Trail</div>
+        <h2 id="evidence-title">Receipts below the story</h2>
+        <p>The article above is the public narrative. This section keeps the source trail, limits, and reporting notes on the same page.</p>
+      </div>
+      <a class="paper-button" href="/editions/2026-06-30/">Edition</a>
+    </div>
+    <div class="evidence-table evidence-summary">
+      <div class="evidence-line"><span>Date</span><span>June 30, 2026</span></div>
+      <div class="evidence-line"><span>Lane</span><span>Daily Edition</span></div>
+      <div class="evidence-line"><span>Confidence</span><span>78%</span></div>
+      <div class="evidence-line"><span>Sources</span><span>3</span></div>
+      <div class="evidence-line"><span>Repos</span><span>charmbracelet/crush</span></div>
+    </div>
+    <div class="markdown evidence-copy evidence-copy-block"><h3>Reporter Notes</h3><p>Daily Story thesis: Crush faced a concrete reliability pressure when shell output could be persisted after the session record disappeared. The story works because the intervention is visible in code and tests, and the public-work context stays attached to same-repo operator-facing maintenance.</p></div>
+    <div class="markdown evidence-copy evidence-copy-block">
+      <h2>Reporter Notes</h2>
+<p>This Daily Story is carried by a code-and-test repair, not a public issue thread. The public-work context is deliberately narrow: same-repo maintenance around shell/session/path reliability.</p>
+<h2>Primary Evidence</h2>
+<ul>
+<li>Crush commit <code>a9e3a57</code>: <a href="https://github.com/charmbracelet/crush/commit/a9e3a57f7a9f40cd411e5ac1b98156b8240ed1fb">https://github.com/charmbracelet/crush/commit/a9e3a57f7a9f40cd411e5ac1b98156b8240ed1fb</a>
+<ul>
+<li>Evidence used: adds shell message persistence helper and regression coverage for missing sessions.
+</li>
+</ul>
+</li>
+<li>Public-work context receipt: syf2211 GitHub profile: <a href="https://github.com/syf2211">https://github.com/syf2211</a>
+<ul>
+<li>Evidence used: public contributor context only.
+</li>
+</ul>
+</li>
+<li>Public-work context receipt: Crush commit <code>188dea64</code>: <a href="https://github.com/charmbracelet/crush/commit/188dea64">https://github.com/charmbracelet/crush/commit/188dea64</a>
+<ul>
+<li>Evidence used: adjacent same-repo maintenance around non-ASCII path display.
+</li>
+</ul>
+</li>
+</ul>
+<h2>Evidence Limits</h2>
+<ul>
+<li>The article does not infer private identity, motive, employment, location, or maintainer authority.
+</li>
+<li>No public issue thread carries the story; the visible trail is commit and test evidence.
+</li>
+<li>The patch does not prove how often missing-session persistence occurs for users.
+</li>
+</ul>
+    </div>
+    
+  </section>
+      <section class="related-edition-section atlas-context-section">
+    <div class="section-title-row">
+      <h2>Atlas Context</h2>
+      <a href="/atlas/">Open Atlas &rsaquo;</a>
+    </div>
+    <div class="updates-list">
+      <a class="article-card" href="/atlas/what-an-agent-can-see/">
+            <div class="article-meta"><span class="lane">Agent Atlas</span><span>Chapter 2</span></div>
+            <h3>The Invisible Prompt</h3>
+            <p>The model acts on an assembled viewport containing visible messages, hidden turn context, path-triggered instructions, memory records, tool schemas, permissions, and inherited state.</p>
+          </a>
+    </div>
+  </section>
+      <section class="reader-feedback"
+    data-tgr-feedback
+    data-article-slug="2026-06-30-daily-crush-stops-writing-to-vanished-shell-sessions"
+    data-article-title="Crush Stops Writing To Vanished Shell Sessions"
+    data-article-url="/articles/2026-06-30-daily-crush-stops-writing-to-vanished-shell-sessions/"
+    data-edition-date="2026-06-30"
+    data-lane="Daily Edition"
+    data-tags="Crush,Shell Sessions,Persistence,Contributors,Reliability"
+    data-repos="charmbracelet/crush">
+    <div class="reader-feedback-head">
+      <div>
+        <div class="eyebrow">Letters &amp; Corrections</div>
+        <h2>Send a note to the desk</h2>
+      </div>
+      <p>Corrections, missing context, or a follow-up lead.</p>
+    </div>
+    <form class="feedback-form">
+      <div class="feedback-votes" role="group" aria-label="Choose signal type">
+        <button class="feedback-choice" type="button" data-vote="follow-up" aria-pressed="false">
+          <span aria-hidden="true">+</span>
+          <span>Follow-up</span>
+        </button>
+        <button class="feedback-choice" type="button" data-vote="correction" aria-pressed="false">
+          <span aria-hidden="true">!</span>
+          <span>Correction</span>
+        </button>
+      </div>
+      <label class="feedback-comment">
+        <span>Note for the editor</span>
+        <textarea name="comment" rows="3" maxlength="320" placeholder="What did we miss, or what should we follow next?"></textarea>
+      </label>
+      <div class="feedback-submit-row">
+        <p class="feedback-status" aria-live="polite"></p>
+        <button class="paper-button primary feedback-submit" type="submit">Send to desk</button>
+      </div>
+    </form>
+  </section>
+      <section class="related-edition-section">
+        <div class="section-title-row">
+          <h2>Same Edition</h2>
+          <a href="/editions/2026-06-30/">Open issue &rsaquo;</a>
+        </div>
+        <div class="updates-list">
+          <a class="update-card" href="/articles/2026-06-30-daily-openclaw-narrows-who-can-wake-an-agent/">
+    <div class="update-stripe"></div>
+    <div class="update-main">
+      <div class="update-meta">
+        <span>Trust</span>
+        <span class="source-plus">+4</span>
+        <span>Jun 30, 2026</span>
+      </div>
+      <h3>OpenClaw Narrows Who Can Wake An Agent</h3>
+      <div class="update-receipt">
+        <span>openclaw/openclaw</span>
+        <span class="branch-pill">evidence</span>
+      </div>
+      <div class="update-foot">
+        <span>4 sources</span>
+        <span>1 repo</span>
+        <span>3 linked commits</span>
+      </div>
+    </div>
+    <span class="update-arrow" aria-hidden="true">&rsaquo;</span>
+  </a><a class="update-card" href="/articles/2026-06-30-daily-mario-zechner-kept-pi-compaction-visible/">
+    <div class="update-stripe"></div>
+    <div class="update-main">
+      <div class="update-meta">
+        <span>Reported</span>
+        <span class="source-plus">+4</span>
+        <span>Jun 30, 2026</span>
+      </div>
+      <h3>Mario Zechner Kept Pi Compaction Visible</h3>
+      <div class="update-receipt">
+        <span>earendil-works/pi</span>
+        <span class="branch-pill">evidence</span>
+      </div>
+      <div class="update-foot">
+        <span>4 sources</span>
+        <span>1 repo</span>
+        <span>2 linked commits</span>
+      </div>
+    </div>
+    <span class="update-arrow" aria-hidden="true">&rsaquo;</span>
+  </a><a class="update-card" href="/articles/2026-06-30-daily-api-discovery-api-geo-turns-french-places-into-agent-inputs/">
+    <div class="update-stripe"></div>
+    <div class="update-main">
+      <div class="update-meta">
+        <span>Reported</span>
+        <span class="source-plus">+3</span>
+        <span>Jun 30, 2026</span>
+      </div>
+      <h3>API Discovery: API Geo Turns French Places Into Agent Inputs</h3>
+      <div class="update-receipt">
+        <span>betagouv/api.gouv.fr</span>
+        <span class="branch-pill">evidence</span>
+      </div>
+      <div class="update-foot">
+        <span>3 sources</span>
+        <span>1 repo</span>
+        <span>3 source signals</span>
+      </div>
+    </div>
+    <span class="update-arrow" aria-hidden="true">&rsaquo;</span>
+  </a>
+        </div>
+      </section>
+    </main>
+    <footer class="wrap site-footer">
+      <span>&copy; 2026 The Git Reporter</span>
+      <a href="/about/">About</a>
+      <a href="/agent-pulse/">Agent Pulse</a>
+      <a href="/feed.xml">RSS</a>
+      <a href="https://x.com/TheGitReporter">Follow on X</a>
+      <a href="/articles.json">Manifest JSON</a>
+      <a href="/repos/">Sources</a>
+    </footer>
+  </div>
+</body>
+</html>
