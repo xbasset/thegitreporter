@@ -40,9 +40,9 @@
   <meta property="article:tag" content="NousResearch/hermes-agent">
   <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"https://thegitreporter.com/#organization","name":"The Git Reporter","url":"https://thegitreporter.com","logo":{"@type":"ImageObject","url":"https://thegitreporter.com/assets/mark.svg"},"sameAs":["https://x.com/TheGitReporter"]},{"@type":"WebSite","@id":"https://thegitreporter.com/#website","name":"The Git Reporter","url":"https://thegitreporter.com","publisher":{"@id":"https://thegitreporter.com/#organization"}},{"@type":"NewsArticle","mainEntityOfPage":{"@type":"WebPage","@id":"https://thegitreporter.com/articles/2026-05-31-daily-agent-tool-menus-are-becoming-runtime-infrastructure/"},"headline":"Agent Tool Menus Are Becoming Runtime Infrastructure","description":"Fresh Codex and Hermes commits show a quieter agent shift: the visible list of tools is becoming a runtime contract about what can be suggested, enabled, discovered, and checked without breaking the session.","image":["https://thegitreporter.com/assets/social/2026-05-31-daily-agent-tool-menus-are-becoming-runtime-infrastructure-og.jpg"],"datePublished":"2026-05-31T12:00:00Z","dateModified":"2026-05-31T12:00:00Z","author":[{"@type":"Organization","name":"The Git Reporter","url":"https://thegitreporter.com"}],"publisher":{"@type":"Organization","@id":"https://thegitreporter.com/#organization","name":"The Git Reporter","url":"https://thegitreporter.com","logo":{"@type":"ImageObject","url":"https://thegitreporter.com/assets/mark.svg"},"sameAs":["https://x.com/TheGitReporter"]},"articleSection":"Daily Edition","keywords":"Permissions, Memory, Tools, UX, openai/codex, NousResearch/hermes-agent"}]}</script>
   <link rel="icon" href="/assets/mark.svg">
-  <link rel="stylesheet" href="/assets/site.css?v=2026-05-30-about-layout-social-1">
-  <script defer src="/assets/feedback.js?v=2026-05-30-about-layout-social-1"></script>
-  <script defer src="/assets/analytics.js?v=2026-05-30-about-layout-social-1"></script>
+  <link rel="stylesheet" href="/assets/site.css?v=2026-06-30-agent-pulse-1">
+  <script defer src="/assets/feedback.js?v=2026-06-30-agent-pulse-1"></script>
+  <script defer src="/assets/analytics.js?v=2026-06-30-agent-pulse-1"></script>
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-CH19T7M0T1"></script>
   <script>
     window.dataLayer = window.dataLayer || [];
@@ -135,7 +135,7 @@
       <div>
         <div class="eyebrow">Evidence Trail</div>
         <h2 id="evidence-title">Receipts below the story</h2>
-        <p>The article above is the public narrative. This section keeps the source trail, limits, and reporting notes on the same page.</p>
+        <p>The article above is the public narrative. This section keeps the source trail and limits on the same page.</p>
       </div>
       <a class="paper-button" href="/editions/2026-05-31/">Edition</a>
     </div>
@@ -146,49 +146,36 @@
       <div class="evidence-line"><span>Sources</span><span>5</span></div>
       <div class="evidence-line"><span>Repos</span><span>openai/codex, NousResearch/hermes-agent</span></div>
     </div>
-    <div class="markdown evidence-copy evidence-copy-block"><h3>Reporter Notes</h3><p>The strongest story is not &quot;more tools.&quot; The stronger claim is that the tool surface is being made less naive:</p>
-<ul>
-<li>Codex is narrowing plugin install suggestions so the model can only ask the user about candidates that are either fallback starters, explicitly configured, or relevant to installed app connector IDs.
-</li>
-<li>Codex is making <code>request_user_input</code> registration depend on config, which treats a human-input tool as an intentional runtime capability.
-</li>
-<li>Hermes is moving MCP discovery away from blocking startup paths and adding a bounded wait before the first tool snapshot.
-</li>
-<li>Hermes is splitting cheap availability probes from refresh-aware request/session paths for managed gateway tools.
-</li>
-<li>Hermes is fixing setup defaults so image/video tools are not marked enabled without the config needed for runtime availability.
-</li>
-</ul></div>
     <div class="markdown evidence-copy evidence-copy-block">
       <h2>Primary Evidence</h2>
 <ul>
 <li>OpenAI Codex commit &quot;Filter plugin install suggestions by installed apps (#24996)&quot;: <a href="https://github.com/openai/codex/commit/8e5f5616976d98c5e035b7f67fe0632e3a4337bf">https://github.com/openai/codex/commit/8e5f5616976d98c5e035b7f67fe0632e3a4337bf</a>
 <ul>
-<li>Evidence used: the commit says <code>list_available_plugins_to_install</code> now keeps a starter fallback list, allows candidates from trusted marketplaces, requires non-fallback marketplace suggestions to share app connector IDs with already installed plugins, and omits installed, disabled, and unavailable plugins.
+<li>Shows: the commit says <code>list_available_plugins_to_install</code> now keeps a starter fallback list, allows candidates from trusted marketplaces, requires non-fallback marketplace suggestions to share app connector IDs with already installed plugins, and omits installed, disabled, and unavailable plugins.
 </li>
 </ul>
 </li>
 <li>OpenAI Codex commit &quot;feat(config) experimental_request_user_input toggle (#24541)&quot;: <a href="https://github.com/openai/codex/commit/e0435afb72d37fc92e7e646f51f8a1eb26664dd7">https://github.com/openai/codex/commit/e0435afb72d37fc92e7e646f51f8a1eb26664dd7</a>
 <ul>
-<li>Evidence used: the commit adds <code>tools.experimental_request_user_input.enabled</code> to config/schema handling and only registers the <code>request_user_input</code> tool when that config allows it.
+<li>Shows: the commit adds <code>tools.experimental_request_user_input.enabled</code> to config/schema handling and only registers the <code>request_user_input</code> tool when that config allows it.
 </li>
 </ul>
 </li>
 <li>NousResearch Hermes Agent commit &quot;perf(cli): stop eager MCP discovery from blocking agent-capable startup&quot;: <a href="https://github.com/NousResearch/hermes-agent/commit/0c6e133c0434ec856d4aea2b08f216f36c0e7dac">https://github.com/NousResearch/hermes-agent/commit/0c6e133c0434ec856d4aea2b08f216f36c0e7dac</a>
 <ul>
-<li>Evidence used: the commit adds shared background MCP discovery helpers, skips duplicate inline discovery for entrypoints with dedicated startup paths, and briefly waits for MCP discovery before the first tool snapshot.
+<li>Shows: the commit adds shared background MCP discovery helpers, skips duplicate inline discovery for entrypoints with dedicated startup paths, and briefly waits for MCP discovery before the first tool snapshot.
 </li>
 </ul>
 </li>
 <li>NousResearch Hermes Agent commit &quot;fix(managed-gateway): keep tool availability scans off the Nous token-refresh path&quot;: <a href="https://github.com/NousResearch/hermes-agent/commit/6a72af044c44c9a05137bc448bc65ecf0ace5a89">https://github.com/NousResearch/hermes-agent/commit/6a72af044c44c9a05137bc448bc65ecf0ace5a89</a>
 <ul>
-<li>Evidence used: the commit adds a cheap <code>peek_nous_access_token</code> path and changes read-only availability checks so scans and status surfaces do not trigger synchronous OAuth refresh.
+<li>Shows: the commit adds a cheap <code>peek_nous_access_token</code> path and changes read-only availability checks so scans and status surfaces do not trigger synchronous OAuth refresh.
 </li>
 </ul>
 </li>
 <li>NousResearch Hermes Agent commit &quot;fix(setup): write config for image_gen and video_gen in apply_nous_managed_defaults (#35109)&quot;: <a href="https://github.com/NousResearch/hermes-agent/commit/aa32edcac5ee3c3359f2bf8ba2aa372f40787975">https://github.com/NousResearch/hermes-agent/commit/aa32edcac5ee3c3359f2bf8ba2aa372f40787975</a>
 <ul>
-<li>Evidence used: the commit says setup previously marked image/video tools as changed without writing the config values needed for runtime availability, then fixes the path by writing provider/use_gateway settings before marking the tools configured.
+<li>Shows: the commit says setup previously marked image/video tools as changed without writing the config values needed for runtime availability, then fixes the path by writing provider/use_gateway settings before marking the tools configured.
 </li>
 </ul>
 </li>
@@ -207,7 +194,6 @@
 </li>
 </ul>
     </div>
-    
   </section>
       <section class="related-edition-section atlas-context-section">
     <div class="section-title-row">

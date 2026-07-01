@@ -40,9 +40,9 @@
   <meta property="article:tag" content="charmbracelet/crush">
   <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"https://thegitreporter.com/#organization","name":"The Git Reporter","url":"https://thegitreporter.com","logo":{"@type":"ImageObject","url":"https://thegitreporter.com/assets/mark.svg"},"sameAs":["https://x.com/TheGitReporter"]},{"@type":"WebSite","@id":"https://thegitreporter.com/#website","name":"The Git Reporter","url":"https://thegitreporter.com","publisher":{"@id":"https://thegitreporter.com/#organization"}},{"@type":"NewsArticle","mainEntityOfPage":{"@type":"WebPage","@id":"https://thegitreporter.com/articles/2026-06-18-daily-the-crush-patch-that-isolated-agent-shells/"},"headline":"The Crush Patch That Isolated Agent Shells","description":"Kieran Klukas changed how Crush runs child processes so shell jobs cannot seize the parent session or corrupt the terminal UI.","image":["https://thegitreporter.com/assets/social/2026-06-18-daily-the-crush-patch-that-isolated-agent-shells-og.jpg"],"datePublished":"2026-06-18T12:00:00Z","dateModified":"2026-06-18T12:00:00Z","author":[{"@type":"Organization","name":"The Git Reporter","url":"https://thegitreporter.com"}],"publisher":{"@type":"Organization","@id":"https://thegitreporter.com/#organization","name":"The Git Reporter","url":"https://thegitreporter.com","logo":{"@type":"ImageObject","url":"https://thegitreporter.com/assets/mark.svg"},"sameAs":["https://x.com/TheGitReporter"]},"articleSection":"Daily Edition","keywords":"Contributors, Shell, Runtime, TUI, Tests, charmbracelet/crush"}]}</script>
   <link rel="icon" href="/assets/mark.svg">
-  <link rel="stylesheet" href="/assets/site.css?v=2026-05-30-about-layout-social-1">
-  <script defer src="/assets/feedback.js?v=2026-05-30-about-layout-social-1"></script>
-  <script defer src="/assets/analytics.js?v=2026-05-30-about-layout-social-1"></script>
+  <link rel="stylesheet" href="/assets/site.css?v=2026-06-30-agent-pulse-1">
+  <script defer src="/assets/feedback.js?v=2026-06-30-agent-pulse-1"></script>
+  <script defer src="/assets/analytics.js?v=2026-06-30-agent-pulse-1"></script>
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-CH19T7M0T1"></script>
   <script>
     window.dataLayer = window.dataLayer || [];
@@ -122,7 +122,7 @@
       <div>
         <div class="eyebrow">Evidence Trail</div>
         <h2 id="evidence-title">Receipts below the story</h2>
-        <p>The article above is the public narrative. This section keeps the source trail, limits, and reporting notes on the same page.</p>
+        <p>The article above is the public narrative. This section keeps the source trail and limits on the same page.</p>
       </div>
       <a class="paper-button" href="/editions/2026-06-18/">Edition</a>
     </div>
@@ -133,37 +133,36 @@
       <div class="evidence-line"><span>Sources</span><span>5</span></div>
       <div class="evidence-line"><span>Repos</span><span>charmbracelet/crush</span></div>
     </div>
-    <div class="markdown evidence-copy evidence-copy-block"><h3>Reporter Notes</h3><p>The test names are unusually useful public evidence. They translate process groups into user-facing risks: parent process signals, blocked TTY reads, zsh job control, and lingering child processes.</p></div>
     <div class="markdown evidence-copy evidence-copy-block">
       <h2>Primary Evidence</h2>
 <ul>
 <li>Crush shell isolation commit: <a href="https://github.com/charmbracelet/crush/commit/d3af321b0f52f199c1e47cecc2cc08535640cbea">https://github.com/charmbracelet/crush/commit/d3af321b0f52f199c1e47cecc2cc08535640cbea</a>
 <ul>
-<li>Evidence used: the public commit by Kieran Klukas adds process-group shell execution, Unix isolation tests, Windows exec file changes, and runner rewiring.
+<li>Shows: the public commit by Kieran Klukas adds process-group shell execution, Unix isolation tests, Windows exec file changes, and runner rewiring.
 </li>
 </ul>
 </li>
 <li><code>internal/shell/exec_unix.go</code>: <a href="https://github.com/charmbracelet/crush/blob/main/internal/shell/exec_unix.go">https://github.com/charmbracelet/crush/blob/main/internal/shell/exec_unix.go</a>
 <ul>
-<li>Evidence used: the file defines <code>isolateProcess</code>, sets <code>SysProcAttr.Setsid</code>, replaces the base exec handler, and sends cancellation signals to the child process group.
+<li>Shows: the file defines <code>isolateProcess</code>, sets <code>SysProcAttr.Setsid</code>, replaces the base exec handler, and sends cancellation signals to the child process group.
 </li>
 </ul>
 </li>
 <li><code>internal/shell/isolation_unix_test.go</code>: <a href="https://github.com/charmbracelet/crush/blob/main/internal/shell/isolation_unix_test.go">https://github.com/charmbracelet/crush/blob/main/internal/shell/isolation_unix_test.go</a>
 <ul>
-<li>Evidence used: tests verify child SIGINT does not reach the parent, <code>/dev/tty</code> access does not block, zsh job-control does not suspend the parent, and cancellation kills the process group.
+<li>Shows: tests verify child SIGINT does not reach the parent, <code>/dev/tty</code> access does not block, zsh job-control does not suspend the parent, and cancellation kills the process group.
 </li>
 </ul>
 </li>
 <li><code>internal/shell/run.go</code>: <a href="https://github.com/charmbracelet/crush/blob/main/internal/shell/run.go">https://github.com/charmbracelet/crush/blob/main/internal/shell/run.go</a>
 <ul>
-<li>Evidence used: the runner installs the isolated handler chain instead of relying on the default exec handler.
+<li>Shows: the runner installs the isolated handler chain instead of relying on the default exec handler.
 </li>
 </ul>
 </li>
 <li>Crush nearby model-discovery commit: <a href="https://github.com/charmbracelet/crush/commit/7303158426f938ac1648e63fdaba900658ff752b">https://github.com/charmbracelet/crush/commit/7303158426f938ac1648e63fdaba900658ff752b</a>
 <ul>
-<li>Evidence used: Kieran Klukas also landed adjacent model-discovery work, showing the contributor was active across Crush runtime and provider plumbing; the article keeps the main arc on shell isolation.
+<li>Shows: Kieran Klukas also landed adjacent model-discovery work, showing the contributor was active across Crush runtime and provider plumbing; the article keeps the main arc on shell isolation.
 </li>
 </ul>
 </li>
@@ -176,7 +175,6 @@
 </li>
 </ul>
     </div>
-    
   </section>
       <section class="related-edition-section atlas-context-section">
     <div class="section-title-row">

@@ -39,9 +39,9 @@
   <meta property="article:tag" content="thepowersgang/mrustc">
   <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"https://thegitreporter.com/#organization","name":"The Git Reporter","url":"https://thegitreporter.com","logo":{"@type":"ImageObject","url":"https://thegitreporter.com/assets/mark.svg"},"sameAs":["https://x.com/TheGitReporter"]},{"@type":"WebSite","@id":"https://thegitreporter.com/#website","name":"The Git Reporter","url":"https://thegitreporter.com","publisher":{"@id":"https://thegitreporter.com/#organization"}},{"@type":"NewsArticle","mainEntityOfPage":{"@type":"WebPage","@id":"https://thegitreporter.com/articles/2026-06-03-daily-rusts-bootstrap-chain-is-a-trust-story-not-a-smoking-gun/"},"headline":"Rust's Bootstrap Chain Is a Trust Story, Not a Smoking Gun","description":"The Rust repo and compiler docs confirm the Trusting Trust shape: modern rustc starts from an earlier rustc binary. The evidence supports an audit question, not an accusation.","image":["https://thegitreporter.com/assets/social/2026-06-03-daily-rusts-bootstrap-chain-is-a-trust-story-not-a-smoking-gun-og.jpg"],"datePublished":"2026-06-03T12:00:00Z","dateModified":"2026-06-03T12:00:00Z","author":[{"@type":"Organization","name":"The Git Reporter","url":"https://thegitreporter.com"}],"publisher":{"@type":"Organization","@id":"https://thegitreporter.com/#organization","name":"The Git Reporter","url":"https://thegitreporter.com","logo":{"@type":"ImageObject","url":"https://thegitreporter.com/assets/mark.svg"},"sameAs":["https://x.com/TheGitReporter"]},"articleSection":"Daily Edition","keywords":"Permissions, Tools, rust-lang/rust, Rust-GCC/gccrs, thepowersgang/mrustc"}]}</script>
   <link rel="icon" href="/assets/mark.svg">
-  <link rel="stylesheet" href="/assets/site.css?v=2026-05-30-about-layout-social-1">
-  <script defer src="/assets/feedback.js?v=2026-05-30-about-layout-social-1"></script>
-  <script defer src="/assets/analytics.js?v=2026-05-30-about-layout-social-1"></script>
+  <link rel="stylesheet" href="/assets/site.css?v=2026-06-30-agent-pulse-1">
+  <script defer src="/assets/feedback.js?v=2026-06-30-agent-pulse-1"></script>
+  <script defer src="/assets/analytics.js?v=2026-06-30-agent-pulse-1"></script>
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-CH19T7M0T1"></script>
   <script>
     window.dataLayer = window.dataLayer || [];
@@ -132,7 +132,7 @@
       <div>
         <div class="eyebrow">Evidence Trail</div>
         <h2 id="evidence-title">Receipts below the story</h2>
-        <p>The article above is the public narrative. This section keeps the source trail, limits, and reporting notes on the same page.</p>
+        <p>The article above is the public narrative. This section keeps the source trail and limits on the same page.</p>
       </div>
       <a class="paper-button" href="/editions/2026-06-03/">Edition</a>
     </div>
@@ -143,63 +143,60 @@
       <div class="evidence-line"><span>Sources</span><span>9</span></div>
       <div class="evidence-line"><span>Repos</span><span>rust-lang/rust, Rust-GCC/gccrs, thepowersgang/mrustc</span></div>
     </div>
-    <div class="markdown evidence-copy evidence-copy-block"><h3>Reporter Notes</h3><p>The strongest evidence is not a hidden flaw. It is the public Rust bootstrap contract itself: the current source tree starts from a known earlier rustc binary. That is enough to make Trusting Trust relevant, but not enough to support any claim that Rust is compromised.</p>
-<p>The article intentionally treats &quot;only&quot; as a practical statement about the official modern rustc path, not an absolute statement about all possible Rust compiler experiments. mrustc and gccrs matter because they are visible diversity paths, even though they do not yet remove rustc's dominance in normal Rust development.</p>
-<p>The image and headline avoid implying a conspiracy. The reader-facing hook is that source review must include build ancestry when the compiler is self-hosted.</p></div>
     <div class="markdown evidence-copy evidence-copy-block">
       <h2>Primary Evidence</h2>
 <ul>
 <li>Rust Compiler Development Guide, &quot;What Bootstrapping does&quot;: <a href="https://rustc-dev-guide.rust-lang.org/building/bootstrapping/what-bootstrapping-does.html">https://rustc-dev-guide.rust-lang.org/building/bootstrapping/what-bootstrapping-does.html</a>
 <ul>
-<li>Evidence used: The official compiler guide explains that rustc bootstrap uses an older compiler to compile a newer compiler and that <code>x.py</code> downloads the current beta rustc to start the build.
+<li>Shows: The official compiler guide explains that rustc bootstrap uses an older compiler to compile a newer compiler and that <code>x.py</code> downloads the current beta rustc to start the build.
 </li>
 </ul>
 </li>
 <li>Rust source file <code>src/stage0</code>: <a href="https://github.com/rust-lang/rust/blob/master/src/stage0">https://github.com/rust-lang/rust/blob/master/src/stage0</a>
 <ul>
-<li>Evidence used: The file pins the current bootstrap compiler metadata, including <code>compiler_version=beta</code>, <code>compiler_date=2026-05-31</code>, a compiler git commit hash, channel manifest hash, and per-target SHA-256 checksums.
+<li>Shows: The file pins the current bootstrap compiler metadata, including <code>compiler_version=beta</code>, <code>compiler_date=2026-05-31</code>, a compiler git commit hash, channel manifest hash, and per-target SHA-256 checksums.
 </li>
 </ul>
 </li>
 <li>Rust bootstrap README: <a href="https://github.com/rust-lang/rust/blob/master/src/bootstrap/README.md">https://github.com/rust-lang/rust/blob/master/src/bootstrap/README.md</a>
 <ul>
-<li>Evidence used: The README describes the stage0 download, the stage1 build from the prebuilt stage0 compiler, and the later stage2 compiler build.
+<li>Shows: The README describes the stage0 download, the stage1 build from the prebuilt stage0 compiler, and the later stage2 compiler build.
 </li>
 </ul>
 </li>
 <li>Rust <code>bump-stage0</code> tool: <a href="https://raw.githubusercontent.com/rust-lang/rust/master/src/tools/bump-stage0/src/main.rs">https://raw.githubusercontent.com/rust-lang/rust/master/src/tools/bump-stage0/src/main.rs</a>
 <ul>
-<li>Evidence used: The tool documents the release-train bootstrap relationship: master from beta, beta from stable, stable from the previous stable release.
+<li>Shows: The tool documents the release-train bootstrap relationship: master from beta, beta from stable, stable from the previous stable release.
 </li>
 </ul>
 </li>
 <li>Rust Unstable Book, <code>RUSTC_BOOTSTRAP</code>: <a href="https://doc.rust-lang.org/beta/unstable-book/compiler-environment-variables/RUSTC_BOOTSTRAP.html">https://doc.rust-lang.org/beta/unstable-book/compiler-environment-variables/RUSTC_BOOTSTRAP.html</a>
 <ul>
-<li>Evidence used: The page explains that <code>RUSTC_BOOTSTRAP</code> exists so Rust can use a previous compiler version to build the compiler and standard library despite unstable feature use.
+<li>Shows: The page explains that <code>RUSTC_BOOTSTRAP</code> exists so Rust can use a previous compiler version to build the compiler and standard library despite unstable feature use.
 </li>
 </ul>
 </li>
 <li>Ken Thompson, &quot;Reflections on Trusting Trust,&quot; Communications of the ACM: <a href="https://cacm.acm.org/research/reflections-on-trusting-trust/">https://cacm.acm.org/research/reflections-on-trusting-trust/</a>
 <ul>
-<li>Evidence used: The original source for the compiler-backdoor model where a compiler can emit behavior not visible in current source and reproduce that behavior into future compiler builds.
+<li>Shows: The original source for the compiler-backdoor model where a compiler can emit behavior not visible in current source and reproduce that behavior into future compiler builds.
 </li>
 </ul>
 </li>
 <li>David A. Wheeler, &quot;Fully Countering Trusting Trust through Diverse Double-Compiling&quot;: <a href="https://dwheeler.com/trusting-trust/">https://dwheeler.com/trusting-trust/</a>
 <ul>
-<li>Evidence used: The cited defense model for checking whether compiler source and executable correspond through a diverse rebuild path.
+<li>Shows: The cited defense model for checking whether compiler source and executable correspond through a diverse rebuild path.
 </li>
 </ul>
 </li>
 <li><code>thepowersgang/mrustc</code> README: <a href="https://github.com/thepowersgang/mrustc">https://github.com/thepowersgang/mrustc</a>
 <ul>
-<li>Evidence used: The README describes mrustc as an alternative Rust compiler focused on bootstrapping rustc and reports working rustc/Cargo bootstrap support from release source tarballs.
+<li>Shows: The README describes mrustc as an alternative Rust compiler focused on bootstrapping rustc and reports working rustc/Cargo bootstrap support from release source tarballs.
 </li>
 </ul>
 </li>
 <li><code>Rust-GCC/gccrs</code> README: <a href="https://github.com/Rust-GCC/gccrs">https://github.com/Rust-GCC/gccrs</a>
 <ul>
-<li>Evidence used: The README describes gccrs as a GCC Rust front end and shows that it remains experimental, including the explicit incomplete-compiler option in its invocation examples.
+<li>Shows: The README describes gccrs as a GCC Rust front end and shows that it remains experimental, including the explicit incomplete-compiler option in its invocation examples.
 </li>
 </ul>
 </li>
@@ -216,7 +213,6 @@
 </li>
 </ul>
     </div>
-    
   </section>
       <section class="related-edition-section atlas-context-section">
     <div class="section-title-row">

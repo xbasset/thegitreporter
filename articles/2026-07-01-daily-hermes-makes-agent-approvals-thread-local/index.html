@@ -1,0 +1,305 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Hermes Makes Agent Approvals Thread-Local | The Git Reporter</title>
+  <meta name="description" content="Hermes replaced a shared approval flag with thread-local state, then paired that control with secret redaction and delegation-budget tests.">
+  <meta name="robots" content="index,follow">
+  <link rel="canonical" href="https://thegitreporter.com/articles/2026-07-01-daily-hermes-makes-agent-approvals-thread-local/">
+  <link rel="alternate" type="application/rss+xml" title="The Git Reporter" href="https://thegitreporter.com/feed.xml">
+  <meta property="og:site_name" content="The Git Reporter">
+  <meta property="og:locale" content="en_US">
+  <meta property="og:title" content="Hermes Makes Agent Approvals Thread-Local | The Git Reporter">
+  <meta property="og:description" content="Hermes replaced a shared approval flag with thread-local state, then paired that control with secret redaction and delegation-budget tests.">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://thegitreporter.com/articles/2026-07-01-daily-hermes-makes-agent-approvals-thread-local/">
+  <meta property="og:image" content="https://thegitreporter.com/assets/social/2026-07-01-daily-hermes-makes-agent-approvals-thread-local-og.jpg">
+  <meta property="og:image:secure_url" content="https://thegitreporter.com/assets/social/2026-07-01-daily-hermes-makes-agent-approvals-thread-local-og.jpg">
+  <meta property="og:image:type" content="image/jpeg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Diagram Punk poster showing Hermes approval commits as source cards feeding into a circled tested runtime boundary, with a caveat stamp about limited security proof.">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:site" content="@TheGitReporter">
+  <meta name="twitter:creator" content="@TheGitReporter">
+  <meta name="twitter:title" content="Hermes Makes Agent Approvals Thread-Local | The Git Reporter">
+  <meta name="twitter:description" content="Hermes replaced a shared approval flag with thread-local state, then paired that control with secret redaction and delegation-budget tests.">
+  <meta name="twitter:url" content="https://thegitreporter.com/articles/2026-07-01-daily-hermes-makes-agent-approvals-thread-local/">
+  <meta name="twitter:domain" content="thegitreporter.com">
+  <meta name="twitter:image" content="https://thegitreporter.com/assets/social/2026-07-01-daily-hermes-makes-agent-approvals-thread-local-og.jpg">
+  <meta name="twitter:image:alt" content="Diagram Punk poster showing Hermes approval commits as source cards feeding into a circled tested runtime boundary, with a caveat stamp about limited security proof.">
+  <meta property="article:published_time" content="2026-07-01T12:00:00Z">
+  <meta property="article:modified_time" content="2026-07-01T12:00:00Z">
+  <meta property="article:section" content="Daily Edition">
+  <meta property="article:tag" content="Permissions">
+  <meta property="article:tag" content="Memory">
+  <meta property="article:tag" content="Delegation">
+  <meta property="article:tag" content="Tools">
+  <meta property="article:tag" content="NousResearch/hermes-agent">
+  <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"https://thegitreporter.com/#organization","name":"The Git Reporter","url":"https://thegitreporter.com","logo":{"@type":"ImageObject","url":"https://thegitreporter.com/assets/mark.svg"},"sameAs":["https://x.com/TheGitReporter"]},{"@type":"WebSite","@id":"https://thegitreporter.com/#website","name":"The Git Reporter","url":"https://thegitreporter.com","publisher":{"@id":"https://thegitreporter.com/#organization"}},{"@type":"NewsArticle","mainEntityOfPage":{"@type":"WebPage","@id":"https://thegitreporter.com/articles/2026-07-01-daily-hermes-makes-agent-approvals-thread-local/"},"headline":"Hermes Makes Agent Approvals Thread-Local","description":"Hermes replaced a shared approval flag with thread-local state, then paired that control with secret redaction and delegation-budget tests.","image":["https://thegitreporter.com/assets/social/2026-07-01-daily-hermes-makes-agent-approvals-thread-local-og.jpg"],"datePublished":"2026-07-01T12:00:00Z","dateModified":"2026-07-01T12:00:00Z","author":[{"@type":"Organization","name":"The Git Reporter","url":"https://thegitreporter.com"}],"publisher":{"@type":"Organization","@id":"https://thegitreporter.com/#organization","name":"The Git Reporter","url":"https://thegitreporter.com","logo":{"@type":"ImageObject","url":"https://thegitreporter.com/assets/mark.svg"},"sameAs":["https://x.com/TheGitReporter"]},"articleSection":"Daily Edition","keywords":"Permissions, Memory, Delegation, Tools, NousResearch/hermes-agent"}]}</script>
+  <link rel="icon" href="/assets/mark.svg">
+  <link rel="stylesheet" href="/assets/site.css?v=2026-06-30-agent-pulse-1">
+  <script defer src="/assets/feedback.js?v=2026-06-30-agent-pulse-1"></script>
+  <script defer src="/assets/analytics.js?v=2026-06-30-agent-pulse-1"></script>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-CH19T7M0T1"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){window.dataLayer.push(arguments);}
+    gtag("js", new Date());
+    gtag("config", "G-CH19T7M0T1");
+  </script>
+</head>
+<body>
+  <div class="site">
+    <header class="site-header" id="top">
+      <div class="wrap utility-row">
+        <a class="icon-link menu-icon" href="/archive/" aria-label="Open edition history"><span></span><span></span><span></span></a>
+        <a class="icon-link archive-icon" href="/archive/" aria-label="Open edition history"></a>
+      </div>
+      <div class="wrap masthead-lockup">
+        <a class="masthead-title" href="/">THE GIT REPORTER</a>
+        <div class="masthead-ornament" aria-hidden="true"></div>
+      </div>
+      <div class="wrap nav-wrap">
+        <nav class="paper-nav" aria-label="Primary navigation">
+    <a class="" href="/">Today</a><a class="active" href="/archive/">Editions</a><a class="" href="/about/">About</a><a class="" href="/agent-pulse/">Agent Pulse</a><a class="" href="/atlas/">Agent Atlas</a><a class="" href="/repos/">Repos</a>
+  </nav>
+        <div class="nav-rule"></div>
+      </div>
+    </header>
+    <main class="wrap page-shell article-page">
+      <section class="page-hero story-front">
+        <div class="story-topline">
+          <span>Daily Edition</span>
+          <span>Sources <strong>+4</strong></span>
+        </div>
+        <h1>Hermes Makes Agent Approvals Thread-Local</h1>
+        <p class="summary">Hermes replaced a shared approval flag with thread-local state, then paired that control with secret redaction and delegation-budget tests.</p>
+        <figure class="story-illustration article-illustration">
+    <img src="/assets/illustrations/2026-07-01-hermes-makes-agent-approvals-thread-local-diagram-punk-v1.png" alt="Diagram Punk poster showing Hermes approval commits as source cards feeding into a circled tested runtime boundary, with a caveat stamp about limited security proof." loading="lazy" decoding="async">
+    <figcaption><span>Diagram Punk</span>approvals became state the runtime has to keep straight.</figcaption>
+  </figure>
+        <div class="receipt">
+    <div class="receipt-line">
+      <span class="receipt-icon">repo</span>
+      <span class="receipt-main">NousResearch/hermes-agent</span>
+      <span class="branch-pill">evidence</span>
+    </div>
+    <div class="receipt-line receipt-muted">
+      <span>4 source signals</span>
+      <span>1 repo</span>
+      <span>4 linked commits</span>
+    </div>
+    <div class="commit-line">Evidence: 4 linked commits / July 1, 2026 / Daily Edition</div>
+  </div>
+        <div class="article-route-row">
+          <a href="/editions/2026-07-01/">Open Edition</a>
+          <a href="#evidence">Evidence below</a>
+        </div>
+      </section>
+      <section class="story-reader">
+        <article class="story-shell story-body">
+          <p>NousResearch's Hermes Agent changed its ACP approval path on June 30, replacing a process-wide interactive flag with a context variable after a commit said concurrent sessions could drop a second run onto an auto-approve path.</p>
+
+  <p>Because commit <code>62b9fb662</code> changed approval state isolation, agent operators should watch whether permission prompts become tested runtime boundaries across every concurrent session they let an agent run.</p>
+
+  <h2>Facts</h2>
+  <ul>
+    <li>Commit <code>62b9fb662</code> moves interactive approval checks through a context variable and adds approval-isolation tests.</li>
+    <li>Commit <code>4a7a6fd40</code> redacts secrets before dangerous-command prompts are shown to users or gateway notifiers.</li>
+    <li>Commit <code>35a0803a3</code> caps subagent summaries against the parent context headroom and adds a regression test for the delegation budget.</li>
+  </ul>
+
+  <h2>Evidence</h2>
+  <p>The public sources are Hermes commits for ACP approval isolation, user-facing secret redaction, shell heredoc and homograph scanner hardening, and subagent summary budgeting. Together they show a project tightening the surfaces where an agent asks, displays, and returns work.</p>
+
+  <h2>Context</h2>
+  <p>For operators, the important movement is not one more warning string. It is approval state, prompt display, and delegation output moving into explicit code paths with tests. That makes future regressions easier to name and harder to hide inside a long-running agent session.</p>
+
+  <h2>Limits</h2>
+  <p>The commits do not prove a complete security audit, a release, or real-world incident frequency. What to watch next: whether Hermes documents these approval boundaries for ACP users and keeps adding tests around notifier, batch, and remote execution paths.</p>
+        </article>
+      </section>
+      <section class="evidence-section" id="evidence" aria-labelledby="evidence-title">
+    <div class="evidence-head">
+      <div>
+        <div class="eyebrow">Evidence Trail</div>
+        <h2 id="evidence-title">Receipts below the story</h2>
+        <p>The article above is the public narrative. This section keeps the source trail and limits on the same page.</p>
+      </div>
+      <a class="paper-button" href="/editions/2026-07-01/">Edition</a>
+    </div>
+    <div class="evidence-table evidence-summary">
+      <div class="evidence-line"><span>Date</span><span>July 1, 2026</span></div>
+      <div class="evidence-line"><span>Lane</span><span>Daily Edition</span></div>
+      <div class="evidence-line"><span>Confidence</span><span>78%</span></div>
+      <div class="evidence-line"><span>Sources</span><span>4</span></div>
+      <div class="evidence-line"><span>Repos</span><span>NousResearch/hermes-agent</span></div>
+    </div>
+    <div class="markdown evidence-copy evidence-copy-block">
+      <h2>Primary Evidence</h2>
+<ul>
+<li>Hermes commit <code>62b9fb662</code> - thread-safe interactive approval via contextvars: <a href="https://github.com/NousResearch/hermes-agent/commit/62b9fb662346b630e23d13ded577be84b87f74ce">https://github.com/NousResearch/hermes-agent/commit/62b9fb662346b630e23d13ded577be84b87f74ce</a>
+<ul>
+<li>Shows: ACP approval state moved away from a process-wide flag, with tests for approval isolation.
+</li>
+</ul>
+</li>
+<li>Hermes commit <code>4a7a6fd40</code> - redact secrets in user-facing approval prompts: <a href="https://github.com/NousResearch/hermes-agent/commit/4a7a6fd401bbccb8b9c8f99b1703fb38e39aacc0">https://github.com/NousResearch/hermes-agent/commit/4a7a6fd401bbccb8b9c8f99b1703fb38e39aacc0</a>
+<ul>
+<li>Shows: dangerous-command approval prompts now redact sensitive values before display and notifier payloads.
+</li>
+</ul>
+</li>
+<li>Hermes commit <code>3b2bb30c5</code> - harden heredoc approval, homograph folding, and environment filtering: <a href="https://github.com/NousResearch/hermes-agent/commit/3b2bb30c5d46017f2654d5836fadd99776e1aadc">https://github.com/NousResearch/hermes-agent/commit/3b2bb30c5d46017f2654d5836fadd99776e1aadc</a>
+<ul>
+<li>Shows: the scanner gained shell heredoc coverage, NFKC folding, and broader credential environment filtering.
+</li>
+</ul>
+</li>
+<li>Hermes commit <code>35a0803a3</code> - budget subagent summaries against parent context headroom: <a href="https://github.com/NousResearch/hermes-agent/commit/35a0803a3b64a0b43e49dbbc809c4986be3ae331">https://github.com/NousResearch/hermes-agent/commit/35a0803a3b64a0b43e49dbbc809c4986be3ae331</a>
+<ul>
+<li>Shows: delegation output was capped against remaining context headroom and backed by tests.
+</li>
+</ul>
+</li>
+</ul>
+<h2>Evidence Limits</h2>
+<p>These commits show source-level controls and tests. They do not prove a full security audit, a release boundary, or how often operators hit these cases in production.</p>
+<h2>What To Watch</h2>
+<p>Watch whether Hermes documents these approval boundaries for ACP users and keeps adding tests around notifier, batch, remote execution, and subagent paths.</p>
+    </div>
+  </section>
+      <section class="related-edition-section atlas-context-section">
+    <div class="section-title-row">
+      <h2>Atlas Context</h2>
+      <a href="/atlas/">Open Atlas &rsaquo;</a>
+    </div>
+    <div class="updates-list">
+      <a class="article-card" href="/atlas/what-an-agent-can-see/">
+            <div class="article-meta"><span class="lane">Agent Atlas</span><span>Chapter 2</span></div>
+            <h3>The Invisible Prompt</h3>
+            <p>The model acts on an assembled viewport containing visible messages, hidden turn context, path-triggered instructions, memory records, tool schemas, permissions, and inherited state.</p>
+          </a>
+    </div>
+  </section>
+      <section class="reader-feedback"
+    data-tgr-feedback
+    data-article-slug="2026-07-01-daily-hermes-makes-agent-approvals-thread-local"
+    data-article-title="Hermes Makes Agent Approvals Thread-Local"
+    data-article-url="/articles/2026-07-01-daily-hermes-makes-agent-approvals-thread-local/"
+    data-edition-date="2026-07-01"
+    data-lane="Daily Edition"
+    data-tags="Permissions,Memory,Delegation,Tools"
+    data-repos="NousResearch/hermes-agent">
+    <div class="reader-feedback-head">
+      <div>
+        <div class="eyebrow">Letters &amp; Corrections</div>
+        <h2>Send a note to the desk</h2>
+      </div>
+      <p>Corrections, missing context, or a follow-up lead.</p>
+    </div>
+    <form class="feedback-form">
+      <div class="feedback-votes" role="group" aria-label="Choose signal type">
+        <button class="feedback-choice" type="button" data-vote="follow-up" aria-pressed="false">
+          <span aria-hidden="true">+</span>
+          <span>Follow-up</span>
+        </button>
+        <button class="feedback-choice" type="button" data-vote="correction" aria-pressed="false">
+          <span aria-hidden="true">!</span>
+          <span>Correction</span>
+        </button>
+      </div>
+      <label class="feedback-comment">
+        <span>Note for the editor</span>
+        <textarea name="comment" rows="3" maxlength="320" placeholder="What did we miss, or what should we follow next?"></textarea>
+      </label>
+      <div class="feedback-submit-row">
+        <p class="feedback-status" aria-live="polite"></p>
+        <button class="paper-button primary feedback-submit" type="submit">Send to desk</button>
+      </div>
+    </form>
+  </section>
+      <section class="related-edition-section">
+        <div class="section-title-row">
+          <h2>Same Edition</h2>
+          <a href="/editions/2026-07-01/">Open issue &rsaquo;</a>
+        </div>
+        <div class="updates-list">
+          <a class="update-card" href="/articles/2026-07-01-daily-tau-lets-outside-contributors-shape-the-exit-door/">
+    <div class="update-stripe"></div>
+    <div class="update-main">
+      <div class="update-meta">
+        <span>Context</span>
+        <span class="source-plus">+6</span>
+        <span>Jul 1, 2026</span>
+      </div>
+      <h3>Tau Lets Outside Contributors Shape The Exit Door</h3>
+      <div class="update-receipt">
+        <span>source trail</span>
+        <span class="branch-pill">evidence</span>
+      </div>
+      <div class="update-foot">
+        <span>6 sources</span>
+        <span>1 repo</span>
+        <span>2 linked commits</span>
+      </div>
+    </div>
+    <span class="update-arrow" aria-hidden="true">&rsaquo;</span>
+  </a><a class="update-card" href="/articles/2026-07-01-daily-opencodes-hardening-day-removes-layer-shortcuts/">
+    <div class="update-stripe"></div>
+    <div class="update-main">
+      <div class="update-meta">
+        <span>Reported</span>
+        <span class="source-plus">+5</span>
+        <span>Jul 1, 2026</span>
+      </div>
+      <h3>OpenCode's Hardening Day Removes Layer Shortcuts</h3>
+      <div class="update-receipt">
+        <span>anomalyco/opencode + github/copilot</span>
+        <span class="branch-pill">evidence</span>
+      </div>
+      <div class="update-foot">
+        <span>5 sources</span>
+        <span>2 repos</span>
+        <span>5 linked commits</span>
+      </div>
+    </div>
+    <span class="update-arrow" aria-hidden="true">&rsaquo;</span>
+  </a><a class="update-card" href="/articles/2026-07-01-daily-api-discovery-api-entreprise-makes-company-checks-a-permissioned-agent-step/">
+    <div class="update-stripe"></div>
+    <div class="update-main">
+      <div class="update-meta">
+        <span>Trust</span>
+        <span class="source-plus">+3</span>
+        <span>Jul 1, 2026</span>
+      </div>
+      <h3>API Discovery: API Entreprise Makes Company Checks A Permissioned Agent Step</h3>
+      <div class="update-receipt">
+        <span>source trail</span>
+        <span class="branch-pill">evidence</span>
+      </div>
+      <div class="update-foot">
+        <span>3 sources</span>
+        <span>1 repo</span>
+        <span>3 source signals</span>
+      </div>
+    </div>
+    <span class="update-arrow" aria-hidden="true">&rsaquo;</span>
+  </a>
+        </div>
+      </section>
+    </main>
+    <footer class="wrap site-footer">
+      <span>&copy; 2026 The Git Reporter</span>
+      <a href="/about/">About</a>
+      <a href="/agent-pulse/">Agent Pulse</a>
+      <a href="/feed.xml">RSS</a>
+      <a href="https://x.com/TheGitReporter">Follow on X</a>
+      <a href="/articles.json">Manifest JSON</a>
+      <a href="/repos/">Sources</a>
+    </footer>
+  </div>
+</body>
+</html>

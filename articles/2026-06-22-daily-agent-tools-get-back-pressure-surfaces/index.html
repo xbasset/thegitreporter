@@ -42,9 +42,9 @@
   <meta property="article:tag" content="google-antigravity/antigravity-cli">
   <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"https://thegitreporter.com/#organization","name":"The Git Reporter","url":"https://thegitreporter.com","logo":{"@type":"ImageObject","url":"https://thegitreporter.com/assets/mark.svg"},"sameAs":["https://x.com/TheGitReporter"]},{"@type":"WebSite","@id":"https://thegitreporter.com/#website","name":"The Git Reporter","url":"https://thegitreporter.com","publisher":{"@id":"https://thegitreporter.com/#organization"}},{"@type":"NewsArticle","mainEntityOfPage":{"@type":"WebPage","@id":"https://thegitreporter.com/articles/2026-06-22-daily-agent-tools-get-back-pressure-surfaces/"},"headline":"Agent Tools Get Back-Pressure Surfaces","description":"Fresh Gemini CLI and OpenWork patches show agent products turning hangs, publish failures, voice quotas, and provider outages into explicit runtime behavior.","image":["https://thegitreporter.com/assets/social/2026-06-22-daily-agent-tools-get-back-pressure-surfaces-og.jpg"],"datePublished":"2026-06-22T12:00:00Z","dateModified":"2026-06-22T12:00:00Z","author":[{"@type":"Organization","name":"The Git Reporter","url":"https://thegitreporter.com"}],"publisher":{"@type":"Organization","@id":"https://thegitreporter.com/#organization","name":"The Git Reporter","url":"https://thegitreporter.com","logo":{"@type":"ImageObject","url":"https://thegitreporter.com/assets/mark.svg"},"sameAs":["https://x.com/TheGitReporter"]},"articleSection":"Daily Edition","keywords":"Runtime, Reliability, Voice, Release, Back Pressure, google-gemini/gemini-cli, different-ai/openwork, google-antigravity/antigravity-cli"}]}</script>
   <link rel="icon" href="/assets/mark.svg">
-  <link rel="stylesheet" href="/assets/site.css?v=2026-05-30-about-layout-social-1">
-  <script defer src="/assets/feedback.js?v=2026-05-30-about-layout-social-1"></script>
-  <script defer src="/assets/analytics.js?v=2026-05-30-about-layout-social-1"></script>
+  <link rel="stylesheet" href="/assets/site.css?v=2026-06-30-agent-pulse-1">
+  <script defer src="/assets/feedback.js?v=2026-06-30-agent-pulse-1"></script>
+  <script defer src="/assets/analytics.js?v=2026-06-30-agent-pulse-1"></script>
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-CH19T7M0T1"></script>
   <script>
     window.dataLayer = window.dataLayer || [];
@@ -128,7 +128,7 @@
       <div>
         <div class="eyebrow">Evidence Trail</div>
         <h2 id="evidence-title">Receipts below the story</h2>
-        <p>The article above is the public narrative. This section keeps the source trail, limits, and reporting notes on the same page.</p>
+        <p>The article above is the public narrative. This section keeps the source trail and limits on the same page.</p>
       </div>
       <a class="paper-button" href="/editions/2026-06-22/">Edition</a>
     </div>
@@ -139,58 +139,48 @@
       <div class="evidence-line"><span>Sources</span><span>7</span></div>
       <div class="evidence-line"><span>Repos</span><span>google-gemini/gemini-cli, different-ai/openwork, google-antigravity/antigravity-cli</span></div>
     </div>
-    <div class="markdown evidence-copy evidence-copy-block"><h3>Reporter Notes</h3><ul>
-<li>The source coverage gate required inspecting <code>google-gemini/gemini-cli</code> and <code>different-ai/openwork</code> before choosing a lead. Both became the primary source set.
-</li>
-<li>Gemini CLI gave the cleanest first paragraph because PR #28063 has a precise cause and mechanism: scheduler starvation caused by microtask yielding while waiting on active calls.
-</li>
-<li>OpenWork adds the second leg: managed voice does not only create a Realtime session; it handles configured broker credentials, validates broker payloads, emits rate-limit headers, charges usage, and falls back to direct OpenAI Realtime on broker 503 when possible.
-</li>
-<li>Antigravity 1.0.10 was useful as a release-surface example, but it stayed a supporting source because its public repo shows changelog/release notes rather than implementation diffs.
-</li>
-</ul></div>
     <div class="markdown evidence-copy evidence-copy-block">
       <h2>Primary Evidence</h2>
 <ul>
 <li>Gemini CLI PR #28063: <a href="https://github.com/google-gemini/gemini-cli/pull/28063">https://github.com/google-gemini/gemini-cli/pull/28063</a>
 <ul>
-<li>Evidence used: the PR describes workspace publish failures and scheduler event-loop starvation during parallel tool execution on macOS.
+<li>Shows: the PR describes workspace publish failures and scheduler event-loop starvation during parallel tool execution on macOS.
 </li>
 </ul>
 </li>
 <li>Gemini CLI merge commit <code>be7ba2c22</code>: <a href="https://github.com/google-gemini/gemini-cli/commit/be7ba2c22adf095880b81da26f1afcc48520eebc">https://github.com/google-gemini/gemini-cli/commit/be7ba2c22adf095880b81da26f1afcc48520eebc</a>
 <ul>
-<li>Evidence used: the commit changes scheduler yielding, release publishing, and parallel-tool integration tests.
+<li>Shows: the commit changes scheduler yielding, release publishing, and parallel-tool integration tests.
 </li>
 </ul>
 </li>
 <li>Gemini CLI scheduler source after the merge: <a href="https://github.com/google-gemini/gemini-cli/blob/be7ba2c22adf095880b81da26f1afcc48520eebc/packages/core/src/scheduler/scheduler.ts">https://github.com/google-gemini/gemini-cli/blob/be7ba2c22adf095880b81da26f1afcc48520eebc/packages/core/src/scheduler/scheduler.ts</a>
 <ul>
-<li>Evidence used: waiting active calls now yield with <code>setTimeout(resolve, 10)</code>.
+<li>Shows: waiting active calls now yield with <code>setTimeout(resolve, 10)</code>.
 </li>
 </ul>
 </li>
 <li>OpenWork managed voice commit <code>831d6ad</code>: <a href="https://github.com/different-ai/openwork/commit/831d6adfa07585a34364de5bc74df3a78b7801d7">https://github.com/different-ai/openwork/commit/831d6adfa07585a34364de5bc74df3a78b7801d7</a>
 <ul>
-<li>Evidence used: the commit adds managed voice sessions, broker response validation, 503 fallback, and charging transaction notes.
+<li>Shows: the commit adds managed voice sessions, broker response validation, 503 fallback, and charging transaction notes.
 </li>
 </ul>
 </li>
 <li>OpenWork inference voice route: <a href="https://github.com/different-ai/openwork/blob/831d6adfa07585a34364de5bc74df3a78b7801d7/ee/apps/inference/src/voice.ts">https://github.com/different-ai/openwork/blob/831d6adfa07585a34364de5bc74df3a78b7801d7/ee/apps/inference/src/voice.ts</a>
 <ul>
-<li>Evidence used: the route returns rate-limit status, retry headers, and usage-limit messages when voice buckets are exhausted.
+<li>Shows: the route returns rate-limit status, retry headers, and usage-limit messages when voice buckets are exhausted.
 </li>
 </ul>
 </li>
 <li>Antigravity CLI 1.0.10 release: <a href="https://github.com/google-antigravity/antigravity-cli/releases/tag/1.0.10">https://github.com/google-antigravity/antigravity-cli/releases/tag/1.0.10</a>
 <ul>
-<li>Evidence used: release notes list log-path exposure, auth handling, permission matching, settings preservation, and shell fixes.
+<li>Shows: release notes list log-path exposure, auth handling, permission matching, settings preservation, and shell fixes.
 </li>
 </ul>
 </li>
 <li>Antigravity issue #415: <a href="https://github.com/google-antigravity/antigravity-cli/issues/415">https://github.com/google-antigravity/antigravity-cli/issues/415</a>
 <ul>
-<li>Evidence used: public issue metadata and thread keep the 1.0.9 authentication breakage unresolved as a limit.
+<li>Shows: public issue metadata and thread keep the 1.0.9 authentication breakage unresolved as a limit.
 </li>
 </ul>
 </li>
@@ -207,7 +197,6 @@
 </li>
 </ul>
     </div>
-    
   </section>
       <section class="related-edition-section atlas-context-section">
     <div class="section-title-row">

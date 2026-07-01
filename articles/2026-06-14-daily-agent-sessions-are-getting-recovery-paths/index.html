@@ -43,9 +43,9 @@
   <meta property="article:tag" content="openai/codex">
   <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"https://thegitreporter.com/#organization","name":"The Git Reporter","url":"https://thegitreporter.com","logo":{"@type":"ImageObject","url":"https://thegitreporter.com/assets/mark.svg"},"sameAs":["https://x.com/TheGitReporter"]},{"@type":"WebSite","@id":"https://thegitreporter.com/#website","name":"The Git Reporter","url":"https://thegitreporter.com","publisher":{"@id":"https://thegitreporter.com/#organization"}},{"@type":"NewsArticle","mainEntityOfPage":{"@type":"WebPage","@id":"https://thegitreporter.com/articles/2026-06-14-daily-agent-sessions-are-getting-recovery-paths/"},"headline":"Agent Sessions Are Getting Recovery Paths","description":"Fresh OpenClaw, OpenCode, Hermes Agent, and Codex patches show agent tools treating interruption and recovery as runtime work, not edge-case cleanup.","image":["https://thegitreporter.com/assets/social/2026-06-14-daily-agent-sessions-are-getting-recovery-paths-og.jpg"],"datePublished":"2026-06-14T12:00:00Z","dateModified":"2026-06-14T12:00:00Z","author":[{"@type":"Organization","name":"The Git Reporter","url":"https://thegitreporter.com"}],"publisher":{"@type":"Organization","@id":"https://thegitreporter.com/#organization","name":"The Git Reporter","url":"https://thegitreporter.com","logo":{"@type":"ImageObject","url":"https://thegitreporter.com/assets/mark.svg"},"sameAs":["https://x.com/TheGitReporter"]},"articleSection":"Daily Edition","keywords":"Sessions, Runtime, Recovery, MCP, UI, openclaw/openclaw, anomalyco/opencode, NousResearch/hermes-agent, openai/codex"}]}</script>
   <link rel="icon" href="/assets/mark.svg">
-  <link rel="stylesheet" href="/assets/site.css?v=2026-05-30-about-layout-social-1">
-  <script defer src="/assets/feedback.js?v=2026-05-30-about-layout-social-1"></script>
-  <script defer src="/assets/analytics.js?v=2026-05-30-about-layout-social-1"></script>
+  <link rel="stylesheet" href="/assets/site.css?v=2026-06-30-agent-pulse-1">
+  <script defer src="/assets/feedback.js?v=2026-06-30-agent-pulse-1"></script>
+  <script defer src="/assets/analytics.js?v=2026-06-30-agent-pulse-1"></script>
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-CH19T7M0T1"></script>
   <script>
     window.dataLayer = window.dataLayer || [];
@@ -128,7 +128,7 @@
       <div>
         <div class="eyebrow">Evidence Trail</div>
         <h2 id="evidence-title">Receipts below the story</h2>
-        <p>The article above is the public narrative. This section keeps the source trail, limits, and reporting notes on the same page.</p>
+        <p>The article above is the public narrative. This section keeps the source trail and limits on the same page.</p>
       </div>
       <a class="paper-button" href="/editions/2026-06-14/">Edition</a>
     </div>
@@ -139,23 +139,12 @@
       <div class="evidence-line"><span>Sources</span><span>4</span></div>
       <div class="evidence-line"><span>Repos</span><span>openclaw/openclaw, anomalyco/opencode, NousResearch/hermes-agent, openai/codex</span></div>
     </div>
-    <div class="markdown evidence-copy evidence-copy-block"><h3>Reporter Notes</h3><p>The strongest single fact is OpenClaw's restart ownership patch because it</p>
-<p>turns a shutdown/restart edge into a lifecycle outcome and guards against late</p>
-<p>completion. OpenCode gives the clearest transport recovery example. Hermes</p>
-<p>shows user work preserved while the backend is unavailable. Codex adds an</p>
-<p>operational visibility card whose placement has to respect rollback, streaming,</p>
-<p>and hook ordering.</p></div>
     <div class="markdown evidence-copy evidence-copy-block">
-      <h2>Reporter Notes</h2>
-<p>This article groups independent patches around one operator problem: long-running</p>
-<p>agent sessions now need explicit recovery behavior when restarts, expired MCP</p>
-<p>sessions, reconnecting desktops, rollback, hooks, or usage checks interrupt the</p>
-<p>normal flow.</p>
-<h2>Primary Evidence</h2>
+      <h2>Primary Evidence</h2>
 <ul>
 <li>OpenClaw commit &quot;fix(gateway): mark active main sessions before restart shutdown aborts&quot;: <a href="https://github.com/openclaw/openclaw/commit/d20fdf3b3842edfbc16ef8c349ed061818146e3d">https://github.com/openclaw/openclaw/commit/d20fdf3b3842edfbc16ef8c349ed061818146e3d</a>
 <ul>
-<li>Evidence used: maps restart wait snapshots to cancelled results, threads
+<li>Shows: maps restart wait snapshots to cancelled results, threads
 </li>
 </ul>
 </li>
@@ -165,7 +154,7 @@
 <ul>
 <li>OpenCode commit &quot;fix(opencode): recover expired MCP sessions&quot;: <a href="https://github.com/anomalyco/opencode/commit/c7dee9c60969cb2f5fee713931fa1cd548873467">https://github.com/anomalyco/opencode/commit/c7dee9c60969cb2f5fee713931fa1cd548873467</a>
 <ul>
-<li>Evidence used: adds an MCP session-recovery fixture and test showing a
+<li>Shows: adds an MCP session-recovery fixture and test showing a
 </li>
 </ul>
 </li>
@@ -175,7 +164,7 @@
 <ul>
 <li>Hermes Agent commit &quot;fix(desktop): keep composer usable during reconnect&quot;: <a href="https://github.com/NousResearch/hermes-agent/commit/8cf9d8689d56dc8ad742a6113b0f502ec464c835">https://github.com/NousResearch/hermes-agent/commit/8cf9d8689d56dc8ad742a6113b0f502ec464c835</a>
 <ul>
-<li>Evidence used: keeps reconnect drafts editable while preventing Enter
+<li>Shows: keeps reconnect drafts editable while preventing Enter
 </li>
 </ul>
 </li>
@@ -184,7 +173,7 @@
 <ul>
 <li>OpenAI Codex commit &quot;feat(tui): reland token activity command&quot;: <a href="https://github.com/openai/codex/commit/c884536d848524d5f481eed6f8c02312de106a7a">https://github.com/openai/codex/commit/c884536d848524d5f481eed6f8c02312de106a7a</a>
 <ul>
-<li>Evidence used: adds asynchronous account-usage reads, rollback cleanup for
+<li>Shows: adds asynchronous account-usage reads, rollback cleanup for
 </li>
 </ul>
 </li>
@@ -207,7 +196,6 @@
 </ul>
 <p>  context; it does not claim <code>/usage</code> itself restores a failed run.</p>
     </div>
-    
   </section>
       <section class="related-edition-section atlas-context-section">
     <div class="section-title-row">

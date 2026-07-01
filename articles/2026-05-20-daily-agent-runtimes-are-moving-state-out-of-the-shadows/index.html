@@ -40,9 +40,9 @@
   <meta property="article:tag" content="google-gemini/gemini-cli">
   <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"https://thegitreporter.com/#organization","name":"The Git Reporter","url":"https://thegitreporter.com","logo":{"@type":"ImageObject","url":"https://thegitreporter.com/assets/mark.svg"},"sameAs":["https://x.com/TheGitReporter"]},{"@type":"WebSite","@id":"https://thegitreporter.com/#website","name":"The Git Reporter","url":"https://thegitreporter.com","publisher":{"@id":"https://thegitreporter.com/#organization"}},{"@type":"NewsArticle","mainEntityOfPage":{"@type":"WebPage","@id":"https://thegitreporter.com/articles/2026-05-20-daily-agent-runtimes-are-moving-state-out-of-the-shadows/"},"headline":"Agent Runtimes Are Moving State Out of the Shadows","description":"Recent Codex and Gemini CLI changes show coding agents treating settings, queued input, subagent starts, and terminal streams as explicit runtime state instead of invisible side effects.","image":["https://thegitreporter.com/assets/social/thegitreporter-default-og.jpg"],"datePublished":"2026-05-20T12:00:00Z","dateModified":"2026-05-20T12:00:00Z","author":[{"@type":"Organization","name":"The Git Reporter","url":"https://thegitreporter.com"}],"publisher":{"@type":"Organization","@id":"https://thegitreporter.com/#organization","name":"The Git Reporter","url":"https://thegitreporter.com","logo":{"@type":"ImageObject","url":"https://thegitreporter.com/assets/mark.svg"},"sameAs":["https://x.com/TheGitReporter"]},"articleSection":"Daily Edition","keywords":"Memory, Delegation, Tools, Runtime, openai/codex, google-gemini/gemini-cli"}]}</script>
   <link rel="icon" href="/assets/mark.svg">
-  <link rel="stylesheet" href="/assets/site.css?v=2026-05-30-about-layout-social-1">
-  <script defer src="/assets/feedback.js?v=2026-05-30-about-layout-social-1"></script>
-  <script defer src="/assets/analytics.js?v=2026-05-30-about-layout-social-1"></script>
+  <link rel="stylesheet" href="/assets/site.css?v=2026-06-30-agent-pulse-1">
+  <script defer src="/assets/feedback.js?v=2026-06-30-agent-pulse-1"></script>
+  <script defer src="/assets/analytics.js?v=2026-06-30-agent-pulse-1"></script>
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-CH19T7M0T1"></script>
   <script>
     window.dataLayer = window.dataLayer || [];
@@ -123,7 +123,7 @@
       <div>
         <div class="eyebrow">Evidence Trail</div>
         <h2 id="evidence-title">Receipts below the story</h2>
-        <p>The article above is the public narrative. This section keeps the source trail, limits, and reporting notes on the same page.</p>
+        <p>The article above is the public narrative. This section keeps the source trail and limits on the same page.</p>
       </div>
       <a class="paper-button" href="/editions/2026-05-20/">Edition</a>
     </div>
@@ -134,61 +134,60 @@
       <div class="evidence-line"><span>Sources</span><span>9</span></div>
       <div class="evidence-line"><span>Repos</span><span>openai/codex, google-gemini/gemini-cli</span></div>
     </div>
-    
     <div class="markdown evidence-copy evidence-copy-block">
       <h2>Primary Evidence</h2>
 <ul>
 <li>OpenAI Codex commit <code>a668379abf0f67d81a61dc971ea463c483846fd2</code>, <code>[5 of 7] Replace OverrideTurnContext with ThreadSettings (#22508)</code>: <a href="https://github.com/openai/codex/commit/a668379abf0f67d81a61dc971ea463c483846fd2">https://github.com/openai/codex/commit/a668379abf0f67d81a61dc971ea463c483846fd2</a>
 <ul>
-<li>Evidence used: <code>Op::ThreadSettings</code>, <code>ThreadSettingsApplied</code>, settings-only updates routed through the submission queue, and deletion of <code>Op::OverrideTurnContext</code>.
+<li>Shows: <code>Op::ThreadSettings</code>, <code>ThreadSettingsApplied</code>, settings-only updates routed through the submission queue, and deletion of <code>Op::OverrideTurnContext</code>.
 </li>
 </ul>
 </li>
 <li>OpenAI Codex commit <code>afa0101ae222792c1c7e072107e1eb7b72c19b7b</code>, <code>[codex] Move pending input into input queue (#22728)</code>: <a href="https://github.com/openai/codex/commit/afa0101ae222792c1c7e072107e1eb7b72c19b7b">https://github.com/openai/codex/commit/afa0101ae222792c1c7e072107e1eb7b72c19b7b</a>
 <ul>
-<li>Evidence used: new <code>session/input_queue.rs</code>, queue ownership for pending input, next-turn queued items, and mailbox delivery coordination.
+<li>Shows: new <code>session/input_queue.rs</code>, queue ownership for pending input, next-turn queued items, and mailbox delivery coordination.
 </li>
 </ul>
 </li>
 <li>OpenAI Codex commit <code>d661ab70eda6bde758d7e48d6bf3638523cb014c</code>, <code>Add SubagentStart hook (#22782)</code>: <a href="https://github.com/openai/codex/commit/d661ab70eda6bde758d7e48d6bf3638523cb014c">https://github.com/openai/codex/commit/d661ab70eda6bde758d7e48d6bf3638523cb014c</a>
 <ul>
-<li>Evidence used: <code>SubagentStart</code> runs for thread-spawned subagents before first model request, includes <code>agent_id</code> and <code>agent_type</code>, and can add context to the child conversation.
+<li>Shows: <code>SubagentStart</code> runs for thread-spawned subagents before first model request, includes <code>agent_id</code> and <code>agent_type</code>, and can add context to the child conversation.
 </li>
 </ul>
 </li>
 <li>OpenAI Codex commit <code>05b8ce43541bbcd3ed14a21ea3f103c20cb9392b</code>, <code>chore: namespace v1 sub-agent tools (#23475)</code>: <a href="https://github.com/openai/codex/commit/05b8ce43541bbcd3ed14a21ea3f103c20cb9392b">https://github.com/openai/codex/commit/05b8ce43541bbcd3ed14a21ea3f103c20cb9392b</a>
 <ul>
-<li>Evidence used: <code>spawn_agent</code>, <code>send_input</code>, <code>resume_agent</code>, <code>wait_agent</code>, and <code>close_agent</code> moved under the <code>multi_agent_v1</code> namespace.
+<li>Shows: <code>spawn_agent</code>, <code>send_input</code>, <code>resume_agent</code>, <code>wait_agent</code>, and <code>close_agent</code> moved under the <code>multi_agent_v1</code> namespace.
 </li>
 </ul>
 </li>
 <li>Google Gemini CLI PR #26947, <code>feat(core): add adk.agentSessionSubagentEnabled flag</code>: <a href="https://github.com/google-gemini/gemini-cli/pull/26947">https://github.com/google-gemini/gemini-cli/pull/26947</a>
 <ul>
-<li>Evidence used: merged PR body, changed files, 43 additions, and configuration docs describing <code>experimental.adk.agentSessionSubagentEnabled</code>.
+<li>Shows: merged PR body, changed files, 43 additions, and configuration docs describing <code>experimental.adk.agentSessionSubagentEnabled</code>.
 </li>
 </ul>
 </li>
 <li>Google Gemini CLI patch in <code>packages/core/src/config/config.ts</code> from PR #26947.
 <ul>
-<li>Evidence used: <code>agentSessionSubagentEnabled?: boolean</code>, class field initialization, and <code>isAgentSessionSubagentEnabled()</code> getter.
+<li>Shows: <code>agentSessionSubagentEnabled?: boolean</code>, class field initialization, and <code>isAgentSessionSubagentEnabled()</code> getter.
 </li>
 </ul>
 </li>
 <li>Google Gemini CLI patch in <code>docs/reference/configuration.md</code> from PR #26947.
 <ul>
-<li>Evidence used: docs state the flag routes subagent invocations through the AgentSession protocol instead of legacy executors.
+<li>Shows: docs state the flag routes subagent invocations through the AgentSession protocol instead of legacy executors.
 </li>
 </ul>
 </li>
 <li>Google Gemini CLI commit <code>f09d45d13338b385caf6bf49ec74900caa4c24b0</code>, <code>fix(core): prevent isBinary false-positive on Windows PTY streams (#26565)</code>: <a href="https://github.com/google-gemini/gemini-cli/commit/f09d45d13338b385caf6bf49ec74900caa4c24b0">https://github.com/google-gemini/gemini-cli/commit/f09d45d13338b385caf6bf49ec74900caa4c24b0</a>
 <ul>
-<li>Evidence used: <code>ShellExecutionService</code> now calls <code>isBinary(sniffBuffer, 512, true)</code>, <code>stripAnsiFromBuffer</code> was added, and tests cover Windows PTY output with ANSI sequences and null bytes.
+<li>Shows: <code>ShellExecutionService</code> now calls <code>isBinary(sniffBuffer, 512, true)</code>, <code>stripAnsiFromBuffer</code> was added, and tests cover Windows PTY output with ANSI sequences and null bytes.
 </li>
 </ul>
 </li>
 <li>Gemini CLI subagents documentation: <a href="https://github.com/google-gemini/gemini-cli/blob/main/docs/core/subagents.md">https://github.com/google-gemini/gemini-cli/blob/main/docs/core/subagents.md</a>
 <ul>
-<li>Evidence used: subagents have separate context windows and can be enabled or disabled through settings.
+<li>Shows: subagents have separate context windows and can be enabled or disabled through settings.
 </li>
 </ul>
 </li>
@@ -203,7 +202,6 @@
 </li>
 </ul>
     </div>
-    
   </section>
       <section class="related-edition-section atlas-context-section">
     <div class="section-title-row">

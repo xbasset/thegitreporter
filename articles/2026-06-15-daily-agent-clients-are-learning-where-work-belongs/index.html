@@ -42,9 +42,9 @@
   <meta property="article:tag" content="earendil-works/pi">
   <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"https://thegitreporter.com/#organization","name":"The Git Reporter","url":"https://thegitreporter.com","logo":{"@type":"ImageObject","url":"https://thegitreporter.com/assets/mark.svg"},"sameAs":["https://x.com/TheGitReporter"]},{"@type":"WebSite","@id":"https://thegitreporter.com/#website","name":"The Git Reporter","url":"https://thegitreporter.com","publisher":{"@id":"https://thegitreporter.com/#organization"}},{"@type":"NewsArticle","mainEntityOfPage":{"@type":"WebPage","@id":"https://thegitreporter.com/articles/2026-06-15-daily-agent-clients-are-learning-where-work-belongs/"},"headline":"Agent Clients Are Learning Where Work Belongs","description":"Fresh Codex, OpenCode, and Pi patches show agent interfaces routing threads, draft sessions, and terminal setup by local context before the user acts.","image":["https://thegitreporter.com/assets/social/2026-06-15-daily-agent-clients-are-learning-where-work-belongs-og.jpg"],"datePublished":"2026-06-15T12:00:00Z","dateModified":"2026-06-15T12:00:00Z","author":[{"@type":"Organization","name":"The Git Reporter","url":"https://thegitreporter.com"}],"publisher":{"@type":"Organization","@id":"https://thegitreporter.com/#organization","name":"The Git Reporter","url":"https://thegitreporter.com","logo":{"@type":"ImageObject","url":"https://thegitreporter.com/assets/mark.svg"},"sameAs":["https://x.com/TheGitReporter"]},"articleSection":"Daily Edition","keywords":"Sessions, UI, Runtime, Context, TUI, openai/codex, anomalyco/opencode, earendil-works/pi"}]}</script>
   <link rel="icon" href="/assets/mark.svg">
-  <link rel="stylesheet" href="/assets/site.css?v=2026-05-30-about-layout-social-1">
-  <script defer src="/assets/feedback.js?v=2026-05-30-about-layout-social-1"></script>
-  <script defer src="/assets/analytics.js?v=2026-05-30-about-layout-social-1"></script>
+  <link rel="stylesheet" href="/assets/site.css?v=2026-06-30-agent-pulse-1">
+  <script defer src="/assets/feedback.js?v=2026-06-30-agent-pulse-1"></script>
+  <script defer src="/assets/analytics.js?v=2026-06-30-agent-pulse-1"></script>
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-CH19T7M0T1"></script>
   <script>
     window.dataLayer = window.dataLayer || [];
@@ -127,7 +127,7 @@
       <div>
         <div class="eyebrow">Evidence Trail</div>
         <h2 id="evidence-title">Receipts below the story</h2>
-        <p>The article above is the public narrative. This section keeps the source trail, limits, and reporting notes on the same page.</p>
+        <p>The article above is the public narrative. This section keeps the source trail and limits on the same page.</p>
       </div>
       <a class="paper-button" href="/editions/2026-06-15/">Edition</a>
     </div>
@@ -138,42 +138,30 @@
       <div class="evidence-line"><span>Sources</span><span>4</span></div>
       <div class="evidence-line"><span>Repos</span><span>openai/codex, anomalyco/opencode, earendil-works/pi</span></div>
     </div>
-    <div class="markdown evidence-copy evidence-copy-block"><h3>Reporter Notes</h3><p>The concrete movement is not &quot;better UI&quot; in the abstract. Each selected patch prevents an action from being interpreted in the wrong local place:</p>
-<ul>
-<li>Codex makes parent/child thread relationships queryable from persisted state.
-</li>
-<li>OpenCode stops draft-session work from depending on the globally selected server.
-</li>
-<li>Pi reads terminal background context before choosing first-run theme.
-</li>
-<li>Pi wraps tree controls instead of hiding them behind truncation.
-</li>
-</ul>
-<p>This is adjacent to recent context and recovery coverage, but the stage is different. June 13 asked what context enters a run. June 14 asked what survives interruption. June 15 asks where the client routes the user's next action before the run starts.</p></div>
     <div class="markdown evidence-copy evidence-copy-block">
       <h2>Primary Evidence</h2>
 <ul>
 <li>OpenAI Codex commit <code>dfd03ea</code> adding parent-thread filtering: <a href="https://github.com/openai/codex/commit/dfd03ea01bbec2613013b477fb82abc67534a7d7">https://github.com/openai/codex/commit/dfd03ea01bbec2613013b477fb82abc67534a7d7</a>
 <ul>
-<li>Evidence used: the commit message and diff describe an experimental <code>parentThreadId</code> filter for <code>thread/list</code>, direct spawned-child lookup from persisted spawn-edge state, and exclusion of grandchildren, Review threads, and Guardian threads.
+<li>Shows: the commit message and diff describe an experimental <code>parentThreadId</code> filter for <code>thread/list</code>, direct spawned-child lookup from persisted spawn-edge state, and exclusion of grandchildren, Review threads, and Guardian threads.
 </li>
 </ul>
 </li>
 <li>OpenCode commit <code>010b456</code> scoping SDK/sync hooks by route: <a href="https://github.com/anomalyco/opencode/commit/010b456dfdc06971ce4e1aae391524ea9b8b9e90">https://github.com/anomalyco/opencode/commit/010b456dfdc06971ce4e1aae391524ea9b8b9e90</a>
 <ul>
-<li>Evidence used: the diff separates selected-server layout from draft-server layout so <code>/new-session</code> can use the draft's target server rather than the globally selected server.
+<li>Shows: the diff separates selected-server layout from draft-server layout so <code>/new-session</code> can use the draft's target server rather than the globally selected server.
 </li>
 </ul>
 </li>
 <li>Pi commit <code>f098980</code> adding first-run terminal theme detection: <a href="https://github.com/earendil-works/pi/commit/f0989800cbd577979b6f38c3cc87bdc0514bff39">https://github.com/earendil-works/pi/commit/f0989800cbd577979b6f38c3cc87bdc0514bff39</a>
 <ul>
-<li>Evidence used: the diff adds OSC 11 terminal-background query support, terminal-background theme detection, first-run setup integration, and tests.
+<li>Shows: the diff adds OSC 11 terminal-background query support, terminal-background theme detection, first-run setup integration, and tests.
 </li>
 </ul>
 </li>
 <li>Pi commit <code>bb959aa</code> wrapping tree help on narrow terminals: <a href="https://github.com/earendil-works/pi/commit/bb959aae017eedc8edaa91d01d0475d483ea9371">https://github.com/earendil-works/pi/commit/bb959aae017eedc8edaa91d01d0475d483ea9371</a>
 <ul>
-<li>Evidence used: the diff changes session-tree help from truncation to wrapped semantic rows and tests that controls remain visible at 30 columns.
+<li>Shows: the diff changes session-tree help from truncation to wrapped semantic rows and tests that controls remain visible at 30 columns.
 </li>
 </ul>
 </li>
@@ -188,7 +176,6 @@
 </li>
 </ul>
     </div>
-    
   </section>
       <section class="related-edition-section atlas-context-section">
     <div class="section-title-row">

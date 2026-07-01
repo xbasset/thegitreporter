@@ -40,9 +40,9 @@
   <meta property="article:tag" content="NousResearch/hermes-agent">
   <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"https://thegitreporter.com/#organization","name":"The Git Reporter","url":"https://thegitreporter.com","logo":{"@type":"ImageObject","url":"https://thegitreporter.com/assets/mark.svg"},"sameAs":["https://x.com/TheGitReporter"]},{"@type":"WebSite","@id":"https://thegitreporter.com/#website","name":"The Git Reporter","url":"https://thegitreporter.com","publisher":{"@id":"https://thegitreporter.com/#organization"}},{"@type":"NewsArticle","mainEntityOfPage":{"@type":"WebPage","@id":"https://thegitreporter.com/articles/2026-06-02-daily-agent-work-is-getting-a-back-button/"},"headline":"Agent Work Is Getting a Back Button","description":"Fresh Codex and Hermes commits show a practical shift in agent tooling: longer-running work now needs recovery rails, not just more controls.","image":["https://thegitreporter.com/assets/social/2026-06-02-daily-agent-work-is-getting-a-back-button-og.jpg"],"datePublished":"2026-06-02T12:00:00Z","dateModified":"2026-06-02T12:00:00Z","author":[{"@type":"Organization","name":"The Git Reporter","url":"https://thegitreporter.com"}],"publisher":{"@type":"Organization","@id":"https://thegitreporter.com/#organization","name":"The Git Reporter","url":"https://thegitreporter.com","logo":{"@type":"ImageObject","url":"https://thegitreporter.com/assets/mark.svg"},"sameAs":["https://x.com/TheGitReporter"]},"articleSection":"Daily Edition","keywords":"Memory, Delegation, Tools, Runtime, openai/codex, NousResearch/hermes-agent"}]}</script>
   <link rel="icon" href="/assets/mark.svg">
-  <link rel="stylesheet" href="/assets/site.css?v=2026-05-30-about-layout-social-1">
-  <script defer src="/assets/feedback.js?v=2026-05-30-about-layout-social-1"></script>
-  <script defer src="/assets/analytics.js?v=2026-05-30-about-layout-social-1"></script>
+  <link rel="stylesheet" href="/assets/site.css?v=2026-06-30-agent-pulse-1">
+  <script defer src="/assets/feedback.js?v=2026-06-30-agent-pulse-1"></script>
+  <script defer src="/assets/analytics.js?v=2026-06-30-agent-pulse-1"></script>
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-CH19T7M0T1"></script>
   <script>
     window.dataLayer = window.dataLayer || [];
@@ -132,7 +132,7 @@
       <div>
         <div class="eyebrow">Evidence Trail</div>
         <h2 id="evidence-title">Receipts below the story</h2>
-        <p>The article above is the public narrative. This section keeps the source trail, limits, and reporting notes on the same page.</p>
+        <p>The article above is the public narrative. This section keeps the source trail and limits on the same page.</p>
       </div>
       <a class="paper-button" href="/editions/2026-06-02/">Edition</a>
     </div>
@@ -143,43 +143,12 @@
       <div class="evidence-line"><span>Sources</span><span>4</span></div>
       <div class="evidence-line"><span>Repos</span><span>openai/codex, NousResearch/hermes-agent</span></div>
     </div>
-    <div class="markdown evidence-copy evidence-copy-block"><h3>Reporter Notes</h3><p>The strongest story was not the scanner's broad &quot;runtime governance&quot; label. The</p>
-<p>fresh mechanism is recoverability. Codex and Hermes both touched places where a</p>
-<p>human needs to back out of, hide, restore, or correctly attribute agent work.</p>
-<p>Evidence chain:</p>
-<ul>
-<li>Codex cancelled-turn restore is a narrow, user-facing recovery affordance:
-</li>
-</ul>
-<p>  when the user interrupts before visible output, the submitted prompt returns</p>
-<p>  to the composer and a one-turn rollback is requested.</p>
-<ul>
-<li>Hermes gateway <code>/undo [N]</code> is the same pressure in a messaging environment:
-</li>
-</ul>
-<p>  there is no composer to prefill, so the gateway echoes the backed-up text and</p>
-<p>  rebuilds the next turn from an active-only transcript.</p>
-<ul>
-<li>Codex <code>parentThreadId</code> is not an undo button, but it prevents lineage from
-</li>
-</ul>
-<p>  being confused with a history fork. That matters when recovering or auditing</p>
-<p>  multi-agent work.</p>
-<ul>
-<li>Hermes desktop archive/session hygiene is the persistence-side version: empty
-</li>
-</ul>
-<p>  draft sessions should not leak into the sidebar, archived sessions should be</p>
-<p>  restorable or deletable, and background completions should return to their</p>
-<p>  launching session.</p>
-<p>The public claim should stay at &quot;agent products are adding recovery rails&quot; and</p>
-<p>avoid saying the projects have converged on a standard.</p></div>
     <div class="markdown evidence-copy evidence-copy-block">
       <h2>Primary Evidence</h2>
 <ul>
 <li>OpenAI Codex commit <code>c0ea566bb</code>, &quot;feat(tui): restore output-free cancelled prompts (#25316)&quot;: <a href="https://github.com/openai/codex/commit/c0ea566bb52908915fecb2569869bbe380f22468">https://github.com/openai/codex/commit/c0ea566bb52908915fecb2569869bbe380f22468</a>
 <ul>
-<li>Evidence used: The commit describes restoring an immediately cancelled,
+<li>Shows: The commit describes restoring an immediately cancelled,
 </li>
 </ul>
 </li>
@@ -189,7 +158,7 @@
 <ul>
 <li>NousResearch Hermes Agent commit <code>0622a70eb</code>, &quot;feat(gateway): bring /undo [N] to messaging platforms (parity with CLI/TUI) (#36699)&quot;: <a href="https://github.com/NousResearch/hermes-agent/commit/0622a70eb48c375fb81242616a610b8a1d083ed5">https://github.com/NousResearch/hermes-agent/commit/0622a70eb48c375fb81242616a610b8a1d083ed5</a>
 <ul>
-<li>Evidence used: The commit extends gateway <code>/undo</code> to accept a turn count,
+<li>Shows: The commit extends gateway <code>/undo</code> to accept a turn count,
 </li>
 </ul>
 </li>
@@ -199,7 +168,7 @@
 <ul>
 <li>OpenAI Codex commit <code>cf0911076</code>, &quot;store and expose parent_thread_id on Threads (#25113)&quot;: <a href="https://github.com/openai/codex/commit/cf0911076f234e0219bd8d61dd3bc2f80a2df287">https://github.com/openai/codex/commit/cf0911076f234e0219bd8d61dd3bc2f80a2df287</a>
 <ul>
-<li>Evidence used: The commit separates subagent parent lineage from
+<li>Shows: The commit separates subagent parent lineage from
 </li>
 </ul>
 </li>
@@ -209,7 +178,7 @@
 <ul>
 <li>NousResearch Hermes Agent commit <code>85b65e29f</code>, &quot;feat(desktop): session hygiene, archive, media streaming + connecting overlay (#37099)&quot;: <a href="https://github.com/NousResearch/hermes-agent/commit/85b65e29f09b7c4ff4676880b984fe7ffc9b7f1d">https://github.com/NousResearch/hermes-agent/commit/85b65e29f09b7c4ff4676880b984fe7ffc9b7f1d</a>
 <ul>
-<li>Evidence used: The commit adds lazy persistence for empty sessions,
+<li>Shows: The commit adds lazy persistence for empty sessions,
 </li>
 </ul>
 </li>
@@ -231,7 +200,6 @@
 <p>  getting longer lived, so user-facing recovery and lineage controls are</p>
 <p>  becoming part of runtime design.</p>
     </div>
-    
   </section>
       <section class="related-edition-section atlas-context-section">
     <div class="section-title-row">

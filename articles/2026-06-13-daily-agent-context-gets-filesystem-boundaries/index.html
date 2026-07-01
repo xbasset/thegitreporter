@@ -42,9 +42,9 @@
   <meta property="article:tag" content="anomalyco/opencode">
   <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"https://thegitreporter.com/#organization","name":"The Git Reporter","url":"https://thegitreporter.com","logo":{"@type":"ImageObject","url":"https://thegitreporter.com/assets/mark.svg"},"sameAs":["https://x.com/TheGitReporter"]},{"@type":"WebSite","@id":"https://thegitreporter.com/#website","name":"The Git Reporter","url":"https://thegitreporter.com","publisher":{"@id":"https://thegitreporter.com/#organization"}},{"@type":"NewsArticle","mainEntityOfPage":{"@type":"WebPage","@id":"https://thegitreporter.com/articles/2026-06-13-daily-agent-context-gets-filesystem-boundaries/"},"headline":"Agent Context Gets Filesystem Boundaries","description":"Fresh Crush, Codex, OpenClaw, and OpenCode changes show agent runtimes separating user memory, project context, and sandbox paths before work starts.","image":["https://thegitreporter.com/assets/social/2026-06-13-daily-agent-context-gets-filesystem-boundaries-og.jpg"],"datePublished":"2026-06-13T12:00:00Z","dateModified":"2026-06-13T12:00:00Z","author":[{"@type":"Organization","name":"The Git Reporter","url":"https://thegitreporter.com"}],"publisher":{"@type":"Organization","@id":"https://thegitreporter.com/#organization","name":"The Git Reporter","url":"https://thegitreporter.com","logo":{"@type":"ImageObject","url":"https://thegitreporter.com/assets/mark.svg"},"sameAs":["https://x.com/TheGitReporter"]},"articleSection":"Daily Edition","keywords":"Context, Filesystem, Memory, Runtime, charmbracelet/crush, openai/codex, openclaw/openclaw, anomalyco/opencode"}]}</script>
   <link rel="icon" href="/assets/mark.svg">
-  <link rel="stylesheet" href="/assets/site.css?v=2026-05-30-about-layout-social-1">
-  <script defer src="/assets/feedback.js?v=2026-05-30-about-layout-social-1"></script>
-  <script defer src="/assets/analytics.js?v=2026-05-30-about-layout-social-1"></script>
+  <link rel="stylesheet" href="/assets/site.css?v=2026-06-30-agent-pulse-1">
+  <script defer src="/assets/feedback.js?v=2026-06-30-agent-pulse-1"></script>
+  <script defer src="/assets/analytics.js?v=2026-06-30-agent-pulse-1"></script>
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-CH19T7M0T1"></script>
   <script>
     window.dataLayer = window.dataLayer || [];
@@ -128,7 +128,7 @@
       <div>
         <div class="eyebrow">Evidence Trail</div>
         <h2 id="evidence-title">Receipts below the story</h2>
-        <p>The article above is the public narrative. This section keeps the source trail, limits, and reporting notes on the same page.</p>
+        <p>The article above is the public narrative. This section keeps the source trail and limits on the same page.</p>
       </div>
       <a class="paper-button" href="/editions/2026-06-13/">Edition</a>
     </div>
@@ -139,22 +139,12 @@
       <div class="evidence-line"><span>Sources</span><span>4</span></div>
       <div class="evidence-line"><span>Repos</span><span>charmbracelet/crush, openai/codex, openclaw/openclaw, anomalyco/opencode</span></div>
     </div>
-    <div class="markdown evidence-copy evidence-copy-block"><h3>Reporter Notes</h3><p>The interesting movement is not &quot;agents have memory.&quot; It is that the runtime</p>
-<p>now has to distinguish global user preference files, project-specific context,</p>
-<p>sandbox cwd values, memory prompt registration, and project copy directories.</p>
-<p>Those objects carry different risk and lifetime assumptions.</p>
-<p>The most reader-friendly version is: context has a border. Builders need to</p>
-<p>know which side of the border an instruction, path, or project copy came from.</p></div>
     <div class="markdown evidence-copy evidence-copy-block">
-      <h2>Reporter Notes</h2>
-<p>This article groups independent patches around one operating pressure: agent</p>
-<p>runtimes need to know whether context came from the user, the project, a</p>
-<p>sandboxed working directory, a registered memory prompt, or a project copy.</p>
-<h2>Primary Evidence</h2>
+      <h2>Primary Evidence</h2>
 <ul>
 <li>Crush commit &quot;feat(config): load user-level context files&quot;: <a href="https://github.com/charmbracelet/crush/commit/6242e4f47743190fe60a27ba881ba3d6a9b36deb">https://github.com/charmbracelet/crush/commit/6242e4f47743190fe60a27ba881ba3d6a9b36deb</a>
 <ul>
-<li>Evidence used: adds default global context paths, separates global context
+<li>Shows: adds default global context paths, separates global context
 </li>
 </ul>
 </li>
@@ -164,7 +154,7 @@
 <ul>
 <li>OpenAI Codex commit &quot;sandboxing: migrate cwd inputs to PathUri&quot;: <a href="https://github.com/openai/codex/commit/52a50aec709d1934522d7ebdd9ceb4dc75c198f9">https://github.com/openai/codex/commit/52a50aec709d1934522d7ebdd9ceb4dc75c198f9</a>
 <ul>
-<li>Evidence used: carries sandbox cwd values as URI semantics until validation
+<li>Shows: carries sandbox cwd values as URI semantics until validation
 </li>
 </ul>
 </li>
@@ -173,7 +163,7 @@
 <ul>
 <li>OpenClaw commit &quot;fix(codex): preserve memory prompt registration&quot;: <a href="https://github.com/openclaw/openclaw/commit/7387083a9574a0b7a79579790f09e0f3510fda36">https://github.com/openclaw/openclaw/commit/7387083a9574a0b7a79579790f09e0f3510fda36</a>
 <ul>
-<li>Evidence used: preserves memory prompt registration in the Codex runtime
+<li>Shows: preserves memory prompt registration in the Codex runtime
 </li>
 </ul>
 </li>
@@ -182,7 +172,7 @@
 <ul>
 <li>OpenCode commit &quot;feat(core): refactor project copies for v2&quot;: <a href="https://github.com/anomalyco/opencode/commit/c2e6b1807d1e17c7ac0f019b2b1e270065a6d996">https://github.com/anomalyco/opencode/commit/c2e6b1807d1e17c7ac0f019b2b1e270065a6d996</a>
 <ul>
-<li>Evidence used: adds project directory strategy and project-copy handling
+<li>Shows: adds project directory strategy and project-copy handling
 </li>
 </ul>
 </li>
@@ -204,7 +194,6 @@
 </ul>
 <p>  but do not prove the same implementation choice as Crush or Codex.</p>
     </div>
-    
   </section>
       <section class="related-edition-section atlas-context-section">
     <div class="section-title-row">

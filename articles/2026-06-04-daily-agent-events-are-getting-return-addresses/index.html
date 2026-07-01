@@ -42,9 +42,9 @@
   <meta property="article:tag" content="NousResearch/hermes-agent">
   <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"https://thegitreporter.com/#organization","name":"The Git Reporter","url":"https://thegitreporter.com","logo":{"@type":"ImageObject","url":"https://thegitreporter.com/assets/mark.svg"},"sameAs":["https://x.com/TheGitReporter"]},{"@type":"WebSite","@id":"https://thegitreporter.com/#website","name":"The Git Reporter","url":"https://thegitreporter.com","publisher":{"@id":"https://thegitreporter.com/#organization"}},{"@type":"NewsArticle","mainEntityOfPage":{"@type":"WebPage","@id":"https://thegitreporter.com/articles/2026-06-04-daily-agent-events-are-getting-return-addresses/"},"headline":"Agent Events Are Getting Return Addresses","description":"Fresh Hermes Agent, Crush, OpenClaw, and Codex commits show agent runtimes attaching correlation, provenance, and client identity to events so the right run, session, surface, or device receives them.","image":["https://thegitreporter.com/assets/social/2026-06-04-daily-agent-events-are-getting-return-addresses-og.jpg"],"datePublished":"2026-06-04T12:00:00Z","dateModified":"2026-06-04T12:00:00Z","author":[{"@type":"Organization","name":"The Git Reporter","url":"https://thegitreporter.com"}],"publisher":{"@type":"Organization","@id":"https://thegitreporter.com/#organization","name":"The Git Reporter","url":"https://thegitreporter.com","logo":{"@type":"ImageObject","url":"https://thegitreporter.com/assets/mark.svg"},"sameAs":["https://x.com/TheGitReporter"]},"articleSection":"Daily Edition","keywords":"Permissions, Delegation, Tools, UX, openai/codex, openclaw/openclaw, charmbracelet/crush, NousResearch/hermes-agent"}]}</script>
   <link rel="icon" href="/assets/mark.svg">
-  <link rel="stylesheet" href="/assets/site.css?v=2026-05-30-about-layout-social-1">
-  <script defer src="/assets/feedback.js?v=2026-05-30-about-layout-social-1"></script>
-  <script defer src="/assets/analytics.js?v=2026-05-30-about-layout-social-1"></script>
+  <link rel="stylesheet" href="/assets/site.css?v=2026-06-30-agent-pulse-1">
+  <script defer src="/assets/feedback.js?v=2026-06-30-agent-pulse-1"></script>
+  <script defer src="/assets/analytics.js?v=2026-06-30-agent-pulse-1"></script>
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-CH19T7M0T1"></script>
   <script>
     window.dataLayer = window.dataLayer || [];
@@ -137,7 +137,7 @@
       <div>
         <div class="eyebrow">Evidence Trail</div>
         <h2 id="evidence-title">Receipts below the story</h2>
-        <p>The article above is the public narrative. This section keeps the source trail, limits, and reporting notes on the same page.</p>
+        <p>The article above is the public narrative. This section keeps the source trail and limits on the same page.</p>
       </div>
       <a class="paper-button" href="/editions/2026-06-04/">Edition</a>
     </div>
@@ -148,57 +148,12 @@
       <div class="evidence-line"><span>Sources</span><span>5</span></div>
       <div class="evidence-line"><span>Repos</span><span>openai/codex, openclaw/openclaw, charmbracelet/crush, NousResearch/hermes-agent</span></div>
     </div>
-    <div class="markdown evidence-copy evidence-copy-block"><h3>Reporter Notes</h3><ul>
-<li>The deeper angle is not generic observability. The common mechanism is
-</li>
-</ul>
-<p>  attribution precise enough to route an event to the correct owner: a turn,</p>
-<p>  run, session, surface, subagent, or device.</p>
-<ul>
-<li>Hermes provides the broadest architectural evidence. Its observer contract
-</li>
-</ul>
-<p>  names stable correlation fields across the whole lifecycle and explains why</p>
-<p>  consumers should use explicit fields rather than infer identity from callback</p>
-<p>  order or compound IDs.</p>
-<ul>
-<li>Crush provides the smallest and clearest operational consequence. A session
-</li>
-</ul>
-<p>  event channel can carry failures from concurrent background prompts. Adding</p>
-<p>  <code>RunID</code> prevents a command from failing because another prompt failed.</p>
-<ul>
-<li>OpenClaw provides the provenance/display consequence. A message sent from one
-</li>
-</ul>
-<p>  session into another must remain a user-role message in the transcript while</p>
-<p>  appearing as a forwarded assistant-side message with source attribution in</p>
-<p>  WebChat.</p>
-<ul>
-<li>Codex provides the device-management consequence. Once remote controllers
-</li>
-</ul>
-<p>  exist, the app server needs environment and client identity so users can list</p>
-<p>  and revoke stale grants independently of relay enrollment state.</p>
-<ul>
-<li>Hermes' desktop prompt fix shows why surface identity matters. Blocking
-</li>
-</ul>
-<p>  requests sent to an unhandled or non-interactive surface can silently time out</p>
-<p>  or hang. Routing is part of correctness, not merely interface polish.</p>
-<ul>
-<li>Source coverage was clear, but OpenClaw was an active under-covered repo in
-</li>
-</ul>
-<p>  recent audience feedback. The selected OpenClaw commit was directly readable</p>
-<p>  despite the wider repo-health degradation and materially strengthened the</p>
-<p>  provenance thesis.</p></div>
     <div class="markdown evidence-copy evidence-copy-block">
       <h2>Primary Evidence</h2>
 <ul>
 <li>NousResearch Hermes Agent commit <code>0d9b7132f</code>, &quot;feat(observability): observer-grade telemetry hooks + NeMo-Relay plugin&quot;: <a href="https://github.com/NousResearch/hermes-agent/commit/0d9b7132ffe8c70b593a87445b181742dc878827">https://github.com/NousResearch/hermes-agent/commit/0d9b7132ffe8c70b593a87445b181742dc878827</a>
 <ul>
-<li>Evidence used: The commit adds backend-neutral lifecycle hooks with stable
+<li>Shows: The commit adds backend-neutral lifecycle hooks with stable
 </li>
 </ul>
 </li>
@@ -209,7 +164,7 @@
 <ul>
 <li>Charmbracelet Crush commit <code>a6a8459c0</code>, &quot;fix(server): ignore background errors from unrelated prompts&quot;: <a href="https://github.com/charmbracelet/crush/commit/a6a8459c07cc2088cd1ce012171b0cc9c05a1339">https://github.com/charmbracelet/crush/commit/a6a8459c07cc2088cd1ce012171b0cc9c05a1339</a>
 <ul>
-<li>Evidence used: The commit carries a caller-supplied <code>RunID</code> through error
+<li>Shows: The commit carries a caller-supplied <code>RunID</code> through error
 </li>
 </ul>
 </li>
@@ -219,7 +174,7 @@
 <ul>
 <li>OpenClaw commit <code>932d6ea8e</code>, &quot;fix(webchat): show sessions_send handoffs as forwarded&quot;: <a href="https://github.com/openclaw/openclaw/commit/932d6ea8e5cef3de5d672e1a68b682492c910439">https://github.com/openclaw/openclaw/commit/932d6ea8e5cef3de5d672e1a68b682492c910439</a>
 <ul>
-<li>Evidence used: The commit preserves inter-session provenance, adds source
+<li>Shows: The commit preserves inter-session provenance, adds source
 </li>
 </ul>
 </li>
@@ -229,7 +184,7 @@
 <ul>
 <li>OpenAI Codex commit <code>98a62a62c</code>, &quot;feat(app-server): add remote control client management RPCs&quot;: <a href="https://github.com/openai/codex/commit/98a62a62ce7e1e6e6100c6e888e9d2bd794378e2">https://github.com/openai/codex/commit/98a62a62ce7e1e6e6100c6e888e9d2bd794378e2</a>
 <ul>
-<li>Evidence used: The commit adds experimental environment-scoped RPCs to
+<li>Shows: The commit adds experimental environment-scoped RPCs to
 </li>
 </ul>
 </li>
@@ -239,7 +194,7 @@
 <ul>
 <li>NousResearch Hermes Agent commit <code>f66a929a6</code>, &quot;fix(desktop): render approval/sudo/secret prompts so tools stop silently timing out&quot;: <a href="https://github.com/NousResearch/hermes-agent/commit/f66a929a6b78b81bd31a634f05798431b0fb10aa">https://github.com/NousResearch/hermes-agent/commit/f66a929a6b78b81bd31a634f05798431b0fb10aa</a>
 <ul>
-<li>Evidence used: The commit routes blocking approval, sudo, and secret
+<li>Shows: The commit routes blocking approval, sudo, and secret
 </li>
 </ul>
 </li>
@@ -267,7 +222,6 @@
 <p>  provenance, routing, and client identity; the projects use different data</p>
 <p>  models and solve different parts of the problem.</p>
     </div>
-    
   </section>
       <section class="related-edition-section atlas-context-section">
     <div class="section-title-row">

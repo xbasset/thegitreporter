@@ -40,9 +40,9 @@
   <meta property="article:tag" content="NousResearch/hermes-agent">
   <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"https://thegitreporter.com/#organization","name":"The Git Reporter","url":"https://thegitreporter.com","logo":{"@type":"ImageObject","url":"https://thegitreporter.com/assets/mark.svg"},"sameAs":["https://x.com/TheGitReporter"]},{"@type":"WebSite","@id":"https://thegitreporter.com/#website","name":"The Git Reporter","url":"https://thegitreporter.com","publisher":{"@id":"https://thegitreporter.com/#organization"}},{"@type":"NewsArticle","mainEntityOfPage":{"@type":"WebPage","@id":"https://thegitreporter.com/articles/2026-05-29-daily-agent-sandboxes-are-learning-their-cleanup-rules/"},"headline":"Agent Sandboxes Are Learning Their Cleanup Rules","description":"Fresh Codex and Hermes commits point to a practical agent shift: the local machine is becoming part of the runtime contract, with workspace roots, filesystem denies, Docker persistence, orphan cleanup, and lifecycle commands written down in code.","image":["https://thegitreporter.com/assets/social/2026-05-29-daily-agent-sandboxes-are-learning-their-cleanup-rules-og.jpg"],"datePublished":"2026-05-29T12:00:00Z","dateModified":"2026-05-29T12:00:00Z","author":[{"@type":"Organization","name":"The Git Reporter","url":"https://thegitreporter.com"}],"publisher":{"@type":"Organization","@id":"https://thegitreporter.com/#organization","name":"The Git Reporter","url":"https://thegitreporter.com","logo":{"@type":"ImageObject","url":"https://thegitreporter.com/assets/mark.svg"},"sameAs":["https://x.com/TheGitReporter"]},"articleSection":"Daily Edition","keywords":"Permissions, Memory, Delegation, Tools, openai/codex, NousResearch/hermes-agent"}]}</script>
   <link rel="icon" href="/assets/mark.svg">
-  <link rel="stylesheet" href="/assets/site.css?v=2026-05-30-about-layout-social-1">
-  <script defer src="/assets/feedback.js?v=2026-05-30-about-layout-social-1"></script>
-  <script defer src="/assets/analytics.js?v=2026-05-30-about-layout-social-1"></script>
+  <link rel="stylesheet" href="/assets/site.css?v=2026-06-30-agent-pulse-1">
+  <script defer src="/assets/feedback.js?v=2026-06-30-agent-pulse-1"></script>
+  <script defer src="/assets/analytics.js?v=2026-06-30-agent-pulse-1"></script>
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-CH19T7M0T1"></script>
   <script>
     window.dataLayer = window.dataLayer || [];
@@ -135,7 +135,7 @@
       <div>
         <div class="eyebrow">Evidence Trail</div>
         <h2 id="evidence-title">Receipts below the story</h2>
-        <p>The article above is the public narrative. This section keeps the source trail, limits, and reporting notes on the same page.</p>
+        <p>The article above is the public narrative. This section keeps the source trail and limits on the same page.</p>
       </div>
       <a class="paper-button" href="/editions/2026-05-29/">Edition</a>
     </div>
@@ -146,56 +146,48 @@
       <div class="evidence-line"><span>Sources</span><span>7</span></div>
       <div class="evidence-line"><span>Repos</span><span>openai/codex, NousResearch/hermes-agent</span></div>
     </div>
-    <div class="markdown evidence-copy evidence-copy-block"><h3>Reporter Notes</h3><ul>
-<li>The clearest shared pattern is &quot;implicit local environment assumptions are being turned into explicit contracts.&quot;
-</li>
-<li>Codex contributes workspace-root and filesystem-policy evidence.
-</li>
-<li>Hermes contributes Docker container lifecycle, orphan cleanup, and dangerous command approval evidence.
-</li>
-</ul></div>
     <div class="markdown evidence-copy evidence-copy-block">
       <h2>Primary Evidence</h2>
 <ul>
 <li>OpenAI Codex commit &quot;windows-sandbox: pass workspace roots to runner (#24108)&quot;: <a href="https://github.com/openai/codex/commit/986c60467b96ca13850217f6e5adadef6ba70ab3">https://github.com/openai/codex/commit/986c60467b96ca13850217f6e5adadef6ba70ab3</a>
 <ul>
-<li>Evidence used: the commit says Codex replaces single-cwd Windows sandbox plumbing with explicit <code>workspace_roots</code>, threads effective roots through execution/app-server/TUI/debug paths, updates elevated runner IPC, and adds resolver coverage.
+<li>Shows: the commit says Codex replaces single-cwd Windows sandbox plumbing with explicit <code>workspace_roots</code>, threads effective roots through execution/app-server/TUI/debug paths, updates elevated runner IPC, and adds resolver coverage.
 </li>
 </ul>
 </li>
 <li>OpenAI Codex commit &quot;Surface filesystem permission profiles in prompt context (#23924)&quot;: <a href="https://github.com/openai/codex/commit/e7dda8070e4eb2ba9de215545ff0db3b0ee4c519">https://github.com/openai/codex/commit/e7dda8070e4eb2ba9de215545ff0db3b0ee4c519</a>
 <ul>
-<li>Evidence used: the commit says the environment context now renders effective filesystem profiles, workspace roots, and non-escalatable deny entries, and that automatic approval review receives denied-read context.
+<li>Shows: the commit says the environment context now renders effective filesystem profiles, workspace roots, and non-escalatable deny entries, and that automatic approval review receives denied-read context.
 </li>
 </ul>
 </li>
 <li>NousResearch Hermes Agent commit &quot;fix(docker): reuse containers across processes + fix cleanup leaks&quot;: <a href="https://github.com/NousResearch/hermes-agent/commit/ac8e238bc87ffd37c5c04d0f401d2aab697068b3">https://github.com/NousResearch/hermes-agent/commit/ac8e238bc87ffd37c5c04d0f401d2aab697068b3</a>
 <ul>
-<li>Evidence used: the commit says Hermes adds cross-process Docker container discovery/reuse with labels, rewrites cleanup to avoid racy detached shell cleanup, adds <code>wait_for_cleanup</code>, and introduces <code>terminal.docker_persist_across_processes</code>.
+<li>Shows: the commit says Hermes adds cross-process Docker container discovery/reuse with labels, rewrites cleanup to avoid racy detached shell cleanup, adds <code>wait_for_cleanup</code>, and introduces <code>terminal.docker_persist_across_processes</code>.
 </li>
 </ul>
 </li>
 <li>NousResearch Hermes Agent commit &quot;fix(docker): startup orphan reaper for crashed-process containers&quot;: <a href="https://github.com/NousResearch/hermes-agent/commit/d77d877665bab7a6035140d142d5670cc05ad15d">https://github.com/NousResearch/hermes-agent/commit/d77d877665bab7a6035140d142d5670cc05ad15d</a>
 <ul>
-<li>Evidence used: the commit says Hermes adds a startup orphan reaper for long-exited Hermes-labeled Docker containers after exits where <code>atexit</code> does not run, including SIGKILL, OOM kill, and terminal-window close.
+<li>Shows: the commit says Hermes adds a startup orphan reaper for long-exited Hermes-labeled Docker containers after exits where <code>atexit</code> does not run, including SIGKILL, OOM kill, and terminal-window close.
 </li>
 </ul>
 </li>
 <li>NousResearch Hermes Agent commit &quot;fix(docker): persist-mode cleanup is no-op; add force_remove kwarg (#20561)&quot;: <a href="https://github.com/NousResearch/hermes-agent/commit/5c2170a7c62b9cfd18431de78b462116df57d199">https://github.com/NousResearch/hermes-agent/commit/5c2170a7c62b9cfd18431de78b462116df57d199</a>
 <ul>
-<li>Evidence used: the commit says persist-mode cleanup should leave the container running so background processes and filesystem state survive, while <code>force_remove=True</code> remains available for explicit teardown.
+<li>Shows: the commit says persist-mode cleanup should leave the container running so background processes and filesystem state survive, while <code>force_remove=True</code> remains available for explicit teardown.
 </li>
 </ul>
 </li>
 <li>NousResearch Hermes Agent commit &quot;fix(docker): cleanup_vm() default honors persist mode (don't kill container on session close)&quot;: <a href="https://github.com/NousResearch/hermes-agent/commit/2f0f03c40d133d568e786d45275ad6a1bffdebd7">https://github.com/NousResearch/hermes-agent/commit/2f0f03c40d133d568e786d45275ad6a1bffdebd7</a>
 <ul>
-<li>Evidence used: the commit says session lifecycle cleanup should honor persist mode and avoid killing a shared container when a TUI or gateway session closes.
+<li>Shows: the commit says session lifecycle cleanup should honor persist mode and avoid killing a shared container when a TUI or gateway session closes.
 </li>
 </ul>
 </li>
 <li>NousResearch Hermes Agent commit &quot;approval: add docker restart/stop/kill to DANGEROUS_PATTERNS (#33438)&quot;: <a href="https://github.com/NousResearch/hermes-agent/commit/54bf798765d3d529978dd04e3bfc95d93d6504eb">https://github.com/NousResearch/hermes-agent/commit/54bf798765d3d529978dd04e3bfc95d93d6504eb</a>
 <ul>
-<li>Evidence used: the commit says Docker restart/stop/kill/down commands are now treated as dangerous approval patterns because an agent with docker.sock could restart, stop, or kill containers, including its own runtime.
+<li>Shows: the commit says Docker restart/stop/kill/down commands are now treated as dangerous approval patterns because an agent with docker.sock could restart, stop, or kill containers, including its own runtime.
 </li>
 </ul>
 </li>
@@ -214,7 +206,6 @@
 </li>
 </ul>
     </div>
-    
   </section>
       <section class="related-edition-section atlas-context-section">
     <div class="section-title-row">
