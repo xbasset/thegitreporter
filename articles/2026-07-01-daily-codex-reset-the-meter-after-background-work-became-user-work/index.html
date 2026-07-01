@@ -1,0 +1,453 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Codex Reset The Meter After Background Work Became User Work | The Git Reporter</title>
+  <meta name="description" content="OpenAI&#39;s public Codex usage-reset note reads like a customer-relief post. The public Codex repository shows something more specific: a cleanup across auto-review prompts, subagent delegation, review-time suggestions, and reset-credit visibility, while the usage backend remains outside the public diff.">
+  <meta name="robots" content="index,follow">
+  <link rel="canonical" href="https://thegitreporter.com/articles/2026-07-01-daily-codex-reset-the-meter-after-background-work-became-user-work/">
+  <link rel="alternate" type="application/rss+xml" title="The Git Reporter" href="https://thegitreporter.com/feed.xml">
+  <meta property="og:site_name" content="The Git Reporter">
+  <meta property="og:locale" content="en_US">
+  <meta property="og:title" content="Codex Reset The Meter After Background Work Became User Work | The Git Reporter">
+  <meta property="og:description" content="OpenAI&#39;s public Codex usage-reset note reads like a customer-relief post. The public Codex repository shows something more specific: a cleanup across auto-review prompts, subagent delegation, review-time suggestions, and reset-credit visibility, while the usage backend remains outside the public diff.">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://thegitreporter.com/articles/2026-07-01-daily-codex-reset-the-meter-after-background-work-became-user-work/">
+  <meta property="og:image" content="https://thegitreporter.com/assets/social/2026-07-01-daily-codex-reset-the-meter-after-background-work-became-user-work-og.jpg">
+  <meta property="og:image:secure_url" content="https://thegitreporter.com/assets/social/2026-07-01-daily-codex-reset-the-meter-after-background-work-became-user-work-og.jpg">
+  <meta property="og:image:type" content="image/jpeg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Diagram Punk poster titled Background work has a meter now, with four source cards for auto-review prompt revert, subagent guardrails, review suggestions off, and reset credits UI.">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:site" content="@TheGitReporter">
+  <meta name="twitter:creator" content="@TheGitReporter">
+  <meta name="twitter:title" content="Codex Reset The Meter After Background Work Became User Work | The Git Reporter">
+  <meta name="twitter:description" content="OpenAI&#39;s public Codex usage-reset note reads like a customer-relief post. The public Codex repository shows something more specific: a cleanup across auto-review prompts, subagent delegation, review-time suggestions, and reset-credit visibility, while the usage backend remains outside the public diff.">
+  <meta name="twitter:url" content="https://thegitreporter.com/articles/2026-07-01-daily-codex-reset-the-meter-after-background-work-became-user-work/">
+  <meta name="twitter:domain" content="thegitreporter.com">
+  <meta name="twitter:image" content="https://thegitreporter.com/assets/social/2026-07-01-daily-codex-reset-the-meter-after-background-work-became-user-work-og.jpg">
+  <meta name="twitter:image:alt" content="Diagram Punk poster titled Background work has a meter now, with four source cards for auto-review prompt revert, subagent guardrails, review suggestions off, and reset credits UI.">
+  <meta property="article:published_time" content="2026-07-01T12:00:00Z">
+  <meta property="article:modified_time" content="2026-07-01T12:00:00Z">
+  <meta property="article:section" content="Daily Edition">
+  <meta property="article:tag" content="Codex">
+  <meta property="article:tag" content="Usage Limits">
+  <meta property="article:tag" content="Auto Review">
+  <meta property="article:tag" content="Subagents">
+  <meta property="article:tag" content="Background Work">
+  <meta property="article:tag" content="User Impact">
+  <meta property="article:tag" content="openai/codex">
+  <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"https://thegitreporter.com/#organization","name":"The Git Reporter","url":"https://thegitreporter.com","logo":{"@type":"ImageObject","url":"https://thegitreporter.com/assets/mark.svg"},"sameAs":["https://x.com/TheGitReporter"]},{"@type":"WebSite","@id":"https://thegitreporter.com/#website","name":"The Git Reporter","url":"https://thegitreporter.com","publisher":{"@id":"https://thegitreporter.com/#organization"}},{"@type":"NewsArticle","mainEntityOfPage":{"@type":"WebPage","@id":"https://thegitreporter.com/articles/2026-07-01-daily-codex-reset-the-meter-after-background-work-became-user-work/"},"headline":"Codex Reset The Meter After Background Work Became User Work","description":"OpenAI's public Codex usage-reset note reads like a customer-relief post. The public Codex repository shows something more specific: a cleanup across auto-review prompts, subagent delegation, review-time suggestions, and reset-credit visibility, while the usage backend remains outside the public diff.","image":["https://thegitreporter.com/assets/social/2026-07-01-daily-codex-reset-the-meter-after-background-work-became-user-work-og.jpg"],"datePublished":"2026-07-01T12:00:00Z","dateModified":"2026-07-01T12:00:00Z","author":[{"@type":"Organization","name":"The Git Reporter","url":"https://thegitreporter.com"}],"publisher":{"@type":"Organization","@id":"https://thegitreporter.com/#organization","name":"The Git Reporter","url":"https://thegitreporter.com","logo":{"@type":"ImageObject","url":"https://thegitreporter.com/assets/mark.svg"},"sameAs":["https://x.com/TheGitReporter"]},"articleSection":"Daily Edition","keywords":"Codex, Usage Limits, Auto Review, Subagents, Background Work, User Impact, openai/codex"}]}</script>
+  <link rel="icon" href="/assets/mark.svg">
+  <link rel="stylesheet" href="/assets/site.css?v=2026-06-30-agent-pulse-1">
+  <script defer src="/assets/feedback.js?v=2026-06-30-agent-pulse-1"></script>
+  <script defer src="/assets/analytics.js?v=2026-06-30-agent-pulse-1"></script>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-CH19T7M0T1"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){window.dataLayer.push(arguments);}
+    gtag("js", new Date());
+    gtag("config", "G-CH19T7M0T1");
+  </script>
+</head>
+<body>
+  <div class="site">
+    <header class="site-header" id="top">
+      <div class="wrap utility-row">
+        <a class="icon-link menu-icon" href="/archive/" aria-label="Open edition history"><span></span><span></span><span></span></a>
+        <a class="icon-link archive-icon" href="/archive/" aria-label="Open edition history"></a>
+      </div>
+      <div class="wrap masthead-lockup">
+        <a class="masthead-title" href="/">THE GIT REPORTER</a>
+        <div class="masthead-ornament" aria-hidden="true"></div>
+      </div>
+      <div class="wrap nav-wrap">
+        <nav class="paper-nav" aria-label="Primary navigation">
+    <a class="" href="/">Today</a><a class="active" href="/archive/">Editions</a><a class="" href="/about/">About</a><a class="" href="/agent-pulse/">Agent Pulse</a><a class="" href="/atlas/">Agent Atlas</a><a class="" href="/repos/">Repos</a>
+  </nav>
+        <div class="nav-rule"></div>
+      </div>
+    </header>
+    <main class="wrap page-shell article-page">
+      <section class="page-hero story-front">
+        <div class="story-topline">
+          <span>Daily Edition</span>
+          <span>Sources <strong>+10</strong></span>
+        </div>
+        <h1>Codex Reset The Meter After Background Work Became User Work</h1>
+        <p class="summary">OpenAI's public Codex usage-reset note reads like a customer-relief post. The public Codex repository shows something more specific: a cleanup across auto-review prompts, subagent delegation, review-time suggestions, and reset-credit visibility, while the usage backend remains outside the public diff.</p>
+        <figure class="story-illustration article-illustration">
+    <img src="/assets/illustrations/2026-07-01-codex-reset-the-meter-after-background-work-became-user-work-diagram-punk-v1.png" alt="Diagram Punk poster titled Background work has a meter now, with four source cards for auto-review prompt revert, subagent guardrails, review suggestions off, and reset credits UI." loading="lazy" decoding="async">
+    <figcaption><span>Diagram Punk</span>the Codex reset story was a boundary cleanup, not one bug.</figcaption>
+  </figure>
+        <div class="receipt">
+    <div class="receipt-line">
+      <span class="receipt-icon">repo</span>
+      <span class="receipt-main">openai/codex</span>
+      <span class="branch-pill">evidence</span>
+    </div>
+    <div class="receipt-line receipt-muted">
+      <span>10 source signals</span>
+      <span>1 repo</span>
+      <span>9 linked commits</span>
+    </div>
+    <div class="commit-line">Evidence: 9 linked commits / July 1, 2026 / Daily Edition</div>
+  </div>
+        <div class="article-route-row">
+          <a href="/editions/2026-07-01/">Open Edition</a>
+          <a href="#evidence">Evidence below</a>
+        </div>
+      </section>
+      <section class="story-reader">
+        <article class="story-shell story-body">
+          <p>The important sentence in the Codex usage-limit update was not the apology. It was the shape of the failure: there was not one central bug. A few smaller systems had started spending work on the user's behalf, and the product's usage displays made some of that work look like normal GPT-5.4 turns.</p>
+
+  <p>The public statement said Codex limits would be fully reset again within the hour, with one additional reset credited into users' banks for the next 24 hours. It also said OpenAI found compounded causes: a more proactive auto-review path, another change that triggered more subagent work, background suggestions that could duplicate or retry too often after failures, and usage graphs that displayed auto-review, failed requests, or rate-limited requests in misleading ways.</p>
+
+  <p>The open-source evidence does not prove every backend accounting claim. It does prove a serious client and runtime correction around the exact surfaces named in the statement. In the public <code>openai/codex</code> repo, the receipts cluster around four user-visible boundaries: what auto-review is allowed to ask for, when subagents are allowed to run, which suggestions are allowed inside review flows, and whether a user can see and redeem reset credits as concrete account objects.</p>
+
+  <h2>The Public Claim Set</h2>
+  <p>The source claim is the public X post at <a href="https://x.com/thsottiaux/status/2071740419030053227">x.com/thsottiaux/status/2071740419030053227</a>. The post says the team reset usage limits while rolling out hotfixes across the CLI, desktop app, and usage backend. It also names the major user-facing promise: future usage data should be clearer and actual consumption should be lower.</p>
+
+  <p>That promise has two different evidence standards. The repo can show code that reduces or isolates unnecessary background work in the client/runtime. The repo cannot, by itself, show whether a backend usage graph now excludes failed turns, rate-limited turns, or relabels old auto-review activity. This article treats those as official-statement evidence unless a public code path backs them.</p>
+
+  <h2>Auto-Review: The Proactive Prompt Was Rolled Back</h2>
+  <p>The cleanest public receipt is the auto-review revert. Commit <a href="https://github.com/openai/codex/commit/07f70323839c8ecb4312fafd4401fc3021307bb2">07f7032383</a>, titled <q>Revert "Make auto-review on-request prompt more proactive"</q>, deletes the dedicated <code>on_request_auto_review.md</code> prompt template and removes the branch that selected that template when <code>ApprovalsReviewer::AutoReview</code> was active.</p>
+
+  <p>The reverted change, commit <a href="https://github.com/openai/codex/commit/d9dace8a593080572fdef4a8fbdad7f2c7fe226f">d9dace8a59</a>, is unusually revealing because its own description explains why it existed. It made the on-request approval text more aggressive for auto-reviewed productivity runs, encouraging earlier escalation for likely sandbox blocks, network access, remote services, authentication, cloud or database access, and other out-of-sandbox needs.</p>
+
+  <p>That does not mean auto-review was malicious or broken. It means Codex had created a separate instruction surface that could ask the model to spend fewer turns proving the sandbox would fail and more quickly seek approval for the outside world. In ordinary work, that can be a productivity win. In usage accounting, it changes the boundary between work a user explicitly asked for and work the agent does in the background to keep itself moving.</p>
+
+  <p>The revert is therefore not just a wording cleanup. It is a product correction: auto-review remains identified as <code>auto_review</code>, but the special proactive escalation packet is gone from the public prompt assembly path.</p>
+
+  <h2>Subagents: Depth No Longer Means Permission</h2>
+  <p>The public subagent receipt is commit <a href="https://github.com/openai/codex/commit/3b8b60a58399ff79a41f8457710ae5a5fae5c39f">3b8b60a583</a>, titled <q>Restore v1 delegation guidance</q>. The commit restores a sentence that should matter to anyone watching agent cost: requests for depth, thoroughness, research, investigation, or detailed codebase analysis do not count as permission to spawn subagents.</p>
+
+  <p>It also restores a decision frame for when to delegate and when to keep work local. The guidance tells the model to identify immediate blockers, preserve the main critical path, delegate bounded sidecar tasks only when they can run in parallel, and avoid urgent blocking work that the main rollout should do itself.</p>
+
+  <p>That maps closely to the user impact. A user asking for a deeper answer may expect one longer turn, not a family of child threads. If a prompt simplification removed the language that constrained delegation, the model could still obey the formal authorization rule while losing the practical guardrails that kept independent research from becoming extra background capacity.</p>
+
+  <p>Another public patch, <a href="https://github.com/openai/codex/commit/726b9d07d0898d0996c032862773796ca9dfe8d9">726b9d07d0</a>, sharpens a subagent retry message when a requested reasoning effort is unsupported. That one does not prove excess usage. It does show the team fixing a failure edge where the model is told exactly how to retry <code>spawn_agent</code> rather than wandering through unsupported combinations.</p>
+
+  <h2>Review Suggestions: A Background Door Was Shut</h2>
+  <p>The tweet's background-suggestion claim is harder to prove end to end from the public repo, but the repository does show review-time suggestion suppression. Commit <a href="https://github.com/openai/codex/commit/b387b7dabb6e19b2a6b44c02ab2affeddb48edb0">b387b7dabb</a>, titled <q>Disable tool suggestions during review</q>, adds a review test that starts with plugin suggestions available, submits a review, and asserts two things: the review request does not expose <code>request_plugin_install</code>, and review does not fetch <code>/ps/plugins/suggested</code>.</p>
+
+  <p>That is the kind of fix users rarely see but usage systems feel. Tool suggestions are not the answer the user asked to read. They are support work around the answer. If that support work is fetched, generated, retried, or injected during a review path, it can become invisible labor: useful when it is right, noisy when it is duplicated, and infuriating when it is counted like ordinary requested reasoning.</p>
+
+  <p>The same review/MCP neighborhood has additional public guardrails. Commit <a href="https://github.com/openai/codex/commit/29bfc614d37c73dc6082334527c358bf177c9f9e">29bfc614d3</a> restores MCP suppression for replayed reviews, and commit <a href="https://github.com/openai/codex/commit/1bbbad1bca123dbe02c6aee7e7cdef2a5706f788">1bbbad1bca</a> blocks nested review while a replayed review is active. Those commits do not prove the usage backend fix, but they support the pattern named in the statement: review is a special execution lane, and background systems around it needed tighter gating.</p>
+
+  <h2>Reset Credits Became Account Objects, Not Just Copy</h2>
+  <p>The immediate relief in the post also has a public client-side trail. Commit <a href="https://github.com/openai/codex/commit/136386e1c3c20589db0121fe4b3bc52f3afd0f9d">136386e1c3</a>, <q>Expose rate-limit reset credit details</q>, adds protocol and backend-client support for listing reset credits, consuming a specific credit by ID, and carrying fields such as <code>available_count</code>, <code>id</code>, <code>reset_type</code>, <code>status</code>, <code>granted_at</code>, and <code>expires_at</code>.</p>
+
+  <p>Commit <a href="https://github.com/openai/codex/commit/9b5fa439d6332ef1f304de45d459af8678c34e6f">9b5fa439d</a>, <q>Show reset credits in redemption picker</q>, moves that account object into the terminal UI. It adds a reset-credit picker, sorts available credits by expiration, displays whether the reset applies to monthly or weekly-plus-five-hour windows, preserves idempotency, and handles stale selected credits by asking the user to refresh.</p>
+
+  <p>This is the difference between a support gesture and a recoverable product mechanism. A user who was told "we credited a reset into your bank" needed the product to know what that bank contained, when a credit expired, which credit was being redeemed, and what happened after redemption. The public code does not show the backend grant itself, but it does show the client and app-server contract that makes banked reset credits visible and redeemable.</p>
+
+  <h2>The Usage Graph Is The Least Public Part</h2>
+  <p>The post says auto-review was incorrectly appearing as GPT-5.4 usage, and failed or rate-limited requests were still shown as turns. The public repo gives context but not the full backend answer.</p>
+
+  <p>Codex already names automatic approval review as a separate preferred model path in public code: <code>DEFAULT_APPROVAL_REVIEW_PREFERRED_MODEL</code> is <code>codex-auto-review</code> in <code>codex-rs/model-provider/src/provider.rs</code>. Analytics code also carries a <code>guardian_default_review_model_id</code>. That supports the idea that auto-review is a distinct category inside the system.</p>
+
+  <p>But the graph relabeling itself appears to live behind the usage backend, not in the public repository. The same is true for the statement that only successful requests now count toward turn graphs and that rate-limited requests were displayed incorrectly but never charged. Those are important claims. They should be repeated as official claims, not inflated into public diff evidence.</p>
+
+  <h2>Why Users Felt It So Fast</h2>
+  <p>The common pattern is that Codex had become better at doing things adjacent to the user's explicit request. Auto-review could pursue approvals more proactively. Subagents could multiply work if the delegation boundary softened. Review flows could carry suggestion machinery. Reset credits and warning surfaces had to catch up to the real account state.</p>
+
+  <p>That is the hard part of agent products. The value proposition is that the agent does useful work you did not micromanage. The trust boundary is that the user still knows which work they asked for, which work the system performed to support it, and which meter each one touches.</p>
+
+  <p>The public Codex fixes look like a team moving that boundary back toward the user: less proactive auto-review prompting, clearer subagent authorization text, fewer review-time suggestion side paths, and a visible reset-credit account surface. The backend claims add the missing half: graphs should stop making failed, rate-limited, or auto-review work look like ordinary successful GPT-5.4 turns.</p>
+
+  <h2>Evidence Ledger</h2>
+  <ul>
+    <li><strong>Auto-review became more proactive:</strong> proved by original commit <a href="https://github.com/openai/codex/commit/d9dace8a593080572fdef4a8fbdad7f2c7fe226f">d9dace8a59</a> and reverted by <a href="https://github.com/openai/codex/commit/07f70323839c8ecb4312fafd4401fc3021307bb2">07f7032383</a>.</li>
+    <li><strong>Subagent work needed tighter limits:</strong> supported by <a href="https://github.com/openai/codex/commit/3b8b60a58399ff79a41f8457710ae5a5fae5c39f">3b8b60a583</a>, which restores explicit delegation guardrails, and <a href="https://github.com/openai/codex/commit/726b9d07d0898d0996c032862773796ca9dfe8d9">726b9d07d0</a>, which clarifies retry behavior for unsupported reasoning effort.</li>
+    <li><strong>Background suggestions needed gating:</strong> supported by <a href="https://github.com/openai/codex/commit/b387b7dabb6e19b2a6b44c02ab2affeddb48edb0">b387b7dabb</a> and review/MCP suppression commits <a href="https://github.com/openai/codex/commit/29bfc614d37c73dc6082334527c358bf177c9f9e">29bfc614d3</a> and <a href="https://github.com/openai/codex/commit/1bbbad1bca123dbe02c6aee7e7cdef2a5706f788">1bbbad1bca</a>.</li>
+    <li><strong>Immediate reset relief:</strong> client-side support is visible in <a href="https://github.com/openai/codex/commit/136386e1c3c20589db0121fe4b3bc52f3afd0f9d">136386e1c3</a> and <a href="https://github.com/openai/codex/commit/9b5fa439d6332ef1f304de45d459af8678c34e6f">9b5fa439d</a>. The actual backend grant remains statement evidence.</li>
+    <li><strong>Usage reporting categories and graph counting:</strong> not fully public in the repo. Treat the relabeling and successful-request-only graph behavior as official usage-backend claims.</li>
+  </ul>
+
+  <h2>The Takeaway</h2>
+  <p>The user impact is simple: when the product spends capacity in the background, the meter must say so with the same honesty as the model answer. The engineering impact is subtler. The fixes are not one dramatic algorithm change; they are a set of boundaries around agent helpfulness.</p>
+
+  <p>That is why this matters beyond one Codex outage cycle. Mature agent tools will not be judged only by how much autonomous work they can perform. They will be judged by whether they can explain which autonomous work happened, which part counted, which part failed, and how the user gets relief when the system did too much on their behalf.</p>
+
+  <p>What to watch next: whether Codex keeps turning hidden helper work into explicit product categories. Auto-review, subagents, suggestions, retries, and reset credits are not side details. They are the accounting layer for trust.</p>
+        </article>
+      </section>
+      <section class="evidence-section" id="evidence" aria-labelledby="evidence-title">
+    <div class="evidence-head">
+      <div>
+        <div class="eyebrow">Evidence Trail</div>
+        <h2 id="evidence-title">Receipts below the story</h2>
+        <p>The article above is the public narrative. This section keeps the source trail and limits on the same page.</p>
+      </div>
+      <a class="paper-button" href="/editions/2026-07-01/">Edition</a>
+    </div>
+    <div class="evidence-table evidence-summary">
+      <div class="evidence-line"><span>Date</span><span>July 1, 2026</span></div>
+      <div class="evidence-line"><span>Lane</span><span>Daily Edition</span></div>
+      <div class="evidence-line"><span>Confidence</span><span>91%</span></div>
+      <div class="evidence-line"><span>Sources</span><span>10</span></div>
+      <div class="evidence-line"><span>Repos</span><span>openai/codex</span></div>
+    </div>
+    <div class="markdown evidence-copy evidence-copy-block">
+      <h2>Primary Evidence</h2>
+<ul>
+<li>Public Codex usage-reset statement: <a href="https://x.com/thsottiaux/status/2071740419030053227">https://x.com/thsottiaux/status/2071740419030053227</a>
+<ul>
+<li>Shows: official claim set for the reset, banked extra reset, compounded
+</li>
+</ul>
+</li>
+</ul>
+<p>    background-consumption causes, usage-reporting corrections, and monitoring.</p>
+<ul>
+<li>Auto-review proactive prompt added: <a href="https://github.com/openai/codex/commit/d9dace8a593080572fdef4a8fbdad7f2c7fe226f">https://github.com/openai/codex/commit/d9dace8a593080572fdef4a8fbdad7f2c7fe226f</a>
+<ul>
+<li>Shows: Codex added a separate auto-review on-request prompt with more
+</li>
+</ul>
+</li>
+</ul>
+<p>    proactive escalation guidance for likely sandbox/network/remote-service</p>
+<p>    blockers.</p>
+<ul>
+<li>Auto-review proactive prompt reverted: <a href="https://github.com/openai/codex/commit/07f70323839c8ecb4312fafd4401fc3021307bb2">https://github.com/openai/codex/commit/07f70323839c8ecb4312fafd4401fc3021307bb2</a>
+<ul>
+<li>Shows: the dedicated auto-review prompt template and selection path were
+</li>
+</ul>
+</li>
+</ul>
+<p>    removed.</p>
+<ul>
+<li>Subagent delegation guardrails restored: <a href="https://github.com/openai/codex/commit/3b8b60a58399ff79a41f8457710ae5a5fae5c39f">https://github.com/openai/codex/commit/3b8b60a58399ff79a41f8457710ae5a5fae5c39f</a>
+<ul>
+<li>Shows: requests for depth/research/investigation do not authorize subagent
+</li>
+</ul>
+</li>
+</ul>
+<p>    spawning; critical-path work should stay local.</p>
+<ul>
+<li>Unsupported subagent reasoning retry clarified: <a href="https://github.com/openai/codex/commit/726b9d07d0898d0996c032862773796ca9dfe8d9">https://github.com/openai/codex/commit/726b9d07d0898d0996c032862773796ca9dfe8d9</a>
+<ul>
+<li>Shows: Codex now tells the model how to retry <code>spawn_agent</code> after an
+</li>
+</ul>
+</li>
+</ul>
+<p>    unsupported reasoning-effort request.</p>
+<ul>
+<li>Tool suggestions disabled during review: <a href="https://github.com/openai/codex/commit/b387b7dabb6e19b2a6b44c02ab2affeddb48edb0">https://github.com/openai/codex/commit/b387b7dabb6e19b2a6b44c02ab2affeddb48edb0</a>
+<ul>
+<li>Shows: review requests should not expose <code>request_plugin_install</code> or fetch
+</li>
+</ul>
+</li>
+</ul>
+<p>    suggested plugins.</p>
+<ul>
+<li>Replayed review MCP suppression restored: <a href="https://github.com/openai/codex/commit/29bfc614d37c73dc6082334527c358bf177c9f9e">https://github.com/openai/codex/commit/29bfc614d37c73dc6082334527c358bf177c9f9e</a>
+<ul>
+<li>Shows: replayed active review re-arms MCP startup suppression.
+</li>
+</ul>
+</li>
+<li>Nested review blocked during replayed review: <a href="https://github.com/openai/codex/commit/1bbbad1bca123dbe02c6aee7e7cdef2a5706f788">https://github.com/openai/codex/commit/1bbbad1bca123dbe02c6aee7e7cdef2a5706f788</a>
+<ul>
+<li>Shows: <code>/review</code> is blocked while a replayed review is active.
+</li>
+</ul>
+</li>
+<li>Reset-credit details exposed: <a href="https://github.com/openai/codex/commit/136386e1c3c20589db0121fe4b3bc52f3afd0f9d">https://github.com/openai/codex/commit/136386e1c3c20589db0121fe4b3bc52f3afd0f9d</a>
+<ul>
+<li>Shows: reset credits became listable and consumable protocol/backend-client
+</li>
+</ul>
+</li>
+</ul>
+<p>    objects with IDs, statuses, grant and expiry times.</p>
+<ul>
+<li>Reset-credit picker added: <a href="https://github.com/openai/codex/commit/9b5fa439d6332ef1f304de45d459af8678c34e6f">https://github.com/openai/codex/commit/9b5fa439d6332ef1f304de45d459af8678c34e6f</a>
+<ul>
+<li>Shows: the TUI can display available reset credits, expiry detail, reset
+</li>
+</ul>
+</li>
+</ul>
+<p>    scope, and stale-credit refresh behavior.</p>
+<h2>Evidence Limits</h2>
+<ul>
+<li>The public repo does not prove backend usage graph relabeling, successful-only
+</li>
+</ul>
+<p>  graph counting, rate-limited request display cleanup, backend monitoring, or</p>
+<p>  the actual grant of the extra reset credit.</p>
+<ul>
+<li>The public repo supports the background-work claim through client/runtime
+</li>
+</ul>
+<p>  guardrails, but it does not expose every scheduler or retry path named in the</p>
+<p>  status post.</p>
+<ul>
+<li>The article must distinguish &quot;shown in public code&quot; from &quot;claimed in the
+</li>
+</ul>
+<p>  public status post.&quot;</p>
+    </div>
+  </section>
+      <section class="related-edition-section atlas-context-section">
+    <div class="section-title-row">
+      <h2>Atlas Context</h2>
+      <a href="/atlas/">Open Atlas &rsaquo;</a>
+    </div>
+    <div class="updates-list">
+      <a class="article-card" href="/atlas/what-an-agent-can-see/">
+            <div class="article-meta"><span class="lane">Agent Atlas</span><span>Chapter 2</span></div>
+            <h3>The Invisible Prompt</h3>
+            <p>The model acts on an assembled viewport containing visible messages, hidden turn context, path-triggered instructions, memory records, tool schemas, permissions, and inherited state.</p>
+          </a>
+    </div>
+  </section>
+      <section class="reader-feedback"
+    data-tgr-feedback
+    data-article-slug="2026-07-01-daily-codex-reset-the-meter-after-background-work-became-user-work"
+    data-article-title="Codex Reset The Meter After Background Work Became User Work"
+    data-article-url="/articles/2026-07-01-daily-codex-reset-the-meter-after-background-work-became-user-work/"
+    data-edition-date="2026-07-01"
+    data-lane="Daily Edition"
+    data-tags="Codex,Usage Limits,Auto Review,Subagents,Background Work,User Impact"
+    data-repos="openai/codex">
+    <div class="reader-feedback-head">
+      <div>
+        <div class="eyebrow">Letters &amp; Corrections</div>
+        <h2>Send a note to the desk</h2>
+      </div>
+      <p>Corrections, missing context, or a follow-up lead.</p>
+    </div>
+    <form class="feedback-form">
+      <div class="feedback-votes" role="group" aria-label="Choose signal type">
+        <button class="feedback-choice" type="button" data-vote="follow-up" aria-pressed="false">
+          <span aria-hidden="true">+</span>
+          <span>Follow-up</span>
+        </button>
+        <button class="feedback-choice" type="button" data-vote="correction" aria-pressed="false">
+          <span aria-hidden="true">!</span>
+          <span>Correction</span>
+        </button>
+      </div>
+      <label class="feedback-comment">
+        <span>Note for the editor</span>
+        <textarea name="comment" rows="3" maxlength="320" placeholder="What did we miss, or what should we follow next?"></textarea>
+      </label>
+      <div class="feedback-submit-row">
+        <p class="feedback-status" aria-live="polite"></p>
+        <button class="paper-button primary feedback-submit" type="submit">Send to desk</button>
+      </div>
+    </form>
+  </section>
+      <section class="related-edition-section">
+        <div class="section-title-row">
+          <h2>Same Edition</h2>
+          <a href="/editions/2026-07-01/">Open issue &rsaquo;</a>
+        </div>
+        <div class="updates-list">
+          <a class="update-card" href="/articles/2026-07-01-daily-hermes-makes-agent-approvals-thread-local/">
+    <div class="update-stripe"></div>
+    <div class="update-main">
+      <div class="update-meta">
+        <span>Context</span>
+        <span class="source-plus">+4</span>
+        <span>Jul 1, 2026</span>
+      </div>
+      <h3>Hermes Makes Agent Approvals Thread-Local</h3>
+      <div class="update-receipt">
+        <span>NousResearch/hermes-agent</span>
+        <span class="branch-pill">evidence</span>
+      </div>
+      <div class="update-foot">
+        <span>4 sources</span>
+        <span>1 repo</span>
+        <span>4 linked commits</span>
+      </div>
+    </div>
+    <span class="update-arrow" aria-hidden="true">&rsaquo;</span>
+  </a><a class="update-card" href="/articles/2026-07-01-daily-tau-lets-outside-contributors-shape-the-exit-door/">
+    <div class="update-stripe"></div>
+    <div class="update-main">
+      <div class="update-meta">
+        <span>Context</span>
+        <span class="source-plus">+6</span>
+        <span>Jul 1, 2026</span>
+      </div>
+      <h3>Tau Lets Outside Contributors Shape The Exit Door</h3>
+      <div class="update-receipt">
+        <span>source trail</span>
+        <span class="branch-pill">evidence</span>
+      </div>
+      <div class="update-foot">
+        <span>6 sources</span>
+        <span>1 repo</span>
+        <span>2 linked commits</span>
+      </div>
+    </div>
+    <span class="update-arrow" aria-hidden="true">&rsaquo;</span>
+  </a><a class="update-card" href="/articles/2026-07-01-daily-opencodes-hardening-day-removes-layer-shortcuts/">
+    <div class="update-stripe"></div>
+    <div class="update-main">
+      <div class="update-meta">
+        <span>Reported</span>
+        <span class="source-plus">+5</span>
+        <span>Jul 1, 2026</span>
+      </div>
+      <h3>OpenCode's Hardening Day Removes Layer Shortcuts</h3>
+      <div class="update-receipt">
+        <span>anomalyco/opencode + github/copilot</span>
+        <span class="branch-pill">evidence</span>
+      </div>
+      <div class="update-foot">
+        <span>5 sources</span>
+        <span>2 repos</span>
+        <span>5 linked commits</span>
+      </div>
+    </div>
+    <span class="update-arrow" aria-hidden="true">&rsaquo;</span>
+  </a><a class="update-card" href="/articles/2026-07-01-daily-api-discovery-api-entreprise-makes-company-checks-a-permissioned-agent-step/">
+    <div class="update-stripe"></div>
+    <div class="update-main">
+      <div class="update-meta">
+        <span>Trust</span>
+        <span class="source-plus">+3</span>
+        <span>Jul 1, 2026</span>
+      </div>
+      <h3>API Discovery: API Entreprise Makes Company Checks A Permissioned Agent Step</h3>
+      <div class="update-receipt">
+        <span>source trail</span>
+        <span class="branch-pill">evidence</span>
+      </div>
+      <div class="update-foot">
+        <span>3 sources</span>
+        <span>1 repo</span>
+        <span>3 source signals</span>
+      </div>
+    </div>
+    <span class="update-arrow" aria-hidden="true">&rsaquo;</span>
+  </a>
+        </div>
+      </section>
+    </main>
+    <footer class="wrap site-footer">
+      <span>&copy; 2026 The Git Reporter</span>
+      <a href="/about/">About</a>
+      <a href="/agent-pulse/">Agent Pulse</a>
+      <a href="/feed.xml">RSS</a>
+      <a href="https://x.com/TheGitReporter">Follow on X</a>
+      <a href="/articles.json">Manifest JSON</a>
+      <a href="/repos/">Sources</a>
+    </footer>
+  </div>
+</body>
+</html>
