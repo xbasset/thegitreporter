@@ -1,0 +1,320 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Builder Work: 143 Turns Coding Agents Into Team Infrastructure | The Git Reporter</title>
+  <meta name="description" content="Assembled&#39;s open-source 143 project teaches a practical builder lesson: make agent work reviewable by routing it through durable sessions, sandboxes, previews, and normal pull requests.">
+  <meta name="robots" content="index,follow">
+  <link rel="canonical" href="https://thegitreporter.com/articles/2026-07-03-daily-builder-work-143-turns-coding-agents-into-team-infrastructure/">
+  <link rel="alternate" type="application/rss+xml" title="The Git Reporter" href="https://thegitreporter.com/feed.xml">
+  <meta property="og:site_name" content="The Git Reporter">
+  <meta property="og:locale" content="en_US">
+  <meta property="og:title" content="Builder Work: 143 Turns Coding Agents Into Team Infrastructure | The Git Reporter">
+  <meta property="og:description" content="Assembled&#39;s open-source 143 project teaches a practical builder lesson: make agent work reviewable by routing it through durable sessions, sandboxes, previews, and normal pull requests.">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://thegitreporter.com/articles/2026-07-03-daily-builder-work-143-turns-coding-agents-into-team-infrastructure/">
+  <meta property="og:image" content="https://thegitreporter.com/assets/social/2026-07-03-daily-builder-work-143-turns-coding-agents-into-team-infrastructure-og.jpg">
+  <meta property="og:image:secure_url" content="https://thegitreporter.com/assets/social/2026-07-03-daily-builder-work-143-turns-coding-agents-into-team-infrastructure-og.jpg">
+  <meta property="og:image:type" content="image/jpeg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Diagram Punk illustration showing 143 turning browser, Slack, and Linear requests into durable coding-agent sessions, sandboxes, and reviewable PR outputs.">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:site" content="@TheGitReporter">
+  <meta name="twitter:creator" content="@TheGitReporter">
+  <meta name="twitter:title" content="Builder Work: 143 Turns Coding Agents Into Team Infrastructure | The Git Reporter">
+  <meta name="twitter:description" content="Assembled&#39;s open-source 143 project teaches a practical builder lesson: make agent work reviewable by routing it through durable sessions, sandboxes, previews, and normal pull requests.">
+  <meta name="twitter:url" content="https://thegitreporter.com/articles/2026-07-03-daily-builder-work-143-turns-coding-agents-into-team-infrastructure/">
+  <meta name="twitter:domain" content="thegitreporter.com">
+  <meta name="twitter:image" content="https://thegitreporter.com/assets/social/2026-07-03-daily-builder-work-143-turns-coding-agents-into-team-infrastructure-og.jpg">
+  <meta name="twitter:image:alt" content="Diagram Punk illustration showing 143 turning browser, Slack, and Linear requests into durable coding-agent sessions, sandboxes, and reviewable PR outputs.">
+  <meta property="article:published_time" content="2026-07-03T12:00:00Z">
+  <meta property="article:modified_time" content="2026-07-03T12:00:00Z">
+  <meta property="article:section" content="Daily Edition">
+  <meta property="article:tag" content="Permissions">
+  <meta property="article:tag" content="Tools">
+  <meta property="article:tag" content="UX">
+  <meta property="article:tag" content="Runtime">
+  <meta property="article:tag" content="openai/codex">
+  <meta property="article:tag" content="anomalyco/opencode">
+  <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"https://thegitreporter.com/#organization","name":"The Git Reporter","url":"https://thegitreporter.com","logo":{"@type":"ImageObject","url":"https://thegitreporter.com/assets/mark.svg"},"sameAs":["https://x.com/TheGitReporter"]},{"@type":"WebSite","@id":"https://thegitreporter.com/#website","name":"The Git Reporter","url":"https://thegitreporter.com","publisher":{"@id":"https://thegitreporter.com/#organization"}},{"@type":"NewsArticle","mainEntityOfPage":{"@type":"WebPage","@id":"https://thegitreporter.com/articles/2026-07-03-daily-builder-work-143-turns-coding-agents-into-team-infrastructure/"},"headline":"Builder Work: 143 Turns Coding Agents Into Team Infrastructure","description":"Assembled's open-source 143 project teaches a practical builder lesson: make agent work reviewable by routing it through durable sessions, sandboxes, previews, and normal pull requests.","image":["https://thegitreporter.com/assets/social/2026-07-03-daily-builder-work-143-turns-coding-agents-into-team-infrastructure-og.jpg"],"datePublished":"2026-07-03T12:00:00Z","dateModified":"2026-07-03T12:00:00Z","author":[{"@type":"Organization","name":"The Git Reporter","url":"https://thegitreporter.com"}],"publisher":{"@type":"Organization","@id":"https://thegitreporter.com/#organization","name":"The Git Reporter","url":"https://thegitreporter.com","logo":{"@type":"ImageObject","url":"https://thegitreporter.com/assets/mark.svg"},"sameAs":["https://x.com/TheGitReporter"]},"articleSection":"Daily Edition","keywords":"Permissions, Tools, UX, Runtime, openai/codex, anomalyco/opencode"}]}</script>
+  <link rel="icon" href="/assets/mark.svg">
+  <link rel="stylesheet" href="/assets/site.css?v=2026-06-30-agent-pulse-1">
+  <script defer src="/assets/feedback.js?v=2026-06-30-agent-pulse-1"></script>
+  <script defer src="/assets/analytics.js?v=2026-06-30-agent-pulse-1"></script>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-CH19T7M0T1"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){window.dataLayer.push(arguments);}
+    gtag("js", new Date());
+    gtag("config", "G-CH19T7M0T1");
+  </script>
+</head>
+<body>
+  <div class="site">
+    <header class="site-header" id="top">
+      <div class="wrap utility-row">
+        <a class="icon-link menu-icon" href="/archive/" aria-label="Open edition history"><span></span><span></span><span></span></a>
+        <a class="icon-link archive-icon" href="/archive/" aria-label="Open edition history"></a>
+      </div>
+      <div class="wrap masthead-lockup">
+        <a class="masthead-title" href="/">THE GIT REPORTER</a>
+        <div class="masthead-ornament" aria-hidden="true"></div>
+      </div>
+      <div class="wrap nav-wrap">
+        <nav class="paper-nav" aria-label="Primary navigation">
+    <a class="" href="/">Today</a><a class="active" href="/archive/">Editions</a><a class="" href="/about/">About</a><a class="" href="/agent-pulse/">Agent Pulse</a><a class="" href="/atlas/">Agent Atlas</a><a class="" href="/repos/">Repos</a>
+  </nav>
+        <div class="nav-rule"></div>
+      </div>
+    </header>
+    <main class="wrap page-shell article-page">
+      <section class="page-hero story-front">
+        <div class="story-topline">
+          <span>Daily Edition</span>
+          <span>Sources <strong>+7</strong></span>
+        </div>
+        <h1>Builder Work: 143 Turns Coding Agents Into Team Infrastructure</h1>
+        <p class="summary">Assembled's open-source 143 project teaches a practical builder lesson: make agent work reviewable by routing it through durable sessions, sandboxes, previews, and normal pull requests.</p>
+        <figure class="story-illustration article-illustration">
+    <img src="/assets/illustrations/2026-07-03-builder-work-143-turns-coding-agents-into-team-infrastructure-diagram-punk-v1.png" alt="Diagram Punk illustration showing 143 turning browser, Slack, and Linear requests into durable coding-agent sessions, sandboxes, and reviewable PR outputs." loading="lazy" decoding="async">
+    <figcaption><span>Diagram Punk</span>team-owned agent work needs durable review paths.</figcaption>
+  </figure>
+        <div class="receipt">
+    <div class="receipt-line">
+      <span class="receipt-icon">repos</span>
+      <span class="receipt-main">openai/codex + anomalyco/opencode</span>
+      <span class="branch-pill">evidence</span>
+    </div>
+    <div class="receipt-line receipt-muted">
+      <span>7 source signals</span>
+      <span>2 repos</span>
+      <span>7 source signals</span>
+    </div>
+    <div class="commit-line">Evidence: 7 source signals / July 3, 2026 / Daily Edition</div>
+  </div>
+        <div class="article-route-row">
+          <a href="/editions/2026-07-03/">Open Edition</a>
+          <a href="#evidence">Evidence below</a>
+        </div>
+      </section>
+      <section class="story-reader">
+        <article class="story-shell story-body">
+          <p>Assembled open-sourced 143 this week after a Hacker News post described the internal system it built for running coding agents as a team. The public post names Codex, Claude Code, OpenCode, gVisor sandboxes, GitHub, Linear, Sentry, Slack, PagerDuty, and self-hosting as part of the system.</p>
+
+  <p>The GitHub repo backs up the claim with more than a launch page. Its design overview describes organizations, sessions, agent tabs, automations, previews, branches, PRs, a Postgres job queue, worker-owned sandboxes, and a GitHub-native review path.</p>
+
+  <h2>The Skill</h2>
+  <p>The transferable skill is architectural restraint: 143 treats the coding agent as one process inside a durable workflow, not as the workflow itself. Browser, Slack, Linear, and Sentry inputs become sessions; workers run agent sandboxes; outputs become branches, PRs, transcripts, checks, and previews that humans can inspect.</p>
+
+  <h2>The Receipt</h2>
+  <p>The repo's durable-session-executor design is the engineering-depth receipt. It splits short-lived worker dispatch from per-session executor containers, fences terminal writes with job leases, records heartbeats, handles drain and recovery, and avoids routine deploys killing long-running agent turns.</p>
+
+  <h2>The Caveat</h2>
+  <p>This does not prove 143 is mature for every team or that its hosted service fits every security model. What to watch: whether the public repo keeps turning its design docs into implemented, testable runtime boundaries rather than only product positioning.</p>
+        </article>
+      </section>
+      <section class="evidence-section" id="evidence" aria-labelledby="evidence-title">
+    <div class="evidence-head">
+      <div>
+        <div class="eyebrow">Evidence Trail</div>
+        <h2 id="evidence-title">Receipts below the story</h2>
+        <p>The article above is the public narrative. This section keeps the source trail and limits on the same page.</p>
+      </div>
+      <a class="paper-button" href="/editions/2026-07-03/">Edition</a>
+    </div>
+    <div class="evidence-table evidence-summary">
+      <div class="evidence-line"><span>Date</span><span>July 3, 2026</span></div>
+      <div class="evidence-line"><span>Lane</span><span>Daily Edition</span></div>
+      <div class="evidence-line"><span>Confidence</span><span>87%</span></div>
+      <div class="evidence-line"><span>Sources</span><span>7</span></div>
+      <div class="evidence-line"><span>Repos</span><span>openai/codex, anomalyco/opencode</span></div>
+    </div>
+    <div class="markdown evidence-copy evidence-copy-block">
+      <h2>Primary Evidence</h2>
+<ul>
+<li>Scout source - Hacker News Show HN post for 143: <a href="https://news.ycombinator.com/item?id=48736251">https://news.ycombinator.com/item?id=48736251</a>
+<ul>
+<li>Shows: the scout source and public proof that Assembled built 143 around coding agents including Codex, Claude Code, OpenCode, GLM, gVisor sandboxes, and team workflows.
+</li>
+</ul>
+</li>
+<li>Coding-agent proof - Hacker News Show HN post for 143: <a href="https://news.ycombinator.com/item?id=48736251">https://news.ycombinator.com/item?id=48736251</a>
+<ul>
+<li>Shows: the builder publicly states that 143 runs Codex, Claude Code, OpenCode, and other harnesses in gVisor sandboxes, with Codex/Claude Code used for manual tasks and GLM for automation tasks.
+</li>
+</ul>
+</li>
+<li>GitHub repo - 143 repository: <a href="https://github.com/assembledhq/143">https://github.com/assembledhq/143</a>
+<ul>
+<li>Shows: the public source repo for the Builder Work inspection.
+</li>
+</ul>
+</li>
+<li>143 README: <a href="https://github.com/assembledhq/143/blob/main/README.md">https://github.com/assembledhq/143/blob/main/README.md</a>
+<ul>
+<li>Shows: the project model, supported agent adapters, sandbox execution, GitHub PR output, previews, and self-hosting path.
+</li>
+</ul>
+</li>
+<li>143 design overview: <a href="https://github.com/assembledhq/143/blob/main/docs/design/overall.md">https://github.com/assembledhq/143/blob/main/docs/design/overall.md</a>
+<ul>
+<li>Shows: the system architecture, product model, sessions, job queue, workers, sandboxes, previews, and PR workflow.
+</li>
+</ul>
+</li>
+<li>Engineering depth receipt - Durable session executors design: <a href="https://github.com/assembledhq/143/blob/main/docs/design/implemented/82-durable-session-executors.md">https://github.com/assembledhq/143/blob/main/docs/design/implemented/82-durable-session-executors.md</a>
+<ul>
+<li>Shows: the engineering-depth receipt for durable agent execution, leases, heartbeats, recovery, and deploy-safe session ownership.
+</li>
+</ul>
+</li>
+<li>Sandbox Dockerfile: <a href="https://github.com/assembledhq/143/blob/main/sandbox/Dockerfile">https://github.com/assembledhq/143/blob/main/sandbox/Dockerfile</a>
+<ul>
+<li>Shows: installed coding-agent CLIs and the sandbox runtime environment.
+</li>
+</ul>
+</li>
+</ul>
+<h2>Evidence Limits</h2>
+<ul>
+<li>The public evidence proves stated coding-agent use, source architecture, and design depth. It does not prove hosted-service reliability, customer adoption, security posture for every team, or private operational outcomes.
+</li>
+<li>The article focuses on one transferable building skill: make agent work durable and reviewable.
+</li>
+</ul>
+    </div>
+  </section>
+      <section class="related-edition-section atlas-context-section">
+    <div class="section-title-row">
+      <h2>Atlas Context</h2>
+      <a href="/atlas/">Open Atlas &rsaquo;</a>
+    </div>
+    <div class="updates-list">
+      <a class="article-card" href="/atlas/what-an-agent-can-see/">
+            <div class="article-meta"><span class="lane">Agent Atlas</span><span>Chapter 2</span></div>
+            <h3>The Invisible Prompt</h3>
+            <p>The model acts on an assembled viewport containing visible messages, hidden turn context, path-triggered instructions, memory records, tool schemas, permissions, and inherited state.</p>
+          </a>
+    </div>
+  </section>
+      <section class="reader-feedback"
+    data-tgr-feedback
+    data-article-slug="2026-07-03-daily-builder-work-143-turns-coding-agents-into-team-infrastructure"
+    data-article-title="Builder Work: 143 Turns Coding Agents Into Team Infrastructure"
+    data-article-url="/articles/2026-07-03-daily-builder-work-143-turns-coding-agents-into-team-infrastructure/"
+    data-edition-date="2026-07-03"
+    data-lane="Daily Edition"
+    data-tags="Permissions,Tools,UX,Runtime"
+    data-repos="openai/codex,anomalyco/opencode">
+    <div class="reader-feedback-head">
+      <div>
+        <div class="eyebrow">Letters &amp; Corrections</div>
+        <h2>Send a note to the desk</h2>
+      </div>
+      <p>Corrections, missing context, or a follow-up lead.</p>
+    </div>
+    <form class="feedback-form">
+      <div class="feedback-votes" role="group" aria-label="Choose signal type">
+        <button class="feedback-choice" type="button" data-vote="follow-up" aria-pressed="false">
+          <span aria-hidden="true">+</span>
+          <span>Follow-up</span>
+        </button>
+        <button class="feedback-choice" type="button" data-vote="correction" aria-pressed="false">
+          <span aria-hidden="true">!</span>
+          <span>Correction</span>
+        </button>
+      </div>
+      <label class="feedback-comment">
+        <span>Note for the editor</span>
+        <textarea name="comment" rows="3" maxlength="320" placeholder="What did we miss, or what should we follow next?"></textarea>
+      </label>
+      <div class="feedback-submit-row">
+        <p class="feedback-status" aria-live="polite"></p>
+        <button class="paper-button primary feedback-submit" type="submit">Send to desk</button>
+      </div>
+    </form>
+  </section>
+      <section class="related-edition-section">
+        <div class="section-title-row">
+          <h2>Same Edition</h2>
+          <a href="/editions/2026-07-03/">Open issue &rsaquo;</a>
+        </div>
+        <div class="updates-list">
+          <a class="update-card" href="/articles/2026-07-03-daily-opencode-turns-agent-review-into-a-first-class-work-surface/">
+    <div class="update-stripe"></div>
+    <div class="update-main">
+      <div class="update-meta">
+        <span>Context</span>
+        <span class="source-plus">+4</span>
+        <span>Jul 3, 2026</span>
+      </div>
+      <h3>OpenCode Turns Agent Review Into A First-Class Work Surface</h3>
+      <div class="update-receipt">
+        <span>openai/codex + 2 more</span>
+        <span class="branch-pill">evidence</span>
+      </div>
+      <div class="update-foot">
+        <span>4 sources</span>
+        <span>3 repos</span>
+        <span>commit 7d26186</span>
+      </div>
+    </div>
+    <span class="update-arrow" aria-hidden="true">&rsaquo;</span>
+  </a><a class="update-card" href="/articles/2026-07-03-daily-openwork-reverts-its-provider-wizard-to-hold-dev-stable/">
+    <div class="update-stripe"></div>
+    <div class="update-main">
+      <div class="update-meta">
+        <span>Context</span>
+        <span class="source-plus">+6</span>
+        <span>Jul 3, 2026</span>
+      </div>
+      <h3>OpenWork Reverts Its Provider Wizard To Hold Dev Stable</h3>
+      <div class="update-receipt">
+        <span>source trail</span>
+        <span class="branch-pill">evidence</span>
+      </div>
+      <div class="update-foot">
+        <span>6 sources</span>
+        <span>1 repo</span>
+        <span>4 linked commits</span>
+      </div>
+    </div>
+    <span class="update-arrow" aria-hidden="true">&rsaquo;</span>
+  </a><a class="update-card" href="/articles/2026-07-03-daily-api-discovery-api-adresse-turns-french-addresses-into-agent-checks/">
+    <div class="update-stripe"></div>
+    <div class="update-main">
+      <div class="update-meta">
+        <span>Reported</span>
+        <span class="source-plus">+4</span>
+        <span>Jul 3, 2026</span>
+      </div>
+      <h3>API Discovery: API Adresse Turns French Addresses Into Agent Checks</h3>
+      <div class="update-receipt">
+        <span>source trail</span>
+        <span class="branch-pill">evidence</span>
+      </div>
+      <div class="update-foot">
+        <span>4 sources</span>
+        <span>1 repo</span>
+        <span>4 source signals</span>
+      </div>
+    </div>
+    <span class="update-arrow" aria-hidden="true">&rsaquo;</span>
+  </a>
+        </div>
+      </section>
+    </main>
+    <footer class="wrap site-footer">
+      <span>&copy; 2026 The Git Reporter</span>
+      <a href="/about/">About</a>
+      <a href="/agent-pulse/">Agent Pulse</a>
+      <a href="/feed.xml">RSS</a>
+      <a href="https://x.com/TheGitReporter">Follow on X</a>
+      <a href="/articles.json">Manifest JSON</a>
+      <a href="/repos/">Sources</a>
+    </footer>
+  </div>
+</body>
+</html>
