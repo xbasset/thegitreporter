@@ -1,0 +1,310 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Pi Turns Issue Analysis Into A Shareable Session Trail | The Git Reporter</title>
+  <meta name="description" content="Pi&#39;s July 6 commits changed issue analysis from a CI artifact into a staff-triggered, gist-backed session that can be summarized in public and imported back into a local checkout.">
+  <meta name="robots" content="index,follow">
+  <link rel="canonical" href="https://thegitreporter.com/articles/2026-07-06-daily-pi-turns-issue-analysis-into-a-shareable-session-trail/">
+  <link rel="alternate" type="application/rss+xml" title="The Git Reporter" href="https://thegitreporter.com/feed.xml">
+  <meta property="og:site_name" content="The Git Reporter">
+  <meta property="og:locale" content="en_US">
+  <meta property="og:title" content="Pi Turns Issue Analysis Into A Shareable Session Trail | The Git Reporter">
+  <meta property="og:description" content="Pi&#39;s July 6 commits changed issue analysis from a CI artifact into a staff-triggered, gist-backed session that can be summarized in public and imported back into a local checkout.">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://thegitreporter.com/articles/2026-07-06-daily-pi-turns-issue-analysis-into-a-shareable-session-trail/">
+  <meta property="og:image" content="https://thegitreporter.com/assets/social/2026-07-06-daily-pi-turns-issue-analysis-into-a-shareable-session-trail-og.jpg">
+  <meta property="og:image:secure_url" content="https://thegitreporter.com/assets/social/2026-07-06-daily-pi-turns-issue-analysis-into-a-shareable-session-trail-og.jpg">
+  <meta property="og:image:type" content="image/jpeg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Rough zine-style diagram showing a Pi issue-analysis comment trigger flowing through gist export, session URL, and agent summary into reviewable agent work.">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:site" content="@TheGitReporter">
+  <meta name="twitter:creator" content="@TheGitReporter">
+  <meta name="twitter:title" content="Pi Turns Issue Analysis Into A Shareable Session Trail | The Git Reporter">
+  <meta name="twitter:description" content="Pi&#39;s July 6 commits changed issue analysis from a CI artifact into a staff-triggered, gist-backed session that can be summarized in public and imported back into a local checkout.">
+  <meta name="twitter:url" content="https://thegitreporter.com/articles/2026-07-06-daily-pi-turns-issue-analysis-into-a-shareable-session-trail/">
+  <meta name="twitter:domain" content="thegitreporter.com">
+  <meta name="twitter:image" content="https://thegitreporter.com/assets/social/2026-07-06-daily-pi-turns-issue-analysis-into-a-shareable-session-trail-og.jpg">
+  <meta name="twitter:image:alt" content="Rough zine-style diagram showing a Pi issue-analysis comment trigger flowing through gist export, session URL, and agent summary into reviewable agent work.">
+  <meta property="article:published_time" content="2026-07-06T12:00:00Z">
+  <meta property="article:modified_time" content="2026-07-06T12:00:00Z">
+  <meta property="article:section" content="Daily Edition">
+  <meta property="article:tag" content="Memory">
+  <meta property="article:tag" content="Tools">
+  <meta property="article:tag" content="UX">
+  <meta property="article:tag" content="Runtime">
+  <meta property="article:tag" content="earendil-works/pi">
+  <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"https://thegitreporter.com/#organization","name":"The Git Reporter","url":"https://thegitreporter.com","logo":{"@type":"ImageObject","url":"https://thegitreporter.com/assets/mark.svg"},"sameAs":["https://x.com/TheGitReporter"]},{"@type":"WebSite","@id":"https://thegitreporter.com/#website","name":"The Git Reporter","url":"https://thegitreporter.com","publisher":{"@id":"https://thegitreporter.com/#organization"}},{"@type":"NewsArticle","mainEntityOfPage":{"@type":"WebPage","@id":"https://thegitreporter.com/articles/2026-07-06-daily-pi-turns-issue-analysis-into-a-shareable-session-trail/"},"headline":"Pi Turns Issue Analysis Into A Shareable Session Trail","description":"Pi's July 6 commits changed issue analysis from a CI artifact into a staff-triggered, gist-backed session that can be summarized in public and imported back into a local checkout.","image":["https://thegitreporter.com/assets/social/2026-07-06-daily-pi-turns-issue-analysis-into-a-shareable-session-trail-og.jpg"],"datePublished":"2026-07-06T12:00:00Z","dateModified":"2026-07-06T12:00:00Z","author":[{"@type":"Organization","name":"The Git Reporter","url":"https://thegitreporter.com"}],"publisher":{"@type":"Organization","@id":"https://thegitreporter.com/#organization","name":"The Git Reporter","url":"https://thegitreporter.com","logo":{"@type":"ImageObject","url":"https://thegitreporter.com/assets/mark.svg"},"sameAs":["https://x.com/TheGitReporter"]},"articleSection":"Daily Edition","keywords":"Memory, Tools, UX, Runtime, earendil-works/pi"}]}</script>
+  <link rel="icon" href="/assets/mark.svg">
+  <link rel="stylesheet" href="/assets/site.css?v=2026-06-30-agent-pulse-1">
+  <script defer src="/assets/feedback.js?v=2026-06-30-agent-pulse-1"></script>
+  <script defer src="/assets/analytics.js?v=2026-06-30-agent-pulse-1"></script>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-CH19T7M0T1"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){window.dataLayer.push(arguments);}
+    gtag("js", new Date());
+    gtag("config", "G-CH19T7M0T1");
+  </script>
+</head>
+<body>
+  <div class="site">
+    <header class="site-header" id="top">
+      <div class="wrap utility-row">
+        <a class="icon-link menu-icon" href="/archive/" aria-label="Open edition history"><span></span><span></span><span></span></a>
+        <a class="icon-link archive-icon" href="/archive/" aria-label="Open edition history"></a>
+      </div>
+      <div class="wrap masthead-lockup">
+        <a class="masthead-title" href="/">THE GIT REPORTER</a>
+        <div class="masthead-ornament" aria-hidden="true"></div>
+      </div>
+      <div class="wrap nav-wrap">
+        <nav class="paper-nav" aria-label="Primary navigation">
+    <a class="" href="/">Today</a><a class="active" href="/archive/">Editions</a><a class="" href="/about/">About</a><a class="" href="/agent-pulse/">Agent Pulse</a><a class="" href="/atlas/">Agent Atlas</a><a class="" href="/repos/">Repos</a>
+  </nav>
+        <div class="nav-rule"></div>
+      </div>
+    </header>
+    <main class="wrap page-shell article-page">
+      <section class="page-hero story-front">
+        <div class="story-topline">
+          <span>Daily Edition</span>
+          <span>Sources <strong>+5</strong></span>
+        </div>
+        <h1>Pi Turns Issue Analysis Into A Shareable Session Trail</h1>
+        <p class="summary">Pi's July 6 commits changed issue analysis from a CI artifact into a staff-triggered, gist-backed session that can be summarized in public and imported back into a local checkout.</p>
+        <figure class="story-illustration article-illustration">
+    <img src="/assets/illustrations/2026-07-06-pi-turns-issue-analysis-into-a-shareable-session-trail-diagram-punk-v1.png" alt="Rough zine-style diagram showing a Pi issue-analysis comment trigger flowing through gist export, session URL, and agent summary into reviewable agent work." loading="lazy" decoding="async">
+    <figcaption><span>Diagram Punk</span>Pi turns issue analysis into a trail maintainers can inspect.</figcaption>
+  </figure>
+        <div class="receipt">
+    <div class="receipt-line">
+      <span class="receipt-icon">repo</span>
+      <span class="receipt-main">earendil-works/pi</span>
+      <span class="branch-pill">evidence</span>
+    </div>
+    <div class="receipt-line receipt-muted">
+      <span>5 source signals</span>
+      <span>1 repo</span>
+      <span>3 linked commits</span>
+    </div>
+    <div class="commit-line">Evidence: 3 linked commits / July 6, 2026 / Daily Edition</div>
+  </div>
+        <div class="article-route-row">
+          <a href="/editions/2026-07-06/">Open Edition</a>
+          <a href="#evidence">Evidence below</a>
+        </div>
+      </section>
+      <section class="story-reader">
+        <article class="story-shell story-body">
+          <p>Armin Ronacher moved Pi's issue-analysis workflow through a visible sequence on July 6: a staff member can comment <code>@issueron analyze</code>, the workflow runs the repo's <code>/is</code> prompt, exports the session to a private gist, posts a <code>pi.dev/session</code> link, and adds the final agent analysis inside the issue comment.</p>
+
+  <p>Related public work earns its place because the same maintainer touched the GitHub workflow, the Pi import extension, and the issue-analysis prompt. That makes the public action more than a comment bot: it is a maintainer-designed loop for moving agent reasoning from CI back into reviewable project work.</p>
+
+  <h2>The Pressure</h2>
+  <p>Issue analysis is useful only if the maintainer can inspect how the agent got there. The earlier workflow uploaded artifacts, but the new path publishes a share URL and teaches <code>/ir</code> to recover the latest gist from an issue URL.</p>
+
+  <h2>The Intervention</h2>
+  <p>Commit <code>4728706e</code> added the comment trigger and issue-url import path. Commit <code>3df11fd8</code> changed the session handoff from an Actions artifact to a gist and a <code>pi.dev/session</code> link. Commit <code>7a92545b</code> then placed the last assistant analysis in a collapsible issue-comment summary.</p>
+
+  <h2>Why Builders Should Watch</h2>
+  <p>The transferable lesson is provenance ergonomics: an agent run should leave a public summary for readers and a recoverable transcript for maintainers. That combination helps a project discuss the agent's reasoning without forcing every reviewer to replay a CI job.</p>
+
+  <h2>Limits</h2>
+  <p>The workflow is staff-gated and uses private gists, so it does not prove open community analysis for every issue. What to watch: whether Pi uses the trail in real issue conversations and whether imported sessions visibly change fixes, tests, or documentation.</p>
+        </article>
+      </section>
+      <section class="evidence-section" id="evidence" aria-labelledby="evidence-title">
+    <div class="evidence-head">
+      <div>
+        <div class="eyebrow">Evidence Trail</div>
+        <h2 id="evidence-title">Receipts below the story</h2>
+        <p>The article above is the public narrative. This section keeps the source trail and limits on the same page.</p>
+      </div>
+      <a class="paper-button" href="/editions/2026-07-06/">Edition</a>
+    </div>
+    <div class="evidence-table evidence-summary">
+      <div class="evidence-line"><span>Date</span><span>July 6, 2026</span></div>
+      <div class="evidence-line"><span>Lane</span><span>Daily Edition</span></div>
+      <div class="evidence-line"><span>Confidence</span><span>78%</span></div>
+      <div class="evidence-line"><span>Sources</span><span>5</span></div>
+      <div class="evidence-line"><span>Repos</span><span>earendil-works/pi</span></div>
+    </div>
+    <div class="markdown evidence-copy evidence-copy-block">
+      <h2>Primary Evidence</h2>
+<ul>
+<li>Pi commit 4728706e: <a href="https://github.com/earendil-works/pi/commit/4728706e3bd91683829062f580a8e029d06ffc78">https://github.com/earendil-works/pi/commit/4728706e3bd91683829062f580a8e029d06ffc78</a>
+<ul>
+<li>Shows: the <code>@issueron analyze</code> issue-comment trigger, staff authorization path, and <code>/ir</code> command wording.
+</li>
+</ul>
+</li>
+<li>Pi commit 3df11fd8: <a href="https://github.com/earendil-works/pi/commit/3df11fd8866714aca11b11270c220a63211bcc96">https://github.com/earendil-works/pi/commit/3df11fd8866714aca11b11270c220a63211bcc96</a>
+<ul>
+<li>Shows: session export to private gist, <code>pi.dev/session</code> share URL, and import extension changes.
+</li>
+</ul>
+</li>
+<li>Pi commit 7a92545b: <a href="https://github.com/earendil-works/pi/commit/7a92545b9c722c79d582451e6fbe5954e3976855">https://github.com/earendil-works/pi/commit/7a92545b9c722c79d582451e6fbe5954e3976855</a>
+<ul>
+<li>Shows: the issue-comment <code>Agent analysis summary</code> detail block.
+</li>
+</ul>
+</li>
+<li>Related public work, Pi issue-analysis workflow: <a href="https://github.com/earendil-works/pi/blob/main/.github/workflows/issue-analysis.yml">https://github.com/earendil-works/pi/blob/main/.github/workflows/issue-analysis.yml</a>
+<ul>
+<li>Shows: the maintained workflow surface where the same public work connects trigger, authorization, model run, gist, and comment.
+</li>
+</ul>
+</li>
+<li>Related public work, Pi import extension: <a href="https://github.com/earendil-works/pi/blob/main/.pi/extensions/import-repro.ts">https://github.com/earendil-works/pi/blob/main/.pi/extensions/import-repro.ts</a>
+<ul>
+<li>Shows: the local import command that turns a gist, share URL, or issue URL back into a local session.
+</li>
+</ul>
+</li>
+</ul>
+<h2>Evidence Limits</h2>
+<ul>
+<li>The commits prove the workflow and import path, not that a real issue has already changed because of the new trail.
+</li>
+<li>The article uses public commit authorship and project role only. It does not infer private motive or biography.
+</li>
+</ul>
+    </div>
+  </section>
+      <section class="related-edition-section atlas-context-section">
+    <div class="section-title-row">
+      <h2>Atlas Context</h2>
+      <a href="/atlas/">Open Atlas &rsaquo;</a>
+    </div>
+    <div class="updates-list">
+      <a class="article-card" href="/atlas/what-an-agent-can-see/">
+            <div class="article-meta"><span class="lane">Agent Atlas</span><span>Chapter 2</span></div>
+            <h3>The Invisible Prompt</h3>
+            <p>The model acts on an assembled viewport containing visible messages, hidden turn context, path-triggered instructions, memory records, tool schemas, permissions, and inherited state.</p>
+          </a>
+    </div>
+  </section>
+      <section class="reader-feedback"
+    data-tgr-feedback
+    data-article-slug="2026-07-06-daily-pi-turns-issue-analysis-into-a-shareable-session-trail"
+    data-article-title="Pi Turns Issue Analysis Into A Shareable Session Trail"
+    data-article-url="/articles/2026-07-06-daily-pi-turns-issue-analysis-into-a-shareable-session-trail/"
+    data-edition-date="2026-07-06"
+    data-lane="Daily Edition"
+    data-tags="Memory,Tools,UX,Runtime"
+    data-repos="earendil-works/pi">
+    <div class="reader-feedback-head">
+      <div>
+        <div class="eyebrow">Letters &amp; Corrections</div>
+        <h2>Send a note to the desk</h2>
+      </div>
+      <p>Corrections, missing context, or a follow-up lead.</p>
+    </div>
+    <form class="feedback-form">
+      <div class="feedback-votes" role="group" aria-label="Choose signal type">
+        <button class="feedback-choice" type="button" data-vote="follow-up" aria-pressed="false">
+          <span aria-hidden="true">+</span>
+          <span>Follow-up</span>
+        </button>
+        <button class="feedback-choice" type="button" data-vote="correction" aria-pressed="false">
+          <span aria-hidden="true">!</span>
+          <span>Correction</span>
+        </button>
+      </div>
+      <label class="feedback-comment">
+        <span>Note for the editor</span>
+        <textarea name="comment" rows="3" maxlength="320" placeholder="What did we miss, or what should we follow next?"></textarea>
+      </label>
+      <div class="feedback-submit-row">
+        <p class="feedback-status" aria-live="polite"></p>
+        <button class="paper-button primary feedback-submit" type="submit">Send to desk</button>
+      </div>
+    </form>
+  </section>
+      <section class="related-edition-section">
+        <div class="section-title-row">
+          <h2>Same Edition</h2>
+          <a href="/editions/2026-07-06/">Open issue &rsaquo;</a>
+        </div>
+        <div class="updates-list">
+          <a class="update-card" href="/articles/2026-07-06-daily-hermes-makes-yolo-obey-user-deny-rules/">
+    <div class="update-stripe"></div>
+    <div class="update-main">
+      <div class="update-meta">
+        <span>Context</span>
+        <span class="source-plus">+5</span>
+        <span>Jul 6, 2026</span>
+      </div>
+      <h3>Hermes Makes Yolo Obey User Deny Rules</h3>
+      <div class="update-receipt">
+        <span>NousResearch/hermes-agent</span>
+        <span class="branch-pill">evidence</span>
+      </div>
+      <div class="update-foot">
+        <span>5 sources</span>
+        <span>1 repo</span>
+        <span>3 linked commits</span>
+      </div>
+    </div>
+    <span class="update-arrow" aria-hidden="true">&rsaquo;</span>
+  </a><a class="update-card" href="/articles/2026-07-06-daily-builder-work-mycelium-makes-agents-prove-the-product-before-coding/">
+    <div class="update-stripe"></div>
+    <div class="update-main">
+      <div class="update-meta">
+        <span>Context</span>
+        <span class="source-plus">+6</span>
+        <span>Jul 6, 2026</span>
+      </div>
+      <h3>Builder Work: Mycelium Makes Agents Prove The Product Before Coding</h3>
+      <div class="update-receipt">
+        <span>source trail</span>
+        <span class="branch-pill">evidence</span>
+      </div>
+      <div class="update-foot">
+        <span>6 sources</span>
+        <span>1 repo</span>
+        <span>6 source signals</span>
+      </div>
+    </div>
+    <span class="update-arrow" aria-hidden="true">&rsaquo;</span>
+  </a><a class="update-card" href="/articles/2026-07-06-daily-api-discovery-recherche-dentreprises-turns-company-search-into-agent-triage/">
+    <div class="update-stripe"></div>
+    <div class="update-main">
+      <div class="update-meta">
+        <span>Reported</span>
+        <span class="source-plus">+4</span>
+        <span>Jul 6, 2026</span>
+      </div>
+      <h3>API Discovery: Recherche d'entreprises Turns Company Search Into Agent Triage</h3>
+      <div class="update-receipt">
+        <span>source trail</span>
+        <span class="branch-pill">evidence</span>
+      </div>
+      <div class="update-foot">
+        <span>4 sources</span>
+        <span>1 repo</span>
+        <span>4 source signals</span>
+      </div>
+    </div>
+    <span class="update-arrow" aria-hidden="true">&rsaquo;</span>
+  </a>
+        </div>
+      </section>
+    </main>
+    <footer class="wrap site-footer">
+      <span>&copy; 2026 The Git Reporter</span>
+      <a href="/about/">About</a>
+      <a href="/agent-pulse/">Agent Pulse</a>
+      <a href="/feed.xml">RSS</a>
+      <a href="https://x.com/TheGitReporter">Follow on X</a>
+      <a href="/articles.json">Manifest JSON</a>
+      <a href="/repos/">Sources</a>
+    </footer>
+  </div>
+</body>
+</html>

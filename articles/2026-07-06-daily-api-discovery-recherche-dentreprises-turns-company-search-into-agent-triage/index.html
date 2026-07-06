@@ -1,0 +1,295 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>API Discovery: Recherche d'entreprises Turns Company Search Into Agent Triage | The Git Reporter</title>
+  <meta name="description" content="API Recherche d&#39;entreprises exposes public French company search through text, SIREN/SIRET, geography, NAF, and employee-size filters.">
+  <meta name="robots" content="index,follow">
+  <link rel="canonical" href="https://thegitreporter.com/articles/2026-07-06-daily-api-discovery-recherche-dentreprises-turns-company-search-into-agent-triage/">
+  <link rel="alternate" type="application/rss+xml" title="The Git Reporter" href="https://thegitreporter.com/feed.xml">
+  <meta property="og:site_name" content="The Git Reporter">
+  <meta property="og:locale" content="en_US">
+  <meta property="og:title" content="API Discovery: Recherche d&#39;entreprises Turns Company Search Into Agent Triage | The Git Reporter">
+  <meta property="og:description" content="API Recherche d&#39;entreprises exposes public French company search through text, SIREN/SIRET, geography, NAF, and employee-size filters.">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://thegitreporter.com/articles/2026-07-06-daily-api-discovery-recherche-dentreprises-turns-company-search-into-agent-triage/">
+  <meta property="og:image" content="https://thegitreporter.com/assets/social/2026-07-06-daily-api-discovery-recherche-dentreprises-turns-company-search-into-agent-triage-og.jpg">
+  <meta property="og:image:secure_url" content="https://thegitreporter.com/assets/social/2026-07-06-daily-api-discovery-recherche-dentreprises-turns-company-search-into-agent-triage-og.jpg">
+  <meta property="og:image:type" content="image/jpeg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Rough zine-style diagram showing API Recherche d&#39;entreprises evidence cards for OpenAPI search, SIREN/SIRET, filters, and rate limit feeding company triage before outreach.">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:site" content="@TheGitReporter">
+  <meta name="twitter:creator" content="@TheGitReporter">
+  <meta name="twitter:title" content="API Discovery: Recherche d&#39;entreprises Turns Company Search Into Agent Triage | The Git Reporter">
+  <meta name="twitter:description" content="API Recherche d&#39;entreprises exposes public French company search through text, SIREN/SIRET, geography, NAF, and employee-size filters.">
+  <meta name="twitter:url" content="https://thegitreporter.com/articles/2026-07-06-daily-api-discovery-recherche-dentreprises-turns-company-search-into-agent-triage/">
+  <meta name="twitter:domain" content="thegitreporter.com">
+  <meta name="twitter:image" content="https://thegitreporter.com/assets/social/2026-07-06-daily-api-discovery-recherche-dentreprises-turns-company-search-into-agent-triage-og.jpg">
+  <meta name="twitter:image:alt" content="Rough zine-style diagram showing API Recherche d&#39;entreprises evidence cards for OpenAPI search, SIREN/SIRET, filters, and rate limit feeding company triage before outreach.">
+  <meta property="article:published_time" content="2026-07-06T12:00:00Z">
+  <meta property="article:modified_time" content="2026-07-06T12:00:00Z">
+  <meta property="article:section" content="Daily Edition">
+  <meta property="article:tag" content="UX">
+  <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"https://thegitreporter.com/#organization","name":"The Git Reporter","url":"https://thegitreporter.com","logo":{"@type":"ImageObject","url":"https://thegitreporter.com/assets/mark.svg"},"sameAs":["https://x.com/TheGitReporter"]},{"@type":"WebSite","@id":"https://thegitreporter.com/#website","name":"The Git Reporter","url":"https://thegitreporter.com","publisher":{"@id":"https://thegitreporter.com/#organization"}},{"@type":"NewsArticle","mainEntityOfPage":{"@type":"WebPage","@id":"https://thegitreporter.com/articles/2026-07-06-daily-api-discovery-recherche-dentreprises-turns-company-search-into-agent-triage/"},"headline":"API Discovery: Recherche d'entreprises Turns Company Search Into Agent Triage","description":"API Recherche d'entreprises exposes public French company search through text, SIREN/SIRET, geography, NAF, and employee-size filters.","image":["https://thegitreporter.com/assets/social/2026-07-06-daily-api-discovery-recherche-dentreprises-turns-company-search-into-agent-triage-og.jpg"],"datePublished":"2026-07-06T12:00:00Z","dateModified":"2026-07-06T12:00:00Z","author":[{"@type":"Organization","name":"The Git Reporter","url":"https://thegitreporter.com"}],"publisher":{"@type":"Organization","@id":"https://thegitreporter.com/#organization","name":"The Git Reporter","url":"https://thegitreporter.com","logo":{"@type":"ImageObject","url":"https://thegitreporter.com/assets/mark.svg"},"sameAs":["https://x.com/TheGitReporter"]},"articleSection":"Daily Edition","keywords":"UX"}]}</script>
+  <link rel="icon" href="/assets/mark.svg">
+  <link rel="stylesheet" href="/assets/site.css?v=2026-06-30-agent-pulse-1">
+  <script defer src="/assets/feedback.js?v=2026-06-30-agent-pulse-1"></script>
+  <script defer src="/assets/analytics.js?v=2026-06-30-agent-pulse-1"></script>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-CH19T7M0T1"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){window.dataLayer.push(arguments);}
+    gtag("js", new Date());
+    gtag("config", "G-CH19T7M0T1");
+  </script>
+</head>
+<body>
+  <div class="site">
+    <header class="site-header" id="top">
+      <div class="wrap utility-row">
+        <a class="icon-link menu-icon" href="/archive/" aria-label="Open edition history"><span></span><span></span><span></span></a>
+        <a class="icon-link archive-icon" href="/archive/" aria-label="Open edition history"></a>
+      </div>
+      <div class="wrap masthead-lockup">
+        <a class="masthead-title" href="/">THE GIT REPORTER</a>
+        <div class="masthead-ornament" aria-hidden="true"></div>
+      </div>
+      <div class="wrap nav-wrap">
+        <nav class="paper-nav" aria-label="Primary navigation">
+    <a class="" href="/">Today</a><a class="active" href="/archive/">Editions</a><a class="" href="/about/">About</a><a class="" href="/agent-pulse/">Agent Pulse</a><a class="" href="/atlas/">Agent Atlas</a><a class="" href="/repos/">Repos</a>
+  </nav>
+        <div class="nav-rule"></div>
+      </div>
+    </header>
+    <main class="wrap page-shell article-page">
+      <section class="page-hero story-front">
+        <div class="story-topline">
+          <span>Daily Edition</span>
+          <span>Sources <strong>+4</strong></span>
+        </div>
+        <h1>API Discovery: Recherche d'entreprises Turns Company Search Into Agent Triage</h1>
+        <p class="summary">API Recherche d'entreprises exposes public French company search through text, SIREN/SIRET, geography, NAF, and employee-size filters.</p>
+        <figure class="story-illustration article-illustration">
+    <img src="/assets/illustrations/2026-07-06-api-discovery-recherche-dentreprises-turns-company-search-into-agent-triage-diagram-punk-v1.png" alt="Rough zine-style diagram showing API Recherche d'entreprises evidence cards for OpenAPI search, SIREN/SIRET, filters, and rate limit feeding company triage before outreach." loading="lazy" decoding="async">
+    <figcaption><span>Diagram Punk</span>company search is a compact agent check before outreach.</figcaption>
+  </figure>
+        <div class="receipt">
+    <div class="receipt-line">
+      <span class="receipt-icon">repo</span>
+      <span class="receipt-main">source trail</span>
+      <span class="branch-pill">evidence</span>
+    </div>
+    <div class="receipt-line receipt-muted">
+      <span>4 source signals</span>
+      <span>1 repo</span>
+      <span>4 source signals</span>
+    </div>
+    <div class="commit-line">Evidence: 4 source signals / July 6, 2026 / Daily Edition</div>
+  </div>
+        <div class="article-route-row">
+          <a href="/editions/2026-07-06/">Open Edition</a>
+          <a href="#evidence">Evidence below</a>
+        </div>
+      </section>
+      <section class="story-reader">
+        <article class="story-shell story-body">
+          <p>The public source is api.gouv.fr's catalogue file for API Recherche d'entreprises and its linked OpenAPI definition. The <code>/search</code> endpoint accepts a company name, address, executive or elected-official query, or direct SIREN/SIRET lookup, with filters such as postal code and principal activity.</p>
+
+  <p>This belongs in a compact slot, not the lead, because the catalogue did not show a same-day product change; the useful decision is narrow. Operators can still use it before outreach, onboarding, or vendor review to make an agent verify the company record it is about to mention.</p>
+
+  <p>Before an agent drafts a supplier email, it can search the company name, confirm the SIREN/SIRET candidate, check address or postal-code fit, and ask for human review when multiple legal units match.</p>
+
+  <p>Operators can paste this into an agent:</p>
+  <pre><code>Use API Recherche d'entreprises. Query the company name, then if a SIREN or SIRET appears in the source document, run a direct lookup. Return the likely legal unit, SIREN/SIRET, address, NAF code, uncertainty, and one reason a human should verify before outreach.</code></pre>
+
+  <p>The catalogue lists a 7 calls-per-second limit and says direct SIREN/SIRET search ignores other filters. The next useful signal would be a catalogue update with fresher monitoring, richer fields, or clearer ambiguity handling for agent workflows.</p>
+        </article>
+      </section>
+      <section class="evidence-section" id="evidence" aria-labelledby="evidence-title">
+    <div class="evidence-head">
+      <div>
+        <div class="eyebrow">Evidence Trail</div>
+        <h2 id="evidence-title">Receipts below the story</h2>
+        <p>The article above is the public narrative. This section keeps the source trail and limits on the same page.</p>
+      </div>
+      <a class="paper-button" href="/editions/2026-07-06/">Edition</a>
+    </div>
+    <div class="evidence-table evidence-summary">
+      <div class="evidence-line"><span>Date</span><span>July 6, 2026</span></div>
+      <div class="evidence-line"><span>Lane</span><span>Daily Edition</span></div>
+      <div class="evidence-line"><span>Confidence</span><span>78%</span></div>
+      <div class="evidence-line"><span>Sources</span><span>4</span></div>
+      <div class="evidence-line"><span>Repos</span><span>source trail</span></div>
+    </div>
+    <div class="markdown evidence-copy evidence-copy-block">
+      <h2>Primary Evidence</h2>
+<ul>
+<li>API Recherche d'entreprises catalogue source: <a href="https://github.com/betagouv/api.gouv.fr/blob/master/_data/api/api-recherche-entreprises.md">https://github.com/betagouv/api.gouv.fr/blob/master/_data/api/api-recherche-entreprises.md</a>
+<ul>
+<li>Shows: provider, public/open status, partners, rate limit, monitoring link, technical docs, OpenAPI URL, and described fields.
+</li>
+</ul>
+</li>
+<li>API Recherche d'entreprises public page: <a href="https://api.gouv.fr/les-api/api-recherche-entreprises">https://api.gouv.fr/les-api/api-recherche-entreprises</a>
+<ul>
+<li>Shows: the public catalogue page for the public API.
+</li>
+</ul>
+</li>
+<li>OpenAPI definition: <a href="https://recherche-entreprises.api.gouv.fr/openapi.json">https://recherche-entreprises.api.gouv.fr/openapi.json</a>
+<ul>
+<li>Shows: <code>/search</code>, <code>/near_point</code>, query parameters, direct SIREN/SIRET behavior, and filter descriptions.
+</li>
+</ul>
+</li>
+<li>Technical documentation: <a href="https://recherche-entreprises.api.gouv.fr/docs/">https://recherche-entreprises.api.gouv.fr/docs/</a>
+<ul>
+<li>Shows: the official documentation surface linked from the catalogue source.
+</li>
+</ul>
+</li>
+</ul>
+<h2>Evidence Limits</h2>
+<ul>
+<li>The source supports company-search triage, not eligibility, credit, sanctions, or procurement decisions.
+</li>
+<li>The OpenAPI says direct SIREN/SIRET search ignores other filters; agents must report that caveat instead of pretending filters narrowed a direct lookup.
+</li>
+</ul>
+    </div>
+  </section>
+      <section class="related-edition-section atlas-context-section">
+    <div class="section-title-row">
+      <h2>Atlas Context</h2>
+      <a href="/atlas/">Open Atlas &rsaquo;</a>
+    </div>
+    <div class="updates-list">
+      <a class="article-card" href="/atlas/the-human-interface/">
+            <div class="article-meta"><span class="lane">Agent Atlas</span><span>Chapter 8</span></div>
+            <h3>The Human Control Loop</h3>
+            <p>A useful interface exposes active work, gives intervention a defined runtime effect, preserves evidence during correction, and resumes the intended session.</p>
+          </a>
+    </div>
+  </section>
+      <section class="reader-feedback"
+    data-tgr-feedback
+    data-article-slug="2026-07-06-daily-api-discovery-recherche-dentreprises-turns-company-search-into-agent-triage"
+    data-article-title="API Discovery: Recherche d'entreprises Turns Company Search Into Agent Triage"
+    data-article-url="/articles/2026-07-06-daily-api-discovery-recherche-dentreprises-turns-company-search-into-agent-triage/"
+    data-edition-date="2026-07-06"
+    data-lane="Daily Edition"
+    data-tags="UX"
+    data-repos="">
+    <div class="reader-feedback-head">
+      <div>
+        <div class="eyebrow">Letters &amp; Corrections</div>
+        <h2>Send a note to the desk</h2>
+      </div>
+      <p>Corrections, missing context, or a follow-up lead.</p>
+    </div>
+    <form class="feedback-form">
+      <div class="feedback-votes" role="group" aria-label="Choose signal type">
+        <button class="feedback-choice" type="button" data-vote="follow-up" aria-pressed="false">
+          <span aria-hidden="true">+</span>
+          <span>Follow-up</span>
+        </button>
+        <button class="feedback-choice" type="button" data-vote="correction" aria-pressed="false">
+          <span aria-hidden="true">!</span>
+          <span>Correction</span>
+        </button>
+      </div>
+      <label class="feedback-comment">
+        <span>Note for the editor</span>
+        <textarea name="comment" rows="3" maxlength="320" placeholder="What did we miss, or what should we follow next?"></textarea>
+      </label>
+      <div class="feedback-submit-row">
+        <p class="feedback-status" aria-live="polite"></p>
+        <button class="paper-button primary feedback-submit" type="submit">Send to desk</button>
+      </div>
+    </form>
+  </section>
+      <section class="related-edition-section">
+        <div class="section-title-row">
+          <h2>Same Edition</h2>
+          <a href="/editions/2026-07-06/">Open issue &rsaquo;</a>
+        </div>
+        <div class="updates-list">
+          <a class="update-card" href="/articles/2026-07-06-daily-hermes-makes-yolo-obey-user-deny-rules/">
+    <div class="update-stripe"></div>
+    <div class="update-main">
+      <div class="update-meta">
+        <span>Context</span>
+        <span class="source-plus">+5</span>
+        <span>Jul 6, 2026</span>
+      </div>
+      <h3>Hermes Makes Yolo Obey User Deny Rules</h3>
+      <div class="update-receipt">
+        <span>NousResearch/hermes-agent</span>
+        <span class="branch-pill">evidence</span>
+      </div>
+      <div class="update-foot">
+        <span>5 sources</span>
+        <span>1 repo</span>
+        <span>3 linked commits</span>
+      </div>
+    </div>
+    <span class="update-arrow" aria-hidden="true">&rsaquo;</span>
+  </a><a class="update-card" href="/articles/2026-07-06-daily-builder-work-mycelium-makes-agents-prove-the-product-before-coding/">
+    <div class="update-stripe"></div>
+    <div class="update-main">
+      <div class="update-meta">
+        <span>Context</span>
+        <span class="source-plus">+6</span>
+        <span>Jul 6, 2026</span>
+      </div>
+      <h3>Builder Work: Mycelium Makes Agents Prove The Product Before Coding</h3>
+      <div class="update-receipt">
+        <span>source trail</span>
+        <span class="branch-pill">evidence</span>
+      </div>
+      <div class="update-foot">
+        <span>6 sources</span>
+        <span>1 repo</span>
+        <span>6 source signals</span>
+      </div>
+    </div>
+    <span class="update-arrow" aria-hidden="true">&rsaquo;</span>
+  </a><a class="update-card" href="/articles/2026-07-06-daily-pi-turns-issue-analysis-into-a-shareable-session-trail/">
+    <div class="update-stripe"></div>
+    <div class="update-main">
+      <div class="update-meta">
+        <span>Context</span>
+        <span class="source-plus">+5</span>
+        <span>Jul 6, 2026</span>
+      </div>
+      <h3>Pi Turns Issue Analysis Into A Shareable Session Trail</h3>
+      <div class="update-receipt">
+        <span>earendil-works/pi</span>
+        <span class="branch-pill">evidence</span>
+      </div>
+      <div class="update-foot">
+        <span>5 sources</span>
+        <span>1 repo</span>
+        <span>3 linked commits</span>
+      </div>
+    </div>
+    <span class="update-arrow" aria-hidden="true">&rsaquo;</span>
+  </a>
+        </div>
+      </section>
+    </main>
+    <footer class="wrap site-footer">
+      <span>&copy; 2026 The Git Reporter</span>
+      <a href="/about/">About</a>
+      <a href="/agent-pulse/">Agent Pulse</a>
+      <a href="/feed.xml">RSS</a>
+      <a href="https://x.com/TheGitReporter">Follow on X</a>
+      <a href="/articles.json">Manifest JSON</a>
+      <a href="/repos/">Sources</a>
+    </footer>
+  </div>
+</body>
+</html>
