@@ -1,0 +1,319 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Codex Pins Network Denials To The Exact Exec | The Git Reporter</title>
+  <meta name="description" content="Codex&#39;s July 6 Linux network-attribution fix turns a vague shared-proxy denial into a traceable event tied to the exact exec call and command that opened the connection.">
+  <meta name="robots" content="index,follow">
+  <link rel="canonical" href="https://thegitreporter.com/articles/2026-07-07-daily-codex-pins-network-denials-to-the-exact-exec/">
+  <link rel="alternate" type="application/rss+xml" title="The Git Reporter" href="https://thegitreporter.com/feed.xml">
+  <meta property="og:site_name" content="The Git Reporter">
+  <meta property="og:locale" content="en_US">
+  <meta property="og:title" content="Codex Pins Network Denials To The Exact Exec | The Git Reporter">
+  <meta property="og:description" content="Codex&#39;s July 6 Linux network-attribution fix turns a vague shared-proxy denial into a traceable event tied to the exact exec call and command that opened the connection.">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://thegitreporter.com/articles/2026-07-07-daily-codex-pins-network-denials-to-the-exact-exec/">
+  <meta property="og:image" content="https://thegitreporter.com/assets/social/2026-07-07-daily-codex-pins-network-denials-to-the-exact-exec-og.jpg">
+  <meta property="og:image:secure_url" content="https://thegitreporter.com/assets/social/2026-07-07-daily-codex-pins-network-denials-to-the-exact-exec-og.jpg">
+  <meta property="og:image:type" content="image/jpeg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="A rough marker poster asking which exec touched the network, with Codex PR, active exec registration, Linux sandbox helper, proxy attribution frame, and concurrent test cards feeding a circled denial caller.">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:site" content="@TheGitReporter">
+  <meta name="twitter:creator" content="@TheGitReporter">
+  <meta name="twitter:title" content="Codex Pins Network Denials To The Exact Exec | The Git Reporter">
+  <meta name="twitter:description" content="Codex&#39;s July 6 Linux network-attribution fix turns a vague shared-proxy denial into a traceable event tied to the exact exec call and command that opened the connection.">
+  <meta name="twitter:url" content="https://thegitreporter.com/articles/2026-07-07-daily-codex-pins-network-denials-to-the-exact-exec/">
+  <meta name="twitter:domain" content="thegitreporter.com">
+  <meta name="twitter:image" content="https://thegitreporter.com/assets/social/2026-07-07-daily-codex-pins-network-denials-to-the-exact-exec-og.jpg">
+  <meta name="twitter:image:alt" content="A rough marker poster asking which exec touched the network, with Codex PR, active exec registration, Linux sandbox helper, proxy attribution frame, and concurrent test cards feeding a circled denial caller.">
+  <meta property="article:published_time" content="2026-07-07T12:00:00Z">
+  <meta property="article:modified_time" content="2026-07-07T12:00:00Z">
+  <meta property="article:section" content="Daily Edition">
+  <meta property="article:tag" content="Permissions">
+  <meta property="article:tag" content="Memory">
+  <meta property="article:tag" content="Tools">
+  <meta property="article:tag" content="UX">
+  <meta property="article:tag" content="openai/codex">
+  <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"https://thegitreporter.com/#organization","name":"The Git Reporter","url":"https://thegitreporter.com","logo":{"@type":"ImageObject","url":"https://thegitreporter.com/assets/mark.svg"},"sameAs":["https://x.com/TheGitReporter"]},{"@type":"WebSite","@id":"https://thegitreporter.com/#website","name":"The Git Reporter","url":"https://thegitreporter.com","publisher":{"@id":"https://thegitreporter.com/#organization"}},{"@type":"NewsArticle","mainEntityOfPage":{"@type":"WebPage","@id":"https://thegitreporter.com/articles/2026-07-07-daily-codex-pins-network-denials-to-the-exact-exec/"},"headline":"Codex Pins Network Denials To The Exact Exec","description":"Codex's July 6 Linux network-attribution fix turns a vague shared-proxy denial into a traceable event tied to the exact exec call and command that opened the connection.","image":["https://thegitreporter.com/assets/social/2026-07-07-daily-codex-pins-network-denials-to-the-exact-exec-og.jpg"],"datePublished":"2026-07-07T12:00:00Z","dateModified":"2026-07-07T12:00:00Z","author":[{"@type":"Organization","name":"The Git Reporter","url":"https://thegitreporter.com"}],"publisher":{"@type":"Organization","@id":"https://thegitreporter.com/#organization","name":"The Git Reporter","url":"https://thegitreporter.com","logo":{"@type":"ImageObject","url":"https://thegitreporter.com/assets/mark.svg"},"sameAs":["https://x.com/TheGitReporter"]},"articleSection":"Daily Edition","keywords":"Permissions, Memory, Tools, UX, openai/codex"}]}</script>
+  <link rel="icon" href="/assets/mark.svg">
+  <link rel="stylesheet" href="/assets/site.css?v=2026-06-30-agent-pulse-1">
+  <script defer src="/assets/feedback.js?v=2026-06-30-agent-pulse-1"></script>
+  <script defer src="/assets/analytics.js?v=2026-06-30-agent-pulse-1"></script>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-CH19T7M0T1"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){window.dataLayer.push(arguments);}
+    gtag("js", new Date());
+    gtag("config", "G-CH19T7M0T1");
+  </script>
+</head>
+<body>
+  <div class="site">
+    <header class="site-header" id="top">
+      <div class="wrap utility-row">
+        <a class="icon-link menu-icon" href="/archive/" aria-label="Open edition history"><span></span><span></span><span></span></a>
+        <a class="icon-link archive-icon" href="/archive/" aria-label="Open edition history"></a>
+      </div>
+      <div class="wrap masthead-lockup">
+        <a class="masthead-title" href="/">THE GIT REPORTER</a>
+        <div class="masthead-ornament" aria-hidden="true"></div>
+      </div>
+      <div class="wrap nav-wrap">
+        <nav class="paper-nav" aria-label="Primary navigation">
+    <a class="" href="/">Today</a><a class="active" href="/archive/">Editions</a><a class="" href="/about/">About</a><a class="" href="/agent-pulse/">Agent Pulse</a><a class="" href="/atlas/">Agent Atlas</a><a class="" href="/repos/">Repos</a>
+  </nav>
+        <div class="nav-rule"></div>
+      </div>
+    </header>
+    <main class="wrap page-shell article-page">
+      <section class="page-hero story-front">
+        <div class="story-topline">
+          <span>Daily Edition</span>
+          <span>Sources <strong>+7</strong></span>
+        </div>
+        <h1>Codex Pins Network Denials To The Exact Exec</h1>
+        <p class="summary">Codex's July 6 Linux network-attribution fix turns a vague shared-proxy denial into a traceable event tied to the exact exec call and command that opened the connection.</p>
+        <figure class="story-illustration article-illustration">
+    <img src="/assets/illustrations/2026-07-07-codex-pins-network-denials-to-the-exact-exec-diagram-punk-v1.png" alt="A rough marker poster asking which exec touched the network, with Codex PR, active exec registration, Linux sandbox helper, proxy attribution frame, and concurrent test cards feeding a circled denial caller." loading="lazy" decoding="async">
+    <figcaption><span>Diagram Punk</span>Codex makes Linux network denials name their exec.</figcaption>
+  </figure>
+        <div class="receipt">
+    <div class="receipt-line">
+      <span class="receipt-icon">repo</span>
+      <span class="receipt-main">openai/codex</span>
+      <span class="branch-pill">evidence</span>
+    </div>
+    <div class="receipt-line receipt-muted">
+      <span>7 source signals</span>
+      <span>1 repo</span>
+      <span>commit 1013295</span>
+    </div>
+    <div class="commit-line">Evidence: commit 1013295 / July 7, 2026 / Daily Edition</div>
+  </div>
+        <div class="article-route-row">
+          <a href="/editions/2026-07-07/">Open Edition</a>
+          <a href="#evidence">Evidence below</a>
+        </div>
+      </section>
+      <section class="story-reader">
+        <article class="story-shell story-body">
+          <p>The related public PRs explain the shape of the fix: <code>#29697</code> builds on earlier network-context and shared-ingress work in <code>#29456</code> and <code>#29668</code>, then narrows the solution to short-lived execution tokens passed through the existing Linux sandbox bridge instead of adding per-exec proxy listeners.</p>
+
+  <h2>The Pressure</h2>
+  <p>Managed-network commands in one Codex conversation share HTTP and SOCKS proxy ingress. When several exec calls run at once, the proxy can see the destination but may not know which tool call caused it. The PR says that meant Guardian could deny a request without Codex safely attaching the outcome to the right call.</p>
+
+  <h2>The Intervention</h2>
+  <p>The merged change registers each active exec with a short-lived attribution token, passes it to the Linux sandbox helper, strips it before the user command runs, and has the host bridge prepend the token to each proxy connection. The proxy consumes the bounded frame and clones the existing network policy state for that exec.</p>
+
+  <h2>Why Maintainers Should Watch</h2>
+  <p>The transferable lesson is to attach policy outcomes at the trust boundary that already exists. Codex did not create a new proxy per exec; it used the existing bridge and proved the concurrent path with tests that compare the exact call IDs and commands.</p>
+
+  <h2>Limits</h2>
+  <p>This is Linux-only. macOS and Windows keep the current shared-proxy behavior, and the PR explicitly leaves UI display, parent-turn unattributed denials, and Guardian circuit-breaker accounting for later work. What to watch: whether the attribution model expands across platforms.</p>
+        </article>
+      </section>
+      <section class="evidence-section" id="evidence" aria-labelledby="evidence-title">
+    <div class="evidence-head">
+      <div>
+        <div class="eyebrow">Evidence Trail</div>
+        <h2 id="evidence-title">Receipts below the story</h2>
+        <p>The article above is the public narrative. This section keeps the source trail and limits on the same page.</p>
+      </div>
+      <a class="paper-button" href="/editions/2026-07-07/">Edition</a>
+    </div>
+    <div class="evidence-table evidence-summary">
+      <div class="evidence-line"><span>Date</span><span>July 7, 2026</span></div>
+      <div class="evidence-line"><span>Lane</span><span>Daily Edition</span></div>
+      <div class="evidence-line"><span>Confidence</span><span>87%</span></div>
+      <div class="evidence-line"><span>Sources</span><span>7</span></div>
+      <div class="evidence-line"><span>Repos</span><span>openai/codex</span></div>
+    </div>
+    <div class="markdown evidence-copy evidence-copy-block">
+      <h2>Primary Evidence</h2>
+<ul>
+<li>Codex commit 1013295c2d / PR #29697: <a href="https://github.com/openai/codex/commit/1013295c2d326f3a4d54525a63b68fd1ee355cac">https://github.com/openai/codex/commit/1013295c2d326f3a4d54525a63b68fd1ee355cac</a>
+<ul>
+<li>Shows: the Linux exact-exec network attribution design, scope, tests, and related-work explanation.
+</li>
+</ul>
+</li>
+<li>Codex PR #29697: <a href="https://github.com/openai/codex/pull/29697">https://github.com/openai/codex/pull/29697</a>
+<ul>
+<li>Shows: the public pull request context for the attribution fix.
+</li>
+</ul>
+</li>
+<li>Related public work PR #29456: <a href="https://github.com/openai/codex/pull/29456">https://github.com/openai/codex/pull/29456</a>
+<ul>
+<li>Shows: the prepared network context work that #29697 says it follows.
+</li>
+</ul>
+</li>
+<li>Related public work PR #29668: <a href="https://github.com/openai/codex/pull/29668">https://github.com/openai/codex/pull/29668</a>
+<ul>
+<li>Shows: the shared-ingress framing that #29697 says it supersedes for the Linux attribution fix.
+</li>
+</ul>
+</li>
+<li>Codex network attribution source: <a href="https://github.com/openai/codex/blob/main/codex-rs/network-proxy/src/attribution.rs">https://github.com/openai/codex/blob/main/codex-rs/network-proxy/src/attribution.rs</a>
+<ul>
+<li>Shows: attribution-frame handling in the network proxy code.
+</li>
+</ul>
+</li>
+<li>Codex Linux proxy routing source: <a href="https://github.com/openai/codex/blob/main/codex-rs/linux-sandbox/src/proxy_routing.rs">https://github.com/openai/codex/blob/main/codex-rs/linux-sandbox/src/proxy_routing.rs</a>
+<ul>
+<li>Shows: the Linux sandbox-side proxy routing surface used by the fix.
+</li>
+</ul>
+</li>
+</ul>
+<h2>Evidence Limits</h2>
+<ul>
+<li>The fix applies to Linux exact bridge attribution; the PR says macOS and Windows retain shared-proxy behavior.
+</li>
+<li>The article does not claim all network denials are now user-visible or that UI, circuit-breaker, and parent-turn handling were solved by this PR.
+</li>
+</ul>
+<h2>Related Public Work</h2>
+<ul>
+<li>PR #29697 explicitly names #29456 and #29668 as design context. Those sources explain why the final patch uses the existing bridge and shared ingress instead of per-exec proxy listeners.
+</li>
+</ul>
+    </div>
+  </section>
+      <section class="related-edition-section atlas-context-section">
+    <div class="section-title-row">
+      <h2>Atlas Context</h2>
+      <a href="/atlas/">Open Atlas &rsaquo;</a>
+    </div>
+    <div class="updates-list">
+      <a class="article-card" href="/atlas/the-human-interface/">
+            <div class="article-meta"><span class="lane">Agent Atlas</span><span>Chapter 8</span></div>
+            <h3>The Human Control Loop</h3>
+            <p>A useful interface exposes active work, gives intervention a defined runtime effect, preserves evidence during correction, and resumes the intended session.</p>
+          </a>
+    </div>
+  </section>
+      <section class="reader-feedback"
+    data-tgr-feedback
+    data-article-slug="2026-07-07-daily-codex-pins-network-denials-to-the-exact-exec"
+    data-article-title="Codex Pins Network Denials To The Exact Exec"
+    data-article-url="/articles/2026-07-07-daily-codex-pins-network-denials-to-the-exact-exec/"
+    data-edition-date="2026-07-07"
+    data-lane="Daily Edition"
+    data-tags="Permissions,Memory,Tools,UX"
+    data-repos="openai/codex">
+    <div class="reader-feedback-head">
+      <div>
+        <div class="eyebrow">Letters &amp; Corrections</div>
+        <h2>Send a note to the desk</h2>
+      </div>
+      <p>Corrections, missing context, or a follow-up lead.</p>
+    </div>
+    <form class="feedback-form">
+      <div class="feedback-votes" role="group" aria-label="Choose signal type">
+        <button class="feedback-choice" type="button" data-vote="follow-up" aria-pressed="false">
+          <span aria-hidden="true">+</span>
+          <span>Follow-up</span>
+        </button>
+        <button class="feedback-choice" type="button" data-vote="correction" aria-pressed="false">
+          <span aria-hidden="true">!</span>
+          <span>Correction</span>
+        </button>
+      </div>
+      <label class="feedback-comment">
+        <span>Note for the editor</span>
+        <textarea name="comment" rows="3" maxlength="320" placeholder="What did we miss, or what should we follow next?"></textarea>
+      </label>
+      <div class="feedback-submit-row">
+        <p class="feedback-status" aria-live="polite"></p>
+        <button class="paper-button primary feedback-submit" type="submit">Send to desk</button>
+      </div>
+    </form>
+  </section>
+      <section class="related-edition-section">
+        <div class="section-title-row">
+          <h2>Same Edition</h2>
+          <a href="/editions/2026-07-07/">Open issue &rsaquo;</a>
+        </div>
+        <div class="updates-list">
+          <a class="update-card" href="/articles/2026-07-07-daily-openclaw-makes-agent-audit-trails-a-runtime-contract/">
+    <div class="update-stripe"></div>
+    <div class="update-main">
+      <div class="update-meta">
+        <span>Context</span>
+        <span class="source-plus">+5</span>
+        <span>Jul 7, 2026</span>
+      </div>
+      <h3>OpenClaw Makes Agent Audit Trails A Runtime Contract</h3>
+      <div class="update-receipt">
+        <span>openclaw/openclaw</span>
+        <span class="branch-pill">evidence</span>
+      </div>
+      <div class="update-foot">
+        <span>5 sources</span>
+        <span>1 repo</span>
+        <span>commit f533469</span>
+      </div>
+    </div>
+    <span class="update-arrow" aria-hidden="true">&rsaquo;</span>
+  </a><a class="update-card" href="/articles/2026-07-07-daily-builder-work-live-log-viewer-maps-parallel-agents/">
+    <div class="update-stripe"></div>
+    <div class="update-main">
+      <div class="update-meta">
+        <span>Context</span>
+        <span class="source-plus">+7</span>
+        <span>Jul 7, 2026</span>
+      </div>
+      <h3>Builder Work: Live Log Viewer Maps Parallel Agents</h3>
+      <div class="update-receipt">
+        <span>Latand/live-log-viewer-next</span>
+        <span class="branch-pill">evidence</span>
+      </div>
+      <div class="update-foot">
+        <span>7 sources</span>
+        <span>1 repo</span>
+        <span>7 source signals</span>
+      </div>
+    </div>
+    <span class="update-arrow" aria-hidden="true">&rsaquo;</span>
+  </a><a class="update-card" href="/articles/2026-07-07-daily-api-discovery-data-gouv-fr-turns-dataset-search-into-agent-intake/">
+    <div class="update-stripe"></div>
+    <div class="update-main">
+      <div class="update-meta">
+        <span>Context</span>
+        <span class="source-plus">+4</span>
+        <span>Jul 7, 2026</span>
+      </div>
+      <h3>API Discovery: data.gouv.fr Turns Dataset Search Into Agent Intake</h3>
+      <div class="update-receipt">
+        <span>source trail</span>
+        <span class="branch-pill">evidence</span>
+      </div>
+      <div class="update-foot">
+        <span>4 sources</span>
+        <span>1 repo</span>
+        <span>4 source signals</span>
+      </div>
+    </div>
+    <span class="update-arrow" aria-hidden="true">&rsaquo;</span>
+  </a>
+        </div>
+      </section>
+    </main>
+    <footer class="wrap site-footer">
+      <span>&copy; 2026 The Git Reporter</span>
+      <a href="/about/">About</a>
+      <a href="/agent-pulse/">Agent Pulse</a>
+      <a href="/feed.xml">RSS</a>
+      <a href="https://x.com/TheGitReporter">Follow on X</a>
+      <a href="/articles.json">Manifest JSON</a>
+      <a href="/repos/">Sources</a>
+    </footer>
+  </div>
+</body>
+</html>
