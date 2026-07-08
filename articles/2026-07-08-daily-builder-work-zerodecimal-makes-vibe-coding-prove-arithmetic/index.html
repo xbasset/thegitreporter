@@ -1,0 +1,332 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Builder Work: Zerodecimal Makes Vibe Coding Prove Arithmetic | The Git Reporter</title>
+  <meta name="description" content="Alexandros Kyriakakis publicly said zerodecimal was built with Claude Code, Ultracode, and Fable 5; the repo is worth studying because the generated arithmetic is surrounded by proof scaffolding.">
+  <meta name="robots" content="index,follow">
+  <link rel="canonical" href="https://thegitreporter.com/articles/2026-07-08-daily-builder-work-zerodecimal-makes-vibe-coding-prove-arithmetic/">
+  <link rel="alternate" type="application/rss+xml" title="The Git Reporter" href="https://thegitreporter.com/feed.xml">
+  <meta property="og:site_name" content="The Git Reporter">
+  <meta property="og:locale" content="en_US">
+  <meta property="og:title" content="Builder Work: Zerodecimal Makes Vibe Coding Prove Arithmetic | The Git Reporter">
+  <meta property="og:description" content="Alexandros Kyriakakis publicly said zerodecimal was built with Claude Code, Ultracode, and Fable 5; the repo is worth studying because the generated arithmetic is surrounded by proof scaffolding.">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://thegitreporter.com/articles/2026-07-08-daily-builder-work-zerodecimal-makes-vibe-coding-prove-arithmetic/">
+  <meta property="og:image" content="https://thegitreporter.com/assets/social/2026-07-08-daily-builder-work-zerodecimal-makes-vibe-coding-prove-arithmetic-og.jpg">
+  <meta property="og:image:secure_url" content="https://thegitreporter.com/assets/social/2026-07-08-daily-builder-work-zerodecimal-makes-vibe-coding-prove-arithmetic-og.jpg">
+  <meta property="og:image:type" content="image/jpeg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Diagram Punk poster showing zerodecimal proof scaffolding around AI-assisted arithmetic with cards for HN proof, div10.go, table tests, allocation gates, and benchmark caveat.">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:site" content="@TheGitReporter">
+  <meta name="twitter:creator" content="@TheGitReporter">
+  <meta name="twitter:title" content="Builder Work: Zerodecimal Makes Vibe Coding Prove Arithmetic | The Git Reporter">
+  <meta name="twitter:description" content="Alexandros Kyriakakis publicly said zerodecimal was built with Claude Code, Ultracode, and Fable 5; the repo is worth studying because the generated arithmetic is surrounded by proof scaffolding.">
+  <meta name="twitter:url" content="https://thegitreporter.com/articles/2026-07-08-daily-builder-work-zerodecimal-makes-vibe-coding-prove-arithmetic/">
+  <meta name="twitter:domain" content="thegitreporter.com">
+  <meta name="twitter:image" content="https://thegitreporter.com/assets/social/2026-07-08-daily-builder-work-zerodecimal-makes-vibe-coding-prove-arithmetic-og.jpg">
+  <meta name="twitter:image:alt" content="Diagram Punk poster showing zerodecimal proof scaffolding around AI-assisted arithmetic with cards for HN proof, div10.go, table tests, allocation gates, and benchmark caveat.">
+  <meta property="article:published_time" content="2026-07-08T12:00:00Z">
+  <meta property="article:modified_time" content="2026-07-08T12:00:00Z">
+  <meta property="article:section" content="Daily Edition">
+  <meta property="article:tag" content="AlexandrosKyriakakis/zerodecimal">
+  <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"https://thegitreporter.com/#organization","name":"The Git Reporter","url":"https://thegitreporter.com","logo":{"@type":"ImageObject","url":"https://thegitreporter.com/assets/mark.svg"},"sameAs":["https://x.com/TheGitReporter"]},{"@type":"WebSite","@id":"https://thegitreporter.com/#website","name":"The Git Reporter","url":"https://thegitreporter.com","publisher":{"@id":"https://thegitreporter.com/#organization"}},{"@type":"NewsArticle","mainEntityOfPage":{"@type":"WebPage","@id":"https://thegitreporter.com/articles/2026-07-08-daily-builder-work-zerodecimal-makes-vibe-coding-prove-arithmetic/"},"headline":"Builder Work: Zerodecimal Makes Vibe Coding Prove Arithmetic","description":"Alexandros Kyriakakis publicly said zerodecimal was built with Claude Code, Ultracode, and Fable 5; the repo is worth studying because the generated arithmetic is surrounded by proof scaffolding.","image":["https://thegitreporter.com/assets/social/2026-07-08-daily-builder-work-zerodecimal-makes-vibe-coding-prove-arithmetic-og.jpg"],"datePublished":"2026-07-08T12:00:00Z","dateModified":"2026-07-08T12:00:00Z","author":[{"@type":"Organization","name":"The Git Reporter","url":"https://thegitreporter.com"}],"publisher":{"@type":"Organization","@id":"https://thegitreporter.com/#organization","name":"The Git Reporter","url":"https://thegitreporter.com","logo":{"@type":"ImageObject","url":"https://thegitreporter.com/assets/mark.svg"},"sameAs":["https://x.com/TheGitReporter"]},"articleSection":"Daily Edition","keywords":"AlexandrosKyriakakis/zerodecimal"}]}</script>
+  <link rel="icon" href="/assets/mark.svg">
+  <link rel="stylesheet" href="/assets/site.css?v=2026-06-30-agent-pulse-1">
+  <script defer src="/assets/feedback.js?v=2026-06-30-agent-pulse-1"></script>
+  <script defer src="/assets/analytics.js?v=2026-06-30-agent-pulse-1"></script>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-CH19T7M0T1"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){window.dataLayer.push(arguments);}
+    gtag("js", new Date());
+    gtag("config", "G-CH19T7M0T1");
+  </script>
+</head>
+<body>
+  <div class="site">
+    <header class="site-header" id="top">
+      <div class="wrap utility-row">
+        <a class="icon-link menu-icon" href="/archive/" aria-label="Open edition history"><span></span><span></span><span></span></a>
+        <a class="icon-link archive-icon" href="/archive/" aria-label="Open edition history"></a>
+      </div>
+      <div class="wrap masthead-lockup">
+        <a class="masthead-title" href="/">THE GIT REPORTER</a>
+        <div class="masthead-ornament" aria-hidden="true"></div>
+      </div>
+      <div class="wrap nav-wrap">
+        <nav class="paper-nav" aria-label="Primary navigation">
+    <a class="" href="/">Today</a><a class="active" href="/archive/">Editions</a><a class="" href="/about/">About</a><a class="" href="/agent-pulse/">Agent Pulse</a><a class="" href="/atlas/">Agent Atlas</a><a class="" href="/repos/">Repos</a>
+  </nav>
+        <div class="nav-rule"></div>
+      </div>
+    </header>
+    <main class="wrap page-shell article-page">
+      <section class="page-hero story-front">
+        <div class="story-topline">
+          <span>Daily Edition</span>
+          <span>Sources <strong>+6</strong></span>
+        </div>
+        <h1>Builder Work: Zerodecimal Makes Vibe Coding Prove Arithmetic</h1>
+        <p class="summary">Alexandros Kyriakakis publicly said zerodecimal was built with Claude Code, Ultracode, and Fable 5; the repo is worth studying because the generated arithmetic is surrounded by proof scaffolding.</p>
+        <figure class="story-illustration article-illustration">
+    <img src="/assets/illustrations/2026-07-08-builder-work-zerodecimal-makes-vibe-coding-prove-arithmetic-diagram-punk-v1.png" alt="Diagram Punk poster showing zerodecimal proof scaffolding around AI-assisted arithmetic with cards for HN proof, div10.go, table tests, allocation gates, and benchmark caveat." loading="lazy" decoding="async">
+    <figcaption><span>Diagram Punk</span>vibe coded arithmetic needs proofs.</figcaption>
+  </figure>
+        <div class="receipt">
+    <div class="receipt-line">
+      <span class="receipt-icon">repo</span>
+      <span class="receipt-main">AlexandrosKyriakakis/zerodecimal</span>
+      <span class="branch-pill">evidence</span>
+    </div>
+    <div class="receipt-line receipt-muted">
+      <span>6 source signals</span>
+      <span>1 repo</span>
+      <span>6 source signals</span>
+    </div>
+    <div class="commit-line">Evidence: 6 source signals / July 8, 2026 / Daily Edition</div>
+  </div>
+        <div class="article-route-row">
+          <a href="/editions/2026-07-08/">Open Edition</a>
+          <a href="#evidence">Evidence below</a>
+        </div>
+      </section>
+      <section class="story-reader">
+        <article class="story-shell story-body">
+          <p>The scout source is a <a href="https://news.ycombinator.com/item?id=48507241">Show HN post</a> for <a href="https://github.com/AlexandrosKyriakakis/zerodecimal">zerodecimal</a>, a Go fixed-point decimal library that claims zero allocations, no <code>big.Int</code> fallback, reciprocal division by powers of ten, differential checks, fuzz targets, and committed benchmark comparisons.</p>
+
+  <h2>The Engineering Problem</h2>
+  <p>Decimal arithmetic is a bad place for casual generated code: overflow, rounding, parsing, formatting, SQL/JSON codecs, and performance shortcuts can all lie quietly. Zerodecimal's interesting move is to make those lies harder to survive the test suite.</p>
+
+  <h2>The Repo Evidence</h2>
+  <p>The README points to allocation gates, crosschecks, fuzz targets, and benchmark files. <a href="https://github.com/AlexandrosKyriakakis/zerodecimal/blob/main/div10.go">div10.go</a> explains the reciprocal-division path, while <a href="https://github.com/AlexandrosKyriakakis/zerodecimal/blob/main/tables_test.go">tables_test.go</a> re-proves generated constants against <code>big.Int</code>.</p>
+
+  <h2>The Building Skill</h2>
+  <p>The transferable skill is not "let an agent write hard code." It is to make generated hard code prove its own invariants: exact allocation counts, independent table recomputation, differential arithmetic checks, fuzz corpora, and benchmark methodology in the same repo.</p>
+
+  <h2>What To Inspect Next</h2>
+  <p>The caveat is that committed benchmarks are not independent certification, and the repo has low adoption today. A constructive question for the builder: which proofs would fail first if another contributor changed the reciprocal table or rounding path?</p>
+        </article>
+      </section>
+      <section class="evidence-section" id="evidence" aria-labelledby="evidence-title">
+    <div class="evidence-head">
+      <div>
+        <div class="eyebrow">Evidence Trail</div>
+        <h2 id="evidence-title">Receipts below the story</h2>
+        <p>The article above is the public narrative. This section keeps the source trail and limits on the same page.</p>
+      </div>
+      <a class="paper-button" href="/editions/2026-07-08/">Edition</a>
+    </div>
+    <div class="evidence-table evidence-summary">
+      <div class="evidence-line"><span>Date</span><span>July 8, 2026</span></div>
+      <div class="evidence-line"><span>Lane</span><span>Daily Edition</span></div>
+      <div class="evidence-line"><span>Confidence</span><span>87%</span></div>
+      <div class="evidence-line"><span>Sources</span><span>6</span></div>
+      <div class="evidence-line"><span>Repos</span><span>AlexandrosKyriakakis/zerodecimal</span></div>
+    </div>
+    <div class="markdown evidence-copy evidence-copy-block">
+      <h2>Primary Evidence</h2>
+<ul>
+<li>Scout source and Coding-agent proof: <a href="https://news.ycombinator.com/item?id=48507241">https://news.ycombinator.com/item?id=48507241</a>
+<ul>
+<li>Shows: the public scout source and the builder's claim that Claude Code, Ultracode, and Fable 5 were used.
+</li>
+</ul>
+</li>
+<li>Zerodecimal GitHub repo: <a href="https://github.com/AlexandrosKyriakakis/zerodecimal">https://github.com/AlexandrosKyriakakis/zerodecimal</a>
+<ul>
+<li>Shows: the public Go decimal library, README claims, source tree, tests, benchmarks, and license.
+</li>
+</ul>
+</li>
+<li>Zerodecimal README: <a href="https://github.com/AlexandrosKyriakakis/zerodecimal/blob/main/README.md">https://github.com/AlexandrosKyriakakis/zerodecimal/blob/main/README.md</a>
+<ul>
+<li>Shows: the library's zero-allocation, fixed-point, no-big.Int, crosscheck, fuzzing, and benchmark claims.
+</li>
+</ul>
+</li>
+<li>Engineering depth receipt - Zerodecimal div10.go: <a href="https://github.com/AlexandrosKyriakakis/zerodecimal/blob/main/div10.go">https://github.com/AlexandrosKyriakakis/zerodecimal/blob/main/div10.go</a>
+<ul>
+<li>Shows: reciprocal division by powers of ten and the documented Moller-Granlund division path.
+</li>
+</ul>
+</li>
+<li>Zerodecimal tables_test.go: <a href="https://github.com/AlexandrosKyriakakis/zerodecimal/blob/main/tables_test.go">https://github.com/AlexandrosKyriakakis/zerodecimal/blob/main/tables_test.go</a>
+<ul>
+<li>Shows: generated power-of-ten table entries rechecked against independent big.Int definitions.
+</li>
+</ul>
+</li>
+<li>Zerodecimal alloc_test.go: <a href="https://github.com/AlexandrosKyriakakis/zerodecimal/blob/main/alloc_test.go">https://github.com/AlexandrosKyriakakis/zerodecimal/blob/main/alloc_test.go</a>
+<ul>
+<li>Shows: exact allocation gates for success and error paths.
+</li>
+</ul>
+</li>
+</ul>
+<h2>Evidence Limits</h2>
+<ul>
+<li>The evidence does not independently certify benchmark claims.
+</li>
+<li>The evidence does not prove production adoption or long-term maintenance.
+</li>
+<li>What to watch: whether outside contributors can change arithmetic paths without weakening the proof gates.
+</li>
+</ul>
+    </div>
+  </section>
+      <section class="related-edition-section atlas-context-section">
+    <div class="section-title-row">
+      <h2>Atlas Context</h2>
+      <a href="/atlas/">Open Atlas &rsaquo;</a>
+    </div>
+    <div class="updates-list">
+      <a class="article-card" href="/atlas/the-architecture-of-trust/">
+            <div class="article-meta"><span class="lane">Agent Atlas</span><span>Chapter 9</span></div>
+            <h3>Trust Must Make Its Case</h3>
+            <p>Trustworthy behavior is not a personality trait or product promise. It is an assurance case built from inspectable policy provenance, durable control state, bounded execution, traceable lineage, recoverable records, and explicit residual risk.</p>
+          </a>
+    </div>
+  </section>
+      <section class="reader-feedback"
+    data-tgr-feedback
+    data-article-slug="2026-07-08-daily-builder-work-zerodecimal-makes-vibe-coding-prove-arithmetic"
+    data-article-title="Builder Work: Zerodecimal Makes Vibe Coding Prove Arithmetic"
+    data-article-url="/articles/2026-07-08-daily-builder-work-zerodecimal-makes-vibe-coding-prove-arithmetic/"
+    data-edition-date="2026-07-08"
+    data-lane="Daily Edition"
+    data-tags=""
+    data-repos="AlexandrosKyriakakis/zerodecimal">
+    <div class="reader-feedback-head">
+      <div>
+        <div class="eyebrow">Letters &amp; Corrections</div>
+        <h2>Send a note to the desk</h2>
+      </div>
+      <p>Corrections, missing context, or a follow-up lead.</p>
+    </div>
+    <form class="feedback-form">
+      <div class="feedback-votes" role="group" aria-label="Choose signal type">
+        <button class="feedback-choice" type="button" data-vote="follow-up" aria-pressed="false">
+          <span aria-hidden="true">+</span>
+          <span>Follow-up</span>
+        </button>
+        <button class="feedback-choice" type="button" data-vote="correction" aria-pressed="false">
+          <span aria-hidden="true">!</span>
+          <span>Correction</span>
+        </button>
+      </div>
+      <label class="feedback-comment">
+        <span>Note for the editor</span>
+        <textarea name="comment" rows="3" maxlength="320" placeholder="What did we miss, or what should we follow next?"></textarea>
+      </label>
+      <div class="feedback-submit-row">
+        <p class="feedback-status" aria-live="polite"></p>
+        <button class="paper-button primary feedback-submit" type="submit">Send to desk</button>
+      </div>
+    </form>
+  </section>
+      <section class="related-edition-section">
+        <div class="section-title-row">
+          <h2>Same Edition</h2>
+          <a href="/editions/2026-07-08/">Open issue &rsaquo;</a>
+        </div>
+        <div class="updates-list">
+          <a class="update-card" href="/articles/2026-07-08-daily-gemini-cli-turns-issue-triage-into-a-caretaker-worker/">
+    <div class="update-stripe"></div>
+    <div class="update-main">
+      <div class="update-meta">
+        <span>Context</span>
+        <span class="source-plus">+3</span>
+        <span>Jul 8, 2026</span>
+      </div>
+      <h3>Gemini CLI Turns Issue Triage Into A Caretaker Worker</h3>
+      <div class="update-receipt">
+        <span>google-gemini/gemini-cli</span>
+        <span class="branch-pill">evidence</span>
+      </div>
+      <div class="update-foot">
+        <span>3 sources</span>
+        <span>1 repo</span>
+        <span>3 linked commits</span>
+      </div>
+    </div>
+    <span class="update-arrow" aria-hidden="true">&rsaquo;</span>
+  </a><a class="update-card" href="/articles/2026-07-08-daily-api-discovery-rnb-turns-buildings-into-agent-readable-ids/">
+    <div class="update-stripe"></div>
+    <div class="update-main">
+      <div class="update-meta">
+        <span>Reported</span>
+        <span class="source-plus">+5</span>
+        <span>Jul 8, 2026</span>
+      </div>
+      <h3>API Discovery: RNB Turns Buildings Into Agent-Readable IDs</h3>
+      <div class="update-receipt">
+        <span>source trail</span>
+        <span class="branch-pill">evidence</span>
+      </div>
+      <div class="update-foot">
+        <span>5 sources</span>
+        <span>1 repo</span>
+        <span>5 source signals</span>
+      </div>
+    </div>
+    <span class="update-arrow" aria-hidden="true">&rsaquo;</span>
+  </a><a class="update-card" href="/articles/2026-07-08-daily-shepherd-makes-safety-evidence-a-release-story/">
+    <div class="update-stripe"></div>
+    <div class="update-main">
+      <div class="update-meta">
+        <span>Context</span>
+        <span class="source-plus">+5</span>
+        <span>Jul 8, 2026</span>
+      </div>
+      <h3>Shepherd Makes Safety Evidence A Release Story</h3>
+      <div class="update-receipt">
+        <span>shepherd-agents/shepherd</span>
+        <span class="branch-pill">evidence</span>
+      </div>
+      <div class="update-foot">
+        <span>5 sources</span>
+        <span>1 repo</span>
+        <span>commit 9e85295</span>
+      </div>
+    </div>
+    <span class="update-arrow" aria-hidden="true">&rsaquo;</span>
+  </a><a class="update-card" href="/articles/2026-07-08-daily-harness-engineering-is-becoming-the-fields-self-improvement-layer/">
+    <div class="update-stripe"></div>
+    <div class="update-main">
+      <div class="update-meta">
+        <span>Trust</span>
+        <span class="source-plus">+4</span>
+        <span>Jul 8, 2026</span>
+      </div>
+      <h3>Harness Engineering Is Becoming The Field's Self-Improvement Layer</h3>
+      <div class="update-receipt">
+        <span>lilianweng/lilianweng.github.io + 6 more</span>
+        <span class="branch-pill">evidence</span>
+      </div>
+      <div class="update-foot">
+        <span>4 sources</span>
+        <span>7 repos</span>
+        <span>4 source signals</span>
+      </div>
+    </div>
+    <span class="update-arrow" aria-hidden="true">&rsaquo;</span>
+  </a>
+        </div>
+      </section>
+    </main>
+    <footer class="wrap site-footer">
+      <span>&copy; 2026 The Git Reporter</span>
+      <a href="/about/">About</a>
+      <a href="/agent-pulse/">Agent Pulse</a>
+      <a href="/feed.xml">RSS</a>
+      <a href="https://x.com/TheGitReporter">Follow on X</a>
+      <a href="/articles.json">Manifest JSON</a>
+      <a href="/repos/">Sources</a>
+    </footer>
+  </div>
+</body>
+</html>
