@@ -1,0 +1,312 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Agent Runtimes Move Trust To The Exit Gate | The Git Reporter</title>
+  <meta name="description" content="OpenClaw, Codex, and Hermes all changed runtime trust surfaces this week, making the last moment before a tool call, secret handoff, or approval the place operators need to inspect.">
+  <meta name="robots" content="index,follow">
+  <link rel="canonical" href="https://thegitreporter.com/articles/2026-07-09-daily-agent-runtimes-move-trust-to-the-exit-gate/">
+  <link rel="alternate" type="application/rss+xml" title="The Git Reporter" href="https://thegitreporter.com/feed.xml">
+  <meta property="og:site_name" content="The Git Reporter">
+  <meta property="og:locale" content="en_US">
+  <meta property="og:title" content="Agent Runtimes Move Trust To The Exit Gate | The Git Reporter">
+  <meta property="og:description" content="OpenClaw, Codex, and Hermes all changed runtime trust surfaces this week, making the last moment before a tool call, secret handoff, or approval the place operators need to inspect.">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://thegitreporter.com/articles/2026-07-09-daily-agent-runtimes-move-trust-to-the-exit-gate/">
+  <meta property="og:image" content="https://thegitreporter.com/assets/social/2026-07-09-daily-agent-runtimes-move-trust-to-the-exit-gate-og.jpg">
+  <meta property="og:image:secure_url" content="https://thegitreporter.com/assets/social/2026-07-09-daily-agent-runtimes-move-trust-to-the-exit-gate-og.jpg">
+  <meta property="og:image:type" content="image/jpeg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Diagram Punk poster showing three source cards feeding into a circled runtime exit gate with a caveat stamp.">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:site" content="@TheGitReporter">
+  <meta name="twitter:creator" content="@TheGitReporter">
+  <meta name="twitter:title" content="Agent Runtimes Move Trust To The Exit Gate | The Git Reporter">
+  <meta name="twitter:description" content="OpenClaw, Codex, and Hermes all changed runtime trust surfaces this week, making the last moment before a tool call, secret handoff, or approval the place operators need to inspect.">
+  <meta name="twitter:url" content="https://thegitreporter.com/articles/2026-07-09-daily-agent-runtimes-move-trust-to-the-exit-gate/">
+  <meta name="twitter:domain" content="thegitreporter.com">
+  <meta name="twitter:image" content="https://thegitreporter.com/assets/social/2026-07-09-daily-agent-runtimes-move-trust-to-the-exit-gate-og.jpg">
+  <meta name="twitter:image:alt" content="Diagram Punk poster showing three source cards feeding into a circled runtime exit gate with a caveat stamp.">
+  <meta property="article:published_time" content="2026-07-09T12:00:00Z">
+  <meta property="article:modified_time" content="2026-07-09T12:00:00Z">
+  <meta property="article:section" content="Daily Edition">
+  <meta property="article:tag" content="Permissions">
+  <meta property="article:tag" content="Memory">
+  <meta property="article:tag" content="Tools">
+  <meta property="article:tag" content="Runtime">
+  <meta property="article:tag" content="openai/codex">
+  <meta property="article:tag" content="openclaw/openclaw">
+  <meta property="article:tag" content="NousResearch/hermes-agent">
+  <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"https://thegitreporter.com/#organization","name":"The Git Reporter","url":"https://thegitreporter.com","logo":{"@type":"ImageObject","url":"https://thegitreporter.com/assets/mark.svg"},"sameAs":["https://x.com/TheGitReporter"]},{"@type":"WebSite","@id":"https://thegitreporter.com/#website","name":"The Git Reporter","url":"https://thegitreporter.com","publisher":{"@id":"https://thegitreporter.com/#organization"}},{"@type":"NewsArticle","mainEntityOfPage":{"@type":"WebPage","@id":"https://thegitreporter.com/articles/2026-07-09-daily-agent-runtimes-move-trust-to-the-exit-gate/"},"headline":"Agent Runtimes Move Trust To The Exit Gate","description":"OpenClaw, Codex, and Hermes all changed runtime trust surfaces this week, making the last moment before a tool call, secret handoff, or approval the place operators need to inspect.","image":["https://thegitreporter.com/assets/social/2026-07-09-daily-agent-runtimes-move-trust-to-the-exit-gate-og.jpg"],"datePublished":"2026-07-09T12:00:00Z","dateModified":"2026-07-09T12:00:00Z","author":[{"@type":"Organization","name":"The Git Reporter","url":"https://thegitreporter.com"}],"publisher":{"@type":"Organization","@id":"https://thegitreporter.com/#organization","name":"The Git Reporter","url":"https://thegitreporter.com","logo":{"@type":"ImageObject","url":"https://thegitreporter.com/assets/mark.svg"},"sameAs":["https://x.com/TheGitReporter"]},"articleSection":"Daily Edition","keywords":"Permissions, Memory, Tools, Runtime, openai/codex, openclaw/openclaw, NousResearch/hermes-agent"}]}</script>
+  <link rel="icon" href="/assets/mark.svg">
+  <link rel="stylesheet" href="/assets/site.css?v=2026-06-30-agent-pulse-1">
+  <script defer src="/assets/feedback.js?v=2026-06-30-agent-pulse-1"></script>
+  <script defer src="/assets/analytics.js?v=2026-06-30-agent-pulse-1"></script>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-CH19T7M0T1"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){window.dataLayer.push(arguments);}
+    gtag("js", new Date());
+    gtag("config", "G-CH19T7M0T1");
+  </script>
+</head>
+<body>
+  <div class="site">
+    <header class="site-header" id="top">
+      <div class="wrap utility-row">
+        <a class="icon-link menu-icon" href="/archive/" aria-label="Open edition history"><span></span><span></span><span></span></a>
+        <a class="icon-link archive-icon" href="/archive/" aria-label="Open edition history"></a>
+      </div>
+      <div class="wrap masthead-lockup">
+        <a class="masthead-title" href="/">THE GIT REPORTER</a>
+        <div class="masthead-ornament" aria-hidden="true"></div>
+      </div>
+      <div class="wrap nav-wrap">
+        <nav class="paper-nav" aria-label="Primary navigation">
+    <a class="" href="/">Today</a><a class="active" href="/archive/">Editions</a><a class="" href="/about/">About</a><a class="" href="/agent-pulse/">Agent Pulse</a><a class="" href="/atlas/">Agent Atlas</a><a class="" href="/repos/">Repos</a>
+  </nav>
+        <div class="nav-rule"></div>
+      </div>
+    </header>
+    <main class="wrap page-shell article-page">
+      <section class="page-hero story-front">
+        <div class="story-topline">
+          <span>Daily Edition</span>
+          <span>Sources <strong>+4</strong></span>
+        </div>
+        <h1>Agent Runtimes Move Trust To The Exit Gate</h1>
+        <p class="summary">OpenClaw, Codex, and Hermes all changed runtime trust surfaces this week, making the last moment before a tool call, secret handoff, or approval the place operators need to inspect.</p>
+        <figure class="story-illustration article-illustration">
+    <img src="/assets/illustrations/2026-07-09-agent-runtimes-move-trust-to-the-exit-gate-diagram-punk-v1.png" alt="Diagram Punk poster showing three source cards feeding into a circled runtime exit gate with a caveat stamp." loading="lazy" decoding="async">
+    <figcaption><span>Diagram Punk</span>trust moves to the exit gate, but the receipts are independent commits.</figcaption>
+  </figure>
+        <div class="receipt">
+    <div class="receipt-line">
+      <span class="receipt-icon">repos</span>
+      <span class="receipt-main">openai/codex + 2 more</span>
+      <span class="branch-pill">evidence</span>
+    </div>
+    <div class="receipt-line receipt-muted">
+      <span>4 source signals</span>
+      <span>3 repos</span>
+      <span>3 linked commits</span>
+    </div>
+    <div class="commit-line">Evidence: 3 linked commits / July 9, 2026 / Daily Edition</div>
+  </div>
+        <div class="article-route-row">
+          <a href="/editions/2026-07-09/">Open Edition</a>
+          <a href="#evidence">Evidence below</a>
+        </div>
+      </section>
+      <section class="story-reader">
+        <article class="story-shell story-body">
+          <p>OpenClaw's July 8 commit added egress-time credential injection with process-local sentinels, while Codex made code-mode approvals pause for elicitation and Hermes passed approval rule keys into its plugin approval gate.</p>
+
+  <p>For agent operators, this changes the morning watch item: audit static config and the exit gate where a runtime turns a plan into an external request, a secret-bearing call, or an approval decision.</p>
+
+  <h2>Facts</h2>
+  <ul>
+    <li>OpenClaw changed provider secret handling across host, provider, sentinel, redaction, and transport tests.</li>
+    <li>Codex changed code-mode approval flow so all approvals trigger an elicitation pause.</li>
+    <li>Hermes changed plugin approval plumbing so approve rule keys reach the approval gate.</li>
+  </ul>
+
+  <h2>Evidence</h2>
+  <p>The public receipts are OpenClaw commit <a href="https://github.com/openclaw/openclaw/commit/4bf70be01a">4bf70be01a</a>, Codex commit <a href="https://github.com/openai/codex/commit/c55cb4b363">c55cb4b363</a>, and Hermes commit <a href="https://github.com/NousResearch/hermes-agent/commit/36308f066">36308f066</a>. Together they move trust checks from broad policy language into code paths that decide what leaves the agent process.</p>
+
+  <h2>Context</h2>
+  <p>The beat movement is not "more security features." It is a narrower operator contract: secrets, approvals, and plugin rules are becoming runtime boundaries that should be tested where tools execute, not merely documented where users configure them.</p>
+
+  <h2>Limits</h2>
+  <p>These are independent commits, not a shared standard or a coordinated release. What to watch next is whether the projects expose these exit-gate checks in logs, user prompts, and failure messages that operators can review after the fact.</p>
+        </article>
+      </section>
+      <section class="evidence-section" id="evidence" aria-labelledby="evidence-title">
+    <div class="evidence-head">
+      <div>
+        <div class="eyebrow">Evidence Trail</div>
+        <h2 id="evidence-title">Receipts below the story</h2>
+        <p>The article above is the public narrative. This section keeps the source trail and limits on the same page.</p>
+      </div>
+      <a class="paper-button" href="/editions/2026-07-09/">Edition</a>
+    </div>
+    <div class="evidence-table evidence-summary">
+      <div class="evidence-line"><span>Date</span><span>July 9, 2026</span></div>
+      <div class="evidence-line"><span>Lane</span><span>Daily Edition</span></div>
+      <div class="evidence-line"><span>Confidence</span><span>78%</span></div>
+      <div class="evidence-line"><span>Sources</span><span>4</span></div>
+      <div class="evidence-line"><span>Repos</span><span>openai/codex, openclaw/openclaw, NousResearch/hermes-agent</span></div>
+    </div>
+    <div class="markdown evidence-copy evidence-copy-block">
+      <h2>Primary Evidence</h2>
+<ul>
+<li>OpenClaw commit: <a href="https://github.com/openclaw/openclaw/commit/4bf70be01a">https://github.com/openclaw/openclaw/commit/4bf70be01a</a>
+<ul>
+<li>Shows: egress-time credential injection, process-local sentinel files, provider secret tests, redaction registry changes, and documentation updates.
+</li>
+</ul>
+</li>
+<li>Codex commit: <a href="https://github.com/openai/codex/commit/c55cb4b363">https://github.com/openai/codex/commit/c55cb4b363</a>
+<ul>
+<li>Shows: code-mode approval flow changes that trigger elicitation pause and add related session/tool-runtime tests.
+</li>
+</ul>
+</li>
+<li>Hermes commit: <a href="https://github.com/NousResearch/hermes-agent/commit/36308f066">https://github.com/NousResearch/hermes-agent/commit/36308f066</a>
+<ul>
+<li>Shows: approve rule keys passed to the approval gate with updates across plugin/runtime helpers and approval tests.
+</li>
+</ul>
+</li>
+<li>Agent Pulse snapshot for July 9: <a href="https://thegitreporter.com/agent-pulse/">https://thegitreporter.com/agent-pulse/</a>
+<ul>
+<li>Shows: OpenClaw as the strongest source-motion and acceleration signal in the watched shelf.
+</li>
+</ul>
+</li>
+</ul>
+<h2>Evidence Limits</h2>
+<ul>
+<li>These public commits do not prove a shared specification, coordination between projects, or production adoption.
+</li>
+<li>The article relies on public source commits and tests, not private operator incidents.
+</li>
+<li>What to watch: logs, prompts, and release notes that make these runtime exit gates observable to users.
+</li>
+</ul>
+    </div>
+  </section>
+      <section class="related-edition-section atlas-context-section">
+    <div class="section-title-row">
+      <h2>Atlas Context</h2>
+      <a href="/atlas/">Open Atlas &rsaquo;</a>
+    </div>
+    <div class="updates-list">
+      <a class="article-card" href="/atlas/friction-safety-and-approval/">
+            <div class="article-meta"><span class="lane">Agent Atlas</span><span>Chapter 7</span></div>
+            <h3>The Approval Trap</h3>
+            <p>Approval is useful only when it catches a meaningful change in authority, explains that change, and keeps the decision attached to the work.</p>
+          </a>
+    </div>
+  </section>
+      <section class="reader-feedback"
+    data-tgr-feedback
+    data-article-slug="2026-07-09-daily-agent-runtimes-move-trust-to-the-exit-gate"
+    data-article-title="Agent Runtimes Move Trust To The Exit Gate"
+    data-article-url="/articles/2026-07-09-daily-agent-runtimes-move-trust-to-the-exit-gate/"
+    data-edition-date="2026-07-09"
+    data-lane="Daily Edition"
+    data-tags="Permissions,Memory,Tools,Runtime"
+    data-repos="openai/codex,openclaw/openclaw,NousResearch/hermes-agent">
+    <div class="reader-feedback-head">
+      <div>
+        <div class="eyebrow">Letters &amp; Corrections</div>
+        <h2>Send a note to the desk</h2>
+      </div>
+      <p>Corrections, missing context, or a follow-up lead.</p>
+    </div>
+    <form class="feedback-form">
+      <div class="feedback-votes" role="group" aria-label="Choose signal type">
+        <button class="feedback-choice" type="button" data-vote="follow-up" aria-pressed="false">
+          <span aria-hidden="true">+</span>
+          <span>Follow-up</span>
+        </button>
+        <button class="feedback-choice" type="button" data-vote="correction" aria-pressed="false">
+          <span aria-hidden="true">!</span>
+          <span>Correction</span>
+        </button>
+      </div>
+      <label class="feedback-comment">
+        <span>Note for the editor</span>
+        <textarea name="comment" rows="3" maxlength="320" placeholder="What did we miss, or what should we follow next?"></textarea>
+      </label>
+      <div class="feedback-submit-row">
+        <p class="feedback-status" aria-live="polite"></p>
+        <button class="paper-button primary feedback-submit" type="submit">Send to desk</button>
+      </div>
+    </form>
+  </section>
+      <section class="related-edition-section">
+        <div class="section-title-row">
+          <h2>Same Edition</h2>
+          <a href="/editions/2026-07-09/">Open issue &rsaquo;</a>
+        </div>
+        <div class="updates-list">
+          <a class="update-card" href="/articles/2026-07-09-daily-builder-work-ralphy-gives-coding-agents-a-video-runtime/">
+    <div class="update-stripe"></div>
+    <div class="update-main">
+      <div class="update-meta">
+        <span>Context</span>
+        <span class="source-plus">+5</span>
+        <span>Jul 9, 2026</span>
+      </div>
+      <h3>Builder Work: Ralphy Gives Coding Agents A Video Runtime</h3>
+      <div class="update-receipt">
+        <span>openai/codex</span>
+        <span class="branch-pill">evidence</span>
+      </div>
+      <div class="update-foot">
+        <span>5 sources</span>
+        <span>1 repo</span>
+        <span>5 source signals</span>
+      </div>
+    </div>
+    <span class="update-arrow" aria-hidden="true">&rsaquo;</span>
+  </a><a class="update-card" href="/articles/2026-07-09-daily-langchain-stops-retries-from-eating-interrupts/">
+    <div class="update-stripe"></div>
+    <div class="update-main">
+      <div class="update-meta">
+        <span>Context</span>
+        <span class="source-plus">+5</span>
+        <span>Jul 9, 2026</span>
+      </div>
+      <h3>LangChain Stops Retries From Eating Interrupts</h3>
+      <div class="update-receipt">
+        <span>langchain-ai/langchain</span>
+        <span class="branch-pill">evidence</span>
+      </div>
+      <div class="update-foot">
+        <span>5 sources</span>
+        <span>1 repo</span>
+        <span>commit fca0a97</span>
+      </div>
+    </div>
+    <span class="update-arrow" aria-hidden="true">&rsaquo;</span>
+  </a><a class="update-card" href="/articles/2026-07-09-daily-api-discovery-ma-cantine-turns-lunch-rules-into-agent-checklists/">
+    <div class="update-stripe"></div>
+    <div class="update-main">
+      <div class="update-meta">
+        <span>Trust</span>
+        <span class="source-plus">+3</span>
+        <span>Jul 9, 2026</span>
+      </div>
+      <h3>API Discovery: Ma Cantine Turns Lunch Rules Into Agent Checklists</h3>
+      <div class="update-receipt">
+        <span>source trail</span>
+        <span class="branch-pill">evidence</span>
+      </div>
+      <div class="update-foot">
+        <span>3 sources</span>
+        <span>1 repo</span>
+        <span>3 source signals</span>
+      </div>
+    </div>
+    <span class="update-arrow" aria-hidden="true">&rsaquo;</span>
+  </a>
+        </div>
+      </section>
+    </main>
+    <footer class="wrap site-footer">
+      <span>&copy; 2026 The Git Reporter</span>
+      <a href="/about/">About</a>
+      <a href="/agent-pulse/">Agent Pulse</a>
+      <a href="/feed.xml">RSS</a>
+      <a href="https://x.com/TheGitReporter">Follow on X</a>
+      <a href="/articles.json">Manifest JSON</a>
+      <a href="/repos/">Sources</a>
+    </footer>
+  </div>
+</body>
+</html>
