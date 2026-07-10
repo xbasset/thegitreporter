@@ -1,0 +1,449 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Karpathy's Educational Open-Source Factory | The Git Reporter</title>
+  <meta name="description" content="From micrograd to nanochat, Andrej Karpathy&#39;s public code curriculum advances by exposing one more layer, preserving a trusted answer key, and deleting whatever makes the next edition harder to read.">
+  <meta name="robots" content="index,follow">
+  <link rel="canonical" href="https://thegitreporter.com/articles/2026-07-10-daily-karpathys-educational-open-source-factory/">
+  <link rel="alternate" type="application/rss+xml" title="The Git Reporter" href="https://thegitreporter.com/feed.xml">
+  <meta property="og:site_name" content="The Git Reporter">
+  <meta property="og:locale" content="en_US">
+  <meta property="og:title" content="Karpathy&#39;s Educational Open-Source Factory | The Git Reporter">
+  <meta property="og:description" content="From micrograd to nanochat, Andrej Karpathy&#39;s public code curriculum advances by exposing one more layer, preserving a trusted answer key, and deleting whatever makes the next edition harder to read.">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://thegitreporter.com/articles/2026-07-10-daily-karpathys-educational-open-source-factory/">
+  <meta property="og:image" content="https://thegitreporter.com/assets/social/2026-07-10-daily-karpathys-educational-open-source-factory-og.jpg">
+  <meta property="og:image:secure_url" content="https://thegitreporter.com/assets/social/2026-07-10-daily-karpathys-educational-open-source-factory-og.jpg">
+  <meta property="og:image:type" content="image/jpeg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Diagram Punk poster showing seven Karpathy repositories as successive textbook editions, each exposing another machine-learning layer and carrying a test or reference oracle.">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:site" content="@TheGitReporter">
+  <meta name="twitter:creator" content="@TheGitReporter">
+  <meta name="twitter:title" content="Karpathy&#39;s Educational Open-Source Factory | The Git Reporter">
+  <meta name="twitter:description" content="From micrograd to nanochat, Andrej Karpathy&#39;s public code curriculum advances by exposing one more layer, preserving a trusted answer key, and deleting whatever makes the next edition harder to read.">
+  <meta name="twitter:url" content="https://thegitreporter.com/articles/2026-07-10-daily-karpathys-educational-open-source-factory/">
+  <meta name="twitter:domain" content="thegitreporter.com">
+  <meta name="twitter:image" content="https://thegitreporter.com/assets/social/2026-07-10-daily-karpathys-educational-open-source-factory-og.jpg">
+  <meta name="twitter:image:alt" content="Diagram Punk poster showing seven Karpathy repositories as successive textbook editions, each exposing another machine-learning layer and carrying a test or reference oracle.">
+  <meta property="article:published_time" content="2026-07-10T12:00:00Z">
+  <meta property="article:modified_time" content="2026-07-10T12:00:00Z">
+  <meta property="article:section" content="Daily Edition">
+  <meta property="article:tag" content="Machine Learning">
+  <meta property="article:tag" content="Code Pedagogy">
+  <meta property="article:tag" content="Reference Implementations">
+  <meta property="article:tag" content="Maintenance">
+  <meta property="article:tag" content="Open Source">
+  <meta property="article:tag" content="karpathy/micrograd">
+  <meta property="article:tag" content="karpathy/makemore">
+  <meta property="article:tag" content="karpathy/minGPT">
+  <meta property="article:tag" content="karpathy/nanoGPT">
+  <meta property="article:tag" content="karpathy/llama2.c">
+  <meta property="article:tag" content="karpathy/llm.c">
+  <meta property="article:tag" content="karpathy/nanochat">
+  <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"https://thegitreporter.com/#organization","name":"The Git Reporter","url":"https://thegitreporter.com","logo":{"@type":"ImageObject","url":"https://thegitreporter.com/assets/mark.svg"},"sameAs":["https://x.com/TheGitReporter"]},{"@type":"WebSite","@id":"https://thegitreporter.com/#website","name":"The Git Reporter","url":"https://thegitreporter.com","publisher":{"@id":"https://thegitreporter.com/#organization"}},{"@type":"NewsArticle","mainEntityOfPage":{"@type":"WebPage","@id":"https://thegitreporter.com/articles/2026-07-10-daily-karpathys-educational-open-source-factory/"},"headline":"Karpathy's Educational Open-Source Factory","description":"From micrograd to nanochat, Andrej Karpathy's public code curriculum advances by exposing one more layer, preserving a trusted answer key, and deleting whatever makes the next edition harder to read.","image":["https://thegitreporter.com/assets/social/2026-07-10-daily-karpathys-educational-open-source-factory-og.jpg"],"datePublished":"2026-07-10T12:00:00Z","dateModified":"2026-07-10T12:00:00Z","author":[{"@type":"Organization","name":"The Git Reporter","url":"https://thegitreporter.com"}],"publisher":{"@type":"Organization","@id":"https://thegitreporter.com/#organization","name":"The Git Reporter","url":"https://thegitreporter.com","logo":{"@type":"ImageObject","url":"https://thegitreporter.com/assets/mark.svg"},"sameAs":["https://x.com/TheGitReporter"]},"articleSection":"Daily Edition","keywords":"Machine Learning, Code Pedagogy, Reference Implementations, Maintenance, Open Source, karpathy/micrograd, karpathy/makemore, karpathy/minGPT, karpathy/nanoGPT, karpathy/llama2.c, karpathy/llm.c, karpathy/nanochat"}]}</script>
+  <link rel="icon" href="/assets/mark.svg">
+  <link rel="stylesheet" href="/assets/site.css?v=2026-07-10-agent-pulse-editorial-filter-1">
+  <script defer src="/assets/feedback.js?v=2026-07-10-agent-pulse-editorial-filter-1"></script>
+  <script defer src="/assets/analytics.js?v=2026-07-10-agent-pulse-editorial-filter-1"></script>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-CH19T7M0T1"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){window.dataLayer.push(arguments);}
+    gtag("js", new Date());
+    gtag("config", "G-CH19T7M0T1");
+  </script>
+</head>
+<body>
+  <div class="site">
+    <header class="site-header" id="top">
+      <div class="wrap utility-row">
+        <a class="icon-link menu-icon" href="/archive/" aria-label="Open edition history"><span></span><span></span><span></span></a>
+        <a class="icon-link archive-icon" href="/archive/" aria-label="Open edition history"></a>
+      </div>
+      <div class="wrap masthead-lockup">
+        <a class="masthead-title" href="/">THE GIT REPORTER</a>
+        <div class="masthead-ornament" aria-hidden="true"></div>
+      </div>
+      <div class="wrap nav-wrap">
+        <nav class="paper-nav" aria-label="Primary navigation">
+    <a class="" href="/">Today</a><a class="active" href="/archive/">Editions</a><a class="" href="/about/">About</a><a class="" href="/agent-pulse/">Agent Pulse</a><a class="" href="/atlas/">Agent Atlas</a><a class="" href="/repos/">Repos</a>
+  </nav>
+        <div class="nav-rule"></div>
+      </div>
+    </header>
+    <main class="wrap page-shell article-page">
+      <section class="page-hero story-front">
+        <div class="story-topline">
+          <span>Daily Edition</span>
+          <span>Sources <strong>+14</strong></span>
+        </div>
+        <h1>Karpathy's Educational Open-Source Factory</h1>
+        <p class="summary">From micrograd to nanochat, Andrej Karpathy's public code curriculum advances by exposing one more layer, preserving a trusted answer key, and deleting whatever makes the next edition harder to read.</p>
+        <figure class="story-illustration article-illustration">
+    <img src="/assets/illustrations/2026-07-10-karpathys-educational-open-source-factory-diagram-punk-v1.png" alt="Diagram Punk poster showing seven Karpathy repositories as successive textbook editions, each exposing another machine-learning layer and carrying a test or reference oracle." loading="lazy" decoding="async">
+    <figcaption><span>Diagram Punk</span>each repository moves the boundary of what may remain magic.</figcaption>
+  </figure>
+        <div class="receipt">
+    <div class="receipt-line">
+      <span class="receipt-icon">repos</span>
+      <span class="receipt-main">karpathy/micrograd + 6 more</span>
+      <span class="branch-pill">evidence</span>
+    </div>
+    <div class="receipt-line receipt-muted">
+      <span>14 source signals</span>
+      <span>7 repos</span>
+      <span>8 linked commits</span>
+    </div>
+    <div class="commit-line">Evidence: 8 linked commits / July 10, 2026 / Daily Edition</div>
+  </div>
+        <div class="article-route-row">
+          <a href="/editions/2026-07-10/">Open Edition</a>
+          <a href="#evidence">Evidence below</a>
+        </div>
+      </section>
+      <section class="story-reader">
+        <article class="story-shell story-body">
+          <p>On July 2 and 3, the newest repo in Andrej Karpathy's teaching lineage became smaller and stricter. Nanochat <a href="https://github.com/karpathy/nanochat/commit/f10bd751efb1d3c631476da3629673b2048029ec">deleted a report system</a>, <a href="https://github.com/karpathy/nanochat/commit/da32e1d657b62cc1110f20f86fbc301d6189726e">removed its bundled web UI</a>, <a href="https://github.com/karpathy/nanochat/commit/41865401f73ff1c5321ae53297bceb2b78d4c8b4">cut a Hugging Face dependency path</a>, and <a href="https://github.com/karpathy/nanochat/commit/a9d0a862c6085fad013d370e71c14b1e9431a14c">unified two optimizers</a> that had already diverged enough to cause a bug. Then it added 427 lines of adversarial, optimizer, task, tokenizer, and execution-sandbox tests.</p>
+
+  <p>That sequence—subtract, consolidate, add an oracle, then measure—is the clearest current explanation of Karpathy's educational open-source factory. The product is not a pile of tiny frameworks. It is a series of textbook editions written as executable source, each moving the boundary of what a learner is allowed to treat as magic.</p>
+
+  <h2>The latest lesson begins with deletion</h2>
+
+  <p>Nanochat is not literally small anymore. Its own <a href="https://github.com/karpathy/nanochat/blob/master/README.md">README</a> maps a complete train-to-chat system: tokenization, distributed data loading, pretraining, supervised finetuning, evaluation, inference, tool execution, checkpointing, and conversation. The project turns model depth into a main complexity dial and derives many surrounding choices from it.</p>
+
+  <p>But minimalism here is not a line-count stunt. The July cleanup says generated UI is cheap compared with a forkable research core. The optimizer consolidation says duplicate concepts become bugs. A follow-up commit <a href="https://github.com/karpathy/nanochat/commit/92d63d4e8bb4df75c3b71618f31ddde2378b2bcd">moved FLOP and KV-cache accounting into the GPT model</a> and deleted duplicate benchmark formulas. The lesson is spatial: a concept should live where a reader can find its authority.</p>
+
+  <p>The new tests make the subtraction credible. Removing surfaces without an answer key would only make the repo prettier. Commit <a href="https://github.com/karpathy/nanochat/commit/f8a85a5fb45d5a6b5778fd2e027e9a084c2c1909">f8a85a5</a> added checks around execution isolation, optimizer behavior, tasks, and tokenization—the failure boundaries most likely to disappear behind a successful training demo.</p>
+
+  <h2>The boundary of magic keeps moving</h2>
+
+  <p>The same editing method appears across the portfolio. <a href="https://github.com/karpathy/micrograd">Micrograd</a> begins with scalar values. Each addition and multiplication creates a node in a dynamic graph; each node carries a local backward rule; a topological walk applies the chain rule. The implementation is intentionally too low-level for useful tensor work and exactly low-level enough to make reverse-mode autodiff visible.</p>
+
+  <p><a href="https://github.com/karpathy/makemore/blob/988aa59e4d8fefa526d06f3b453ad116258398d4/makemore.py#L1-L13">Makemore</a> holds the data problem still—generate more name-like words—while the model changes underneath it. Counts, multilayer perceptrons, recurrent networks, convolutional structures, and Transformers become comparable chapters rather than unrelated demos. Its source explicitly removes pretrained loading, dropout, and weight-decay machinery that the chosen teaching scale does not need.</p>
+
+  <p><a href="https://github.com/karpathy/minGPT/blob/37baab71b9abea1b76ab957409a1cc2fbfba8a26/mingpt/model.py">MinGPT</a> moves the boundary to the Transformer itself. Its causal attention class could call a higher-level PyTorch attention module, but the file keeps query, key, value projections, masking, softmax, and head reassembly explicit. The code comment gives away the editorial intent: there is “nothing too scary here.”</p>
+
+  <p><a href="https://github.com/karpathy/llama2.c/blob/350e04fe35433e6d2941dce5a1f53308f87058eb/run.c#L231-L362">Llama2.c</a> then moves below PyTorch inference. The C loop spells out QKV projection, rotary position encoding, attention, SwiGLU, residual connections, and final logits. The README's “700-line” description is historical—the current file is longer—but the durable decision remains: hard-code the architecture, avoid dependencies, and keep a complete inference path available for inspection.</p>
+
+  <p><a href="https://github.com/karpathy/llm.c">Llm.c</a> moves the boundary again, into training. Its readable CPU implementation sits beside a faster CUDA path and a library of kernels that progresses from simple versions to optimized ones. Nanochat widens the frame one final time: not only the model and trainer, but the path from raw data to an evaluated model a reader can talk to.</p>
+
+  <h2>Tiny code still needs a large answer key</h2>
+
+  <p>The most important recurring choice is easy to miss because it is not minimal: the repos keep an external oracle.</p>
+
+  <p>Micrograd's <a href="https://github.com/karpathy/micrograd/blob/c911406e5ace8742e5841a7e0df113ecb5d54685/test/test_engine.py#L1-L67">engine tests</a> repeat scalar expressions in PyTorch, then compare both forward values and backward gradients. MinGPT's <a href="https://github.com/karpathy/minGPT/blob/37baab71b9abea1b76ab957409a1cc2fbfba8a26/tests/test_huggingface_import.py#L14-L54">Hugging Face import test</a> loads the same GPT-2 weights into both implementations and requires matching logits, generated token IDs, and decoded output.</p>
+
+  <p>Llm.c removes Python from the training loop without removing Python from the correctness argument. Its <a href="https://github.com/karpathy/llm.c/blob/f1e2ace651495b74ae22d45d1723443fd00ecd3a/test_gpt2.c#L39-L185">C test</a> consumes debug state written by the PyTorch reference and checks logits, loss, gradient groups, and an optimization trajectory. The small implementation is not presented as self-evidently right. It earns the right to teach by agreeing with a system readers already trust.</p>
+
+  <p>This is the portfolio's most transferable move. A reference implementation should minimize the concept being explained, not the evidence needed to establish correctness. Clarity without an oracle is only confidence.</p>
+
+  <h2>A successful chapter becomes hard to edit</h2>
+
+  <p>The repositories also expose a maintenance problem peculiar to teaching software: success can freeze the lesson.</p>
+
+  <p>Karpathy's <a href="https://github.com/karpathy/minGPT/commit/37baab71b9abea1b76ab957409a1cc2fbfba8a26">minGPT transition note</a> says notebooks, blogs, courses, and books had begun linking into the repository. A breaking cleanup would not only affect users; it would invalidate references scattered across other people's explanations. The response was to semi-archive that chapter and move active development into nanoGPT.</p>
+
+  <p>In November 2025, <a href="https://github.com/karpathy/nanoGPT/commit/3adf61e154c3fe3fca428ad6bc3818b27a3b8291">nanoGPT made the same move explicit</a>: the repo is old and deprecated, points readers toward nanochat, and remains online for posterity. This is not ordinary framework versioning. A textbook edition must sometimes stop changing so the page numbers still mean something.</p>
+
+  <p>The public lineage is careful rather than linear. Llama2.c says it adapted nanoGPT's training side and added a C inference engine. Llm.c calls its parallel PyTorch implementation a modified nanoGPT. Nanochat describes itself as a wider successor, but not every file or use case descends cleanly from the older repos. The continuity is an editorial method: preserve the old boundary, choose a new one, and rebuild around the next question.</p>
+
+  <h2>Minimal is a complexity budget</h2>
+
+  <p>That method also explains how these projects accept community work without letting every useful feature into the core.</p>
+
+  <p>Llama2.c's public guidance favors small, localized, broadly useful changes and points specialized platform work toward forks. Llm.c asks ports to live in separate linked repositories so the main project can remain C/CUDA, while its <a href="https://github.com/karpathy/llm.c/blob/f1e2ace651495b74ae22d45d1723443fd00ecd3a/README.md#L191-L201">complexity policy</a> explicitly weighs speed against dependencies and added code. Experimental complexity can live in <code>dev/</code>; the reference route keeps a tighter budget.</p>
+
+  <p>This is not solitary work disguised as a personal portfolio. The repositories carry substantial contributions, and nanochat's README credits leaderboard collaborators and community management. The distinctive skill is stewardship of the teaching boundary: deciding which contribution clarifies the chapter, which belongs on the fast path, and which deserves a separate book.</p>
+
+  <h2>What builders can borrow</h2>
+
+  <p>Most teams do not need to publish seven machine-learning repositories. They can still copy the architecture of the curriculum.</p>
+
+  <ul>
+    <li><strong>Name the boundary.</strong> Decide exactly which concept the reader must see and which dependency may remain trusted for this edition.</li>
+    <li><strong>Keep an oracle.</strong> Compare the readable path with a mature implementation, reference state, fixture, or reproducible trajectory.</li>
+    <li><strong>Separate reference from fast.</strong> Let the simplest path explain the mechanism and the optimized path establish a practical upper bound.</li>
+    <li><strong>Give complexity an address.</strong> Put experiments, ports, UI, and specialized integrations where they cannot obscure the concept at the center.</li>
+    <li><strong>Let a chapter end.</strong> When compatibility with tutorials and downstream explanations makes the code impossible to reshape, preserve it and start the next edition honestly.</li>
+  </ul>
+
+  <p>Those rules are useful far beyond ML. An agent runtime, compiler, database, or API client can expose one mechanism, prove it against an oracle, and resist becoming the universal framework its popularity invites.</p>
+
+  <h2>Limits</h2>
+
+  <p>The source trail does not prove that fewer lines always teach better. Makemore removes guardrails that would be irresponsible at a different scale. NanoGPT documents a data-domain gap in its reproduction work. Llama2.c trades generality for a readable hard-coded path. Nanochat's affordable training claims assume high-end GPU hardware, and parts of its scaling logic are candidly described as assumptions rather than settled theory.</p>
+
+  <p>Nor is this one author's untouched code. Contributors improved kernels, portability, testing, documentation, and evaluation across the portfolio. The defensible claim is narrower and more useful: Karpathy's public repositories repeatedly treat code as an edited learning surface. The factory works when each new edition makes one more layer inspectable—and when deletion protects the reader from everything that does not belong in that lesson.</p>
+        </article>
+      </section>
+      <section class="evidence-section" id="evidence" aria-labelledby="evidence-title">
+    <div class="evidence-head">
+      <div>
+        <div class="eyebrow">Evidence Trail</div>
+        <h2 id="evidence-title">Receipts below the story</h2>
+        <p>The article above is the public narrative. This section keeps the source trail and limits on the same page.</p>
+      </div>
+      <a class="paper-button" href="/editions/2026-07-10/">Edition</a>
+    </div>
+    <div class="evidence-table evidence-summary">
+      <div class="evidence-line"><span>Date</span><span>July 10, 2026</span></div>
+      <div class="evidence-line"><span>Lane</span><span>Daily Edition</span></div>
+      <div class="evidence-line"><span>Confidence</span><span>91%</span></div>
+      <div class="evidence-line"><span>Sources</span><span>14</span></div>
+      <div class="evidence-line"><span>Repos</span><span>karpathy/micrograd, karpathy/makemore, karpathy/minGPT, karpathy/nanoGPT, karpathy/llama2.c, karpathy/llm.c, karpathy/nanochat</span></div>
+    </div>
+    <div class="markdown evidence-copy evidence-copy-block">
+      <h2>Primary Evidence</h2>
+<ul>
+<li><a href="https://github.com/karpathy/micrograd"><code>micrograd</code> README</a>
+<ul>
+<li>Shows: the scalar-valued autodiff engine and neural-network layer are deliberately kept around 100 and 50 lines for education.
+</li>
+</ul>
+</li>
+<li><a href="https://github.com/karpathy/micrograd/blob/master/test/test_engine.py"><code>micrograd</code> PyTorch oracle</a>
+<ul>
+<li>Shows: the tiny implementation checks forward values and backward gradients against PyTorch rather than asking readers to trust simplicity alone.
+</li>
+</ul>
+</li>
+<li><a href="https://github.com/karpathy/minGPT/blob/master/mingpt/model.py"><code>minGPT</code> model definition</a>
+<ul>
+<li>Shows: GPT and causal self-attention are written explicitly in one readable model file, including the choice not to hide attention behind <code>MultiheadAttention</code>.
+</li>
+</ul>
+</li>
+<li><a href="https://github.com/karpathy/makemore"><code>makemore</code> source course</a>
+<ul>
+<li>Shows: one character-level word-model problem is revisited through a progression of model families instead of being packaged as a single opaque library.
+</li>
+</ul>
+</li>
+<li><a href="https://github.com/karpathy/nanoGPT/commit/3adf61e154c3fe3fca428ad6bc3818b27a3b8291"><code>nanoGPT</code> deprecation commit</a>
+<ul>
+<li>Shows: the older trainer now points readers to nanochat and is explicitly retained for posterity rather than expanded indefinitely.
+</li>
+</ul>
+</li>
+<li><a href="https://github.com/karpathy/llama2.c"><code>llama2.c</code> README</a>
+<ul>
+<li>Shows: the project deliberately hard-codes Llama 2 inference into one dependency-free C path and names minimalism, simplicity, and hackability as scope decisions.
+</li>
+</ul>
+</li>
+<li><a href="https://github.com/karpathy/llama2.c/blob/master/run.c"><code>llama2.c</code> inference file</a>
+<ul>
+<li>Shows: model loading, tokenizer/sampling, transformer math, and inference execution remain inspectable in the reference C implementation.
+</li>
+</ul>
+</li>
+<li><a href="https://github.com/karpathy/llm.c"><code>llm.c</code> README and repo policy</a>
+<ul>
+<li>Shows: the project pairs a readable CPU reference with a fast CUDA path, preserves C/CUDA scope, and routes ports into separately linked projects.
+</li>
+</ul>
+</li>
+<li><a href="https://github.com/karpathy/llm.c/blob/master/test_gpt2.c"><code>llm.c</code> correctness test</a>
+<ul>
+<li>Shows: the C implementation compares logits, loss, and training behavior with debug state generated by the PyTorch reference.
+</li>
+</ul>
+</li>
+<li><a href="https://github.com/karpathy/llm.c/discussions/481"><code>llm.c</code> GPT-2 reproduction discussion</a>
+<ul>
+<li>Shows: a public, reproducible training recipe connects readable implementation details to an actual GPT-2 run and records practical limitations.
+</li>
+</ul>
+</li>
+<li><a href="https://github.com/karpathy/nanochat/blob/master/README.md"><code>nanochat</code> full-pipeline README</a>
+<ul>
+<li>Shows: tokenization, pretraining, finetuning, evaluation, inference, and interaction are gathered into a hackable successor controlled largely through a depth dial.
+</li>
+</ul>
+</li>
+<li><a href="https://github.com/karpathy/nanochat/commit/f8a85a5fb45d5a6b5778fd2e027e9a084c2c1909"><code>nanochat</code> test expansion, July 3</a>
+<ul>
+<li>Shows: the current successor added adversarial, optimizer, task, tokenizer, and execution-sandbox tests rather than relying on a clean demo path.
+</li>
+</ul>
+</li>
+<li><a href="https://github.com/karpathy/nanochat/commit/92d63d4e8bb4df75c3b71618f31ddde2378b2bcd"><code>nanochat</code> fragile-code cleanup, July 3</a>
+<ul>
+<li>Shows: FLOP and KV accounting moved closer to the GPT model while duplicate benchmark formulas were deleted, keeping one concept in one authoritative place.
+</li>
+</ul>
+</li>
+<li><a href="https://github.com/karpathy/nanochat/discussions/420"><code>nanochat</code> miniseries discussion</a>
+<ul>
+<li>Shows: the project treats comparable evaluation as part of the teaching surface and explicitly rejects metric shortcuts that make unlike runs look comparable.
+</li>
+</ul>
+</li>
+</ul>
+<h2>Evidence Limits</h2>
+<ul>
+<li>These sources prove code structure, stated scope, tests, succession, and public maintenance choices. They do not prove that minimal code is always more correct, more accessible, or more suitable for production.
+</li>
+<li>Current repos include work by many contributors. The article credits the portfolio strategy to Karpathy while avoiding sole-authorship claims about every implementation.
+</li>
+<li>Hardware costs, speed claims, repository activity, and file lengths change. The durable claim is the repeated reference/oracle/successor pattern visible across the source trail.
+</li>
+</ul>
+    </div>
+  </section>
+      <section class="related-edition-section atlas-context-section">
+    <div class="section-title-row">
+      <h2>Atlas Context</h2>
+      <a href="/atlas/">Open Atlas &rsaquo;</a>
+    </div>
+    <div class="updates-list">
+      <a class="article-card" href="/atlas/friction-safety-and-approval/">
+            <div class="article-meta"><span class="lane">Agent Atlas</span><span>Chapter 7</span></div>
+            <h3>The Approval Trap</h3>
+            <p>Approval is useful only when it catches a meaningful change in authority, explains that change, and keeps the decision attached to the work.</p>
+          </a>
+    </div>
+  </section>
+      <section class="reader-feedback"
+    data-tgr-feedback
+    data-article-slug="2026-07-10-daily-karpathys-educational-open-source-factory"
+    data-article-title="Karpathy's Educational Open-Source Factory"
+    data-article-url="/articles/2026-07-10-daily-karpathys-educational-open-source-factory/"
+    data-edition-date="2026-07-10"
+    data-lane="Daily Edition"
+    data-tags="Machine Learning,Code Pedagogy,Reference Implementations,Maintenance,Open Source"
+    data-repos="karpathy/micrograd,karpathy/makemore,karpathy/minGPT,karpathy/nanoGPT,karpathy/llama2.c,karpathy/llm.c,karpathy/nanochat">
+    <div class="reader-feedback-head">
+      <div>
+        <div class="eyebrow">Letters &amp; Corrections</div>
+        <h2>Send a note to the desk</h2>
+      </div>
+      <p>Corrections, missing context, or a follow-up lead.</p>
+    </div>
+    <form class="feedback-form">
+      <div class="feedback-votes" role="group" aria-label="Choose signal type">
+        <button class="feedback-choice" type="button" data-vote="follow-up" aria-pressed="false">
+          <span aria-hidden="true">+</span>
+          <span>Follow-up</span>
+        </button>
+        <button class="feedback-choice" type="button" data-vote="correction" aria-pressed="false">
+          <span aria-hidden="true">!</span>
+          <span>Correction</span>
+        </button>
+      </div>
+      <label class="feedback-comment">
+        <span>Note for the editor</span>
+        <textarea name="comment" rows="3" maxlength="320" placeholder="What did we miss, or what should we follow next?"></textarea>
+      </label>
+      <div class="feedback-submit-row">
+        <p class="feedback-status" aria-live="polite"></p>
+        <button class="paper-button primary feedback-submit" type="submit">Send to desk</button>
+      </div>
+    </form>
+  </section>
+      <section class="related-edition-section">
+        <div class="section-title-row">
+          <h2>Same Edition</h2>
+          <a href="/editions/2026-07-10/">Open issue &rsaquo;</a>
+        </div>
+        <div class="updates-list">
+          <a class="update-card" href="/articles/2026-07-10-daily-openwork-makes-mcp-sessions-durable/">
+    <div class="update-stripe"></div>
+    <div class="update-main">
+      <div class="update-meta">
+        <span>Context</span>
+        <span class="source-plus">+3</span>
+        <span>Jul 10, 2026</span>
+      </div>
+      <h3>OpenWork Makes MCP Sessions Durable</h3>
+      <div class="update-receipt">
+        <span>source trail</span>
+        <span class="branch-pill">evidence</span>
+      </div>
+      <div class="update-foot">
+        <span>3 sources</span>
+        <span>1 repo</span>
+        <span>3 linked commits</span>
+      </div>
+    </div>
+    <span class="update-arrow" aria-hidden="true">&rsaquo;</span>
+  </a><a class="update-card" href="/articles/2026-07-10-daily-builder-work-contextmatrix-makes-agent-boards-git-auditable/">
+    <div class="update-stripe"></div>
+    <div class="update-main">
+      <div class="update-meta">
+        <span>Context</span>
+        <span class="source-plus">+4</span>
+        <span>Jul 10, 2026</span>
+      </div>
+      <h3>Builder Work: ContextMatrix Makes Agent Boards Git-Auditable</h3>
+      <div class="update-receipt">
+        <span>source trail</span>
+        <span class="branch-pill">evidence</span>
+      </div>
+      <div class="update-foot">
+        <span>4 sources</span>
+        <span>1 repo</span>
+        <span>4 source signals</span>
+      </div>
+    </div>
+    <span class="update-arrow" aria-hidden="true">&rsaquo;</span>
+  </a><a class="update-card" href="/articles/2026-07-10-daily-pi-turns-cache-misses-into-budget-signals/">
+    <div class="update-stripe"></div>
+    <div class="update-main">
+      <div class="update-meta">
+        <span>Context</span>
+        <span class="source-plus">+4</span>
+        <span>Jul 10, 2026</span>
+      </div>
+      <h3>Pi Turns Cache Misses Into Budget Signals</h3>
+      <div class="update-receipt">
+        <span>earendil-works/pi</span>
+        <span class="branch-pill">evidence</span>
+      </div>
+      <div class="update-foot">
+        <span>4 sources</span>
+        <span>1 repo</span>
+        <span>3 linked commits</span>
+      </div>
+    </div>
+    <span class="update-arrow" aria-hidden="true">&rsaquo;</span>
+  </a><a class="update-card" href="/articles/2026-07-10-daily-api-discovery-impact-co2-turns-carbon-data-into-agent-estimates/">
+    <div class="update-stripe"></div>
+    <div class="update-main">
+      <div class="update-meta">
+        <span>Context</span>
+        <span class="source-plus">+3</span>
+        <span>Jul 10, 2026</span>
+      </div>
+      <h3>API Discovery: Impact CO2 Turns Carbon Data Into Agent Estimates</h3>
+      <div class="update-receipt">
+        <span>source trail</span>
+        <span class="branch-pill">evidence</span>
+      </div>
+      <div class="update-foot">
+        <span>3 sources</span>
+        <span>1 repo</span>
+        <span>3 source signals</span>
+      </div>
+    </div>
+    <span class="update-arrow" aria-hidden="true">&rsaquo;</span>
+  </a>
+        </div>
+      </section>
+    </main>
+    <footer class="wrap site-footer">
+      <span>&copy; 2026 The Git Reporter</span>
+      <a href="/about/">About</a>
+      <a href="/agent-pulse/">Agent Pulse</a>
+      <a href="/feed.xml">RSS</a>
+      <a href="https://x.com/TheGitReporter">Follow on X</a>
+      <a href="/articles.json">Manifest JSON</a>
+      <a href="/repos/">Sources</a>
+    </footer>
+  </div>
+</body>
+</html>
