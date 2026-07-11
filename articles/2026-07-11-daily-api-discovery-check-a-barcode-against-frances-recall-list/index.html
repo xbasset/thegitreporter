@@ -1,0 +1,298 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>API Discovery: Check a Barcode Against France's Recall List | The Git Reporter</title>
+  <meta name="description" content="France&#39;s official RappelConso data can turn a scanned GTIN into a product-recall match—if the agent checks the lot, date, and government notice instead of treating a name hit as proof.">
+  <meta name="robots" content="index,follow">
+  <link rel="canonical" href="https://thegitreporter.com/articles/2026-07-11-daily-api-discovery-check-a-barcode-against-frances-recall-list/">
+  <link rel="alternate" type="application/rss+xml" title="The Git Reporter" href="https://thegitreporter.com/feed.xml">
+  <meta property="og:site_name" content="The Git Reporter">
+  <meta property="og:locale" content="en_US">
+  <meta property="og:title" content="API Discovery: Check a Barcode Against France&#39;s Recall List | The Git Reporter">
+  <meta property="og:description" content="France&#39;s official RappelConso data can turn a scanned GTIN into a product-recall match—if the agent checks the lot, date, and government notice instead of treating a name hit as proof.">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://thegitreporter.com/articles/2026-07-11-daily-api-discovery-check-a-barcode-against-frances-recall-list/">
+  <meta property="og:image" content="https://thegitreporter.com/assets/social/2026-07-11-daily-api-discovery-check-a-barcode-against-frances-recall-list-og.jpg">
+  <meta property="og:image:secure_url" content="https://thegitreporter.com/assets/social/2026-07-11-daily-api-discovery-check-a-barcode-against-frances-recall-list-og.jpg">
+  <meta property="og:image:type" content="image/jpeg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Diagram Punk poster showing a barcode flowing through the official RappelConso API to a lot-and-date check and government recall notice, with a warning that no match does not mean safe.">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:site" content="@TheGitReporter">
+  <meta name="twitter:creator" content="@TheGitReporter">
+  <meta name="twitter:title" content="API Discovery: Check a Barcode Against France&#39;s Recall List | The Git Reporter">
+  <meta name="twitter:description" content="France&#39;s official RappelConso data can turn a scanned GTIN into a product-recall match—if the agent checks the lot, date, and government notice instead of treating a name hit as proof.">
+  <meta name="twitter:url" content="https://thegitreporter.com/articles/2026-07-11-daily-api-discovery-check-a-barcode-against-frances-recall-list/">
+  <meta name="twitter:domain" content="thegitreporter.com">
+  <meta name="twitter:image" content="https://thegitreporter.com/assets/social/2026-07-11-daily-api-discovery-check-a-barcode-against-frances-recall-list-og.jpg">
+  <meta name="twitter:image:alt" content="Diagram Punk poster showing a barcode flowing through the official RappelConso API to a lot-and-date check and government recall notice, with a warning that no match does not mean safe.">
+  <meta property="article:published_time" content="2026-07-11T12:00:00Z">
+  <meta property="article:modified_time" content="2026-07-11T12:00:00Z">
+  <meta property="article:section" content="Daily Edition">
+  <meta property="article:tag" content="Tools">
+  <meta property="article:tag" content="UX">
+  <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"https://thegitreporter.com/#organization","name":"The Git Reporter","url":"https://thegitreporter.com","logo":{"@type":"ImageObject","url":"https://thegitreporter.com/assets/mark.svg"},"sameAs":["https://x.com/TheGitReporter"]},{"@type":"WebSite","@id":"https://thegitreporter.com/#website","name":"The Git Reporter","url":"https://thegitreporter.com","publisher":{"@id":"https://thegitreporter.com/#organization"}},{"@type":"NewsArticle","mainEntityOfPage":{"@type":"WebPage","@id":"https://thegitreporter.com/articles/2026-07-11-daily-api-discovery-check-a-barcode-against-frances-recall-list/"},"headline":"API Discovery: Check a Barcode Against France's Recall List","description":"France's official RappelConso data can turn a scanned GTIN into a product-recall match—if the agent checks the lot, date, and government notice instead of treating a name hit as proof.","image":["https://thegitreporter.com/assets/social/2026-07-11-daily-api-discovery-check-a-barcode-against-frances-recall-list-og.jpg"],"datePublished":"2026-07-11T12:00:00Z","dateModified":"2026-07-11T12:00:00Z","author":[{"@type":"Organization","name":"The Git Reporter","url":"https://thegitreporter.com"}],"publisher":{"@type":"Organization","@id":"https://thegitreporter.com/#organization","name":"The Git Reporter","url":"https://thegitreporter.com","logo":{"@type":"ImageObject","url":"https://thegitreporter.com/assets/mark.svg"},"sameAs":["https://x.com/TheGitReporter"]},"articleSection":"Daily Edition","keywords":"Tools, UX"}]}</script>
+  <link rel="icon" href="/assets/mark.svg">
+  <link rel="stylesheet" href="/assets/site.css?v=2026-07-11-mobile-code-wrap-2">
+  <script defer src="/assets/feedback.js?v=2026-07-11-mobile-code-wrap-2"></script>
+  <script defer src="/assets/analytics.js?v=2026-07-11-mobile-code-wrap-2"></script>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-CH19T7M0T1"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){window.dataLayer.push(arguments);}
+    gtag("js", new Date());
+    gtag("config", "G-CH19T7M0T1");
+  </script>
+</head>
+<body>
+  <div class="site">
+    <header class="site-header" id="top">
+      <div class="wrap utility-row">
+        <a class="icon-link menu-icon" href="/archive/" aria-label="Open edition history"><span></span><span></span><span></span></a>
+        <a class="icon-link archive-icon" href="/archive/" aria-label="Open edition history"></a>
+      </div>
+      <div class="wrap masthead-lockup">
+        <a class="masthead-title" href="/">THE GIT REPORTER</a>
+        <div class="masthead-ornament" aria-hidden="true"></div>
+      </div>
+      <div class="wrap nav-wrap">
+        <nav class="paper-nav" aria-label="Primary navigation">
+    <a class="" href="/">Today</a><a class="active" href="/archive/">Editions</a><a class="" href="/about/">About</a><a class="" href="/agent-pulse/">Agent Pulse</a><a class="" href="/atlas/">Agent Atlas</a><a class="" href="/repos/">Repos</a>
+  </nav>
+        <div class="nav-rule"></div>
+      </div>
+    </header>
+    <main class="wrap page-shell article-page">
+      <section class="page-hero story-front">
+        <div class="story-topline">
+          <span>Daily Edition</span>
+          <span>Sources <strong>+4</strong></span>
+        </div>
+        <h1>API Discovery: Check a Barcode Against France's Recall List</h1>
+        <p class="summary">France's official RappelConso data can turn a scanned GTIN into a product-recall match—if the agent checks the lot, date, and government notice instead of treating a name hit as proof.</p>
+        <figure class="story-illustration article-illustration">
+    <img src="/assets/illustrations/2026-07-11-api-discovery-check-a-barcode-against-frances-recall-list-diagram-punk-v1.png" alt="Diagram Punk poster showing a barcode flowing through the official RappelConso API to a lot-and-date check and government recall notice, with a warning that no match does not mean safe." loading="lazy" decoding="async">
+    <figcaption><span>Diagram Punk</span>a barcode is a lead, not a verdict.</figcaption>
+  </figure>
+        <div class="receipt">
+    <div class="receipt-line">
+      <span class="receipt-icon">repos</span>
+      <span class="receipt-main">source trail</span>
+      <span class="branch-pill">evidence</span>
+    </div>
+    <div class="receipt-line receipt-muted">
+      <span>4 source signals</span>
+      <span>0 repos</span>
+      <span>4 source signals</span>
+    </div>
+    <div class="commit-line">Evidence: 4 source signals / July 11, 2026 / Daily Edition</div>
+  </div>
+        <div class="article-route-row">
+          <a href="/editions/2026-07-11/">Open Edition</a>
+          <a href="#evidence">Evidence below</a>
+        </div>
+      </section>
+      <section class="story-reader">
+        <article class="story-shell story-body">
+          <p><strong>API discovery:</strong> A live query to the French government's <a href="https://data.economie.gouv.fr/explore/assets/rappelconso-v2-gtin-espaces/api/">RappelConso Explore API</a> for barcode <code>3701002416628</code> returned one July 10 recall: a 90-gram aperitif product, with its lot, durability date, stated listeria risk, instructions not to consume it, and a link to the <a href="https://rappel.conso.gouv.fr/fiche-rappel/22807/interne">official recall sheet</a>.</p>
+
+  <h2>Try it on a receipt</h2>
+  <p>Give an agent the barcodes from a household inventory or shopping receipt. It can query each identifier, flag an exact recall candidate, and return the brand, model, affected lot or date, official action, and government notice. The useful output has three states: <em>exact record to verify</em>, <em>possible name match needing identifiers</em>, or <em>no match found in this query</em>.</p>
+
+  <h2>Copy-paste agent instruction</h2>
+  <pre><code>Use only the official RappelConso dataset at https://data.economie.gouv.fr/api/explore/v2.1/catalog/datasets/rappelconso-v2-gtin-espaces/records. For each barcode I give you, query where=search(*,"BARCODE") and request the product, identification, risk, consumer-action, publication-date, and official-notice fields. Require an exact GTIN match, then compare the lot, model, and date before flagging it. Link the official recall sheet. If nothing matches, say "no match found in this query"—never "safe." Do not infer a match from the brand alone.</code></pre>
+
+  <h2>Test caveat</h2>
+  <p>The sample query worked without authentication on July 11, but this is a screening workflow, not a safety oracle. Records, rate policy, and availability can change; product identity may depend on a lot or date that a barcode does not encode. A miss is not proof of safety, and every hit should end at the current official notice.</p>
+        </article>
+      </section>
+      <section class="evidence-section" id="evidence" aria-labelledby="evidence-title">
+    <div class="evidence-head">
+      <div>
+        <div class="eyebrow">Evidence Trail</div>
+        <h2 id="evidence-title">Receipts below the story</h2>
+        <p>The article above is the public narrative. This section keeps the source trail and limits on the same page.</p>
+      </div>
+      <a class="paper-button" href="/editions/2026-07-11/">Edition</a>
+    </div>
+    <div class="evidence-table evidence-summary">
+      <div class="evidence-line"><span>Date</span><span>July 11, 2026</span></div>
+      <div class="evidence-line"><span>Lane</span><span>Daily Edition</span></div>
+      <div class="evidence-line"><span>Confidence</span><span>78%</span></div>
+      <div class="evidence-line"><span>Sources</span><span>4</span></div>
+      <div class="evidence-line"><span>Repos</span><span>source trail</span></div>
+    </div>
+    <div class="markdown evidence-copy evidence-copy-block">
+      <h2>Primary Evidence</h2>
+<ul>
+<li>Public API source: <a href="https://github.com/betagouv/api.gouv.fr/blob/master/_data/api/api-rappel-conso.md">https://github.com/betagouv/api.gouv.fr/blob/master/_data/api/api-rappel-conso.md</a>
+<ul>
+<li>Shows: DGCCRF is the producer and publishes the open RappelConso API dataset with product, risk, location, and consumer-action fields.
+</li>
+</ul>
+</li>
+<li>Supporting definition or documentation: <a href="https://data.economie.gouv.fr/explore/assets/rappelconso-v2-gtin-espaces/api/">https://data.economie.gouv.fr/explore/assets/rappelconso-v2-gtin-espaces/api/</a>
+<ul>
+<li>Shows: the public records endpoint, query surface, and current dataset fields.
+</li>
+</ul>
+</li>
+<li>Reproducible GTIN query for <code>3701002416628</code>: <a href="https://data.economie.gouv.fr/api/explore/v2.1/catalog/datasets/rappelconso-v2-gtin-espaces/records?where=search%28%2A%2C%223701002416628%22%29&amp;select=date_publication%2Cnumero_fiche%2Cmarque_produit%2Cmodeles_ou_references%2Cidentification_produits%2Cmotif_rappel%2Crisques_encourus%2Cconduites_a_tenir_par_le_consommateur%2Clien_vers_la_fiche_rappel&amp;limit=5">https://data.economie.gouv.fr/api/explore/v2.1/catalog/datasets/rappelconso-v2-gtin-espaces/records?where=search%28%2A%2C%223701002416628%22%29&amp;select=date_publication%2Cnumero_fiche%2Cmarque_produit%2Cmodeles_ou_references%2Cidentification_produits%2Cmotif_rappel%2Crisques_encourus%2Cconduites_a_tenir_par_le_consommateur%2Clien_vers_la_fiche_rappel&amp;limit=5</a>
+<ul>
+<li>Shows: one exact July 10 recall result with the product identity, GTIN, lot/date data, stated risk, consumer action, and official notice URL.
+</li>
+</ul>
+</li>
+<li>Official recall sheet returned by the query: <a href="https://rappel.conso.gouv.fr/fiche-rappel/22807/interne">https://rappel.conso.gouv.fr/fiche-rappel/22807/interne</a>
+<ul>
+<li>Shows: the government notice that a user should inspect before acting.
+</li>
+</ul>
+</li>
+</ul>
+<h2>Evidence Limits</h2>
+<ul>
+<li>An API match is a lead to verify against the exact product, lot, date, and official notice; it is not a diagnosis or an automatic safety decision.
+</li>
+<li>An empty query result means only that the request found no matching record. It must never be presented as proof that a product is safe.
+</li>
+<li>The endpoint answered without a key in the July 11 test, but access, rate limits, availability, update latency, and record completeness can change.
+</li>
+</ul>
+    </div>
+  </section>
+      <section class="related-edition-section atlas-context-section">
+    <div class="section-title-row">
+      <h2>Atlas Context</h2>
+      <a href="/atlas/">Open Atlas &rsaquo;</a>
+    </div>
+    <div class="updates-list">
+      <a class="article-card" href="/atlas/the-human-interface/">
+            <div class="article-meta"><span class="lane">Agent Atlas</span><span>Chapter 8</span></div>
+            <h3>The Human Control Loop</h3>
+            <p>A useful interface exposes active work, gives intervention a defined runtime effect, preserves evidence during correction, and resumes the intended session.</p>
+          </a>
+    </div>
+  </section>
+      <section class="reader-feedback"
+    data-tgr-feedback
+    data-article-slug="2026-07-11-daily-api-discovery-check-a-barcode-against-frances-recall-list"
+    data-article-title="API Discovery: Check a Barcode Against France's Recall List"
+    data-article-url="/articles/2026-07-11-daily-api-discovery-check-a-barcode-against-frances-recall-list/"
+    data-edition-date="2026-07-11"
+    data-lane="Daily Edition"
+    data-tags="Tools,UX"
+    data-repos="">
+    <div class="reader-feedback-head">
+      <div>
+        <div class="eyebrow">Letters &amp; Corrections</div>
+        <h2>Send a note to the desk</h2>
+      </div>
+      <p>Corrections, missing context, or a follow-up lead.</p>
+    </div>
+    <form class="feedback-form">
+      <div class="feedback-votes" role="group" aria-label="Choose signal type">
+        <button class="feedback-choice" type="button" data-vote="follow-up" aria-pressed="false">
+          <span aria-hidden="true">+</span>
+          <span>Follow-up</span>
+        </button>
+        <button class="feedback-choice" type="button" data-vote="correction" aria-pressed="false">
+          <span aria-hidden="true">!</span>
+          <span>Correction</span>
+        </button>
+      </div>
+      <label class="feedback-comment">
+        <span>Note for the editor</span>
+        <textarea name="comment" rows="3" maxlength="320" placeholder="What did we miss, or what should we follow next?"></textarea>
+      </label>
+      <div class="feedback-submit-row">
+        <p class="feedback-status" aria-live="polite"></p>
+        <button class="paper-button primary feedback-submit" type="submit">Send to desk</button>
+      </div>
+    </form>
+  </section>
+      <section class="related-edition-section">
+        <div class="section-title-row">
+          <h2>Same Edition</h2>
+          <a href="/editions/2026-07-11/">Open issue &rsaquo;</a>
+        </div>
+        <div class="updates-list">
+          <a class="update-card" href="/articles/2026-07-11-daily-entire-ios-code-evidence-and-possible-trajectory/">
+    <div class="update-stripe"></div>
+    <div class="update-main">
+      <div class="update-meta">
+        <span>Context</span>
+        <span class="source-plus">+5</span>
+        <span>Jul 11, 2026</span>
+      </div>
+      <h3>Entire Gives Agent Work a Separate Git Address</h3>
+      <div class="update-receipt">
+        <span>entireio/cli</span>
+        <span class="branch-pill">evidence</span>
+      </div>
+      <div class="update-foot">
+        <span>5 sources</span>
+        <span>1 repo</span>
+        <span>3 linked commits</span>
+      </div>
+    </div>
+    <span class="update-arrow" aria-hidden="true">&rsaquo;</span>
+  </a><a class="update-card" href="/articles/2026-07-11-daily-builder-work-openclaw-lets-old-agent-runs-die/">
+    <div class="update-stripe"></div>
+    <div class="update-main">
+      <div class="update-meta">
+        <span>Context</span>
+        <span class="source-plus">+7</span>
+        <span>Jul 11, 2026</span>
+      </div>
+      <h3>Builder Work: OpenClaw Lets Old Agent Runs Die</h3>
+      <div class="update-receipt">
+        <span>openclaw/openclaw</span>
+        <span class="branch-pill">evidence</span>
+      </div>
+      <div class="update-foot">
+        <span>7 sources</span>
+        <span>1 repo</span>
+        <span>commit 997a564</span>
+      </div>
+    </div>
+    <span class="update-arrow" aria-hidden="true">&rsaquo;</span>
+  </a><a class="update-card" href="/articles/2026-07-11-daily-gemini-cli-explains-the-missing-privacy-switch/">
+    <div class="update-stripe"></div>
+    <div class="update-main">
+      <div class="update-meta">
+        <span>Context</span>
+        <span class="source-plus">+5</span>
+        <span>Jul 11, 2026</span>
+      </div>
+      <h3>Gemini CLI Explains the Missing Privacy Switch</h3>
+      <div class="update-receipt">
+        <span>google-gemini/gemini-cli</span>
+        <span class="branch-pill">evidence</span>
+      </div>
+      <div class="update-foot">
+        <span>5 sources</span>
+        <span>1 repo</span>
+        <span>commit f354eeb</span>
+      </div>
+    </div>
+    <span class="update-arrow" aria-hidden="true">&rsaquo;</span>
+  </a>
+        </div>
+      </section>
+    </main>
+    <footer class="wrap site-footer">
+      <span>&copy; 2026 The Git Reporter</span>
+      <a href="/about/">About</a>
+      <a href="/agent-pulse/">Agent Pulse</a>
+      <a href="/feed.xml">RSS</a>
+      <a href="https://x.com/TheGitReporter">Follow on X</a>
+      <a href="/articles.json">Manifest JSON</a>
+      <a href="/repos/">Sources</a>
+    </footer>
+  </div>
+</body>
+</html>

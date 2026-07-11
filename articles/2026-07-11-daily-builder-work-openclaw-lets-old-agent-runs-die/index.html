@@ -1,0 +1,322 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Builder Work: OpenClaw Lets Old Agent Runs Die | The Git Reporter</title>
+  <meta name="description" content="An AI-assisted OpenClaw fix grew into a generation-scoped restart protocol after maintainers tested what happens when an old and live subagent share a session.">
+  <meta name="robots" content="index,follow">
+  <link rel="canonical" href="https://thegitreporter.com/articles/2026-07-11-daily-builder-work-openclaw-lets-old-agent-runs-die/">
+  <link rel="alternate" type="application/rss+xml" title="The Git Reporter" href="https://thegitreporter.com/feed.xml">
+  <meta property="og:site_name" content="The Git Reporter">
+  <meta property="og:locale" content="en_US">
+  <meta property="og:title" content="Builder Work: OpenClaw Lets Old Agent Runs Die | The Git Reporter">
+  <meta property="og:description" content="An AI-assisted OpenClaw fix grew into a generation-scoped restart protocol after maintainers tested what happens when an old and live subagent share a session.">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://thegitreporter.com/articles/2026-07-11-daily-builder-work-openclaw-lets-old-agent-runs-die/">
+  <meta property="og:image" content="https://thegitreporter.com/assets/social/2026-07-11-daily-builder-work-openclaw-lets-old-agent-runs-die-og.jpg">
+  <meta property="og:image:secure_url" content="https://thegitreporter.com/assets/social/2026-07-11-daily-builder-work-openclaw-lets-old-agent-runs-die-og.jpg">
+  <meta property="og:image:type" content="image/jpeg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Diagram Punk poster showing a stale and fresh agent-run generation sharing one session, with restart recovery durably ending only the stale run before any output is sent.">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:site" content="@TheGitReporter">
+  <meta name="twitter:creator" content="@TheGitReporter">
+  <meta name="twitter:title" content="Builder Work: OpenClaw Lets Old Agent Runs Die | The Git Reporter">
+  <meta name="twitter:description" content="An AI-assisted OpenClaw fix grew into a generation-scoped restart protocol after maintainers tested what happens when an old and live subagent share a session.">
+  <meta name="twitter:url" content="https://thegitreporter.com/articles/2026-07-11-daily-builder-work-openclaw-lets-old-agent-runs-die/">
+  <meta name="twitter:domain" content="thegitreporter.com">
+  <meta name="twitter:image" content="https://thegitreporter.com/assets/social/2026-07-11-daily-builder-work-openclaw-lets-old-agent-runs-die-og.jpg">
+  <meta name="twitter:image:alt" content="Diagram Punk poster showing a stale and fresh agent-run generation sharing one session, with restart recovery durably ending only the stale run before any output is sent.">
+  <meta property="article:published_time" content="2026-07-11T12:00:00Z">
+  <meta property="article:modified_time" content="2026-07-11T12:00:00Z">
+  <meta property="article:section" content="Daily Edition">
+  <meta property="article:tag" content="Memory">
+  <meta property="article:tag" content="Delegation">
+  <meta property="article:tag" content="Runtime">
+  <meta property="article:tag" content="openclaw/openclaw">
+  <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"https://thegitreporter.com/#organization","name":"The Git Reporter","url":"https://thegitreporter.com","logo":{"@type":"ImageObject","url":"https://thegitreporter.com/assets/mark.svg"},"sameAs":["https://x.com/TheGitReporter"]},{"@type":"WebSite","@id":"https://thegitreporter.com/#website","name":"The Git Reporter","url":"https://thegitreporter.com","publisher":{"@id":"https://thegitreporter.com/#organization"}},{"@type":"NewsArticle","mainEntityOfPage":{"@type":"WebPage","@id":"https://thegitreporter.com/articles/2026-07-11-daily-builder-work-openclaw-lets-old-agent-runs-die/"},"headline":"Builder Work: OpenClaw Lets Old Agent Runs Die","description":"An AI-assisted OpenClaw fix grew into a generation-scoped restart protocol after maintainers tested what happens when an old and live subagent share a session.","image":["https://thegitreporter.com/assets/social/2026-07-11-daily-builder-work-openclaw-lets-old-agent-runs-die-og.jpg"],"datePublished":"2026-07-11T12:00:00Z","dateModified":"2026-07-11T12:00:00Z","author":[{"@type":"Organization","name":"The Git Reporter","url":"https://thegitreporter.com"}],"publisher":{"@type":"Organization","@id":"https://thegitreporter.com/#organization","name":"The Git Reporter","url":"https://thegitreporter.com","logo":{"@type":"ImageObject","url":"https://thegitreporter.com/assets/mark.svg"},"sameAs":["https://x.com/TheGitReporter"]},"articleSection":"Daily Edition","keywords":"Memory, Delegation, Runtime, openclaw/openclaw"}]}</script>
+  <link rel="icon" href="/assets/mark.svg">
+  <link rel="stylesheet" href="/assets/site.css?v=2026-07-11-mobile-code-wrap-2">
+  <script defer src="/assets/feedback.js?v=2026-07-11-mobile-code-wrap-2"></script>
+  <script defer src="/assets/analytics.js?v=2026-07-11-mobile-code-wrap-2"></script>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-CH19T7M0T1"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){window.dataLayer.push(arguments);}
+    gtag("js", new Date());
+    gtag("config", "G-CH19T7M0T1");
+  </script>
+</head>
+<body>
+  <div class="site">
+    <header class="site-header" id="top">
+      <div class="wrap utility-row">
+        <a class="icon-link menu-icon" href="/archive/" aria-label="Open edition history"><span></span><span></span><span></span></a>
+        <a class="icon-link archive-icon" href="/archive/" aria-label="Open edition history"></a>
+      </div>
+      <div class="wrap masthead-lockup">
+        <a class="masthead-title" href="/">THE GIT REPORTER</a>
+        <div class="masthead-ornament" aria-hidden="true"></div>
+      </div>
+      <div class="wrap nav-wrap">
+        <nav class="paper-nav" aria-label="Primary navigation">
+    <a class="" href="/">Today</a><a class="active" href="/archive/">Editions</a><a class="" href="/about/">About</a><a class="" href="/agent-pulse/">Agent Pulse</a><a class="" href="/atlas/">Agent Atlas</a><a class="" href="/repos/">Repos</a>
+  </nav>
+        <div class="nav-rule"></div>
+      </div>
+    </header>
+    <main class="wrap page-shell article-page">
+      <section class="page-hero story-front">
+        <div class="story-topline">
+          <span>Daily Edition</span>
+          <span>Sources <strong>+7</strong></span>
+        </div>
+        <h1>Builder Work: OpenClaw Lets Old Agent Runs Die</h1>
+        <p class="summary">An AI-assisted OpenClaw fix grew into a generation-scoped restart protocol after maintainers tested what happens when an old and live subagent share a session.</p>
+        <figure class="story-illustration article-illustration">
+    <img src="/assets/illustrations/2026-07-11-builder-work-openclaw-lets-old-agent-runs-die-diagram-punk-v1.png" alt="Diagram Punk poster showing a stale and fresh agent-run generation sharing one session, with restart recovery durably ending only the stale run before any output is sent." loading="lazy" decoding="async">
+    <figcaption><span>Diagram Punk</span>persist the winner before you notify the world.</figcaption>
+  </figure>
+        <div class="receipt">
+    <div class="receipt-line">
+      <span class="receipt-icon">repo</span>
+      <span class="receipt-main">openclaw/openclaw</span>
+      <span class="branch-pill">evidence</span>
+    </div>
+    <div class="receipt-line receipt-muted">
+      <span>7 source signals</span>
+      <span>1 repo</span>
+      <span>commit 997a564</span>
+    </div>
+    <div class="commit-line">Evidence: commit 997a564 / July 11, 2026 / Daily Edition</div>
+  </div>
+        <div class="article-route-row">
+          <a href="/editions/2026-07-11/">Open Edition</a>
+          <a href="#evidence">Evidence below</a>
+        </div>
+      </section>
+      <section class="story-reader">
+        <article class="story-shell story-body">
+          <p>An OpenClaw gateway could come back after a long outage, see <code>abortedLastRun</code>, and try to resume a child agent whose useful moment had passed. The public <a href="https://github.com/openclaw/openclaw/issues/90766">failure report</a> describes the consequence: stale work can return late and without the context that made it sensible. The obvious fix is a clock check. The landed <a href="https://github.com/openclaw/openclaw/commit/997a564c281ec7cd7f2a896d75c45a6bf256d732">16-file patch</a> shows why that was only the beginning.</p>
+
+  <p>The coding-agent proof is unusually explicit. Commit trailers credit Claude Opus 4.7 and 4.8 plus Cursor on the first guard, durable finalization, retry handling, and restart-path test. Pick-cat opened the change; the branch history then shows maintainer Peter Steinberger hardening it across exact-generation ownership, persistence, and lifecycle races. This is collaborative agent-assisted engineering, not a claim that a model authored the whole patch.</p>
+
+  <h2>A session is not a generation</h2>
+  <p>OpenClaw's recovery pass now freezes one scan time and applies a shared liveness rule: two hours at minimum, or the configured run timeout plus sixty seconds when that is longer. A stale aborted run is finalized by its exact <code>runId</code>; a fresh one can still receive the synthetic resume message. That distinction matters when an old and new run reuse the same child-session key.</p>
+
+  <p>Ending the stale row also has to survive failure. The lifecycle code records a sticky interrupted-recovery owner, persists the terminal evidence before downstream projection, restores the prior row if persistence fails, and retries incomplete terminal writes. Late provider callbacks cannot reopen the decided run, and cleanup of a stale predecessor cannot kill its fresh successor.</p>
+
+  <h2>The transferable skill</h2>
+  <p><strong>Persist the winner before you notify the world.</strong> For restart recovery, identify the exact generation, evaluate liveness from one time snapshot, durably write the terminal outcome, make projection idempotent, and only then emit output or cleanup. A session identifier is often too broad to arbitrate competing generations.</p>
+
+  <h2>The proof is mostly tests</h2>
+  <p>About 73% of the patch's 1,321 added lines are in seven test files. The new integration path uses the real registry, shared liveness policy, detached-task state, and a temporary on-disk session store. It proves that a six-hour run fails without a gateway call, a 55-second run resumes, and a fresh generation survives beside a stale predecessor. The evidence is strong for the intended state machine, but the change is only verified on main here—not as a released guarantee across every crash mode.</p>
+        </article>
+      </section>
+      <section class="evidence-section" id="evidence" aria-labelledby="evidence-title">
+    <div class="evidence-head">
+      <div>
+        <div class="eyebrow">Evidence Trail</div>
+        <h2 id="evidence-title">Receipts below the story</h2>
+        <p>The article above is the public narrative. This section keeps the source trail and limits on the same page.</p>
+      </div>
+      <a class="paper-button" href="/editions/2026-07-11/">Edition</a>
+    </div>
+    <div class="evidence-table evidence-summary">
+      <div class="evidence-line"><span>Date</span><span>July 11, 2026</span></div>
+      <div class="evidence-line"><span>Lane</span><span>Daily Edition</span></div>
+      <div class="evidence-line"><span>Confidence</span><span>87%</span></div>
+      <div class="evidence-line"><span>Sources</span><span>7</span></div>
+      <div class="evidence-line"><span>Repos</span><span>openclaw/openclaw</span></div>
+    </div>
+    <div class="markdown evidence-copy evidence-copy-block">
+      <h2>Primary Evidence</h2>
+<ul>
+<li>Public coding-agent use proof: <a href="https://github.com/openclaw/openclaw/commit/997a564c281ec7cd7f2a896d75c45a6bf256d732">https://github.com/openclaw/openclaw/commit/997a564c281ec7cd7f2a896d75c45a6bf256d732</a>
+<ul>
+<li>Shows: explicit Claude Opus 4.7/4.8 and Cursor co-author trailers on the guard, finalization, retry, and integration-proof steps, alongside Pick-cat and Peter Steinberger.
+</li>
+</ul>
+</li>
+<li>Inspected GitHub repository: <a href="https://github.com/openclaw/openclaw">https://github.com/openclaw/openclaw</a>
+<ul>
+<li>Shows: the public source tree inspected across the restart-recovery code path, liveness module, lifecycle controller, exact-run finalizer, runtime documentation, and changed tests.
+</li>
+</ul>
+</li>
+<li>Engineering receipt: <a href="https://github.com/openclaw/openclaw/blob/997a564c281ec7cd7f2a896d75c45a6bf256d732/src/agents/subagent-orphan-recovery.restart-integration.test.ts">https://github.com/openclaw/openclaw/blob/997a564c281ec7cd7f2a896d75c45a6bf256d732/src/agents/subagent-orphan-recovery.restart-integration.test.ts</a>
+<ul>
+<li>Shows: a real-storage recovery integration test proving stale failure, fresh resume, exact-generation isolation, and durable task/session projection.
+</li>
+</ul>
+</li>
+<li>Original failure report: <a href="https://github.com/openclaw/openclaw/issues/90766">https://github.com/openclaw/openclaw/issues/90766</a>
+<ul>
+<li>Shows: the operator consequence—an hours-old restart-aborted subagent could be resumed and produce late, contextless work.
+</li>
+</ul>
+</li>
+<li>Landed recovery path and liveness rule: <a href="https://github.com/openclaw/openclaw/blob/997a564c281ec7cd7f2a896d75c45a6bf256d732/src/agents/subagent-orphan-recovery.ts">https://github.com/openclaw/openclaw/blob/997a564c281ec7cd7f2a896d75c45a6bf256d732/src/agents/subagent-orphan-recovery.ts</a> and <a href="https://github.com/openclaw/openclaw/blob/997a564c281ec7cd7f2a896d75c45a6bf256d732/src/agents/subagent-run-liveness.ts">https://github.com/openclaw/openclaw/blob/997a564c281ec7cd7f2a896d75c45a6bf256d732/src/agents/subagent-run-liveness.ts</a>
+<ul>
+<li>Shows: one frozen scan time, stale-first ordering, exact-run finalization, a two-hour minimum/timeout-aware liveness window, explicit failures, and bounded retries.
+</li>
+</ul>
+</li>
+<li>Durable lifecycle arbitration: <a href="https://github.com/openclaw/openclaw/blob/997a564c281ec7cd7f2a896d75c45a6bf256d732/src/agents/subagent-registry-lifecycle.ts">https://github.com/openclaw/openclaw/blob/997a564c281ec7cd7f2a896d75c45a6bf256d732/src/agents/subagent-registry-lifecycle.ts</a>
+<ul>
+<li>Shows: sticky interrupted-recovery ownership, persistence rollback, terminal-evidence checks, and protection against late callbacks reopening a decided run.
+</li>
+</ul>
+</li>
+<li>Real-storage result detail: <a href="https://github.com/openclaw/openclaw/blob/997a564c281ec7cd7f2a896d75c45a6bf256d732/src/agents/subagent-orphan-recovery.restart-integration.test.ts#L98-L266">https://github.com/openclaw/openclaw/blob/997a564c281ec7cd7f2a896d75c45a6bf256d732/src/agents/subagent-orphan-recovery.restart-integration.test.ts#L98-L266</a>
+<ul>
+<li>Shows: a six-hour stale run is durably failed without a gateway resume, a 55-second run resumes, and a fresh generation survives when it shares a child-session key with a stale predecessor.
+</li>
+</ul>
+</li>
+</ul>
+<h2>Evidence Limits</h2>
+<ul>
+<li>Co-author trailers prove public coding-agent participation, not authorship of every line. The branch also contains substantial maintainer hardening.
+</li>
+<li>The patch and tests prove the intended main-branch state transition, not every crash mode or released production reliability.
+</li>
+<li>The PR summary contains details that differ from the landed squash; the article follows the final code and current runtime docs.
+</li>
+</ul>
+    </div>
+  </section>
+      <section class="related-edition-section atlas-context-section">
+    <div class="section-title-row">
+      <h2>Atlas Context</h2>
+      <a href="/atlas/">Open Atlas &rsaquo;</a>
+    </div>
+    <div class="updates-list">
+      <a class="article-card" href="/atlas/what-an-agent-can-see/">
+            <div class="article-meta"><span class="lane">Agent Atlas</span><span>Chapter 2</span></div>
+            <h3>The Invisible Prompt</h3>
+            <p>The model acts on an assembled viewport containing visible messages, hidden turn context, path-triggered instructions, memory records, tool schemas, permissions, and inherited state.</p>
+          </a>
+    </div>
+  </section>
+      <section class="reader-feedback"
+    data-tgr-feedback
+    data-article-slug="2026-07-11-daily-builder-work-openclaw-lets-old-agent-runs-die"
+    data-article-title="Builder Work: OpenClaw Lets Old Agent Runs Die"
+    data-article-url="/articles/2026-07-11-daily-builder-work-openclaw-lets-old-agent-runs-die/"
+    data-edition-date="2026-07-11"
+    data-lane="Daily Edition"
+    data-tags="Memory,Delegation,Runtime"
+    data-repos="openclaw/openclaw">
+    <div class="reader-feedback-head">
+      <div>
+        <div class="eyebrow">Letters &amp; Corrections</div>
+        <h2>Send a note to the desk</h2>
+      </div>
+      <p>Corrections, missing context, or a follow-up lead.</p>
+    </div>
+    <form class="feedback-form">
+      <div class="feedback-votes" role="group" aria-label="Choose signal type">
+        <button class="feedback-choice" type="button" data-vote="follow-up" aria-pressed="false">
+          <span aria-hidden="true">+</span>
+          <span>Follow-up</span>
+        </button>
+        <button class="feedback-choice" type="button" data-vote="correction" aria-pressed="false">
+          <span aria-hidden="true">!</span>
+          <span>Correction</span>
+        </button>
+      </div>
+      <label class="feedback-comment">
+        <span>Note for the editor</span>
+        <textarea name="comment" rows="3" maxlength="320" placeholder="What did we miss, or what should we follow next?"></textarea>
+      </label>
+      <div class="feedback-submit-row">
+        <p class="feedback-status" aria-live="polite"></p>
+        <button class="paper-button primary feedback-submit" type="submit">Send to desk</button>
+      </div>
+    </form>
+  </section>
+      <section class="related-edition-section">
+        <div class="section-title-row">
+          <h2>Same Edition</h2>
+          <a href="/editions/2026-07-11/">Open issue &rsaquo;</a>
+        </div>
+        <div class="updates-list">
+          <a class="update-card" href="/articles/2026-07-11-daily-entire-ios-code-evidence-and-possible-trajectory/">
+    <div class="update-stripe"></div>
+    <div class="update-main">
+      <div class="update-meta">
+        <span>Context</span>
+        <span class="source-plus">+5</span>
+        <span>Jul 11, 2026</span>
+      </div>
+      <h3>Entire Gives Agent Work a Separate Git Address</h3>
+      <div class="update-receipt">
+        <span>entireio/cli</span>
+        <span class="branch-pill">evidence</span>
+      </div>
+      <div class="update-foot">
+        <span>5 sources</span>
+        <span>1 repo</span>
+        <span>3 linked commits</span>
+      </div>
+    </div>
+    <span class="update-arrow" aria-hidden="true">&rsaquo;</span>
+  </a><a class="update-card" href="/articles/2026-07-11-daily-gemini-cli-explains-the-missing-privacy-switch/">
+    <div class="update-stripe"></div>
+    <div class="update-main">
+      <div class="update-meta">
+        <span>Context</span>
+        <span class="source-plus">+5</span>
+        <span>Jul 11, 2026</span>
+      </div>
+      <h3>Gemini CLI Explains the Missing Privacy Switch</h3>
+      <div class="update-receipt">
+        <span>google-gemini/gemini-cli</span>
+        <span class="branch-pill">evidence</span>
+      </div>
+      <div class="update-foot">
+        <span>5 sources</span>
+        <span>1 repo</span>
+        <span>commit f354eeb</span>
+      </div>
+    </div>
+    <span class="update-arrow" aria-hidden="true">&rsaquo;</span>
+  </a><a class="update-card" href="/articles/2026-07-11-daily-api-discovery-check-a-barcode-against-frances-recall-list/">
+    <div class="update-stripe"></div>
+    <div class="update-main">
+      <div class="update-meta">
+        <span>Reported</span>
+        <span class="source-plus">+4</span>
+        <span>Jul 11, 2026</span>
+      </div>
+      <h3>API Discovery: Check a Barcode Against France's Recall List</h3>
+      <div class="update-receipt">
+        <span>source trail</span>
+        <span class="branch-pill">evidence</span>
+      </div>
+      <div class="update-foot">
+        <span>4 sources</span>
+        <span>0 repos</span>
+        <span>4 source signals</span>
+      </div>
+    </div>
+    <span class="update-arrow" aria-hidden="true">&rsaquo;</span>
+  </a>
+        </div>
+      </section>
+    </main>
+    <footer class="wrap site-footer">
+      <span>&copy; 2026 The Git Reporter</span>
+      <a href="/about/">About</a>
+      <a href="/agent-pulse/">Agent Pulse</a>
+      <a href="/feed.xml">RSS</a>
+      <a href="https://x.com/TheGitReporter">Follow on X</a>
+      <a href="/articles.json">Manifest JSON</a>
+      <a href="/repos/">Sources</a>
+    </footer>
+  </div>
+</body>
+</html>
