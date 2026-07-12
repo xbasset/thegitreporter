@@ -1,0 +1,385 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>How Saracroche carries nearly 17 million phone entries through one narrow iOS doorway | The Git Reporter</title>
+  <meta name="description" content="Saracroche turns 1,548 compact French call-list patterns into 16.956 million represented numbers, then hands them to CallKit 10,000 at a time. The source explains the design; it does not prove every entry succeeds on a phone.">
+  <meta name="robots" content="index,follow">
+  <link rel="canonical" href="https://thegitreporter.com/articles/2026-07-12-daily-how-saracroche-carries-nearly-17-million-phone-entries-through-one-narrow-ios-doorway/">
+  <link rel="alternate" type="application/rss+xml" title="The Git Reporter" href="https://thegitreporter.com/feed.xml">
+  <meta property="og:site_name" content="The Git Reporter">
+  <meta property="og:locale" content="en_US">
+  <meta property="og:title" content="How Saracroche carries nearly 17 million phone entries through one narrow iOS doorway | The Git Reporter">
+  <meta property="og:description" content="Saracroche turns 1,548 compact French call-list patterns into 16.956 million represented numbers, then hands them to CallKit 10,000 at a time. The source explains the design; it does not prove every entry succeeds on a phone.">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://thegitreporter.com/articles/2026-07-12-daily-how-saracroche-carries-nearly-17-million-phone-entries-through-one-narrow-ios-doorway/">
+  <meta property="og:image" content="https://thegitreporter.com/assets/social/2026-07-12-daily-how-saracroche-carries-nearly-17-million-phone-entries-through-one-narrow-ios-doorway-og.jpg">
+  <meta property="og:image:secure_url" content="https://thegitreporter.com/assets/social/2026-07-12-daily-how-saracroche-carries-nearly-17-million-phone-entries-through-one-narrow-ios-doorway-og.jpg">
+  <meta property="og:image:type" content="image/jpeg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Diagram Punk poster mapping an API list through Core Data, a nearly 17-million-number expansion, 10,000-entry stacks, and an App Group doorway into CallKit, with a separate arrow to SMS and a warning that device success is not proven.">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:site" content="@TheGitReporter">
+  <meta name="twitter:creator" content="@TheGitReporter">
+  <meta name="twitter:title" content="How Saracroche carries nearly 17 million phone entries through one narrow iOS doorway | The Git Reporter">
+  <meta name="twitter:description" content="Saracroche turns 1,548 compact French call-list patterns into 16.956 million represented numbers, then hands them to CallKit 10,000 at a time. The source explains the design; it does not prove every entry succeeds on a phone.">
+  <meta name="twitter:url" content="https://thegitreporter.com/articles/2026-07-12-daily-how-saracroche-carries-nearly-17-million-phone-entries-through-one-narrow-ios-doorway/">
+  <meta name="twitter:domain" content="thegitreporter.com">
+  <meta name="twitter:image" content="https://thegitreporter.com/assets/social/2026-07-12-daily-how-saracroche-carries-nearly-17-million-phone-entries-through-one-narrow-ios-doorway-og.jpg">
+  <meta name="twitter:image:alt" content="Diagram Punk poster mapping an API list through Core Data, a nearly 17-million-number expansion, 10,000-entry stacks, and an App Group doorway into CallKit, with a separate arrow to SMS and a warning that device success is not proven.">
+  <meta property="article:published_time" content="2026-07-12T12:00:00Z">
+  <meta property="article:modified_time" content="2026-07-12T12:00:00Z">
+  <meta property="article:section" content="Daily Edition">
+  <meta property="article:tag" content="Memory">
+  <meta property="article:tag" content="Tools">
+  <meta property="article:tag" content="UX">
+  <meta property="article:tag" content="Runtime">
+  <meta property="article:tag" content="cbouvat/saracroche-ios">
+  <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"https://thegitreporter.com/#organization","name":"The Git Reporter","url":"https://thegitreporter.com","logo":{"@type":"ImageObject","url":"https://thegitreporter.com/assets/mark.svg"},"sameAs":["https://x.com/TheGitReporter"]},{"@type":"WebSite","@id":"https://thegitreporter.com/#website","name":"The Git Reporter","url":"https://thegitreporter.com","publisher":{"@id":"https://thegitreporter.com/#organization"}},{"@type":"NewsArticle","mainEntityOfPage":{"@type":"WebPage","@id":"https://thegitreporter.com/articles/2026-07-12-daily-how-saracroche-carries-nearly-17-million-phone-entries-through-one-narrow-ios-doorway/"},"headline":"How Saracroche carries nearly 17 million phone entries through one narrow iOS doorway","description":"Saracroche turns 1,548 compact French call-list patterns into 16.956 million represented numbers, then hands them to CallKit 10,000 at a time. The source explains the design; it does not prove every entry succeeds on a phone.","image":["https://thegitreporter.com/assets/social/2026-07-12-daily-how-saracroche-carries-nearly-17-million-phone-entries-through-one-narrow-ios-doorway-og.jpg"],"datePublished":"2026-07-12T12:00:00Z","dateModified":"2026-07-12T12:00:00Z","author":[{"@type":"Organization","name":"The Git Reporter","url":"https://thegitreporter.com"}],"publisher":{"@type":"Organization","@id":"https://thegitreporter.com/#organization","name":"The Git Reporter","url":"https://thegitreporter.com","logo":{"@type":"ImageObject","url":"https://thegitreporter.com/assets/mark.svg"},"sameAs":["https://x.com/TheGitReporter"]},"articleSection":"Daily Edition","keywords":"Memory, Tools, UX, Runtime, cbouvat/saracroche-ios"}]}</script>
+  <link rel="icon" href="/assets/mark.svg">
+  <link rel="stylesheet" href="/assets/site.css?v=2026-07-11-mobile-code-wrap-2">
+  <script defer src="/assets/feedback.js?v=2026-07-11-mobile-code-wrap-2"></script>
+  <script defer src="/assets/analytics.js?v=2026-07-11-mobile-code-wrap-2"></script>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-CH19T7M0T1"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){window.dataLayer.push(arguments);}
+    gtag("js", new Date());
+    gtag("config", "G-CH19T7M0T1");
+  </script>
+</head>
+<body>
+  <div class="site">
+    <header class="site-header" id="top">
+      <div class="wrap utility-row">
+        <a class="icon-link menu-icon" href="/archive/" aria-label="Open edition history"><span></span><span></span><span></span></a>
+        <a class="icon-link archive-icon" href="/archive/" aria-label="Open edition history"></a>
+      </div>
+      <div class="wrap masthead-lockup">
+        <a class="masthead-title" href="/">THE GIT REPORTER</a>
+        <div class="masthead-ornament" aria-hidden="true"></div>
+      </div>
+      <div class="wrap nav-wrap">
+        <nav class="paper-nav" aria-label="Primary navigation">
+    <a class="" href="/">Today</a><a class="active" href="/archive/">Editions</a><a class="" href="/about/">About</a><a class="" href="/agent-pulse/">Agent Pulse</a><a class="" href="/atlas/">Agent Atlas</a><a class="" href="/repos/">Repos</a>
+  </nav>
+        <div class="nav-rule"></div>
+      </div>
+    </header>
+    <main class="wrap page-shell article-page">
+      <section class="page-hero story-front">
+        <div class="story-topline">
+          <span>Daily Edition</span>
+          <span>Sources <strong>+11</strong></span>
+        </div>
+        <h1>How Saracroche carries nearly 17 million phone entries through one narrow iOS doorway</h1>
+        <p class="summary">Saracroche turns 1,548 compact French call-list patterns into 16.956 million represented numbers, then hands them to CallKit 10,000 at a time. The source explains the design; it does not prove every entry succeeds on a phone.</p>
+        <figure class="story-illustration article-illustration">
+    <img src="/assets/illustrations/2026-07-12-saracroche-ios-source-profile-diagram-punk-v1.png" alt="Diagram Punk poster mapping an API list through Core Data, a nearly 17-million-number expansion, 10,000-entry stacks, and an App Group doorway into CallKit, with a separate arrow to SMS and a warning that device success is not proven." loading="lazy" decoding="async">
+    <figcaption><span>Diagram Punk</span>nearly 17 million numbers through one narrow doorway.</figcaption>
+  </figure>
+        <div class="receipt">
+    <div class="receipt-line">
+      <span class="receipt-icon">repo</span>
+      <span class="receipt-main">cbouvat/saracroche-ios</span>
+      <span class="branch-pill">evidence</span>
+    </div>
+    <div class="receipt-line receipt-muted">
+      <span>11 source signals</span>
+      <span>1 repo</span>
+      <span>2 linked commits</span>
+    </div>
+    <div class="commit-line">Evidence: 2 linked commits / July 12, 2026 / Daily Edition</div>
+  </div>
+        <div class="article-route-row">
+          <a href="/editions/2026-07-12/">Open Edition</a>
+          <a href="#evidence">Evidence below</a>
+        </div>
+      </section>
+      <section class="story-reader">
+        <article class="story-shell story-body">
+          <p>Why should installing a phone-prefix list need a battery warning? In <a href="https://codeberg.org/cbouvat/saracroche-ios/issues/172">issue #172</a>, contributor Pierre-Yves Lapersonne called Saracroche’s list update costly and proposed asking before continuing in Low Power Mode. The merged <a href="https://codeberg.org/cbouvat/saracroche-ios/pulls/173">pull request</a> added that choice. It is a public clue that this is not merely a list download: it is a synchronization job across an iOS extension boundary.</p>
+
+  <p>The <a href="https://app.saracroche.org/api/v1/lists/french-list-arcep-operators">live list endpoint</a> returned version <code>2026-07-12T01:00:59+00:00</code> with 1,548 wildcard patterns: 615 for blocking and 933 for identification. Applying the project’s wildcard rule produces 14,736,000 represented blocking numbers plus 2,220,000 identification numbers. That 16,956,000 total is a description of the list’s mathematical reach, not an installation count.</p>
+
+  <p>The payload itself complicates its ARCEP-flavoured name. Its description separates canvassing prefixes from additional operator ranges and “potential spam” ranges. The client stores the supplied name, action, and pattern, but this repository does not show how those additional ranges are selected, disputed, or retired. The source supports a mixed-origin list, not a claim that every entry is official policy.</p>
+
+  <h2>The narrow doorway is a separate process</h2>
+
+  <p>At fixed commit <a href="https://codeberg.org/cbouvat/saracroche-ios/commit/d9fc9249b0519bfa54ec21a68ad7b8703404df58"><code>d9fc924</code></a>, <a href="https://codeberg.org/cbouvat/saracroche-ios/src/commit/d9fc9249b0519bfa54ec21a68ad7b8703404df58/saracroche/Services/ListService.swift"><code>ListService</code></a> reconciles a fresh payload against API-origin Core Data records. Missing patterns become explicit removal work rather than silently disappearing. The database lives in an <a href="https://codeberg.org/cbouvat/saracroche-ios/src/commit/d9fc9249b0519bfa54ec21a68ad7b8703404df58/saracroche/Database/CoreDataStack.swift">App Group container</a> shared by the app and its extensions.</p>
+
+  <p>The call path then has to materialize the compact rules. <a href="https://codeberg.org/cbouvat/saracroche-ios/src/commit/d9fc9249b0519bfa54ec21a68ad7b8703404df58/saracroche/Helpers/PhoneNumberHelpers.swift"><code>PhoneNumberHelpers</code></a> expands a <code>#</code> into a numeric range; <a href="https://codeberg.org/cbouvat/saracroche-ios/src/commit/d9fc9249b0519bfa54ec21a68ad7b8703404df58/saracroche/Services/BlockerService.swift"><code>BlockerService</code></a> slices those values into batches of at most 10,000. Each handoff writes one action and one number array to shared <a href="https://codeberg.org/cbouvat/saracroche-ios/src/commit/d9fc9249b0519bfa54ec21a68ad7b8703404df58/saracroche/Services/SharedUserDefaultsService.swift"><code>UserDefaults</code></a>, reloads the extension, and waits for the next piece.</p>
+
+  <p>In the other process, <a href="https://codeberg.org/cbouvat/saracroche-ios/src/commit/d9fc9249b0519bfa54ec21a68ad7b8703404df58/blocker/CallDirectoryHandler.swift"><code>CallDirectoryHandler</code></a> reads and clears that handoff before issuing CallKit block, identify, or removal operations. A downloaded list and the system state are therefore separate truths the app has to reconcile.</p>
+
+  <h2>SMS gets to keep the wildcard</h2>
+
+  <p>Saracroche’s SMS extension takes a different route. <a href="https://codeberg.org/cbouvat/saracroche-ios/src/commit/d9fc9249b0519bfa54ec21a68ad7b8703404df58/filter/MessageFilterService.swift"><code>MessageFilterService</code></a> reads the same shared store and compares a sender to the compact pattern character by character. It does not need to expand a million-number prefix before answering one matching question. The interesting engineering is the translation forced by the call-extension interface, not the wildcard alone.</p>
+
+  <h2>Freshness is a policy, not a result</h2>
+
+  <p>The project’s reset trail shows why that translation stays alive. <a href="https://codeberg.org/cbouvat/saracroche-ios/pulls/175">PR #175</a> added daily reprocessing for a fraction of expired patterns; a later <a href="https://codeberg.org/cbouvat/saracroche-ios/commit/f719affbe3a379d9fbeb66fd386b6c8e5d46ffae">commit</a> switched to a full reset after 20 days and retry eligibility after two hours. That is a design for eventual reconstruction, not a benchmark of speed or battery use.</p>
+
+  <p>The README’s “every 6 hours” background-update wording needs the same care. The <a href="https://codeberg.org/cbouvat/saracroche-ios/src/commit/d9fc9249b0519bfa54ec21a68ad7b8703404df58/saracroche/Services/BackgroundService.swift">code</a> asks iOS for work no earlier than six hours later, with network and external power required. Apple says <a href="https://developer.apple.com/documentation/backgroundtasks/bgtaskrequest/earliestbegindate"><code>earliestBeginDate</code></a> is not an appointment.</p>
+
+  <p>Maintainer Camille Bouvat’s <a href="https://cbouvat.com/blog/1an-saracroche/">one-year retrospective</a> is the useful final context: he names chunking, extension communication, memory/time limits, and background work as the difficult part of version 4. The next decisive public receipts would be reconciliation tests, a device-level installation benchmark, and provenance for non-ARCEP ranges. Until then, the source makes a narrow doorway visible; it does not prove that all 16.956 million represented entries pass through it.</p>
+        </article>
+      </section>
+      <section class="evidence-section" id="evidence" aria-labelledby="evidence-title">
+    <div class="evidence-head">
+      <div>
+        <div class="eyebrow">Evidence Trail</div>
+        <h2 id="evidence-title">Receipts below the story</h2>
+        <p>The article above is the public narrative. This section keeps the source trail and limits on the same page.</p>
+      </div>
+      <a class="paper-button" href="/editions/2026-07-12/">Edition</a>
+    </div>
+    <div class="evidence-table evidence-summary">
+      <div class="evidence-line"><span>Date</span><span>July 12, 2026</span></div>
+      <div class="evidence-line"><span>Lane</span><span>Daily Edition</span></div>
+      <div class="evidence-line"><span>Confidence</span><span>91%</span></div>
+      <div class="evidence-line"><span>Sources</span><span>11</span></div>
+      <div class="evidence-line"><span>Repos</span><span>cbouvat/saracroche-ios</span></div>
+    </div>
+    <div class="markdown evidence-copy evidence-copy-block">
+      <p>Dynamic list figures were refreshed against the live July 12 endpoint before staging this late-recovery article.</p>
+<h2>Primary Evidence</h2>
+<ul>
+<li>Live Saracroche French-list endpoint: <a href="https://app.saracroche.org/api/v1/lists/french-list-arcep-operators">https://app.saracroche.org/api/v1/lists/french-list-arcep-operators</a>
+<ul>
+<li>Shows: the July 12 payload version <code>2026-07-12T01:00:59+00:00</code>, 1,548 compact patterns, the <code>block</code> and <code>identify</code> actions, its CC BY-NC-SA 4.0 declaration, and a description that distinguishes ARCEP prefixes from additional operator and &quot;potential spam&quot; ranges. Applying the repository's wildcard-count rule yields 16,956,000 represented numbers; this is not a successful-install measurement.
+</li>
+</ul>
+</li>
+<li>Fixed source snapshot at commit <code>d9fc9249b0519bfa54ec21a68ad7b8703404df58</code>: <a href="https://codeberg.org/cbouvat/saracroche-ios/commit/d9fc9249b0519bfa54ec21a68ad7b8703404df58">https://codeberg.org/cbouvat/saracroche-ios/commit/d9fc9249b0519bfa54ec21a68ad7b8703404df58</a>
+<ul>
+<li>Shows: the July 3 <code>v4.13.1</code> source state used for every implementation claim in the article, avoiding moving-branch evidence.
+</li>
+</ul>
+</li>
+<li>API-to-Core-Data reconciliation in <code>ListService</code>: <a href="https://codeberg.org/cbouvat/saracroche-ios/src/commit/d9fc9249b0519bfa54ec21a68ad7b8703404df58/saracroche/Services/ListService.swift">https://codeberg.org/cbouvat/saracroche-ios/src/commit/d9fc9249b0519bfa54ec21a68ad7b8703404df58/saracroche/Services/ListService.swift</a>
+<ul>
+<li>Shows: the app decodes the API's version, name, action, and wildcard pattern; updates or creates API-origin Core Data records; and converts disappeared patterns into explicit removal actions.
+</li>
+</ul>
+</li>
+<li>Shared App Group database in <code>CoreDataStack</code>: <a href="https://codeberg.org/cbouvat/saracroche-ios/src/commit/d9fc9249b0519bfa54ec21a68ad7b8703404df58/saracroche/Database/CoreDataStack.swift">https://codeberg.org/cbouvat/saracroche-ios/src/commit/d9fc9249b0519bfa54ec21a68ad7b8703404df58/saracroche/Database/CoreDataStack.swift</a>
+<ul>
+<li>Shows: <code>DataModel.sqlite</code> lives in the App Group container used across the main app and extensions.
+</li>
+</ul>
+</li>
+<li>Wildcard expansion and 10,000-entry chunking: <a href="https://codeberg.org/cbouvat/saracroche-ios/src/commit/d9fc9249b0519bfa54ec21a68ad7b8703404df58/saracroche/Helpers/PhoneNumberHelpers.swift">https://codeberg.org/cbouvat/saracroche-ios/src/commit/d9fc9249b0519bfa54ec21a68ad7b8703404df58/saracroche/Helpers/PhoneNumberHelpers.swift</a> and <a href="https://codeberg.org/cbouvat/saracroche-ios/src/commit/d9fc9249b0519bfa54ec21a68ad7b8703404df58/saracroche/Services/BlockerService.swift">https://codeberg.org/cbouvat/saracroche-ios/src/commit/d9fc9249b0519bfa54ec21a68ad7b8703404df58/saracroche/Services/BlockerService.swift</a>
+<ul>
+<li>Shows: each <code>#</code> spans ten digits; the call path materializes every concrete number, slices the result into chunks of at most 10,000, and attempts removal before adding or identifying a chunk.
+</li>
+</ul>
+</li>
+<li>App-to-extension handoff: <a href="https://codeberg.org/cbouvat/saracroche-ios/src/commit/d9fc9249b0519bfa54ec21a68ad7b8703404df58/saracroche/Services/SharedUserDefaultsService.swift">https://codeberg.org/cbouvat/saracroche-ios/src/commit/d9fc9249b0519bfa54ec21a68ad7b8703404df58/saracroche/Services/SharedUserDefaultsService.swift</a> and <a href="https://codeberg.org/cbouvat/saracroche-ios/src/commit/d9fc9249b0519bfa54ec21a68ad7b8703404df58/blocker/CallDirectoryHandler.swift">https://codeberg.org/cbouvat/saracroche-ios/src/commit/d9fc9249b0519bfa54ec21a68ad7b8703404df58/blocker/CallDirectoryHandler.swift</a>
+<ul>
+<li>Shows: one action and one numbers array cross through shared <code>UserDefaults</code>; the Call Directory extension reads and clears them before issuing individual CallKit block, identify, or removal operations.
+</li>
+</ul>
+</li>
+<li>Compact SMS path in <code>MessageFilterService</code>: <a href="https://codeberg.org/cbouvat/saracroche-ios/src/commit/d9fc9249b0519bfa54ec21a68ad7b8703404df58/filter/MessageFilterService.swift">https://codeberg.org/cbouvat/saracroche-ios/src/commit/d9fc9249b0519bfa54ec21a68ad7b8703404df58/filter/MessageFilterService.swift</a>
+<ul>
+<li>Shows: the SMS extension reads the App Group's Core Data store in read-only mode and matches <code>#</code> directly against the sender instead of expanding the range.
+</li>
+</ul>
+</li>
+<li>Energy-cost discussion in issue #172 and PR #173: <a href="https://codeberg.org/cbouvat/saracroche-ios/issues/172">https://codeberg.org/cbouvat/saracroche-ios/issues/172</a> and <a href="https://codeberg.org/cbouvat/saracroche-ios/pulls/173">https://codeberg.org/cbouvat/saracroche-ios/pulls/173</a>
+<ul>
+<li>Shows: a public contributor explicitly framed list installation as costly and added a Low Power Mode confirmation. It establishes an acknowledged concern, not a measured energy result.
+</li>
+</ul>
+</li>
+<li>Reset-design trail in PR #175 and commit <code>f719aff</code>: <a href="https://codeberg.org/cbouvat/saracroche-ios/pulls/175">https://codeberg.org/cbouvat/saracroche-ios/pulls/175</a> and <a href="https://codeberg.org/cbouvat/saracroche-ios/commit/f719affbe3a379d9fbeb66fd386b6c8e5d46ffae">https://codeberg.org/cbouvat/saracroche-ios/commit/f719affbe3a379d9fbeb66fd386b6c8e5d46ffae</a>
+<ul>
+<li>Shows: a percentage-based daily reprocessing design was superseded by full reprocessing for entries older than 20 days, with failed patterns becoming eligible again after two hours.
+</li>
+</ul>
+</li>
+<li>Background request implementation and Apple's scheduling contract: <a href="https://codeberg.org/cbouvat/saracroche-ios/src/commit/d9fc9249b0519bfa54ec21a68ad7b8703404df58/saracroche/Services/BackgroundService.swift">https://codeberg.org/cbouvat/saracroche-ios/src/commit/d9fc9249b0519bfa54ec21a68ad7b8703404df58/saracroche/Services/BackgroundService.swift</a> and <a href="https://developer.apple.com/documentation/backgroundtasks/bgtaskrequest/earliestbegindate">https://developer.apple.com/documentation/backgroundtasks/bgtaskrequest/earliestbegindate</a>
+<ul>
+<li>Shows: Saracroche requests a task no earlier than six hours and requires network plus external power; the operating system does not promise execution at that time.
+</li>
+</ul>
+</li>
+<li>Camille Bouvat's one-year retrospective: <a href="https://cbouvat.com/blog/1an-saracroche/">https://cbouvat.com/blog/1an-saracroche/</a>
+<ul>
+<li>Shows: the maintainer publicly ties version 4 to chunking, extension communication, memory/time limits, and background work, and describes changing his AI-assisted development practice after bugs and loss of code familiarity.
+</li>
+</ul>
+</li>
+</ul>
+<h2>Evidence Limits</h2>
+<ul>
+<li>The endpoint is dynamic. Before publication on July 12, refresh its version, pattern/action counts, and wildcard-derived represented totals; reconsider the headline if the scale changes materially.
+</li>
+<li>The 16,956,000 figure describes numbers represented by the July 11 payload and source algorithm. It does not show that all entries were installed successfully, fit within a device's operating limits, or remained current in production.
+</li>
+<li>The fixed public tree exposes no automated test target, XCTest import, test directory, or CI workflow. No public device benchmark establishes update time, memory use, battery cost, or success rate. Private or manual testing may exist.
+</li>
+<li>Six hours is the earliest background time requested, not a guaranteed cadence. The code requires external power and network, while list download freshness is checked at 24 hours.
+</li>
+<li>The payload names mixed origins, but the iOS repository does not expose the selection and verification process for additional operator or &quot;potential spam&quot; ranges.
+</li>
+<li>Source inspection does not establish that the App Store binary matches the fixed commit. Local matching is visible in source, but the project also has network surfaces for downloading lists, reports, and SMS deferral; the article therefore avoids a blanket offline or privacy guarantee.
+</li>
+</ul>
+    </div>
+  </section>
+      <section class="related-edition-section atlas-context-section">
+    <div class="section-title-row">
+      <h2>Atlas Context</h2>
+      <a href="/atlas/">Open Atlas &rsaquo;</a>
+    </div>
+    <div class="updates-list">
+      <a class="article-card" href="/atlas/the-human-interface/">
+            <div class="article-meta"><span class="lane">Agent Atlas</span><span>Chapter 8</span></div>
+            <h3>The Human Control Loop</h3>
+            <p>A useful interface exposes active work, gives intervention a defined runtime effect, preserves evidence during correction, and resumes the intended session.</p>
+          </a>
+    </div>
+  </section>
+      <section class="reader-feedback"
+    data-tgr-feedback
+    data-article-slug="2026-07-12-daily-how-saracroche-carries-nearly-17-million-phone-entries-through-one-narrow-ios-doorway"
+    data-article-title="How Saracroche carries nearly 17 million phone entries through one narrow iOS doorway"
+    data-article-url="/articles/2026-07-12-daily-how-saracroche-carries-nearly-17-million-phone-entries-through-one-narrow-ios-doorway/"
+    data-edition-date="2026-07-12"
+    data-lane="Daily Edition"
+    data-tags="Memory,Tools,UX,Runtime"
+    data-repos="cbouvat/saracroche-ios">
+    <div class="reader-feedback-head">
+      <div>
+        <div class="eyebrow">Letters &amp; Corrections</div>
+        <h2>Send a note to the desk</h2>
+      </div>
+      <p>Corrections, missing context, or a follow-up lead.</p>
+    </div>
+    <form class="feedback-form">
+      <div class="feedback-votes" role="group" aria-label="Choose signal type">
+        <button class="feedback-choice" type="button" data-vote="follow-up" aria-pressed="false">
+          <span aria-hidden="true">+</span>
+          <span>Follow-up</span>
+        </button>
+        <button class="feedback-choice" type="button" data-vote="correction" aria-pressed="false">
+          <span aria-hidden="true">!</span>
+          <span>Correction</span>
+        </button>
+      </div>
+      <label class="feedback-comment">
+        <span>Note for the editor</span>
+        <textarea name="comment" rows="3" maxlength="320" placeholder="What did we miss, or what should we follow next?"></textarea>
+      </label>
+      <div class="feedback-submit-row">
+        <p class="feedback-status" aria-live="polite"></p>
+        <button class="paper-button primary feedback-submit" type="submit">Send to desk</button>
+      </div>
+    </form>
+  </section>
+      <section class="related-edition-section">
+        <div class="section-title-row">
+          <h2>Same Edition</h2>
+          <a href="/editions/2026-07-12/">Open issue &rsaquo;</a>
+        </div>
+        <div class="updates-list">
+          <a class="update-card" href="/articles/2026-07-12-daily-hermes-turns-health-checks-into-a-runtime-contract/">
+    <div class="update-stripe"></div>
+    <div class="update-main">
+      <div class="update-meta">
+        <span>Reported</span>
+        <span class="source-plus">+3</span>
+        <span>Jul 12, 2026</span>
+      </div>
+      <h3>Hermes Turns Health Checks Into a Runtime Contract</h3>
+      <div class="update-receipt">
+        <span>NousResearch/hermes-agent</span>
+        <span class="branch-pill">evidence</span>
+      </div>
+      <div class="update-foot">
+        <span>3 sources</span>
+        <span>1 repo</span>
+        <span>commit f9728af</span>
+      </div>
+    </div>
+    <span class="update-arrow" aria-hidden="true">&rsaquo;</span>
+  </a><a class="update-card" href="/articles/2026-07-12-daily-api-discovery-let-vigieau-answer-the-water-rule-question/">
+    <div class="update-stripe"></div>
+    <div class="update-main">
+      <div class="update-meta">
+        <span>Reported</span>
+        <span class="source-plus">+3</span>
+        <span>Jul 12, 2026</span>
+      </div>
+      <h3>API Discovery: Let VigiEau Answer the Water-Rule Question</h3>
+      <div class="update-receipt">
+        <span>source trail</span>
+        <span class="branch-pill">evidence</span>
+      </div>
+      <div class="update-foot">
+        <span>3 sources</span>
+        <span>0 repos</span>
+        <span>3 source signals</span>
+      </div>
+    </div>
+    <span class="update-arrow" aria-hidden="true">&rsaquo;</span>
+  </a><a class="update-card" href="/articles/2026-07-12-daily-builder-work-saracroche-keeps-the-whole-boundary-in-view/">
+    <div class="update-stripe"></div>
+    <div class="update-main">
+      <div class="update-meta">
+        <span>Reported</span>
+        <span class="source-plus">+3</span>
+        <span>Jul 12, 2026</span>
+      </div>
+      <h3>Builder Work: Saracroche Keeps the Whole Boundary in View</h3>
+      <div class="update-receipt">
+        <span>source trail</span>
+        <span class="branch-pill">evidence</span>
+      </div>
+      <div class="update-foot">
+        <span>3 sources</span>
+        <span>0 repos</span>
+        <span>commit d9fc924</span>
+      </div>
+    </div>
+    <span class="update-arrow" aria-hidden="true">&rsaquo;</span>
+  </a><a class="update-card" href="/articles/2026-07-12-daily-openwork-puts-the-whole-desktop-in-the-air-gapped-box/">
+    <div class="update-stripe"></div>
+    <div class="update-main">
+      <div class="update-meta">
+        <span>Reported</span>
+        <span class="source-plus">+3</span>
+        <span>Jul 12, 2026</span>
+      </div>
+      <h3>OpenWork Puts the Whole Desktop in the Air-Gapped Box</h3>
+      <div class="update-receipt">
+        <span>source trail</span>
+        <span class="branch-pill">evidence</span>
+      </div>
+      <div class="update-foot">
+        <span>3 sources</span>
+        <span>0 repos</span>
+        <span>commit e8ab197</span>
+      </div>
+    </div>
+    <span class="update-arrow" aria-hidden="true">&rsaquo;</span>
+  </a>
+        </div>
+      </section>
+    </main>
+    <footer class="wrap site-footer">
+      <span>&copy; 2026 The Git Reporter</span>
+      <a href="/about/">About</a>
+      <a href="/agent-pulse/">Agent Pulse</a>
+      <a href="/feed.xml">RSS</a>
+      <a href="https://x.com/TheGitReporter">Follow on X</a>
+      <a href="/articles.json">Manifest JSON</a>
+      <a href="/repos/">Sources</a>
+    </footer>
+  </div>
+</body>
+</html>

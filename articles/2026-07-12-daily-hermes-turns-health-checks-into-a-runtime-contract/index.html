@@ -1,0 +1,314 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Hermes Turns Health Checks Into a Runtime Contract | The Git Reporter</title>
+  <meta name="description" content="A new authenticated readiness endpoint checks the parts of an agent gateway that can make it unreliable—without reading payloads, leaking configuration, or trying to repair anything.">
+  <meta name="robots" content="index,follow">
+  <link rel="canonical" href="https://thegitreporter.com/articles/2026-07-12-daily-hermes-turns-health-checks-into-a-runtime-contract/">
+  <link rel="alternate" type="application/rss+xml" title="The Git Reporter" href="https://thegitreporter.com/feed.xml">
+  <meta property="og:site_name" content="The Git Reporter">
+  <meta property="og:locale" content="en_US">
+  <meta property="og:title" content="Hermes Turns Health Checks Into a Runtime Contract | The Git Reporter">
+  <meta property="og:description" content="A new authenticated readiness endpoint checks the parts of an agent gateway that can make it unreliable—without reading payloads, leaking configuration, or trying to repair anything.">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://thegitreporter.com/articles/2026-07-12-daily-hermes-turns-health-checks-into-a-runtime-contract/">
+  <meta property="og:image" content="https://thegitreporter.com/assets/social/2026-07-12-daily-hermes-turns-health-checks-into-a-runtime-contract-og.jpg">
+  <meta property="og:image:secure_url" content="https://thegitreporter.com/assets/social/2026-07-12-daily-hermes-turns-health-checks-into-a-runtime-contract-og.jpg">
+  <meta property="og:image:type" content="image/jpeg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Diagram Punk poster with state database, config, provider, disk, gateway, and queue cards feeding a readiness check and a green status marker.">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:site" content="@TheGitReporter">
+  <meta name="twitter:creator" content="@TheGitReporter">
+  <meta name="twitter:title" content="Hermes Turns Health Checks Into a Runtime Contract | The Git Reporter">
+  <meta name="twitter:description" content="A new authenticated readiness endpoint checks the parts of an agent gateway that can make it unreliable—without reading payloads, leaking configuration, or trying to repair anything.">
+  <meta name="twitter:url" content="https://thegitreporter.com/articles/2026-07-12-daily-hermes-turns-health-checks-into-a-runtime-contract/">
+  <meta name="twitter:domain" content="thegitreporter.com">
+  <meta name="twitter:image" content="https://thegitreporter.com/assets/social/2026-07-12-daily-hermes-turns-health-checks-into-a-runtime-contract-og.jpg">
+  <meta name="twitter:image:alt" content="Diagram Punk poster with state database, config, provider, disk, gateway, and queue cards feeding a readiness check and a green status marker.">
+  <meta property="article:published_time" content="2026-07-12T12:00:00Z">
+  <meta property="article:modified_time" content="2026-07-12T12:00:00Z">
+  <meta property="article:section" content="Daily Edition">
+  <meta property="article:tag" content="Tools">
+  <meta property="article:tag" content="Runtime">
+  <meta property="article:tag" content="NousResearch/hermes-agent">
+  <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"https://thegitreporter.com/#organization","name":"The Git Reporter","url":"https://thegitreporter.com","logo":{"@type":"ImageObject","url":"https://thegitreporter.com/assets/mark.svg"},"sameAs":["https://x.com/TheGitReporter"]},{"@type":"WebSite","@id":"https://thegitreporter.com/#website","name":"The Git Reporter","url":"https://thegitreporter.com","publisher":{"@id":"https://thegitreporter.com/#organization"}},{"@type":"NewsArticle","mainEntityOfPage":{"@type":"WebPage","@id":"https://thegitreporter.com/articles/2026-07-12-daily-hermes-turns-health-checks-into-a-runtime-contract/"},"headline":"Hermes Turns Health Checks Into a Runtime Contract","description":"A new authenticated readiness endpoint checks the parts of an agent gateway that can make it unreliable—without reading payloads, leaking configuration, or trying to repair anything.","image":["https://thegitreporter.com/assets/social/2026-07-12-daily-hermes-turns-health-checks-into-a-runtime-contract-og.jpg"],"datePublished":"2026-07-12T12:00:00Z","dateModified":"2026-07-12T12:00:00Z","author":[{"@type":"Organization","name":"The Git Reporter","url":"https://thegitreporter.com"}],"publisher":{"@type":"Organization","@id":"https://thegitreporter.com/#organization","name":"The Git Reporter","url":"https://thegitreporter.com","logo":{"@type":"ImageObject","url":"https://thegitreporter.com/assets/mark.svg"},"sameAs":["https://x.com/TheGitReporter"]},"articleSection":"Daily Edition","keywords":"Tools, Runtime, NousResearch/hermes-agent"}]}</script>
+  <link rel="icon" href="/assets/mark.svg">
+  <link rel="stylesheet" href="/assets/site.css?v=2026-07-11-mobile-code-wrap-2">
+  <script defer src="/assets/feedback.js?v=2026-07-11-mobile-code-wrap-2"></script>
+  <script defer src="/assets/analytics.js?v=2026-07-11-mobile-code-wrap-2"></script>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-CH19T7M0T1"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){window.dataLayer.push(arguments);}
+    gtag("js", new Date());
+    gtag("config", "G-CH19T7M0T1");
+  </script>
+</head>
+<body>
+  <div class="site">
+    <header class="site-header" id="top">
+      <div class="wrap utility-row">
+        <a class="icon-link menu-icon" href="/archive/" aria-label="Open edition history"><span></span><span></span><span></span></a>
+        <a class="icon-link archive-icon" href="/archive/" aria-label="Open edition history"></a>
+      </div>
+      <div class="wrap masthead-lockup">
+        <a class="masthead-title" href="/">THE GIT REPORTER</a>
+        <div class="masthead-ornament" aria-hidden="true"></div>
+      </div>
+      <div class="wrap nav-wrap">
+        <nav class="paper-nav" aria-label="Primary navigation">
+    <a class="" href="/">Today</a><a class="active" href="/archive/">Editions</a><a class="" href="/about/">About</a><a class="" href="/agent-pulse/">Agent Pulse</a><a class="" href="/atlas/">Agent Atlas</a><a class="" href="/repos/">Repos</a>
+  </nav>
+        <div class="nav-rule"></div>
+      </div>
+    </header>
+    <main class="wrap page-shell article-page">
+      <section class="page-hero story-front">
+        <div class="story-topline">
+          <span>Daily Edition</span>
+          <span>Sources <strong>+3</strong></span>
+        </div>
+        <h1>Hermes Turns Health Checks Into a Runtime Contract</h1>
+        <p class="summary">A new authenticated readiness endpoint checks the parts of an agent gateway that can make it unreliable—without reading payloads, leaking configuration, or trying to repair anything.</p>
+        <figure class="story-illustration article-illustration">
+    <img src="/assets/illustrations/2026-07-12-hermes-turns-health-checks-into-a-runtime-contract-diagram-punk-v1.png" alt="Diagram Punk poster with state database, config, provider, disk, gateway, and queue cards feeding a readiness check and a green status marker." loading="lazy" decoding="async">
+    <figcaption><span>Diagram Punk</span>health without a privileged peek.</figcaption>
+  </figure>
+        <div class="receipt">
+    <div class="receipt-line">
+      <span class="receipt-icon">repo</span>
+      <span class="receipt-main">NousResearch/hermes-agent</span>
+      <span class="branch-pill">evidence</span>
+    </div>
+    <div class="receipt-line receipt-muted">
+      <span>3 source signals</span>
+      <span>1 repo</span>
+      <span>commit f9728af</span>
+    </div>
+    <div class="commit-line">Evidence: commit f9728af / July 12, 2026 / Daily Edition</div>
+  </div>
+        <div class="article-route-row">
+          <a href="/editions/2026-07-12/">Open Edition</a>
+          <a href="#evidence">Evidence below</a>
+        </div>
+      </section>
+      <section class="story-reader">
+        <article class="story-shell story-body">
+          <p>In <a href="https://github.com/NousResearch/hermes-agent/commit/f9728af5e">NousResearch/hermes-agent commit <code>f9728af5e</code></a>, Hermes adds an authenticated runtime-readiness collector that reports state, configuration, provider, disk, gateway, scheduler, and queue checks. A health check is useful only when it tells an operator what they can trust; it is dangerous when collecting that answer becomes a new way to expose credentials, task data, or a broken database.</p>
+
+  <p>The first angle was “Hermes added a health endpoint.” The code changes the meaning. The endpoint is authenticated, returns only status and bounded counts, and makes deliberate decisions about what a probe must not do: it opens the state database read-write so it cannot create or repair one, checks config syntax without returning config values, and reports queue depths without examining queue payloads.</p>
+
+  <h2>Readiness is not a repair tool</h2>
+
+  <p>The new <a href="https://github.com/NousResearch/hermes-agent/blob/f9728af5e/gateway/readiness.py"><code>gateway/readiness.py</code></a> assembles checks for the state database, configuration, selected provider, disk, gateway state, scheduler, and background queues. The API route calls that collector only after gathering counts for active API runs, process completions, and delegations. Its own docstring draws the boundary: the detailed surface must expose neither paths, credentials, commands, payloads, nor exception messages.</p>
+
+  <p>That is more than an omission list. The SQLite probe uses <code>mode=rw</code> precisely so a readiness request will not create or “heal” a missing database. It runs a quick integrity check and immediately rolls back an immediate transaction. A malformed configuration becomes a degraded status; it does not become an invitation for a diagnostic endpoint to rewrite it.</p>
+
+  <h2>The tests are part of the claim</h2>
+
+  <p>The accompanying <a href="https://github.com/NousResearch/hermes-agent/blob/f9728af5e/tests/gateway/test_readiness.py">tests</a> make the contract inspectable: a healthy temporary runtime reports checks and queue counts, while an invalid configuration and stopped gateway degrade the result without modifying the malformed file. The practical consequence is a compact signal operators can automate around; maintainers avoid turning “are you alive?” into a privileged debugging backdoor.</p>
+
+  <p>The commit proves an implementation and tests, not that the endpoint is deployed, that every provider behaves the same way, or that this policy eliminates all operational leakage. The next meaningful signal is whether the authenticated surface is documented with an operator action for each degraded state—and whether production users can distinguish a full queue from a failed runtime without ever inspecting the work inside it.</p>
+        </article>
+      </section>
+      <section class="evidence-section" id="evidence" aria-labelledby="evidence-title">
+    <div class="evidence-head">
+      <div>
+        <div class="eyebrow">Evidence Trail</div>
+        <h2 id="evidence-title">Receipts below the story</h2>
+        <p>The article above is the public narrative. This section keeps the source trail and limits on the same page.</p>
+      </div>
+      <a class="paper-button" href="/editions/2026-07-12/">Edition</a>
+    </div>
+    <div class="evidence-table evidence-summary">
+      <div class="evidence-line"><span>Date</span><span>July 12, 2026</span></div>
+      <div class="evidence-line"><span>Lane</span><span>Daily Edition</span></div>
+      <div class="evidence-line"><span>Confidence</span><span>78%</span></div>
+      <div class="evidence-line"><span>Sources</span><span>3</span></div>
+      <div class="evidence-line"><span>Repos</span><span>NousResearch/hermes-agent</span></div>
+    </div>
+    <div class="markdown evidence-copy evidence-copy-block">
+      <h2>Primary Evidence</h2>
+<ul>
+<li>Authenticated readiness commit: <a href="https://github.com/NousResearch/hermes-agent/commit/f9728af5e">https://github.com/NousResearch/hermes-agent/commit/f9728af5e</a>
+<ul>
+<li>Shows: Hermes added a runtime-readiness collector and route integration with tests in four public source files.
+</li>
+</ul>
+</li>
+<li>Bounded readiness collector: <a href="https://github.com/NousResearch/hermes-agent/blob/f9728af5e/gateway/readiness.py">https://github.com/NousResearch/hermes-agent/blob/f9728af5e/gateway/readiness.py</a>
+<ul>
+<li>Shows: the implementation checks state database, config, provider, disk, gateway, scheduler, and queue counts while documenting that payloads, credentials, paths, commands, and exception messages must not be exposed.
+</li>
+</ul>
+</li>
+<li>Non-destructive test coverage: <a href="https://github.com/NousResearch/hermes-agent/blob/f9728af5e/tests/gateway/test_readiness.py">https://github.com/NousResearch/hermes-agent/blob/f9728af5e/tests/gateway/test_readiness.py</a>
+<ul>
+<li>Shows: invalid configuration and a stopped gateway produce degraded status without rewriting the malformed configuration; healthy temporary state reports check statuses and queue counts.
+</li>
+</ul>
+</li>
+</ul>
+<h2>Evidence Limits</h2>
+<ul>
+<li>The source establishes an intended authenticated diagnostic contract, not production deployment, adoption, complete security, or a guarantee that every runtime fault is detected.
+</li>
+</ul>
+    </div>
+  </section>
+      <section class="related-edition-section atlas-context-section">
+    <div class="section-title-row">
+      <h2>Atlas Context</h2>
+      <a href="/atlas/">Open Atlas &rsaquo;</a>
+    </div>
+    <div class="updates-list">
+      <a class="article-card" href="/atlas/the-loop/">
+            <div class="article-meta"><span class="lane">Agent Atlas</span><span>Chapter 4</span></div>
+            <h3>Loops, Workflows, and Recovery</h3>
+            <p>Repeated model-tool interaction is only one control structure. Production runtimes combine probabilistic loops with host-defined workflows, queues, interrupts, terminal states, and recovery operations.</p>
+          </a>
+    </div>
+  </section>
+      <section class="reader-feedback"
+    data-tgr-feedback
+    data-article-slug="2026-07-12-daily-hermes-turns-health-checks-into-a-runtime-contract"
+    data-article-title="Hermes Turns Health Checks Into a Runtime Contract"
+    data-article-url="/articles/2026-07-12-daily-hermes-turns-health-checks-into-a-runtime-contract/"
+    data-edition-date="2026-07-12"
+    data-lane="Daily Edition"
+    data-tags="Tools,Runtime"
+    data-repos="NousResearch/hermes-agent">
+    <div class="reader-feedback-head">
+      <div>
+        <div class="eyebrow">Letters &amp; Corrections</div>
+        <h2>Send a note to the desk</h2>
+      </div>
+      <p>Corrections, missing context, or a follow-up lead.</p>
+    </div>
+    <form class="feedback-form">
+      <div class="feedback-votes" role="group" aria-label="Choose signal type">
+        <button class="feedback-choice" type="button" data-vote="follow-up" aria-pressed="false">
+          <span aria-hidden="true">+</span>
+          <span>Follow-up</span>
+        </button>
+        <button class="feedback-choice" type="button" data-vote="correction" aria-pressed="false">
+          <span aria-hidden="true">!</span>
+          <span>Correction</span>
+        </button>
+      </div>
+      <label class="feedback-comment">
+        <span>Note for the editor</span>
+        <textarea name="comment" rows="3" maxlength="320" placeholder="What did we miss, or what should we follow next?"></textarea>
+      </label>
+      <div class="feedback-submit-row">
+        <p class="feedback-status" aria-live="polite"></p>
+        <button class="paper-button primary feedback-submit" type="submit">Send to desk</button>
+      </div>
+    </form>
+  </section>
+      <section class="related-edition-section">
+        <div class="section-title-row">
+          <h2>Same Edition</h2>
+          <a href="/editions/2026-07-12/">Open issue &rsaquo;</a>
+        </div>
+        <div class="updates-list">
+          <a class="update-card" href="/articles/2026-07-12-daily-how-saracroche-carries-nearly-17-million-phone-entries-through-one-narrow-ios-doorway/">
+    <div class="update-stripe"></div>
+    <div class="update-main">
+      <div class="update-meta">
+        <span>Context</span>
+        <span class="source-plus">+11</span>
+        <span>Jul 12, 2026</span>
+      </div>
+      <h3>How Saracroche carries nearly 17 million phone entries through one narrow iOS doorway</h3>
+      <div class="update-receipt">
+        <span>cbouvat/saracroche-ios</span>
+        <span class="branch-pill">evidence</span>
+      </div>
+      <div class="update-foot">
+        <span>11 sources</span>
+        <span>1 repo</span>
+        <span>2 linked commits</span>
+      </div>
+    </div>
+    <span class="update-arrow" aria-hidden="true">&rsaquo;</span>
+  </a><a class="update-card" href="/articles/2026-07-12-daily-api-discovery-let-vigieau-answer-the-water-rule-question/">
+    <div class="update-stripe"></div>
+    <div class="update-main">
+      <div class="update-meta">
+        <span>Reported</span>
+        <span class="source-plus">+3</span>
+        <span>Jul 12, 2026</span>
+      </div>
+      <h3>API Discovery: Let VigiEau Answer the Water-Rule Question</h3>
+      <div class="update-receipt">
+        <span>source trail</span>
+        <span class="branch-pill">evidence</span>
+      </div>
+      <div class="update-foot">
+        <span>3 sources</span>
+        <span>0 repos</span>
+        <span>3 source signals</span>
+      </div>
+    </div>
+    <span class="update-arrow" aria-hidden="true">&rsaquo;</span>
+  </a><a class="update-card" href="/articles/2026-07-12-daily-builder-work-saracroche-keeps-the-whole-boundary-in-view/">
+    <div class="update-stripe"></div>
+    <div class="update-main">
+      <div class="update-meta">
+        <span>Reported</span>
+        <span class="source-plus">+3</span>
+        <span>Jul 12, 2026</span>
+      </div>
+      <h3>Builder Work: Saracroche Keeps the Whole Boundary in View</h3>
+      <div class="update-receipt">
+        <span>source trail</span>
+        <span class="branch-pill">evidence</span>
+      </div>
+      <div class="update-foot">
+        <span>3 sources</span>
+        <span>0 repos</span>
+        <span>commit d9fc924</span>
+      </div>
+    </div>
+    <span class="update-arrow" aria-hidden="true">&rsaquo;</span>
+  </a><a class="update-card" href="/articles/2026-07-12-daily-openwork-puts-the-whole-desktop-in-the-air-gapped-box/">
+    <div class="update-stripe"></div>
+    <div class="update-main">
+      <div class="update-meta">
+        <span>Reported</span>
+        <span class="source-plus">+3</span>
+        <span>Jul 12, 2026</span>
+      </div>
+      <h3>OpenWork Puts the Whole Desktop in the Air-Gapped Box</h3>
+      <div class="update-receipt">
+        <span>source trail</span>
+        <span class="branch-pill">evidence</span>
+      </div>
+      <div class="update-foot">
+        <span>3 sources</span>
+        <span>0 repos</span>
+        <span>commit e8ab197</span>
+      </div>
+    </div>
+    <span class="update-arrow" aria-hidden="true">&rsaquo;</span>
+  </a>
+        </div>
+      </section>
+    </main>
+    <footer class="wrap site-footer">
+      <span>&copy; 2026 The Git Reporter</span>
+      <a href="/about/">About</a>
+      <a href="/agent-pulse/">Agent Pulse</a>
+      <a href="/feed.xml">RSS</a>
+      <a href="https://x.com/TheGitReporter">Follow on X</a>
+      <a href="/articles.json">Manifest JSON</a>
+      <a href="/repos/">Sources</a>
+    </footer>
+  </div>
+</body>
+</html>

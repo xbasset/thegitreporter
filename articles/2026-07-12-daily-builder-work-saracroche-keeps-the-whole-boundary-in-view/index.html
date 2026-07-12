@@ -1,0 +1,310 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Builder Work: Saracroche Keeps the Whole Boundary in View | The Git Reporter</title>
+  <meta name="description" content="The transferable lesson in Saracroche’s AI-assisted iOS work is not “use less AI.” It is to trace every state transition across an extension boundary before delegating a local implementation.">
+  <meta name="robots" content="index,follow">
+  <link rel="canonical" href="https://thegitreporter.com/articles/2026-07-12-daily-builder-work-saracroche-keeps-the-whole-boundary-in-view/">
+  <link rel="alternate" type="application/rss+xml" title="The Git Reporter" href="https://thegitreporter.com/feed.xml">
+  <meta property="og:site_name" content="The Git Reporter">
+  <meta property="og:locale" content="en_US">
+  <meta property="og:title" content="Builder Work: Saracroche Keeps the Whole Boundary in View | The Git Reporter">
+  <meta property="og:description" content="The transferable lesson in Saracroche’s AI-assisted iOS work is not “use less AI.” It is to trace every state transition across an extension boundary before delegating a local implementation.">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://thegitreporter.com/articles/2026-07-12-daily-builder-work-saracroche-keeps-the-whole-boundary-in-view/">
+  <meta property="og:image" content="https://thegitreporter.com/assets/social/2026-07-12-daily-builder-work-saracroche-keeps-the-whole-boundary-in-view-og.jpg">
+  <meta property="og:image:secure_url" content="https://thegitreporter.com/assets/social/2026-07-12-daily-builder-work-saracroche-keeps-the-whole-boundary-in-view-og.jpg">
+  <meta property="og:image:type" content="image/jpeg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Diagram Punk poster showing API input, shared state, extension handoff, and retry/reset in one loop, with a warning not to delegate a blind spot.">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:site" content="@TheGitReporter">
+  <meta name="twitter:creator" content="@TheGitReporter">
+  <meta name="twitter:title" content="Builder Work: Saracroche Keeps the Whole Boundary in View | The Git Reporter">
+  <meta name="twitter:description" content="The transferable lesson in Saracroche’s AI-assisted iOS work is not “use less AI.” It is to trace every state transition across an extension boundary before delegating a local implementation.">
+  <meta name="twitter:url" content="https://thegitreporter.com/articles/2026-07-12-daily-builder-work-saracroche-keeps-the-whole-boundary-in-view/">
+  <meta name="twitter:domain" content="thegitreporter.com">
+  <meta name="twitter:image" content="https://thegitreporter.com/assets/social/2026-07-12-daily-builder-work-saracroche-keeps-the-whole-boundary-in-view-og.jpg">
+  <meta name="twitter:image:alt" content="Diagram Punk poster showing API input, shared state, extension handoff, and retry/reset in one loop, with a warning not to delegate a blind spot.">
+  <meta property="article:published_time" content="2026-07-12T12:00:00Z">
+  <meta property="article:modified_time" content="2026-07-12T12:00:00Z">
+  <meta property="article:section" content="Daily Edition">
+  <meta property="article:tag" content="Tools">
+  <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"https://thegitreporter.com/#organization","name":"The Git Reporter","url":"https://thegitreporter.com","logo":{"@type":"ImageObject","url":"https://thegitreporter.com/assets/mark.svg"},"sameAs":["https://x.com/TheGitReporter"]},{"@type":"WebSite","@id":"https://thegitreporter.com/#website","name":"The Git Reporter","url":"https://thegitreporter.com","publisher":{"@id":"https://thegitreporter.com/#organization"}},{"@type":"NewsArticle","mainEntityOfPage":{"@type":"WebPage","@id":"https://thegitreporter.com/articles/2026-07-12-daily-builder-work-saracroche-keeps-the-whole-boundary-in-view/"},"headline":"Builder Work: Saracroche Keeps the Whole Boundary in View","description":"The transferable lesson in Saracroche’s AI-assisted iOS work is not “use less AI.” It is to trace every state transition across an extension boundary before delegating a local implementation.","image":["https://thegitreporter.com/assets/social/2026-07-12-daily-builder-work-saracroche-keeps-the-whole-boundary-in-view-og.jpg"],"datePublished":"2026-07-12T12:00:00Z","dateModified":"2026-07-12T12:00:00Z","author":[{"@type":"Organization","name":"The Git Reporter","url":"https://thegitreporter.com"}],"publisher":{"@type":"Organization","@id":"https://thegitreporter.com/#organization","name":"The Git Reporter","url":"https://thegitreporter.com","logo":{"@type":"ImageObject","url":"https://thegitreporter.com/assets/mark.svg"},"sameAs":["https://x.com/TheGitReporter"]},"articleSection":"Daily Edition","keywords":"Tools"}]}</script>
+  <link rel="icon" href="/assets/mark.svg">
+  <link rel="stylesheet" href="/assets/site.css?v=2026-07-11-mobile-code-wrap-2">
+  <script defer src="/assets/feedback.js?v=2026-07-11-mobile-code-wrap-2"></script>
+  <script defer src="/assets/analytics.js?v=2026-07-11-mobile-code-wrap-2"></script>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-CH19T7M0T1"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){window.dataLayer.push(arguments);}
+    gtag("js", new Date());
+    gtag("config", "G-CH19T7M0T1");
+  </script>
+</head>
+<body>
+  <div class="site">
+    <header class="site-header" id="top">
+      <div class="wrap utility-row">
+        <a class="icon-link menu-icon" href="/archive/" aria-label="Open edition history"><span></span><span></span><span></span></a>
+        <a class="icon-link archive-icon" href="/archive/" aria-label="Open edition history"></a>
+      </div>
+      <div class="wrap masthead-lockup">
+        <a class="masthead-title" href="/">THE GIT REPORTER</a>
+        <div class="masthead-ornament" aria-hidden="true"></div>
+      </div>
+      <div class="wrap nav-wrap">
+        <nav class="paper-nav" aria-label="Primary navigation">
+    <a class="" href="/">Today</a><a class="active" href="/archive/">Editions</a><a class="" href="/about/">About</a><a class="" href="/agent-pulse/">Agent Pulse</a><a class="" href="/atlas/">Agent Atlas</a><a class="" href="/repos/">Repos</a>
+  </nav>
+        <div class="nav-rule"></div>
+      </div>
+    </header>
+    <main class="wrap page-shell article-page">
+      <section class="page-hero story-front">
+        <div class="story-topline">
+          <span>Daily Edition</span>
+          <span>Sources <strong>+3</strong></span>
+        </div>
+        <h1>Builder Work: Saracroche Keeps the Whole Boundary in View</h1>
+        <p class="summary">The transferable lesson in Saracroche’s AI-assisted iOS work is not “use less AI.” It is to trace every state transition across an extension boundary before delegating a local implementation.</p>
+        <figure class="story-illustration article-illustration">
+    <img src="/assets/illustrations/2026-07-12-builder-work-saracroche-keeps-the-whole-boundary-in-view-diagram-punk-v1.png" alt="Diagram Punk poster showing API input, shared state, extension handoff, and retry/reset in one loop, with a warning not to delegate a blind spot." loading="lazy" decoding="async">
+    <figcaption><span>Diagram Punk</span>the state boundary is the thing to keep visible.</figcaption>
+  </figure>
+        <div class="receipt">
+    <div class="receipt-line">
+      <span class="receipt-icon">repos</span>
+      <span class="receipt-main">source trail</span>
+      <span class="branch-pill">evidence</span>
+    </div>
+    <div class="receipt-line receipt-muted">
+      <span>3 source signals</span>
+      <span>0 repos</span>
+      <span>commit d9fc924</span>
+    </div>
+    <div class="commit-line">Evidence: commit d9fc924 / July 12, 2026 / Daily Edition</div>
+  </div>
+        <div class="article-route-row">
+          <a href="/editions/2026-07-12/">Open Edition</a>
+          <a href="#evidence">Evidence below</a>
+        </div>
+      </section>
+      <section class="story-reader">
+        <article class="story-shell story-body">
+          <p>Camille Bouvat’s <a href="https://cbouvat.com/blog/1an-saracroche/">public retrospective</a> says that delivery pressure and too much final delegation to Claude contributed to bugs and to losing familiarity with parts of Saracroche. His correction was function-by-function assistance and AI as a second opinion. The useful Builder Work receipt is that this change in practice maps directly to a repository full of coupled state.</p>
+
+  <h2>The repo evidence</h2>
+
+  <p>At <a href="https://codeberg.org/cbouvat/saracroche-ios/commit/d9fc9249b0519bfa54ec21a68ad7b8703404df58">commit <code>d9fc924</code></a>, a remote list is reconciled in <a href="https://codeberg.org/cbouvat/saracroche-ios/src/commit/d9fc9249b0519bfa54ec21a68ad7b8703404df58/saracroche/Services/ListService.swift"><code>ListService</code></a>, persisted in a shared App Group database, expanded and chunked in <a href="https://codeberg.org/cbouvat/saracroche-ios/src/commit/d9fc9249b0519bfa54ec21a68ad7b8703404df58/saracroche/Services/BlockerService.swift"><code>BlockerService</code></a>, then consumed by a different CallKit process. The reset history in <a href="https://codeberg.org/cbouvat/saracroche-ios/pulls/175">PR #175</a> and its successor shows the team revising how expired and failed patterns become eligible again.</p>
+
+  <p>That is why this is not five-minute generated-wrapper work. The hard part is the contract between API input, shared state, a one-action handoff, a separate extension, completion records, retries, and reset rules. Any one function can look reasonable while the boundary is wrong.</p>
+
+  <h2>The transferable skill</h2>
+
+  <p><strong>Draw the state loop before asking an agent to change it.</strong> Name the source of truth, the serialized handoff, the consumer, the acknowledgement, and the recovery path. Then give an agent one bounded job inside that loop—such as making a reset idempotent or adding a reconciliation test—and review the whole loop, not just its diff. That is how an assisted implementation stays legible to its maintainer.</p>
+
+  <p>The public source supports Bouvat’s account of AI-assisted development and the architecture above. It does not prove which lines any tool wrote, that the current App Store binary matches the inspected commit, or that every recovery path is device-tested. A public suite around expansion, removal-before-add, and retry behaviour would be the next stronger engineering receipt.</p>
+        </article>
+      </section>
+      <section class="evidence-section" id="evidence" aria-labelledby="evidence-title">
+    <div class="evidence-head">
+      <div>
+        <div class="eyebrow">Evidence Trail</div>
+        <h2 id="evidence-title">Receipts below the story</h2>
+        <p>The article above is the public narrative. This section keeps the source trail and limits on the same page.</p>
+      </div>
+      <a class="paper-button" href="/editions/2026-07-12/">Edition</a>
+    </div>
+    <div class="evidence-table evidence-summary">
+      <div class="evidence-line"><span>Date</span><span>July 12, 2026</span></div>
+      <div class="evidence-line"><span>Lane</span><span>Daily Edition</span></div>
+      <div class="evidence-line"><span>Confidence</span><span>78%</span></div>
+      <div class="evidence-line"><span>Sources</span><span>3</span></div>
+      <div class="evidence-line"><span>Repos</span><span>source trail</span></div>
+    </div>
+    <div class="markdown evidence-copy evidence-copy-block">
+      <h2>Primary Evidence</h2>
+<ul>
+<li>Public coding-agent use proof: <a href="https://cbouvat.com/blog/1an-saracroche/">https://cbouvat.com/blog/1an-saracroche/</a>
+<ul>
+<li>Shows: maintainer Camille Bouvat publicly describes AI-assisted development with Claude, says delegating too much final work contributed to bugs and reduced code familiarity, then describes moving to bounded assistance and second-opinion use.
+</li>
+</ul>
+</li>
+<li>Inspected GitHub repository: <a href="https://github.com/cbouvat/saracroche-ios/commit/d9fc9249b0519bfa54ec21a68ad7b8703404df58">https://github.com/cbouvat/saracroche-ios/commit/d9fc9249b0519bfa54ec21a68ad7b8703404df58</a>
+<ul>
+<li>Shows: the inspected source tree contains concrete code modules for <code>ListService</code> reconciliation, App Group persistence, <code>BlockerService</code> chunking, <code>SharedUserDefaults</code> handoff, and the separate <code>CallDirectoryHandler</code> consumer.
+</li>
+</ul>
+</li>
+<li>Engineering receipt: <a href="https://codeberg.org/cbouvat/saracroche-ios/pulls/175">https://codeberg.org/cbouvat/saracroche-ios/pulls/175</a>
+<ul>
+<li>Shows: public recovery work changed how expired and failed patterns become eligible for reprocessing; the state boundary includes retries and reset policy, not a one-shot API call.
+</li>
+</ul>
+</li>
+</ul>
+<h2>Evidence Limits</h2>
+<ul>
+<li>The evidence establishes public agent use and a non-trivial Codeberg repository, not the authorship of individual lines, full test coverage, device success, or a claim that assistance caused every design decision.
+</li>
+</ul>
+    </div>
+  </section>
+      <section class="related-edition-section atlas-context-section">
+    <div class="section-title-row">
+      <h2>Atlas Context</h2>
+      <a href="/atlas/">Open Atlas &rsaquo;</a>
+    </div>
+    <div class="updates-list">
+      <a class="article-card" href="/atlas/what-an-agent-can-see/">
+            <div class="article-meta"><span class="lane">Agent Atlas</span><span>Chapter 2</span></div>
+            <h3>The Invisible Prompt</h3>
+            <p>The model acts on an assembled viewport containing visible messages, hidden turn context, path-triggered instructions, memory records, tool schemas, permissions, and inherited state.</p>
+          </a>
+    </div>
+  </section>
+      <section class="reader-feedback"
+    data-tgr-feedback
+    data-article-slug="2026-07-12-daily-builder-work-saracroche-keeps-the-whole-boundary-in-view"
+    data-article-title="Builder Work: Saracroche Keeps the Whole Boundary in View"
+    data-article-url="/articles/2026-07-12-daily-builder-work-saracroche-keeps-the-whole-boundary-in-view/"
+    data-edition-date="2026-07-12"
+    data-lane="Daily Edition"
+    data-tags="Tools"
+    data-repos="">
+    <div class="reader-feedback-head">
+      <div>
+        <div class="eyebrow">Letters &amp; Corrections</div>
+        <h2>Send a note to the desk</h2>
+      </div>
+      <p>Corrections, missing context, or a follow-up lead.</p>
+    </div>
+    <form class="feedback-form">
+      <div class="feedback-votes" role="group" aria-label="Choose signal type">
+        <button class="feedback-choice" type="button" data-vote="follow-up" aria-pressed="false">
+          <span aria-hidden="true">+</span>
+          <span>Follow-up</span>
+        </button>
+        <button class="feedback-choice" type="button" data-vote="correction" aria-pressed="false">
+          <span aria-hidden="true">!</span>
+          <span>Correction</span>
+        </button>
+      </div>
+      <label class="feedback-comment">
+        <span>Note for the editor</span>
+        <textarea name="comment" rows="3" maxlength="320" placeholder="What did we miss, or what should we follow next?"></textarea>
+      </label>
+      <div class="feedback-submit-row">
+        <p class="feedback-status" aria-live="polite"></p>
+        <button class="paper-button primary feedback-submit" type="submit">Send to desk</button>
+      </div>
+    </form>
+  </section>
+      <section class="related-edition-section">
+        <div class="section-title-row">
+          <h2>Same Edition</h2>
+          <a href="/editions/2026-07-12/">Open issue &rsaquo;</a>
+        </div>
+        <div class="updates-list">
+          <a class="update-card" href="/articles/2026-07-12-daily-hermes-turns-health-checks-into-a-runtime-contract/">
+    <div class="update-stripe"></div>
+    <div class="update-main">
+      <div class="update-meta">
+        <span>Reported</span>
+        <span class="source-plus">+3</span>
+        <span>Jul 12, 2026</span>
+      </div>
+      <h3>Hermes Turns Health Checks Into a Runtime Contract</h3>
+      <div class="update-receipt">
+        <span>NousResearch/hermes-agent</span>
+        <span class="branch-pill">evidence</span>
+      </div>
+      <div class="update-foot">
+        <span>3 sources</span>
+        <span>1 repo</span>
+        <span>commit f9728af</span>
+      </div>
+    </div>
+    <span class="update-arrow" aria-hidden="true">&rsaquo;</span>
+  </a><a class="update-card" href="/articles/2026-07-12-daily-how-saracroche-carries-nearly-17-million-phone-entries-through-one-narrow-ios-doorway/">
+    <div class="update-stripe"></div>
+    <div class="update-main">
+      <div class="update-meta">
+        <span>Context</span>
+        <span class="source-plus">+11</span>
+        <span>Jul 12, 2026</span>
+      </div>
+      <h3>How Saracroche carries nearly 17 million phone entries through one narrow iOS doorway</h3>
+      <div class="update-receipt">
+        <span>cbouvat/saracroche-ios</span>
+        <span class="branch-pill">evidence</span>
+      </div>
+      <div class="update-foot">
+        <span>11 sources</span>
+        <span>1 repo</span>
+        <span>2 linked commits</span>
+      </div>
+    </div>
+    <span class="update-arrow" aria-hidden="true">&rsaquo;</span>
+  </a><a class="update-card" href="/articles/2026-07-12-daily-api-discovery-let-vigieau-answer-the-water-rule-question/">
+    <div class="update-stripe"></div>
+    <div class="update-main">
+      <div class="update-meta">
+        <span>Reported</span>
+        <span class="source-plus">+3</span>
+        <span>Jul 12, 2026</span>
+      </div>
+      <h3>API Discovery: Let VigiEau Answer the Water-Rule Question</h3>
+      <div class="update-receipt">
+        <span>source trail</span>
+        <span class="branch-pill">evidence</span>
+      </div>
+      <div class="update-foot">
+        <span>3 sources</span>
+        <span>0 repos</span>
+        <span>3 source signals</span>
+      </div>
+    </div>
+    <span class="update-arrow" aria-hidden="true">&rsaquo;</span>
+  </a><a class="update-card" href="/articles/2026-07-12-daily-openwork-puts-the-whole-desktop-in-the-air-gapped-box/">
+    <div class="update-stripe"></div>
+    <div class="update-main">
+      <div class="update-meta">
+        <span>Reported</span>
+        <span class="source-plus">+3</span>
+        <span>Jul 12, 2026</span>
+      </div>
+      <h3>OpenWork Puts the Whole Desktop in the Air-Gapped Box</h3>
+      <div class="update-receipt">
+        <span>source trail</span>
+        <span class="branch-pill">evidence</span>
+      </div>
+      <div class="update-foot">
+        <span>3 sources</span>
+        <span>0 repos</span>
+        <span>commit e8ab197</span>
+      </div>
+    </div>
+    <span class="update-arrow" aria-hidden="true">&rsaquo;</span>
+  </a>
+        </div>
+      </section>
+    </main>
+    <footer class="wrap site-footer">
+      <span>&copy; 2026 The Git Reporter</span>
+      <a href="/about/">About</a>
+      <a href="/agent-pulse/">Agent Pulse</a>
+      <a href="/feed.xml">RSS</a>
+      <a href="https://x.com/TheGitReporter">Follow on X</a>
+      <a href="/articles.json">Manifest JSON</a>
+      <a href="/repos/">Sources</a>
+    </footer>
+  </div>
+</body>
+</html>
