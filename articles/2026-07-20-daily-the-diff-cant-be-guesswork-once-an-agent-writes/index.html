@@ -1,0 +1,290 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>The Diff Can't Be Guesswork Once an Agent Writes | The Git Reporter</title>
+  <meta name="description" content="OpenClaw is making a simple rule explicit: when an agent writes a file, a review surface should show the patch it can prove—and show uncertainty when it cannot.">
+  <meta name="robots" content="index,follow">
+  <link rel="canonical" href="https://thegitreporter.com/articles/2026-07-20-daily-the-diff-cant-be-guesswork-once-an-agent-writes/">
+  <link rel="alternate" type="application/rss+xml" title="The Git Reporter" href="https://thegitreporter.com/feed.xml">
+  <meta property="og:site_name" content="The Git Reporter">
+  <meta property="og:locale" content="en_US">
+  <meta property="og:title" content="The Diff Can&#39;t Be Guesswork Once an Agent Writes | The Git Reporter">
+  <meta property="og:description" content="OpenClaw is making a simple rule explicit: when an agent writes a file, a review surface should show the patch it can prove—and show uncertainty when it cannot.">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://thegitreporter.com/articles/2026-07-20-daily-the-diff-cant-be-guesswork-once-an-agent-writes/">
+  <meta property="og:image" content="https://thegitreporter.com/assets/social/2026-07-20-daily-the-diff-cant-be-guesswork-once-an-agent-writes-og.jpg">
+  <meta property="og:image:secure_url" content="https://thegitreporter.com/assets/social/2026-07-20-daily-the-diff-cant-be-guesswork-once-an-agent-writes-og.jpg">
+  <meta property="og:image:type" content="image/jpeg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="A rough marker diagram shows a known prior file producing a green patch receipt while oversized, binary, or unknown files produce a red uncertainty card.">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:site" content="@TheGitReporter">
+  <meta name="twitter:creator" content="@TheGitReporter">
+  <meta name="twitter:title" content="The Diff Can&#39;t Be Guesswork Once an Agent Writes | The Git Reporter">
+  <meta name="twitter:description" content="OpenClaw is making a simple rule explicit: when an agent writes a file, a review surface should show the patch it can prove—and show uncertainty when it cannot.">
+  <meta name="twitter:url" content="https://thegitreporter.com/articles/2026-07-20-daily-the-diff-cant-be-guesswork-once-an-agent-writes/">
+  <meta name="twitter:domain" content="thegitreporter.com">
+  <meta name="twitter:image" content="https://thegitreporter.com/assets/social/2026-07-20-daily-the-diff-cant-be-guesswork-once-an-agent-writes-og.jpg">
+  <meta name="twitter:image:alt" content="A rough marker diagram shows a known prior file producing a green patch receipt while oversized, binary, or unknown files produce a red uncertainty card.">
+  <meta property="article:published_time" content="2026-07-20T12:00:00Z">
+  <meta property="article:modified_time" content="2026-07-20T12:00:00Z">
+  <meta property="article:section" content="Daily Edition">
+  <meta property="article:tag" content="Tools">
+  <meta property="article:tag" content="UX">
+  <meta property="article:tag" content="Runtime">
+  <meta property="article:tag" content="openclaw/openclaw">
+  <meta property="article:tag" content="openai/codex">
+  <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"https://thegitreporter.com/#organization","name":"The Git Reporter","url":"https://thegitreporter.com","logo":{"@type":"ImageObject","url":"https://thegitreporter.com/assets/mark.svg"},"sameAs":["https://x.com/TheGitReporter"]},{"@type":"WebSite","@id":"https://thegitreporter.com/#website","name":"The Git Reporter","url":"https://thegitreporter.com","publisher":{"@id":"https://thegitreporter.com/#organization"}},{"@type":"NewsArticle","mainEntityOfPage":{"@type":"WebPage","@id":"https://thegitreporter.com/articles/2026-07-20-daily-the-diff-cant-be-guesswork-once-an-agent-writes/"},"headline":"The Diff Can't Be Guesswork Once an Agent Writes","description":"OpenClaw is making a simple rule explicit: when an agent writes a file, a review surface should show the patch it can prove—and show uncertainty when it cannot.","image":["https://thegitreporter.com/assets/social/2026-07-20-daily-the-diff-cant-be-guesswork-once-an-agent-writes-og.jpg"],"datePublished":"2026-07-20T12:00:00Z","dateModified":"2026-07-20T12:00:00Z","author":[{"@type":"Organization","name":"The Git Reporter","url":"https://thegitreporter.com"}],"publisher":{"@type":"Organization","@id":"https://thegitreporter.com/#organization","name":"The Git Reporter","url":"https://thegitreporter.com","logo":{"@type":"ImageObject","url":"https://thegitreporter.com/assets/mark.svg"},"sameAs":["https://x.com/TheGitReporter"]},"articleSection":"Daily Edition","keywords":"Tools, UX, Runtime, openclaw/openclaw, openai/codex"}]}</script>
+  <link rel="icon" href="/assets/mark.svg">
+  <link rel="stylesheet" href="/assets/site.css?v=2026-07-11-mobile-code-wrap-2">
+  <script defer src="/assets/feedback.js?v=2026-07-11-mobile-code-wrap-2"></script>
+  <script defer src="/assets/analytics.js?v=2026-07-11-mobile-code-wrap-2"></script>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-CH19T7M0T1"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){window.dataLayer.push(arguments);}
+    gtag("js", new Date());
+    gtag("config", "G-CH19T7M0T1");
+  </script>
+</head>
+<body>
+  <div class="site">
+    <header class="site-header" id="top">
+      <div class="wrap utility-row">
+        <a class="icon-link menu-icon" href="/archive/" aria-label="Open edition history"><span></span><span></span><span></span></a>
+        <a class="icon-link archive-icon" href="/archive/" aria-label="Open edition history"></a>
+      </div>
+      <div class="wrap masthead-lockup">
+        <a class="masthead-title" href="/">THE GIT REPORTER</a>
+        <div class="masthead-ornament" aria-hidden="true"></div>
+      </div>
+      <div class="wrap nav-wrap">
+        <nav class="paper-nav" aria-label="Primary navigation">
+    <a class="" href="/">Today</a><a class="active" href="/archive/">Editions</a><a class="" href="/about/">About</a><a class="" href="/agent-pulse/">Agent Pulse</a><a class="" href="/atlas/">Agent Atlas</a><a class="" href="/repos/">Repos</a>
+  </nav>
+        <div class="nav-rule"></div>
+      </div>
+    </header>
+    <main class="wrap page-shell article-page">
+      <section class="page-hero story-front">
+        <div class="story-topline">
+          <span>Daily Edition</span>
+          <span>Sources <strong>+4</strong></span>
+        </div>
+        <h1>The Diff Can't Be Guesswork Once an Agent Writes</h1>
+        <p class="summary">OpenClaw is making a simple rule explicit: when an agent writes a file, a review surface should show the patch it can prove—and show uncertainty when it cannot.</p>
+        <figure class="story-illustration article-illustration">
+    <img src="/assets/illustrations/2026-07-20-the-diff-cant-be-guesswork-once-an-agent-writes-diagram-punk-v1.png" alt="A rough marker diagram shows a known prior file producing a green patch receipt while oversized, binary, or unknown files produce a red uncertainty card." loading="lazy" decoding="async">
+    <figcaption><span>Diagram Punk</span>a review surface should not invent the half of a write it cannot prove.</figcaption>
+  </figure>
+        <div class="receipt">
+    <div class="receipt-line">
+      <span class="receipt-icon">repos</span>
+      <span class="receipt-main">openclaw/openclaw + openai/codex</span>
+      <span class="branch-pill">evidence</span>
+    </div>
+    <div class="receipt-line receipt-muted">
+      <span>4 source signals</span>
+      <span>2 repos</span>
+      <span>commit 1ef99e6</span>
+    </div>
+    <div class="commit-line">Evidence: commit 1ef99e6 / July 20, 2026 / Daily Edition</div>
+  </div>
+        <div class="article-route-row">
+          <a href="/editions/2026-07-20/">Open Edition</a>
+          <a href="#evidence">Evidence below</a>
+        </div>
+      </section>
+      <section class="story-reader">
+        <article class="story-shell story-body">
+          <p>A new <a href="https://github.com/openclaw/openclaw/commit/1ef99e6dfbda74b5439a4f7ebee25f262b9e5ace"><strong>openclaw/openclaw</strong> change</a> makes that uncertainty part of the write contract. The tool can return whether content changed, whether a file was created, a generated diff and patch, and the first changed line. Review surfaces can use those details rather than reconstructing a story from the request alone.</p>
+
+  <p>Agent coding tools have made the diff their most reassuring object: a compact visual answer to “what did it do?” But a diff can mislead when the tool has not safely established what was in the file before the write.</p>
+
+  <p>The useful detail is what the contract refuses to say. The public <a href="https://github.com/openclaw/openclaw/blob/1ef99e6dfbda74b5439a4f7ebee25f262b9e5ace/src/agents/sessions/tools/write.ts">write implementation</a> declines to emit a partial patch when old or new content exceeds its byte or line budgets, when the edit distance is too costly to compute, when the old file is not usable UTF-8 text, or when pre-write state is unavailable.</p>
+
+  <p>In those cases it reports the narrower truth: a change happened, and sometimes whether the file was known to exist. That is less visually satisfying than a universal diff; it is more honest.</p>
+
+  <h2>The preview belongs at the write boundary</h2>
+
+  <p>The patch is generated where OpenClaw still has a chance to compare readable old and new text. The result travels as structured details, and the <a href="https://github.com/openclaw/openclaw/blob/1ef99e6dfbda74b5439a4f7ebee25f262b9e5ace/ui/src/lib/chat/tool-call-view.ts">tool-call view</a> gives that tool-provided diff priority.</p>
+
+  <p>If it only knows that a file changed, the view does not claim zero removals unless the details confirm that the file was created. This small design choice has a large consequence: the interface stops treating a prompt’s intended content as proof of the file’s prior state.</p>
+
+  <p>The accompanying <a href="https://github.com/openclaw/openclaw/blob/1ef99e6dfbda74b5439a4f7ebee25f262b9e5ace/src/agents/sessions/tools/write.test.ts">tests</a> make the boundary concrete. They expect a readable receipt for ordinary creates and overwrites, but expect no diff for binary files, giant rewrites, very large files, and unknown metadata. A missing patch is not treated as a failure to explain; it is the correct result when explanation would require guessing.</p>
+
+  <h2>A review UI cannot repair a weak tool result</h2>
+
+  <p>This is not a claim that OpenClaw has solved code review, or that its generated receipt is an independent audit trail. The sources show an implementation and controlled tests, not real-world review outcomes or every possible remote filesystem.</p>
+
+  <p>But the transferable rule is sturdy: carry evidence forward from the mutation boundary, label the limits of that evidence, and do not let the presentation layer invent the missing half. The next meaningful signal would be public end-to-end coverage across a remote backend or a review workflow that shows how users handle the deliberately patchless cases.</p>
+        </article>
+      </section>
+      <section class="evidence-section" id="evidence" aria-labelledby="evidence-title">
+    <div class="evidence-head">
+      <div>
+        <div class="eyebrow">Evidence Trail</div>
+        <h2 id="evidence-title">Receipts below the story</h2>
+        <p>The article above is the public narrative. This section keeps the source trail and limits on the same page.</p>
+      </div>
+      <a class="paper-button" href="/editions/2026-07-20/">Edition</a>
+    </div>
+    <div class="evidence-table evidence-summary">
+      <div class="evidence-line"><span>Date</span><span>July 20, 2026</span></div>
+      <div class="evidence-line"><span>Lane</span><span>Daily Edition</span></div>
+      <div class="evidence-line"><span>Confidence</span><span>78%</span></div>
+      <div class="evidence-line"><span>Sources</span><span>4</span></div>
+      <div class="evidence-line"><span>Repos</span><span>openclaw/openclaw, openai/codex</span></div>
+    </div>
+    <div class="markdown evidence-copy evidence-copy-block">
+      <h2>Primary Evidence</h2>
+<ul>
+<li>OpenClaw authoritative write-diffs commit: <a href="https://github.com/openclaw/openclaw/commit/1ef99e6dfbda74b5439a4f7ebee25f262b9e5ace">https://github.com/openclaw/openclaw/commit/1ef99e6dfbda74b5439a4f7ebee25f262b9e5ace</a>
+<ul>
+<li>Shows: OpenClaw added a typed write-result contract, write-tool diff generation, display consumption, and regression coverage in one public change.
+</li>
+</ul>
+</li>
+<li>OpenClaw write tool: <a href="https://github.com/openclaw/openclaw/blob/1ef99e6dfbda74b5439a4f7ebee25f262b9e5ace/src/agents/sessions/tools/write.ts">https://github.com/openclaw/openclaw/blob/1ef99e6dfbda74b5439a4f7ebee25f262b9e5ace/src/agents/sessions/tools/write.ts</a>
+<ul>
+<li>Shows: a diff and patch are emitted only when the prior text can be read and stays within explicit byte, line, and edit-distance bounds; otherwise the result reports only what the tool can establish.
+</li>
+</ul>
+</li>
+<li>OpenClaw write-tool tests: <a href="https://github.com/openclaw/openclaw/blob/1ef99e6dfbda74b5439a4f7ebee25f262b9e5ace/src/agents/sessions/tools/write.test.ts">https://github.com/openclaw/openclaw/blob/1ef99e6dfbda74b5439a4f7ebee25f262b9e5ace/src/agents/sessions/tools/write.test.ts</a>
+<ul>
+<li>Shows: tested cases deliberately omit diffs for binary, oversized, high-edit-distance, and pre-write-unknown files instead of creating a plausible but unsupported patch.
+</li>
+</ul>
+</li>
+<li>OpenClaw tool-call view: <a href="https://github.com/openclaw/openclaw/blob/1ef99e6dfbda74b5439a4f7ebee25f262b9e5ace/ui/src/lib/chat/tool-call-view.ts">https://github.com/openclaw/openclaw/blob/1ef99e6dfbda74b5439a4f7ebee25f262b9e5ace/ui/src/lib/chat/tool-call-view.ts</a>
+<ul>
+<li>Shows: the review view prioritizes a tool-provided diff and only labels a fallback as a wholly added file when creation is confirmed.
+</li>
+</ul>
+</li>
+</ul>
+<h2>Evidence Limits</h2>
+<ul>
+<li>These sources prove a public implementation and its controlled regression cases. They do not prove that all clients display the details, that all filesystems can supply a trustworthy prior state, or that people will make better review decisions.
+</li>
+<li>A diff is a receipt from this tool execution, not a cryptographic audit trail or proof that no other writer changed the file before or after it ran.
+</li>
+</ul>
+    </div>
+  </section>
+      <section class="related-edition-section atlas-context-section">
+    <div class="section-title-row">
+      <h2>Atlas Context</h2>
+      <a href="/atlas/">Open Atlas &rsaquo;</a>
+    </div>
+    <div class="updates-list">
+      <a class="article-card" href="/atlas/the-human-interface/">
+            <div class="article-meta"><span class="lane">Agent Atlas</span><span>Chapter 8</span></div>
+            <h3>The Human Control Loop</h3>
+            <p>A useful interface exposes active work, gives intervention a defined runtime effect, preserves evidence during correction, and resumes the intended session.</p>
+          </a>
+    </div>
+  </section>
+      <section class="reader-feedback"
+    data-tgr-feedback
+    data-article-slug="2026-07-20-daily-the-diff-cant-be-guesswork-once-an-agent-writes"
+    data-article-title="The Diff Can't Be Guesswork Once an Agent Writes"
+    data-article-url="/articles/2026-07-20-daily-the-diff-cant-be-guesswork-once-an-agent-writes/"
+    data-edition-date="2026-07-20"
+    data-lane="Daily Edition"
+    data-tags="Tools,UX,Runtime"
+    data-repos="openclaw/openclaw,openai/codex">
+    <div class="reader-feedback-head">
+      <div>
+        <div class="eyebrow">Letters &amp; Corrections</div>
+        <h2>Send a note to the desk</h2>
+      </div>
+      <p>Corrections, missing context, or a follow-up lead.</p>
+    </div>
+    <form class="feedback-form">
+      <div class="feedback-votes" role="group" aria-label="Choose signal type">
+        <button class="feedback-choice" type="button" data-vote="follow-up" aria-pressed="false">
+          <span aria-hidden="true">+</span>
+          <span>Follow-up</span>
+        </button>
+        <button class="feedback-choice" type="button" data-vote="correction" aria-pressed="false">
+          <span aria-hidden="true">!</span>
+          <span>Correction</span>
+        </button>
+      </div>
+      <label class="feedback-comment">
+        <span>Note for the editor</span>
+        <textarea name="comment" rows="3" maxlength="320" placeholder="What did we miss, or what should we follow next?"></textarea>
+      </label>
+      <div class="feedback-submit-row">
+        <p class="feedback-status" aria-live="polite"></p>
+        <button class="paper-button primary feedback-submit" type="submit">Send to desk</button>
+      </div>
+    </form>
+  </section>
+      <section class="related-edition-section">
+        <div class="section-title-row">
+          <h2>Same Edition</h2>
+          <a href="/editions/2026-07-20/">Open issue &rsaquo;</a>
+        </div>
+        <div class="updates-list">
+          <a class="update-card" href="/articles/2026-07-20-daily-api-discovery-tail-a-delegated-hermes-agent-at-work/">
+    <div class="update-stripe"></div>
+    <div class="update-main">
+      <div class="update-meta">
+        <span>Context</span>
+        <span class="source-plus">+3</span>
+        <span>Jul 20, 2026</span>
+      </div>
+      <h3>API Discovery: Tail a Delegated Hermes Agent at Work</h3>
+      <div class="update-receipt">
+        <span>NousResearch/hermes-agent</span>
+        <span class="branch-pill">evidence</span>
+      </div>
+      <div class="update-foot">
+        <span>3 sources</span>
+        <span>1 repo</span>
+        <span>commit 299e409</span>
+      </div>
+    </div>
+    <span class="update-arrow" aria-hidden="true">&rsaquo;</span>
+  </a><a class="update-card" href="/articles/2026-07-20-daily-codex-stops-asking-its-subagents-the-same-question-twice/">
+    <div class="update-stripe"></div>
+    <div class="update-main">
+      <div class="update-meta">
+        <span>Agents</span>
+        <span class="source-plus">+3</span>
+        <span>Jul 20, 2026</span>
+      </div>
+      <h3>Codex Stops Asking Its Subagents the Same Question Twice</h3>
+      <div class="update-receipt">
+        <span>openai/codex + NousResearch/hermes-agent</span>
+        <span class="branch-pill">evidence</span>
+      </div>
+      <div class="update-foot">
+        <span>3 sources</span>
+        <span>2 repos</span>
+        <span>commit 678157a</span>
+      </div>
+    </div>
+    <span class="update-arrow" aria-hidden="true">&rsaquo;</span>
+  </a>
+        </div>
+      </section>
+    </main>
+    <footer class="wrap site-footer">
+      <span>&copy; 2026 The Git Reporter</span>
+      <a href="/about/">About</a>
+      <a href="/agent-pulse/">Agent Pulse</a>
+      <a href="/feed.xml">RSS</a>
+      <a href="https://x.com/TheGitReporter">Follow on X</a>
+      <a href="/articles.json">Manifest JSON</a>
+      <a href="/repos/">Sources</a>
+    </footer>
+  </div>
+</body>
+</html>

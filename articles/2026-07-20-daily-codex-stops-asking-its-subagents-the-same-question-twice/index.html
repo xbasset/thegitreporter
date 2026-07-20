@@ -1,0 +1,274 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Codex Stops Asking Its Subagents the Same Question Twice | The Git Reporter</title>
+  <meta name="description" content="A Codex TUI patch cuts duplicate status reads by treating new, resumed, and actively streaming agent threads as different lifecycle states.">
+  <meta name="robots" content="index,follow">
+  <link rel="canonical" href="https://thegitreporter.com/articles/2026-07-20-daily-codex-stops-asking-its-subagents-the-same-question-twice/">
+  <link rel="alternate" type="application/rss+xml" title="The Git Reporter" href="https://thegitreporter.com/feed.xml">
+  <meta property="og:site_name" content="The Git Reporter">
+  <meta property="og:locale" content="en_US">
+  <meta property="og:title" content="Codex Stops Asking Its Subagents the Same Question Twice | The Git Reporter">
+  <meta property="og:description" content="A Codex TUI patch cuts duplicate status reads by treating new, resumed, and actively streaming agent threads as different lifecycle states.">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://thegitreporter.com/articles/2026-07-20-daily-codex-stops-asking-its-subagents-the-same-question-twice/">
+  <meta property="og:image" content="https://thegitreporter.com/assets/social/2026-07-20-daily-codex-stops-asking-its-subagents-the-same-question-twice-og.jpg">
+  <meta property="og:image:secure_url" content="https://thegitreporter.com/assets/social/2026-07-20-daily-codex-stops-asking-its-subagents-the-same-question-twice-og.jpg">
+  <meta property="og:image:type" content="image/jpeg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="A rough marker diagram shows fresh and resumed agent threads using different metadata paths while a live channel prevents a duplicate status request.">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:site" content="@TheGitReporter">
+  <meta name="twitter:creator" content="@TheGitReporter">
+  <meta name="twitter:title" content="Codex Stops Asking Its Subagents the Same Question Twice | The Git Reporter">
+  <meta name="twitter:description" content="A Codex TUI patch cuts duplicate status reads by treating new, resumed, and actively streaming agent threads as different lifecycle states.">
+  <meta name="twitter:url" content="https://thegitreporter.com/articles/2026-07-20-daily-codex-stops-asking-its-subagents-the-same-question-twice/">
+  <meta name="twitter:domain" content="thegitreporter.com">
+  <meta name="twitter:image" content="https://thegitreporter.com/assets/social/2026-07-20-daily-codex-stops-asking-its-subagents-the-same-question-twice-og.jpg">
+  <meta name="twitter:image:alt" content="A rough marker diagram shows fresh and resumed agent threads using different metadata paths while a live channel prevents a duplicate status request.">
+  <meta property="article:published_time" content="2026-07-20T12:00:00Z">
+  <meta property="article:modified_time" content="2026-07-20T12:00:00Z">
+  <meta property="article:section" content="Daily Edition">
+  <meta property="article:tag" content="Delegation">
+  <meta property="article:tag" content="UX">
+  <meta property="article:tag" content="Runtime">
+  <meta property="article:tag" content="openai/codex">
+  <meta property="article:tag" content="NousResearch/hermes-agent">
+  <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"https://thegitreporter.com/#organization","name":"The Git Reporter","url":"https://thegitreporter.com","logo":{"@type":"ImageObject","url":"https://thegitreporter.com/assets/mark.svg"},"sameAs":["https://x.com/TheGitReporter"]},{"@type":"WebSite","@id":"https://thegitreporter.com/#website","name":"The Git Reporter","url":"https://thegitreporter.com","publisher":{"@id":"https://thegitreporter.com/#organization"}},{"@type":"NewsArticle","mainEntityOfPage":{"@type":"WebPage","@id":"https://thegitreporter.com/articles/2026-07-20-daily-codex-stops-asking-its-subagents-the-same-question-twice/"},"headline":"Codex Stops Asking Its Subagents the Same Question Twice","description":"A Codex TUI patch cuts duplicate status reads by treating new, resumed, and actively streaming agent threads as different lifecycle states.","image":["https://thegitreporter.com/assets/social/2026-07-20-daily-codex-stops-asking-its-subagents-the-same-question-twice-og.jpg"],"datePublished":"2026-07-20T12:00:00Z","dateModified":"2026-07-20T12:00:00Z","author":[{"@type":"Organization","name":"The Git Reporter","url":"https://thegitreporter.com"}],"publisher":{"@type":"Organization","@id":"https://thegitreporter.com/#organization","name":"The Git Reporter","url":"https://thegitreporter.com","logo":{"@type":"ImageObject","url":"https://thegitreporter.com/assets/mark.svg"},"sameAs":["https://x.com/TheGitReporter"]},"articleSection":"Daily Edition","keywords":"Delegation, UX, Runtime, openai/codex, NousResearch/hermes-agent"}]}</script>
+  <link rel="icon" href="/assets/mark.svg">
+  <link rel="stylesheet" href="/assets/site.css?v=2026-07-11-mobile-code-wrap-2">
+  <script defer src="/assets/feedback.js?v=2026-07-11-mobile-code-wrap-2"></script>
+  <script defer src="/assets/analytics.js?v=2026-07-11-mobile-code-wrap-2"></script>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-CH19T7M0T1"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){window.dataLayer.push(arguments);}
+    gtag("js", new Date());
+    gtag("config", "G-CH19T7M0T1");
+  </script>
+</head>
+<body>
+  <div class="site">
+    <header class="site-header" id="top">
+      <div class="wrap utility-row">
+        <a class="icon-link menu-icon" href="/archive/" aria-label="Open edition history"><span></span><span></span><span></span></a>
+        <a class="icon-link archive-icon" href="/archive/" aria-label="Open edition history"></a>
+      </div>
+      <div class="wrap masthead-lockup">
+        <a class="masthead-title" href="/">THE GIT REPORTER</a>
+        <div class="masthead-ornament" aria-hidden="true"></div>
+      </div>
+      <div class="wrap nav-wrap">
+        <nav class="paper-nav" aria-label="Primary navigation">
+    <a class="" href="/">Today</a><a class="active" href="/archive/">Editions</a><a class="" href="/about/">About</a><a class="" href="/agent-pulse/">Agent Pulse</a><a class="" href="/atlas/">Agent Atlas</a><a class="" href="/repos/">Repos</a>
+  </nav>
+        <div class="nav-rule"></div>
+      </div>
+    </header>
+    <main class="wrap page-shell article-page">
+      <section class="page-hero story-front">
+        <div class="story-topline">
+          <span>Daily Edition</span>
+          <span>Sources <strong>+3</strong></span>
+        </div>
+        <h1>Codex Stops Asking Its Subagents the Same Question Twice</h1>
+        <p class="summary">A Codex TUI patch cuts duplicate status reads by treating new, resumed, and actively streaming agent threads as different lifecycle states.</p>
+        <figure class="story-illustration article-illustration">
+    <img src="/assets/illustrations/2026-07-20-codex-stops-asking-its-subagents-the-same-question-twice-diagram-punk-v1.png" alt="A rough marker diagram shows fresh and resumed agent threads using different metadata paths while a live channel prevents a duplicate status request." loading="lazy" decoding="async">
+    <figcaption><span>Diagram Punk</span>liveness needs a fresh source, not another question.</figcaption>
+  </figure>
+        <div class="receipt">
+    <div class="receipt-line">
+      <span class="receipt-icon">repos</span>
+      <span class="receipt-main">openai/codex + NousResearch/hermes-agent</span>
+      <span class="branch-pill">evidence</span>
+    </div>
+    <div class="receipt-line receipt-muted">
+      <span>3 source signals</span>
+      <span>2 repos</span>
+      <span>commit 678157a</span>
+    </div>
+    <div class="commit-line">Evidence: commit 678157a / July 20, 2026 / Daily Edition</div>
+  </div>
+        <div class="article-route-row">
+          <a href="/editions/2026-07-20/">Open Edition</a>
+          <a href="#evidence">Evidence below</a>
+        </div>
+      </section>
+      <section class="story-reader">
+        <article class="story-shell story-body">
+          <p>An agent picker looks like a small convenience until several workers are running or a thread has been reopened. Then it becomes an operational promise: tell me which child exists, which one can still take input, and which one is actually alive. A new <a href="https://github.com/openai/codex/commit/678157acaa819d5510adfe359abb5d0392cfe461"><strong>openai/codex</strong> TUI change</a> narrows the work behind that promise. Fresh and forked threads now skip the loaded-subagent backfill because they cannot already have descendants; resumed threads still get it, so their navigation can be populated from stored history.</p>
+
+  <h2>Freshness is part of the interface contract</h2>
+
+  <p>At first glance, the change reads like a request-count cleanup. The more revealing bit is its source hierarchy. The <a href="https://github.com/openai/codex/blob/678157acaa819d5510adfe359abb5d0392cfe461/codex-rs/tui/src/app/session_lifecycle.rs">lifecycle code</a> records which descendant threads a backfill has already refreshed, then keeps an attached live event channel from being overwritten by a second liveness read. Stored thread status can mark a child running or closed when no live channel exists; a live channel remains the fresher signal.</p>
+
+  <p>That distinction matters because a picker is not merely a list of names. It is a place where a person decides whether to wait, steer, or switch attention. Codex's new <a href="https://github.com/openai/codex/blob/678157acaa819d5510adfe359abb5d0392cfe461/codex-rs/tui/src/app/tests/session_lifecycle_requests.rs">WebSocket-backed test</a> records the app-server requests across fresh, forked, resumed, and picker flows. The test is modest, but it makes the intended rule inspectable: do not ask again for metadata you just fetched, and do not discard live evidence to do it.</p>
+
+  <h2>The question is not just whether a child exists</h2>
+
+  <p>This does not prove a faster or more reliable Codex session for every user. It shows a public implementation and a test, not production measurements. Still, the pattern travels: agent interfaces need a declared order of evidence for liveness, especially when they mix saved history with streaming work. The next useful signal would be an end-to-end test or release note showing how the picker behaves when a live channel disconnects, a thread resumes, and a child finishes between those two views.</p>
+        </article>
+      </section>
+      <section class="evidence-section" id="evidence" aria-labelledby="evidence-title">
+    <div class="evidence-head">
+      <div>
+        <div class="eyebrow">Evidence Trail</div>
+        <h2 id="evidence-title">Receipts below the story</h2>
+        <p>The article above is the public narrative. This section keeps the source trail and limits on the same page.</p>
+      </div>
+      <a class="paper-button" href="/editions/2026-07-20/">Edition</a>
+    </div>
+    <div class="evidence-table evidence-summary">
+      <div class="evidence-line"><span>Date</span><span>July 20, 2026</span></div>
+      <div class="evidence-line"><span>Lane</span><span>Daily Edition</span></div>
+      <div class="evidence-line"><span>Confidence</span><span>78%</span></div>
+      <div class="evidence-line"><span>Sources</span><span>3</span></div>
+      <div class="evidence-line"><span>Repos</span><span>openai/codex, NousResearch/hermes-agent</span></div>
+    </div>
+    <div class="markdown evidence-copy evidence-copy-block">
+      <h2>Primary Evidence</h2>
+<ul>
+<li>Codex subagent-metadata commit: <a href="https://github.com/openai/codex/commit/678157acaa819d5510adfe359abb5d0392cfe461">https://github.com/openai/codex/commit/678157acaa819d5510adfe359abb5d0392cfe461</a>
+<ul>
+<li>Shows: fresh and forked threads skip a loaded-subagent backfill, resumed threads retain it, and the picker reuses metadata obtained during the backfill rather than issuing redundant reads.
+</li>
+</ul>
+</li>
+<li>Codex session lifecycle implementation: <a href="https://github.com/openai/codex/blob/678157acaa819d5510adfe359abb5d0392cfe461/codex-rs/tui/src/app/session_lifecycle.rs">https://github.com/openai/codex/blob/678157acaa819d5510adfe359abb5d0392cfe461/codex-rs/tui/src/app/session_lifecycle.rs</a>
+<ul>
+<li>Shows: the TUI records refreshed descendant IDs, uses loaded status when no live event channel is attached, and prevents a second liveness refresh for threads the backfill already covered.
+</li>
+</ul>
+</li>
+<li>Codex lifecycle request test: <a href="https://github.com/openai/codex/blob/678157acaa819d5510adfe359abb5d0392cfe461/codex-rs/tui/src/app/tests/session_lifecycle_requests.rs">https://github.com/openai/codex/blob/678157acaa819d5510adfe359abb5d0392cfe461/codex-rs/tui/src/app/tests/session_lifecycle_requests.rs</a>
+<ul>
+<li>Shows: a WebSocket-backed test records app-server methods and asserts request behavior across fresh, forked, resumed, and agent-picker flows.
+</li>
+</ul>
+</li>
+</ul>
+<h2>Evidence Limits</h2>
+<ul>
+<li>These sources prove a public code path and its request-count test. They do not publish an end-user performance measurement, a compatibility matrix, or a production reliability result.
+</li>
+<li>The patch establishes a particular precedence between loaded metadata and live event channels in this TUI; it does not prove a general rule for every agent interface.
+</li>
+</ul>
+    </div>
+  </section>
+      <section class="related-edition-section atlas-context-section">
+    <div class="section-title-row">
+      <h2>Atlas Context</h2>
+      <a href="/atlas/">Open Atlas &rsaquo;</a>
+    </div>
+    <div class="updates-list">
+      <a class="article-card" href="/atlas/when-one-agent-becomes-many/">
+            <div class="article-meta"><span class="lane">Agent Atlas</span><span>Chapter 5</span></div>
+            <h3>Delegation Is a Distributed System</h3>
+            <p>A subagent is a remote worker with its own lifecycle, context snapshot, authority, failures, and result stream. Treating delegation as a prompt trick hides the contracts that determine whether the work can be trusted.</p>
+          </a>
+    </div>
+  </section>
+      <section class="reader-feedback"
+    data-tgr-feedback
+    data-article-slug="2026-07-20-daily-codex-stops-asking-its-subagents-the-same-question-twice"
+    data-article-title="Codex Stops Asking Its Subagents the Same Question Twice"
+    data-article-url="/articles/2026-07-20-daily-codex-stops-asking-its-subagents-the-same-question-twice/"
+    data-edition-date="2026-07-20"
+    data-lane="Daily Edition"
+    data-tags="Delegation,UX,Runtime"
+    data-repos="openai/codex,NousResearch/hermes-agent">
+    <div class="reader-feedback-head">
+      <div>
+        <div class="eyebrow">Letters &amp; Corrections</div>
+        <h2>Send a note to the desk</h2>
+      </div>
+      <p>Corrections, missing context, or a follow-up lead.</p>
+    </div>
+    <form class="feedback-form">
+      <div class="feedback-votes" role="group" aria-label="Choose signal type">
+        <button class="feedback-choice" type="button" data-vote="follow-up" aria-pressed="false">
+          <span aria-hidden="true">+</span>
+          <span>Follow-up</span>
+        </button>
+        <button class="feedback-choice" type="button" data-vote="correction" aria-pressed="false">
+          <span aria-hidden="true">!</span>
+          <span>Correction</span>
+        </button>
+      </div>
+      <label class="feedback-comment">
+        <span>Note for the editor</span>
+        <textarea name="comment" rows="3" maxlength="320" placeholder="What did we miss, or what should we follow next?"></textarea>
+      </label>
+      <div class="feedback-submit-row">
+        <p class="feedback-status" aria-live="polite"></p>
+        <button class="paper-button primary feedback-submit" type="submit">Send to desk</button>
+      </div>
+    </form>
+  </section>
+      <section class="related-edition-section">
+        <div class="section-title-row">
+          <h2>Same Edition</h2>
+          <a href="/editions/2026-07-20/">Open issue &rsaquo;</a>
+        </div>
+        <div class="updates-list">
+          <a class="update-card" href="/articles/2026-07-20-daily-the-diff-cant-be-guesswork-once-an-agent-writes/">
+    <div class="update-stripe"></div>
+    <div class="update-main">
+      <div class="update-meta">
+        <span>Reported</span>
+        <span class="source-plus">+4</span>
+        <span>Jul 20, 2026</span>
+      </div>
+      <h3>The Diff Can't Be Guesswork Once an Agent Writes</h3>
+      <div class="update-receipt">
+        <span>openclaw/openclaw + openai/codex</span>
+        <span class="branch-pill">evidence</span>
+      </div>
+      <div class="update-foot">
+        <span>4 sources</span>
+        <span>2 repos</span>
+        <span>commit 1ef99e6</span>
+      </div>
+    </div>
+    <span class="update-arrow" aria-hidden="true">&rsaquo;</span>
+  </a><a class="update-card" href="/articles/2026-07-20-daily-api-discovery-tail-a-delegated-hermes-agent-at-work/">
+    <div class="update-stripe"></div>
+    <div class="update-main">
+      <div class="update-meta">
+        <span>Context</span>
+        <span class="source-plus">+3</span>
+        <span>Jul 20, 2026</span>
+      </div>
+      <h3>API Discovery: Tail a Delegated Hermes Agent at Work</h3>
+      <div class="update-receipt">
+        <span>NousResearch/hermes-agent</span>
+        <span class="branch-pill">evidence</span>
+      </div>
+      <div class="update-foot">
+        <span>3 sources</span>
+        <span>1 repo</span>
+        <span>commit 299e409</span>
+      </div>
+    </div>
+    <span class="update-arrow" aria-hidden="true">&rsaquo;</span>
+  </a>
+        </div>
+      </section>
+    </main>
+    <footer class="wrap site-footer">
+      <span>&copy; 2026 The Git Reporter</span>
+      <a href="/about/">About</a>
+      <a href="/agent-pulse/">Agent Pulse</a>
+      <a href="/feed.xml">RSS</a>
+      <a href="https://x.com/TheGitReporter">Follow on X</a>
+      <a href="/articles.json">Manifest JSON</a>
+      <a href="/repos/">Sources</a>
+    </footer>
+  </div>
+</body>
+</html>
