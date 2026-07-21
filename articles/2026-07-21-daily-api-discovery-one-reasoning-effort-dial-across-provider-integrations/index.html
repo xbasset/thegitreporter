@@ -1,0 +1,265 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>API Discovery: One Reasoning-Effort Dial Across Provider Integrations | The Git Reporter</title>
+  <meta name="description" content="LangChain&#39;s new reasoning_effort interface lets a builder express an effort choice once across supported chat integrations—provided the selected model profile says that choice exists.">
+  <meta name="robots" content="index,follow">
+  <link rel="canonical" href="https://thegitreporter.com/articles/2026-07-21-daily-api-discovery-one-reasoning-effort-dial-across-provider-integrations/">
+  <link rel="alternate" type="application/rss+xml" title="The Git Reporter" href="https://thegitreporter.com/feed.xml">
+  <meta property="og:site_name" content="The Git Reporter">
+  <meta property="og:locale" content="en_US">
+  <meta property="og:title" content="API Discovery: One Reasoning-Effort Dial Across Provider Integrations | The Git Reporter">
+  <meta property="og:description" content="LangChain&#39;s new reasoning_effort interface lets a builder express an effort choice once across supported chat integrations—provided the selected model profile says that choice exists.">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://thegitreporter.com/articles/2026-07-21-daily-api-discovery-one-reasoning-effort-dial-across-provider-integrations/">
+  <meta property="og:image" content="https://thegitreporter.com/assets/social/2026-07-21-daily-api-discovery-one-reasoning-effort-dial-across-provider-integrations-og.jpg">
+  <meta property="og:image:secure_url" content="https://thegitreporter.com/assets/social/2026-07-21-daily-api-discovery-one-reasoning-effort-dial-across-provider-integrations-og.jpg">
+  <meta property="og:image:type" content="image/jpeg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="A rough marker diagram shows one reasoning-effort dial branching through OpenAI, Anthropic, Fireworks, and xAI adapter cards, with a note that model support varies.">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:site" content="@TheGitReporter">
+  <meta name="twitter:creator" content="@TheGitReporter">
+  <meta name="twitter:title" content="API Discovery: One Reasoning-Effort Dial Across Provider Integrations | The Git Reporter">
+  <meta name="twitter:description" content="LangChain&#39;s new reasoning_effort interface lets a builder express an effort choice once across supported chat integrations—provided the selected model profile says that choice exists.">
+  <meta name="twitter:url" content="https://thegitreporter.com/articles/2026-07-21-daily-api-discovery-one-reasoning-effort-dial-across-provider-integrations/">
+  <meta name="twitter:domain" content="thegitreporter.com">
+  <meta name="twitter:image" content="https://thegitreporter.com/assets/social/2026-07-21-daily-api-discovery-one-reasoning-effort-dial-across-provider-integrations-og.jpg">
+  <meta name="twitter:image:alt" content="A rough marker diagram shows one reasoning-effort dial branching through OpenAI, Anthropic, Fireworks, and xAI adapter cards, with a note that model support varies.">
+  <meta property="article:published_time" content="2026-07-21T12:00:00Z">
+  <meta property="article:modified_time" content="2026-07-21T12:00:00Z">
+  <meta property="article:section" content="Daily Edition">
+  <meta property="article:tag" content="UX">
+  <meta property="article:tag" content="langchain-ai/langchain">
+  <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"https://thegitreporter.com/#organization","name":"The Git Reporter","url":"https://thegitreporter.com","logo":{"@type":"ImageObject","url":"https://thegitreporter.com/assets/mark.svg"},"sameAs":["https://x.com/TheGitReporter"]},{"@type":"WebSite","@id":"https://thegitreporter.com/#website","name":"The Git Reporter","url":"https://thegitreporter.com","publisher":{"@id":"https://thegitreporter.com/#organization"}},{"@type":"NewsArticle","mainEntityOfPage":{"@type":"WebPage","@id":"https://thegitreporter.com/articles/2026-07-21-daily-api-discovery-one-reasoning-effort-dial-across-provider-integrations/"},"headline":"API Discovery: One Reasoning-Effort Dial Across Provider Integrations","description":"LangChain's new reasoning_effort interface lets a builder express an effort choice once across supported chat integrations—provided the selected model profile says that choice exists.","image":["https://thegitreporter.com/assets/social/2026-07-21-daily-api-discovery-one-reasoning-effort-dial-across-provider-integrations-og.jpg"],"datePublished":"2026-07-21T12:00:00Z","dateModified":"2026-07-21T12:00:00Z","author":[{"@type":"Organization","name":"The Git Reporter","url":"https://thegitreporter.com"}],"publisher":{"@type":"Organization","@id":"https://thegitreporter.com/#organization","name":"The Git Reporter","url":"https://thegitreporter.com","logo":{"@type":"ImageObject","url":"https://thegitreporter.com/assets/mark.svg"},"sameAs":["https://x.com/TheGitReporter"]},"articleSection":"Daily Edition","keywords":"UX, langchain-ai/langchain"}]}</script>
+  <link rel="icon" href="/assets/mark.svg">
+  <link rel="stylesheet" href="/assets/site.css?v=2026-07-11-mobile-code-wrap-2">
+  <script defer src="/assets/feedback.js?v=2026-07-11-mobile-code-wrap-2"></script>
+  <script defer src="/assets/analytics.js?v=2026-07-11-mobile-code-wrap-2"></script>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-CH19T7M0T1"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){window.dataLayer.push(arguments);}
+    gtag("js", new Date());
+    gtag("config", "G-CH19T7M0T1");
+  </script>
+</head>
+<body>
+  <div class="site">
+    <header class="site-header" id="top">
+      <div class="wrap utility-row">
+        <a class="icon-link menu-icon" href="/archive/" aria-label="Open edition history"><span></span><span></span><span></span></a>
+        <a class="icon-link archive-icon" href="/archive/" aria-label="Open edition history"></a>
+      </div>
+      <div class="wrap masthead-lockup">
+        <a class="masthead-title" href="/">THE GIT REPORTER</a>
+        <div class="masthead-ornament" aria-hidden="true"></div>
+      </div>
+      <div class="wrap nav-wrap">
+        <nav class="paper-nav" aria-label="Primary navigation">
+    <a class="" href="/">Today</a><a class="active" href="/archive/">Editions</a><a class="" href="/about/">About</a><a class="" href="/agent-pulse/">Agent Pulse</a><a class="" href="/atlas/">Agent Atlas</a><a class="" href="/repos/">Repos</a>
+  </nav>
+        <div class="nav-rule"></div>
+      </div>
+    </header>
+    <main class="wrap page-shell article-page">
+      <section class="page-hero story-front">
+        <div class="story-topline">
+          <span>Daily Edition</span>
+          <span>Sources <strong>+2</strong></span>
+        </div>
+        <h1>API Discovery: One Reasoning-Effort Dial Across Provider Integrations</h1>
+        <p class="summary">LangChain's new reasoning_effort interface lets a builder express an effort choice once across supported chat integrations—provided the selected model profile says that choice exists.</p>
+        <figure class="story-illustration article-illustration">
+    <img src="/assets/illustrations/2026-07-21-api-discovery-one-reasoning-effort-dial-across-provider-integrations-diagram-punk-v1.png" alt="A rough marker diagram shows one reasoning-effort dial branching through OpenAI, Anthropic, Fireworks, and xAI adapter cards, with a note that model support varies." loading="lazy" decoding="async">
+    <figcaption><span>Diagram Punk</span>one framework setting still needs a provider-aware adapter.</figcaption>
+  </figure>
+        <div class="receipt">
+    <div class="receipt-line">
+      <span class="receipt-icon">repo</span>
+      <span class="receipt-main">langchain-ai/langchain</span>
+      <span class="branch-pill">evidence</span>
+    </div>
+    <div class="receipt-line receipt-muted">
+      <span>2 source signals</span>
+      <span>1 repo</span>
+      <span>commit 5ddfd0e</span>
+    </div>
+    <div class="commit-line">Evidence: commit 5ddfd0e / July 21, 2026 / Daily Edition</div>
+  </div>
+        <div class="article-route-row">
+          <a href="/editions/2026-07-21/">Open Edition</a>
+          <a href="#evidence">Evidence below</a>
+        </div>
+      </section>
+      <section class="story-reader">
+        <article class="story-shell story-body">
+          <p><strong>API discovery:</strong> LangChain's <a href="https://github.com/langchain-ai/langchain/commit/5ddfd0ed87c4abd06b74ddcfb1be151f87a9705e">new public interface</a> adds <code>reasoning_effort</code> at model construction and invocation across supported OpenAI, Anthropic, Fireworks, and xAI integrations. Its <a href="https://reference.langchain.com/python/langchain-openai/chat_models/base/BaseChatOpenAI/reasoning_effort">ChatOpenAI reference</a> documents the parameter for reasoning-capable OpenAI chat models. The useful distinction is between a common request from the application and a common provider API: LangChain does the translation, while each model profile says what it can actually accept.</p>
+
+  <h2>Try it</h2>
+
+  <p>Use it in a release-triage assistant. Let the assistant cluster routine issue reports at a lower supported effort, then ask for a higher supported effort only when it has to reconcile a suspected breaking change across changelog, migration guide, and tests. That makes the effort choice visible in the task rather than scattering provider-specific switches through the codebase.</p>
+
+  <h2>Copy-paste agent instruction</h2>
+
+  <pre><code>In this LangChain Python project, find the configured chat-model integration and inspect its model profile for supported reasoning-effort levels before changing code. Add a `reasoning_effort` value only when the selected model advertises support. Use a lower supported level for routine release-note grouping and a higher supported level only for the final breaking-change reconciliation. Keep provider-specific request fields out of application code, run the relevant integration tests, and report the exact model, accepted level, and any unsupported-provider caveat.</code></pre>
+
+  <h2>Test caveat</h2>
+
+  <p>You need valid provider credentials, the relevant LangChain integration, and a model that advertises a compatible effort setting. The patch maps the common argument differently for different providers; it is not evidence that every provider, model, value, price point, or latency target behaves alike. Its integration tests are useful receipts, but test the exact model in a safe environment before putting an effort policy into production.</p>
+        </article>
+      </section>
+      <section class="evidence-section" id="evidence" aria-labelledby="evidence-title">
+    <div class="evidence-head">
+      <div>
+        <div class="eyebrow">Evidence Trail</div>
+        <h2 id="evidence-title">Receipts below the story</h2>
+        <p>The article above is the public narrative. This section keeps the source trail and limits on the same page.</p>
+      </div>
+      <a class="paper-button" href="/editions/2026-07-21/">Edition</a>
+    </div>
+    <div class="evidence-table evidence-summary">
+      <div class="evidence-line"><span>Date</span><span>July 21, 2026</span></div>
+      <div class="evidence-line"><span>Lane</span><span>Daily Edition</span></div>
+      <div class="evidence-line"><span>Confidence</span><span>68%</span></div>
+      <div class="evidence-line"><span>Sources</span><span>2</span></div>
+      <div class="evidence-line"><span>Repos</span><span>langchain-ai/langchain</span></div>
+    </div>
+    <div class="markdown evidence-copy evidence-copy-block">
+      <h2>Primary Evidence</h2>
+<ul>
+<li>Public API source: <a href="https://github.com/langchain-ai/langchain/commit/5ddfd0ed87c4abd06b74ddcfb1be151f87a9705e">https://github.com/langchain-ai/langchain/commit/5ddfd0ed87c4abd06b74ddcfb1be151f87a9705e</a>
+<ul>
+<li>Shows: LangChain, the maintainer of this public framework API surface, publishes a common <code>reasoning_effort</code> construction-time and call-time parameter across its OpenAI, Anthropic, Fireworks, and xAI chat integrations, plus model-profile capability fields and integration tests.
+</li>
+</ul>
+</li>
+<li>Supporting definition or documentation: <a href="https://reference.langchain.com/python/langchain-openai/chat_models/base/BaseChatOpenAI/reasoning_effort">https://reference.langchain.com/python/langchain-openai/chat_models/base/BaseChatOpenAI/reasoning_effort</a>
+<ul>
+<li>Shows: LangChain publicly documents <code>reasoning_effort</code> for reasoning-capable OpenAI chat models and identifies it as a parameter that constrains reasoning effort.
+</li>
+</ul>
+</li>
+</ul>
+<h2>Evidence Limits</h2>
+<ul>
+<li>The common argument is a LangChain interface, not a guarantee that every provider accepts the same values or model behavior. Use valid credentials and an installed provider package, inspect the model profile, and test the exact model before relying on it for cost, latency, or quality decisions.
+</li>
+</ul>
+    </div>
+  </section>
+      <section class="related-edition-section atlas-context-section">
+    <div class="section-title-row">
+      <h2>Atlas Context</h2>
+      <a href="/atlas/">Open Atlas &rsaquo;</a>
+    </div>
+    <div class="updates-list">
+      <a class="article-card" href="/atlas/the-human-interface/">
+            <div class="article-meta"><span class="lane">Agent Atlas</span><span>Chapter 8</span></div>
+            <h3>The Human Control Loop</h3>
+            <p>A useful interface exposes active work, gives intervention a defined runtime effect, preserves evidence during correction, and resumes the intended session.</p>
+          </a>
+    </div>
+  </section>
+      <section class="reader-feedback"
+    data-tgr-feedback
+    data-article-slug="2026-07-21-daily-api-discovery-one-reasoning-effort-dial-across-provider-integrations"
+    data-article-title="API Discovery: One Reasoning-Effort Dial Across Provider Integrations"
+    data-article-url="/articles/2026-07-21-daily-api-discovery-one-reasoning-effort-dial-across-provider-integrations/"
+    data-edition-date="2026-07-21"
+    data-lane="Daily Edition"
+    data-tags="UX"
+    data-repos="langchain-ai/langchain">
+    <div class="reader-feedback-head">
+      <div>
+        <div class="eyebrow">Letters &amp; Corrections</div>
+        <h2>Send a note to the desk</h2>
+      </div>
+      <p>Corrections, missing context, or a follow-up lead.</p>
+    </div>
+    <form class="feedback-form">
+      <div class="feedback-votes" role="group" aria-label="Choose signal type">
+        <button class="feedback-choice" type="button" data-vote="follow-up" aria-pressed="false">
+          <span aria-hidden="true">+</span>
+          <span>Follow-up</span>
+        </button>
+        <button class="feedback-choice" type="button" data-vote="correction" aria-pressed="false">
+          <span aria-hidden="true">!</span>
+          <span>Correction</span>
+        </button>
+      </div>
+      <label class="feedback-comment">
+        <span>Note for the editor</span>
+        <textarea name="comment" rows="3" maxlength="320" placeholder="What did we miss, or what should we follow next?"></textarea>
+      </label>
+      <div class="feedback-submit-row">
+        <p class="feedback-status" aria-live="polite"></p>
+        <button class="paper-button primary feedback-submit" type="submit">Send to desk</button>
+      </div>
+    </form>
+  </section>
+      <section class="related-edition-section">
+        <div class="section-title-row">
+          <h2>Same Edition</h2>
+          <a href="/editions/2026-07-21/">Open issue &rsaquo;</a>
+        </div>
+        <div class="updates-list">
+          <a class="update-card" href="/articles/2026-07-21-daily-an-agents-sign-in-link-is-not-a-timeout/">
+    <div class="update-stripe"></div>
+    <div class="update-main">
+      <div class="update-meta">
+        <span>Reported</span>
+        <span class="source-plus">+3</span>
+        <span>Jul 21, 2026</span>
+      </div>
+      <h3>An Agent's Sign-In Link Is Not a Timeout</h3>
+      <div class="update-receipt">
+        <span>different-ai/openwork</span>
+        <span class="branch-pill">evidence</span>
+      </div>
+      <div class="update-foot">
+        <span>3 sources</span>
+        <span>1 repo</span>
+        <span>3 linked commits</span>
+      </div>
+    </div>
+    <span class="update-arrow" aria-hidden="true">&rsaquo;</span>
+  </a><a class="update-card" href="/articles/2026-07-21-daily-builder-work-pi-counts-the-work-its-agent-hides/">
+    <div class="update-stripe"></div>
+    <div class="update-main">
+      <div class="update-meta">
+        <span>Context</span>
+        <span class="source-plus">+3</span>
+        <span>Jul 21, 2026</span>
+      </div>
+      <h3>Builder Work: Pi Counts the Work Its Agent Hides</h3>
+      <div class="update-receipt">
+        <span>earendil-works/pi</span>
+        <span class="branch-pill">evidence</span>
+      </div>
+      <div class="update-foot">
+        <span>3 sources</span>
+        <span>1 repo</span>
+        <span>commit 2fd3868</span>
+      </div>
+    </div>
+    <span class="update-arrow" aria-hidden="true">&rsaquo;</span>
+  </a>
+        </div>
+      </section>
+    </main>
+    <footer class="wrap site-footer">
+      <span>&copy; 2026 The Git Reporter</span>
+      <a href="/about/">About</a>
+      <a href="/agent-pulse/">Agent Pulse</a>
+      <a href="/feed.xml">RSS</a>
+      <a href="https://x.com/TheGitReporter">Follow on X</a>
+      <a href="/articles.json">Manifest JSON</a>
+      <a href="/repos/">Sources</a>
+    </footer>
+  </div>
+</body>
+</html>
