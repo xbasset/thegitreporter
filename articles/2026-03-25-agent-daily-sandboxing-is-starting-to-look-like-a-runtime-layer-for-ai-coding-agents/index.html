@@ -1,0 +1,287 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Sandboxing Is Starting to Look Like a Runtime Layer for AI Coding Agents | The Git Reporter</title>
+  <meta name="description" content="The new contest in coding agents is not just who has the slickest prompt loop. It’s who can let an AI touch your machine without making that feel reckless. This week’s code points to an increasingly architectural answer: move sandboxing closer to the runtime itself.">
+  <meta name="robots" content="index,follow">
+  <link rel="canonical" href="https://thegitreporter.com/articles/2026-03-25-agent-daily-sandboxing-is-starting-to-look-like-a-runtime-layer-for-ai-coding-agents/">
+  <link rel="alternate" type="application/rss+xml" title="The Git Reporter" href="https://thegitreporter.com/feed.xml">
+  <meta property="og:site_name" content="The Git Reporter">
+  <meta property="og:locale" content="en_US">
+  <meta property="og:title" content="Sandboxing Is Starting to Look Like a Runtime Layer for AI Coding Agents | The Git Reporter">
+  <meta property="og:description" content="The new contest in coding agents is not just who has the slickest prompt loop. It’s who can let an AI touch your machine without making that feel reckless. This week’s code points to an increasingly architectural answer: move sandboxing closer to the runtime itself.">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://thegitreporter.com/articles/2026-03-25-agent-daily-sandboxing-is-starting-to-look-like-a-runtime-layer-for-ai-coding-agents/">
+  <meta property="og:image" content="https://thegitreporter.com/assets/social/thegitreporter-default-og.jpg">
+  <meta property="og:image:secure_url" content="https://thegitreporter.com/assets/social/thegitreporter-default-og.jpg">
+  <meta property="og:image:type" content="image/jpeg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Sandboxing Is Starting to Look Like a Runtime Layer for AI Coding Agents editorial illustration.">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:site" content="@TheGitReporter">
+  <meta name="twitter:creator" content="@TheGitReporter">
+  <meta name="twitter:title" content="Sandboxing Is Starting to Look Like a Runtime Layer for AI Coding Agents | The Git Reporter">
+  <meta name="twitter:description" content="The new contest in coding agents is not just who has the slickest prompt loop. It’s who can let an AI touch your machine without making that feel reckless. This week’s code points to an increasingly architectural answer: move sandboxing closer to the runtime itself.">
+  <meta name="twitter:url" content="https://thegitreporter.com/articles/2026-03-25-agent-daily-sandboxing-is-starting-to-look-like-a-runtime-layer-for-ai-coding-agents/">
+  <meta name="twitter:domain" content="thegitreporter.com">
+  <meta name="twitter:image" content="https://thegitreporter.com/assets/social/thegitreporter-default-og.jpg">
+  <meta name="twitter:image:alt" content="Sandboxing Is Starting to Look Like a Runtime Layer for AI Coding Agents editorial illustration.">
+  <meta property="article:published_time" content="2026-03-25T12:00:00Z">
+  <meta property="article:modified_time" content="2026-03-25T12:00:00Z">
+  <meta property="article:section" content="Agent Daily">
+  <meta property="article:tag" content="Permissions">
+  <meta property="article:tag" content="Memory">
+  <meta property="article:tag" content="Delegation">
+  <meta property="article:tag" content="Tools">
+  <meta property="article:tag" content="openai/codex">
+  <meta property="article:tag" content="google-gemini/gemini-cli">
+  <meta property="article:tag" content="openclaw/openclaw">
+  <meta property="article:tag" content="volcengine/openviking">
+  <meta property="article:tag" content="alibaba/page-agent">
+  <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"https://thegitreporter.com/#organization","name":"The Git Reporter","url":"https://thegitreporter.com","logo":{"@type":"ImageObject","url":"https://thegitreporter.com/assets/mark.svg"},"sameAs":["https://x.com/TheGitReporter"]},{"@type":"WebSite","@id":"https://thegitreporter.com/#website","name":"The Git Reporter","url":"https://thegitreporter.com","publisher":{"@id":"https://thegitreporter.com/#organization"}},{"@type":"NewsArticle","mainEntityOfPage":{"@type":"WebPage","@id":"https://thegitreporter.com/articles/2026-03-25-agent-daily-sandboxing-is-starting-to-look-like-a-runtime-layer-for-ai-coding-agents/"},"headline":"Sandboxing Is Starting to Look Like a Runtime Layer for AI Coding Agents","description":"The new contest in coding agents is not just who has the slickest prompt loop. It’s who can let an AI touch your machine without making that feel reckless. This week’s code points to an increasingly architectural answer: move sandboxing closer to the runtime itself.","image":["https://thegitreporter.com/assets/social/thegitreporter-default-og.jpg"],"datePublished":"2026-03-25T12:00:00Z","dateModified":"2026-03-25T12:00:00Z","author":[{"@type":"Organization","name":"The Git Reporter","url":"https://thegitreporter.com"}],"publisher":{"@type":"Organization","@id":"https://thegitreporter.com/#organization","name":"The Git Reporter","url":"https://thegitreporter.com","logo":{"@type":"ImageObject","url":"https://thegitreporter.com/assets/mark.svg"},"sameAs":["https://x.com/TheGitReporter"]},"articleSection":"Agent Daily","keywords":"Permissions, Memory, Delegation, Tools, openai/codex, google-gemini/gemini-cli, openclaw/openclaw, volcengine/openviking, alibaba/page-agent"}]}</script>
+  <link rel="icon" href="/assets/mark.svg">
+  <link rel="stylesheet" href="/assets/site.css?v=2026-07-21-agent-pulse-decision-brief">
+  <script defer src="/assets/feedback.js?v=2026-07-21-agent-pulse-decision-brief"></script>
+  <script defer src="/assets/analytics.js?v=2026-07-21-agent-pulse-decision-brief"></script>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-CH19T7M0T1"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){window.dataLayer.push(arguments);}
+    gtag("js", new Date());
+    gtag("config", "G-CH19T7M0T1");
+  </script>
+</head>
+<body>
+  <div class="site">
+    <header class="site-header" id="top">
+      <div class="wrap utility-row">
+        <a class="icon-link menu-icon" href="/archive/" aria-label="Open edition history"><span></span><span></span><span></span></a>
+        <a class="icon-link archive-icon" href="/archive/" aria-label="Open edition history"></a>
+      </div>
+      <div class="wrap masthead-lockup">
+        <a class="masthead-title" href="/">THE GIT REPORTER</a>
+        <div class="masthead-ornament" aria-hidden="true"></div>
+      </div>
+      <div class="wrap nav-wrap">
+        <nav class="paper-nav" aria-label="Primary navigation">
+    <a class="" href="/">Today</a><a class="active" href="/archive/">Editions</a><a class="" href="/about/">About</a><a class="" href="/agent-pulse/">Agent Pulse</a><a class="" href="/atlas/">Agent Atlas</a><a class="" href="/repos/">Repos</a>
+  </nav>
+        <div class="nav-rule"></div>
+      </div>
+    </header>
+    <main class="wrap page-shell article-page">
+      <section class="page-hero story-front">
+        <div class="story-topline">
+          <span>Agent Daily</span>
+          <span>Sources <strong>+3</strong></span>
+        </div>
+        <h1>Sandboxing Is Starting to Look Like a Runtime Layer for AI Coding Agents</h1>
+        <p class="summary">The new contest in coding agents is not just who has the slickest prompt loop. It’s who can let an AI touch your machine without making that feel reckless. This week’s code points to an increasingly architectural answer: move sandboxing closer to the runtime itself.</p>
+        
+        <div class="receipt">
+    <div class="receipt-line">
+      <span class="receipt-icon">repos</span>
+      <span class="receipt-main">openai/codex + 4 more</span>
+      <span class="branch-pill">evidence</span>
+    </div>
+    <div class="receipt-line receipt-muted">
+      <span>3 source signals</span>
+      <span>5 repos</span>
+      <span>3 source signals</span>
+    </div>
+    <div class="commit-line">Evidence: 3 source signals / March 25, 2026 / Agent Daily</div>
+  </div>
+        <div class="article-route-row">
+          <a href="/editions/2026-03-25/">Open Edition</a>
+          <a href="#evidence">Evidence below</a>
+        </div>
+      </section>
+      <section class="story-reader">
+        <article class="story-shell story-body">
+          <p>For a while, sandboxing in agent tools felt like a settings-page checkbox — useful, important, but still bolted on. That is not what some of the code now looks like.</p>
+
+    <p>Across OpenClaw, Gemini CLI, and Codex, the trust boundary is becoming a more explicit product surface. The implementations differ. But the pressure is the same: if an agent can read files, rewrite code, spawn helpers, and run shell commands, execution isolation cannot stay vague.</p>
+
+    <p class="pull">The shift is simple: sandboxing is moving closer to runtime design, not just safety copy.</p>
+
+    <h2>OpenClaw turns the sandbox into backend architecture</h2>
+
+    <p>OpenClaw offers the clearest example of sandboxing expanding into system design. In <code>src/agents/sandbox/backend.ts</code>, the runtime now defines a registry for sandbox backends with factory and manager interfaces, plus core registration for both <code>docker</code> and <code>ssh</code>. That is a real step beyond “run everything in one container.” The sandbox becomes something the platform can swap, inspect, and manage.</p>
+
+    <p>The same pattern shows up in <code>src/agents/sandbox/types.ts</code>. <code>SandboxConfig</code> now carries a backend ID, scope, workspace access mode, tool policy, browser settings, pruning policy, Docker config, and SSH settings. In plain terms: sandboxing is no longer one isolation trick. It is becoming a runtime contract.</p>
+
+    <p>That matters because the runtime targets are widening. The new <code>src/agents/sandbox/ssh-backend.ts</code> creates session-scoped remote runtimes, uploads local workspace state into the remote environment, builds SSH-backed exec specs, and exposes a remote filesystem bridge. OpenClaw is making room for the idea that the “safe” place to run an agent might be a container — or another machine.</p>
+
+    <p>And the hardening is not cosmetic. In <code>src/agents/sandbox/fs-bridge.ts</code> and <code>src/agents/sandbox/remote-fs-bridge.ts</code>, file writes, removes, and renames go through pinned mutation plans, path-safety checks, canonical path resolution, and hardlink defenses. The notable part is not just process isolation at launch. It is carrying that caution into file operations too.</p>
+
+    <p>Put simply: OpenClaw is treating the sandbox as infrastructure. Backends are pluggable, scope is explicit, and the filesystem bridge is handled like an attack surface, not a convenience wrapper.</p>
+
+    <h2>Gemini CLI turns sandboxing into per-execution policy</h2>
+
+    <p>Gemini CLI is moving in a similar direction from a different starting point. Rather than foregrounding multiple backends, it is turning sandboxing into a composable execution policy.</p>
+
+    <p>In <code>packages/core/src/services/sandboxManager.ts</code>, Gemini defines an <code>ExecutionPolicy</code> with fields including <code>allowedPaths</code>, <code>forbiddenPaths</code>, <code>networkAccess</code>, and environment sanitization rules. That policy travels on each <code>SandboxRequest</code>. The practical change is important: the sandbox is not just a global mode anymore. It can be shaped per execution.</p>
+
+    <p>The platform-specific details make that concrete. In <code>packages/core/src/sandbox/macos/MacOsSandboxManager.ts</code>, Gemini wraps commands with <code>/usr/bin/sandbox-exec</code>. The companion <code>baseProfile.ts</code> starts from <code>(deny default)</code> and then allowlists system paths, temporary directories, PTY support, workspace access, and optional network behavior through Seatbelt rules. That is not a generic safety wrapper. It is direct use of the native macOS sandbox model.</p>
+
+    <p>Linux gets similarly explicit. In <code>packages/core/src/sandbox/linux/LinuxSandboxManager.ts</code>, Gemini builds a <code>bwrap</code> command that unshares namespaces, creates fresh <code>/dev</code>, <code>/proc</code>, and <code>/tmp</code>, bind-mounts the workspace and approved paths, and adds a seccomp filter that blocks <code>ptrace</code>. That turns “sandboxing” from a fuzzy promise into a stack of specific OS-level choices.</p>
+
+    <p>The broader pattern is clear: Gemini is threading execution policy down to the call site. Allowed paths, denied paths, network access, and env scrubbing are becoming part of how each command is launched.</p>
+
+    <h2>Codex shows that trust has to persist across agent boundaries</h2>
+
+    <p>Codex is a useful contrast because the signal here is not new sandbox backends. It is continuity of execution policy. That is a narrower claim, but still an important one.</p>
+
+    <p>In <code>codex-rs/core/src/exec_policy.rs</code>, Codex includes <code>child_uses_parent_exec_policy(...)</code>, which checks whether a child thread should inherit the parent’s execution-policy context. The same module also separates rejection paths for sandbox approvals and rule approvals, suggesting more granular handling of what gets surfaced to the user and when.</p>
+
+    <p>That is different from OpenClaw’s backend work or Gemini’s OS-specific wrappers. But it addresses a real runtime problem they also face: once work fans out into subagents or threads, trust settings cannot remain local trivia. The approval and execution envelope has to travel with the work.</p>
+
+    <p>So even without the same backend story, Codex points in the same general direction: execution policy is becoming durable runtime state, not just a one-time choice.</p>
+
+    <h2>Why this matters outside the repos</h2>
+
+    <p>The product framing is drifting the same way. OpenAI’s Codex CLI page emphasizes that the tool can read, change, and run code locally while letting users choose approval modes. Gemini CLI’s public README highlights shell, file, and web tools, plus a fast preview/stable/nightly cadence — exactly the sort of shipping environment where runtime safeguards matter. Anthropic’s Claude Code docs likewise describe a tool that edits files, runs commands, and keeps shipping security fixes.</p>
+
+    <p>That context matters because the pressure is no longer academic. Terminal agents are becoming mainstream developer products, and mainstream products need a clearer answer to a basic question: where, exactly, is this thing allowed to execute?</p>
+
+    <h2>The broader pattern: the next moat may be operational trust</h2>
+
+    <p>We usually talk about coding agents as a race in model quality, reasoning depth, or interface polish. Those things matter. But the code this week suggests another battleground underneath them.</p>
+
+    <p>OpenClaw is making isolation pluggable across Docker and SSH while hardening the filesystem bridge. Gemini is turning sandboxing into an explicit per-request policy layer tied to native OS controls. Codex is making sure execution policy can survive delegation instead of disappearing when work moves to a child thread.</p>
+
+    <p>Different architectures, same pressure: users do not just need powerful automation. They need clear containment.</p>
+
+    <p>If this keeps accelerating, a coding agent will be judged not just by what it can do, but by how explicitly it constrains that power. The crisp takeaway from this week’s code is simple: in AI coding tools, trust boundaries are becoming part of the runtime story. Will developers start choosing agents as much for their containment model as for their raw intelligence? If you’re building one, now’s a good time to ask whether your trust model is really in the runtime — or still hiding in a checkbox.</p>
+        </article>
+      </section>
+      <section class="evidence-section" id="evidence" aria-labelledby="evidence-title">
+    <div class="evidence-head">
+      <div>
+        <div class="eyebrow">Evidence Trail</div>
+        <h2 id="evidence-title">Receipts below the story</h2>
+        <p>The article above is the public narrative. This section keeps the source trail and limits on the same page.</p>
+      </div>
+      <a class="paper-button" href="/editions/2026-03-25/">Edition</a>
+    </div>
+    <div class="evidence-table evidence-summary">
+      <div class="evidence-line"><span>Date</span><span>March 25, 2026</span></div>
+      <div class="evidence-line"><span>Lane</span><span>Agent Daily</span></div>
+      <div class="evidence-line"><span>Confidence</span><span>78%</span></div>
+      <div class="evidence-line"><span>Sources</span><span>3</span></div>
+      <div class="evidence-line"><span>Repos</span><span>openai/codex, google-gemini/gemini-cli, openclaw/openclaw, volcengine/openviking, alibaba/page-agent</span></div>
+    </div>
+    <div class="markdown evidence-copy evidence-copy-block">
+      <h2>Source Trail</h2>
+<ul>
+<li>OpenAI Codex CLI: <a href="https://developers.openai.com/codex/cli">https://developers.openai.com/codex/cli</a>
+</li>
+<li>Gemini CLI repo/README: <a href="https://github.com/google-gemini/gemini-cli">https://github.com/google-gemini/gemini-cli</a> and <a href="https://github.com/google-gemini/gemini-cli/blob/main/README.md">https://github.com/google-gemini/gemini-cli/blob/main/README.md</a>
+</li>
+<li>Anthropic Claude Code overview: <a href="https://docs.anthropic.com/en/docs/claude-code/overview">https://docs.anthropic.com/en/docs/claude-code/overview</a>
+</li>
+</ul>
+<h2>Evidence Limits</h2>
+<ul>
+<li>This older source trail predates the current public evidence format.
+</li>
+<li>Treat it as a compact source map for the article, not a complete source dossier.
+</li>
+</ul>
+    </div>
+  </section>
+      <section class="related-edition-section atlas-context-section">
+    <div class="section-title-row">
+      <h2>Atlas Context</h2>
+      <a href="/atlas/">Open Atlas &rsaquo;</a>
+    </div>
+    <div class="updates-list">
+      <a class="article-card" href="/atlas/friction-safety-and-approval/">
+            <div class="article-meta"><span class="lane">Agent Atlas</span><span>Chapter 7</span></div>
+            <h3>The Approval Trap</h3>
+            <p>Approval is useful only when it catches a meaningful change in authority, explains that change, and keeps the decision attached to the work.</p>
+          </a>
+    </div>
+  </section>
+      <section class="reader-feedback"
+    data-tgr-feedback
+    data-article-slug="2026-03-25-agent-daily-sandboxing-is-starting-to-look-like-a-runtime-layer-for-ai-coding-agents"
+    data-article-title="Sandboxing Is Starting to Look Like a Runtime Layer for AI Coding Agents"
+    data-article-url="/articles/2026-03-25-agent-daily-sandboxing-is-starting-to-look-like-a-runtime-layer-for-ai-coding-agents/"
+    data-edition-date="2026-03-25"
+    data-lane="Agent Daily"
+    data-tags="Permissions,Memory,Delegation,Tools"
+    data-repos="openai/codex,google-gemini/gemini-cli,openclaw/openclaw,volcengine/openviking,alibaba/page-agent">
+    <div class="reader-feedback-head">
+      <div>
+        <div class="eyebrow">Letters &amp; Corrections</div>
+        <h2>Send a note to the desk</h2>
+      </div>
+      <p>Corrections, missing context, or a follow-up lead.</p>
+    </div>
+    <form class="feedback-form">
+      <div class="feedback-votes" role="group" aria-label="Choose signal type">
+        <button class="feedback-choice" type="button" data-vote="follow-up" aria-pressed="false">
+          <span aria-hidden="true">+</span>
+          <span>Follow-up</span>
+        </button>
+        <button class="feedback-choice" type="button" data-vote="correction" aria-pressed="false">
+          <span aria-hidden="true">!</span>
+          <span>Correction</span>
+        </button>
+      </div>
+      <label class="feedback-comment">
+        <span>Note for the editor</span>
+        <textarea name="comment" rows="3" maxlength="320" placeholder="What did we miss, or what should we follow next?"></textarea>
+      </label>
+      <div class="feedback-submit-row">
+        <p class="feedback-status" aria-live="polite"></p>
+        <button class="paper-button primary feedback-submit" type="submit">Send to desk</button>
+      </div>
+    </form>
+  </section>
+      <section class="related-edition-section">
+        <div class="section-title-row">
+          <h2>Same Edition</h2>
+          <a href="/editions/2026-03-25/">Open issue &rsaquo;</a>
+        </div>
+        <div class="updates-list">
+          <a class="update-card" href="/articles/2026-03-25-daily-the-new-cli-moat-isn-t-ux-it-s-how-agent-skills-get-shipped/">
+    <div class="update-stripe"></div>
+    <div class="update-main">
+      <div class="update-meta">
+        <span>Context</span>
+        <span class="source-plus">+2</span>
+        <span>Mar 25, 2026</span>
+      </div>
+      <h3>The New CLI Moat Isn’t UX. It’s How Agent Skills Get Shipped</h3>
+      <div class="update-receipt">
+        <span>openai/codex + google-gemini/gemini-cli</span>
+        <span class="branch-pill">evidence</span>
+      </div>
+      <div class="update-foot">
+        <span>2 sources</span>
+        <span>2 repos</span>
+        <span>2 source signals</span>
+      </div>
+    </div>
+    <span class="update-arrow" aria-hidden="true">&rsaquo;</span>
+  </a>
+        </div>
+      </section>
+    </main>
+    <footer class="wrap site-footer">
+      <span>&copy; 2026 The Git Reporter</span>
+      <a href="/about/">About</a>
+      <a href="/agent-pulse/">Agent Pulse</a>
+      <a href="/feed.xml">RSS</a>
+      <a href="https://x.com/TheGitReporter">Follow on X</a>
+      <a href="/articles.json">Manifest JSON</a>
+      <a href="/repos/">Sources</a>
+    </footer>
+  </div>
+</body>
+</html>
