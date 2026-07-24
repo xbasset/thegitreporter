@@ -1,0 +1,365 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>From Tool Chatter to Chapters: Agent CLIs Are Inventing a Narrative Layer | The Git Reporter</title>
+  <meta name="description" content="The interesting shift this week isn’t just that Codex and Gemini CLI can do more. It’s that they’re getting better at explaining themselves while they work —turning raw tool noise into something a human can actually follow.">
+  <meta name="robots" content="index,follow">
+  <link rel="canonical" href="https://thegitreporter.com/articles/2026-03-29-daily-from-tool-chatter-to-chapters-agent-clis-are-inventing-a-narrative-layer/">
+  <link rel="alternate" type="application/rss+xml" title="The Git Reporter" href="https://thegitreporter.com/feed.xml">
+  <meta property="og:site_name" content="The Git Reporter">
+  <meta property="og:locale" content="en_US">
+  <meta property="og:title" content="From Tool Chatter to Chapters: Agent CLIs Are Inventing a Narrative Layer | The Git Reporter">
+  <meta property="og:description" content="The interesting shift this week isn’t just that Codex and Gemini CLI can do more. It’s that they’re getting better at explaining themselves while they work —turning raw tool noise into something a human can actually follow.">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://thegitreporter.com/articles/2026-03-29-daily-from-tool-chatter-to-chapters-agent-clis-are-inventing-a-narrative-layer/">
+  <meta property="og:image" content="https://thegitreporter.com/assets/social/thegitreporter-default-og.jpg">
+  <meta property="og:image:secure_url" content="https://thegitreporter.com/assets/social/thegitreporter-default-og.jpg">
+  <meta property="og:image:type" content="image/jpeg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="From Tool Chatter to Chapters: Agent CLIs Are Inventing a Narrative Layer editorial illustration.">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:site" content="@TheGitReporter">
+  <meta name="twitter:creator" content="@TheGitReporter">
+  <meta name="twitter:title" content="From Tool Chatter to Chapters: Agent CLIs Are Inventing a Narrative Layer | The Git Reporter">
+  <meta name="twitter:description" content="The interesting shift this week isn’t just that Codex and Gemini CLI can do more. It’s that they’re getting better at explaining themselves while they work —turning raw tool noise into something a human can actually follow.">
+  <meta name="twitter:url" content="https://thegitreporter.com/articles/2026-03-29-daily-from-tool-chatter-to-chapters-agent-clis-are-inventing-a-narrative-layer/">
+  <meta name="twitter:domain" content="thegitreporter.com">
+  <meta name="twitter:image" content="https://thegitreporter.com/assets/social/thegitreporter-default-og.jpg">
+  <meta name="twitter:image:alt" content="From Tool Chatter to Chapters: Agent CLIs Are Inventing a Narrative Layer editorial illustration.">
+  <meta property="article:published_time" content="2026-03-29T12:00:00Z">
+  <meta property="article:modified_time" content="2026-03-29T12:00:00Z">
+  <meta property="article:section" content="Daily Edition">
+  <meta property="article:tag" content="Memory">
+  <meta property="article:tag" content="Delegation">
+  <meta property="article:tag" content="Tools">
+  <meta property="article:tag" content="UX">
+  <meta property="article:tag" content="openai/codex">
+  <meta property="article:tag" content="google-gemini/gemini-cli">
+  <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"https://thegitreporter.com/#organization","name":"The Git Reporter","url":"https://thegitreporter.com","logo":{"@type":"ImageObject","url":"https://thegitreporter.com/assets/mark.svg"},"sameAs":["https://x.com/TheGitReporter"]},{"@type":"WebSite","@id":"https://thegitreporter.com/#website","name":"The Git Reporter","url":"https://thegitreporter.com","publisher":{"@id":"https://thegitreporter.com/#organization"}},{"@type":"NewsArticle","mainEntityOfPage":{"@type":"WebPage","@id":"https://thegitreporter.com/articles/2026-03-29-daily-from-tool-chatter-to-chapters-agent-clis-are-inventing-a-narrative-layer/"},"headline":"From Tool Chatter to Chapters: Agent CLIs Are Inventing a Narrative Layer","description":"The interesting shift this week isn’t just that Codex and Gemini CLI can do more. It’s that they’re getting better at explaining themselves while they work —turning raw tool noise into something a human can actually follow.","image":["https://thegitreporter.com/assets/social/thegitreporter-default-og.jpg"],"datePublished":"2026-03-29T12:00:00Z","dateModified":"2026-03-29T12:00:00Z","author":[{"@type":"Organization","name":"The Git Reporter","url":"https://thegitreporter.com"}],"publisher":{"@type":"Organization","@id":"https://thegitreporter.com/#organization","name":"The Git Reporter","url":"https://thegitreporter.com","logo":{"@type":"ImageObject","url":"https://thegitreporter.com/assets/mark.svg"},"sameAs":["https://x.com/TheGitReporter"]},"articleSection":"Daily Edition","keywords":"Memory, Delegation, Tools, UX, openai/codex, google-gemini/gemini-cli"}]}</script>
+  <link rel="icon" href="/assets/mark.svg">
+  <link rel="stylesheet" href="/assets/site.css?v=2026-07-24-ai-conversation-brief">
+  <script defer src="/assets/feedback.js?v=2026-07-24-ai-conversation-brief"></script>
+  <script defer src="/assets/conversation.js?v=2026-07-24-ai-conversation-brief"></script>
+  <script defer src="/assets/analytics.js?v=2026-07-24-ai-conversation-brief"></script>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-CH19T7M0T1"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){window.dataLayer.push(arguments);}
+    gtag("js", new Date());
+    gtag("config", "G-CH19T7M0T1");
+  </script>
+</head>
+<body>
+  <div class="site">
+    <header class="site-header" id="top">
+      <div class="wrap utility-row">
+        <a class="icon-link menu-icon" href="/archive/" aria-label="Open edition history"><span></span><span></span><span></span></a>
+        <a class="icon-link archive-icon" href="/archive/" aria-label="Open edition history"></a>
+      </div>
+      <div class="wrap masthead-lockup">
+        <a class="masthead-title" href="/">THE GIT REPORTER</a>
+        <div class="masthead-ornament" aria-hidden="true"></div>
+      </div>
+      <div class="wrap nav-wrap">
+        <nav class="paper-nav" aria-label="Primary navigation">
+    <a class="" href="/">Today</a><a class="active" href="/archive/">Editions</a><a class="" href="/about/">About</a><a class="" href="/agent-pulse/">Agent Pulse</a><a class="" href="/atlas/">Agent Atlas</a><a class="" href="/repos/">Repos</a>
+  </nav>
+        <div class="nav-rule"></div>
+      </div>
+    </header>
+    <main class="wrap page-shell article-page">
+      <section class="page-hero story-front">
+        <div class="story-topline">
+          <span>Daily Edition</span>
+          <span>Sources <strong>+13</strong></span>
+        </div>
+        <h1>From Tool Chatter to Chapters: Agent CLIs Are Inventing a Narrative Layer</h1>
+        <p class="summary">The interesting shift this week isn’t just that Codex and Gemini CLI can do more. It’s that they’re getting better at explaining themselves while they work —turning raw tool noise into something a human can actually follow.</p>
+        
+        <div class="receipt">
+    <div class="receipt-line">
+      <span class="receipt-icon">repos</span>
+      <span class="receipt-main">openai/codex + google-gemini/gemini-cli</span>
+      <span class="branch-pill">evidence</span>
+    </div>
+    <div class="receipt-line receipt-muted">
+      <span>13 source signals</span>
+      <span>2 repos</span>
+      <span>13 source signals</span>
+    </div>
+    <div class="commit-line">Evidence: 13 source signals / March 29, 2026 / Daily Edition</div>
+  </div>
+        <div class="article-route-row">
+          <a href="/editions/2026-03-29/">Open Edition</a>
+          <a href="#evidence">Evidence below</a>
+        </div>
+      </section>
+      <section class="story-reader">
+        <article class="story-shell story-body">
+          <main>
+    <div class="eyebrow">Agentic Workflows • Daily Brief</div>
+    
+    
+    <p class="meta">Published 2026-03-29 • Grounded in recent commits, PRs, releases, and repo code from <code>openai/codex</code> and <code>google-gemini/gemini-cli</code>.</p>
+
+    <p>There’s a point where an agent becomes too capable for its own interface. Once it can queue work, delegate to subagents, call tools in batches, and keep running in the background, the transcript stops feeling like a conversation and starts feeling like a packet capture.</p>
+    <p>That’s the problem both Gemini CLI and Codex seem to be attacking right now. Not with one giant feature launch, but with a pattern: build a layer between execution and the human, so the work reads less like machine exhaust and more like a story.</p>
+
+    <h2>Gemini is making narration a product surface</h2>
+    <p>The clearest signal comes from Gemini CLI. In the last couple of days, the project merged tool-based topic grouping—explicitly called <strong>chapters</strong>—alongside a topic narration UI, a generalized background task UI, and tab-to-queue support while generation is still in progress.</p>
+    <div class="card">
+      <ul>
+        <li>PR <strong>#23150</strong>: tool-based topic grouping / chapters</li>
+        <li>PR <strong>#24079</strong>: topic narration UI</li>
+        <li>PR <strong>#22740</strong>: agnostic background task UI with completion behavior</li>
+        <li>PR <strong>#24052</strong>: tab-to-queue while generating</li>
+      </ul>
+    </div>
+    <p>The real tell is in the code. Gemini now has an <code>update_topic</code> tool. That’s not just metadata. It’s the runtime giving the model an explicit mechanism to say, “Here’s what I’m doing now, and here’s why this phase matters.”</p>
+    <div class="quote">Its prompt guidance tells the model to call <code>update_topic</code> in the first turn, the last turn, and whenever the topic changes. That means narration is no longer accidental. It’s policy.</div>
+    <p>Even better, the scheduler sorts <code>update_topic</code> to the front of a batch, and the CLI renders <code>TopicMessage</code> separately from normal tool chatter. In other words: Gemini isn’t only tracking execution. It is styling intent.</p>
+
+    <h2>Codex is cleaning up the language of action</h2>
+    <p>Codex is pushing on the same problem from the opposite side. Instead of foregrounding “chapters,” it’s extracting the passive descriptions of tools and collaboration flows out of core runtime code and into a reusable <code>codex-rs/tools</code> layer.</p>
+    <p>Across a rapid sequence of PRs—<strong>#16047</strong>, <strong>#16129</strong>, <strong>#16132</strong>, <strong>#16138</strong>, and <strong>#16141</strong>—Codex moved <code>ToolSpec</code>, <code>ConfiguredToolSpec</code>, serialization helpers, local-host tool specs, and collaboration tool specs into a separate crate.</p>
+    <div class="card">
+      <ul>
+        <li><code>ToolSpec</code> and <code>ConfiguredToolSpec</code> now live in <code>codex-rs/tools/src/tool_spec.rs</code></li>
+        <li><code>create_tools_json_for_responses_api()</code> now lives alongside those specs</li>
+        <li>Collaboration tools such as <code>spawn_agent</code>, <code>assign_task</code>, <code>list_agents</code>, and <code>request_user_input</code> are defined as typed specs in <code>agent_tool.rs</code> and related files</li>
+      </ul>
+    </div>
+    <p>That sounds architectural—and it is—but the UX consequence matters. Once tool surfaces are cleanly described, runtimes and interfaces can present them more coherently. A multi-agent system stops being a bundle of handlers and starts becoming a legible protocol.</p>
+
+    <h2>Why this matters more than another capability race</h2>
+    <p>Most commentary on agent CLIs still treats the contest like a feature checklist: who has subagents, who has MCP, who has plugins, who can run shell commands, who can stay in the loop longest.</p>
+    <p>That framing is getting stale. The harder problem now is not whether the agent can act. It’s whether a human can remain oriented while it acts.</p>
+    <p>Gemini’s answer is narrative control: give the model a first-class way to publish chapters, strategic intent, and background task state. Codex’s answer is interface grammar: make the tool and collaboration surface structured enough that the UI can tell a cleaner story about delegation, waiting, interrupting, and resuming.</p>
+
+    <h2>The deeper pattern: execution is being split from explanation</h2>
+    <p>This is the part I find most interesting. Both projects are quietly acknowledging that raw execution traces are not a product. They’re substrate.</p>
+    <p>The product layer sits above that substrate and answers the human questions that actually matter:</p>
+    <ul>
+      <li>What phase is the agent in?</li>
+      <li>Why did it switch direction?</li>
+      <li>Which work is backgrounded versus blocking?</li>
+      <li>Which agent owns which task?</li>
+      <li>What changed between “thinking,” “waiting,” and “done”?</li>
+    </ul>
+    <p>Gemini is solving that with explicit narrative instrumentation. Codex is solving it by making the semantics of action portable and typed. Different moves, same destination: an agent experience that reads like a guided workflow, not an unfiltered event log.</p>
+
+    <h2>What to watch next</h2>
+    <p>If this pattern continues, the next competitive layer in agent products won’t just be better models or broader tool access. It’ll be the <strong>story of work</strong>: chaptering, delegation summaries, interruption semantics, replayable background tasks, and UI conventions that make long-running agency feel trustworthy instead of opaque.</p>
+    <p>That’s a much bigger shift than it sounds. Once an agent can narrate its work well, it stops feeling like a black box with a terminal attached. It starts feeling like a collaborator with stage presence.</p>
+    <p><strong>Open question:</strong> if agent tools keep getting stronger, will the biggest product advantage come from raw capability—or from who tells the clearest story about what the agent is doing and why?</p>
+    <p><strong>Call to action:</strong> if you’re building agent UX, watch these narration layers closely—they may end up mattering more than the next headline benchmark.</p>
+  </main>
+        </article>
+      </section>
+      <section class="evidence-section" id="evidence" aria-labelledby="evidence-title">
+    <div class="evidence-head">
+      <div>
+        <div class="eyebrow">Evidence Trail</div>
+        <h2 id="evidence-title">Receipts below the story</h2>
+        <p>The article above is the public narrative. This section keeps the source trail and limits on the same page.</p>
+      </div>
+      <a class="paper-button" href="/editions/2026-03-29/">Edition</a>
+    </div>
+    <div class="evidence-table evidence-summary">
+      <div class="evidence-line"><span>Date</span><span>March 29, 2026</span></div>
+      <div class="evidence-line"><span>Lane</span><span>Daily Edition</span></div>
+      <div class="evidence-line"><span>Confidence</span><span>91%</span></div>
+      <div class="evidence-line"><span>Sources</span><span>13</span></div>
+      <div class="evidence-line"><span>Repos</span><span>openai/codex, google-gemini/gemini-cli</span></div>
+    </div>
+    <div class="markdown evidence-copy evidence-copy-block">
+      <h2>Source Trail</h2>
+<ul>
+<li>The article body carries the public source references available for this older story.
+</li>
+</ul>
+<h2>Evidence Limits</h2>
+<ul>
+<li>This older source trail predates the current public evidence format.
+</li>
+<li>Treat it as a compact source map for the article, not a complete source dossier.
+</li>
+</ul>
+    </div>
+  </section>
+      <section class="ai-conversation"
+    data-tgr-ai-conversation
+    data-ai-title="From Tool Chatter to Chapters: Agent CLIs Are Inventing a Narrative Layer"
+    data-ai-summary="The interesting shift this week isn’t just that Codex and Gemini CLI can do more. It’s that they’re getting better at explaining themselves while they work —turning raw tool noise into something a human can actually follow."
+    data-ai-url="https://thegitreporter.com/articles/2026-03-29-daily-from-tool-chatter-to-chapters-agent-clis-are-inventing-a-narrative-layer/#evidence"
+    data-ai-date="March 29, 2026"
+    data-ai-repos="openai/codex, google-gemini/gemini-cli"
+    data-ai-source-count="13"
+    data-ai-evidence-links="[{&quot;label&quot;:&quot;openai/codex repository&quot;,&quot;url&quot;:&quot;https://github.com/openai/codex&quot;},{&quot;label&quot;:&quot;google-gemini/gemini-cli repository&quot;,&quot;url&quot;:&quot;https://github.com/google-gemini/gemini-cli&quot;}]"
+    data-ai-article-slug="2026-03-29-daily-from-tool-chatter-to-chapters-agent-clis-are-inventing-a-narrative-layer"
+    aria-labelledby="ai-conversation-2026-03-29-daily-from-tool-chatter-to-chapters-agent-clis-are-inventing-a-narrative-layer-title">
+    <div class="ai-conversation-intro">
+      <div>
+        <div class="eyebrow">Keep Digging</div>
+        <h2 id="ai-conversation-2026-03-29-daily-from-tool-chatter-to-chapters-agent-clis-are-inventing-a-narrative-layer-title">Continue with your favorite AI</h2>
+      </div>
+      <p>Carry the story’s context, evidence trail, and limits into a new conversation.</p>
+    </div>
+    <details class="ai-conversation-details">
+      <summary>
+        <span>Build a conversation brief</span>
+        <span aria-hidden="true">&rsaquo;</span>
+      </summary>
+      <div class="ai-conversation-panel">
+        <div class="ai-focus-row">
+          <span>Choose a direction</span>
+          <div class="ai-focus-options" role="group" aria-label="Choose a conversation direction">
+            <button class="ai-focus selected" type="button" data-ai-focus="explore" aria-pressed="true">Understand</button>
+            <button class="ai-focus" type="button" data-ai-focus="challenge" aria-pressed="false">Challenge</button>
+            <button class="ai-focus" type="button" data-ai-focus="apply" aria-pressed="false">Apply</button>
+          </div>
+        </div>
+        <label class="ai-prompt-label" for="ai-conversation-2026-03-29-daily-from-tool-chatter-to-chapters-agent-clis-are-inventing-a-narrative-layer-prompt">
+          <span>Editable brief</span>
+          <textarea id="ai-conversation-2026-03-29-daily-from-tool-chatter-to-chapters-agent-clis-are-inventing-a-narrative-layer-prompt" class="ai-prompt" rows="15">I’m continuing a conversation about this reported software change.
+
+Article: &quot;From Tool Chatter to Chapters: Agent CLIs Are Inventing a Narrative Layer&quot;
+Published: March 29, 2026
+Summary: The interesting shift this week isn’t just that Codex and Gemini CLI can do more. It’s that they’re getting better at explaining themselves while they work —turning raw tool noise into something a human can actually follow.
+Repositories: openai/codex, google-gemini/gemini-cli
+Evidence: 13 public sources
+Article and evidence trail: https://thegitreporter.com/articles/2026-03-29-daily-from-tool-chatter-to-chapters-agent-clis-are-inventing-a-narrative-layer/#evidence
+
+Primary evidence links:
+- openai/codex repository: https://github.com/openai/codex
+- google-gemini/gemini-cli repository: https://github.com/google-gemini/gemini-cli
+
+What I want to explore: Go beyond the summary and help me understand the mechanism, tradeoffs, and wider consequence.
+
+Please:
+- Read the article, Primary Evidence, and Evidence Limits before answering.
+- Separate what the public sources prove from the reporter’s interpretation and from your own inference.
+- Cite the specific evidence links you rely on.
+- Challenge the strongest claim and name any missing evidence.
+- End with 2–3 productive follow-up questions.
+
+If you cannot access the page or its links, say so and ask me to paste the relevant evidence rather than guessing.</textarea>
+        </label>
+        <div class="ai-destinations" aria-label="Copy the brief and choose an AI assistant">
+          <button class="ai-destination ai-copy-button" type="button">
+            <span>Any AI</span>
+            <strong>Copy brief</strong>
+          </button>
+          <a class="ai-destination" data-ai-provider="chatgpt" href="https://chatgpt.com/" target="_blank" rel="noopener noreferrer">
+            <span>ChatGPT</span>
+            <strong>Copy + open</strong>
+          </a>
+          <a class="ai-destination" data-ai-provider="claude" href="https://claude.ai/new" target="_blank" rel="noopener noreferrer">
+            <span>Claude</span>
+            <strong>Copy + open</strong>
+          </a>
+          <a class="ai-destination" data-ai-provider="gemini" href="https://gemini.google.com/app" target="_blank" rel="noopener noreferrer">
+            <span>Gemini</span>
+            <strong>Copy + open</strong>
+          </a>
+        </div>
+        <p class="ai-conversation-status" aria-live="polite"></p>
+        <p class="ai-conversation-note">The brief itself is copied on your device, not sent to an assistant by The Git Reporter. Review it before pasting; the service you open has its own data and privacy terms.</p>
+      </div>
+    </details>
+  </section>
+      <section class="related-edition-section atlas-context-section">
+    <div class="section-title-row">
+      <h2>Atlas Context</h2>
+      <a href="/atlas/">Open Atlas &rsaquo;</a>
+    </div>
+    <div class="updates-list">
+      <a class="article-card" href="/atlas/hands-in-the-world/">
+            <div class="article-meta"><span class="lane">Agent Atlas</span><span>Chapter 3</span></div>
+            <h3>Tool Calls: Contract, Authorization, Execution</h3>
+            <p>A tool call crosses independently governed boundaries: schema, registration, policy, approval, execution authority, result handling, and audit.</p>
+          </a>
+    </div>
+  </section>
+      <section class="reader-feedback"
+    data-tgr-feedback
+    data-article-slug="2026-03-29-daily-from-tool-chatter-to-chapters-agent-clis-are-inventing-a-narrative-layer"
+    data-article-title="From Tool Chatter to Chapters: Agent CLIs Are Inventing a Narrative Layer"
+    data-article-url="/articles/2026-03-29-daily-from-tool-chatter-to-chapters-agent-clis-are-inventing-a-narrative-layer/"
+    data-edition-date="2026-03-29"
+    data-lane="Daily Edition"
+    data-tags="Memory,Delegation,Tools,UX"
+    data-repos="openai/codex,google-gemini/gemini-cli">
+    <div class="reader-feedback-head">
+      <div>
+        <div class="eyebrow">Letters &amp; Corrections</div>
+        <h2>Send a note to the desk</h2>
+      </div>
+      <p>Corrections, missing context, or a follow-up lead.</p>
+    </div>
+    <form class="feedback-form">
+      <div class="feedback-votes" role="group" aria-label="Choose signal type">
+        <button class="feedback-choice" type="button" data-vote="follow-up" aria-pressed="false">
+          <span aria-hidden="true">+</span>
+          <span>Follow-up</span>
+        </button>
+        <button class="feedback-choice" type="button" data-vote="correction" aria-pressed="false">
+          <span aria-hidden="true">!</span>
+          <span>Correction</span>
+        </button>
+      </div>
+      <label class="feedback-comment">
+        <span>Note for the editor</span>
+        <textarea name="comment" rows="3" maxlength="320" placeholder="What did we miss, or what should we follow next?"></textarea>
+      </label>
+      <div class="feedback-submit-row">
+        <p class="feedback-status" aria-live="polite"></p>
+        <button class="paper-button primary feedback-submit" type="submit">Send to desk</button>
+      </div>
+    </form>
+  </section>
+      <section class="related-edition-section">
+        <div class="section-title-row">
+          <h2>Same Edition</h2>
+          <a href="/editions/2026-03-29/">Open issue &rsaquo;</a>
+        </div>
+        <div class="updates-list">
+          <a class="update-card" href="/articles/2026-03-29-agent-daily-ai-coding-agents-are-turning-compaction-into-a-policy-engine/">
+    <div class="update-stripe"></div>
+    <div class="update-main">
+      <div class="update-meta">
+        <span>Pattern</span>
+        <span class="source-plus">+12</span>
+        <span>Mar 29, 2026</span>
+      </div>
+      <h3>AI Coding Agents Are Turning Compaction Into a Policy Engine</h3>
+      <div class="update-receipt">
+        <span>openai/codex + 2 more</span>
+        <span class="branch-pill">evidence</span>
+      </div>
+      <div class="update-foot">
+        <span>12 sources</span>
+        <span>3 repos</span>
+        <span>12 source signals</span>
+      </div>
+    </div>
+    <span class="update-arrow" aria-hidden="true">&rsaquo;</span>
+  </a>
+        </div>
+      </section>
+    </main>
+    <footer class="wrap site-footer">
+      <span>&copy; 2026 The Git Reporter</span>
+      <a href="/about/">About</a>
+      <a href="/agent-pulse/">Agent Pulse</a>
+      <a href="/feed.xml">RSS</a>
+      <a href="https://x.com/TheGitReporter">Follow on X</a>
+      <a href="/articles.json">Manifest JSON</a>
+      <a href="/repos/">Sources</a>
+    </footer>
+  </div>
+</body>
+</html>

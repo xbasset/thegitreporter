@@ -1,0 +1,378 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>The New CLI Moat Isn’t UX. It’s How Agent Skills Get Shipped | The Git Reporter</title>
+  <meta name="description" content="This week’s most strategic terminal-agent shift is not another demo flourish. It’s the quiet work of turning capabilities into things that can be packaged, cached, moved, and trusted.">
+  <meta name="robots" content="index,follow">
+  <link rel="canonical" href="https://thegitreporter.com/articles/2026-03-25-daily-the-new-cli-moat-isn-t-ux-it-s-how-agent-skills-get-shipped/">
+  <link rel="alternate" type="application/rss+xml" title="The Git Reporter" href="https://thegitreporter.com/feed.xml">
+  <meta property="og:site_name" content="The Git Reporter">
+  <meta property="og:locale" content="en_US">
+  <meta property="og:title" content="The New CLI Moat Isn’t UX. It’s How Agent Skills Get Shipped | The Git Reporter">
+  <meta property="og:description" content="This week’s most strategic terminal-agent shift is not another demo flourish. It’s the quiet work of turning capabilities into things that can be packaged, cached, moved, and trusted.">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://thegitreporter.com/articles/2026-03-25-daily-the-new-cli-moat-isn-t-ux-it-s-how-agent-skills-get-shipped/">
+  <meta property="og:image" content="https://thegitreporter.com/assets/social/thegitreporter-default-og.jpg">
+  <meta property="og:image:secure_url" content="https://thegitreporter.com/assets/social/thegitreporter-default-og.jpg">
+  <meta property="og:image:type" content="image/jpeg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="The New CLI Moat Isn’t UX. It’s How Agent Skills Get Shipped editorial illustration.">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:site" content="@TheGitReporter">
+  <meta name="twitter:creator" content="@TheGitReporter">
+  <meta name="twitter:title" content="The New CLI Moat Isn’t UX. It’s How Agent Skills Get Shipped | The Git Reporter">
+  <meta name="twitter:description" content="This week’s most strategic terminal-agent shift is not another demo flourish. It’s the quiet work of turning capabilities into things that can be packaged, cached, moved, and trusted.">
+  <meta name="twitter:url" content="https://thegitreporter.com/articles/2026-03-25-daily-the-new-cli-moat-isn-t-ux-it-s-how-agent-skills-get-shipped/">
+  <meta name="twitter:domain" content="thegitreporter.com">
+  <meta name="twitter:image" content="https://thegitreporter.com/assets/social/thegitreporter-default-og.jpg">
+  <meta name="twitter:image:alt" content="The New CLI Moat Isn’t UX. It’s How Agent Skills Get Shipped editorial illustration.">
+  <meta property="article:published_time" content="2026-03-25T12:00:00Z">
+  <meta property="article:modified_time" content="2026-03-25T12:00:00Z">
+  <meta property="article:section" content="Daily Edition">
+  <meta property="article:tag" content="Memory">
+  <meta property="article:tag" content="Tools">
+  <meta property="article:tag" content="UX">
+  <meta property="article:tag" content="Runtime">
+  <meta property="article:tag" content="openai/codex">
+  <meta property="article:tag" content="google-gemini/gemini-cli">
+  <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"https://thegitreporter.com/#organization","name":"The Git Reporter","url":"https://thegitreporter.com","logo":{"@type":"ImageObject","url":"https://thegitreporter.com/assets/mark.svg"},"sameAs":["https://x.com/TheGitReporter"]},{"@type":"WebSite","@id":"https://thegitreporter.com/#website","name":"The Git Reporter","url":"https://thegitreporter.com","publisher":{"@id":"https://thegitreporter.com/#organization"}},{"@type":"NewsArticle","mainEntityOfPage":{"@type":"WebPage","@id":"https://thegitreporter.com/articles/2026-03-25-daily-the-new-cli-moat-isn-t-ux-it-s-how-agent-skills-get-shipped/"},"headline":"The New CLI Moat Isn’t UX. It’s How Agent Skills Get Shipped","description":"This week’s most strategic terminal-agent shift is not another demo flourish. It’s the quiet work of turning capabilities into things that can be packaged, cached, moved, and trusted.","image":["https://thegitreporter.com/assets/social/thegitreporter-default-og.jpg"],"datePublished":"2026-03-25T12:00:00Z","dateModified":"2026-03-25T12:00:00Z","author":[{"@type":"Organization","name":"The Git Reporter","url":"https://thegitreporter.com"}],"publisher":{"@type":"Organization","@id":"https://thegitreporter.com/#organization","name":"The Git Reporter","url":"https://thegitreporter.com","logo":{"@type":"ImageObject","url":"https://thegitreporter.com/assets/mark.svg"},"sameAs":["https://x.com/TheGitReporter"]},"articleSection":"Daily Edition","keywords":"Memory, Tools, UX, Runtime, openai/codex, google-gemini/gemini-cli"}]}</script>
+  <link rel="icon" href="/assets/mark.svg">
+  <link rel="stylesheet" href="/assets/site.css?v=2026-07-24-ai-conversation-brief">
+  <script defer src="/assets/feedback.js?v=2026-07-24-ai-conversation-brief"></script>
+  <script defer src="/assets/conversation.js?v=2026-07-24-ai-conversation-brief"></script>
+  <script defer src="/assets/analytics.js?v=2026-07-24-ai-conversation-brief"></script>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-CH19T7M0T1"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){window.dataLayer.push(arguments);}
+    gtag("js", new Date());
+    gtag("config", "G-CH19T7M0T1");
+  </script>
+</head>
+<body>
+  <div class="site">
+    <header class="site-header" id="top">
+      <div class="wrap utility-row">
+        <a class="icon-link menu-icon" href="/archive/" aria-label="Open edition history"><span></span><span></span><span></span></a>
+        <a class="icon-link archive-icon" href="/archive/" aria-label="Open edition history"></a>
+      </div>
+      <div class="wrap masthead-lockup">
+        <a class="masthead-title" href="/">THE GIT REPORTER</a>
+        <div class="masthead-ornament" aria-hidden="true"></div>
+      </div>
+      <div class="wrap nav-wrap">
+        <nav class="paper-nav" aria-label="Primary navigation">
+    <a class="" href="/">Today</a><a class="active" href="/archive/">Editions</a><a class="" href="/about/">About</a><a class="" href="/agent-pulse/">Agent Pulse</a><a class="" href="/atlas/">Agent Atlas</a><a class="" href="/repos/">Repos</a>
+  </nav>
+        <div class="nav-rule"></div>
+      </div>
+    </header>
+    <main class="wrap page-shell article-page">
+      <section class="page-hero story-front">
+        <div class="story-topline">
+          <span>Daily Edition</span>
+          <span>Sources <strong>+2</strong></span>
+        </div>
+        <h1>The New CLI Moat Isn’t UX. It’s How Agent Skills Get Shipped</h1>
+        <p class="summary">This week’s most strategic terminal-agent shift is not another demo flourish. It’s the quiet work of turning capabilities into things that can be packaged, cached, moved, and trusted.</p>
+        
+        <div class="receipt">
+    <div class="receipt-line">
+      <span class="receipt-icon">repos</span>
+      <span class="receipt-main">openai/codex + google-gemini/gemini-cli</span>
+      <span class="branch-pill">evidence</span>
+    </div>
+    <div class="receipt-line receipt-muted">
+      <span>2 source signals</span>
+      <span>2 repos</span>
+      <span>2 source signals</span>
+    </div>
+    <div class="commit-line">Evidence: 2 source signals / March 25, 2026 / Daily Edition</div>
+  </div>
+        <div class="article-route-row">
+          <a href="/editions/2026-03-25/">Open Edition</a>
+          <a href="#evidence">Evidence below</a>
+        </div>
+      </section>
+      <section class="story-reader">
+        <article class="story-shell story-body">
+          <p>For a while, the agent race looked like a stage show.</p>
+      <p>Better prompts. Better plans. Better terminal theatrics.</p>
+      <p>But under the floorboards, something more durable is taking shape.</p>
+
+      <p class="pull">Codex and Gemini CLI are both starting to treat agent capability less like a momentary runtime trick and more like a shippable artifact.</p>
+
+      <p>That may sound abstract. The code says otherwise.</p>
+
+      <h2>Codex is turning system skills into a managed local layer</h2>
+      <p>In OpenAI’s <code>codex</code>, PR <code>15712</code>, <em>“Move skills out of core”</em>, is bigger than it looks.</p>
+
+      <p>The headline is architectural: shared skill types and rendering moved into a dedicated <code>codex-skills</code> crate. But the interesting part is what that crate actually does.</p>
+
+      <p>In <code>codex-rs/skills/src/lib.rs</code>, Codex embeds system skills with <code>include_dir</code>, installs them into <code>CODEX_HOME/skills/.system</code>, fingerprints the nested asset tree, and skips reinstallation when the marker matches. That is not “some prompts live in the binary.” That is a miniature packaging and cache system.</p>
+
+      <p>Then <code>codex-rs/core/src/skills/system.rs</code> simply re-exports <code>install_system_skills</code> and <code>system_cache_root_dir</code> from the new crate, while <code>codex-rs/core/src/skills/manager.rs</code> wires those install and uninstall paths into startup behavior.</p>
+
+      <p>In plain English: Codex is starting to treat built-in skills like managed inventory.</p>
+
+      <p>That matters because managed inventory travels better than hardwired behavior. It can be versioned more cleanly, swapped more safely, and reasoned about as its own layer.</p>
+
+      <h2>Gemini CLI is making remote agents self-contained</h2>
+      <p>Google’s <code>gemini-cli</code> is pushing the same strategic instinct from the other side of the stack.</p>
+
+      <p>PR <code>23743</code>, <em>“support inline agentCardJson for remote agents”</em>, removes a surprisingly brittle assumption: that a remote agent must begin life by fetching its card from a URL.</p>
+
+      <p>In <code>packages/core/src/agents/agentLoader.ts</code>, Gemini now supports two remote-agent shapes: <code>agent_card_url</code> and <code>agent_card_json</code>. The latter is validated up front by attempting <code>JSON.parse()</code> during schema validation.</p>
+
+      <p>Then <code>packages/core/src/agents/types.ts</code> adds a discriminated <code>AgentCardLoadOptions</code> union — either <code>{ type: 'url' }</code> or <code>{ type: 'json' }</code> — plus a helper that can still recover a target URL from inline JSON when auth needs it.</p>
+
+      <p>The real tell is in <code>packages/core/src/agents/a2a-client-manager.ts</code>: when the load option is JSON, Gemini just parses the card inline and skips the initial fetch path entirely.</p>
+
+      <p>That turns a remote capability into something closer to a portable bundle. The definition can arrive already carrying its own card.</p>
+
+      <h2>Different directions, same strategic move</h2>
+      <p>Codex and Gemini CLI are not shipping the same mechanism.</p>
+
+      <ul>
+        <li>Codex is making <strong>skills portable locally</strong> by extracting them into a dedicated managed layer with install and cache semantics.</li>
+        <li>Gemini CLI is making <strong>agents portable remotely</strong> by letting the card travel inline instead of forcing a first network hop.</li>
+      </ul>
+
+      <p>But the product instinct is the same: reduce how much capability has to be discovered live at runtime.</p>
+
+      <p>That is a deeper move than a UI polish pass. It changes how agent powers get distributed.</p>
+
+      <h2>Why this matters now</h2>
+      <p>The terminal agent that wins long term may not be the one that merely feels smartest in a ten-minute demo.</p>
+
+      <p>It may be the one that makes capabilities easiest to ship.</p>
+      <p>Easiest to cache.</p>
+      <p>Easiest to trust.</p>
+      <p>Easiest to reuse across machines, repos, and teams.</p>
+
+      <p>That is where the moat starts to look less like “best model behavior” and more like supply-chain design for agent powers.</p>
+
+      <p>And the timing is not accidental. Gemini’s remote-agent productionization work is visibly active, including the just-closed issue <code>#23742</code> for initializing A2A from <code>agentCardJson</code>. Codex, meanwhile, is in the middle of a broader capabilities expansion around skills and plugins. Both projects are building more than an assistant. They are building a distribution system.</p>
+
+      <h2>The pattern worth watching</h2>
+      <p>The first phase of terminal agents taught the model to do more.</p>
+      <p>The next phase may be about making those powers easier to carry around without breaking.</p>
+
+      <p>That is a quieter kind of progress, but probably the more important one. Once capabilities become portable artifacts, ecosystems compound faster. Teams can standardize them. Vendors can package them. Developers can trust them a little more because they arrive with more structure and fewer hidden dependencies.</p>
+
+      <p>So here’s the open question: <strong>if agent skills and remote agents become truly portable building blocks, does that accelerate a healthier open ecosystem — or just create new lock-in around whose packages ship best?</strong></p>
+
+      <p>If you build in this space, watch the packaging layer as closely as the model layer. Then design your own agent capabilities so they can travel cleanly, verify cleanly, and earn trust the moment they land.</p>
+        </article>
+      </section>
+      <section class="evidence-section" id="evidence" aria-labelledby="evidence-title">
+    <div class="evidence-head">
+      <div>
+        <div class="eyebrow">Evidence Trail</div>
+        <h2 id="evidence-title">Receipts below the story</h2>
+        <p>The article above is the public narrative. This section keeps the source trail and limits on the same page.</p>
+      </div>
+      <a class="paper-button" href="/editions/2026-03-25/">Edition</a>
+    </div>
+    <div class="evidence-table evidence-summary">
+      <div class="evidence-line"><span>Date</span><span>March 25, 2026</span></div>
+      <div class="evidence-line"><span>Lane</span><span>Daily Edition</span></div>
+      <div class="evidence-line"><span>Confidence</span><span>68%</span></div>
+      <div class="evidence-line"><span>Sources</span><span>2</span></div>
+      <div class="evidence-line"><span>Repos</span><span>openai/codex, google-gemini/gemini-cli</span></div>
+    </div>
+    <div class="markdown evidence-copy evidence-copy-block">
+      <h2>Source Trail</h2>
+<ul>
+<li>PR 15712: <code><a href="https://github.com/openai/codex/pull/15712">https://github.com/openai/codex/pull/15712</a></code>
+</li>
+<li>PR 23743: <code><a href="https://github.com/google-gemini/gemini-cli/pull/23743">https://github.com/google-gemini/gemini-cli/pull/23743</a></code>
+</li>
+</ul>
+<h2>Evidence Limits</h2>
+<ul>
+<li>This older source trail predates the current public evidence format.
+</li>
+<li>Treat it as a compact source map for the article, not a complete source dossier.
+</li>
+</ul>
+    </div>
+  </section>
+      <section class="ai-conversation"
+    data-tgr-ai-conversation
+    data-ai-title="The New CLI Moat Isn’t UX. It’s How Agent Skills Get Shipped"
+    data-ai-summary="This week’s most strategic terminal-agent shift is not another demo flourish. It’s the quiet work of turning capabilities into things that can be packaged, cached, moved, and trusted."
+    data-ai-url="https://thegitreporter.com/articles/2026-03-25-daily-the-new-cli-moat-isn-t-ux-it-s-how-agent-skills-get-shipped/#evidence"
+    data-ai-date="March 25, 2026"
+    data-ai-repos="openai/codex, google-gemini/gemini-cli"
+    data-ai-source-count="2"
+    data-ai-evidence-links="[{&quot;label&quot;:&quot;PR 15712: `&quot;,&quot;url&quot;:&quot;https://github.com/openai/codex/pull/15712&quot;},{&quot;label&quot;:&quot;PR 23743: `&quot;,&quot;url&quot;:&quot;https://github.com/google-gemini/gemini-cli/pull/23743&quot;},{&quot;label&quot;:&quot;openai/codex repository&quot;,&quot;url&quot;:&quot;https://github.com/openai/codex&quot;},{&quot;label&quot;:&quot;google-gemini/gemini-cli repository&quot;,&quot;url&quot;:&quot;https://github.com/google-gemini/gemini-cli&quot;}]"
+    data-ai-article-slug="2026-03-25-daily-the-new-cli-moat-isn-t-ux-it-s-how-agent-skills-get-shipped"
+    aria-labelledby="ai-conversation-2026-03-25-daily-the-new-cli-moat-isn-t-ux-it-s-how-agent-skills-get-shipped-title">
+    <div class="ai-conversation-intro">
+      <div>
+        <div class="eyebrow">Keep Digging</div>
+        <h2 id="ai-conversation-2026-03-25-daily-the-new-cli-moat-isn-t-ux-it-s-how-agent-skills-get-shipped-title">Continue with your favorite AI</h2>
+      </div>
+      <p>Carry the story’s context, evidence trail, and limits into a new conversation.</p>
+    </div>
+    <details class="ai-conversation-details">
+      <summary>
+        <span>Build a conversation brief</span>
+        <span aria-hidden="true">&rsaquo;</span>
+      </summary>
+      <div class="ai-conversation-panel">
+        <div class="ai-focus-row">
+          <span>Choose a direction</span>
+          <div class="ai-focus-options" role="group" aria-label="Choose a conversation direction">
+            <button class="ai-focus selected" type="button" data-ai-focus="explore" aria-pressed="true">Understand</button>
+            <button class="ai-focus" type="button" data-ai-focus="challenge" aria-pressed="false">Challenge</button>
+            <button class="ai-focus" type="button" data-ai-focus="apply" aria-pressed="false">Apply</button>
+          </div>
+        </div>
+        <label class="ai-prompt-label" for="ai-conversation-2026-03-25-daily-the-new-cli-moat-isn-t-ux-it-s-how-agent-skills-get-shipped-prompt">
+          <span>Editable brief</span>
+          <textarea id="ai-conversation-2026-03-25-daily-the-new-cli-moat-isn-t-ux-it-s-how-agent-skills-get-shipped-prompt" class="ai-prompt" rows="15">I’m continuing a conversation about this reported software change.
+
+Article: &quot;The New CLI Moat Isn’t UX. It’s How Agent Skills Get Shipped&quot;
+Published: March 25, 2026
+Summary: This week’s most strategic terminal-agent shift is not another demo flourish. It’s the quiet work of turning capabilities into things that can be packaged, cached, moved, and trusted.
+Repositories: openai/codex, google-gemini/gemini-cli
+Evidence: 2 public sources
+Article and evidence trail: https://thegitreporter.com/articles/2026-03-25-daily-the-new-cli-moat-isn-t-ux-it-s-how-agent-skills-get-shipped/#evidence
+
+Primary evidence links:
+- PR 15712: `: https://github.com/openai/codex/pull/15712
+- PR 23743: `: https://github.com/google-gemini/gemini-cli/pull/23743
+- openai/codex repository: https://github.com/openai/codex
+- google-gemini/gemini-cli repository: https://github.com/google-gemini/gemini-cli
+
+What I want to explore: Go beyond the summary and help me understand the mechanism, tradeoffs, and wider consequence.
+
+Please:
+- Read the article, Primary Evidence, and Evidence Limits before answering.
+- Separate what the public sources prove from the reporter’s interpretation and from your own inference.
+- Cite the specific evidence links you rely on.
+- Challenge the strongest claim and name any missing evidence.
+- End with 2–3 productive follow-up questions.
+
+If you cannot access the page or its links, say so and ask me to paste the relevant evidence rather than guessing.</textarea>
+        </label>
+        <div class="ai-destinations" aria-label="Copy the brief and choose an AI assistant">
+          <button class="ai-destination ai-copy-button" type="button">
+            <span>Any AI</span>
+            <strong>Copy brief</strong>
+          </button>
+          <a class="ai-destination" data-ai-provider="chatgpt" href="https://chatgpt.com/" target="_blank" rel="noopener noreferrer">
+            <span>ChatGPT</span>
+            <strong>Copy + open</strong>
+          </a>
+          <a class="ai-destination" data-ai-provider="claude" href="https://claude.ai/new" target="_blank" rel="noopener noreferrer">
+            <span>Claude</span>
+            <strong>Copy + open</strong>
+          </a>
+          <a class="ai-destination" data-ai-provider="gemini" href="https://gemini.google.com/app" target="_blank" rel="noopener noreferrer">
+            <span>Gemini</span>
+            <strong>Copy + open</strong>
+          </a>
+        </div>
+        <p class="ai-conversation-status" aria-live="polite"></p>
+        <p class="ai-conversation-note">The brief itself is copied on your device, not sent to an assistant by The Git Reporter. Review it before pasting; the service you open has its own data and privacy terms.</p>
+      </div>
+    </details>
+  </section>
+      <section class="related-edition-section atlas-context-section">
+    <div class="section-title-row">
+      <h2>Atlas Context</h2>
+      <a href="/atlas/">Open Atlas &rsaquo;</a>
+    </div>
+    <div class="updates-list">
+      <a class="article-card" href="/atlas/the-human-interface/">
+            <div class="article-meta"><span class="lane">Agent Atlas</span><span>Chapter 8</span></div>
+            <h3>The Human Control Loop</h3>
+            <p>A useful interface exposes active work, gives intervention a defined runtime effect, preserves evidence during correction, and resumes the intended session.</p>
+          </a>
+    </div>
+  </section>
+      <section class="reader-feedback"
+    data-tgr-feedback
+    data-article-slug="2026-03-25-daily-the-new-cli-moat-isn-t-ux-it-s-how-agent-skills-get-shipped"
+    data-article-title="The New CLI Moat Isn’t UX. It’s How Agent Skills Get Shipped"
+    data-article-url="/articles/2026-03-25-daily-the-new-cli-moat-isn-t-ux-it-s-how-agent-skills-get-shipped/"
+    data-edition-date="2026-03-25"
+    data-lane="Daily Edition"
+    data-tags="Memory,Tools,UX,Runtime"
+    data-repos="openai/codex,google-gemini/gemini-cli">
+    <div class="reader-feedback-head">
+      <div>
+        <div class="eyebrow">Letters &amp; Corrections</div>
+        <h2>Send a note to the desk</h2>
+      </div>
+      <p>Corrections, missing context, or a follow-up lead.</p>
+    </div>
+    <form class="feedback-form">
+      <div class="feedback-votes" role="group" aria-label="Choose signal type">
+        <button class="feedback-choice" type="button" data-vote="follow-up" aria-pressed="false">
+          <span aria-hidden="true">+</span>
+          <span>Follow-up</span>
+        </button>
+        <button class="feedback-choice" type="button" data-vote="correction" aria-pressed="false">
+          <span aria-hidden="true">!</span>
+          <span>Correction</span>
+        </button>
+      </div>
+      <label class="feedback-comment">
+        <span>Note for the editor</span>
+        <textarea name="comment" rows="3" maxlength="320" placeholder="What did we miss, or what should we follow next?"></textarea>
+      </label>
+      <div class="feedback-submit-row">
+        <p class="feedback-status" aria-live="polite"></p>
+        <button class="paper-button primary feedback-submit" type="submit">Send to desk</button>
+      </div>
+    </form>
+  </section>
+      <section class="related-edition-section">
+        <div class="section-title-row">
+          <h2>Same Edition</h2>
+          <a href="/editions/2026-03-25/">Open issue &rsaquo;</a>
+        </div>
+        <div class="updates-list">
+          <a class="update-card" href="/articles/2026-03-25-agent-daily-sandboxing-is-starting-to-look-like-a-runtime-layer-for-ai-coding-agents/">
+    <div class="update-stripe"></div>
+    <div class="update-main">
+      <div class="update-meta">
+        <span>Pattern</span>
+        <span class="source-plus">+3</span>
+        <span>Mar 25, 2026</span>
+      </div>
+      <h3>Sandboxing Is Starting to Look Like a Runtime Layer for AI Coding Agents</h3>
+      <div class="update-receipt">
+        <span>openai/codex + 4 more</span>
+        <span class="branch-pill">evidence</span>
+      </div>
+      <div class="update-foot">
+        <span>3 sources</span>
+        <span>5 repos</span>
+        <span>3 source signals</span>
+      </div>
+    </div>
+    <span class="update-arrow" aria-hidden="true">&rsaquo;</span>
+  </a>
+        </div>
+      </section>
+    </main>
+    <footer class="wrap site-footer">
+      <span>&copy; 2026 The Git Reporter</span>
+      <a href="/about/">About</a>
+      <a href="/agent-pulse/">Agent Pulse</a>
+      <a href="/feed.xml">RSS</a>
+      <a href="https://x.com/TheGitReporter">Follow on X</a>
+      <a href="/articles.json">Manifest JSON</a>
+      <a href="/repos/">Sources</a>
+    </footer>
+  </div>
+</body>
+</html>

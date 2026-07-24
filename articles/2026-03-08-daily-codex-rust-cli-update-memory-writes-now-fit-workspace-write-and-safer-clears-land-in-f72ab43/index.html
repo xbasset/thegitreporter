@@ -1,0 +1,311 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Codex Rust CLI Update: Memory Writes Now Fit “workspace-write” and Safer Clears Land in f72ab43 | The Git Reporter</title>
+  <meta name="description" content="The Codex Rust CLI just got a small but meaningful quality-of-life upgrade—one that also tightens safety around memory cleanup. In PR openai/codex#13467 (commit f72ab43fd193b31208cd3c306293b...">
+  <meta name="robots" content="index,follow">
+  <link rel="canonical" href="https://thegitreporter.com/articles/2026-03-08-daily-codex-rust-cli-update-memory-writes-now-fit-workspace-write-and-safer-clears-land-in-f72ab43/">
+  <link rel="alternate" type="application/rss+xml" title="The Git Reporter" href="https://thegitreporter.com/feed.xml">
+  <meta property="og:site_name" content="The Git Reporter">
+  <meta property="og:locale" content="en_US">
+  <meta property="og:title" content="Codex Rust CLI Update: Memory Writes Now Fit “workspace-write” and Safer Clears Land in f72ab43 | The Git Reporter">
+  <meta property="og:description" content="The Codex Rust CLI just got a small but meaningful quality-of-life upgrade—one that also tightens safety around memory cleanup. In PR openai/codex#13467 (commit f72ab43fd193b31208cd3c306293b...">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://thegitreporter.com/articles/2026-03-08-daily-codex-rust-cli-update-memory-writes-now-fit-workspace-write-and-safer-clears-land-in-f72ab43/">
+  <meta property="og:image" content="https://thegitreporter.com/assets/social/thegitreporter-default-og.jpg">
+  <meta property="og:image:secure_url" content="https://thegitreporter.com/assets/social/thegitreporter-default-og.jpg">
+  <meta property="og:image:type" content="image/jpeg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Codex Rust CLI Update: Memory Writes Now Fit “workspace-write” and Safer Clears Land in f72ab43 editorial illustration.">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:site" content="@TheGitReporter">
+  <meta name="twitter:creator" content="@TheGitReporter">
+  <meta name="twitter:title" content="Codex Rust CLI Update: Memory Writes Now Fit “workspace-write” and Safer Clears Land in f72ab43 | The Git Reporter">
+  <meta name="twitter:description" content="The Codex Rust CLI just got a small but meaningful quality-of-life upgrade—one that also tightens safety around memory cleanup. In PR openai/codex#13467 (commit f72ab43fd193b31208cd3c306293b...">
+  <meta name="twitter:url" content="https://thegitreporter.com/articles/2026-03-08-daily-codex-rust-cli-update-memory-writes-now-fit-workspace-write-and-safer-clears-land-in-f72ab43/">
+  <meta name="twitter:domain" content="thegitreporter.com">
+  <meta name="twitter:image" content="https://thegitreporter.com/assets/social/thegitreporter-default-og.jpg">
+  <meta name="twitter:image:alt" content="Codex Rust CLI Update: Memory Writes Now Fit “workspace-write” and Safer Clears Land in f72ab43 editorial illustration.">
+  <meta property="article:published_time" content="2026-03-08T12:00:00Z">
+  <meta property="article:modified_time" content="2026-03-08T12:00:00Z">
+  <meta property="article:section" content="Daily Edition">
+  <meta property="article:tag" content="Permissions">
+  <meta property="article:tag" content="Memory">
+  <meta property="article:tag" content="Tools">
+  <meta property="article:tag" content="UX">
+  <meta property="article:tag" content="openai/codex">
+  <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"https://thegitreporter.com/#organization","name":"The Git Reporter","url":"https://thegitreporter.com","logo":{"@type":"ImageObject","url":"https://thegitreporter.com/assets/mark.svg"},"sameAs":["https://x.com/TheGitReporter"]},{"@type":"WebSite","@id":"https://thegitreporter.com/#website","name":"The Git Reporter","url":"https://thegitreporter.com","publisher":{"@id":"https://thegitreporter.com/#organization"}},{"@type":"NewsArticle","mainEntityOfPage":{"@type":"WebPage","@id":"https://thegitreporter.com/articles/2026-03-08-daily-codex-rust-cli-update-memory-writes-now-fit-workspace-write-and-safer-clears-land-in-f72ab43/"},"headline":"Codex Rust CLI Update: Memory Writes Now Fit “workspace-write” and Safer Clears Land in f72ab43","description":"The Codex Rust CLI just got a small but meaningful quality-of-life upgrade—one that also tightens safety around memory cleanup. In PR openai/codex#13467 (commit f72ab43fd193b31208cd3c306293b...","image":["https://thegitreporter.com/assets/social/thegitreporter-default-og.jpg"],"datePublished":"2026-03-08T12:00:00Z","dateModified":"2026-03-08T12:00:00Z","author":[{"@type":"Organization","name":"The Git Reporter","url":"https://thegitreporter.com"}],"publisher":{"@type":"Organization","@id":"https://thegitreporter.com/#organization","name":"The Git Reporter","url":"https://thegitreporter.com","logo":{"@type":"ImageObject","url":"https://thegitreporter.com/assets/mark.svg"},"sameAs":["https://x.com/TheGitReporter"]},"articleSection":"Daily Edition","keywords":"Permissions, Memory, Tools, UX, openai/codex"}]}</script>
+  <link rel="icon" href="/assets/mark.svg">
+  <link rel="stylesheet" href="/assets/site.css?v=2026-07-24-ai-conversation-brief">
+  <script defer src="/assets/feedback.js?v=2026-07-24-ai-conversation-brief"></script>
+  <script defer src="/assets/conversation.js?v=2026-07-24-ai-conversation-brief"></script>
+  <script defer src="/assets/analytics.js?v=2026-07-24-ai-conversation-brief"></script>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-CH19T7M0T1"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){window.dataLayer.push(arguments);}
+    gtag("js", new Date());
+    gtag("config", "G-CH19T7M0T1");
+  </script>
+</head>
+<body>
+  <div class="site">
+    <header class="site-header" id="top">
+      <div class="wrap utility-row">
+        <a class="icon-link menu-icon" href="/archive/" aria-label="Open edition history"><span></span><span></span><span></span></a>
+        <a class="icon-link archive-icon" href="/archive/" aria-label="Open edition history"></a>
+      </div>
+      <div class="wrap masthead-lockup">
+        <a class="masthead-title" href="/">THE GIT REPORTER</a>
+        <div class="masthead-ornament" aria-hidden="true"></div>
+      </div>
+      <div class="wrap nav-wrap">
+        <nav class="paper-nav" aria-label="Primary navigation">
+    <a class="" href="/">Today</a><a class="active" href="/archive/">Editions</a><a class="" href="/about/">About</a><a class="" href="/agent-pulse/">Agent Pulse</a><a class="" href="/atlas/">Agent Atlas</a><a class="" href="/repos/">Repos</a>
+  </nav>
+        <div class="nav-rule"></div>
+      </div>
+    </header>
+    <main class="wrap page-shell article-page">
+      <section class="page-hero story-front">
+        <div class="story-topline">
+          <span>Daily Edition</span>
+          <span>Sources <strong>+1</strong></span>
+        </div>
+        <h1>Codex Rust CLI Update: Memory Writes Now Fit “workspace-write” and Safer Clears Land in f72ab43</h1>
+        <p class="summary">The Codex Rust CLI just got a small but meaningful quality-of-life upgrade—one that also tightens safety around memory cleanup. In PR openai/codex#13467 (commit f72ab43fd193b31208cd3c306293b...</p>
+        
+        <div class="receipt">
+    <div class="receipt-line">
+      <span class="receipt-icon">repo</span>
+      <span class="receipt-main">openai/codex</span>
+      <span class="branch-pill">evidence</span>
+    </div>
+    <div class="receipt-line receipt-muted">
+      <span>1 source signal</span>
+      <span>1 repo</span>
+      <span>commit f72ab43</span>
+    </div>
+    <div class="commit-line">Evidence: commit f72ab43 / March 8, 2026 / Daily Edition</div>
+  </div>
+        <div class="article-route-row">
+          <a href="/editions/2026-03-08/">Open Edition</a>
+          <a href="#evidence">Evidence below</a>
+        </div>
+      </section>
+      <section class="story-reader">
+        <article class="story-shell story-body">
+          <p>
+      The Codex Rust CLI just got a small but meaningful quality-of-life upgrade—one that also tightens safety around memory cleanup. In PR
+      <a href="https://github.com/openai/codex/pull/13467">openai/codex#13467</a> (commit
+      <a href="https://github.com/openai/codex/commit/f72ab43fd193b31208cd3c306293b1b71a52a709">f72ab43fd193b31208cd3c306293b1b71a52a709</a>),
+      Codex adjusts how it treats its own memory directory during sandboxed runs and hardens the logic used when clearing memory contents.
+    </p>
+
+    <p>
+      The headline behavior change lands in sandbox mode <strong>"workspace-write"</strong>. Previously, everyday “memory maintenance” actions
+      could trip over sandbox boundaries, because the CLI’s memory location lives outside the repo workspace. With this update, Codex now includes
+      <code>~/.codex/memories</code> in the sandbox’s writable roots when running under <strong>"workspace-write"</strong>, so memory upkeep doesn’t
+      require extra approval prompts or manual allowances. In practice, the CLI can continue to read and refresh its stored context without turning
+      a routine run into a permissions negotiation.
+    </p>
+
+    <p>
+      The same PR also adds a safety improvement for a more destructive operation: clearing the memory root. The updated behavior refuses to operate
+      on <em>symlinked</em> roots, reducing the risk of “clear” targeting an unexpected location via a symbolic link. And after a clear, Codex
+      recreates the memory directory, leaving the filesystem in a predictable, ready-to-use state rather than requiring the next command to rebuild
+      the directory structure from scratch.
+    </p>
+
+    <p>
+      Taken together, these changes keep Codex’s memory features feeling seamless while keeping sharp edges away from the file system. The result is
+      a CLI that behaves more like a well-mannered tool: it stays in its lane under sandbox rules, and it’s more careful when asked to delete.
+    </p>
+
+    <h2>Why it matters</h2>
+    <ul>
+      <li>Fewer interruptions: memory maintenance in <strong>"workspace-write"</strong> works without extra approvals thanks to writable access to <code>~/.codex/memories</code>.</li>
+      <li>Reduced risk: refusing symlinked roots helps prevent accidental deletion outside the intended memory directory.</li>
+      <li>More reliable runs: recreating the directory after clearing keeps subsequent commands consistent and predictable.</li>
+    </ul>
+        </article>
+      </section>
+      <section class="evidence-section" id="evidence" aria-labelledby="evidence-title">
+    <div class="evidence-head">
+      <div>
+        <div class="eyebrow">Evidence Trail</div>
+        <h2 id="evidence-title">Receipts below the story</h2>
+        <p>The article above is the public narrative. This section keeps the source trail and limits on the same page.</p>
+      </div>
+      <a class="paper-button" href="/editions/2026-03-08/">Edition</a>
+    </div>
+    <div class="evidence-table evidence-summary">
+      <div class="evidence-line"><span>Date</span><span>March 8, 2026</span></div>
+      <div class="evidence-line"><span>Lane</span><span>Daily Edition</span></div>
+      <div class="evidence-line"><span>Confidence</span><span>68%</span></div>
+      <div class="evidence-line"><span>Sources</span><span>1</span></div>
+      <div class="evidence-line"><span>Repos</span><span>openai/codex</span></div>
+    </div>
+    <div class="markdown evidence-copy evidence-copy-block">
+      <h2>Source Trail</h2>
+<ul>
+<li>PR: <a href="https://github.com/openai/codex/pull/13467">https://github.com/openai/codex/pull/13467</a>
+</li>
+</ul>
+<h2>Evidence Limits</h2>
+<ul>
+<li>This older source trail predates the current public evidence format.
+</li>
+<li>Treat it as a compact source map for the article, not a complete source dossier.
+</li>
+</ul>
+    </div>
+  </section>
+      <section class="ai-conversation"
+    data-tgr-ai-conversation
+    data-ai-title="Codex Rust CLI Update: Memory Writes Now Fit “workspace-write” and Safer Clears Land in f72ab43"
+    data-ai-summary="The Codex Rust CLI just got a small but meaningful quality-of-life upgrade—one that also tightens safety around memory cleanup. In PR openai/codex#13467 (commit f72ab43fd193b31208cd3c306293b..."
+    data-ai-url="https://thegitreporter.com/articles/2026-03-08-daily-codex-rust-cli-update-memory-writes-now-fit-workspace-write-and-safer-clears-land-in-f72ab43/#evidence"
+    data-ai-date="March 8, 2026"
+    data-ai-repos="openai/codex"
+    data-ai-source-count="1"
+    data-ai-evidence-links="[{&quot;label&quot;:&quot;PR&quot;,&quot;url&quot;:&quot;https://github.com/openai/codex/pull/13467&quot;},{&quot;label&quot;:&quot;openai/codex repository&quot;,&quot;url&quot;:&quot;https://github.com/openai/codex&quot;}]"
+    data-ai-article-slug="2026-03-08-daily-codex-rust-cli-update-memory-writes-now-fit-workspace-write-and-safer-clears-land-in-f72ab43"
+    aria-labelledby="ai-conversation-2026-03-08-daily-codex-rust-cli-update-memory-writes-now-fit-workspace-write-and-safer-clears-land-in-f72ab43-title">
+    <div class="ai-conversation-intro">
+      <div>
+        <div class="eyebrow">Keep Digging</div>
+        <h2 id="ai-conversation-2026-03-08-daily-codex-rust-cli-update-memory-writes-now-fit-workspace-write-and-safer-clears-land-in-f72ab43-title">Continue with your favorite AI</h2>
+      </div>
+      <p>Carry the story’s context, evidence trail, and limits into a new conversation.</p>
+    </div>
+    <details class="ai-conversation-details">
+      <summary>
+        <span>Build a conversation brief</span>
+        <span aria-hidden="true">&rsaquo;</span>
+      </summary>
+      <div class="ai-conversation-panel">
+        <div class="ai-focus-row">
+          <span>Choose a direction</span>
+          <div class="ai-focus-options" role="group" aria-label="Choose a conversation direction">
+            <button class="ai-focus selected" type="button" data-ai-focus="explore" aria-pressed="true">Understand</button>
+            <button class="ai-focus" type="button" data-ai-focus="challenge" aria-pressed="false">Challenge</button>
+            <button class="ai-focus" type="button" data-ai-focus="apply" aria-pressed="false">Apply</button>
+          </div>
+        </div>
+        <label class="ai-prompt-label" for="ai-conversation-2026-03-08-daily-codex-rust-cli-update-memory-writes-now-fit-workspace-write-and-safer-clears-land-in-f72ab43-prompt">
+          <span>Editable brief</span>
+          <textarea id="ai-conversation-2026-03-08-daily-codex-rust-cli-update-memory-writes-now-fit-workspace-write-and-safer-clears-land-in-f72ab43-prompt" class="ai-prompt" rows="15">I’m continuing a conversation about this reported software change.
+
+Article: &quot;Codex Rust CLI Update: Memory Writes Now Fit “workspace-write” and Safer Clears Land in f72ab43&quot;
+Published: March 8, 2026
+Summary: The Codex Rust CLI just got a small but meaningful quality-of-life upgrade—one that also tightens safety around memory cleanup. In PR openai/codex#13467 (commit f72ab43fd193b31208cd3c306293b...
+Repositories: openai/codex
+Evidence: 1 public source
+Article and evidence trail: https://thegitreporter.com/articles/2026-03-08-daily-codex-rust-cli-update-memory-writes-now-fit-workspace-write-and-safer-clears-land-in-f72ab43/#evidence
+
+Primary evidence links:
+- PR: https://github.com/openai/codex/pull/13467
+- openai/codex repository: https://github.com/openai/codex
+
+What I want to explore: Go beyond the summary and help me understand the mechanism, tradeoffs, and wider consequence.
+
+Please:
+- Read the article, Primary Evidence, and Evidence Limits before answering.
+- Separate what the public sources prove from the reporter’s interpretation and from your own inference.
+- Cite the specific evidence links you rely on.
+- Challenge the strongest claim and name any missing evidence.
+- End with 2–3 productive follow-up questions.
+
+If you cannot access the page or its links, say so and ask me to paste the relevant evidence rather than guessing.</textarea>
+        </label>
+        <div class="ai-destinations" aria-label="Copy the brief and choose an AI assistant">
+          <button class="ai-destination ai-copy-button" type="button">
+            <span>Any AI</span>
+            <strong>Copy brief</strong>
+          </button>
+          <a class="ai-destination" data-ai-provider="chatgpt" href="https://chatgpt.com/" target="_blank" rel="noopener noreferrer">
+            <span>ChatGPT</span>
+            <strong>Copy + open</strong>
+          </a>
+          <a class="ai-destination" data-ai-provider="claude" href="https://claude.ai/new" target="_blank" rel="noopener noreferrer">
+            <span>Claude</span>
+            <strong>Copy + open</strong>
+          </a>
+          <a class="ai-destination" data-ai-provider="gemini" href="https://gemini.google.com/app" target="_blank" rel="noopener noreferrer">
+            <span>Gemini</span>
+            <strong>Copy + open</strong>
+          </a>
+        </div>
+        <p class="ai-conversation-status" aria-live="polite"></p>
+        <p class="ai-conversation-note">The brief itself is copied on your device, not sent to an assistant by The Git Reporter. Review it before pasting; the service you open has its own data and privacy terms.</p>
+      </div>
+    </details>
+  </section>
+      <section class="related-edition-section atlas-context-section">
+    <div class="section-title-row">
+      <h2>Atlas Context</h2>
+      <a href="/atlas/">Open Atlas &rsaquo;</a>
+    </div>
+    <div class="updates-list">
+      <a class="article-card" href="/atlas/memory-is-not-one-thing/">
+            <div class="article-meta"><span class="lane">Agent Atlas</span><span>Chapter 6</span></div>
+            <h3>Memory Is a Typed Storage Contract</h3>
+            <p>Calling every retained fact memory obscures incompatible stores and guarantees. Thread history, notes, retrieval indexes, summaries, caches, and archives have different owners, lifetimes, and deletion behavior.</p>
+          </a>
+    </div>
+  </section>
+      <section class="reader-feedback"
+    data-tgr-feedback
+    data-article-slug="2026-03-08-daily-codex-rust-cli-update-memory-writes-now-fit-workspace-write-and-safer-clears-land-in-f72ab43"
+    data-article-title="Codex Rust CLI Update: Memory Writes Now Fit “workspace-write” and Safer Clears Land in f72ab43"
+    data-article-url="/articles/2026-03-08-daily-codex-rust-cli-update-memory-writes-now-fit-workspace-write-and-safer-clears-land-in-f72ab43/"
+    data-edition-date="2026-03-08"
+    data-lane="Daily Edition"
+    data-tags="Permissions,Memory,Tools,UX"
+    data-repos="openai/codex">
+    <div class="reader-feedback-head">
+      <div>
+        <div class="eyebrow">Letters &amp; Corrections</div>
+        <h2>Send a note to the desk</h2>
+      </div>
+      <p>Corrections, missing context, or a follow-up lead.</p>
+    </div>
+    <form class="feedback-form">
+      <div class="feedback-votes" role="group" aria-label="Choose signal type">
+        <button class="feedback-choice" type="button" data-vote="follow-up" aria-pressed="false">
+          <span aria-hidden="true">+</span>
+          <span>Follow-up</span>
+        </button>
+        <button class="feedback-choice" type="button" data-vote="correction" aria-pressed="false">
+          <span aria-hidden="true">!</span>
+          <span>Correction</span>
+        </button>
+      </div>
+      <label class="feedback-comment">
+        <span>Note for the editor</span>
+        <textarea name="comment" rows="3" maxlength="320" placeholder="What did we miss, or what should we follow next?"></textarea>
+      </label>
+      <div class="feedback-submit-row">
+        <p class="feedback-status" aria-live="polite"></p>
+        <button class="paper-button primary feedback-submit" type="submit">Send to desk</button>
+      </div>
+    </form>
+  </section>
+      
+    </main>
+    <footer class="wrap site-footer">
+      <span>&copy; 2026 The Git Reporter</span>
+      <a href="/about/">About</a>
+      <a href="/agent-pulse/">Agent Pulse</a>
+      <a href="/feed.xml">RSS</a>
+      <a href="https://x.com/TheGitReporter">Follow on X</a>
+      <a href="/articles.json">Manifest JSON</a>
+      <a href="/repos/">Sources</a>
+    </footer>
+  </div>
+</body>
+</html>

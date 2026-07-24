@@ -1,0 +1,398 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>The Next Agent UX Moat Isn’t Speed. It’s Backpressure. | The Git Reporter</title>
+  <meta name="description" content="The hard problem in terminal agents is no longer just getting them to do more. It’s deciding what happens when the human tries to steer while the runtime is already busy.">
+  <meta name="robots" content="index,follow">
+  <link rel="canonical" href="https://thegitreporter.com/articles/2026-03-28-daily-the-next-agent-ux-moat-isn-t-speed-it-s-backpressure/">
+  <link rel="alternate" type="application/rss+xml" title="The Git Reporter" href="https://thegitreporter.com/feed.xml">
+  <meta property="og:site_name" content="The Git Reporter">
+  <meta property="og:locale" content="en_US">
+  <meta property="og:title" content="The Next Agent UX Moat Isn’t Speed. It’s Backpressure. | The Git Reporter">
+  <meta property="og:description" content="The hard problem in terminal agents is no longer just getting them to do more. It’s deciding what happens when the human tries to steer while the runtime is already busy.">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://thegitreporter.com/articles/2026-03-28-daily-the-next-agent-ux-moat-isn-t-speed-it-s-backpressure/">
+  <meta property="og:image" content="https://thegitreporter.com/assets/social/thegitreporter-default-og.jpg">
+  <meta property="og:image:secure_url" content="https://thegitreporter.com/assets/social/thegitreporter-default-og.jpg">
+  <meta property="og:image:type" content="image/jpeg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="The Next Agent UX Moat Isn’t Speed. It’s Backpressure. editorial illustration.">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:site" content="@TheGitReporter">
+  <meta name="twitter:creator" content="@TheGitReporter">
+  <meta name="twitter:title" content="The Next Agent UX Moat Isn’t Speed. It’s Backpressure. | The Git Reporter">
+  <meta name="twitter:description" content="The hard problem in terminal agents is no longer just getting them to do more. It’s deciding what happens when the human tries to steer while the runtime is already busy.">
+  <meta name="twitter:url" content="https://thegitreporter.com/articles/2026-03-28-daily-the-next-agent-ux-moat-isn-t-speed-it-s-backpressure/">
+  <meta name="twitter:domain" content="thegitreporter.com">
+  <meta name="twitter:image" content="https://thegitreporter.com/assets/social/thegitreporter-default-og.jpg">
+  <meta name="twitter:image:alt" content="The Next Agent UX Moat Isn’t Speed. It’s Backpressure. editorial illustration.">
+  <meta property="article:published_time" content="2026-03-28T12:00:00Z">
+  <meta property="article:modified_time" content="2026-03-28T12:00:00Z">
+  <meta property="article:section" content="Daily Edition">
+  <meta property="article:tag" content="Permissions">
+  <meta property="article:tag" content="Memory">
+  <meta property="article:tag" content="Delegation">
+  <meta property="article:tag" content="Tools">
+  <meta property="article:tag" content="openai/codex">
+  <meta property="article:tag" content="google-gemini/gemini-cli">
+  <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"https://thegitreporter.com/#organization","name":"The Git Reporter","url":"https://thegitreporter.com","logo":{"@type":"ImageObject","url":"https://thegitreporter.com/assets/mark.svg"},"sameAs":["https://x.com/TheGitReporter"]},{"@type":"WebSite","@id":"https://thegitreporter.com/#website","name":"The Git Reporter","url":"https://thegitreporter.com","publisher":{"@id":"https://thegitreporter.com/#organization"}},{"@type":"NewsArticle","mainEntityOfPage":{"@type":"WebPage","@id":"https://thegitreporter.com/articles/2026-03-28-daily-the-next-agent-ux-moat-isn-t-speed-it-s-backpressure/"},"headline":"The Next Agent UX Moat Isn’t Speed. It’s Backpressure.","description":"The hard problem in terminal agents is no longer just getting them to do more. It’s deciding what happens when the human tries to steer while the runtime is already busy.","image":["https://thegitreporter.com/assets/social/thegitreporter-default-og.jpg"],"datePublished":"2026-03-28T12:00:00Z","dateModified":"2026-03-28T12:00:00Z","author":[{"@type":"Organization","name":"The Git Reporter","url":"https://thegitreporter.com"}],"publisher":{"@type":"Organization","@id":"https://thegitreporter.com/#organization","name":"The Git Reporter","url":"https://thegitreporter.com","logo":{"@type":"ImageObject","url":"https://thegitreporter.com/assets/mark.svg"},"sameAs":["https://x.com/TheGitReporter"]},"articleSection":"Daily Edition","keywords":"Permissions, Memory, Delegation, Tools, openai/codex, google-gemini/gemini-cli"}]}</script>
+  <link rel="icon" href="/assets/mark.svg">
+  <link rel="stylesheet" href="/assets/site.css?v=2026-07-24-ai-conversation-brief">
+  <script defer src="/assets/feedback.js?v=2026-07-24-ai-conversation-brief"></script>
+  <script defer src="/assets/conversation.js?v=2026-07-24-ai-conversation-brief"></script>
+  <script defer src="/assets/analytics.js?v=2026-07-24-ai-conversation-brief"></script>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-CH19T7M0T1"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){window.dataLayer.push(arguments);}
+    gtag("js", new Date());
+    gtag("config", "G-CH19T7M0T1");
+  </script>
+</head>
+<body>
+  <div class="site">
+    <header class="site-header" id="top">
+      <div class="wrap utility-row">
+        <a class="icon-link menu-icon" href="/archive/" aria-label="Open edition history"><span></span><span></span><span></span></a>
+        <a class="icon-link archive-icon" href="/archive/" aria-label="Open edition history"></a>
+      </div>
+      <div class="wrap masthead-lockup">
+        <a class="masthead-title" href="/">THE GIT REPORTER</a>
+        <div class="masthead-ornament" aria-hidden="true"></div>
+      </div>
+      <div class="wrap nav-wrap">
+        <nav class="paper-nav" aria-label="Primary navigation">
+    <a class="" href="/">Today</a><a class="active" href="/archive/">Editions</a><a class="" href="/about/">About</a><a class="" href="/agent-pulse/">Agent Pulse</a><a class="" href="/atlas/">Agent Atlas</a><a class="" href="/repos/">Repos</a>
+  </nav>
+        <div class="nav-rule"></div>
+      </div>
+    </header>
+    <main class="wrap page-shell article-page">
+      <section class="page-hero story-front">
+        <div class="story-topline">
+          <span>Daily Edition</span>
+          <span>Sources <strong>+8</strong></span>
+        </div>
+        <h1>The Next Agent UX Moat Isn’t Speed. It’s Backpressure.</h1>
+        <p class="summary">The hard problem in terminal agents is no longer just getting them to do more. It’s deciding what happens when the human tries to steer while the runtime is already busy.</p>
+        
+        <div class="receipt">
+    <div class="receipt-line">
+      <span class="receipt-icon">repos</span>
+      <span class="receipt-main">openai/codex + google-gemini/gemini-cli</span>
+      <span class="branch-pill">evidence</span>
+    </div>
+    <div class="receipt-line receipt-muted">
+      <span>8 source signals</span>
+      <span>2 repos</span>
+      <span>8 source signals</span>
+    </div>
+    <div class="commit-line">Evidence: 8 source signals / March 28, 2026 / Daily Edition</div>
+  </div>
+        <div class="article-route-row">
+          <a href="/editions/2026-03-28/">Open Edition</a>
+          <a href="#evidence">Evidence below</a>
+        </div>
+      </section>
+      <section class="story-reader">
+        <article class="story-shell story-body">
+          <p>Agent demos still love the same flex.</p>
+      <p>More tools. More subagents. More context. More speed.</p>
+      <p>But that is not where the sharpest engineering is showing up right now.</p>
+
+      <p class="pull">The real fight is turning into flow control: when a user interrupts, queues, resumes, confirms, compresses, or changes course mid-run, does the system stay graceful—or turn into soup?</p>
+
+      <p>That shift is showing up clearly in both Codex and Gemini CLI. And it matters because the moment agents stop being toy one-shot assistants and start acting like persistent workers, the terminal becomes less like a prompt box and more like an air-traffic tower.</p>
+
+      <h2>Codex is exposing the pressure points</h2>
+      <p>Codex now says the quiet part out loud in its own TUI docs.</p>
+
+      <p>In <code>docs/tui-chat-composer.md</code>, when steer mode is enabled, <code>Tab</code> does not always just send the message. If a task is already running, it requests queuing instead. That is not a tiny UX flourish. It is an admission that human intervention during active work needs an explicit lane.</p>
+
+      <p>The same pattern is showing up deeper in the runtime.</p>
+
+      <p>PR <code>#16062</code>, <em>“stabilize zsh-fork approvals and resume --last,”</em> is really a story about operational timing. The patch keeps approval behavior stable across a macOS shell handoff, expands the timeout budget for startup approvals, and narrows <code>resume --last</code> so the CLI does not accidentally pick a newer internal sub-agent thread over the user-facing one.</p>
+
+      <p>That is a backpressure fix. The problem is no longer just whether resume exists. It is whether resume still points to the right conversation when multiple hidden execution paths are in play.</p>
+
+      <p>Then there is compaction. Codex’s <code>compact.rs</code> makes it obvious that context pressure is now part of live runtime behavior, not just a background implementation detail. Mid-turn compaction has to reinsert initial context before the last real user message, trim older thread items when the prompt gets too large, and warn the user that long threads plus repeated compactions can make the model less accurate.</p>
+
+      <p>That warning matters. It means the system is no longer pretending context is infinite. It is teaching the user that throughput and fidelity are now linked.</p>
+
+      <p>Fresh issue traffic pushes the same story even further. Issue <code>#16068</code> describes a case where custom <code>model_context_window</code> values can poison token accounting after overflow and stop auto-compaction from recovering properly. Issue <code>#16060</code> asks for a SIGUSR1-powered inbox so an external orchestrator can inject instructions at the next safe point instead of killing the process.</p>
+
+      <p>Again, the center of gravity is clear: not “what new trick can the agent do?” but “how does a busy agent accept, delay, or recover from new pressure?”</p>
+
+      <h2>Gemini CLI is already acting like a traffic controller</h2>
+      <p>Gemini CLI is approaching the same problem from a more visibly event-driven architecture.</p>
+
+      <p>In <code>packages/a2a-server/src/agent/executor.ts</code>, if a task is already executing, the executor can process a new user message in a secondary execution loop, then yield back to the primary one. That is a very specific runtime opinion: new instructions do not always have to explode the current turn. They can be admitted, processed, and folded into an active system.</p>
+
+      <p>The pending-work model goes deeper in <code>task.ts</code>. Tool calls are pre-registered before async scheduling, pending tool counts are tracked explicitly, the executor waits for pending tools to complete before continuing, and the task can remain in a <code>working</code> state even when the latest user message contains only confirmations.</p>
+
+      <p>Translated out of TypeScript: Gemini is not treating busy-ness as a vague vibe. It is modeling it.</p>
+
+      <p>Even the UI admits the pressure. In the keyboard shortcuts docs, plan mode is skipped when the agent is busy. The system is effectively saying: some operator actions are valid only when the lane is clear.</p>
+
+      <p>Compression is another giveaway. Gemini exposes <code>/compress</code> as a first-class command, makes the trigger configurable with <code>model.compressionThreshold</code>, and even provides <code>hooks.PreCompress</code> so operators can back up or inspect the conversation before history gets summarized.</p>
+
+      <p>That is not “chat” design anymore. That is lifecycle design.</p>
+
+      <p>And the freshest user request lands exactly on this seam. Issue <code>#24071</code> asks for the ability to queue a message while compression is still running, because right now the user has to wait at the desk until the summary finishes. The complaint in issue <code>#24064</code> is broader and angrier, but it rhymes: if the runtime feels sluggish or unresponsive under load, trust collapses fast.</p>
+
+      <h2>The big pattern: terminal agents are becoming backpressure systems</h2>
+      <p>Put the two repos side by side and the pattern snaps into focus.</p>
+
+      <ul>
+        <li><strong>Codex</strong> is refining queueing, approval timing, resume semantics, and compaction recovery.</li>
+        <li><strong>Gemini CLI</strong> is formalizing secondary execution, pending-work accounting, busy-state UI rules, and operator-visible compression control.</li>
+      </ul>
+
+      <p>Different implementation style. Same direction.</p>
+
+      <p>Both projects are discovering that persistent agents do not fail only because they are too weak. They fail because the control surface gets messy when too many things want to happen at once.</p>
+
+      <p>Human asks a follow-up while tools are still running.</p>
+      <p>Compression starts right when the next instruction arrives.</p>
+      <p>A resume target collides with internal helper threads.</p>
+      <p>An approval prompt steals budget from the actual task.</p>
+
+      <p>Those are not edge cases anymore. Those are product-defining moments.</p>
+
+      <h2>Why this matters</h2>
+      <p>For the next generation of coding agents, raw intelligence may stop being the clearest differentiator.</p>
+      <p>The sharper moat may be whether the tool feels composed under pressure.</p>
+      <p>Can it queue instead of thrash? Can it compress without trapping the user? Can it resume the right thing? Can it accept new intent at safe points instead of forcing a restart?</p>
+
+      <p>That is the kind of boring-sounding engineering that decides whether an agent feels trustworthy enough to leave running.</p>
+
+      <p>So here’s the open question: <strong>if terminal agents get dramatically better at handling queueing, compaction, and mid-task steering, does that unlock longer-lived workflows—or just make people tolerate more complexity?</strong></p>
+
+      <p>If you build agent tools, don’t just chase smarter models or bigger context windows. Design the pressure valves. Make busy states legible, queueing intentional, resumes predictable, and compression humane. That is how an agent stops feeling like a demo and starts feeling like infrastructure.</p>
+        </article>
+      </section>
+      <section class="evidence-section" id="evidence" aria-labelledby="evidence-title">
+    <div class="evidence-head">
+      <div>
+        <div class="eyebrow">Evidence Trail</div>
+        <h2 id="evidence-title">Receipts below the story</h2>
+        <p>The article above is the public narrative. This section keeps the source trail and limits on the same page.</p>
+      </div>
+      <a class="paper-button" href="/editions/2026-03-28/">Edition</a>
+    </div>
+    <div class="evidence-table evidence-summary">
+      <div class="evidence-line"><span>Date</span><span>March 28, 2026</span></div>
+      <div class="evidence-line"><span>Lane</span><span>Daily Edition</span></div>
+      <div class="evidence-line"><span>Confidence</span><span>87%</span></div>
+      <div class="evidence-line"><span>Sources</span><span>8</span></div>
+      <div class="evidence-line"><span>Repos</span><span>openai/codex, google-gemini/gemini-cli</span></div>
+    </div>
+    <div class="markdown evidence-copy evidence-copy-block">
+      <h2>Source Trail</h2>
+<ul>
+<li>Repo: <code><a href="https://github.com/openai/codex">https://github.com/openai/codex</a></code>
+</li>
+<li>URL: <a href="https://github.com/openai/codex/pull/16062">https://github.com/openai/codex/pull/16062</a>
+</li>
+<li>URL: <a href="https://github.com/openai/codex/issues/16068">https://github.com/openai/codex/issues/16068</a>
+</li>
+<li>URL: <a href="https://github.com/openai/codex/issues/16060">https://github.com/openai/codex/issues/16060</a>
+</li>
+<li>Repo: <code><a href="https://github.com/google-gemini/gemini-cli">https://github.com/google-gemini/gemini-cli</a></code>
+</li>
+<li>URL: <a href="https://github.com/google-gemini/gemini-cli/issues/24071">https://github.com/google-gemini/gemini-cli/issues/24071</a>
+</li>
+<li>URL: <a href="https://github.com/google-gemini/gemini-cli/issues/24064">https://github.com/google-gemini/gemini-cli/issues/24064</a>
+</li>
+<li>URL: <a href="https://github.com/google-gemini/gemini-cli/pull/24080">https://github.com/google-gemini/gemini-cli/pull/24080</a>
+</li>
+</ul>
+<h2>Evidence Limits</h2>
+<ul>
+<li>This older source trail predates the current public evidence format.
+</li>
+<li>Treat it as a compact source map for the article, not a complete source dossier.
+</li>
+</ul>
+    </div>
+  </section>
+      <section class="ai-conversation"
+    data-tgr-ai-conversation
+    data-ai-title="The Next Agent UX Moat Isn’t Speed. It’s Backpressure."
+    data-ai-summary="The hard problem in terminal agents is no longer just getting them to do more. It’s deciding what happens when the human tries to steer while the runtime is already busy."
+    data-ai-url="https://thegitreporter.com/articles/2026-03-28-daily-the-next-agent-ux-moat-isn-t-speed-it-s-backpressure/#evidence"
+    data-ai-date="March 28, 2026"
+    data-ai-repos="openai/codex, google-gemini/gemini-cli"
+    data-ai-source-count="8"
+    data-ai-evidence-links="[{&quot;label&quot;:&quot;Repo: `&quot;,&quot;url&quot;:&quot;https://github.com/openai/codex&quot;},{&quot;label&quot;:&quot;URL&quot;,&quot;url&quot;:&quot;https://github.com/openai/codex/pull/16062&quot;},{&quot;label&quot;:&quot;URL&quot;,&quot;url&quot;:&quot;https://github.com/openai/codex/issues/16068&quot;},{&quot;label&quot;:&quot;URL&quot;,&quot;url&quot;:&quot;https://github.com/openai/codex/issues/16060&quot;},{&quot;label&quot;:&quot;Repo: `&quot;,&quot;url&quot;:&quot;https://github.com/google-gemini/gemini-cli&quot;},{&quot;label&quot;:&quot;URL&quot;,&quot;url&quot;:&quot;https://github.com/google-gemini/gemini-cli/issues/24071&quot;}]"
+    data-ai-article-slug="2026-03-28-daily-the-next-agent-ux-moat-isn-t-speed-it-s-backpressure"
+    aria-labelledby="ai-conversation-2026-03-28-daily-the-next-agent-ux-moat-isn-t-speed-it-s-backpressure-title">
+    <div class="ai-conversation-intro">
+      <div>
+        <div class="eyebrow">Keep Digging</div>
+        <h2 id="ai-conversation-2026-03-28-daily-the-next-agent-ux-moat-isn-t-speed-it-s-backpressure-title">Continue with your favorite AI</h2>
+      </div>
+      <p>Carry the story’s context, evidence trail, and limits into a new conversation.</p>
+    </div>
+    <details class="ai-conversation-details">
+      <summary>
+        <span>Build a conversation brief</span>
+        <span aria-hidden="true">&rsaquo;</span>
+      </summary>
+      <div class="ai-conversation-panel">
+        <div class="ai-focus-row">
+          <span>Choose a direction</span>
+          <div class="ai-focus-options" role="group" aria-label="Choose a conversation direction">
+            <button class="ai-focus selected" type="button" data-ai-focus="explore" aria-pressed="true">Understand</button>
+            <button class="ai-focus" type="button" data-ai-focus="challenge" aria-pressed="false">Challenge</button>
+            <button class="ai-focus" type="button" data-ai-focus="apply" aria-pressed="false">Apply</button>
+          </div>
+        </div>
+        <label class="ai-prompt-label" for="ai-conversation-2026-03-28-daily-the-next-agent-ux-moat-isn-t-speed-it-s-backpressure-prompt">
+          <span>Editable brief</span>
+          <textarea id="ai-conversation-2026-03-28-daily-the-next-agent-ux-moat-isn-t-speed-it-s-backpressure-prompt" class="ai-prompt" rows="15">I’m continuing a conversation about this reported software change.
+
+Article: &quot;The Next Agent UX Moat Isn’t Speed. It’s Backpressure.&quot;
+Published: March 28, 2026
+Summary: The hard problem in terminal agents is no longer just getting them to do more. It’s deciding what happens when the human tries to steer while the runtime is already busy.
+Repositories: openai/codex, google-gemini/gemini-cli
+Evidence: 8 public sources
+Article and evidence trail: https://thegitreporter.com/articles/2026-03-28-daily-the-next-agent-ux-moat-isn-t-speed-it-s-backpressure/#evidence
+
+Primary evidence links:
+- Repo: `: https://github.com/openai/codex
+- URL: https://github.com/openai/codex/pull/16062
+- URL: https://github.com/openai/codex/issues/16068
+- URL: https://github.com/openai/codex/issues/16060
+- Repo: `: https://github.com/google-gemini/gemini-cli
+- URL: https://github.com/google-gemini/gemini-cli/issues/24071
+
+What I want to explore: Go beyond the summary and help me understand the mechanism, tradeoffs, and wider consequence.
+
+Please:
+- Read the article, Primary Evidence, and Evidence Limits before answering.
+- Separate what the public sources prove from the reporter’s interpretation and from your own inference.
+- Cite the specific evidence links you rely on.
+- Challenge the strongest claim and name any missing evidence.
+- End with 2–3 productive follow-up questions.
+
+If you cannot access the page or its links, say so and ask me to paste the relevant evidence rather than guessing.</textarea>
+        </label>
+        <div class="ai-destinations" aria-label="Copy the brief and choose an AI assistant">
+          <button class="ai-destination ai-copy-button" type="button">
+            <span>Any AI</span>
+            <strong>Copy brief</strong>
+          </button>
+          <a class="ai-destination" data-ai-provider="chatgpt" href="https://chatgpt.com/" target="_blank" rel="noopener noreferrer">
+            <span>ChatGPT</span>
+            <strong>Copy + open</strong>
+          </a>
+          <a class="ai-destination" data-ai-provider="claude" href="https://claude.ai/new" target="_blank" rel="noopener noreferrer">
+            <span>Claude</span>
+            <strong>Copy + open</strong>
+          </a>
+          <a class="ai-destination" data-ai-provider="gemini" href="https://gemini.google.com/app" target="_blank" rel="noopener noreferrer">
+            <span>Gemini</span>
+            <strong>Copy + open</strong>
+          </a>
+        </div>
+        <p class="ai-conversation-status" aria-live="polite"></p>
+        <p class="ai-conversation-note">The brief itself is copied on your device, not sent to an assistant by The Git Reporter. Review it before pasting; the service you open has its own data and privacy terms.</p>
+      </div>
+    </details>
+  </section>
+      <section class="related-edition-section atlas-context-section">
+    <div class="section-title-row">
+      <h2>Atlas Context</h2>
+      <a href="/atlas/">Open Atlas &rsaquo;</a>
+    </div>
+    <div class="updates-list">
+      <a class="article-card" href="/atlas/the-human-interface/">
+            <div class="article-meta"><span class="lane">Agent Atlas</span><span>Chapter 8</span></div>
+            <h3>The Human Control Loop</h3>
+            <p>A useful interface exposes active work, gives intervention a defined runtime effect, preserves evidence during correction, and resumes the intended session.</p>
+          </a>
+    </div>
+  </section>
+      <section class="reader-feedback"
+    data-tgr-feedback
+    data-article-slug="2026-03-28-daily-the-next-agent-ux-moat-isn-t-speed-it-s-backpressure"
+    data-article-title="The Next Agent UX Moat Isn’t Speed. It’s Backpressure."
+    data-article-url="/articles/2026-03-28-daily-the-next-agent-ux-moat-isn-t-speed-it-s-backpressure/"
+    data-edition-date="2026-03-28"
+    data-lane="Daily Edition"
+    data-tags="Permissions,Memory,Delegation,Tools"
+    data-repos="openai/codex,google-gemini/gemini-cli">
+    <div class="reader-feedback-head">
+      <div>
+        <div class="eyebrow">Letters &amp; Corrections</div>
+        <h2>Send a note to the desk</h2>
+      </div>
+      <p>Corrections, missing context, or a follow-up lead.</p>
+    </div>
+    <form class="feedback-form">
+      <div class="feedback-votes" role="group" aria-label="Choose signal type">
+        <button class="feedback-choice" type="button" data-vote="follow-up" aria-pressed="false">
+          <span aria-hidden="true">+</span>
+          <span>Follow-up</span>
+        </button>
+        <button class="feedback-choice" type="button" data-vote="correction" aria-pressed="false">
+          <span aria-hidden="true">!</span>
+          <span>Correction</span>
+        </button>
+      </div>
+      <label class="feedback-comment">
+        <span>Note for the editor</span>
+        <textarea name="comment" rows="3" maxlength="320" placeholder="What did we miss, or what should we follow next?"></textarea>
+      </label>
+      <div class="feedback-submit-row">
+        <p class="feedback-status" aria-live="polite"></p>
+        <button class="paper-button primary feedback-submit" type="submit">Send to desk</button>
+      </div>
+    </form>
+  </section>
+      <section class="related-edition-section">
+        <div class="section-title-row">
+          <h2>Same Edition</h2>
+          <a href="/editions/2026-03-28/">Open issue &rsaquo;</a>
+        </div>
+        <div class="updates-list">
+          <a class="update-card" href="/articles/2026-03-28-agent-daily-ai-coding-agents-have-a-new-bottleneck-keeping-work-intact/">
+    <div class="update-stripe"></div>
+    <div class="update-main">
+      <div class="update-meta">
+        <span>Pattern</span>
+        <span class="source-plus">+4</span>
+        <span>Mar 28, 2026</span>
+      </div>
+      <h3>AI Coding Agents Have a New Bottleneck: Keeping Work Intact</h3>
+      <div class="update-receipt">
+        <span>openai/codex + 2 more</span>
+        <span class="branch-pill">evidence</span>
+      </div>
+      <div class="update-foot">
+        <span>4 sources</span>
+        <span>3 repos</span>
+        <span>4 source signals</span>
+      </div>
+    </div>
+    <span class="update-arrow" aria-hidden="true">&rsaquo;</span>
+  </a>
+        </div>
+      </section>
+    </main>
+    <footer class="wrap site-footer">
+      <span>&copy; 2026 The Git Reporter</span>
+      <a href="/about/">About</a>
+      <a href="/agent-pulse/">Agent Pulse</a>
+      <a href="/feed.xml">RSS</a>
+      <a href="https://x.com/TheGitReporter">Follow on X</a>
+      <a href="/articles.json">Manifest JSON</a>
+      <a href="/repos/">Sources</a>
+    </footer>
+  </div>
+</body>
+</html>
