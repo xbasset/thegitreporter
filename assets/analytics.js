@@ -45,6 +45,7 @@
     }
 
     const sameOrigin = url.origin === window.location.origin;
+    if (link.dataset.aiProvider) return "ai_conversation_open";
     if (/^https:\/\/x\.com\/thegitreporter\/?$/i.test(url.href)) return "x_follow_click";
     if (sameOrigin && url.pathname === "/feed.xml") return "rss_click";
     if (sameOrigin && url.pathname === "/archive/") return "archive_click";
