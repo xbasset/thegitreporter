@@ -1,0 +1,425 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Mastra: turning TypeScript application primitives into agent infrastructure | The Git Reporter</title>
+  <meta name="description" content="Mastra’s latest channel change removes a small surprise—automatic reaction tools—but it points to the larger discipline behind its TypeScript agent framework: agents need explicit capabilities, durable state, tests, and a visible operating surface.">
+  <meta name="robots" content="index,follow">
+  <link rel="canonical" href="https://thegitreporter.com/articles/2026-07-25-daily-mastra-turning-typescript-application-primitives-into-agent-infrastructure/">
+  <link rel="alternate" type="application/rss+xml" title="The Git Reporter" href="https://thegitreporter.com/feed.xml">
+  <meta property="og:site_name" content="The Git Reporter">
+  <meta property="og:locale" content="en_US">
+  <meta property="og:title" content="Mastra: turning TypeScript application primitives into agent infrastructure | The Git Reporter">
+  <meta property="og:description" content="Mastra’s latest channel change removes a small surprise—automatic reaction tools—but it points to the larger discipline behind its TypeScript agent framework: agents need explicit capabilities, durable state, tests, and a visible operating surface.">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://thegitreporter.com/articles/2026-07-25-daily-mastra-turning-typescript-application-primitives-into-agent-infrastructure/">
+  <meta property="og:image" content="https://thegitreporter.com/assets/social/2026-07-25-daily-mastra-turning-typescript-application-primitives-into-agent-infrastructure-og.jpg">
+  <meta property="og:image:secure_url" content="https://thegitreporter.com/assets/social/2026-07-25-daily-mastra-turning-typescript-application-primitives-into-agent-infrastructure-og.jpg">
+  <meta property="og:image:type" content="image/jpeg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="A rough zine diagram shows a channel attachment no longer automatically adding reaction tools, while an explicit channels.getTools call enters an agent’s declared tool list.">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:site" content="@TheGitReporter">
+  <meta name="twitter:creator" content="@TheGitReporter">
+  <meta name="twitter:title" content="Mastra: turning TypeScript application primitives into agent infrastructure | The Git Reporter">
+  <meta name="twitter:description" content="Mastra’s latest channel change removes a small surprise—automatic reaction tools—but it points to the larger discipline behind its TypeScript agent framework: agents need explicit capabilities, durable state, tests, and a visible operating surface.">
+  <meta name="twitter:url" content="https://thegitreporter.com/articles/2026-07-25-daily-mastra-turning-typescript-application-primitives-into-agent-infrastructure/">
+  <meta name="twitter:domain" content="thegitreporter.com">
+  <meta name="twitter:image" content="https://thegitreporter.com/assets/social/2026-07-25-daily-mastra-turning-typescript-application-primitives-into-agent-infrastructure-og.jpg">
+  <meta name="twitter:image:alt" content="A rough zine diagram shows a channel attachment no longer automatically adding reaction tools, while an explicit channels.getTools call enters an agent’s declared tool list.">
+  <meta property="article:published_time" content="2026-07-25T12:00:00Z">
+  <meta property="article:modified_time" content="2026-07-25T12:00:00Z">
+  <meta property="article:section" content="Daily Edition">
+  <meta property="article:tag" content="Permissions">
+  <meta property="article:tag" content="Memory">
+  <meta property="article:tag" content="Tools">
+  <meta property="article:tag" content="UX">
+  <meta property="article:tag" content="mastra-ai/mastra">
+  <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"https://thegitreporter.com/#organization","name":"The Git Reporter","url":"https://thegitreporter.com","logo":{"@type":"ImageObject","url":"https://thegitreporter.com/assets/mark.svg"},"sameAs":["https://x.com/TheGitReporter"]},{"@type":"WebSite","@id":"https://thegitreporter.com/#website","name":"The Git Reporter","url":"https://thegitreporter.com","publisher":{"@id":"https://thegitreporter.com/#organization"}},{"@type":"NewsArticle","mainEntityOfPage":{"@type":"WebPage","@id":"https://thegitreporter.com/articles/2026-07-25-daily-mastra-turning-typescript-application-primitives-into-agent-infrastructure/"},"headline":"Mastra: turning TypeScript application primitives into agent infrastructure","description":"Mastra’s latest channel change removes a small surprise—automatic reaction tools—but it points to the larger discipline behind its TypeScript agent framework: agents need explicit capabilities, durable state, tests, and a visible operating surface.","image":["https://thegitreporter.com/assets/social/2026-07-25-daily-mastra-turning-typescript-application-primitives-into-agent-infrastructure-og.jpg"],"datePublished":"2026-07-25T12:00:00Z","dateModified":"2026-07-25T12:00:00Z","author":[{"@type":"Organization","name":"The Git Reporter","url":"https://thegitreporter.com"}],"publisher":{"@type":"Organization","@id":"https://thegitreporter.com/#organization","name":"The Git Reporter","url":"https://thegitreporter.com","logo":{"@type":"ImageObject","url":"https://thegitreporter.com/assets/mark.svg"},"sameAs":["https://x.com/TheGitReporter"]},"articleSection":"Daily Edition","keywords":"Permissions, Memory, Tools, UX, mastra-ai/mastra"}]}</script>
+  <link rel="icon" href="/assets/mark.svg">
+  <link rel="stylesheet" href="/assets/site.css?v=2026-07-24-ai-conversation-brief">
+  <script defer src="/assets/feedback.js?v=2026-07-24-ai-conversation-brief"></script>
+  <script defer src="/assets/conversation.js?v=2026-07-24-ai-conversation-brief"></script>
+  <script defer src="/assets/analytics.js?v=2026-07-24-ai-conversation-brief"></script>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-CH19T7M0T1"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){window.dataLayer.push(arguments);}
+    gtag("js", new Date());
+    gtag("config", "G-CH19T7M0T1");
+  </script>
+</head>
+<body>
+  <div class="site">
+    <header class="site-header" id="top">
+      <div class="wrap utility-row">
+        <a class="icon-link menu-icon" href="/archive/" aria-label="Open edition history"><span></span><span></span><span></span></a>
+        <a class="icon-link archive-icon" href="/archive/" aria-label="Open edition history"></a>
+      </div>
+      <div class="wrap masthead-lockup">
+        <a class="masthead-title" href="/">THE GIT REPORTER</a>
+        <div class="masthead-ornament" aria-hidden="true"></div>
+      </div>
+      <div class="wrap nav-wrap">
+        <nav class="paper-nav" aria-label="Primary navigation">
+    <a class="" href="/">Today</a><a class="active" href="/archive/">Editions</a><a class="" href="/about/">About</a><a class="" href="/agent-pulse/">Agent Pulse</a><a class="" href="/atlas/">Agent Atlas</a><a class="" href="/repos/">Repos</a>
+  </nav>
+        <div class="nav-rule"></div>
+      </div>
+    </header>
+    <main class="wrap page-shell article-page">
+      <section class="page-hero story-front">
+        <div class="story-topline">
+          <span>Daily Edition</span>
+          <span>Sources <strong>+6</strong></span>
+        </div>
+        <h1>Mastra: turning TypeScript application primitives into agent infrastructure</h1>
+        <p class="summary">Mastra’s latest channel change removes a small surprise—automatic reaction tools—but it points to the larger discipline behind its TypeScript agent framework: agents need explicit capabilities, durable state, tests, and a visible operating surface.</p>
+        <figure class="story-illustration article-illustration">
+    <img src="/assets/illustrations/2026-07-25-mastra-turning-typescript-application-primitives-into-agent-infrastructure-diagram-punk-v1.png" alt="A rough zine diagram shows a channel attachment no longer automatically adding reaction tools, while an explicit channels.getTools call enters an agent’s declared tool list." loading="lazy" decoding="async">
+    <figcaption><span>Diagram Punk</span>capabilities deserve a line in the tool list.</figcaption>
+  </figure>
+        <div class="receipt">
+    <div class="receipt-line">
+      <span class="receipt-icon">repo</span>
+      <span class="receipt-main">mastra-ai/mastra</span>
+      <span class="branch-pill">evidence</span>
+    </div>
+    <div class="receipt-line receipt-muted">
+      <span>6 source signals</span>
+      <span>1 repo</span>
+      <span>commit 75f843d</span>
+    </div>
+    <div class="commit-line">Evidence: commit 75f843d / July 25, 2026 / Daily Edition</div>
+  </div>
+        <div class="article-route-row">
+          <a href="/editions/2026-07-25/">Open Edition</a>
+          <a href="#evidence">Evidence below</a>
+        </div>
+      </section>
+      <section class="story-reader">
+        <article class="story-shell story-body">
+          <p>The most revealing change in a large framework is often the one that takes something away. On July 24, Mastra stopped automatically adding Slack-style reaction tools to an agent merely because the agent had channels attached. A developer who wants <code>add_reaction</code> or <code>remove_reaction</code> now has to add the output of <code>channels.getTools()</code> to the agent’s declared toolset.</p>
+
+  <p>The <a href="https://github.com/mastra-ai/mastra/commit/75f843d09f758223e6eeb321321bdcc5c7e779d0">public change</a> is not a dramatic safety announcement. It removes two reaction capabilities, corrects a documentation claim about a nonexistent sending tool, and adds tests. But its reason is unusually clear: attaching a channel silently mutated the resolved toolset. Replies did not need a tool at all; they already flowed through the channel output processor. The hidden extras were therefore both hard to see and largely unnecessary.</p>
+
+  <p>That is the right small problem for an agent framework to solve. In ordinary application code, a library that makes a configuration object quietly grant new effects is awkward. In an agent system, it is an audit problem. The model can only be evaluated, observed, and constrained against the surface its author can name.</p>
+
+  <h2>From an agent loop to an application surface</h2>
+
+  <p>Mastra describes itself as a TypeScript framework for AI-powered applications and agents. Its public repository groups together agents, graph-based workflows, memory, model routing, MCP, evaluation, storage, and observability rather than presenting one autonomous loop as the whole product. That combination is why the framework belongs in an application conversation, not simply a model-wrapper comparison.</p>
+
+  <p>The distinction becomes clearest when work has to wait. Mastra’s <a href="https://github.com/mastra-ai/mastra/blob/main/docs/src/content/en/docs/workflows/suspend-and-resume.mdx">suspend-and-resume documentation</a> treats a workflow pause as stored execution state: a step can wait for a human decision, an external callback, a cost boundary, or a timer, then return to the saved run. Its <a href="https://github.com/mastra-ai/mastra/blob/main/docs/src/content/en/docs/workflows/snapshots.mdx">snapshot model</a> names the information that must survive—step status, completed outputs, the path taken, suspended work, retries, and contextual data—and tells builders to make it serializable and keep it small.</p>
+
+  <p>Those are deliberately unglamorous primitives. They are also where a prototype becomes something an organization can operate. An agent that has access to a tool needs a declared tool list. A workflow that can pause needs a durable run identity. A model answer that changes a process needs a way to trace the prompt, tool calls, cost, and outcome. Mastra’s <a href="https://github.com/mastra-ai/mastra/blob/main/docs/src/content/en/docs/observability/overview.mdx">observability layer</a> is designed around that application view: traces, logs, metrics, and feedback share correlation IDs so an operator can follow one request across agents, workflows, and tools.</p>
+
+  <h2>Explicit tools are an operating discipline</h2>
+
+  <p>The channel patch makes that broader architecture more believable because it chooses explicitness at the narrowest point. An agent can keep a channel configuration for inbound and outbound conversation without inheriting reaction actions. If the product needs reactions, the author writes the intent:</p>
+
+  <pre><code>const channels = new AgentChannels({
+  adapters: { slack: createSlackAdapter() },
+})
+
+const agent = new Agent({
+  name: 'assistant',
+  model: 'openai/gpt-5',
+  channels,
+  tools: { ...channels.getTools() },
+})</code></pre>
+
+  <p>That extra line is not bureaucracy. It gives a reviewer a stable question: which actions did this agent have when it made the decision? The implementation removes the old automatic injection from <code>Agent.convertTools</code>, while the <a href="https://github.com/mastra-ai/mastra/blob/75f843d09f758223e6eeb321321bdcc5c7e779d0/packages/core/src/channels/__tests__/agent-channels.test.ts">channel tests</a> now distinguish a channel-bearing agent with no reaction tools from one whose author opted in. The test proves the intended configuration contract, not that any particular Slack deployment is safe or reliable.</p>
+
+  <p>Mastra takes a similar hard-line approach in its evaluation vocabulary. Its public <a href="https://github.com/mastra-ai/mastra/blob/main/docs/src/content/en/docs/evals/gates-and-verdicts.mdx">gates-and-verdicts guide</a> separates a tracked score from a hard requirement: a gate has to score 1.0, while thresholds can report a miss without hiding it. That is a useful way to build agent software. “The agent usually calls the right tool” is a metric; “the agent must not continue without the approval tool” is a contract.</p>
+
+  <h2>The boundary is technical and commercial</h2>
+
+  <p>The framework’s open-source story also needs precision. Mastra’s README says the core framework and most of the repository are Apache-2.0, while directories named <code>ee/</code> use a separate Mastra Enterprise License for production use. The boundary is visible in source, but it means an article about the repository cannot casually treat every capability mentioned in documentation or a monorepo tree as an open-source promise.</p>
+
+  <p>That caveat changes how to read the project’s ambition. Mastra is trying to make it normal for a TypeScript team to build an agent with the same kinds of artifacts it expects around a serious service: state, schemas, storage, traces, evaluation rules, and deployment choices. The recent channel patch does not prove that the framework has solved reliability, security, or deployment. It does show the design pressure is being applied in the right direction: a capability should arrive because an author declared it, not because it happened to be nearby.</p>
+
+  <p>The next evidence worth watching is whether that discipline holds at the harder boundaries—MCP actions, background workflows, human approvals, and hosted or enterprise components. A framework becomes infrastructure when an operator can answer, after the fact and before a failure, what the agent was allowed to do, what state it held, and how a test would catch a change in either answer.</p>
+        </article>
+      </section>
+      <section class="evidence-section" id="evidence" aria-labelledby="evidence-title">
+    <div class="evidence-head">
+      <div>
+        <div class="eyebrow">Evidence Trail</div>
+        <h2 id="evidence-title">Receipts below the story</h2>
+        <p>The article above is the public narrative. This section keeps the source trail and limits on the same page.</p>
+      </div>
+      <a class="paper-button" href="/editions/2026-07-25/">Edition</a>
+    </div>
+    <div class="evidence-table evidence-summary">
+      <div class="evidence-line"><span>Date</span><span>July 25, 2026</span></div>
+      <div class="evidence-line"><span>Lane</span><span>Daily Edition</span></div>
+      <div class="evidence-line"><span>Confidence</span><span>87%</span></div>
+      <div class="evidence-line"><span>Sources</span><span>6</span></div>
+      <div class="evidence-line"><span>Repos</span><span>mastra-ai/mastra</span></div>
+    </div>
+    <div class="markdown evidence-copy evidence-copy-block">
+      <h2>Primary Evidence</h2>
+<ul>
+<li>Explicit channel-tool commit: <a href="https://github.com/mastra-ai/mastra/commit/75f843d09f758223e6eeb321321bdcc5c7e779d0">https://github.com/mastra-ai/mastra/commit/75f843d09f758223e6eeb321321bdcc5c7e779d0</a>
+<ul>
+<li>Shows: channel reaction tools are no longer injected into an agent automatically; authors must explicitly pass <code>channels.getTools()</code> when they want those capabilities.
+</li>
+</ul>
+</li>
+<li>Channel configuration and test: <a href="https://github.com/mastra-ai/mastra/blob/75f843d09f758223e6eeb321321bdcc5c7e779d0/packages/core/src/channels/__tests__/agent-channels.test.ts">https://github.com/mastra-ai/mastra/blob/75f843d09f758223e6eeb321321bdcc5c7e779d0/packages/core/src/channels/__tests__/agent-channels.test.ts</a>
+<ul>
+<li>Shows: the checked behavior distinguishes a channel-bearing agent with no implicit reaction tools from an agent whose author opted in.
+</li>
+</ul>
+</li>
+<li>Workflow and snapshot documentation: <a href="https://github.com/mastra-ai/mastra/blob/main/docs/src/content/en/docs/workflows/snapshots.mdx">https://github.com/mastra-ai/mastra/blob/main/docs/src/content/en/docs/workflows/snapshots.mdx</a>
+<ul>
+<li>Shows: Mastra publicly defines durable workflow state, suspension, persistence, and resume requirements.
+</li>
+</ul>
+</li>
+<li>Evaluation and observability documentation:
+<ul>
+<li><a href="https://github.com/mastra-ai/mastra/blob/main/docs/src/content/en/docs/evals/gates-and-verdicts.mdx">https://github.com/mastra-ai/mastra/blob/main/docs/src/content/en/docs/evals/gates-and-verdicts.mdx</a>
+</li>
+<li><a href="https://github.com/mastra-ai/mastra/blob/main/docs/src/content/en/docs/observability/overview.mdx">https://github.com/mastra-ai/mastra/blob/main/docs/src/content/en/docs/observability/overview.mdx</a>
+</li>
+<li>Shows: the framework distinguishes hard test gates from tracked metrics and documents correlated traces, logs, metrics, and feedback.
+</li>
+</ul>
+</li>
+<li>Public licensing map: <a href="https://github.com/mastra-ai/mastra/blob/main/README.md">https://github.com/mastra-ai/mastra/blob/main/README.md</a>
+<ul>
+<li>Shows: core and most source are Apache-2.0 while <code>ee/</code> directories have a separate enterprise license for production use.
+</li>
+</ul>
+</li>
+</ul>
+<h2>Evidence Limits</h2>
+<ul>
+<li>These sources establish an implementation and public design, not real-world reliability, adoption, secure configuration, or universal availability of documented capabilities.
+</li>
+<li>The selected source does not justify treating enterprise-licensed directories as open-source functionality.
+</li>
+</ul>
+    </div>
+  </section>
+      <section class="ai-conversation"
+    data-tgr-ai-conversation
+    data-ai-title="Mastra: turning TypeScript application primitives into agent infrastructure"
+    data-ai-summary="Mastra’s latest channel change removes a small surprise—automatic reaction tools—but it points to the larger discipline behind its TypeScript agent framework: agents need explicit capabilities, durable state, tests, and a visible operating surface."
+    data-ai-url="https://thegitreporter.com/articles/2026-07-25-daily-mastra-turning-typescript-application-primitives-into-agent-infrastructure/#evidence"
+    data-ai-date="July 25, 2026"
+    data-ai-repos="mastra-ai/mastra"
+    data-ai-source-count="6"
+    data-ai-evidence-links="[{&quot;label&quot;:&quot;Explicit channel-tool commit&quot;,&quot;url&quot;:&quot;https://github.com/mastra-ai/mastra/commit/75f843d09f758223e6eeb321321bdcc5c7e779d0&quot;},{&quot;label&quot;:&quot;Channel configuration and test&quot;,&quot;url&quot;:&quot;https://github.com/mastra-ai/mastra/blob/75f843d09f758223e6eeb321321bdcc5c7e779d0/packages/core/src/channels/__tests__/agent-channels.test.ts&quot;},{&quot;label&quot;:&quot;Workflow and snapshot documentation&quot;,&quot;url&quot;:&quot;https://github.com/mastra-ai/mastra/blob/main/docs/src/content/en/docs/workflows/snapshots.mdx&quot;},{&quot;label&quot;:&quot;github.com&quot;,&quot;url&quot;:&quot;https://github.com/mastra-ai/mastra/blob/main/docs/src/content/en/docs/evals/gates-and-verdicts.mdx&quot;},{&quot;label&quot;:&quot;github.com&quot;,&quot;url&quot;:&quot;https://github.com/mastra-ai/mastra/blob/main/docs/src/content/en/docs/observability/overview.mdx&quot;},{&quot;label&quot;:&quot;Public licensing map&quot;,&quot;url&quot;:&quot;https://github.com/mastra-ai/mastra/blob/main/README.md&quot;}]"
+    data-ai-article-slug="2026-07-25-daily-mastra-turning-typescript-application-primitives-into-agent-infrastructure"
+    aria-labelledby="ai-conversation-2026-07-25-daily-mastra-turning-typescript-application-primitives-into-agent-infrastructure-title">
+    <div class="ai-conversation-intro">
+      <div>
+        <div class="eyebrow">Keep Digging</div>
+        <h2 id="ai-conversation-2026-07-25-daily-mastra-turning-typescript-application-primitives-into-agent-infrastructure-title">Continue with your favorite AI</h2>
+      </div>
+      <p>Carry the story’s context, evidence trail, and limits into a new conversation.</p>
+    </div>
+    <details class="ai-conversation-details">
+      <summary>
+        <span>Build a conversation brief</span>
+        <span aria-hidden="true">&rsaquo;</span>
+      </summary>
+      <div class="ai-conversation-panel">
+        <div class="ai-focus-row">
+          <span>Choose a direction</span>
+          <div class="ai-focus-options" role="group" aria-label="Choose a conversation direction">
+            <button class="ai-focus selected" type="button" data-ai-focus="explore" aria-pressed="true">Understand</button>
+            <button class="ai-focus" type="button" data-ai-focus="challenge" aria-pressed="false">Challenge</button>
+            <button class="ai-focus" type="button" data-ai-focus="apply" aria-pressed="false">Apply</button>
+          </div>
+        </div>
+        <label class="ai-prompt-label" for="ai-conversation-2026-07-25-daily-mastra-turning-typescript-application-primitives-into-agent-infrastructure-prompt">
+          <span>Editable brief</span>
+          <textarea id="ai-conversation-2026-07-25-daily-mastra-turning-typescript-application-primitives-into-agent-infrastructure-prompt" class="ai-prompt" rows="15">I’m continuing a conversation about this reported software change.
+
+Article: &quot;Mastra: turning TypeScript application primitives into agent infrastructure&quot;
+Published: July 25, 2026
+Summary: Mastra’s latest channel change removes a small surprise—automatic reaction tools—but it points to the larger discipline behind its TypeScript agent framework: agents need explicit capabilities, durable state, tests, and a visible operating surface.
+Repositories: mastra-ai/mastra
+Evidence: 6 public sources
+Article and evidence trail: https://thegitreporter.com/articles/2026-07-25-daily-mastra-turning-typescript-application-primitives-into-agent-infrastructure/#evidence
+
+Primary evidence links:
+- Explicit channel-tool commit: https://github.com/mastra-ai/mastra/commit/75f843d09f758223e6eeb321321bdcc5c7e779d0
+- Channel configuration and test: https://github.com/mastra-ai/mastra/blob/75f843d09f758223e6eeb321321bdcc5c7e779d0/packages/core/src/channels/__tests__/agent-channels.test.ts
+- Workflow and snapshot documentation: https://github.com/mastra-ai/mastra/blob/main/docs/src/content/en/docs/workflows/snapshots.mdx
+- github.com: https://github.com/mastra-ai/mastra/blob/main/docs/src/content/en/docs/evals/gates-and-verdicts.mdx
+- github.com: https://github.com/mastra-ai/mastra/blob/main/docs/src/content/en/docs/observability/overview.mdx
+- Public licensing map: https://github.com/mastra-ai/mastra/blob/main/README.md
+
+What I want to explore: Go beyond the summary and help me understand the mechanism, tradeoffs, and wider consequence.
+
+Please:
+- Read the article, Primary Evidence, and Evidence Limits before answering.
+- Separate what the public sources prove from the reporter’s interpretation and from your own inference.
+- Cite the specific evidence links you rely on.
+- Challenge the strongest claim and name any missing evidence.
+- End with 2–3 productive follow-up questions.
+
+If you cannot access the page or its links, say so and ask me to paste the relevant evidence rather than guessing.</textarea>
+        </label>
+        <div class="ai-destinations" aria-label="Copy the brief and choose an AI assistant">
+          <button class="ai-destination ai-copy-button" type="button">
+            <span>Any AI</span>
+            <strong>Copy brief</strong>
+          </button>
+          <a class="ai-destination" data-ai-provider="chatgpt" href="https://chatgpt.com/" target="_blank" rel="noopener noreferrer">
+            <span>ChatGPT</span>
+            <strong>Copy + open</strong>
+          </a>
+          <a class="ai-destination" data-ai-provider="claude" href="https://claude.ai/new" target="_blank" rel="noopener noreferrer">
+            <span>Claude</span>
+            <strong>Copy + open</strong>
+          </a>
+          <a class="ai-destination" data-ai-provider="gemini" href="https://gemini.google.com/app" target="_blank" rel="noopener noreferrer">
+            <span>Gemini</span>
+            <strong>Copy + open</strong>
+          </a>
+        </div>
+        <p class="ai-conversation-status" aria-live="polite"></p>
+        <p class="ai-conversation-note">The brief itself is copied on your device, not sent to an assistant by The Git Reporter. Review it before pasting; the service you open has its own data and privacy terms.</p>
+      </div>
+    </details>
+  </section>
+      <section class="related-edition-section atlas-context-section">
+    <div class="section-title-row">
+      <h2>Atlas Context</h2>
+      <a href="/atlas/">Open Atlas &rsaquo;</a>
+    </div>
+    <div class="updates-list">
+      <a class="article-card" href="/atlas/what-an-agent-can-see/">
+            <div class="article-meta"><span class="lane">Agent Atlas</span><span>Chapter 2</span></div>
+            <h3>The Invisible Prompt</h3>
+            <p>The model acts on an assembled viewport containing visible messages, hidden turn context, path-triggered instructions, memory records, tool schemas, permissions, and inherited state.</p>
+          </a>
+    </div>
+  </section>
+      <section class="reader-feedback"
+    data-tgr-feedback
+    data-article-slug="2026-07-25-daily-mastra-turning-typescript-application-primitives-into-agent-infrastructure"
+    data-article-title="Mastra: turning TypeScript application primitives into agent infrastructure"
+    data-article-url="/articles/2026-07-25-daily-mastra-turning-typescript-application-primitives-into-agent-infrastructure/"
+    data-edition-date="2026-07-25"
+    data-lane="Daily Edition"
+    data-tags="Permissions,Memory,Tools,UX"
+    data-repos="mastra-ai/mastra">
+    <div class="reader-feedback-head">
+      <div>
+        <div class="eyebrow">Letters &amp; Corrections</div>
+        <h2>Send a note to the desk</h2>
+      </div>
+      <p>Corrections, missing context, or a follow-up lead.</p>
+    </div>
+    <form class="feedback-form">
+      <div class="feedback-votes" role="group" aria-label="Choose signal type">
+        <button class="feedback-choice" type="button" data-vote="follow-up" aria-pressed="false">
+          <span aria-hidden="true">+</span>
+          <span>Follow-up</span>
+        </button>
+        <button class="feedback-choice" type="button" data-vote="correction" aria-pressed="false">
+          <span aria-hidden="true">!</span>
+          <span>Correction</span>
+        </button>
+      </div>
+      <label class="feedback-comment">
+        <span>Note for the editor</span>
+        <textarea name="comment" rows="3" maxlength="320" placeholder="What did we miss, or what should we follow next?"></textarea>
+      </label>
+      <div class="feedback-submit-row">
+        <p class="feedback-status" aria-live="polite"></p>
+        <button class="paper-button primary feedback-submit" type="submit">Send to desk</button>
+      </div>
+    </form>
+  </section>
+      <section class="related-edition-section">
+        <div class="section-title-row">
+          <h2>Same Edition</h2>
+          <a href="/editions/2026-07-25/">Open issue &rsaquo;</a>
+        </div>
+        <div class="updates-list">
+          <a class="update-card" href="/articles/2026-07-25-daily-child-state-cannot-be-a-checkpoint-footnote/">
+    <div class="update-stripe"></div>
+    <div class="update-main">
+      <div class="update-meta">
+        <span>Context</span>
+        <span class="source-plus">+3</span>
+        <span>Jul 25, 2026</span>
+      </div>
+      <h3>Child state cannot be a checkpoint footnote</h3>
+      <div class="update-receipt">
+        <span>microsoft/agent-framework</span>
+        <span class="branch-pill">evidence</span>
+      </div>
+      <div class="update-foot">
+        <span>3 sources</span>
+        <span>1 repo</span>
+        <span>commit 0df184e</span>
+      </div>
+    </div>
+    <span class="update-arrow" aria-hidden="true">&rsaquo;</span>
+  </a><a class="update-card" href="/articles/2026-07-25-daily-openworker-takes-the-agent-loop-out-of-the-ide/">
+    <div class="update-stripe"></div>
+    <div class="update-main">
+      <div class="update-meta">
+        <span>Context</span>
+        <span class="source-plus">+16</span>
+        <span>Jul 25, 2026</span>
+      </div>
+      <h3>OpenWorker takes the agent loop out of the IDE</h3>
+      <div class="update-receipt">
+        <span>andrewyng/openworker</span>
+        <span class="branch-pill">evidence</span>
+      </div>
+      <div class="update-foot">
+        <span>16 sources</span>
+        <span>1 repo</span>
+        <span>commit 657cf03</span>
+      </div>
+    </div>
+    <span class="update-arrow" aria-hidden="true">&rsaquo;</span>
+  </a><a class="update-card" href="/articles/2026-07-25-daily-api-discovery-let-one-model-ask-another-before-it-answers/">
+    <div class="update-stripe"></div>
+    <div class="update-main">
+      <div class="update-meta">
+        <span>Reported</span>
+        <span class="source-plus">+3</span>
+        <span>Jul 25, 2026</span>
+      </div>
+      <h3>API Discovery: Let one model ask another before it answers</h3>
+      <div class="update-receipt">
+        <span>pydantic/pydantic-ai</span>
+        <span class="branch-pill">evidence</span>
+      </div>
+      <div class="update-foot">
+        <span>3 sources</span>
+        <span>1 repo</span>
+        <span>commit 883d5a9</span>
+      </div>
+    </div>
+    <span class="update-arrow" aria-hidden="true">&rsaquo;</span>
+  </a>
+        </div>
+      </section>
+    </main>
+    <footer class="wrap site-footer">
+      <span>&copy; 2026 The Git Reporter</span>
+      <a href="/about/">About</a>
+      <a href="/agent-pulse/">Agent Pulse</a>
+      <a href="/feed.xml">RSS</a>
+      <a href="https://x.com/TheGitReporter">Follow on X</a>
+      <a href="/articles.json">Manifest JSON</a>
+      <a href="/repos/">Sources</a>
+    </footer>
+  </div>
+</body>
+</html>

@@ -1,0 +1,520 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>OpenWorker takes the agent loop out of the IDE | The Git Reporter</title>
+  <meta name="description" content="Andrew Ng and Rohit Prasad’s open beta applies the model loop, tools, approvals, memory, and durable resume familiar from coding agents to documents, calendars, and messages—but its local-first promise still stops short of a sandbox.">
+  <meta name="robots" content="index,follow">
+  <link rel="canonical" href="https://thegitreporter.com/articles/2026-07-25-daily-openworker-takes-the-agent-loop-out-of-the-ide/">
+  <link rel="alternate" type="application/rss+xml" title="The Git Reporter" href="https://thegitreporter.com/feed.xml">
+  <meta property="og:site_name" content="The Git Reporter">
+  <meta property="og:locale" content="en_US">
+  <meta property="og:title" content="OpenWorker takes the agent loop out of the IDE | The Git Reporter">
+  <meta property="og:description" content="Andrew Ng and Rohit Prasad’s open beta applies the model loop, tools, approvals, memory, and durable resume familiar from coding agents to documents, calendars, and messages—but its local-first promise still stops short of a sandbox.">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://thegitreporter.com/articles/2026-07-25-daily-openworker-takes-the-agent-loop-out-of-the-ide/">
+  <meta property="og:image" content="https://thegitreporter.com/assets/social/2026-07-25-daily-openworker-takes-the-agent-loop-out-of-the-ide-og.jpg">
+  <meta property="og:image:secure_url" content="https://thegitreporter.com/assets/social/2026-07-25-daily-openworker-takes-the-agent-loop-out-of-the-ide-og.jpg">
+  <meta property="og:image:type" content="image/jpeg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="A rough zine diagram shows an outcome entering a local model-and-tools loop, a consequential action pausing at an approval Inbox, and a host shell sitting outside any sandbox.">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:site" content="@TheGitReporter">
+  <meta name="twitter:creator" content="@TheGitReporter">
+  <meta name="twitter:title" content="OpenWorker takes the agent loop out of the IDE | The Git Reporter">
+  <meta name="twitter:description" content="Andrew Ng and Rohit Prasad’s open beta applies the model loop, tools, approvals, memory, and durable resume familiar from coding agents to documents, calendars, and messages—but its local-first promise still stops short of a sandbox.">
+  <meta name="twitter:url" content="https://thegitreporter.com/articles/2026-07-25-daily-openworker-takes-the-agent-loop-out-of-the-ide/">
+  <meta name="twitter:domain" content="thegitreporter.com">
+  <meta name="twitter:image" content="https://thegitreporter.com/assets/social/2026-07-25-daily-openworker-takes-the-agent-loop-out-of-the-ide-og.jpg">
+  <meta name="twitter:image:alt" content="A rough zine diagram shows an outcome entering a local model-and-tools loop, a consequential action pausing at an approval Inbox, and a host shell sitting outside any sandbox.">
+  <meta property="article:published_time" content="2026-07-25T12:00:00Z">
+  <meta property="article:modified_time" content="2026-07-25T12:00:00Z">
+  <meta property="article:section" content="Daily Edition">
+  <meta property="article:tag" content="Permissions">
+  <meta property="article:tag" content="Memory">
+  <meta property="article:tag" content="Delegation">
+  <meta property="article:tag" content="Tools">
+  <meta property="article:tag" content="andrewyng/openworker">
+  <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"https://thegitreporter.com/#organization","name":"The Git Reporter","url":"https://thegitreporter.com","logo":{"@type":"ImageObject","url":"https://thegitreporter.com/assets/mark.svg"},"sameAs":["https://x.com/TheGitReporter"]},{"@type":"WebSite","@id":"https://thegitreporter.com/#website","name":"The Git Reporter","url":"https://thegitreporter.com","publisher":{"@id":"https://thegitreporter.com/#organization"}},{"@type":"NewsArticle","mainEntityOfPage":{"@type":"WebPage","@id":"https://thegitreporter.com/articles/2026-07-25-daily-openworker-takes-the-agent-loop-out-of-the-ide/"},"headline":"OpenWorker takes the agent loop out of the IDE","description":"Andrew Ng and Rohit Prasad’s open beta applies the model loop, tools, approvals, memory, and durable resume familiar from coding agents to documents, calendars, and messages—but its local-first promise still stops short of a sandbox.","image":["https://thegitreporter.com/assets/social/2026-07-25-daily-openworker-takes-the-agent-loop-out-of-the-ide-og.jpg"],"datePublished":"2026-07-25T12:00:00Z","dateModified":"2026-07-25T12:00:00Z","author":[{"@type":"Organization","name":"The Git Reporter","url":"https://thegitreporter.com"}],"publisher":{"@type":"Organization","@id":"https://thegitreporter.com/#organization","name":"The Git Reporter","url":"https://thegitreporter.com","logo":{"@type":"ImageObject","url":"https://thegitreporter.com/assets/mark.svg"},"sameAs":["https://x.com/TheGitReporter"]},"articleSection":"Daily Edition","keywords":"Permissions, Memory, Delegation, Tools, andrewyng/openworker"}]}</script>
+  <link rel="icon" href="/assets/mark.svg">
+  <link rel="stylesheet" href="/assets/site.css?v=2026-07-24-ai-conversation-brief">
+  <script defer src="/assets/feedback.js?v=2026-07-24-ai-conversation-brief"></script>
+  <script defer src="/assets/conversation.js?v=2026-07-24-ai-conversation-brief"></script>
+  <script defer src="/assets/analytics.js?v=2026-07-24-ai-conversation-brief"></script>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-CH19T7M0T1"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){window.dataLayer.push(arguments);}
+    gtag("js", new Date());
+    gtag("config", "G-CH19T7M0T1");
+  </script>
+</head>
+<body>
+  <div class="site">
+    <header class="site-header" id="top">
+      <div class="wrap utility-row">
+        <a class="icon-link menu-icon" href="/archive/" aria-label="Open edition history"><span></span><span></span><span></span></a>
+        <a class="icon-link archive-icon" href="/archive/" aria-label="Open edition history"></a>
+      </div>
+      <div class="wrap masthead-lockup">
+        <a class="masthead-title" href="/">THE GIT REPORTER</a>
+        <div class="masthead-ornament" aria-hidden="true"></div>
+      </div>
+      <div class="wrap nav-wrap">
+        <nav class="paper-nav" aria-label="Primary navigation">
+    <a class="" href="/">Today</a><a class="active" href="/archive/">Editions</a><a class="" href="/about/">About</a><a class="" href="/agent-pulse/">Agent Pulse</a><a class="" href="/atlas/">Agent Atlas</a><a class="" href="/repos/">Repos</a>
+  </nav>
+        <div class="nav-rule"></div>
+      </div>
+    </header>
+    <main class="wrap page-shell article-page">
+      <section class="page-hero story-front">
+        <div class="story-topline">
+          <span>Daily Edition</span>
+          <span>Sources <strong>+16</strong></span>
+        </div>
+        <h1>OpenWorker takes the agent loop out of the IDE</h1>
+        <p class="summary">Andrew Ng and Rohit Prasad’s open beta applies the model loop, tools, approvals, memory, and durable resume familiar from coding agents to documents, calendars, and messages—but its local-first promise still stops short of a sandbox.</p>
+        <figure class="story-illustration article-illustration">
+    <img src="/assets/illustrations/2026-07-25-openworker-takes-the-agent-loop-out-of-the-ide-diagram-punk-v2.png" alt="A rough zine diagram shows an outcome entering a local model-and-tools loop, a consequential action pausing at an approval Inbox, and a host shell sitting outside any sandbox." loading="lazy" decoding="async">
+    <figcaption><span>Diagram Punk</span>attention can be routed before execution is contained.</figcaption>
+  </figure>
+        <div class="receipt">
+    <div class="receipt-line">
+      <span class="receipt-icon">repo</span>
+      <span class="receipt-main">andrewyng/openworker</span>
+      <span class="branch-pill">evidence</span>
+    </div>
+    <div class="receipt-line receipt-muted">
+      <span>16 source signals</span>
+      <span>1 repo</span>
+      <span>commit 657cf03</span>
+    </div>
+    <div class="commit-line">Evidence: commit 657cf03 / July 25, 2026 / Daily Edition</div>
+  </div>
+        <div class="article-route-row">
+          <a href="/editions/2026-07-25/">Open Edition</a>
+          <a href="#evidence">Evidence below</a>
+        </div>
+      </section>
+      <section class="story-reader">
+        <article class="story-shell story-body">
+          <p>Andrew Ng’s <a href="https://x.com/andrewyng/status/2080333504446108104">launch post</a> makes an intentionally ordinary promise: ask for a customer brief, a repaired calendar, a report, or a triaged Slack alert, and receive the finished work rather than another conversation about it. OpenWorker runs on the user’s computer, works across local files and connected services, lets the user choose an API model or Ollama, and asks before it does something consequential.</p>
+
+  <p>That sounds like a new coding agent only if “coding agent” now means the reusable machinery around one: an iterative model loop, scoped tools, a persistent workspace, permission gates, background work, and a way to resume after a human decision. OpenWorker does include a code persona with Git, shell, search, and file tools. But its main bet is larger. Ng and Rohit Prasad are taking the harness that made repository agents useful and aiming it at knowledge work that ends in a document, a sent message, or a changed calendar.</p>
+
+  <p>The distinction matters because it changes the product test. A code agent can leave a diff for review inside a version-controlled directory. A desktop coworker can cross several systems, expose private context to a model provider, and create effects that cannot be reverted with Git. OpenWorker’s most interesting design choice is an attempt to keep that broader loop moving without quietly raising its autonomy. Its largest unresolved issue is that the loop still executes on the host.</p>
+
+  <h2>The authors, and the argument behind the launch</h2>
+
+  <p>OpenWorker arrived with Ng’s reach, but it should not be read as a solo-author project. The announcement says Ng and Prasad are building it together, and the repository’s <a href="https://github.com/andrewyng/openworker/graphs/contributors">public contributor history</a> makes Prasad’s implementation role visible. Ng brings a familiar public thesis. He founded DeepLearning.AI, leads AI Fund, and previously led Google Brain and Baidu’s AI group, according to his <a href="https://www.andrewng.org/">official biography</a>. That history explains the audience for the launch; it does not substitute for reading the code.</p>
+
+  <p>The motivation is unusually well documented. Months before this release, Ng and Prasad described a small autonomous agent they had built on <a href="https://github.com/andrewyng/aisuite">aisuite</a>, their provider-neutral model interface. In Ng’s <a href="https://www.linkedin.com/posts/andrewyng_sharing-a-fun-recipe-for-building-a-highly-activity-7404934836232052736-LdDA">public account of that experiment</a>, the simple loop was moderately capable and very unreliable. The lesson was not that one more prompt would fix it. Practical agents needed scaffolding.</p>
+
+  <p>Ng sharpened the product argument in a June issue of <a href="https://www.deeplearning.ai/the-batch/issue-357">The Batch</a>: desktop agents should be used as agents, not merely as chatbots. The difference was tool access to files, browsers, messaging, and applications, wrapped in permissions and guardrails. OpenWorker is the concrete answer to both claims. The model abstraction remains aisuite-shaped; almost everything around it is an effort to turn an unreliable loop into an inspectable work system.</p>
+
+  <p>The project was publicly launched on July 23, three days after <a href="https://api.github.com/repos/andrewyng/openworker">GitHub’s repository metadata records its creation</a>. Its <a href="https://github.com/andrewyng/openworker/blob/4766e59c47c0201cbecb22b0e22cc1d0b188446b/README.md">README calls the product an open beta</a>, and the rapid succession of <a href="https://github.com/andrewyng/openworker/releases/tag/v0.1.6">early releases</a> reinforces that label. The launch post said Windows support was coming; the repository now offers Windows builds while warning that they are unsigned. The useful reading is neither “finished platform” nor “weekend demo.” It is an unusually broad first public boundary, already changing under load.</p>
+
+  <h2>Inside the loop: outcome, tools, risk, resume</h2>
+
+  <p>The desktop application is a Tauri and React interface over a local Python service. That service assembles a turn engine from an agent persona, a model provider, file and shell tools, connectors, memory, scheduling, and optional MCP tools. The <a href="https://github.com/andrewyng/openworker/blob/4766e59c47c0201cbecb22b0e22cc1d0b188446b/coworker/agents/code.py">code persona</a> is optimized for repository exploration, edits, tests, and Git. The <a href="https://github.com/andrewyng/openworker/blob/4766e59c47c0201cbecb22b0e22cc1d0b188446b/coworker/agents/cowork.py">cowork persona</a> treats one or more user-selected folders as a knowledge workspace and pushes toward a deliverable.</p>
+
+  <p>At the center, <a href="https://github.com/andrewyng/openworker/blob/4766e59c47c0201cbecb22b0e22cc1d0b188446b/coworker/engine.py">the turn engine</a> asks the model for tool calls, classifies them, authorizes each one, executes permitted calls, appends results, and continues. Read-only searches can run concurrently. Writes, shell commands, and external effects remain serialized. That is a sensible bias: parallelize inspection, but make consequential operations legible one at a time.</p>
+
+  <p>The <a href="https://github.com/andrewyng/openworker/blob/4766e59c47c0201cbecb22b0e22cc1d0b188446b/coworker/permissions.py">permission engine</a> separates discuss and plan modes, an interactive default, full-access auto mode, and a custom mode. It classifies operations as read, local write, execution, or external effect. File writes stay inside explicitly writable roots. Shell commands can be allowed for a session. Scheduled work may carry a standing rule for an exact external target, such as one tool acting on one named destination, but that mechanism deliberately does not grant standing permission to shell commands.</p>
+
+  <p>The repo changed beneath the launch story on July 24. A <a href="https://github.com/andrewyng/openworker/commit/657cf034604647dff061f7049a1cf97c40d0eaf8">boundary-hardening patch</a> replaced raw command-prefix matching with an argv-aware allowlist: it rejects shell operators and command substitution before checking an exact token prefix, and removes interpreters and package managers from the default allowlist. It also adds OAuth loopback state handling and caps WebSocket message and attachment intake. Those are meaningful reductions in accidental authority and cheap local resource abuse; they do not turn host execution into a sandbox or authenticate every local client.</p>
+
+  <p>That last distinction produces OpenWorker’s clearest original idea. In the source, <a href="https://github.com/andrewyng/openworker/blob/4766e59c47c0201cbecb22b0e22cc1d0b188446b/coworker/unattended.py">“unattended” changes where the human is reached, not the autonomy ceiling</a>. If an interactive run needs approval, the question appears inline. If an unattended or scheduled run reaches the same boundary, OpenWorker writes a durable Inbox item, suspends the agent, and waits. The approval can later arrive from the app or a configured channel, after which the run resumes.</p>
+
+  <p>This is more than notification polish. Many agent products collapse two different decisions—“keep working while I leave” and “do whatever you need”—into a single autonomy switch. OpenWorker keeps them orthogonal. Permission mode controls what the agent may do; unattended mode controls where blocked work waits for attention. Its <a href="https://github.com/andrewyng/openworker/blob/4766e59c47c0201cbecb22b0e22cc1d0b188446b/coworker/inbox.py">Inbox</a> uses stable session and tool-call identities and an idempotent pending-to-resolved transition, so a reconnect or duplicate reply should not execute the same decision twice.</p>
+
+  <h2>Local-first is an architecture, not an isolation boundary</h2>
+
+  <p>OpenWorker keeps conversations, workspaces, schedules, memory, audit records, and connector credentials on the machine. Users bring model-provider keys or select Ollama. A small cloud service brokers managed OAuth for some integrations, while manually configured credentials can keep the application signed out. The privacy claim is therefore specific rather than absolute: the control loop and state are local; data still leaves through the model providers and integrations the user chooses.</p>
+
+  <p>The model layer stands out for a different reason. Provider independence is structural, not a settings-page flourish: the same engine is assembled against aisuite-compatible providers. That lets OpenWorker compete on the harness instead of assuming one model vendor owns the whole product. It also makes evaluation harder. A broad provider menu creates more combinations of tool-call formats, context limits, latency, and failure behavior that the project must either test or explicitly bound.</p>
+
+  <p>Memory is similarly direct. OpenWorker <a href="https://github.com/andrewyng/openworker/blob/4766e59c47c0201cbecb22b0e22cc1d0b188446b/coworker/memory/sqlite_store.py">stores explicit memories in SQLite</a> with global, workspace, and session scopes, then makes relevant records available to the agent. That is inspectable and easy to delete, which is preferable to pretending an opaque embedding store is infallible. It is not yet a mature retrieval system: as memories accumulate, the project will need policies for relevance, expiry, conflicts, and how much old context enters a new decision.</p>
+
+  <p>The sharper limitation appears at execution. OpenWorker’s <a href="https://github.com/andrewyng/openworker/blob/4766e59c47c0201cbecb22b0e22cc1d0b188446b/coworker/tools/shell.py">current executor</a> runs an operating-system-native Bash or PowerShell process. Its own source says safety comes from approvals, timeouts, and best-effort non-interactive behavior, and names a future container or virtual-machine executor as the intended hedge. File roots constrain the project’s own write tools; they do not contain an approved shell process with the user’s operating-system privileges.</p>
+
+  <p>The local service deserves the same precision. It binds to loopback and rejects unapproved browser origins, but the inspected <a href="https://github.com/andrewyng/openworker/blob/4766e59c47c0201cbecb22b0e22cc1d0b188446b/coworker/server/app.py">WebSocket session route</a> does not require a per-install or per-session authentication token. An <a href="https://github.com/andrewyng/openworker/issues/40">independent public issue</a> has raised the resulting local-process threat. Origin checks help against a hostile web page; they do not authenticate another process already running as the user. For an agent capable of reaching shell, files, and connected services, that boundary needs hardening before “localhost” can be treated as trust.</p>
+
+  <p>Credential storage is also honestly early. The <a href="https://github.com/andrewyng/openworker/blob/4766e59c47c0201cbecb22b0e22cc1d0b188446b/coworker/secrets.py">secret-store interface</a> keeps values out of model prompts and restricts its JSON file to the user account, including Windows ACL handling. The file is still plaintext; the source explicitly leaves Keychain or an encrypted backend for later. An open beta can make that tradeoff. A desktop coworker that aggregates provider and connector credentials cannot leave it there.</p>
+
+  <h2>What mature projects make visible</h2>
+
+  <p>The fairest comparison is not a feature-count table. OpenWorker overlaps three established product shapes, and each reveals a different missing boundary.</p>
+
+  <h3>OpenHands: a coding system with a runtime boundary</h3>
+
+  <p><a href="https://docs.openhands.dev/sdk/index">OpenHands</a> remains purpose-built for software work: repository tools, an agent SDK and server, reusable components, and an evaluation culture tied to coding tasks. Its standard <a href="https://docs.openhands.dev/openhands/usage/architecture/runtime">Docker runtime</a> executes arbitrary code behind a client-server boundary, providing a consistent environment and resource isolation. Its <a href="https://docs.openhands.dev/sdk/guides/security">security layer</a> can also analyze actions and request confirmation.</p>
+
+  <p>OpenWorker is broader and more personal. It treats calendars, messages, documents, and scheduled routines as first-class outcomes, and its durable approval Inbox is more directly designed around a person leaving the app. But OpenHands shows what a mature coding-agent claim eventually demands: execution containment, programmable interfaces, repeatable benchmarks, and tests of task completion—not only a permission dialog around native execution.</p>
+
+  <h3>OpenWork: a nearby desktop idea with a host model</h3>
+
+  <p><a href="https://github.com/different-ai/openwork">OpenWork</a> is the closest product comparison: an open desktop surface for doing agent work on local files, powered by OpenCode. Its architecture separates desktop client, orchestrator, server, and agent runtime; supports host and remote-client modes; exposes session events; packages reusable templates and skills; and has developed explicit machinery for debug exports, sidecar verification, and container-backed hosting.</p>
+
+  <p>OpenWorker differs at the center. It owns its Python agent engine rather than packaging an existing coding runtime, makes model independence a first-order choice, and treats everyday SaaS actions as part of the same loop. Its “unattended is attention routing” rule is also clearer than a generic background mode. OpenWork, however, demonstrates the operational surface that appears once a desktop agent becomes shareable: authenticated clients, verifiable sidecars, deployable hosts, export safety, and a boundary between interface and worker.</p>
+
+  <h3>OpenClaw: a general assistant with explicit host-risk machinery</h3>
+
+  <p><a href="https://docs.openclaw.ai/">OpenClaw</a> provides the broader personal-agent comparison: messaging surfaces, tools, sessions, scheduled work, and a large integration perimeter. Its sandbox is <a href="https://docs.openclaw.ai/gateway/sandboxing">optional rather than universally on</a>, so its defaults should not be romanticized. But the project has made the host-versus-sandbox choice explicit, and its <a href="https://docs.openclaw.ai/tools/exec-approvals">execution approvals</a> can bind policy to parsed command details such as executable, arguments, working directory, environment, and file identity.</p>
+
+  <p>OpenWorker has now made the allowlist less naive: its July 24 patch rejects shell operators and command substitution before applying an argv-aware prefix rule, and it no longer auto-allows interpreters. That is a concrete improvement over string matching. The remaining comparison is still useful: show the effective operation to the user, keep policy legible as commands grow more complex, authenticate the local control path, and pair approval with containment. OpenWorker’s advantage is a less sprawling desktop product and a strong outcome-first story; OpenClaw shows the security machinery accumulated when a general agent lives near real accounts for longer.</p>
+
+  <h2>What stands out—and what must improve</h2>
+
+  <p>OpenWorker already has a coherent answer to a problem many agents obscure: how can work continue without making human absence equivalent to unlimited permission? Durable suspension, a cross-session Inbox, exact-target standing rules for external actions, and serialized consequential tools form a credible design. The code and cowork personas sharing one engine also make the product thesis falsifiable. If the same harness can reliably produce a report and repair a repository, the agent loop really has become a general work primitive.</p>
+
+  <p>The next phase should be less about adding connector logos and more about proving the boundary:</p>
+
+  <ul>
+    <li><strong>Contain execution.</strong> Ship the executor abstraction’s promised container or VM implementation, make the chosen boundary visible, and test what an approved shell command still cannot reach.</li>
+    <li><strong>Authenticate the sidecar.</strong> Add installation- or session-bound credentials to local HTTP and WebSocket control paths, not only origin filtering.</li>
+    <li><strong>Harden secrets and authorization.</strong> Move connector keys into platform key stores or encrypted storage, keep extending the new argv-aware policy rather than treating it as containment, and threat-model OAuth, prompt injection, and connector egress as one system.</li>
+    <li><strong>Publish reliability evidence.</strong> The repository contains backend, interface, and end-to-end tests, but users also need scenario evaluations: task completion, approval correctness, duplicate-effect prevention, recovery after restart, model-by-model behavior, and false confidence on partial deliverables.</li>
+    <li><strong>Narrow before widening.</strong> Large central server and connector modules make an ambitious beta harder to audit. Clearer component boundaries, typed contracts, coverage gates, signed builds, and honest per-connector readiness would be more valuable than another nominal integration.</li>
+  </ul>
+
+  <p>The launch is worth attention because the project does not merely put chat beside a file browser. It has encoded a view of agency: outcomes over answers, local state over mandatory cloud custody, provider choice over model lock-in, and a human-attention queue instead of silent escalation. Those choices are meaningful even if OpenWorker never becomes the dominant desktop agent.</p>
+
+  <p>The next evidence to watch is not the star count. It is whether the team turns its open interfaces into hard boundaries: sandboxed execution, authenticated local control, encrypted secrets, reproducible evaluations, and public failure data across models and connectors. OpenWorker has taken the agent loop out of the IDE. Now it has to prove that the loop can live on a desktop without inheriting the whole desktop’s authority.</p>
+        </article>
+      </section>
+      <section class="evidence-section" id="evidence" aria-labelledby="evidence-title">
+    <div class="evidence-head">
+      <div>
+        <div class="eyebrow">Evidence Trail</div>
+        <h2 id="evidence-title">Receipts below the story</h2>
+        <p>The article above is the public narrative. This section keeps the source trail and limits on the same page.</p>
+      </div>
+      <a class="paper-button" href="/editions/2026-07-25/">Edition</a>
+    </div>
+    <div class="evidence-table evidence-summary">
+      <div class="evidence-line"><span>Date</span><span>July 25, 2026</span></div>
+      <div class="evidence-line"><span>Lane</span><span>Daily Edition</span></div>
+      <div class="evidence-line"><span>Confidence</span><span>91%</span></div>
+      <div class="evidence-line"><span>Sources</span><span>16</span></div>
+      <div class="evidence-line"><span>Repos</span><span>andrewyng/openworker</span></div>
+    </div>
+    <div class="markdown evidence-copy evidence-copy-block">
+      <h2>Primary Evidence</h2>
+<ul>
+<li>Launch post: <a href="https://x.com/andrewyng/status/2080333504446108104">https://x.com/andrewyng/status/2080333504446108104</a>
+<ul>
+<li>Shows: the finished-work promise, local/model-independent positioning, consequential-action check-ins, and that Andrew Ng and Rohit Prasad are building OpenWorker together.
+</li>
+</ul>
+</li>
+<li>OpenWorker README at inspected head: <a href="https://github.com/andrewyng/openworker/blob/4766e59c47c0201cbecb22b0e22cc1d0b188446b/README.md">https://github.com/andrewyng/openworker/blob/4766e59c47c0201cbecb22b0e22cc1d0b188446b/README.md</a>
+<ul>
+<li>Shows: open-beta status, architecture, code and cowork agents, integrations, scheduling, privacy qualifications, platform state, and source/test layout.
+</li>
+</ul>
+</li>
+<li>GitHub repository metadata: <a href="https://api.github.com/repos/andrewyng/openworker">https://api.github.com/repos/andrewyng/openworker</a>
+<ul>
+<li>Shows: the public repository creation time used to date the launch sequence.
+</li>
+</ul>
+</li>
+<li>Ng’s earlier aisuite-agent account: <a href="https://www.linkedin.com/posts/andrewyng_sharing-a-fun-recipe-for-building-a-highly-activity-7404934836232052736-LdDA">https://www.linkedin.com/posts/andrewyng_sharing-a-fun-recipe-for-building-a-highly-activity-7404934836232052736-LdDA</a>
+<ul>
+<li>Shows: the motivating experience that a small autonomous agent loop was capable but unreliable and needed more scaffolding.
+</li>
+</ul>
+</li>
+<li>“Agents on the Desktop,” The Batch issue 357: <a href="https://www.deeplearning.ai/the-batch/issue-357">https://www.deeplearning.ai/the-batch/issue-357</a>
+<ul>
+<li>Shows: Ng’s public case for desktop agents with tools, permissions, and guardrails rather than chat-only use.
+</li>
+</ul>
+</li>
+<li>Permission engine: <a href="https://github.com/andrewyng/openworker/blob/4766e59c47c0201cbecb22b0e22cc1d0b188446b/coworker/permissions.py">https://github.com/andrewyng/openworker/blob/4766e59c47c0201cbecb22b0e22cc1d0b188446b/coworker/permissions.py</a>
+<ul>
+<li>Shows: permission modes, path scoping, command rules, session grants, and exact-target rules for scheduled external actions.
+</li>
+</ul>
+</li>
+<li>July 24 boundary hardening: <a href="https://github.com/andrewyng/openworker/commit/657cf034604647dff061f7049a1cf97c40d0eaf8">https://github.com/andrewyng/openworker/commit/657cf034604647dff061f7049a1cf97c40d0eaf8</a>
+<ul>
+<li>Shows: the project replaced raw prefix matching with argv-aware allowlisting, rejects shell operators and command substitution before matching, removes interpreters from the default allowlist, verifies OAuth loopback state, and caps WebSocket input.
+</li>
+</ul>
+</li>
+<li>Unattended-mode source: <a href="https://github.com/andrewyng/openworker/blob/4766e59c47c0201cbecb22b0e22cc1d0b188446b/coworker/unattended.py">https://github.com/andrewyng/openworker/blob/4766e59c47c0201cbecb22b0e22cc1d0b188446b/coworker/unattended.py</a>
+<ul>
+<li>Shows: unattended mode redirects human attention without changing the permission ceiling.
+</li>
+</ul>
+</li>
+<li>Host executor: <a href="https://github.com/andrewyng/openworker/blob/4766e59c47c0201cbecb22b0e22cc1d0b188446b/coworker/tools/shell.py">https://github.com/andrewyng/openworker/blob/4766e59c47c0201cbecb22b0e22cc1d0b188446b/coworker/tools/shell.py</a>
+<ul>
+<li>Shows: current Bash/PowerShell execution is host-native and a container/VM executor remains future work.
+</li>
+</ul>
+</li>
+<li>Local WebSocket route and independent issue:
+<ul>
+<li><a href="https://github.com/andrewyng/openworker/blob/4766e59c47c0201cbecb22b0e22cc1d0b188446b/coworker/server/app.py">https://github.com/andrewyng/openworker/blob/4766e59c47c0201cbecb22b0e22cc1d0b188446b/coworker/server/app.py</a>
+</li>
+<li><a href="https://github.com/andrewyng/openworker/issues/40">https://github.com/andrewyng/openworker/issues/40</a>
+</li>
+<li>Shows: the current Origin gate, absent per-session token on the inspected path, and a public report of the local-process threat.
+</li>
+</ul>
+</li>
+<li>Secret store: <a href="https://github.com/andrewyng/openworker/blob/4766e59c47c0201cbecb22b0e22cc1d0b188446b/coworker/secrets.py">https://github.com/andrewyng/openworker/blob/4766e59c47c0201cbecb22b0e22cc1d0b188446b/coworker/secrets.py</a>
+<ul>
+<li>Shows: values are kept out of prompts and restricted to the user account, but the current JSON backend is plaintext and names encrypted/keychain storage as future work.
+</li>
+</ul>
+</li>
+<li>Mature-project comparison sources:
+<ul>
+<li><a href="https://docs.openhands.dev/openhands/usage/architecture/runtime">https://docs.openhands.dev/openhands/usage/architecture/runtime</a>
+</li>
+<li><a href="https://github.com/different-ai/openwork/blob/dev/ARCHITECTURE.md">https://github.com/different-ai/openwork/blob/dev/ARCHITECTURE.md</a>
+</li>
+<li><a href="https://docs.openclaw.ai/gateway/sandboxing">https://docs.openclaw.ai/gateway/sandboxing</a>
+</li>
+<li><a href="https://docs.openclaw.ai/tools/exec-approvals">https://docs.openclaw.ai/tools/exec-approvals</a>
+</li>
+<li>Show: container runtime isolation, desktop host/client separation, and more developed sandbox/host-execution policy surfaces.
+</li>
+</ul>
+</li>
+</ul>
+<h2>Evidence Limits</h2>
+<ul>
+<li>The sources establish design and inspected implementation, not adoption, production readiness, universal connector behavior, successful task completion, or safety under hostile inputs. The July 24 patch narrows several concrete risks but does not add a sandbox or an authenticated local-client handshake.
+</li>
+<li>OpenWorker is an open beta only days into its public life. Popularity and release velocity are not reliability evidence.
+</li>
+<li>The next decisive public evidence would be a sandboxed executor, authenticated local control paths, encrypted credential storage, signed platform builds, and reproducible completion-and-recovery evaluations across supported models and connectors.
+</li>
+</ul>
+    </div>
+  </section>
+      <section class="ai-conversation"
+    data-tgr-ai-conversation
+    data-ai-title="OpenWorker takes the agent loop out of the IDE"
+    data-ai-summary="Andrew Ng and Rohit Prasad’s open beta applies the model loop, tools, approvals, memory, and durable resume familiar from coding agents to documents, calendars, and messages—but its local-first promise still stops short of a sandbox."
+    data-ai-url="https://thegitreporter.com/articles/2026-07-25-daily-openworker-takes-the-agent-loop-out-of-the-ide/#evidence"
+    data-ai-date="July 25, 2026"
+    data-ai-repos="andrewyng/openworker"
+    data-ai-source-count="16"
+    data-ai-evidence-links="[{&quot;label&quot;:&quot;Launch post&quot;,&quot;url&quot;:&quot;https://x.com/andrewyng/status/2080333504446108104&quot;},{&quot;label&quot;:&quot;OpenWorker README at inspected head&quot;,&quot;url&quot;:&quot;https://github.com/andrewyng/openworker/blob/4766e59c47c0201cbecb22b0e22cc1d0b188446b/README.md&quot;},{&quot;label&quot;:&quot;GitHub repository metadata&quot;,&quot;url&quot;:&quot;https://api.github.com/repos/andrewyng/openworker&quot;},{&quot;label&quot;:&quot;Ng’s earlier aisuite-agent account&quot;,&quot;url&quot;:&quot;https://www.linkedin.com/posts/andrewyng_sharing-a-fun-recipe-for-building-a-highly-activity-7404934836232052736-LdDA&quot;},{&quot;label&quot;:&quot;“Agents on the Desktop,” The Batch issue 357&quot;,&quot;url&quot;:&quot;https://www.deeplearning.ai/the-batch/issue-357&quot;},{&quot;label&quot;:&quot;Permission engine&quot;,&quot;url&quot;:&quot;https://github.com/andrewyng/openworker/blob/4766e59c47c0201cbecb22b0e22cc1d0b188446b/coworker/permissions.py&quot;}]"
+    data-ai-article-slug="2026-07-25-daily-openworker-takes-the-agent-loop-out-of-the-ide"
+    aria-labelledby="ai-conversation-2026-07-25-daily-openworker-takes-the-agent-loop-out-of-the-ide-title">
+    <div class="ai-conversation-intro">
+      <div>
+        <div class="eyebrow">Keep Digging</div>
+        <h2 id="ai-conversation-2026-07-25-daily-openworker-takes-the-agent-loop-out-of-the-ide-title">Continue with your favorite AI</h2>
+      </div>
+      <p>Carry the story’s context, evidence trail, and limits into a new conversation.</p>
+    </div>
+    <details class="ai-conversation-details">
+      <summary>
+        <span>Build a conversation brief</span>
+        <span aria-hidden="true">&rsaquo;</span>
+      </summary>
+      <div class="ai-conversation-panel">
+        <div class="ai-focus-row">
+          <span>Choose a direction</span>
+          <div class="ai-focus-options" role="group" aria-label="Choose a conversation direction">
+            <button class="ai-focus selected" type="button" data-ai-focus="explore" aria-pressed="true">Understand</button>
+            <button class="ai-focus" type="button" data-ai-focus="challenge" aria-pressed="false">Challenge</button>
+            <button class="ai-focus" type="button" data-ai-focus="apply" aria-pressed="false">Apply</button>
+          </div>
+        </div>
+        <label class="ai-prompt-label" for="ai-conversation-2026-07-25-daily-openworker-takes-the-agent-loop-out-of-the-ide-prompt">
+          <span>Editable brief</span>
+          <textarea id="ai-conversation-2026-07-25-daily-openworker-takes-the-agent-loop-out-of-the-ide-prompt" class="ai-prompt" rows="15">I’m continuing a conversation about this reported software change.
+
+Article: &quot;OpenWorker takes the agent loop out of the IDE&quot;
+Published: July 25, 2026
+Summary: Andrew Ng and Rohit Prasad’s open beta applies the model loop, tools, approvals, memory, and durable resume familiar from coding agents to documents, calendars, and messages—but its local-first promise still stops short of a sandbox.
+Repositories: andrewyng/openworker
+Evidence: 16 public sources
+Article and evidence trail: https://thegitreporter.com/articles/2026-07-25-daily-openworker-takes-the-agent-loop-out-of-the-ide/#evidence
+
+Primary evidence links:
+- Launch post: https://x.com/andrewyng/status/2080333504446108104
+- OpenWorker README at inspected head: https://github.com/andrewyng/openworker/blob/4766e59c47c0201cbecb22b0e22cc1d0b188446b/README.md
+- GitHub repository metadata: https://api.github.com/repos/andrewyng/openworker
+- Ng’s earlier aisuite-agent account: https://www.linkedin.com/posts/andrewyng_sharing-a-fun-recipe-for-building-a-highly-activity-7404934836232052736-LdDA
+- “Agents on the Desktop,” The Batch issue 357: https://www.deeplearning.ai/the-batch/issue-357
+- Permission engine: https://github.com/andrewyng/openworker/blob/4766e59c47c0201cbecb22b0e22cc1d0b188446b/coworker/permissions.py
+
+What I want to explore: Go beyond the summary and help me understand the mechanism, tradeoffs, and wider consequence.
+
+Please:
+- Read the article, Primary Evidence, and Evidence Limits before answering.
+- Separate what the public sources prove from the reporter’s interpretation and from your own inference.
+- Cite the specific evidence links you rely on.
+- Challenge the strongest claim and name any missing evidence.
+- End with 2–3 productive follow-up questions.
+
+If you cannot access the page or its links, say so and ask me to paste the relevant evidence rather than guessing.</textarea>
+        </label>
+        <div class="ai-destinations" aria-label="Copy the brief and choose an AI assistant">
+          <button class="ai-destination ai-copy-button" type="button">
+            <span>Any AI</span>
+            <strong>Copy brief</strong>
+          </button>
+          <a class="ai-destination" data-ai-provider="chatgpt" href="https://chatgpt.com/" target="_blank" rel="noopener noreferrer">
+            <span>ChatGPT</span>
+            <strong>Copy + open</strong>
+          </a>
+          <a class="ai-destination" data-ai-provider="claude" href="https://claude.ai/new" target="_blank" rel="noopener noreferrer">
+            <span>Claude</span>
+            <strong>Copy + open</strong>
+          </a>
+          <a class="ai-destination" data-ai-provider="gemini" href="https://gemini.google.com/app" target="_blank" rel="noopener noreferrer">
+            <span>Gemini</span>
+            <strong>Copy + open</strong>
+          </a>
+        </div>
+        <p class="ai-conversation-status" aria-live="polite"></p>
+        <p class="ai-conversation-note">The brief itself is copied on your device, not sent to an assistant by The Git Reporter. Review it before pasting; the service you open has its own data and privacy terms.</p>
+      </div>
+    </details>
+  </section>
+      <section class="related-edition-section atlas-context-section">
+    <div class="section-title-row">
+      <h2>Atlas Context</h2>
+      <a href="/atlas/">Open Atlas &rsaquo;</a>
+    </div>
+    <div class="updates-list">
+      <a class="article-card" href="/atlas/the-loop/">
+            <div class="article-meta"><span class="lane">Agent Atlas</span><span>Chapter 4</span></div>
+            <h3>Loops, Workflows, and Recovery</h3>
+            <p>Repeated model-tool interaction is only one control structure. Production runtimes combine probabilistic loops with host-defined workflows, queues, interrupts, terminal states, and recovery operations.</p>
+          </a>
+    </div>
+  </section>
+      <section class="reader-feedback"
+    data-tgr-feedback
+    data-article-slug="2026-07-25-daily-openworker-takes-the-agent-loop-out-of-the-ide"
+    data-article-title="OpenWorker takes the agent loop out of the IDE"
+    data-article-url="/articles/2026-07-25-daily-openworker-takes-the-agent-loop-out-of-the-ide/"
+    data-edition-date="2026-07-25"
+    data-lane="Daily Edition"
+    data-tags="Permissions,Memory,Delegation,Tools"
+    data-repos="andrewyng/openworker">
+    <div class="reader-feedback-head">
+      <div>
+        <div class="eyebrow">Letters &amp; Corrections</div>
+        <h2>Send a note to the desk</h2>
+      </div>
+      <p>Corrections, missing context, or a follow-up lead.</p>
+    </div>
+    <form class="feedback-form">
+      <div class="feedback-votes" role="group" aria-label="Choose signal type">
+        <button class="feedback-choice" type="button" data-vote="follow-up" aria-pressed="false">
+          <span aria-hidden="true">+</span>
+          <span>Follow-up</span>
+        </button>
+        <button class="feedback-choice" type="button" data-vote="correction" aria-pressed="false">
+          <span aria-hidden="true">!</span>
+          <span>Correction</span>
+        </button>
+      </div>
+      <label class="feedback-comment">
+        <span>Note for the editor</span>
+        <textarea name="comment" rows="3" maxlength="320" placeholder="What did we miss, or what should we follow next?"></textarea>
+      </label>
+      <div class="feedback-submit-row">
+        <p class="feedback-status" aria-live="polite"></p>
+        <button class="paper-button primary feedback-submit" type="submit">Send to desk</button>
+      </div>
+    </form>
+  </section>
+      <section class="related-edition-section">
+        <div class="section-title-row">
+          <h2>Same Edition</h2>
+          <a href="/editions/2026-07-25/">Open issue &rsaquo;</a>
+        </div>
+        <div class="updates-list">
+          <a class="update-card" href="/articles/2026-07-25-daily-child-state-cannot-be-a-checkpoint-footnote/">
+    <div class="update-stripe"></div>
+    <div class="update-main">
+      <div class="update-meta">
+        <span>Context</span>
+        <span class="source-plus">+3</span>
+        <span>Jul 25, 2026</span>
+      </div>
+      <h3>Child state cannot be a checkpoint footnote</h3>
+      <div class="update-receipt">
+        <span>microsoft/agent-framework</span>
+        <span class="branch-pill">evidence</span>
+      </div>
+      <div class="update-foot">
+        <span>3 sources</span>
+        <span>1 repo</span>
+        <span>commit 0df184e</span>
+      </div>
+    </div>
+    <span class="update-arrow" aria-hidden="true">&rsaquo;</span>
+  </a><a class="update-card" href="/articles/2026-07-25-daily-mastra-turning-typescript-application-primitives-into-agent-infrastructure/">
+    <div class="update-stripe"></div>
+    <div class="update-main">
+      <div class="update-meta">
+        <span>Context</span>
+        <span class="source-plus">+6</span>
+        <span>Jul 25, 2026</span>
+      </div>
+      <h3>Mastra: turning TypeScript application primitives into agent infrastructure</h3>
+      <div class="update-receipt">
+        <span>mastra-ai/mastra</span>
+        <span class="branch-pill">evidence</span>
+      </div>
+      <div class="update-foot">
+        <span>6 sources</span>
+        <span>1 repo</span>
+        <span>commit 75f843d</span>
+      </div>
+    </div>
+    <span class="update-arrow" aria-hidden="true">&rsaquo;</span>
+  </a><a class="update-card" href="/articles/2026-07-25-daily-api-discovery-let-one-model-ask-another-before-it-answers/">
+    <div class="update-stripe"></div>
+    <div class="update-main">
+      <div class="update-meta">
+        <span>Reported</span>
+        <span class="source-plus">+3</span>
+        <span>Jul 25, 2026</span>
+      </div>
+      <h3>API Discovery: Let one model ask another before it answers</h3>
+      <div class="update-receipt">
+        <span>pydantic/pydantic-ai</span>
+        <span class="branch-pill">evidence</span>
+      </div>
+      <div class="update-foot">
+        <span>3 sources</span>
+        <span>1 repo</span>
+        <span>commit 883d5a9</span>
+      </div>
+    </div>
+    <span class="update-arrow" aria-hidden="true">&rsaquo;</span>
+  </a>
+        </div>
+      </section>
+    </main>
+    <footer class="wrap site-footer">
+      <span>&copy; 2026 The Git Reporter</span>
+      <a href="/about/">About</a>
+      <a href="/agent-pulse/">Agent Pulse</a>
+      <a href="/feed.xml">RSS</a>
+      <a href="https://x.com/TheGitReporter">Follow on X</a>
+      <a href="/articles.json">Manifest JSON</a>
+      <a href="/repos/">Sources</a>
+    </footer>
+  </div>
+</body>
+</html>

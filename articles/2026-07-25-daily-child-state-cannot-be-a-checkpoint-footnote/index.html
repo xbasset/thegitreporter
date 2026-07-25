@@ -1,0 +1,390 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Child state cannot be a checkpoint footnote | The Git Reporter</title>
+  <meta name="description" content="Microsoft Agent Framework has fixed a recovery gap in nested Python workflows: a parent checkpoint can now carry the child workflow’s own state, rather than resuming with only a remembered request.">
+  <meta name="robots" content="index,follow">
+  <link rel="canonical" href="https://thegitreporter.com/articles/2026-07-25-daily-child-state-cannot-be-a-checkpoint-footnote/">
+  <link rel="alternate" type="application/rss+xml" title="The Git Reporter" href="https://thegitreporter.com/feed.xml">
+  <meta property="og:site_name" content="The Git Reporter">
+  <meta property="og:locale" content="en_US">
+  <meta property="og:title" content="Child state cannot be a checkpoint footnote | The Git Reporter">
+  <meta property="og:description" content="Microsoft Agent Framework has fixed a recovery gap in nested Python workflows: a parent checkpoint can now carry the child workflow’s own state, rather than resuming with only a remembered request.">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://thegitreporter.com/articles/2026-07-25-daily-child-state-cannot-be-a-checkpoint-footnote/">
+  <meta property="og:image" content="https://thegitreporter.com/assets/social/2026-07-25-daily-child-state-cannot-be-a-checkpoint-footnote-og.jpg">
+  <meta property="og:image:secure_url" content="https://thegitreporter.com/assets/social/2026-07-25-daily-child-state-cannot-be-a-checkpoint-footnote-og.jpg">
+  <meta property="og:image:type" content="image/jpeg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="A rough zine diagram contrasts a parent checkpoint that restores only pending requests with one that returns a labeled sub-workflow checkpoint to a child process.">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:site" content="@TheGitReporter">
+  <meta name="twitter:creator" content="@TheGitReporter">
+  <meta name="twitter:title" content="Child state cannot be a checkpoint footnote | The Git Reporter">
+  <meta name="twitter:description" content="Microsoft Agent Framework has fixed a recovery gap in nested Python workflows: a parent checkpoint can now carry the child workflow’s own state, rather than resuming with only a remembered request.">
+  <meta name="twitter:url" content="https://thegitreporter.com/articles/2026-07-25-daily-child-state-cannot-be-a-checkpoint-footnote/">
+  <meta name="twitter:domain" content="thegitreporter.com">
+  <meta name="twitter:image" content="https://thegitreporter.com/assets/social/2026-07-25-daily-child-state-cannot-be-a-checkpoint-footnote-og.jpg">
+  <meta name="twitter:image:alt" content="A rough zine diagram contrasts a parent checkpoint that restores only pending requests with one that returns a labeled sub-workflow checkpoint to a child process.">
+  <meta property="article:published_time" content="2026-07-25T12:00:00Z">
+  <meta property="article:modified_time" content="2026-07-25T12:00:00Z">
+  <meta property="article:section" content="Daily Edition">
+  <meta property="article:tag" content="Permissions">
+  <meta property="article:tag" content="Memory">
+  <meta property="article:tag" content="Delegation">
+  <meta property="article:tag" content="Tools">
+  <meta property="article:tag" content="microsoft/agent-framework">
+  <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"https://thegitreporter.com/#organization","name":"The Git Reporter","url":"https://thegitreporter.com","logo":{"@type":"ImageObject","url":"https://thegitreporter.com/assets/mark.svg"},"sameAs":["https://x.com/TheGitReporter"]},{"@type":"WebSite","@id":"https://thegitreporter.com/#website","name":"The Git Reporter","url":"https://thegitreporter.com","publisher":{"@id":"https://thegitreporter.com/#organization"}},{"@type":"NewsArticle","mainEntityOfPage":{"@type":"WebPage","@id":"https://thegitreporter.com/articles/2026-07-25-daily-child-state-cannot-be-a-checkpoint-footnote/"},"headline":"Child state cannot be a checkpoint footnote","description":"Microsoft Agent Framework has fixed a recovery gap in nested Python workflows: a parent checkpoint can now carry the child workflow’s own state, rather than resuming with only a remembered request.","image":["https://thegitreporter.com/assets/social/2026-07-25-daily-child-state-cannot-be-a-checkpoint-footnote-og.jpg"],"datePublished":"2026-07-25T12:00:00Z","dateModified":"2026-07-25T12:00:00Z","author":[{"@type":"Organization","name":"The Git Reporter","url":"https://thegitreporter.com"}],"publisher":{"@type":"Organization","@id":"https://thegitreporter.com/#organization","name":"The Git Reporter","url":"https://thegitreporter.com","logo":{"@type":"ImageObject","url":"https://thegitreporter.com/assets/mark.svg"},"sameAs":["https://x.com/TheGitReporter"]},"articleSection":"Daily Edition","keywords":"Permissions, Memory, Delegation, Tools, microsoft/agent-framework"}]}</script>
+  <link rel="icon" href="/assets/mark.svg">
+  <link rel="stylesheet" href="/assets/site.css?v=2026-07-24-ai-conversation-brief">
+  <script defer src="/assets/feedback.js?v=2026-07-24-ai-conversation-brief"></script>
+  <script defer src="/assets/conversation.js?v=2026-07-24-ai-conversation-brief"></script>
+  <script defer src="/assets/analytics.js?v=2026-07-24-ai-conversation-brief"></script>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-CH19T7M0T1"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){window.dataLayer.push(arguments);}
+    gtag("js", new Date());
+    gtag("config", "G-CH19T7M0T1");
+  </script>
+</head>
+<body>
+  <div class="site">
+    <header class="site-header" id="top">
+      <div class="wrap utility-row">
+        <a class="icon-link menu-icon" href="/archive/" aria-label="Open edition history"><span></span><span></span><span></span></a>
+        <a class="icon-link archive-icon" href="/archive/" aria-label="Open edition history"></a>
+      </div>
+      <div class="wrap masthead-lockup">
+        <a class="masthead-title" href="/">THE GIT REPORTER</a>
+        <div class="masthead-ornament" aria-hidden="true"></div>
+      </div>
+      <div class="wrap nav-wrap">
+        <nav class="paper-nav" aria-label="Primary navigation">
+    <a class="" href="/">Today</a><a class="active" href="/archive/">Editions</a><a class="" href="/about/">About</a><a class="" href="/agent-pulse/">Agent Pulse</a><a class="" href="/atlas/">Agent Atlas</a><a class="" href="/repos/">Repos</a>
+  </nav>
+        <div class="nav-rule"></div>
+      </div>
+    </header>
+    <main class="wrap page-shell article-page">
+      <section class="page-hero story-front">
+        <div class="story-topline">
+          <span>Daily Edition</span>
+          <span>Sources <strong>+3</strong></span>
+        </div>
+        <h1>Child state cannot be a checkpoint footnote</h1>
+        <p class="summary">Microsoft Agent Framework has fixed a recovery gap in nested Python workflows: a parent checkpoint can now carry the child workflow’s own state, rather than resuming with only a remembered request.</p>
+        <figure class="story-illustration article-illustration">
+    <img src="/assets/illustrations/2026-07-25-child-state-cannot-be-a-checkpoint-footnote-diagram-punk-v1.png" alt="A rough zine diagram contrasts a parent checkpoint that restores only pending requests with one that returns a labeled sub-workflow checkpoint to a child process." loading="lazy" decoding="async">
+    <figcaption><span>Diagram Punk</span>a visible status is not the same as recovered work.</figcaption>
+  </figure>
+        <div class="receipt">
+    <div class="receipt-line">
+      <span class="receipt-icon">repo</span>
+      <span class="receipt-main">microsoft/agent-framework</span>
+      <span class="branch-pill">evidence</span>
+    </div>
+    <div class="receipt-line receipt-muted">
+      <span>3 source signals</span>
+      <span>1 repo</span>
+      <span>commit 0df184e</span>
+    </div>
+    <div class="commit-line">Evidence: commit 0df184e / July 25, 2026 / Daily Edition</div>
+  </div>
+        <div class="article-route-row">
+          <a href="/editions/2026-07-25/">Open Edition</a>
+          <a href="#evidence">Evidence below</a>
+        </div>
+      </section>
+      <section class="story-reader">
+        <article class="story-shell story-body">
+          <p>Microsoft Agent Framework’s <a href="https://github.com/microsoft/agent-framework/commit/0df184e7dd6235266bce46bcb7e3e57b9c01c8df">July 24 commit</a> in the public <code>microsoft/agent-framework</code> repo changed nested Python recovery: it now saves and restores a child workflow checkpoint with its parent. That concrete repair makes “resumable” a less generous word. A program can remember that work was pending, or it can continue the work actually under way after a restart; those are not the same promise when an agent workflow contains another workflow.</p>
+
+  <p>A <a href="https://github.com/microsoft/agent-framework/commit/0df184e7dd6235266bce46bcb7e3e57b9c01c8df">July 24 repair in Microsoft Agent Framework’s Python package</a> addresses that distinction directly. The change says a resumed parent workflow must restore each sub-workflow’s mid-progress state instead of merely replaying pending request information. It adds a nested checkpoint to the parent executor, plus regression tests for capture and restore.</p>
+
+  <p>That is a narrow implementation change, but it exposes a pressure that grows with every long-running agent system. Once a task can pause for an approval, an external callback, a rate limit, or a human answer, recovery is no longer an infrastructure afterthought. It is part of the product’s truthfulness. A user who approved a later step should not discover that the child process which needed the approval came back as a different, half-remembered job.</p>
+
+  <h2>The parent had a receipt; the child needed one too</h2>
+
+  <p>The framework already treats checkpoints as a first-class workflow concern. Its public code describes a runner that can capture a checkpoint object without persisting it, and a workflow executor that handles nested work. Before this change, the parent could recover its own envelope while a sub-workflow’s live state did not travel with it. The patch stores <code>sub_workflow_checkpoint</code> on save and restores it on load, retaining a backward-compatible reader for older checkpoints.</p>
+
+  <p>That wording matters. This is not a claim that every job has become durable in production. It is an explicit contract about what a particular recovery path intends to preserve. The accompanying <a href="https://github.com/microsoft/agent-framework/blob/0df184e7dd6235266bce46bcb7e3e57b9c01c8df/python/packages/core/tests/workflow/test_sub_workflow.py">sub-workflow tests</a> and <a href="https://github.com/microsoft/agent-framework/blob/0df184e7dd6235266bce46bcb7e3e57b9c01c8df/python/packages/core/tests/workflow/test_runner.py">runner tests</a> give the claim a useful shape: capture nested state, restore it, and make the resumed work see that state instead of reconstructing the situation from a loose list of events.</p>
+
+  <p>It also removes a misleading form of isolation. The commit notes that a sub-workflow is one shared instance, so per-execution bookkeeping never supplied real isolation. Request and response tracking now belongs to the sub-workflow that owns it. In practical terms, that is the difference between a parent keeping a notebook about a child and the child keeping its own passport.</p>
+
+  <h2>Why agent builders should care before they add a resume button</h2>
+
+  <p>Nested work is where an agent’s reassuring interface can drift away from reality. A top-level run may display “waiting for approval” while a child holds the model context, tool result, or request correlation that makes the next action safe. If a restart restores only the parent’s visible status, the system can look resumable while forcing the child to improvise, repeat work, or abandon a decision boundary.</p>
+
+  <p>The public <a href="https://github.com/microsoft/agent-framework/blob/0df184e7dd6235266bce46bcb7e3e57b9c01c8df/python/packages/core/agent_framework/_workflows/_workflow_executor.py">executor change</a> suggests a practical review question for any agent framework: when an orchestration contains subagents or sub-workflows, which object owns the durable state, and can a test prove that the object comes back intact? “We write checkpoints” is not an answer until it names the state each layer is allowed to recover.</p>
+
+  <p>There is a useful restraint in the patch, too. It warns about checkpoints taken while work is still pending and leaves checkpoint-less back ends unable to pretend otherwise. That is healthier than flattening the distinction into a universal “resume” badge. Storage, external side effects, model-provider calls, and non-Python implementations can still break a workflow’s continuity in ways this source does not test.</p>
+
+  <p>The next signal is therefore not a headline about durable agents. It is whether the framework publishes equivalent recovery tests for the places where a restart meets the outside world: tool calls, callbacks, timers, and duplicate-effect prevention. A checkpoint earns trust only when the work it claims to resume has somewhere precise to return to.</p>
+        </article>
+      </section>
+      <section class="evidence-section" id="evidence" aria-labelledby="evidence-title">
+    <div class="evidence-head">
+      <div>
+        <div class="eyebrow">Evidence Trail</div>
+        <h2 id="evidence-title">Receipts below the story</h2>
+        <p>The article above is the public narrative. This section keeps the source trail and limits on the same page.</p>
+      </div>
+      <a class="paper-button" href="/editions/2026-07-25/">Edition</a>
+    </div>
+    <div class="evidence-table evidence-summary">
+      <div class="evidence-line"><span>Date</span><span>July 25, 2026</span></div>
+      <div class="evidence-line"><span>Lane</span><span>Daily Edition</span></div>
+      <div class="evidence-line"><span>Confidence</span><span>78%</span></div>
+      <div class="evidence-line"><span>Sources</span><span>3</span></div>
+      <div class="evidence-line"><span>Repos</span><span>microsoft/agent-framework</span></div>
+    </div>
+    <div class="markdown evidence-copy evidence-copy-block">
+      <h2>Primary Evidence</h2>
+<ul>
+<li>Microsoft Agent Framework checkpoint-restore commit: <a href="https://github.com/microsoft/agent-framework/commit/0df184e7dd6235266bce46bcb7e3e57b9c01c8df">https://github.com/microsoft/agent-framework/commit/0df184e7dd6235266bce46bcb7e3e57b9c01c8df</a>
+<ul>
+<li>Shows: the Python workflow executor now embeds a sub-workflow checkpoint so a resumed parent restores nested mid-progress state instead of only replaying pending request information; the change retains a legacy reader.
+</li>
+</ul>
+</li>
+<li>Workflow executor source: <a href="https://github.com/microsoft/agent-framework/blob/0df184e7dd6235266bce46bcb7e3e57b9c01c8df/python/packages/core/agent_framework/_workflows/_workflow_executor.py">https://github.com/microsoft/agent-framework/blob/0df184e7dd6235266bce46bcb7e3e57b9c01c8df/python/packages/core/agent_framework/_workflows/_workflow_executor.py</a>
+<ul>
+<li>Shows: the recovery mechanism lives in the nested workflow executor rather than in a parent-only status record.
+</li>
+</ul>
+</li>
+<li>Regression tests: <a href="https://github.com/microsoft/agent-framework/tree/0df184e7dd6235266bce46bcb7e3e57b9c01c8df/python/packages/core/tests/workflow">https://github.com/microsoft/agent-framework/tree/0df184e7dd6235266bce46bcb7e3e57b9c01c8df/python/packages/core/tests/workflow</a>
+<ul>
+<li>Shows: the public change includes tests for nested workflow and runner checkpoint behavior.
+</li>
+</ul>
+</li>
+</ul>
+<h2>Evidence Limits</h2>
+<ul>
+<li>The sources prove an inspected code and test change, not a released version, production deployment, successful recovery across every back end, or idempotence of external effects.
+</li>
+<li>The next useful evidence is an end-to-end recovery scenario that crosses an approval, callback, or tool boundary without duplicating work.
+</li>
+</ul>
+    </div>
+  </section>
+      <section class="ai-conversation"
+    data-tgr-ai-conversation
+    data-ai-title="Child state cannot be a checkpoint footnote"
+    data-ai-summary="Microsoft Agent Framework has fixed a recovery gap in nested Python workflows: a parent checkpoint can now carry the child workflow’s own state, rather than resuming with only a remembered request."
+    data-ai-url="https://thegitreporter.com/articles/2026-07-25-daily-child-state-cannot-be-a-checkpoint-footnote/#evidence"
+    data-ai-date="July 25, 2026"
+    data-ai-repos="microsoft/agent-framework"
+    data-ai-source-count="3"
+    data-ai-evidence-links="[{&quot;label&quot;:&quot;Microsoft Agent Framework checkpoint-restore commit&quot;,&quot;url&quot;:&quot;https://github.com/microsoft/agent-framework/commit/0df184e7dd6235266bce46bcb7e3e57b9c01c8df&quot;},{&quot;label&quot;:&quot;Workflow executor source&quot;,&quot;url&quot;:&quot;https://github.com/microsoft/agent-framework/blob/0df184e7dd6235266bce46bcb7e3e57b9c01c8df/python/packages/core/agent_framework/_workflows/_workflow_executor.py&quot;},{&quot;label&quot;:&quot;Regression tests&quot;,&quot;url&quot;:&quot;https://github.com/microsoft/agent-framework/tree/0df184e7dd6235266bce46bcb7e3e57b9c01c8df/python/packages/core/tests/workflow&quot;},{&quot;label&quot;:&quot;microsoft/agent-framework repository&quot;,&quot;url&quot;:&quot;https://github.com/microsoft/agent-framework&quot;}]"
+    data-ai-article-slug="2026-07-25-daily-child-state-cannot-be-a-checkpoint-footnote"
+    aria-labelledby="ai-conversation-2026-07-25-daily-child-state-cannot-be-a-checkpoint-footnote-title">
+    <div class="ai-conversation-intro">
+      <div>
+        <div class="eyebrow">Keep Digging</div>
+        <h2 id="ai-conversation-2026-07-25-daily-child-state-cannot-be-a-checkpoint-footnote-title">Continue with your favorite AI</h2>
+      </div>
+      <p>Carry the story’s context, evidence trail, and limits into a new conversation.</p>
+    </div>
+    <details class="ai-conversation-details">
+      <summary>
+        <span>Build a conversation brief</span>
+        <span aria-hidden="true">&rsaquo;</span>
+      </summary>
+      <div class="ai-conversation-panel">
+        <div class="ai-focus-row">
+          <span>Choose a direction</span>
+          <div class="ai-focus-options" role="group" aria-label="Choose a conversation direction">
+            <button class="ai-focus selected" type="button" data-ai-focus="explore" aria-pressed="true">Understand</button>
+            <button class="ai-focus" type="button" data-ai-focus="challenge" aria-pressed="false">Challenge</button>
+            <button class="ai-focus" type="button" data-ai-focus="apply" aria-pressed="false">Apply</button>
+          </div>
+        </div>
+        <label class="ai-prompt-label" for="ai-conversation-2026-07-25-daily-child-state-cannot-be-a-checkpoint-footnote-prompt">
+          <span>Editable brief</span>
+          <textarea id="ai-conversation-2026-07-25-daily-child-state-cannot-be-a-checkpoint-footnote-prompt" class="ai-prompt" rows="15">I’m continuing a conversation about this reported software change.
+
+Article: &quot;Child state cannot be a checkpoint footnote&quot;
+Published: July 25, 2026
+Summary: Microsoft Agent Framework has fixed a recovery gap in nested Python workflows: a parent checkpoint can now carry the child workflow’s own state, rather than resuming with only a remembered request.
+Repositories: microsoft/agent-framework
+Evidence: 3 public sources
+Article and evidence trail: https://thegitreporter.com/articles/2026-07-25-daily-child-state-cannot-be-a-checkpoint-footnote/#evidence
+
+Primary evidence links:
+- Microsoft Agent Framework checkpoint-restore commit: https://github.com/microsoft/agent-framework/commit/0df184e7dd6235266bce46bcb7e3e57b9c01c8df
+- Workflow executor source: https://github.com/microsoft/agent-framework/blob/0df184e7dd6235266bce46bcb7e3e57b9c01c8df/python/packages/core/agent_framework/_workflows/_workflow_executor.py
+- Regression tests: https://github.com/microsoft/agent-framework/tree/0df184e7dd6235266bce46bcb7e3e57b9c01c8df/python/packages/core/tests/workflow
+- microsoft/agent-framework repository: https://github.com/microsoft/agent-framework
+
+What I want to explore: Go beyond the summary and help me understand the mechanism, tradeoffs, and wider consequence.
+
+Please:
+- Read the article, Primary Evidence, and Evidence Limits before answering.
+- Separate what the public sources prove from the reporter’s interpretation and from your own inference.
+- Cite the specific evidence links you rely on.
+- Challenge the strongest claim and name any missing evidence.
+- End with 2–3 productive follow-up questions.
+
+If you cannot access the page or its links, say so and ask me to paste the relevant evidence rather than guessing.</textarea>
+        </label>
+        <div class="ai-destinations" aria-label="Copy the brief and choose an AI assistant">
+          <button class="ai-destination ai-copy-button" type="button">
+            <span>Any AI</span>
+            <strong>Copy brief</strong>
+          </button>
+          <a class="ai-destination" data-ai-provider="chatgpt" href="https://chatgpt.com/" target="_blank" rel="noopener noreferrer">
+            <span>ChatGPT</span>
+            <strong>Copy + open</strong>
+          </a>
+          <a class="ai-destination" data-ai-provider="claude" href="https://claude.ai/new" target="_blank" rel="noopener noreferrer">
+            <span>Claude</span>
+            <strong>Copy + open</strong>
+          </a>
+          <a class="ai-destination" data-ai-provider="gemini" href="https://gemini.google.com/app" target="_blank" rel="noopener noreferrer">
+            <span>Gemini</span>
+            <strong>Copy + open</strong>
+          </a>
+        </div>
+        <p class="ai-conversation-status" aria-live="polite"></p>
+        <p class="ai-conversation-note">The brief itself is copied on your device, not sent to an assistant by The Git Reporter. Review it before pasting; the service you open has its own data and privacy terms.</p>
+      </div>
+    </details>
+  </section>
+      <section class="related-edition-section atlas-context-section">
+    <div class="section-title-row">
+      <h2>Atlas Context</h2>
+      <a href="/atlas/">Open Atlas &rsaquo;</a>
+    </div>
+    <div class="updates-list">
+      <a class="article-card" href="/atlas/what-an-agent-can-see/">
+            <div class="article-meta"><span class="lane">Agent Atlas</span><span>Chapter 2</span></div>
+            <h3>The Invisible Prompt</h3>
+            <p>The model acts on an assembled viewport containing visible messages, hidden turn context, path-triggered instructions, memory records, tool schemas, permissions, and inherited state.</p>
+          </a>
+    </div>
+  </section>
+      <section class="reader-feedback"
+    data-tgr-feedback
+    data-article-slug="2026-07-25-daily-child-state-cannot-be-a-checkpoint-footnote"
+    data-article-title="Child state cannot be a checkpoint footnote"
+    data-article-url="/articles/2026-07-25-daily-child-state-cannot-be-a-checkpoint-footnote/"
+    data-edition-date="2026-07-25"
+    data-lane="Daily Edition"
+    data-tags="Permissions,Memory,Delegation,Tools"
+    data-repos="microsoft/agent-framework">
+    <div class="reader-feedback-head">
+      <div>
+        <div class="eyebrow">Letters &amp; Corrections</div>
+        <h2>Send a note to the desk</h2>
+      </div>
+      <p>Corrections, missing context, or a follow-up lead.</p>
+    </div>
+    <form class="feedback-form">
+      <div class="feedback-votes" role="group" aria-label="Choose signal type">
+        <button class="feedback-choice" type="button" data-vote="follow-up" aria-pressed="false">
+          <span aria-hidden="true">+</span>
+          <span>Follow-up</span>
+        </button>
+        <button class="feedback-choice" type="button" data-vote="correction" aria-pressed="false">
+          <span aria-hidden="true">!</span>
+          <span>Correction</span>
+        </button>
+      </div>
+      <label class="feedback-comment">
+        <span>Note for the editor</span>
+        <textarea name="comment" rows="3" maxlength="320" placeholder="What did we miss, or what should we follow next?"></textarea>
+      </label>
+      <div class="feedback-submit-row">
+        <p class="feedback-status" aria-live="polite"></p>
+        <button class="paper-button primary feedback-submit" type="submit">Send to desk</button>
+      </div>
+    </form>
+  </section>
+      <section class="related-edition-section">
+        <div class="section-title-row">
+          <h2>Same Edition</h2>
+          <a href="/editions/2026-07-25/">Open issue &rsaquo;</a>
+        </div>
+        <div class="updates-list">
+          <a class="update-card" href="/articles/2026-07-25-daily-openworker-takes-the-agent-loop-out-of-the-ide/">
+    <div class="update-stripe"></div>
+    <div class="update-main">
+      <div class="update-meta">
+        <span>Context</span>
+        <span class="source-plus">+16</span>
+        <span>Jul 25, 2026</span>
+      </div>
+      <h3>OpenWorker takes the agent loop out of the IDE</h3>
+      <div class="update-receipt">
+        <span>andrewyng/openworker</span>
+        <span class="branch-pill">evidence</span>
+      </div>
+      <div class="update-foot">
+        <span>16 sources</span>
+        <span>1 repo</span>
+        <span>commit 657cf03</span>
+      </div>
+    </div>
+    <span class="update-arrow" aria-hidden="true">&rsaquo;</span>
+  </a><a class="update-card" href="/articles/2026-07-25-daily-mastra-turning-typescript-application-primitives-into-agent-infrastructure/">
+    <div class="update-stripe"></div>
+    <div class="update-main">
+      <div class="update-meta">
+        <span>Context</span>
+        <span class="source-plus">+6</span>
+        <span>Jul 25, 2026</span>
+      </div>
+      <h3>Mastra: turning TypeScript application primitives into agent infrastructure</h3>
+      <div class="update-receipt">
+        <span>mastra-ai/mastra</span>
+        <span class="branch-pill">evidence</span>
+      </div>
+      <div class="update-foot">
+        <span>6 sources</span>
+        <span>1 repo</span>
+        <span>commit 75f843d</span>
+      </div>
+    </div>
+    <span class="update-arrow" aria-hidden="true">&rsaquo;</span>
+  </a><a class="update-card" href="/articles/2026-07-25-daily-api-discovery-let-one-model-ask-another-before-it-answers/">
+    <div class="update-stripe"></div>
+    <div class="update-main">
+      <div class="update-meta">
+        <span>Reported</span>
+        <span class="source-plus">+3</span>
+        <span>Jul 25, 2026</span>
+      </div>
+      <h3>API Discovery: Let one model ask another before it answers</h3>
+      <div class="update-receipt">
+        <span>pydantic/pydantic-ai</span>
+        <span class="branch-pill">evidence</span>
+      </div>
+      <div class="update-foot">
+        <span>3 sources</span>
+        <span>1 repo</span>
+        <span>commit 883d5a9</span>
+      </div>
+    </div>
+    <span class="update-arrow" aria-hidden="true">&rsaquo;</span>
+  </a>
+        </div>
+      </section>
+    </main>
+    <footer class="wrap site-footer">
+      <span>&copy; 2026 The Git Reporter</span>
+      <a href="/about/">About</a>
+      <a href="/agent-pulse/">Agent Pulse</a>
+      <a href="/feed.xml">RSS</a>
+      <a href="https://x.com/TheGitReporter">Follow on X</a>
+      <a href="/articles.json">Manifest JSON</a>
+      <a href="/repos/">Sources</a>
+    </footer>
+  </div>
+</body>
+</html>
