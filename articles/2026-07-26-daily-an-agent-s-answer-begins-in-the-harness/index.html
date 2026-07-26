@@ -1,0 +1,331 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>An Agent’s Answer Begins in the Harness | The Git Reporter</title>
+  <meta name="description" content="The model only sees the task after a runtime has edited its context, carried forward state, and decided what survived the last turn—so the first question after a bad run is what the harness made it see.">
+  <meta name="robots" content="index,follow">
+  <link rel="canonical" href="https://thegitreporter.com/articles/2026-07-26-daily-an-agent-s-answer-begins-in-the-harness/">
+  <link rel="alternate" type="application/rss+xml" title="The Git Reporter" href="https://thegitreporter.com/feed.xml">
+  <meta property="og:site_name" content="The Git Reporter">
+  <meta property="og:locale" content="en_US">
+  <meta property="og:title" content="An Agent’s Answer Begins in the Harness | The Git Reporter">
+  <meta property="og:description" content="The model only sees the task after a runtime has edited its context, carried forward state, and decided what survived the last turn—so the first question after a bad run is what the harness made it see.">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://thegitreporter.com/articles/2026-07-26-daily-an-agent-s-answer-begins-in-the-harness/">
+  <meta property="og:image" content="https://thegitreporter.com/assets/social/2026-07-26-daily-an-agent-s-answer-begins-in-the-harness-og.jpg">
+  <meta property="og:image:secure_url" content="https://thegitreporter.com/assets/social/2026-07-26-daily-an-agent-s-answer-begins-in-the-harness-og.jpg">
+  <meta property="og:image:type" content="image/jpeg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Hand-drawn chain from workspace trust, tool output, history, and session approvals into a prompt before a model answer, with a caveat that a source change is not a model score.">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:site" content="@TheGitReporter">
+  <meta name="twitter:creator" content="@TheGitReporter">
+  <meta name="twitter:title" content="An Agent’s Answer Begins in the Harness | The Git Reporter">
+  <meta name="twitter:description" content="The model only sees the task after a runtime has edited its context, carried forward state, and decided what survived the last turn—so the first question after a bad run is what the harness made it see.">
+  <meta name="twitter:url" content="https://thegitreporter.com/articles/2026-07-26-daily-an-agent-s-answer-begins-in-the-harness/">
+  <meta name="twitter:domain" content="thegitreporter.com">
+  <meta name="twitter:image" content="https://thegitreporter.com/assets/social/2026-07-26-daily-an-agent-s-answer-begins-in-the-harness-og.jpg">
+  <meta name="twitter:image:alt" content="Hand-drawn chain from workspace trust, tool output, history, and session approvals into a prompt before a model answer, with a caveat that a source change is not a model score.">
+  <meta property="article:published_time" content="2026-07-26T12:00:00Z">
+  <meta property="article:modified_time" content="2026-07-26T12:00:00Z">
+  <meta property="article:section" content="Daily Edition">
+  <meta property="article:tag" content="Permissions">
+  <meta property="article:tag" content="Memory">
+  <meta property="article:tag" content="Delegation">
+  <meta property="article:tag" content="Tools">
+  <meta property="article:tag" content="QwenLM/qwen-code">
+  <meta property="article:tag" content="cline/cline">
+  <meta property="article:tag" content="block/goose">
+  <meta property="article:tag" content="google-gemini/gemini-cli">
+  <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"https://thegitreporter.com/#organization","name":"The Git Reporter","url":"https://thegitreporter.com","logo":{"@type":"ImageObject","url":"https://thegitreporter.com/assets/mark.svg"},"sameAs":["https://x.com/TheGitReporter"]},{"@type":"WebSite","@id":"https://thegitreporter.com/#website","name":"The Git Reporter","url":"https://thegitreporter.com","publisher":{"@id":"https://thegitreporter.com/#organization"}},{"@type":"NewsArticle","mainEntityOfPage":{"@type":"WebPage","@id":"https://thegitreporter.com/articles/2026-07-26-daily-an-agent-s-answer-begins-in-the-harness/"},"headline":"An Agent’s Answer Begins in the Harness","description":"The model only sees the task after a runtime has edited its context, carried forward state, and decided what survived the last turn—so the first question after a bad run is what the harness made it see.","image":["https://thegitreporter.com/assets/social/2026-07-26-daily-an-agent-s-answer-begins-in-the-harness-og.jpg"],"datePublished":"2026-07-26T12:00:00Z","dateModified":"2026-07-26T12:00:00Z","author":[{"@type":"Organization","name":"The Git Reporter","url":"https://thegitreporter.com"}],"publisher":{"@type":"Organization","@id":"https://thegitreporter.com/#organization","name":"The Git Reporter","url":"https://thegitreporter.com","logo":{"@type":"ImageObject","url":"https://thegitreporter.com/assets/mark.svg"},"sameAs":["https://x.com/TheGitReporter"]},"articleSection":"Daily Edition","keywords":"Permissions, Memory, Delegation, Tools, QwenLM/qwen-code, cline/cline, block/goose, google-gemini/gemini-cli"}]}</script>
+  <link rel="icon" href="/assets/mark.svg">
+  <link rel="stylesheet" href="/assets/site.css?v=2026-07-21-agent-pulse-decision-brief">
+  <script defer src="/assets/feedback.js?v=2026-07-21-agent-pulse-decision-brief"></script>
+  <script defer src="/assets/analytics.js?v=2026-07-21-agent-pulse-decision-brief"></script>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-CH19T7M0T1"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){window.dataLayer.push(arguments);}
+    gtag("js", new Date());
+    gtag("config", "G-CH19T7M0T1");
+  </script>
+</head>
+<body>
+  <div class="site">
+    <header class="site-header" id="top">
+      <div class="wrap utility-row">
+        <a class="icon-link menu-icon" href="/archive/" aria-label="Open edition history"><span></span><span></span><span></span></a>
+        <a class="icon-link archive-icon" href="/archive/" aria-label="Open edition history"></a>
+      </div>
+      <div class="wrap masthead-lockup">
+        <a class="masthead-title" href="/">THE GIT REPORTER</a>
+        <div class="masthead-ornament" aria-hidden="true"></div>
+      </div>
+      <div class="wrap nav-wrap">
+        <nav class="paper-nav" aria-label="Primary navigation">
+    <a class="" href="/">Today</a><a class="active" href="/archive/">Editions</a><a class="" href="/about/">About</a><a class="" href="/agent-pulse/">Agent Pulse</a><a class="" href="/atlas/">Agent Atlas</a><a class="" href="/repos/">Repos</a>
+  </nav>
+        <div class="nav-rule"></div>
+      </div>
+    </header>
+    <main class="wrap page-shell article-page">
+      <section class="page-hero story-front">
+        <div class="story-topline">
+          <span>Daily Edition</span>
+          <span>Sources <strong>+4</strong></span>
+        </div>
+        <h1>An Agent’s Answer Begins in the Harness</h1>
+        <p class="summary">The model only sees the task after a runtime has edited its context, carried forward state, and decided what survived the last turn—so the first question after a bad run is what the harness made it see.</p>
+        <figure class="story-illustration article-illustration">
+    <img src="/assets/illustrations/2026-07-26-an-agents-answer-begins-in-the-harness-diagram-punk-v1.png" alt="Hand-drawn chain from workspace trust, tool output, history, and session approvals into a prompt before a model answer, with a caveat that a source change is not a model score." loading="lazy" decoding="async">
+    <figcaption><span>Diagram Punk</span>A model answer arrives after a harness has assembled context, policy, and recovery state.</figcaption>
+  </figure>
+        <div class="receipt">
+    <div class="receipt-line">
+      <span class="receipt-icon">repos</span>
+      <span class="receipt-main">QwenLM/qwen-code + 3 more</span>
+      <span class="branch-pill">evidence</span>
+    </div>
+    <div class="receipt-line receipt-muted">
+      <span>4 source signals</span>
+      <span>4 repos</span>
+      <span>2 linked commits</span>
+    </div>
+    <div class="commit-line">Evidence: 2 linked commits / July 26, 2026 / Daily Edition</div>
+  </div>
+        <div class="article-route-row">
+          <a href="/editions/2026-07-26/">Open Edition</a>
+          <a href="#evidence">Evidence below</a>
+        </div>
+      </section>
+      <section class="story-reader">
+        <article class="story-shell story-body">
+          <p>On July 25, <a href="https://github.com/QwenLM/qwen-code/commit/c4859627a77ed7c3fe015d505d82645cd672188a">QwenLM/qwen-code changed its workspace-trust runtime</a> so a trust-policy change rebuilds runtime generations and closes affected daemon routes rather than letting an in-flight task quietly continue. That is a concrete reminder that an agent’s next answer starts before its model call: the harness has already decided what authority, context, and recovery state reach the request.</p>
+
+  <p>That does not mean models do not matter, or that every weak answer is a runtime bug. It is a reporting rule: a model result has a chain of custody. Before Qwen Code—or any coding agent—sends its next request, its surrounding software has assembled a system prompt, chosen which tool output to retain, summarized or compressed a history, remembered a permission decision, and handled whatever went wrong in the previous turn. The missing object in most model comparisons is the request after those choices, not just the model name printed above it.</p>
+
+  <h2>Policy arrives inside the next prompt</h2>
+
+  <p>Parth Sareen’s public <a href="https://parthsareen.com/writings/building-a-harness-for-open-models/">account of building an open-model harness</a> is unusually direct about the awkward mechanics. A model may receive a huge command result, a summary of earlier work, a cache-friendly prefix, or a truncated history. Each choice is defensible in some circumstances; none is neutral. A model that seems to lose the plot might be responding to a prompt where the decisive output was compressed away. A model that appears cheaper might be benefiting from a different prefix or tool budget. The answer cannot establish which explanation is right until the run is inspectable.</p>
+
+  <p>A fresh public change in <a href="https://github.com/QwenLM/qwen-code/commit/c4859627a77ed7c3fe015d505d82645cd672188a">Qwen Code’s workspace-trust runtime</a> makes the point tangible. The commit rebuilds runtime generations when workspace trust changes, fails affected daemon routes closed, and tests the policy monitor, reconciliation, and generation boundary. It does not claim a better model. It says something narrower and more useful: a trust decision changes the environment in which a task runs, so an in-flight runtime should not casually keep acting as if nothing changed.</p>
+
+  <h2>An approval needs an owner too</h2>
+
+  <p>Context is only one half of the boundary. Cline’s public <a href="https://github.com/cline/cline/blob/main/sdk/ARCHITECTURE.md">SDK architecture</a> separates a stateless agent loop from stateful orchestration for sessions, approvals, schedules, and host capabilities. A recent <a href="https://github.com/cline/cline/commit/ca6f6a6c23b45db737d0a18cebd6193fe925facd">desktop change</a> moves chat through that shared Hub rather than a private in-process runtime. The design answers a very human question—when one task can be reached through several clients, which surface owns the person’s approval?</p>
+
+  <p>That is why an answer’s provenance is more than a debugging convenience. A permission, a workspace boundary, and a recovery policy all decide what an agent may do next. Treating them as invisible plumbing invites a bad kind of comparison: two models look like they were asked the same question when they were actually given different tools, different memories, and different authority.</p>
+
+  <h2>Ask for the run before you rank the model</h2>
+
+  <p>Teams evaluating a model switch, a local-to-cloud handoff, or a new agent client can ask for five receipts before accepting a conclusion: the next prompt’s relevant inputs; the tool output that was omitted or summarized; whether that loss was declared; the permission and workspace state that persisted; and the path after a failed turn. The record makes a test reproducible enough for someone else to challenge.</p>
+
+  <p>The cited code and architecture documents do not prove released behavior, production reliability, or a common portability contract among agent projects. Nor do they apportion blame for a particular failure. The next signal worth watching is a task-matched comparison that publishes the bounded output, compaction, permission state, and recovery path. Until then, “the model did it” is often less a finding than a gap in the trace.</p>
+        </article>
+      </section>
+      <section class="evidence-section" id="evidence" aria-labelledby="evidence-title">
+    <div class="evidence-head">
+      <div>
+        <div class="eyebrow">Evidence Trail</div>
+        <h2 id="evidence-title">Receipts below the story</h2>
+        <p>The article above is the public narrative. This section keeps the source trail and limits on the same page.</p>
+      </div>
+      <a class="paper-button" href="/editions/2026-07-26/">Edition</a>
+    </div>
+    <div class="evidence-table evidence-summary">
+      <div class="evidence-line"><span>Date</span><span>July 26, 2026</span></div>
+      <div class="evidence-line"><span>Lane</span><span>Daily Edition</span></div>
+      <div class="evidence-line"><span>Confidence</span><span>78%</span></div>
+      <div class="evidence-line"><span>Sources</span><span>4</span></div>
+      <div class="evidence-line"><span>Repos</span><span>QwenLM/qwen-code, cline/cline, block/goose, google-gemini/gemini-cli</span></div>
+    </div>
+    <div class="markdown evidence-copy evidence-copy-block">
+      <h2>Primary Evidence</h2>
+<ul>
+<li><a href="https://parthsareen.com/writings/building-a-harness-for-open-models/">Parth Sareen: Building a Harness for Open Models</a>
+<ul>
+<li>Shows: prompt construction, tool results, compaction, cache prefixes, and recovery are choices around a model call rather than properties of the model alone.
+</li>
+</ul>
+</li>
+<li><a href="https://github.com/QwenLM/qwen-code/commit/c4859627a77ed7c3fe015d505d82645cd672188a">Qwen Code workspace-trust commit <code>c4859627</code></a>
+<ul>
+<li>Shows: a public code change rebuilds runtime generations and closes affected daemon routes after a trust-policy change, with focused boundary tests.
+</li>
+</ul>
+</li>
+<li><a href="https://github.com/cline/cline/blob/main/sdk/ARCHITECTURE.md">Cline SDK architecture</a>
+<ul>
+<li>Shows: Cline documents a stateless agent loop separately from a stateful orchestration layer that owns sessions, approvals, scheduling, and host capabilities.
+</li>
+</ul>
+</li>
+<li><a href="https://github.com/cline/cline/commit/ca6f6a6c23b45db737d0a18cebd6193fe925facd">Cline desktop Hub commit <code>ca6f6a6c</code></a>
+<ul>
+<li>Shows: a client surface was changed to use a shared runtime path rather than own a separate in-process agent runtime.
+</li>
+</ul>
+</li>
+</ul>
+<h2>Evidence Limits</h2>
+<ul>
+<li>These public sources show design and implementation intent, not a common benchmark, production reliability, or a measured explanation for any particular model result. They do not establish a shared standard across agent projects.
+</li>
+</ul>
+    </div>
+  </section>
+      <section class="related-edition-section atlas-context-section">
+    <div class="section-title-row">
+      <h2>Atlas Context</h2>
+      <a href="/atlas/">Open Atlas &rsaquo;</a>
+    </div>
+    <div class="updates-list">
+      <a class="article-card" href="/atlas/what-an-agent-can-see/">
+            <div class="article-meta"><span class="lane">Agent Atlas</span><span>Chapter 2</span></div>
+            <h3>The Invisible Prompt</h3>
+            <p>The model acts on an assembled viewport containing visible messages, hidden turn context, path-triggered instructions, memory records, tool schemas, permissions, and inherited state.</p>
+          </a>
+    </div>
+  </section>
+      <section class="reader-feedback"
+    data-tgr-feedback
+    data-article-slug="2026-07-26-daily-an-agent-s-answer-begins-in-the-harness"
+    data-article-title="An Agent’s Answer Begins in the Harness"
+    data-article-url="/articles/2026-07-26-daily-an-agent-s-answer-begins-in-the-harness/"
+    data-edition-date="2026-07-26"
+    data-lane="Daily Edition"
+    data-tags="Permissions,Memory,Delegation,Tools"
+    data-repos="QwenLM/qwen-code,cline/cline,block/goose,google-gemini/gemini-cli">
+    <div class="reader-feedback-head">
+      <div>
+        <div class="eyebrow">Letters &amp; Corrections</div>
+        <h2>Send a note to the desk</h2>
+      </div>
+      <p>Corrections, missing context, or a follow-up lead.</p>
+    </div>
+    <form class="feedback-form">
+      <div class="feedback-votes" role="group" aria-label="Choose signal type">
+        <button class="feedback-choice" type="button" data-vote="follow-up" aria-pressed="false">
+          <span aria-hidden="true">+</span>
+          <span>Follow-up</span>
+        </button>
+        <button class="feedback-choice" type="button" data-vote="correction" aria-pressed="false">
+          <span aria-hidden="true">!</span>
+          <span>Correction</span>
+        </button>
+      </div>
+      <label class="feedback-comment">
+        <span>Note for the editor</span>
+        <textarea name="comment" rows="3" maxlength="320" placeholder="What did we miss, or what should we follow next?"></textarea>
+      </label>
+      <div class="feedback-submit-row">
+        <p class="feedback-status" aria-live="polite"></p>
+        <button class="paper-button primary feedback-submit" type="submit">Send to desk</button>
+      </div>
+    </form>
+  </section>
+      <section class="related-edition-section">
+        <div class="section-title-row">
+          <h2>Same Edition</h2>
+          <a href="/editions/2026-07-26/">Open issue &rsaquo;</a>
+        </div>
+        <div class="updates-list">
+          <a class="update-card" href="/articles/2026-07-26-daily-before-you-blame-the-model-inspect-what-the-harness-made-it-see/">
+    <div class="update-stripe"></div>
+    <div class="update-main">
+      <div class="update-meta">
+        <span>Context</span>
+        <span class="source-plus">+4</span>
+        <span>Jul 26, 2026</span>
+      </div>
+      <h3>Before You Blame the Model, Inspect What the Harness Made It See</h3>
+      <div class="update-receipt">
+        <span>QwenLM/qwen-code + 3 more</span>
+        <span class="branch-pill">evidence</span>
+      </div>
+      <div class="update-foot">
+        <span>4 sources</span>
+        <span>4 repos</span>
+        <span>2 linked commits</span>
+      </div>
+    </div>
+    <span class="update-arrow" aria-hidden="true">&rsaquo;</span>
+  </a><a class="update-card" href="/articles/2026-07-26-daily-cline-the-supervised-editor-agent-growing-into-an-sdk-and-cli/">
+    <div class="update-stripe"></div>
+    <div class="update-main">
+      <div class="update-meta">
+        <span>Trust</span>
+        <span class="source-plus">+3</span>
+        <span>Jul 26, 2026</span>
+      </div>
+      <h3>Cline: the supervised editor agent growing into an SDK and CLI</h3>
+      <div class="update-receipt">
+        <span>cline/cline</span>
+        <span class="branch-pill">evidence</span>
+      </div>
+      <div class="update-foot">
+        <span>3 sources</span>
+        <span>1 repo</span>
+        <span>2 linked commits</span>
+      </div>
+    </div>
+    <span class="update-arrow" aria-hidden="true">&rsaquo;</span>
+  </a><a class="update-card" href="/articles/2026-07-26-daily-mastra-turning-typescript-application-primitives-into-agent-infrastructure/">
+    <div class="update-stripe"></div>
+    <div class="update-main">
+      <div class="update-meta">
+        <span>Context</span>
+        <span class="source-plus">+3</span>
+        <span>Jul 26, 2026</span>
+      </div>
+      <h3>Mastra: turning TypeScript application primitives into agent infrastructure</h3>
+      <div class="update-receipt">
+        <span>mastra-ai/mastra</span>
+        <span class="branch-pill">evidence</span>
+      </div>
+      <div class="update-foot">
+        <span>3 sources</span>
+        <span>1 repo</span>
+        <span>commit 75f843d</span>
+      </div>
+    </div>
+    <span class="update-arrow" aria-hidden="true">&rsaquo;</span>
+  </a><a class="update-card" href="/articles/2026-07-26-daily-qwen-code-when-an-open-model-and-coding-agent-evolve-together/">
+    <div class="update-stripe"></div>
+    <div class="update-main">
+      <div class="update-meta">
+        <span>Context</span>
+        <span class="source-plus">+3</span>
+        <span>Jul 26, 2026</span>
+      </div>
+      <h3>Qwen Code: when an open model and coding agent evolve together</h3>
+      <div class="update-receipt">
+        <span>QwenLM/qwen-code</span>
+        <span class="branch-pill">evidence</span>
+      </div>
+      <div class="update-foot">
+        <span>3 sources</span>
+        <span>1 repo</span>
+        <span>commit c485962</span>
+      </div>
+    </div>
+    <span class="update-arrow" aria-hidden="true">&rsaquo;</span>
+  </a>
+        </div>
+      </section>
+    </main>
+    <footer class="wrap site-footer">
+      <span>&copy; 2026 The Git Reporter</span>
+      <a href="/about/">About</a>
+      <a href="/agent-pulse/">Agent Pulse</a>
+      <a href="/feed.xml">RSS</a>
+      <a href="https://x.com/TheGitReporter">Follow on X</a>
+      <a href="/articles.json">Manifest JSON</a>
+      <a href="/repos/">Sources</a>
+    </footer>
+  </div>
+</body>
+</html>

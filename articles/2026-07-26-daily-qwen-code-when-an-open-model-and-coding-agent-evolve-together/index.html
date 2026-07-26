@@ -1,0 +1,319 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Qwen Code: when an open model and coding agent evolve together | The Git Reporter</title>
+  <meta name="description" content="Qwen Code&#39;s latest trust-reload work shows what a model-aware coding agent still has to own: workspace authority, session state, tool routes, and a safe way to change the rules while work is running.">
+  <meta name="robots" content="index,follow">
+  <link rel="canonical" href="https://thegitreporter.com/articles/2026-07-26-daily-qwen-code-when-an-open-model-and-coding-agent-evolve-together/">
+  <link rel="alternate" type="application/rss+xml" title="The Git Reporter" href="https://thegitreporter.com/feed.xml">
+  <meta property="og:site_name" content="The Git Reporter">
+  <meta property="og:locale" content="en_US">
+  <meta property="og:title" content="Qwen Code: when an open model and coding agent evolve together | The Git Reporter">
+  <meta property="og:description" content="Qwen Code&#39;s latest trust-reload work shows what a model-aware coding agent still has to own: workspace authority, session state, tool routes, and a safe way to change the rules while work is running.">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://thegitreporter.com/articles/2026-07-26-daily-qwen-code-when-an-open-model-and-coding-agent-evolve-together/">
+  <meta property="og:image" content="https://thegitreporter.com/assets/social/2026-07-26-daily-qwen-code-when-an-open-model-and-coding-agent-evolve-together-og.jpg">
+  <meta property="og:image:secure_url" content="https://thegitreporter.com/assets/social/2026-07-26-daily-qwen-code-when-an-open-model-and-coding-agent-evolve-together-og.jpg">
+  <meta property="og:image:type" content="image/jpeg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="A rough diagram shows a Qwen Code trust-policy monitor closing an old workspace generation and starting a new one, with daemon route cards and a red source-change caveat stamp.">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:site" content="@TheGitReporter">
+  <meta name="twitter:creator" content="@TheGitReporter">
+  <meta name="twitter:title" content="Qwen Code: when an open model and coding agent evolve together | The Git Reporter">
+  <meta name="twitter:description" content="Qwen Code&#39;s latest trust-reload work shows what a model-aware coding agent still has to own: workspace authority, session state, tool routes, and a safe way to change the rules while work is running.">
+  <meta name="twitter:url" content="https://thegitreporter.com/articles/2026-07-26-daily-qwen-code-when-an-open-model-and-coding-agent-evolve-together/">
+  <meta name="twitter:domain" content="thegitreporter.com">
+  <meta name="twitter:image" content="https://thegitreporter.com/assets/social/2026-07-26-daily-qwen-code-when-an-open-model-and-coding-agent-evolve-together-og.jpg">
+  <meta name="twitter:image:alt" content="A rough diagram shows a Qwen Code trust-policy monitor closing an old workspace generation and starting a new one, with daemon route cards and a red source-change caveat stamp.">
+  <meta property="article:published_time" content="2026-07-26T12:00:00Z">
+  <meta property="article:modified_time" content="2026-07-26T12:00:00Z">
+  <meta property="article:section" content="Daily Edition">
+  <meta property="article:tag" content="Memory">
+  <meta property="article:tag" content="Tools">
+  <meta property="article:tag" content="Runtime">
+  <meta property="article:tag" content="QwenLM/qwen-code">
+  <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"https://thegitreporter.com/#organization","name":"The Git Reporter","url":"https://thegitreporter.com","logo":{"@type":"ImageObject","url":"https://thegitreporter.com/assets/mark.svg"},"sameAs":["https://x.com/TheGitReporter"]},{"@type":"WebSite","@id":"https://thegitreporter.com/#website","name":"The Git Reporter","url":"https://thegitreporter.com","publisher":{"@id":"https://thegitreporter.com/#organization"}},{"@type":"NewsArticle","mainEntityOfPage":{"@type":"WebPage","@id":"https://thegitreporter.com/articles/2026-07-26-daily-qwen-code-when-an-open-model-and-coding-agent-evolve-together/"},"headline":"Qwen Code: when an open model and coding agent evolve together","description":"Qwen Code's latest trust-reload work shows what a model-aware coding agent still has to own: workspace authority, session state, tool routes, and a safe way to change the rules while work is running.","image":["https://thegitreporter.com/assets/social/2026-07-26-daily-qwen-code-when-an-open-model-and-coding-agent-evolve-together-og.jpg"],"datePublished":"2026-07-26T12:00:00Z","dateModified":"2026-07-26T12:00:00Z","author":[{"@type":"Organization","name":"The Git Reporter","url":"https://thegitreporter.com"}],"publisher":{"@type":"Organization","@id":"https://thegitreporter.com/#organization","name":"The Git Reporter","url":"https://thegitreporter.com","logo":{"@type":"ImageObject","url":"https://thegitreporter.com/assets/mark.svg"},"sameAs":["https://x.com/TheGitReporter"]},"articleSection":"Daily Edition","keywords":"Memory, Tools, Runtime, QwenLM/qwen-code"}]}</script>
+  <link rel="icon" href="/assets/mark.svg">
+  <link rel="stylesheet" href="/assets/site.css?v=2026-07-21-agent-pulse-decision-brief">
+  <script defer src="/assets/feedback.js?v=2026-07-21-agent-pulse-decision-brief"></script>
+  <script defer src="/assets/analytics.js?v=2026-07-21-agent-pulse-decision-brief"></script>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-CH19T7M0T1"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){window.dataLayer.push(arguments);}
+    gtag("js", new Date());
+    gtag("config", "G-CH19T7M0T1");
+  </script>
+</head>
+<body>
+  <div class="site">
+    <header class="site-header" id="top">
+      <div class="wrap utility-row">
+        <a class="icon-link menu-icon" href="/archive/" aria-label="Open edition history"><span></span><span></span><span></span></a>
+        <a class="icon-link archive-icon" href="/archive/" aria-label="Open edition history"></a>
+      </div>
+      <div class="wrap masthead-lockup">
+        <a class="masthead-title" href="/">THE GIT REPORTER</a>
+        <div class="masthead-ornament" aria-hidden="true"></div>
+      </div>
+      <div class="wrap nav-wrap">
+        <nav class="paper-nav" aria-label="Primary navigation">
+    <a class="" href="/">Today</a><a class="active" href="/archive/">Editions</a><a class="" href="/about/">About</a><a class="" href="/agent-pulse/">Agent Pulse</a><a class="" href="/atlas/">Agent Atlas</a><a class="" href="/repos/">Repos</a>
+  </nav>
+        <div class="nav-rule"></div>
+      </div>
+    </header>
+    <main class="wrap page-shell article-page">
+      <section class="page-hero story-front">
+        <div class="story-topline">
+          <span>Daily Edition</span>
+          <span>Sources <strong>+3</strong></span>
+        </div>
+        <h1>Qwen Code: when an open model and coding agent evolve together</h1>
+        <p class="summary">Qwen Code's latest trust-reload work shows what a model-aware coding agent still has to own: workspace authority, session state, tool routes, and a safe way to change the rules while work is running.</p>
+        <figure class="story-illustration article-illustration">
+    <img src="/assets/illustrations/2026-07-26-qwen-code-when-an-open-model-and-coding-agent-evolve-together-diagram-punk-v1.png" alt="A rough diagram shows a Qwen Code trust-policy monitor closing an old workspace generation and starting a new one, with daemon route cards and a red source-change caveat stamp." loading="lazy" decoding="async">
+    <figcaption><span>Diagram Punk</span>The model is not the whole runtime.</figcaption>
+  </figure>
+        <div class="receipt">
+    <div class="receipt-line">
+      <span class="receipt-icon">repo</span>
+      <span class="receipt-main">QwenLM/qwen-code</span>
+      <span class="branch-pill">evidence</span>
+    </div>
+    <div class="receipt-line receipt-muted">
+      <span>3 source signals</span>
+      <span>1 repo</span>
+      <span>commit c485962</span>
+    </div>
+    <div class="commit-line">Evidence: commit c485962 / July 26, 2026 / Daily Edition</div>
+  </div>
+        <div class="article-route-row">
+          <a href="/editions/2026-07-26/">Open Edition</a>
+          <a href="#evidence">Evidence below</a>
+        </div>
+      </section>
+      <section class="story-reader">
+        <article class="story-shell story-body">
+          <p>It is tempting to read a coding agent associated with a model family as a delivery vehicle for that model: pick the provider, run the loop, compare the answer. Qwen Code's public source offers a more demanding picture. The project has provider, tool, session, workspace, and server paths that must make sense even before the next model response arrives. Its <a href="https://github.com/QwenLM/qwen-code/commit/c4859627a77ed7c3fe015d505d82645cd672188a">July 25 workspace-trust change</a> is a fresh receipt for that less glamorous work.</p>
+
+  <p>The patch's public summary says that trust-policy changes rebuild workspace runtime generations, affected daemon routes fail closed, and reconciliation state becomes visible to SDK and Web Shell clients. Its size is not the argument. The important shape is: a policy change can arrive while a workspace has sessions, persisted settings, tool capabilities, and work in flight. Treating it as a bare boolean flip would leave the runtime to guess which state remains authorized.</p>
+
+  <h2>A policy edit is a lifecycle event</h2>
+
+  <p>The source responds by giving the transition a name. A policy monitor observes changed trust; a reconciler computes the next state; generation guards stop old work from crossing into a new authority; public route handlers return untrusted or generation-closed responses instead of quietly proceeding. The diff also adds tests around drain and retry behaviour, stale session ownership, persistence, and cancellation. That is the kind of implementation a terminal-agent demo rarely has to show, but a long-lived runtime cannot avoid.</p>
+
+  <p>There is a practical operator lesson here. A workspace trust change is not finished when a settings file has been saved. The useful audit asks which task owns the old generation, which tool call gets stopped, what survives the drain, and how a later client learns that the old world is gone. If those answers are absent, a policy update can be less a guardrail than an unexplained mid-run fork.</p>
+
+  <h2>Co-evolution is a pressure, not a score</h2>
+
+  <p>Qwen Code's public repository gives a coding-agent team a close place to adapt tool and runtime behaviour around its intended model ecosystem. That can be useful: a harness may expose the provider assumptions it needs to inspect and revise. It also makes a careless claim more tempting. No repository change can tell us that a Qwen model is better, more adopted, or safer than another model. Nor does the source prove what a hosted account has enabled.</p>
+
+  <p>The public evidence supports a narrower and more useful conclusion: model-aware agents still need model-independent operational contracts. Trust state, tool routes, context, sessions, and recovery are the work that makes a model call part of a system rather than a screenshot. Qwen Code is putting one of those contracts in code.</p>
+
+  <p>This is late work against the original July 24 commitment, not an on-time substitute. The next signal should be a tagged release and a public end-to-end trace that changes a workspace policy during active work and shows the blocked, drained, restarted, and persisted states an operator would actually need to understand.</p>
+        </article>
+      </section>
+      <section class="evidence-section" id="evidence" aria-labelledby="evidence-title">
+    <div class="evidence-head">
+      <div>
+        <div class="eyebrow">Evidence Trail</div>
+        <h2 id="evidence-title">Receipts below the story</h2>
+        <p>The article above is the public narrative. This section keeps the source trail and limits on the same page.</p>
+      </div>
+      <a class="paper-button" href="/editions/2026-07-26/">Edition</a>
+    </div>
+    <div class="evidence-table evidence-summary">
+      <div class="evidence-line"><span>Date</span><span>July 26, 2026</span></div>
+      <div class="evidence-line"><span>Lane</span><span>Daily Edition</span></div>
+      <div class="evidence-line"><span>Confidence</span><span>78%</span></div>
+      <div class="evidence-line"><span>Sources</span><span>3</span></div>
+      <div class="evidence-line"><span>Repos</span><span>QwenLM/qwen-code</span></div>
+    </div>
+    <div class="markdown evidence-copy evidence-copy-block">
+      <h2>Primary Evidence</h2>
+<ul>
+<li>Qwen Code workspace-trust hot reload: <a href="https://github.com/QwenLM/qwen-code/commit/c4859627a77ed7c3fe015d505d82645cd672188a">https://github.com/QwenLM/qwen-code/commit/c4859627a77ed7c3fe015d505d82645cd672188a</a>
+<ul>
+<li>Shows: the public change rebuilding workspace runtime generations on trust-policy updates, failing closed across daemon routes, exposing reconciliation status, and adding public tests for policy, drain, and generation behaviour.
+</li>
+</ul>
+</li>
+<li>Qwen Code source repository: <a href="https://github.com/QwenLM/qwen-code">https://github.com/QwenLM/qwen-code</a>
+<ul>
+<li>Shows: the public coding-agent project whose serve, tool, session, workspace, and provider paths are the subject of this report.
+</li>
+</ul>
+</li>
+<li>Qwen Code serve protocol: <a href="https://github.com/QwenLM/qwen-code/blob/main/docs/developers/qwen-serve-protocol.md">https://github.com/QwenLM/qwen-code/blob/main/docs/developers/qwen-serve-protocol.md</a>
+<ul>
+<li>Shows: the public server protocol context in which the workspace-trust source change operates.
+</li>
+</ul>
+</li>
+</ul>
+<h2>Evidence Limits</h2>
+<ul>
+<li>The sources do not establish Qwen model performance, a model-access policy, release inclusion, deployed behaviour, or adoption. A commit proves an implementation change and test intent, not that a particular account is protected by it.
+</li>
+<li>Watch for a tagged release and public operator traces that exercise a policy change during active work, including blocked routes, a replacement runtime, and persistence/recovery behaviour.
+</li>
+</ul>
+    </div>
+  </section>
+      <section class="related-edition-section atlas-context-section">
+    <div class="section-title-row">
+      <h2>Atlas Context</h2>
+      <a href="/atlas/">Open Atlas &rsaquo;</a>
+    </div>
+    <div class="updates-list">
+      <a class="article-card" href="/atlas/what-an-agent-can-see/">
+            <div class="article-meta"><span class="lane">Agent Atlas</span><span>Chapter 2</span></div>
+            <h3>The Invisible Prompt</h3>
+            <p>The model acts on an assembled viewport containing visible messages, hidden turn context, path-triggered instructions, memory records, tool schemas, permissions, and inherited state.</p>
+          </a>
+    </div>
+  </section>
+      <section class="reader-feedback"
+    data-tgr-feedback
+    data-article-slug="2026-07-26-daily-qwen-code-when-an-open-model-and-coding-agent-evolve-together"
+    data-article-title="Qwen Code: when an open model and coding agent evolve together"
+    data-article-url="/articles/2026-07-26-daily-qwen-code-when-an-open-model-and-coding-agent-evolve-together/"
+    data-edition-date="2026-07-26"
+    data-lane="Daily Edition"
+    data-tags="Memory,Tools,Runtime"
+    data-repos="QwenLM/qwen-code">
+    <div class="reader-feedback-head">
+      <div>
+        <div class="eyebrow">Letters &amp; Corrections</div>
+        <h2>Send a note to the desk</h2>
+      </div>
+      <p>Corrections, missing context, or a follow-up lead.</p>
+    </div>
+    <form class="feedback-form">
+      <div class="feedback-votes" role="group" aria-label="Choose signal type">
+        <button class="feedback-choice" type="button" data-vote="follow-up" aria-pressed="false">
+          <span aria-hidden="true">+</span>
+          <span>Follow-up</span>
+        </button>
+        <button class="feedback-choice" type="button" data-vote="correction" aria-pressed="false">
+          <span aria-hidden="true">!</span>
+          <span>Correction</span>
+        </button>
+      </div>
+      <label class="feedback-comment">
+        <span>Note for the editor</span>
+        <textarea name="comment" rows="3" maxlength="320" placeholder="What did we miss, or what should we follow next?"></textarea>
+      </label>
+      <div class="feedback-submit-row">
+        <p class="feedback-status" aria-live="polite"></p>
+        <button class="paper-button primary feedback-submit" type="submit">Send to desk</button>
+      </div>
+    </form>
+  </section>
+      <section class="related-edition-section">
+        <div class="section-title-row">
+          <h2>Same Edition</h2>
+          <a href="/editions/2026-07-26/">Open issue &rsaquo;</a>
+        </div>
+        <div class="updates-list">
+          <a class="update-card" href="/articles/2026-07-26-daily-an-agent-s-answer-begins-in-the-harness/">
+    <div class="update-stripe"></div>
+    <div class="update-main">
+      <div class="update-meta">
+        <span>Context</span>
+        <span class="source-plus">+4</span>
+        <span>Jul 26, 2026</span>
+      </div>
+      <h3>An Agent’s Answer Begins in the Harness</h3>
+      <div class="update-receipt">
+        <span>QwenLM/qwen-code + 3 more</span>
+        <span class="branch-pill">evidence</span>
+      </div>
+      <div class="update-foot">
+        <span>4 sources</span>
+        <span>4 repos</span>
+        <span>2 linked commits</span>
+      </div>
+    </div>
+    <span class="update-arrow" aria-hidden="true">&rsaquo;</span>
+  </a><a class="update-card" href="/articles/2026-07-26-daily-before-you-blame-the-model-inspect-what-the-harness-made-it-see/">
+    <div class="update-stripe"></div>
+    <div class="update-main">
+      <div class="update-meta">
+        <span>Context</span>
+        <span class="source-plus">+4</span>
+        <span>Jul 26, 2026</span>
+      </div>
+      <h3>Before You Blame the Model, Inspect What the Harness Made It See</h3>
+      <div class="update-receipt">
+        <span>QwenLM/qwen-code + 3 more</span>
+        <span class="branch-pill">evidence</span>
+      </div>
+      <div class="update-foot">
+        <span>4 sources</span>
+        <span>4 repos</span>
+        <span>2 linked commits</span>
+      </div>
+    </div>
+    <span class="update-arrow" aria-hidden="true">&rsaquo;</span>
+  </a><a class="update-card" href="/articles/2026-07-26-daily-cline-the-supervised-editor-agent-growing-into-an-sdk-and-cli/">
+    <div class="update-stripe"></div>
+    <div class="update-main">
+      <div class="update-meta">
+        <span>Trust</span>
+        <span class="source-plus">+3</span>
+        <span>Jul 26, 2026</span>
+      </div>
+      <h3>Cline: the supervised editor agent growing into an SDK and CLI</h3>
+      <div class="update-receipt">
+        <span>cline/cline</span>
+        <span class="branch-pill">evidence</span>
+      </div>
+      <div class="update-foot">
+        <span>3 sources</span>
+        <span>1 repo</span>
+        <span>2 linked commits</span>
+      </div>
+    </div>
+    <span class="update-arrow" aria-hidden="true">&rsaquo;</span>
+  </a><a class="update-card" href="/articles/2026-07-26-daily-mastra-turning-typescript-application-primitives-into-agent-infrastructure/">
+    <div class="update-stripe"></div>
+    <div class="update-main">
+      <div class="update-meta">
+        <span>Context</span>
+        <span class="source-plus">+3</span>
+        <span>Jul 26, 2026</span>
+      </div>
+      <h3>Mastra: turning TypeScript application primitives into agent infrastructure</h3>
+      <div class="update-receipt">
+        <span>mastra-ai/mastra</span>
+        <span class="branch-pill">evidence</span>
+      </div>
+      <div class="update-foot">
+        <span>3 sources</span>
+        <span>1 repo</span>
+        <span>commit 75f843d</span>
+      </div>
+    </div>
+    <span class="update-arrow" aria-hidden="true">&rsaquo;</span>
+  </a>
+        </div>
+      </section>
+    </main>
+    <footer class="wrap site-footer">
+      <span>&copy; 2026 The Git Reporter</span>
+      <a href="/about/">About</a>
+      <a href="/agent-pulse/">Agent Pulse</a>
+      <a href="/feed.xml">RSS</a>
+      <a href="https://x.com/TheGitReporter">Follow on X</a>
+      <a href="/articles.json">Manifest JSON</a>
+      <a href="/repos/">Sources</a>
+    </footer>
+  </div>
+</body>
+</html>

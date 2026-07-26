@@ -1,0 +1,329 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Before You Blame the Model, Inspect What the Harness Made It See | The Git Reporter</title>
+  <meta name="description" content="A model&#39;s next move is shaped by the tool output, trust state, history, and recovery rules a harness hands it—so a bad run is not automatically a bad model.">
+  <meta name="robots" content="index,follow">
+  <link rel="canonical" href="https://thegitreporter.com/articles/2026-07-26-daily-before-you-blame-the-model-inspect-what-the-harness-made-it-see/">
+  <link rel="alternate" type="application/rss+xml" title="The Git Reporter" href="https://thegitreporter.com/feed.xml">
+  <meta property="og:site_name" content="The Git Reporter">
+  <meta property="og:locale" content="en_US">
+  <meta property="og:title" content="Before You Blame the Model, Inspect What the Harness Made It See | The Git Reporter">
+  <meta property="og:description" content="A model&#39;s next move is shaped by the tool output, trust state, history, and recovery rules a harness hands it—so a bad run is not automatically a bad model.">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://thegitreporter.com/articles/2026-07-26-daily-before-you-blame-the-model-inspect-what-the-harness-made-it-see/">
+  <meta property="og:image" content="https://thegitreporter.com/assets/social/2026-07-26-daily-before-you-blame-the-model-inspect-what-the-harness-made-it-see-og.jpg">
+  <meta property="og:image:secure_url" content="https://thegitreporter.com/assets/social/2026-07-26-daily-before-you-blame-the-model-inspect-what-the-harness-made-it-see-og.jpg">
+  <meta property="og:image:type" content="image/jpeg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="A rough-marker diagram shows a model receiving a bounded tool result, compacted history, Qwen Code trust guard, and Cline Hub approval card, with a red source-level caveat stamp.">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:site" content="@TheGitReporter">
+  <meta name="twitter:creator" content="@TheGitReporter">
+  <meta name="twitter:title" content="Before You Blame the Model, Inspect What the Harness Made It See | The Git Reporter">
+  <meta name="twitter:description" content="A model&#39;s next move is shaped by the tool output, trust state, history, and recovery rules a harness hands it—so a bad run is not automatically a bad model.">
+  <meta name="twitter:url" content="https://thegitreporter.com/articles/2026-07-26-daily-before-you-blame-the-model-inspect-what-the-harness-made-it-see/">
+  <meta name="twitter:domain" content="thegitreporter.com">
+  <meta name="twitter:image" content="https://thegitreporter.com/assets/social/2026-07-26-daily-before-you-blame-the-model-inspect-what-the-harness-made-it-see-og.jpg">
+  <meta name="twitter:image:alt" content="A rough-marker diagram shows a model receiving a bounded tool result, compacted history, Qwen Code trust guard, and Cline Hub approval card, with a red source-level caveat stamp.">
+  <meta property="article:published_time" content="2026-07-26T12:00:00Z">
+  <meta property="article:modified_time" content="2026-07-26T12:00:00Z">
+  <meta property="article:section" content="Daily Edition">
+  <meta property="article:tag" content="Permissions">
+  <meta property="article:tag" content="Memory">
+  <meta property="article:tag" content="Delegation">
+  <meta property="article:tag" content="Tools">
+  <meta property="article:tag" content="QwenLM/qwen-code">
+  <meta property="article:tag" content="cline/cline">
+  <meta property="article:tag" content="aaif-goose/goose">
+  <meta property="article:tag" content="google-gemini/gemini-cli">
+  <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"https://thegitreporter.com/#organization","name":"The Git Reporter","url":"https://thegitreporter.com","logo":{"@type":"ImageObject","url":"https://thegitreporter.com/assets/mark.svg"},"sameAs":["https://x.com/TheGitReporter"]},{"@type":"WebSite","@id":"https://thegitreporter.com/#website","name":"The Git Reporter","url":"https://thegitreporter.com","publisher":{"@id":"https://thegitreporter.com/#organization"}},{"@type":"NewsArticle","mainEntityOfPage":{"@type":"WebPage","@id":"https://thegitreporter.com/articles/2026-07-26-daily-before-you-blame-the-model-inspect-what-the-harness-made-it-see/"},"headline":"Before You Blame the Model, Inspect What the Harness Made It See","description":"A model's next move is shaped by the tool output, trust state, history, and recovery rules a harness hands it—so a bad run is not automatically a bad model.","image":["https://thegitreporter.com/assets/social/2026-07-26-daily-before-you-blame-the-model-inspect-what-the-harness-made-it-see-og.jpg"],"datePublished":"2026-07-26T12:00:00Z","dateModified":"2026-07-26T12:00:00Z","author":[{"@type":"Organization","name":"The Git Reporter","url":"https://thegitreporter.com"}],"publisher":{"@type":"Organization","@id":"https://thegitreporter.com/#organization","name":"The Git Reporter","url":"https://thegitreporter.com","logo":{"@type":"ImageObject","url":"https://thegitreporter.com/assets/mark.svg"},"sameAs":["https://x.com/TheGitReporter"]},"articleSection":"Daily Edition","keywords":"Permissions, Memory, Delegation, Tools, QwenLM/qwen-code, cline/cline, aaif-goose/goose, google-gemini/gemini-cli"}]}</script>
+  <link rel="icon" href="/assets/mark.svg">
+  <link rel="stylesheet" href="/assets/site.css?v=2026-07-21-agent-pulse-decision-brief">
+  <script defer src="/assets/feedback.js?v=2026-07-21-agent-pulse-decision-brief"></script>
+  <script defer src="/assets/analytics.js?v=2026-07-21-agent-pulse-decision-brief"></script>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-CH19T7M0T1"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){window.dataLayer.push(arguments);}
+    gtag("js", new Date());
+    gtag("config", "G-CH19T7M0T1");
+  </script>
+</head>
+<body>
+  <div class="site">
+    <header class="site-header" id="top">
+      <div class="wrap utility-row">
+        <a class="icon-link menu-icon" href="/archive/" aria-label="Open edition history"><span></span><span></span><span></span></a>
+        <a class="icon-link archive-icon" href="/archive/" aria-label="Open edition history"></a>
+      </div>
+      <div class="wrap masthead-lockup">
+        <a class="masthead-title" href="/">THE GIT REPORTER</a>
+        <div class="masthead-ornament" aria-hidden="true"></div>
+      </div>
+      <div class="wrap nav-wrap">
+        <nav class="paper-nav" aria-label="Primary navigation">
+    <a class="" href="/">Today</a><a class="active" href="/archive/">Editions</a><a class="" href="/about/">About</a><a class="" href="/agent-pulse/">Agent Pulse</a><a class="" href="/atlas/">Agent Atlas</a><a class="" href="/repos/">Repos</a>
+  </nav>
+        <div class="nav-rule"></div>
+      </div>
+    </header>
+    <main class="wrap page-shell article-page">
+      <section class="page-hero story-front">
+        <div class="story-topline">
+          <span>Daily Edition</span>
+          <span>Sources <strong>+4</strong></span>
+        </div>
+        <h1>Before You Blame the Model, Inspect What the Harness Made It See</h1>
+        <p class="summary">A model's next move is shaped by the tool output, trust state, history, and recovery rules a harness hands it—so a bad run is not automatically a bad model.</p>
+        <figure class="story-illustration article-illustration">
+    <img src="/assets/illustrations/2026-07-26-before-you-blame-the-model-inspect-what-the-harness-made-it-see-diagram-punk-v1.png" alt="A rough-marker diagram shows a model receiving a bounded tool result, compacted history, Qwen Code trust guard, and Cline Hub approval card, with a red source-level caveat stamp." loading="lazy" decoding="async">
+    <figcaption><span>Diagram Punk</span>The run shapes the next request.</figcaption>
+  </figure>
+        <div class="receipt">
+    <div class="receipt-line">
+      <span class="receipt-icon">repos</span>
+      <span class="receipt-main">QwenLM/qwen-code + 3 more</span>
+      <span class="branch-pill">evidence</span>
+    </div>
+    <div class="receipt-line receipt-muted">
+      <span>4 source signals</span>
+      <span>4 repos</span>
+      <span>2 linked commits</span>
+    </div>
+    <div class="commit-line">Evidence: 2 linked commits / July 26, 2026 / Daily Edition</div>
+  </div>
+        <div class="article-route-row">
+          <a href="/editions/2026-07-26/">Open Edition</a>
+          <a href="#evidence">Evidence below</a>
+        </div>
+      </section>
+      <section class="story-reader">
+        <article class="story-shell story-body">
+          <p>When an agent forgets a task after a long command, picks the wrong tool, or stalls after compaction, “the model failed” is the fastest diagnosis. It is often not the first one worth making. In a <a href="https://parthsareen.com/writings/building-a-harness-for-open-models/">public account of building an open-model harness</a>, Parth Sareen makes the awkward point plain: the next model call may contain mostly stdout, a vague summary, a changed prompt prefix, or a tool result too large for the remaining context. That is not background plumbing. It is the environment in which the model is being asked to work.</p>
+
+  <p>The useful correction is not that every weak result is a harness bug. It is that a run has a chain of custody. Before a model answers again, someone has chosen its tool schema, bounded a result or not, retained or rewritten history, carried forward a permission decision, and decided what survives a failed turn. If those choices are invisible, a model comparison can quietly become a comparison of two different jobs.</p>
+
+  <h2>The run has policy in it</h2>
+
+  <p><a href="https://github.com/QwenLM/qwen-code/commit/c4859627a77ed7c3fe015d505d82645cd672188a">Qwen Code's July 25 workspace-trust change</a> is a useful receipt because it is not framed as model quality at all. The public commit rebuilds workspace runtime generations when trust policy changes, makes affected daemon routes fail closed, and adds tests around the policy monitor, reconciliation, and generation boundary. The claim is deliberately narrow: this source shows a team treating trust changes as a change to the running environment, not as a setting that can safely drift underneath an in-flight task.</p>
+
+  <p>Cline makes a different part of the same problem visible. Its <a href="https://github.com/cline/cline/blob/main/sdk/ARCHITECTURE.md">SDK architecture</a> separates a stateless agent loop from stateful orchestration, then gives a shared Hub responsibility for sessions, approvals, schedules, and host capabilities. A recent <a href="https://github.com/cline/cline/commit/ca6f6a6c23b45db737d0a18cebd6193fe925facd">desktop change</a> moves chat through that shared Hub instead of owning a private in-process runtime. The public design routes an approval back to the client that created the session. That is not a promise that every client surface is equally safe; it is a source-visible answer to who owns a decision when the same run has more than one doorway.</p>
+
+  <h2>Ask for the request, not the vibes</h2>
+
+  <p>The freshest cross-project lesson is a reporting discipline, not a standard. Goose publishes context-management and compaction material; Gemini CLI has public context-compression paths. Neither proves that it behaves like Qwen Code or Cline, and none proves a model's score. But they make the absent object easier to name: the exact request shape after a tool call, a truncation marker, compaction, a policy change, or a recovery attempt.</p>
+
+  <p>For builders evaluating a model swap or local-to-cloud handoff, the first artifact to request should be a trace that answers five unglamorous questions: what was in the next prompt; what was omitted; whether the omission was declared; which permission and workspace state persisted; and what happened after a failure. A clean trace can exonerate a model. It can also reveal that the model was asked to reconstruct a task from evidence the harness had already thrown away.</p>
+
+  <p>These commits and documents do not establish released behaviour, production reliability, or a shared model-portability contract. The next serious signal is a reproducible task-matched comparison that records bounded output, compaction, permission state, and recovery—not another leaderboard with the run hidden behind it.</p>
+        </article>
+      </section>
+      <section class="evidence-section" id="evidence" aria-labelledby="evidence-title">
+    <div class="evidence-head">
+      <div>
+        <div class="eyebrow">Evidence Trail</div>
+        <h2 id="evidence-title">Receipts below the story</h2>
+        <p>The article above is the public narrative. This section keeps the source trail and limits on the same page.</p>
+      </div>
+      <a class="paper-button" href="/editions/2026-07-26/">Edition</a>
+    </div>
+    <div class="evidence-table evidence-summary">
+      <div class="evidence-line"><span>Date</span><span>July 26, 2026</span></div>
+      <div class="evidence-line"><span>Lane</span><span>Daily Edition</span></div>
+      <div class="evidence-line"><span>Confidence</span><span>78%</span></div>
+      <div class="evidence-line"><span>Sources</span><span>4</span></div>
+      <div class="evidence-line"><span>Repos</span><span>QwenLM/qwen-code, cline/cline, aaif-goose/goose, google-gemini/gemini-cli</span></div>
+    </div>
+    <div class="markdown evidence-copy evidence-copy-block">
+      <h2>Primary Evidence</h2>
+<ul>
+<li>Harness argument, Parth Sareen: <a href="https://parthsareen.com/writings/building-a-harness-for-open-models/">https://parthsareen.com/writings/building-a-harness-for-open-models/</a>
+<ul>
+<li>Shows: a public, first-hand account of how tool-result bounds, compaction, prompt-prefix stability, and recovery shape the next model request; it frames the reporting question rather than proving a general performance result.
+</li>
+</ul>
+</li>
+<li>Qwen Code workspace-trust hot reload: <a href="https://github.com/QwenLM/qwen-code/commit/c4859627a77ed7c3fe015d505d82645cd672188a">https://github.com/QwenLM/qwen-code/commit/c4859627a77ed7c3fe015d505d82645cd672188a</a>
+<ul>
+<li>Shows: a public source change that rebuilds workspace runtime generations when trust policy changes, adds fail-closed route handling, and includes trust-policy and runtime-reconciliation tests.
+</li>
+</ul>
+</li>
+<li>Cline SDK architecture: <a href="https://github.com/cline/cline/blob/main/sdk/ARCHITECTURE.md">https://github.com/cline/cline/blob/main/sdk/ARCHITECTURE.md</a>
+<ul>
+<li>Shows: Cline's public division between the agent loop, stateful orchestration, Hub-owned sessions, approvals, schedules, and host capabilities.
+</li>
+</ul>
+</li>
+<li>Cline desktop shared-Hub change: <a href="https://github.com/cline/cline/commit/ca6f6a6c23b45db737d0a18cebd6193fe925facd">https://github.com/cline/cline/commit/ca6f6a6c23b45db737d0a18cebd6193fe925facd</a>
+<ul>
+<li>Shows: a desktop client moving from its own in-process runtime to a shared Hub client, with tool approvals routed back to the session-creating client.
+</li>
+</ul>
+</li>
+</ul>
+<h2>Evidence Limits</h2>
+<ul>
+<li>These sources do not benchmark models, prove release inclusion or production reliability, or establish that Qwen Code and Cline use the same context or recovery strategy.
+</li>
+<li>The next stronger evidence would be a reproducible, task-matched trace comparison that records the request, tool-result bounds, compaction event, approval state, and recovery outcome across runtimes.
+</li>
+</ul>
+    </div>
+  </section>
+      <section class="related-edition-section atlas-context-section">
+    <div class="section-title-row">
+      <h2>Atlas Context</h2>
+      <a href="/atlas/">Open Atlas &rsaquo;</a>
+    </div>
+    <div class="updates-list">
+      <a class="article-card" href="/atlas/what-an-agent-can-see/">
+            <div class="article-meta"><span class="lane">Agent Atlas</span><span>Chapter 2</span></div>
+            <h3>The Invisible Prompt</h3>
+            <p>The model acts on an assembled viewport containing visible messages, hidden turn context, path-triggered instructions, memory records, tool schemas, permissions, and inherited state.</p>
+          </a>
+    </div>
+  </section>
+      <section class="reader-feedback"
+    data-tgr-feedback
+    data-article-slug="2026-07-26-daily-before-you-blame-the-model-inspect-what-the-harness-made-it-see"
+    data-article-title="Before You Blame the Model, Inspect What the Harness Made It See"
+    data-article-url="/articles/2026-07-26-daily-before-you-blame-the-model-inspect-what-the-harness-made-it-see/"
+    data-edition-date="2026-07-26"
+    data-lane="Daily Edition"
+    data-tags="Permissions,Memory,Delegation,Tools"
+    data-repos="QwenLM/qwen-code,cline/cline,aaif-goose/goose,google-gemini/gemini-cli">
+    <div class="reader-feedback-head">
+      <div>
+        <div class="eyebrow">Letters &amp; Corrections</div>
+        <h2>Send a note to the desk</h2>
+      </div>
+      <p>Corrections, missing context, or a follow-up lead.</p>
+    </div>
+    <form class="feedback-form">
+      <div class="feedback-votes" role="group" aria-label="Choose signal type">
+        <button class="feedback-choice" type="button" data-vote="follow-up" aria-pressed="false">
+          <span aria-hidden="true">+</span>
+          <span>Follow-up</span>
+        </button>
+        <button class="feedback-choice" type="button" data-vote="correction" aria-pressed="false">
+          <span aria-hidden="true">!</span>
+          <span>Correction</span>
+        </button>
+      </div>
+      <label class="feedback-comment">
+        <span>Note for the editor</span>
+        <textarea name="comment" rows="3" maxlength="320" placeholder="What did we miss, or what should we follow next?"></textarea>
+      </label>
+      <div class="feedback-submit-row">
+        <p class="feedback-status" aria-live="polite"></p>
+        <button class="paper-button primary feedback-submit" type="submit">Send to desk</button>
+      </div>
+    </form>
+  </section>
+      <section class="related-edition-section">
+        <div class="section-title-row">
+          <h2>Same Edition</h2>
+          <a href="/editions/2026-07-26/">Open issue &rsaquo;</a>
+        </div>
+        <div class="updates-list">
+          <a class="update-card" href="/articles/2026-07-26-daily-an-agent-s-answer-begins-in-the-harness/">
+    <div class="update-stripe"></div>
+    <div class="update-main">
+      <div class="update-meta">
+        <span>Context</span>
+        <span class="source-plus">+4</span>
+        <span>Jul 26, 2026</span>
+      </div>
+      <h3>An Agent’s Answer Begins in the Harness</h3>
+      <div class="update-receipt">
+        <span>QwenLM/qwen-code + 3 more</span>
+        <span class="branch-pill">evidence</span>
+      </div>
+      <div class="update-foot">
+        <span>4 sources</span>
+        <span>4 repos</span>
+        <span>2 linked commits</span>
+      </div>
+    </div>
+    <span class="update-arrow" aria-hidden="true">&rsaquo;</span>
+  </a><a class="update-card" href="/articles/2026-07-26-daily-cline-the-supervised-editor-agent-growing-into-an-sdk-and-cli/">
+    <div class="update-stripe"></div>
+    <div class="update-main">
+      <div class="update-meta">
+        <span>Trust</span>
+        <span class="source-plus">+3</span>
+        <span>Jul 26, 2026</span>
+      </div>
+      <h3>Cline: the supervised editor agent growing into an SDK and CLI</h3>
+      <div class="update-receipt">
+        <span>cline/cline</span>
+        <span class="branch-pill">evidence</span>
+      </div>
+      <div class="update-foot">
+        <span>3 sources</span>
+        <span>1 repo</span>
+        <span>2 linked commits</span>
+      </div>
+    </div>
+    <span class="update-arrow" aria-hidden="true">&rsaquo;</span>
+  </a><a class="update-card" href="/articles/2026-07-26-daily-mastra-turning-typescript-application-primitives-into-agent-infrastructure/">
+    <div class="update-stripe"></div>
+    <div class="update-main">
+      <div class="update-meta">
+        <span>Context</span>
+        <span class="source-plus">+3</span>
+        <span>Jul 26, 2026</span>
+      </div>
+      <h3>Mastra: turning TypeScript application primitives into agent infrastructure</h3>
+      <div class="update-receipt">
+        <span>mastra-ai/mastra</span>
+        <span class="branch-pill">evidence</span>
+      </div>
+      <div class="update-foot">
+        <span>3 sources</span>
+        <span>1 repo</span>
+        <span>commit 75f843d</span>
+      </div>
+    </div>
+    <span class="update-arrow" aria-hidden="true">&rsaquo;</span>
+  </a><a class="update-card" href="/articles/2026-07-26-daily-qwen-code-when-an-open-model-and-coding-agent-evolve-together/">
+    <div class="update-stripe"></div>
+    <div class="update-main">
+      <div class="update-meta">
+        <span>Context</span>
+        <span class="source-plus">+3</span>
+        <span>Jul 26, 2026</span>
+      </div>
+      <h3>Qwen Code: when an open model and coding agent evolve together</h3>
+      <div class="update-receipt">
+        <span>QwenLM/qwen-code</span>
+        <span class="branch-pill">evidence</span>
+      </div>
+      <div class="update-foot">
+        <span>3 sources</span>
+        <span>1 repo</span>
+        <span>commit c485962</span>
+      </div>
+    </div>
+    <span class="update-arrow" aria-hidden="true">&rsaquo;</span>
+  </a>
+        </div>
+      </section>
+    </main>
+    <footer class="wrap site-footer">
+      <span>&copy; 2026 The Git Reporter</span>
+      <a href="/about/">About</a>
+      <a href="/agent-pulse/">Agent Pulse</a>
+      <a href="/feed.xml">RSS</a>
+      <a href="https://x.com/TheGitReporter">Follow on X</a>
+      <a href="/articles.json">Manifest JSON</a>
+      <a href="/repos/">Sources</a>
+    </footer>
+  </div>
+</body>
+</html>
