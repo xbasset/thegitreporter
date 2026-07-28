@@ -1,0 +1,289 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>When an Agent Sees Two MCP Servers Called Docs | The Git Reporter</title>
+  <meta name="description" content="OpenClaw’s Code Mode has a new answer to a quietly consequential question: when several connected machines offer a server called docs , how does an agent know which one it is calling?">
+  <meta name="robots" content="index,follow">
+  <link rel="canonical" href="https://thegitreporter.com/articles/2026-07-28-daily-when-an-agent-sees-two-mcp-servers-called-docs/">
+  <link rel="alternate" type="application/rss+xml" title="The Git Reporter" href="https://thegitreporter.com/feed.xml">
+  <meta property="og:site_name" content="The Git Reporter">
+  <meta property="og:locale" content="en_US">
+  <meta property="og:title" content="When an Agent Sees Two MCP Servers Called Docs | The Git Reporter">
+  <meta property="og:description" content="OpenClaw’s Code Mode has a new answer to a quietly consequential question: when several connected machines offer a server called docs , how does an agent know which one it is calling?">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://thegitreporter.com/articles/2026-07-28-daily-when-an-agent-sees-two-mcp-servers-called-docs/">
+  <meta property="og:image" content="https://thegitreporter.com/assets/social/2026-07-28-daily-when-an-agent-sees-two-mcp-servers-called-docs-og.jpg">
+  <meta property="og:image:secure_url" content="https://thegitreporter.com/assets/social/2026-07-28-daily-when-an-agent-sees-two-mcp-servers-called-docs-og.jpg">
+  <meta property="og:image:type" content="image/jpeg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Photocopied-style diagram showing a gateway and two nodes that each offer a docs server, then routing the node servers into distinct MCP namespace names under the hook ‘One name. Two machines.’">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:site" content="@TheGitReporter">
+  <meta name="twitter:creator" content="@TheGitReporter">
+  <meta name="twitter:title" content="When an Agent Sees Two MCP Servers Called Docs | The Git Reporter">
+  <meta name="twitter:description" content="OpenClaw’s Code Mode has a new answer to a quietly consequential question: when several connected machines offer a server called docs , how does an agent know which one it is calling?">
+  <meta name="twitter:url" content="https://thegitreporter.com/articles/2026-07-28-daily-when-an-agent-sees-two-mcp-servers-called-docs/">
+  <meta name="twitter:domain" content="thegitreporter.com">
+  <meta name="twitter:image" content="https://thegitreporter.com/assets/social/2026-07-28-daily-when-an-agent-sees-two-mcp-servers-called-docs-og.jpg">
+  <meta name="twitter:image:alt" content="Photocopied-style diagram showing a gateway and two nodes that each offer a docs server, then routing the node servers into distinct MCP namespace names under the hook ‘One name. Two machines.’">
+  <meta property="article:published_time" content="2026-07-28T12:00:00Z">
+  <meta property="article:modified_time" content="2026-07-28T12:00:00Z">
+  <meta property="article:section" content="Daily Edition">
+  <meta property="article:tag" content="mcp">
+  <meta property="article:tag" content="tool-provenance">
+  <meta property="article:tag" content="code-mode">
+  <meta property="article:tag" content="openclaw/openclaw">
+  <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"https://thegitreporter.com/#organization","name":"The Git Reporter","url":"https://thegitreporter.com","logo":{"@type":"ImageObject","url":"https://thegitreporter.com/assets/mark.svg"},"sameAs":["https://x.com/TheGitReporter"]},{"@type":"WebSite","@id":"https://thegitreporter.com/#website","name":"The Git Reporter","url":"https://thegitreporter.com","publisher":{"@id":"https://thegitreporter.com/#organization"}},{"@type":"NewsArticle","mainEntityOfPage":{"@type":"WebPage","@id":"https://thegitreporter.com/articles/2026-07-28-daily-when-an-agent-sees-two-mcp-servers-called-docs/"},"headline":"When an Agent Sees Two MCP Servers Called Docs","description":"OpenClaw’s Code Mode has a new answer to a quietly consequential question: when several connected machines offer a server called docs , how does an agent know which one it is calling?","image":["https://thegitreporter.com/assets/social/2026-07-28-daily-when-an-agent-sees-two-mcp-servers-called-docs-og.jpg"],"datePublished":"2026-07-28T12:00:00Z","dateModified":"2026-07-28T12:00:00Z","author":[{"@type":"Organization","name":"The Git Reporter","url":"https://thegitreporter.com"}],"publisher":{"@type":"Organization","@id":"https://thegitreporter.com/#organization","name":"The Git Reporter","url":"https://thegitreporter.com","logo":{"@type":"ImageObject","url":"https://thegitreporter.com/assets/mark.svg"},"sameAs":["https://x.com/TheGitReporter"]},"articleSection":"Daily Edition","keywords":"mcp, tool-provenance, code-mode, openclaw/openclaw"}]}</script>
+  <link rel="icon" href="/assets/mark.svg">
+  <link rel="stylesheet" href="/assets/site.css?v=2026-07-21-agent-pulse-decision-brief">
+  <script defer src="/assets/feedback.js?v=2026-07-21-agent-pulse-decision-brief"></script>
+  <script defer src="/assets/analytics.js?v=2026-07-21-agent-pulse-decision-brief"></script>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-CH19T7M0T1"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){window.dataLayer.push(arguments);}
+    gtag("js", new Date());
+    gtag("config", "G-CH19T7M0T1");
+  </script>
+</head>
+<body>
+  <div class="site">
+    <header class="site-header" id="top">
+      <div class="wrap utility-row">
+        <a class="icon-link menu-icon" href="/archive/" aria-label="Open edition history"><span></span><span></span><span></span></a>
+        <a class="icon-link archive-icon" href="/archive/" aria-label="Open edition history"></a>
+      </div>
+      <div class="wrap masthead-lockup">
+        <a class="masthead-title" href="/">THE GIT REPORTER</a>
+        <div class="masthead-ornament" aria-hidden="true"></div>
+      </div>
+      <div class="wrap nav-wrap">
+        <nav class="paper-nav" aria-label="Primary navigation">
+    <a class="" href="/">Today</a><a class="active" href="/archive/">Editions</a><a class="" href="/about/">About</a><a class="" href="/agent-pulse/">Agent Pulse</a><a class="" href="/atlas/">Agent Atlas</a><a class="" href="/repos/">Repos</a>
+  </nav>
+        <div class="nav-rule"></div>
+      </div>
+    </header>
+    <main class="wrap page-shell article-page">
+      <section class="page-hero story-front">
+        <div class="story-topline">
+          <span>Daily Edition</span>
+          <span>Sources <strong>+4</strong></span>
+        </div>
+        <h1>When an Agent Sees Two MCP Servers Called Docs</h1>
+        <p class="summary">OpenClaw’s Code Mode has a new answer to a quietly consequential question: when several connected machines offer a server called docs , how does an agent know which one it is calling?</p>
+        <figure class="story-illustration article-illustration">
+    <img src="/assets/illustrations/2026-07-28-when-an-agent-sees-two-mcp-servers-called-docs-diagram-punk-v1.png" alt="Photocopied-style diagram showing a gateway and two nodes that each offer a docs server, then routing the node servers into distinct MCP namespace names under the hook ‘One name. Two machines.’" loading="lazy" decoding="async">
+    <figcaption><span>Diagram Punk</span>a tool name needs to carry its source when nodes collide.</figcaption>
+  </figure>
+        <div class="receipt">
+    <div class="receipt-line">
+      <span class="receipt-icon">repo</span>
+      <span class="receipt-main">openclaw/openclaw</span>
+      <span class="branch-pill">evidence</span>
+    </div>
+    <div class="receipt-line receipt-muted">
+      <span>4 source signals</span>
+      <span>1 repo</span>
+      <span>commit d762273</span>
+    </div>
+    <div class="commit-line">Evidence: commit d762273 / July 28, 2026 / Daily Edition</div>
+  </div>
+        <div class="article-route-row">
+          <a href="/editions/2026-07-28/">Open Edition</a>
+          <a href="#evidence">Evidence below</a>
+        </div>
+      </section>
+      <section class="story-reader">
+        <article class="story-shell story-body">
+          <p>The <code>openclaw/openclaw</code> project’s merged Code Mode change now gives node-backed MCP servers the same typed namespace as gateway servers. That makes a familiar name such as <code>docs</code> a concrete provenance problem when one agent can see a gateway’s tools and the tools of several connected nodes.</p>
+
+  <p>The fresh <a href="https://github.com/openclaw/openclaw/pull/114876"><code>openclaw/openclaw</code> change</a> addresses that pressure. Gateway-hosted MCP servers already had a typed call surface such as <code>MCP.&lt;server&gt;.&lt;tool&gt;()</code>. Node-backed MCP servers travelled through a generic tool path instead. The difference was more than cosmetic: an agent could encounter two sources of tools with different ways to inspect and invoke them, while a repeated server name had no single public story.</p>
+
+  <h2>One namespace, with the source left visible</h2>
+
+  <p>The merged <a href="https://github.com/openclaw/openclaw/commit/d7622734d583da36ee303b144bf740c0c0bd10b2">implementation</a> gives node-backed MCP tools the same Code Mode namespace and generated TypeScript-style declarations as gateway MCP tools. It also carries node identity into the metadata used to build that namespace. A unique node-backed server can keep its familiar name. When names collide, the code derives a stable identifier from the node id and adds a numeric suffix only if it must.</p>
+
+  <p>The point is not prettier naming. It is to keep a route such as <code>MCP.nodeBDocs.searchC()</code> from quietly pretending to be the same authority as another <code>docs</code> server. The project’s focused tests cover both a gateway/node collision and two node-backed servers with the same name; they also check that a call travels through the expected node forwarding path.</p>
+
+  <h2>The alias that did not survive</h2>
+
+  <p>OpenClaw made another revealing choice: in Code Mode, node-backed MCP tools leave the generic <code>ALL_TOOLS</code> and <code>tools.*</code> surfaces. The PR calls this intentional. Rather than teach an agent two ways to reach the same external capability during a transition, it wants one canonical MCP surface with an ownership hint in the preamble and declaration files.</p>
+
+  <p>That can be a sharper operator contract. If a connected node exposes a ticket search or document search service, the useful question is no longer only “can the model find a tool called search?” It is “which machine supplied this server, which declaration describes its inputs, and does the visible name still tell the operator where a call will go?”</p>
+
+  <p>The evidence is appropriately bounded. The PR describes focused suites, changed-code gates, and CI, but says no paired-node live fixture was supplied; the forwarding in the tests is mocked. It also says policy and forwarding outside Code Mode are unchanged. So this is not a claim that federated MCP is solved. It is a source-level decision to make a crowded tool catalog less ambiguous before an agent gets to act.</p>
+
+  <p>The next signal is a public live paired-node fixture—or a real operational report—that tests whether those generated names remain understandable once a user, not just a test harness, has several similarly named servers in front of an agent.</p>
+        </article>
+      </section>
+      <section class="evidence-section" id="evidence" aria-labelledby="evidence-title">
+    <div class="evidence-head">
+      <div>
+        <div class="eyebrow">Evidence Trail</div>
+        <h2 id="evidence-title">Receipts below the story</h2>
+        <p>The article above is the public narrative. This section keeps the source trail and limits on the same page.</p>
+      </div>
+      <a class="paper-button" href="/editions/2026-07-28/">Edition</a>
+    </div>
+    <div class="evidence-table evidence-summary">
+      <div class="evidence-line"><span>Date</span><span>July 28, 2026</span></div>
+      <div class="evidence-line"><span>Lane</span><span>Daily Edition</span></div>
+      <div class="evidence-line"><span>Confidence</span><span>78%</span></div>
+      <div class="evidence-line"><span>Sources</span><span>4</span></div>
+      <div class="evidence-line"><span>Repos</span><span>openclaw/openclaw</span></div>
+    </div>
+    <div class="markdown evidence-copy evidence-copy-block">
+      <h2>Primary Evidence</h2>
+<ul>
+<li>Merged namespace implementation: <a href="https://github.com/openclaw/openclaw/commit/d7622734d583da36ee303b144bf740c0c0bd10b2">https://github.com/openclaw/openclaw/commit/d7622734d583da36ee303b144bf740c0c0bd10b2</a>
+<ul>
+<li>Shows: OpenClaw added node provenance to node-backed MCP tool metadata, builds a shared Code Mode MCP namespace, and assigns deterministic server identifiers when names collide.
+</li>
+</ul>
+</li>
+<li>Public change rationale and scope: <a href="https://github.com/openclaw/openclaw/pull/114876">https://github.com/openclaw/openclaw/pull/114876</a>
+<ul>
+<li>Shows: node-backed MCP tools previously followed a generic path while gateway MCP tools had a typed namespace; the stated change puts both in <code>MCP.&lt;server&gt;.&lt;tool&gt;()</code> and intentionally removes the node-backed transition alias from generic Code Mode discovery.
+</li>
+</ul>
+</li>
+<li>Collision and forwarding tests: <a href="https://github.com/openclaw/openclaw/blob/d7622734d583da36ee303b144bf740c0c0bd10b2/src/agents/node-plugin-tools.test.ts">https://github.com/openclaw/openclaw/blob/d7622734d583da36ee303b144bf740c0c0bd10b2/src/agents/node-plugin-tools.test.ts</a>
+<ul>
+<li>Shows: focused tests cover a node-backed <code>MCP.docs.search(...)</code> call, generated declarations, gateway/node collisions, and node/node collisions resolved with node-specific identifiers.
+</li>
+</ul>
+</li>
+<li>Namespace naming code: <a href="https://github.com/openclaw/openclaw/blob/d7622734d583da36ee303b144bf740c0c0bd10b2/src/agents/code-mode-namespaces.ts">https://github.com/openclaw/openclaw/blob/d7622734d583da36ee303b144bf740c0c0bd10b2/src/agents/code-mode-namespaces.ts</a>
+<ul>
+<li>Shows: the naming rule retains a unique server name where possible, prefixes colliding node-backed names with a sanitized node id, and adds a numeric suffix only when still needed.
+</li>
+</ul>
+</li>
+</ul>
+<h2>Evidence Limits</h2>
+<ul>
+<li>These sources establish an OpenClaw code and test change, not a public release, user adoption, or successful live operation on every paired-node setup.
+</li>
+<li>The public PR says the changed tests use mocked gateway forwarding and no paired-node live fixture. The illustrated collision behavior is therefore a tested source contract, not independent live proof.
+</li>
+<li>The story concerns Code Mode’s namespace and provenance boundary. It does not claim that policy, authorization, or forwarding behavior changed outside that surface.
+</li>
+</ul>
+    </div>
+  </section>
+      <section class="related-edition-section atlas-context-section">
+    <div class="section-title-row">
+      <h2>Atlas Context</h2>
+      <a href="/atlas/">Open Atlas &rsaquo;</a>
+    </div>
+    <div class="updates-list">
+      <a class="article-card" href="/atlas/hands-in-the-world/">
+            <div class="article-meta"><span class="lane">Agent Atlas</span><span>Chapter 3</span></div>
+            <h3>Tool Calls: Contract, Authorization, Execution</h3>
+            <p>A tool call crosses independently governed boundaries: schema, registration, policy, approval, execution authority, result handling, and audit.</p>
+          </a>
+    </div>
+  </section>
+      <section class="reader-feedback"
+    data-tgr-feedback
+    data-article-slug="2026-07-28-daily-when-an-agent-sees-two-mcp-servers-called-docs"
+    data-article-title="When an Agent Sees Two MCP Servers Called Docs"
+    data-article-url="/articles/2026-07-28-daily-when-an-agent-sees-two-mcp-servers-called-docs/"
+    data-edition-date="2026-07-28"
+    data-lane="Daily Edition"
+    data-tags="mcp,tool-provenance,code-mode"
+    data-repos="openclaw/openclaw">
+    <div class="reader-feedback-head">
+      <div>
+        <div class="eyebrow">Letters &amp; Corrections</div>
+        <h2>Send a note to the desk</h2>
+      </div>
+      <p>Corrections, missing context, or a follow-up lead.</p>
+    </div>
+    <form class="feedback-form">
+      <div class="feedback-votes" role="group" aria-label="Choose signal type">
+        <button class="feedback-choice" type="button" data-vote="follow-up" aria-pressed="false">
+          <span aria-hidden="true">+</span>
+          <span>Follow-up</span>
+        </button>
+        <button class="feedback-choice" type="button" data-vote="correction" aria-pressed="false">
+          <span aria-hidden="true">!</span>
+          <span>Correction</span>
+        </button>
+      </div>
+      <label class="feedback-comment">
+        <span>Note for the editor</span>
+        <textarea name="comment" rows="3" maxlength="320" placeholder="What did we miss, or what should we follow next?"></textarea>
+      </label>
+      <div class="feedback-submit-row">
+        <p class="feedback-status" aria-live="polite"></p>
+        <button class="paper-button primary feedback-submit" type="submit">Send to desk</button>
+      </div>
+    </form>
+  </section>
+      <section class="related-edition-section">
+        <div class="section-title-row">
+          <h2>Same Edition</h2>
+          <a href="/editions/2026-07-28/">Open issue &rsaquo;</a>
+        </div>
+        <div class="updates-list">
+          <a class="update-card" href="/articles/2026-07-28-daily-pydanticai-what-type-safety-means-when-agents-can-act/">
+    <div class="update-stripe"></div>
+    <div class="update-main">
+      <div class="update-meta">
+        <span>Reported</span>
+        <span class="source-plus">+6</span>
+        <span>Jul 28, 2026</span>
+      </div>
+      <h3>PydanticAI: what type safety means when agents can act</h3>
+      <div class="update-receipt">
+        <span>pydantic/pydantic-ai</span>
+        <span class="branch-pill">evidence</span>
+      </div>
+      <div class="update-foot">
+        <span>6 sources</span>
+        <span>1 repo</span>
+        <span>commit 2e52d59</span>
+      </div>
+    </div>
+    <span class="update-arrow" aria-hidden="true">&rsaquo;</span>
+  </a><a class="update-card" href="/articles/2026-07-28-daily-api-discovery-tell-an-agent-when-waiting-is-the-work/">
+    <div class="update-stripe"></div>
+    <div class="update-main">
+      <div class="update-meta">
+        <span>Reported</span>
+        <span class="source-plus">+3</span>
+        <span>Jul 28, 2026</span>
+      </div>
+      <h3>API Discovery: Tell an Agent When Waiting Is the Work</h3>
+      <div class="update-receipt">
+        <span>crewAIInc/crewAI</span>
+        <span class="branch-pill">evidence</span>
+      </div>
+      <div class="update-foot">
+        <span>3 sources</span>
+        <span>1 repo</span>
+        <span>3 source signals</span>
+      </div>
+    </div>
+    <span class="update-arrow" aria-hidden="true">&rsaquo;</span>
+  </a>
+        </div>
+      </section>
+    </main>
+    <footer class="wrap site-footer">
+      <span>&copy; 2026 The Git Reporter</span>
+      <a href="/about/">About</a>
+      <a href="/agent-pulse/">Agent Pulse</a>
+      <a href="/feed.xml">RSS</a>
+      <a href="https://x.com/TheGitReporter">Follow on X</a>
+      <a href="/articles.json">Manifest JSON</a>
+      <a href="/repos/">Sources</a>
+    </footer>
+  </div>
+</body>
+</html>

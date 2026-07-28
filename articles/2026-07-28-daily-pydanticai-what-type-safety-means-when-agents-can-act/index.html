@@ -1,0 +1,307 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>PydanticAI: what type safety means when agents can act | The Git Reporter</title>
+  <meta name="description" content="A fresh cancellation fix draws the line clearly: typed inputs and validated outputs can discipline an agent’s interface, but a long-running run still needs a truthful answer to one operational question—did it actually stop?">
+  <meta name="robots" content="index,follow">
+  <link rel="canonical" href="https://thegitreporter.com/articles/2026-07-28-daily-pydanticai-what-type-safety-means-when-agents-can-act/">
+  <link rel="alternate" type="application/rss+xml" title="The Git Reporter" href="https://thegitreporter.com/feed.xml">
+  <meta property="og:site_name" content="The Git Reporter">
+  <meta property="og:locale" content="en_US">
+  <meta property="og:title" content="PydanticAI: what type safety means when agents can act | The Git Reporter">
+  <meta property="og:description" content="A fresh cancellation fix draws the line clearly: typed inputs and validated outputs can discipline an agent’s interface, but a long-running run still needs a truthful answer to one operational question—did it actually stop?">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://thegitreporter.com/articles/2026-07-28-daily-pydanticai-what-type-safety-means-when-agents-can-act/">
+  <meta property="og:image" content="https://thegitreporter.com/assets/social/2026-07-28-daily-pydanticai-what-type-safety-means-when-agents-can-act-og.jpg">
+  <meta property="og:image:secure_url" content="https://thegitreporter.com/assets/social/2026-07-28-daily-pydanticai-what-type-safety-means-when-agents-can-act-og.jpg">
+  <meta property="og:image:type" content="image/jpeg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Photocopied-style diagram with cards for validated output, a swallowed cancellation, a Task.cancelling boundary check, and a Temporal replay test, under the hook ‘Types don’t prove stopped.’">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:site" content="@TheGitReporter">
+  <meta name="twitter:creator" content="@TheGitReporter">
+  <meta name="twitter:title" content="PydanticAI: what type safety means when agents can act | The Git Reporter">
+  <meta name="twitter:description" content="A fresh cancellation fix draws the line clearly: typed inputs and validated outputs can discipline an agent’s interface, but a long-running run still needs a truthful answer to one operational question—did it actually stop?">
+  <meta name="twitter:url" content="https://thegitreporter.com/articles/2026-07-28-daily-pydanticai-what-type-safety-means-when-agents-can-act/">
+  <meta name="twitter:domain" content="thegitreporter.com">
+  <meta name="twitter:image" content="https://thegitreporter.com/assets/social/2026-07-28-daily-pydanticai-what-type-safety-means-when-agents-can-act-og.jpg">
+  <meta name="twitter:image:alt" content="Photocopied-style diagram with cards for validated output, a swallowed cancellation, a Task.cancelling boundary check, and a Temporal replay test, under the hook ‘Types don’t prove stopped.’">
+  <meta property="article:published_time" content="2026-07-28T12:00:00Z">
+  <meta property="article:modified_time" content="2026-07-28T12:00:00Z">
+  <meta property="article:section" content="Daily Edition">
+  <meta property="article:tag" content="durable-execution">
+  <meta property="article:tag" content="cancellation">
+  <meta property="article:tag" content="type-safety">
+  <meta property="article:tag" content="pydantic/pydantic-ai">
+  <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"https://thegitreporter.com/#organization","name":"The Git Reporter","url":"https://thegitreporter.com","logo":{"@type":"ImageObject","url":"https://thegitreporter.com/assets/mark.svg"},"sameAs":["https://x.com/TheGitReporter"]},{"@type":"WebSite","@id":"https://thegitreporter.com/#website","name":"The Git Reporter","url":"https://thegitreporter.com","publisher":{"@id":"https://thegitreporter.com/#organization"}},{"@type":"NewsArticle","mainEntityOfPage":{"@type":"WebPage","@id":"https://thegitreporter.com/articles/2026-07-28-daily-pydanticai-what-type-safety-means-when-agents-can-act/"},"headline":"PydanticAI: what type safety means when agents can act","description":"A fresh cancellation fix draws the line clearly: typed inputs and validated outputs can discipline an agent’s interface, but a long-running run still needs a truthful answer to one operational question—did it actually stop?","image":["https://thegitreporter.com/assets/social/2026-07-28-daily-pydanticai-what-type-safety-means-when-agents-can-act-og.jpg"],"datePublished":"2026-07-28T12:00:00Z","dateModified":"2026-07-28T12:00:00Z","author":[{"@type":"Organization","name":"The Git Reporter","url":"https://thegitreporter.com"}],"publisher":{"@type":"Organization","@id":"https://thegitreporter.com/#organization","name":"The Git Reporter","url":"https://thegitreporter.com","logo":{"@type":"ImageObject","url":"https://thegitreporter.com/assets/mark.svg"},"sameAs":["https://x.com/TheGitReporter"]},"articleSection":"Daily Edition","keywords":"durable-execution, cancellation, type-safety, pydantic/pydantic-ai"}]}</script>
+  <link rel="icon" href="/assets/mark.svg">
+  <link rel="stylesheet" href="/assets/site.css?v=2026-07-21-agent-pulse-decision-brief">
+  <script defer src="/assets/feedback.js?v=2026-07-21-agent-pulse-decision-brief"></script>
+  <script defer src="/assets/analytics.js?v=2026-07-21-agent-pulse-decision-brief"></script>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-CH19T7M0T1"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){window.dataLayer.push(arguments);}
+    gtag("js", new Date());
+    gtag("config", "G-CH19T7M0T1");
+  </script>
+</head>
+<body>
+  <div class="site">
+    <header class="site-header" id="top">
+      <div class="wrap utility-row">
+        <a class="icon-link menu-icon" href="/archive/" aria-label="Open edition history"><span></span><span></span><span></span></a>
+        <a class="icon-link archive-icon" href="/archive/" aria-label="Open edition history"></a>
+      </div>
+      <div class="wrap masthead-lockup">
+        <a class="masthead-title" href="/">THE GIT REPORTER</a>
+        <div class="masthead-ornament" aria-hidden="true"></div>
+      </div>
+      <div class="wrap nav-wrap">
+        <nav class="paper-nav" aria-label="Primary navigation">
+    <a class="" href="/">Today</a><a class="active" href="/archive/">Editions</a><a class="" href="/about/">About</a><a class="" href="/agent-pulse/">Agent Pulse</a><a class="" href="/atlas/">Agent Atlas</a><a class="" href="/repos/">Repos</a>
+  </nav>
+        <div class="nav-rule"></div>
+      </div>
+    </header>
+    <main class="wrap page-shell article-page">
+      <section class="page-hero story-front">
+        <div class="story-topline">
+          <span>Daily Edition</span>
+          <span>Sources <strong>+6</strong></span>
+        </div>
+        <h1>PydanticAI: what type safety means when agents can act</h1>
+        <p class="summary">A fresh cancellation fix draws the line clearly: typed inputs and validated outputs can discipline an agent’s interface, but a long-running run still needs a truthful answer to one operational question—did it actually stop?</p>
+        <figure class="story-illustration article-illustration">
+    <img src="/assets/illustrations/2026-07-28-pydanticai-what-type-safety-means-when-agents-can-act-diagram-punk-v1.png" alt="Photocopied-style diagram with cards for validated output, a swallowed cancellation, a Task.cancelling boundary check, and a Temporal replay test, under the hook ‘Types don’t prove stopped.’" loading="lazy" decoding="async">
+    <figcaption><span>Diagram Punk</span>validated values do not prove an interrupted run stopped.</figcaption>
+  </figure>
+        <div class="receipt">
+    <div class="receipt-line">
+      <span class="receipt-icon">repo</span>
+      <span class="receipt-main">pydantic/pydantic-ai</span>
+      <span class="branch-pill">evidence</span>
+    </div>
+    <div class="receipt-line receipt-muted">
+      <span>6 source signals</span>
+      <span>1 repo</span>
+      <span>commit 2e52d59</span>
+    </div>
+    <div class="commit-line">Evidence: commit 2e52d59 / July 28, 2026 / Daily Edition</div>
+  </div>
+        <div class="article-route-row">
+          <a href="/editions/2026-07-28/">Open Edition</a>
+          <a href="#evidence">Evidence below</a>
+        </div>
+      </section>
+      <section class="story-reader">
+        <article class="story-shell story-body">
+          <p>A type is a promise about the shape of a value. It is not a witness to what happened while an agent was waiting on the world.</p>
+
+  <p>That distinction is the real news in a cluster of PydanticAI changes merged on July 27. The framework’s public documentation describes agents with typed dependencies, typed output, function tools, and durable execution integrations. Those are useful constraints: they can reject malformed tool arguments, validate a final structured response, and make a workflow’s interfaces easier to inspect. But the project’s new cancellation backstop deals with a different failure entirely. An agent run could be cancelled from outside, yet an activity or hook it was awaiting could catch that cancellation and return normally. Without another check, the surrounding run could continue—or look successful.</p>
+
+  <h2>The contract a schema cannot supply</h2>
+
+  <p>In <a href="https://github.com/pydantic/pydantic-ai/pull/6496">pull request #6496</a>, PydanticAI describes the troublesome shape: an awaited Temporal activity, event-stream handler, or capability hook catches <code>CancelledError</code>. In asynchronous Python, that can leave the parent task with cancellation still pending while the awaited work appears to have completed. The newly merged <a href="https://github.com/pydantic/pydantic-ai/commit/2e52d59418fc6173b61c6878d326e3fdc7224fc8">implementation</a> re-checks that state at run-step boundaries and around hook phases.</p>
+
+  <p>The placement matters. The code does the re-check after a completed step’s messages have been written to history, then prevents the run from advancing or firing downstream success hooks. In plain language: work that genuinely finished is not silently erased, but a cancellation is not converted into a clean completion merely because a lower layer swallowed the exception.</p>
+
+  <p>That is a more demanding reliability claim than “the output validated.” The question is not only whether an agent asked a tool for a well-formed action. It is whether the orchestration layer can still tell an operator that a request was interrupted, which cleanup belongs in a <code>try/finally</code> wrapper, and what history is safe to resume.</p>
+
+  <h2>The project is careful about its own remedy</h2>
+
+  <p>PydanticAI’s follow-up <a href="https://github.com/pydantic/pydantic-ai/pull/6768">#6768</a> is unusually useful reporting material because it narrows the claim rather than inflating it. The helper looks at Python’s pending-cancellation count on Python 3.11 and later. The maintainers call that a policy signal, not proof of why the task was cancelled: code that uses an older self-cancellation idiom and suppresses the exception without balancing the state can be read as a cancelled run. On Python 3.10, the project documents that this particular detection is a no-op. In a Trio-backed context, it now avoids assuming an asyncio task exists.</p>
+
+  <p>That caveat is the lesson. Good agent infrastructure does not turn an implementation heuristic into a universal safety theorem. It names the rule, the false-positive edge, the runtime boundary, and the cleanup behavior that changes because of it.</p>
+
+  <h2>A test for the awkward path</h2>
+
+  <p>The next change, <a href="https://github.com/pydantic/pydantic-ai/pull/6767">#6767</a>, adds a Temporal-oriented integration test for the awkward case. Its streaming model activity catches a cancellation and yields a completion-like response anyway. The test is written to require that the workflow end cancelled and that its captured history replay deterministically. That is not a production certificate; it is a public statement of the edge the framework now intends to keep from regressing.</p>
+
+  <p>For builders, the transferable practice is to separate three contracts that are often collapsed into one “reliability” claim: validate what crosses an interface; record what has completed; and preserve the control signal that says no more work should follow. A schema is strong at the first job. The cancellation series shows why it cannot do the other two alone.</p>
+
+  <p>PydanticAI’s durable-execution docs already frame the project around long-running and fault-tolerant workflows. The next signal worth watching is not a headline about type safety. It is whether future public releases and runtime tests carry this same distinction across more providers and cancellation paths: a system can know the shape of an action and still need to prove that it stopped acting.</p>
+        </article>
+      </section>
+      <section class="evidence-section" id="evidence" aria-labelledby="evidence-title">
+    <div class="evidence-head">
+      <div>
+        <div class="eyebrow">Evidence Trail</div>
+        <h2 id="evidence-title">Receipts below the story</h2>
+        <p>The article above is the public narrative. This section keeps the source trail and limits on the same page.</p>
+      </div>
+      <a class="paper-button" href="/editions/2026-07-28/">Edition</a>
+    </div>
+    <div class="evidence-table evidence-summary">
+      <div class="evidence-line"><span>Date</span><span>July 28, 2026</span></div>
+      <div class="evidence-line"><span>Lane</span><span>Daily Edition</span></div>
+      <div class="evidence-line"><span>Confidence</span><span>87%</span></div>
+      <div class="evidence-line"><span>Sources</span><span>6</span></div>
+      <div class="evidence-line"><span>Repos</span><span>pydantic/pydantic-ai</span></div>
+    </div>
+    <div class="markdown evidence-copy evidence-copy-block">
+      <h2>Primary Evidence</h2>
+<ul>
+<li>Cancellation-boundary implementation: <a href="https://github.com/pydantic/pydantic-ai/commit/2e52d59418fc6173b61c6878d326e3fdc7224fc8">https://github.com/pydantic/pydantic-ai/commit/2e52d59418fc6173b61c6878d326e3fdc7224fc8</a>
+<ul>
+<li>Shows: PydanticAI added cancellation re-checks around agent-run step and capability-hook boundaries, after a completed step has recorded its messages.
+</li>
+</ul>
+</li>
+<li>Public design and failure report: <a href="https://github.com/pydantic/pydantic-ai/pull/6496">https://github.com/pydantic/pydantic-ai/pull/6496</a>
+<ul>
+<li>Shows: the reported failure mode is an awaited activity or hook absorbing <code>CancelledError</code> and allowing a run to appear to complete; the proposed contract is to preserve completed history while re-asserting cancellation.
+</li>
+</ul>
+</li>
+<li>Hardening and policy limits: <a href="https://github.com/pydantic/pydantic-ai/pull/6768">https://github.com/pydantic/pydantic-ai/pull/6768</a>
+<ul>
+<li>Shows: the project explicitly describes the pending-cancellation check as policy rather than proof of outside intent, documents its Python 3.10 limit, and explains why downstream hooks are skipped on cancellation.
+</li>
+</ul>
+</li>
+<li>Temporal-focused test: <a href="https://github.com/pydantic/pydantic-ai/pull/6767">https://github.com/pydantic/pydantic-ai/pull/6767</a>
+<ul>
+<li>Shows: the added integration test models a streaming activity that absorbs cancellation, expects a cancelled workflow, and replays its history through Temporal's replayer.
+</li>
+</ul>
+</li>
+<li>PydanticAI durable execution overview: <a href="https://pydantic.dev/docs/ai/capabilities/durable_execution/overview/">https://pydantic.dev/docs/ai/capabilities/durable_execution/overview/</a>
+<ul>
+<li>Shows: PydanticAI publicly positions its durable integrations around long-running, asynchronous, fault-tolerant agent workflows, including Temporal.
+</li>
+</ul>
+</li>
+<li>PydanticAI agent documentation: <a href="https://github.com/pydantic/pydantic-ai/blob/main/docs/agent.md">https://github.com/pydantic/pydantic-ai/blob/main/docs/agent.md</a>
+<ul>
+<li>Shows: the documented agent surface uses typed dependencies and validated output, which narrows data contracts without claiming to determine every runtime outcome.
+</li>
+</ul>
+</li>
+</ul>
+<h2>Evidence Limits</h2>
+<ul>
+<li>These sources establish code, documented intent, and test design. They do not establish a release containing the change, production reliability, or adoption by any application.
+</li>
+<li>A cancellation counter cannot recover the original exception an awaited component consumed, and the project notes that its check treats an unbalanced counter as a cancellation policy signal.
+</li>
+<li>Typed parameters and validated output constrain interfaces. They do not by themselves prove a model made the right decision, that an external side effect was reversed, or that every asynchronous runtime shares this behavior.
+</li>
+</ul>
+    </div>
+  </section>
+      <section class="related-edition-section atlas-context-section">
+    <div class="section-title-row">
+      <h2>Atlas Context</h2>
+      <a href="/atlas/">Open Atlas &rsaquo;</a>
+    </div>
+    <div class="updates-list">
+      <a class="article-card" href="/atlas/friction-safety-and-approval/">
+            <div class="article-meta"><span class="lane">Agent Atlas</span><span>Chapter 7</span></div>
+            <h3>The Approval Trap</h3>
+            <p>Approval is useful only when it catches a meaningful change in authority, explains that change, and keeps the decision attached to the work.</p>
+          </a>
+    </div>
+  </section>
+      <section class="reader-feedback"
+    data-tgr-feedback
+    data-article-slug="2026-07-28-daily-pydanticai-what-type-safety-means-when-agents-can-act"
+    data-article-title="PydanticAI: what type safety means when agents can act"
+    data-article-url="/articles/2026-07-28-daily-pydanticai-what-type-safety-means-when-agents-can-act/"
+    data-edition-date="2026-07-28"
+    data-lane="Daily Edition"
+    data-tags="durable-execution,cancellation,type-safety"
+    data-repos="pydantic/pydantic-ai">
+    <div class="reader-feedback-head">
+      <div>
+        <div class="eyebrow">Letters &amp; Corrections</div>
+        <h2>Send a note to the desk</h2>
+      </div>
+      <p>Corrections, missing context, or a follow-up lead.</p>
+    </div>
+    <form class="feedback-form">
+      <div class="feedback-votes" role="group" aria-label="Choose signal type">
+        <button class="feedback-choice" type="button" data-vote="follow-up" aria-pressed="false">
+          <span aria-hidden="true">+</span>
+          <span>Follow-up</span>
+        </button>
+        <button class="feedback-choice" type="button" data-vote="correction" aria-pressed="false">
+          <span aria-hidden="true">!</span>
+          <span>Correction</span>
+        </button>
+      </div>
+      <label class="feedback-comment">
+        <span>Note for the editor</span>
+        <textarea name="comment" rows="3" maxlength="320" placeholder="What did we miss, or what should we follow next?"></textarea>
+      </label>
+      <div class="feedback-submit-row">
+        <p class="feedback-status" aria-live="polite"></p>
+        <button class="paper-button primary feedback-submit" type="submit">Send to desk</button>
+      </div>
+    </form>
+  </section>
+      <section class="related-edition-section">
+        <div class="section-title-row">
+          <h2>Same Edition</h2>
+          <a href="/editions/2026-07-28/">Open issue &rsaquo;</a>
+        </div>
+        <div class="updates-list">
+          <a class="update-card" href="/articles/2026-07-28-daily-when-an-agent-sees-two-mcp-servers-called-docs/">
+    <div class="update-stripe"></div>
+    <div class="update-main">
+      <div class="update-meta">
+        <span>Reported</span>
+        <span class="source-plus">+4</span>
+        <span>Jul 28, 2026</span>
+      </div>
+      <h3>When an Agent Sees Two MCP Servers Called Docs</h3>
+      <div class="update-receipt">
+        <span>openclaw/openclaw</span>
+        <span class="branch-pill">evidence</span>
+      </div>
+      <div class="update-foot">
+        <span>4 sources</span>
+        <span>1 repo</span>
+        <span>commit d762273</span>
+      </div>
+    </div>
+    <span class="update-arrow" aria-hidden="true">&rsaquo;</span>
+  </a><a class="update-card" href="/articles/2026-07-28-daily-api-discovery-tell-an-agent-when-waiting-is-the-work/">
+    <div class="update-stripe"></div>
+    <div class="update-main">
+      <div class="update-meta">
+        <span>Reported</span>
+        <span class="source-plus">+3</span>
+        <span>Jul 28, 2026</span>
+      </div>
+      <h3>API Discovery: Tell an Agent When Waiting Is the Work</h3>
+      <div class="update-receipt">
+        <span>crewAIInc/crewAI</span>
+        <span class="branch-pill">evidence</span>
+      </div>
+      <div class="update-foot">
+        <span>3 sources</span>
+        <span>1 repo</span>
+        <span>3 source signals</span>
+      </div>
+    </div>
+    <span class="update-arrow" aria-hidden="true">&rsaquo;</span>
+  </a>
+        </div>
+      </section>
+    </main>
+    <footer class="wrap site-footer">
+      <span>&copy; 2026 The Git Reporter</span>
+      <a href="/about/">About</a>
+      <a href="/agent-pulse/">Agent Pulse</a>
+      <a href="/feed.xml">RSS</a>
+      <a href="https://x.com/TheGitReporter">Follow on X</a>
+      <a href="/articles.json">Manifest JSON</a>
+      <a href="/repos/">Sources</a>
+    </footer>
+  </div>
+</body>
+</html>
