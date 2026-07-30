@@ -1,0 +1,288 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>OpenHands: separating the software agent from the sandbox it works in | The Git Reporter</title>
+  <meta name="description" content="A new healthy-local-backend fallback makes the project’s larger argument concrete: the thing that helps a person steer an agent must stay legible even when the agent is running somewhere else.">
+  <meta name="robots" content="index,follow">
+  <link rel="canonical" href="https://thegitreporter.com/articles/2026-07-30-daily-openhands-separating-the-software-agent-from-the-sandbox-it-works-in/">
+  <link rel="alternate" type="application/rss+xml" title="The Git Reporter" href="https://thegitreporter.com/feed.xml">
+  <meta property="og:site_name" content="The Git Reporter">
+  <meta property="og:locale" content="en_US">
+  <meta property="og:title" content="OpenHands: separating the software agent from the sandbox it works in | The Git Reporter">
+  <meta property="og:description" content="A new healthy-local-backend fallback makes the project’s larger argument concrete: the thing that helps a person steer an agent must stay legible even when the agent is running somewhere else.">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://thegitreporter.com/articles/2026-07-30-daily-openhands-separating-the-software-agent-from-the-sandbox-it-works-in/">
+  <meta property="og:image" content="https://thegitreporter.com/assets/social/2026-07-30-daily-openhands-separating-the-software-agent-from-the-sandbox-it-works-in-og.jpg">
+  <meta property="og:image:secure_url" content="https://thegitreporter.com/assets/social/2026-07-30-daily-openhands-separating-the-software-agent-from-the-sandbox-it-works-in-og.jpg">
+  <meta property="og:image:type" content="image/jpeg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="A rough poster diagram separates an Agent Canvas control panel from a healthy local Agent Server and three execution choices: Docker sandbox, host machine, and remote or cloud.">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:site" content="@TheGitReporter">
+  <meta name="twitter:creator" content="@TheGitReporter">
+  <meta name="twitter:title" content="OpenHands: separating the software agent from the sandbox it works in | The Git Reporter">
+  <meta name="twitter:description" content="A new healthy-local-backend fallback makes the project’s larger argument concrete: the thing that helps a person steer an agent must stay legible even when the agent is running somewhere else.">
+  <meta name="twitter:url" content="https://thegitreporter.com/articles/2026-07-30-daily-openhands-separating-the-software-agent-from-the-sandbox-it-works-in/">
+  <meta name="twitter:domain" content="thegitreporter.com">
+  <meta name="twitter:image" content="https://thegitreporter.com/assets/social/2026-07-30-daily-openhands-separating-the-software-agent-from-the-sandbox-it-works-in-og.jpg">
+  <meta name="twitter:image:alt" content="A rough poster diagram separates an Agent Canvas control panel from a healthy local Agent Server and three execution choices: Docker sandbox, host machine, and remote or cloud.">
+  <meta property="article:published_time" content="2026-07-30T12:00:00Z">
+  <meta property="article:modified_time" content="2026-07-30T12:00:00Z">
+  <meta property="article:section" content="Daily Edition">
+  <meta property="article:tag" content="Permissions">
+  <meta property="article:tag" content="UX">
+  <meta property="article:tag" content="Runtime">
+  <meta property="article:tag" content="OpenHands/OpenHands">
+  <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"https://thegitreporter.com/#organization","name":"The Git Reporter","url":"https://thegitreporter.com","logo":{"@type":"ImageObject","url":"https://thegitreporter.com/assets/mark.svg"},"sameAs":["https://x.com/TheGitReporter"]},{"@type":"WebSite","@id":"https://thegitreporter.com/#website","name":"The Git Reporter","url":"https://thegitreporter.com","publisher":{"@id":"https://thegitreporter.com/#organization"}},{"@type":"NewsArticle","mainEntityOfPage":{"@type":"WebPage","@id":"https://thegitreporter.com/articles/2026-07-30-daily-openhands-separating-the-software-agent-from-the-sandbox-it-works-in/"},"headline":"OpenHands: separating the software agent from the sandbox it works in","description":"A new healthy-local-backend fallback makes the project’s larger argument concrete: the thing that helps a person steer an agent must stay legible even when the agent is running somewhere else.","image":["https://thegitreporter.com/assets/social/2026-07-30-daily-openhands-separating-the-software-agent-from-the-sandbox-it-works-in-og.jpg"],"datePublished":"2026-07-30T12:00:00Z","dateModified":"2026-07-30T12:00:00Z","author":[{"@type":"Organization","name":"The Git Reporter","url":"https://thegitreporter.com"}],"publisher":{"@type":"Organization","@id":"https://thegitreporter.com/#organization","name":"The Git Reporter","url":"https://thegitreporter.com","logo":{"@type":"ImageObject","url":"https://thegitreporter.com/assets/mark.svg"},"sameAs":["https://x.com/TheGitReporter"]},"articleSection":"Daily Edition","keywords":"Permissions, UX, Runtime, OpenHands/OpenHands"}]}</script>
+  <link rel="icon" href="/assets/mark.svg">
+  <link rel="stylesheet" href="/assets/site.css?v=2026-07-28-diff-derby">
+  <script defer src="/assets/feedback.js?v=2026-07-28-diff-derby"></script>
+  <script defer src="/assets/analytics.js?v=2026-07-28-diff-derby"></script>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-CH19T7M0T1"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){window.dataLayer.push(arguments);}
+    gtag("js", new Date());
+    gtag("config", "G-CH19T7M0T1");
+  </script>
+</head>
+<body>
+  <div class="site">
+    <header class="site-header" id="top">
+      <div class="wrap utility-row">
+        <a class="icon-link menu-icon" href="/archive/" aria-label="Open edition history"><span></span><span></span><span></span></a>
+        <a class="icon-link archive-icon" href="/archive/" aria-label="Open edition history"></a>
+      </div>
+      <div class="wrap masthead-lockup">
+        <a class="masthead-title" href="/">THE GIT REPORTER</a>
+        <div class="masthead-ornament" aria-hidden="true"></div>
+      </div>
+      <div class="wrap nav-wrap">
+        <nav class="paper-nav" aria-label="Primary navigation">
+    <a class="" href="/">Today</a><a class="active" href="/archive/">Editions</a><a class="" href="/about/">About</a><a class="" href="/battles/">Diff Derby</a><a class="" href="/agent-pulse/">Agent Pulse</a><a class="" href="/atlas/">Agent Atlas</a><a class="" href="/repos/">Repos</a>
+  </nav>
+        <div class="nav-rule"></div>
+      </div>
+    </header>
+    <main class="wrap page-shell article-page">
+      <section class="page-hero story-front">
+        <div class="story-topline">
+          <span>Daily Edition</span>
+          <span>Sources <strong>+3</strong></span>
+        </div>
+        <h1>OpenHands: separating the software agent from the sandbox it works in</h1>
+        <p class="summary">A new healthy-local-backend fallback makes the project’s larger argument concrete: the thing that helps a person steer an agent must stay legible even when the agent is running somewhere else.</p>
+        <figure class="story-illustration article-illustration">
+    <img src="/assets/illustrations/2026-07-30-openhands-separating-the-software-agent-from-the-sandbox-it-works-in-diagram-punk-v1.png" alt="A rough poster diagram separates an Agent Canvas control panel from a healthy local Agent Server and three execution choices: Docker sandbox, host machine, and remote or cloud." loading="lazy" decoding="async">
+    <figcaption><span>Diagram Punk</span>a control surface can preserve choice without becoming the sandbox.</figcaption>
+  </figure>
+        <div class="receipt">
+    <div class="receipt-line">
+      <span class="receipt-icon">repo</span>
+      <span class="receipt-main">OpenHands/OpenHands</span>
+      <span class="branch-pill">evidence</span>
+    </div>
+    <div class="receipt-line receipt-muted">
+      <span>3 source signals</span>
+      <span>1 repo</span>
+      <span>commit e2ceffc</span>
+    </div>
+    <div class="commit-line">Evidence: commit e2ceffc / July 30, 2026 / Daily Edition</div>
+  </div>
+        <div class="article-route-row">
+          <a href="/editions/2026-07-30/">Open Edition</a>
+          <a href="#evidence">Evidence below</a>
+        </div>
+      </section>
+      <section class="story-reader">
+        <article class="story-shell story-body">
+          <p>The <a href="https://github.com/OpenHands/OpenHands/blob/e2ceffcae4f7a2fd86d297ffc0c655ed3888f055/docs/architecture.md">documented OpenHands/OpenHands architecture</a> makes a useful refusal: its <em>Agent Canvas</em> does not execute the agent’s actions or provide the sandbox and workspace isolation layer. It selects and speaks to Agent Servers, which can run locally, remotely, or in the cloud.</p>
+
+  <p>That distinction becomes consequential when a control surface must choose a backend after one fails. The canvas is a selector, not a promise that the machine acting is the one a person intended to use.</p>
+
+  <p>That is what the newest <a href="https://github.com/OpenHands/OpenHands/commit/e2ceffcae4f7a2fd86d297ffc0c655ed3888f055">backend-registry commit</a> handles. With no valid explicit selection, the frontend now prefers a healthy local backend over a cloud entry that happens to appear first, and over a local entry already marked unhealthy. Its tests cover a cloud-first list, a failed local server followed by a healthy one, and the exception that matters: an explicit cloud selection remains the operator’s.</p>
+
+  <p>This is not a glamorous capability. It is the condition for a dashboard to remain a control surface instead of becoming a confusing map of unavailable machinery.</p>
+
+  <h2>The canvas is not the agent</h2>
+
+  <p>The project partitions responsibilities often blurred into the word “agent.” The canvas renders conversation, terminal, browser, files, settings, and automation controls. The Agent Server owns the execution interface; an ingress and automation service are optional runtime neighbors.</p>
+
+  <p>The documented Docker mode is the safer local path. The documented host-mode path can give an agent access to the filesystem, environment, and network, and the project’s <a href="https://github.com/OpenHands/OpenHands/blob/e2ceffcae4f7a2fd86d297ffc0c655ed3888f055/docs/SELF_HOSTING.md">self-hosting guide</a> makes the consequence direct: someone who can reach an exposed Agent Server may be able to do what the agent can do.</p>
+
+  <p>That makes the fallback more than UI housekeeping. A person who means to use a local, bounded setup should not silently lose that execution path because a cloud entry came first in a registry or because one local process went bad.</p>
+
+  <p>Conversely, the code does not override an explicit cloud choice. It protects the difference between recovery assistance and a covert policy decision.</p>
+
+  <h2>What the fresh patch does—and does not—settle</h2>
+
+  <p>The commit comment explains the target: a cloud or dead-local backend at the top of a list could leave the local resolver empty even when a healthy Agent Server sat farther down. The new rule consults persisted health, falls back to another local backend, and only then returns to the prior first-entry behavior.</p>
+
+  <p>The source and tests do not prove that a deployment is secure, that a Docker boundary is configured correctly, or that every ACP-compatible agent behaves alike once connected. Those remain operator and runtime questions.</p>
+
+  <p>But the patch offers a durable rule for anyone building an agent control surface: keep execution choice explicit, keep failure state visible, and make recovery respect the person’s stated choice. The next decisive public signal would be an end-to-end failover test across local, cloud, and unavailable backends that preserves both that choice and the workspace boundary.</p>
+        </article>
+      </section>
+      <section class="evidence-section" id="evidence" aria-labelledby="evidence-title">
+    <div class="evidence-head">
+      <div>
+        <div class="eyebrow">Evidence Trail</div>
+        <h2 id="evidence-title">Receipts below the story</h2>
+        <p>The article above is the public narrative. This section keeps the source trail and limits on the same page.</p>
+      </div>
+      <a class="paper-button" href="/editions/2026-07-30/">Edition</a>
+    </div>
+    <div class="evidence-table evidence-summary">
+      <div class="evidence-line"><span>Date</span><span>July 30, 2026</span></div>
+      <div class="evidence-line"><span>Lane</span><span>Daily Edition</span></div>
+      <div class="evidence-line"><span>Confidence</span><span>78%</span></div>
+      <div class="evidence-line"><span>Sources</span><span>3</span></div>
+      <div class="evidence-line"><span>Repos</span><span>OpenHands/OpenHands</span></div>
+    </div>
+    <div class="markdown evidence-copy evidence-copy-block">
+      <h2>Primary Evidence</h2>
+<ul>
+<li><a href="https://github.com/OpenHands/OpenHands/blob/e2ceffcae4f7a2fd86d297ffc0c655ed3888f055/docs/architecture.md">OpenHands architecture</a>
+<ul>
+<li>Shows: Agent Canvas is a frontend/control layer that translates UI actions to Agent Server APIs; the document explicitly says it does not execute agent actions or provide sandbox/workspace isolation, and names Docker and host-mode boundaries.
+</li>
+</ul>
+</li>
+<li><a href="https://github.com/OpenHands/OpenHands/commit/e2ceffcae4f7a2fd86d297ffc0c655ed3888f055">Healthy-local-backend fallback commit</a>
+<ul>
+<li>Shows: the backend registry now selects a healthy local backend when no valid explicit selection exists, with tests for a cloud-first registry, an unhealthy local backend, and an explicit cloud choice.
+</li>
+</ul>
+</li>
+<li><a href="https://github.com/OpenHands/OpenHands/blob/e2ceffcae4f7a2fd86d297ffc0c655ed3888f055/docs/SELF_HOSTING.md">OpenHands self-hosting guide</a>
+<ul>
+<li>Shows: host-mode Agent Server access is a real operator security boundary, with documented localhost ingress, authentication, and firewall guidance.
+</li>
+</ul>
+</li>
+</ul>
+<h2>Evidence Limits</h2>
+<ul>
+<li>These are repository documentation and source-level tests. They do not prove that the change is released, that a given deployment is isolated, or that every third-party ACP backend has the same health and recovery behavior.
+</li>
+<li>Watch for public end-to-end tests that fail over a real local, cloud, or unavailable backend while preserving the operator's explicit selection and workspace boundary.
+</li>
+</ul>
+    </div>
+  </section>
+      <section class="related-edition-section atlas-context-section">
+    <div class="section-title-row">
+      <h2>Atlas Context</h2>
+      <a href="/atlas/">Open Atlas &rsaquo;</a>
+    </div>
+    <div class="updates-list">
+      <a class="article-card" href="/atlas/friction-safety-and-approval/">
+            <div class="article-meta"><span class="lane">Agent Atlas</span><span>Chapter 7</span></div>
+            <h3>The Approval Trap</h3>
+            <p>Approval is useful only when it catches a meaningful change in authority, explains that change, and keeps the decision attached to the work.</p>
+          </a>
+    </div>
+  </section>
+      <section class="reader-feedback"
+    data-tgr-feedback
+    data-article-slug="2026-07-30-daily-openhands-separating-the-software-agent-from-the-sandbox-it-works-in"
+    data-article-title="OpenHands: separating the software agent from the sandbox it works in"
+    data-article-url="/articles/2026-07-30-daily-openhands-separating-the-software-agent-from-the-sandbox-it-works-in/"
+    data-edition-date="2026-07-30"
+    data-lane="Daily Edition"
+    data-tags="Permissions,UX,Runtime"
+    data-repos="OpenHands/OpenHands">
+    <div class="reader-feedback-head">
+      <div>
+        <div class="eyebrow">Letters &amp; Corrections</div>
+        <h2>Send a note to the desk</h2>
+      </div>
+      <p>Corrections, missing context, or a follow-up lead.</p>
+    </div>
+    <form class="feedback-form">
+      <div class="feedback-votes" role="group" aria-label="Choose signal type">
+        <button class="feedback-choice" type="button" data-vote="follow-up" aria-pressed="false">
+          <span aria-hidden="true">+</span>
+          <span>Follow-up</span>
+        </button>
+        <button class="feedback-choice" type="button" data-vote="correction" aria-pressed="false">
+          <span aria-hidden="true">!</span>
+          <span>Correction</span>
+        </button>
+      </div>
+      <label class="feedback-comment">
+        <span>Note for the editor</span>
+        <textarea name="comment" rows="3" maxlength="320" placeholder="What did we miss, or what should we follow next?"></textarea>
+      </label>
+      <div class="feedback-submit-row">
+        <p class="feedback-status" aria-live="polite"></p>
+        <button class="paper-button primary feedback-submit" type="submit">Send to desk</button>
+      </div>
+    </form>
+  </section>
+      <section class="related-edition-section">
+        <div class="section-title-row">
+          <h2>Same Edition</h2>
+          <a href="/editions/2026-07-30/">Open issue &rsaquo;</a>
+        </div>
+        <div class="updates-list">
+          <a class="update-card" href="/articles/2026-07-30-daily-builder-work-a-sandbox-is-reusable-only-after-it-forgets/">
+    <div class="update-stripe"></div>
+    <div class="update-main">
+      <div class="update-meta">
+        <span>Trust</span>
+        <span class="source-plus">+4</span>
+        <span>Jul 30, 2026</span>
+      </div>
+      <h3>Builder Work: A Sandbox Is Reusable Only After It Forgets</h3>
+      <div class="update-receipt">
+        <span>mastra-ai/mastra</span>
+        <span class="branch-pill">evidence</span>
+      </div>
+      <div class="update-foot">
+        <span>4 sources</span>
+        <span>1 repo</span>
+        <span>commit 5fbb90e</span>
+      </div>
+    </div>
+    <span class="update-arrow" aria-hidden="true">&rsaquo;</span>
+  </a><a class="update-card" href="/articles/2026-07-30-daily-api-discovery-make-the-model-own-its-web-search/">
+    <div class="update-stripe"></div>
+    <div class="update-main">
+      <div class="update-meta">
+        <span>Trust</span>
+        <span class="source-plus">+3</span>
+        <span>Jul 30, 2026</span>
+      </div>
+      <h3>API Discovery: Make the Model Own Its Web Search</h3>
+      <div class="update-receipt">
+        <span>mastra-ai/mastra</span>
+        <span class="branch-pill">evidence</span>
+      </div>
+      <div class="update-foot">
+        <span>3 sources</span>
+        <span>1 repo</span>
+        <span>3 source signals</span>
+      </div>
+    </div>
+    <span class="update-arrow" aria-hidden="true">&rsaquo;</span>
+  </a>
+        </div>
+      </section>
+    </main>
+    <footer class="wrap site-footer">
+      <span>&copy; 2026 The Git Reporter</span>
+      <a href="/about/">About</a>
+      <a href="/battles/">Diff Derby</a>
+      <a href="/agent-pulse/">Agent Pulse</a>
+      <a href="/feed.xml">RSS</a>
+      <a href="https://x.com/TheGitReporter">Follow on X</a>
+      <a href="/articles.json">Manifest JSON</a>
+      <a href="/repos/">Sources</a>
+    </footer>
+  </div>
+</body>
+</html>
