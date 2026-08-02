@@ -1,0 +1,239 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>An Approval Cannot Outlive the Conversation That Asked for It | The Git Reporter</title>
+  <meta name="description" content="Cline fixed a small but revealing failure in its VS Code extension: change a message while a command approval is waiting, and the old run could keep waiting forever—then catch answers meant for the new one.">
+  <meta name="robots" content="index,follow">
+  <link rel="canonical" href="https://thegitreporter.com/articles/2026-08-02-daily-an-approval-cannot-outlive-the-conversation-that-asked-for-it/">
+  <link rel="alternate" type="application/rss+xml" title="The Git Reporter" href="https://thegitreporter.com/feed.xml">
+  <meta property="og:site_name" content="The Git Reporter">
+  <meta property="og:locale" content="en_US">
+  <meta property="og:title" content="An Approval Cannot Outlive the Conversation That Asked for It | The Git Reporter">
+  <meta property="og:description" content="Cline fixed a small but revealing failure in its VS Code extension: change a message while a command approval is waiting, and the old run could keep waiting forever—then catch answers meant for the new one.">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://thegitreporter.com/articles/2026-08-02-daily-an-approval-cannot-outlive-the-conversation-that-asked-for-it/">
+  <meta property="og:image" content="https://thegitreporter.com/assets/social/2026-08-02-daily-an-approval-cannot-outlive-the-conversation-that-asked-for-it-og.jpg">
+  <meta property="og:image:secure_url" content="https://thegitreporter.com/assets/social/2026-08-02-daily-an-approval-cannot-outlive-the-conversation-that-asked-for-it-og.jpg">
+  <meta property="og:image:type" content="image/jpeg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="A torn-paper marker diagram shows an old tool-approval card being denied and unwound before an edited replacement conversation begins, with Cline PR, controller, coordinator, and issue evidence cards and a caveat stamp.">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:site" content="@TheGitReporter">
+  <meta name="twitter:creator" content="@TheGitReporter">
+  <meta name="twitter:title" content="An Approval Cannot Outlive the Conversation That Asked for It | The Git Reporter">
+  <meta name="twitter:description" content="Cline fixed a small but revealing failure in its VS Code extension: change a message while a command approval is waiting, and the old run could keep waiting forever—then catch answers meant for the new one.">
+  <meta name="twitter:url" content="https://thegitreporter.com/articles/2026-08-02-daily-an-approval-cannot-outlive-the-conversation-that-asked-for-it/">
+  <meta name="twitter:domain" content="thegitreporter.com">
+  <meta name="twitter:image" content="https://thegitreporter.com/assets/social/2026-08-02-daily-an-approval-cannot-outlive-the-conversation-that-asked-for-it-og.jpg">
+  <meta name="twitter:image:alt" content="A torn-paper marker diagram shows an old tool-approval card being denied and unwound before an edited replacement conversation begins, with Cline PR, controller, coordinator, and issue evidence cards and a caveat stamp.">
+  <meta property="article:published_time" content="2026-08-02T12:00:00Z">
+  <meta property="article:modified_time" content="2026-08-02T12:00:00Z">
+  <meta property="article:section" content="Daily Edition">
+  <meta property="article:tag" content="Permissions">
+  <meta property="article:tag" content="Memory">
+  <meta property="article:tag" content="Tools">
+  <meta property="article:tag" content="UX">
+  <meta property="article:tag" content="cline/cline">
+  <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"https://thegitreporter.com/#organization","name":"The Git Reporter","url":"https://thegitreporter.com","logo":{"@type":"ImageObject","url":"https://thegitreporter.com/assets/mark.svg"},"sameAs":["https://x.com/TheGitReporter"]},{"@type":"WebSite","@id":"https://thegitreporter.com/#website","name":"The Git Reporter","url":"https://thegitreporter.com","publisher":{"@id":"https://thegitreporter.com/#organization"}},{"@type":"NewsArticle","mainEntityOfPage":{"@type":"WebPage","@id":"https://thegitreporter.com/articles/2026-08-02-daily-an-approval-cannot-outlive-the-conversation-that-asked-for-it/"},"headline":"An Approval Cannot Outlive the Conversation That Asked for It","description":"Cline fixed a small but revealing failure in its VS Code extension: change a message while a command approval is waiting, and the old run could keep waiting forever—then catch answers meant for the new one.","image":["https://thegitreporter.com/assets/social/2026-08-02-daily-an-approval-cannot-outlive-the-conversation-that-asked-for-it-og.jpg"],"datePublished":"2026-08-02T12:00:00Z","dateModified":"2026-08-02T12:00:00Z","author":[{"@type":"Organization","name":"The Git Reporter","url":"https://thegitreporter.com"}],"publisher":{"@type":"Organization","@id":"https://thegitreporter.com/#organization","name":"The Git Reporter","url":"https://thegitreporter.com","logo":{"@type":"ImageObject","url":"https://thegitreporter.com/assets/mark.svg"},"sameAs":["https://x.com/TheGitReporter"]},"articleSection":"Daily Edition","keywords":"Permissions, Memory, Tools, UX, cline/cline"}]}</script>
+  <link rel="icon" href="/assets/mark.svg">
+  <link rel="stylesheet" href="/assets/site.css?v=2026-07-30-harness-memory">
+  <script defer src="/assets/feedback.js?v=2026-07-30-harness-memory"></script>
+  <script defer src="/assets/analytics.js?v=2026-07-30-harness-memory"></script>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-CH19T7M0T1"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){window.dataLayer.push(arguments);}
+    gtag("js", new Date());
+    gtag("config", "G-CH19T7M0T1");
+  </script>
+</head>
+<body>
+  <div class="site">
+    <header class="site-header" id="top">
+      <div class="wrap utility-row">
+        <a class="icon-link menu-icon" href="/archive/" aria-label="Open edition history"><span></span><span></span><span></span></a>
+        <a class="icon-link archive-icon" href="/archive/" aria-label="Open edition history"></a>
+      </div>
+      <div class="wrap masthead-lockup">
+        <a class="masthead-title" href="/">THE GIT REPORTER</a>
+        <div class="masthead-ornament" aria-hidden="true"></div>
+      </div>
+      <div class="wrap nav-wrap">
+        <nav class="paper-nav" aria-label="Primary navigation">
+    <a class="" href="/">Today</a><a class="active" href="/archive/">Editions</a><a class="" href="/about/">About</a><a class="" href="/battles/">Diff Derby</a><a class="" href="/agent-pulse/">Agent Pulse</a><a class="" href="/atlas/">Agent Atlas</a><a class="" href="/repos/">Repos</a>
+  </nav>
+        <div class="nav-rule"></div>
+      </div>
+    </header>
+    <main class="wrap page-shell article-page">
+      <section class="page-hero story-front">
+        <div class="story-topline">
+          <span>Daily Edition</span>
+          <span>Sources <strong>+5</strong></span>
+        </div>
+        <h1>An Approval Cannot Outlive the Conversation That Asked for It</h1>
+        <p class="summary">Cline fixed a small but revealing failure in its VS Code extension: change a message while a command approval is waiting, and the old run could keep waiting forever—then catch answers meant for the new one.</p>
+        <figure class="story-illustration article-illustration">
+    <img src="/assets/illustrations/2026-08-02-an-approval-cannot-outlive-the-conversation-that-asked-for-it-diagram-punk-v1.png" alt="A torn-paper marker diagram shows an old tool-approval card being denied and unwound before an edited replacement conversation begins, with Cline PR, controller, coordinator, and issue evidence cards and a caveat stamp." loading="lazy" decoding="async">
+    <figcaption><span>Diagram Punk</span>an unanswered approval belongs to one run; replacing the conversation must close it before the next run can speak.</figcaption>
+  </figure>
+        <div class="receipt">
+    <div class="receipt-line">
+      <span class="receipt-icon">repo</span>
+      <span class="receipt-main">cline/cline</span>
+      <span class="branch-pill">evidence</span>
+    </div>
+    <div class="receipt-line receipt-muted">
+      <span>5 source signals</span>
+      <span>1 repo</span>
+      <span>commit e450cbf</span>
+    </div>
+    <div class="commit-line">Evidence: commit e450cbf / August 2, 2026 / Daily Edition</div>
+  </div>
+        <div class="article-route-row">
+          <a href="/editions/2026-08-02/">Open Edition</a>
+          <a href="#evidence">Evidence below</a>
+        </div>
+      </section>
+      <section class="story-reader">
+        <article class="story-shell story-body">
+          <p>An agent’s approval question feels temporary: run this command, read that file, make this edit. In <code>cline/cline</code>, the newly merged <a href="https://github.com/cline/cline/pull/12836">PR #12836</a> makes the less obvious contract explicit. If a person edits an earlier message and starts over while that question is still on screen, the old session must receive an answer before the replacement session begins. Otherwise the question belongs to a conversation that no longer does.</p>
+
+  <p>The failure was concrete. The <code>cline/cline</code> PR’s reproduction turns command auto-approval off, waits for a “Run Command / Reject” prompt, then edits and resubmits the original message without answering. Before the patch, the old run remained suspended on its approval promise and its parked resolver could intercept later answers. That explains a nearby public <a href="https://github.com/cline/cline/issues/12827">report of a skipped tool call leaving the main interface stuck in “Thinking”</a>: the visible tool state and the run’s waiting state can stop agreeing.</p>
+
+  <h2>The old question needs a real answer</h2>
+
+  <p>The implementation is only six added lines, but it lands at the right boundary. In <a href="https://github.com/cline/cline/blob/e450cbf5dd27f6e645b741717bd8fb7df2f61dff/apps/vscode/src/sdk/SdkController.ts#L1447-L1453">the edit-and-regenerate path</a>, Cline now clears pending interactions before calling <code>startNewSession</code>. The coordinator does not merely hide the prompt: its <a href="https://github.com/cline/cline/blob/e450cbf5dd27f6e645b741717bd8fb7df2f61dff/apps/vscode/src/sdk/sdk-interaction-coordinator.ts#L238-L258">clearPending method</a> resolves a pending question with an empty answer and resolves a pending tool approval as denied, recording the reason first.</p>
+
+  <p>That sequence is the point. A replacement session is not a cosmetic refresh; it invalidates an outstanding decision. Cline already used the same cleanup for cancellation, clearing a task, switching tasks, and changing modes. The gap was the one user action that rewrites the premise of the work: “Actually, start again from here.” The patch brings it under the same rule instead of hoping a stale promise will disappear when the interface changes.</p>
+
+  <p>The repository’s existing <a href="https://github.com/cline/cline/blob/e450cbf5dd27f6e645b741717bd8fb7df2f61dff/apps/vscode/src/sdk/sdk-interaction-coordinator.test.ts#L420-L446">interaction-coordinator test</a> shows what that cleanup means in the smaller case: clearing a pending approval resolves it as <code>approved: false</code>, records the denial, and prevents a later response from resolving the old request. The PR says the VS Code test suite passed 979 tests. That is evidence of a targeted implementation and project test run, not proof that every provider, client surface, or interruption path is now immune to stranded work.</p>
+
+  <h2>Approval is also a handoff protocol</h2>
+
+  <p>This is an unglamorous bug, but it is the kind that decides whether an agent can be supervised. An approval is not just a dialog box; it is a live handoff between a person and a particular execution context. If a new context can inherit the old one’s unanswered question, a person may answer the wrong run—or never be told that anything remains alive.</p>
+
+  <p>Builders with editable conversations, retries, checkpoints, task switching, or multiple clients should test this exact seam: create a pending approval, supersede the run, then make sure the old promise receives an explicit terminal result before the new run accepts input. The next useful public signal from Cline would be an end-to-end regression for the edit-and-regenerate path itself, across a real tool prompt and the replacement session. Until then, the patch is a precise source-level repair, not a blanket claim about agent safety.</p>
+        </article>
+      </section>
+      <section class="evidence-section" id="evidence" aria-labelledby="evidence-title">
+    <div class="evidence-head">
+      <div>
+        <div class="eyebrow">Evidence Trail</div>
+        <h2 id="evidence-title">Receipts below the story</h2>
+        <p>The article above is the public narrative. This section keeps the source trail and limits on the same page.</p>
+      </div>
+      <a class="paper-button" href="/editions/2026-08-02/">Edition</a>
+    </div>
+    <div class="evidence-table evidence-summary">
+      <div class="evidence-line"><span>Date</span><span>August 2, 2026</span></div>
+      <div class="evidence-line"><span>Lane</span><span>Daily Edition</span></div>
+      <div class="evidence-line"><span>Confidence</span><span>78%</span></div>
+      <div class="evidence-line"><span>Sources</span><span>5</span></div>
+      <div class="evidence-line"><span>Repos</span><span>cline/cline</span></div>
+    </div>
+    <div class="markdown evidence-copy evidence-copy-block">
+      <h2>Primary Evidence</h2>
+<ul>
+<li><a href="https://github.com/cline/cline/pull/12836">Cline PR #12836: settle pending tool approval when a message edit replaces the session</a>
+<ul>
+<li>Shows: the public reproduction where editing a message with a pending approval left the old session suspended and its stale resolver able to intercept later answers; it also states the intended cleanup before a replacement session begins.
+</li>
+</ul>
+</li>
+<li><a href="https://github.com/cline/cline/commit/e450cbf5dd27f6e645b741717bd8fb7df2f61dff">Cline commit <code>e450cbf5</code></a>
+<ul>
+<li>Shows: the added <code>clearPending(&quot;Superseded by an edited message&quot;)</code> call before <code>startNewSession</code> in the VS Code controller.
+</li>
+</ul>
+</li>
+<li><a href="https://github.com/cline/cline/blob/e450cbf5dd27f6e645b741717bd8fb7df2f61dff/apps/vscode/src/sdk/sdk-interaction-coordinator.ts#L238-L258">Cline interaction coordinator at the merged revision</a>
+<ul>
+<li>Shows: pending questions are resolved so an outgoing run can unwind and pending tool approvals are recorded and resolved as denied rather than remaining parked.
+</li>
+</ul>
+</li>
+<li><a href="https://github.com/cline/cline/issues/12827">Cline issue #12827</a>
+<ul>
+<li>Shows: a public user report of a skipped tool call remaining visibly stuck in “Thinking,” the symptom PR #12836 references while narrowing the lifecycle repair.
+</li>
+</ul>
+</li>
+</ul>
+<h2>Evidence Limits</h2>
+<ul>
+<li>These sources establish a targeted source-level change and the project’s stated test result. They do not establish that a released extension contains it, that all interrupted agent runs share this cause, or that every Cline host and provider route receives the same cleanup.
+</li>
+<li>Watch for a public end-to-end test that performs the edit-and-regenerate sequence against a real pending tool approval and proves that the old run cannot receive the new session’s answer.
+</li>
+</ul>
+    </div>
+  </section>
+      <section class="related-edition-section atlas-context-section">
+    <div class="section-title-row">
+      <h2>Atlas Context</h2>
+      <a href="/atlas/">Open Atlas &rsaquo;</a>
+    </div>
+    <div class="updates-list">
+      <a class="article-card" href="/atlas/friction-safety-and-approval/">
+            <div class="article-meta"><span class="lane">Agent Atlas</span><span>Chapter 7</span></div>
+            <h3>The Approval Trap</h3>
+            <p>Approval is useful only when it catches a meaningful change in authority, explains that change, and keeps the decision attached to the work.</p>
+          </a>
+    </div>
+  </section>
+      <section class="reader-feedback"
+    data-tgr-feedback
+    data-article-slug="2026-08-02-daily-an-approval-cannot-outlive-the-conversation-that-asked-for-it"
+    data-article-title="An Approval Cannot Outlive the Conversation That Asked for It"
+    data-article-url="/articles/2026-08-02-daily-an-approval-cannot-outlive-the-conversation-that-asked-for-it/"
+    data-edition-date="2026-08-02"
+    data-lane="Daily Edition"
+    data-tags="Permissions,Memory,Tools,UX"
+    data-repos="cline/cline">
+    <div class="reader-feedback-head">
+      <div>
+        <div class="eyebrow">Letters &amp; Corrections</div>
+        <h2>Send a note to the desk</h2>
+      </div>
+      <p>Corrections, missing context, or a follow-up lead.</p>
+    </div>
+    <form class="feedback-form">
+      <div class="feedback-votes" role="group" aria-label="Choose signal type">
+        <button class="feedback-choice" type="button" data-vote="follow-up" aria-pressed="false">
+          <span aria-hidden="true">+</span>
+          <span>Follow-up</span>
+        </button>
+        <button class="feedback-choice" type="button" data-vote="correction" aria-pressed="false">
+          <span aria-hidden="true">!</span>
+          <span>Correction</span>
+        </button>
+      </div>
+      <label class="feedback-comment">
+        <span>Note for the editor</span>
+        <textarea name="comment" rows="3" maxlength="320" placeholder="What did we miss, or what should we follow next?"></textarea>
+      </label>
+      <div class="feedback-submit-row">
+        <p class="feedback-status" aria-live="polite"></p>
+        <button class="paper-button primary feedback-submit" type="submit">Send to desk</button>
+      </div>
+    </form>
+  </section>
+      
+    </main>
+    <footer class="wrap site-footer">
+      <span>&copy; 2026 The Git Reporter</span>
+      <a href="/about/">About</a>
+      <a href="/battles/">Diff Derby</a>
+      <a href="/agent-pulse/">Agent Pulse</a>
+      <a href="/feed.xml">RSS</a>
+      <a href="https://x.com/TheGitReporter">Follow on X</a>
+      <a href="/articles.json">Manifest JSON</a>
+      <a href="/repos/">Sources</a>
+    </footer>
+  </div>
+</body>
+</html>
