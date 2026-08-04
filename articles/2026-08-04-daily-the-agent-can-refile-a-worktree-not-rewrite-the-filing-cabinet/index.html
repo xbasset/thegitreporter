@@ -1,0 +1,239 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>The Agent Can Refile a Worktree, Not Rewrite the Filing Cabinet | The Git Reporter</title>
+  <meta name="description" content="Kilo Code’s new Agent Manager move gives an agent a way to reorganize parallel work—only through a live inventory, a targeted command, and a hard boundary around the recovery file.">
+  <meta name="robots" content="index,follow">
+  <link rel="canonical" href="https://thegitreporter.com/articles/2026-08-04-daily-the-agent-can-refile-a-worktree-not-rewrite-the-filing-cabinet/">
+  <link rel="alternate" type="application/rss+xml" title="The Git Reporter" href="https://thegitreporter.com/feed.xml">
+  <meta property="og:site_name" content="The Git Reporter">
+  <meta property="og:locale" content="en_US">
+  <meta property="og:title" content="The Agent Can Refile a Worktree, Not Rewrite the Filing Cabinet | The Git Reporter">
+  <meta property="og:description" content="Kilo Code’s new Agent Manager move gives an agent a way to reorganize parallel work—only through a live inventory, a targeted command, and a hard boundary around the recovery file.">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://thegitreporter.com/articles/2026-08-04-daily-the-agent-can-refile-a-worktree-not-rewrite-the-filing-cabinet/">
+  <meta property="og:image" content="https://thegitreporter.com/assets/social/2026-08-04-daily-the-agent-can-refile-a-worktree-not-rewrite-the-filing-cabinet-og.jpg">
+  <meta property="og:image:secure_url" content="https://thegitreporter.com/assets/social/2026-08-04-daily-the-agent-can-refile-a-worktree-not-rewrite-the-filing-cabinet-og.jpg">
+  <meta property="og:image:type" content="image/jpeg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="A rough marker diagram shows a worktree card moving between Kilo Code Agent Manager sections only after a List live IDs first card, while a crossed-out Agent Manager state file warns against direct edits.">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:site" content="@TheGitReporter">
+  <meta name="twitter:creator" content="@TheGitReporter">
+  <meta name="twitter:title" content="The Agent Can Refile a Worktree, Not Rewrite the Filing Cabinet | The Git Reporter">
+  <meta name="twitter:description" content="Kilo Code’s new Agent Manager move gives an agent a way to reorganize parallel work—only through a live inventory, a targeted command, and a hard boundary around the recovery file.">
+  <meta name="twitter:url" content="https://thegitreporter.com/articles/2026-08-04-daily-the-agent-can-refile-a-worktree-not-rewrite-the-filing-cabinet/">
+  <meta name="twitter:domain" content="thegitreporter.com">
+  <meta name="twitter:image" content="https://thegitreporter.com/assets/social/2026-08-04-daily-the-agent-can-refile-a-worktree-not-rewrite-the-filing-cabinet-og.jpg">
+  <meta name="twitter:image:alt" content="A rough marker diagram shows a worktree card moving between Kilo Code Agent Manager sections only after a List live IDs first card, while a crossed-out Agent Manager state file warns against direct edits.">
+  <meta property="article:published_time" content="2026-08-04T12:00:00Z">
+  <meta property="article:modified_time" content="2026-08-04T12:00:00Z">
+  <meta property="article:section" content="Daily Edition">
+  <meta property="article:tag" content="Permissions">
+  <meta property="article:tag" content="Memory">
+  <meta property="article:tag" content="Delegation">
+  <meta property="article:tag" content="Tools">
+  <meta property="article:tag" content="Kilo-Org/kilocode">
+  <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"https://thegitreporter.com/#organization","name":"The Git Reporter","url":"https://thegitreporter.com","logo":{"@type":"ImageObject","url":"https://thegitreporter.com/assets/mark.svg"},"sameAs":["https://x.com/TheGitReporter"]},{"@type":"WebSite","@id":"https://thegitreporter.com/#website","name":"The Git Reporter","url":"https://thegitreporter.com","publisher":{"@id":"https://thegitreporter.com/#organization"}},{"@type":"NewsArticle","mainEntityOfPage":{"@type":"WebPage","@id":"https://thegitreporter.com/articles/2026-08-04-daily-the-agent-can-refile-a-worktree-not-rewrite-the-filing-cabinet/"},"headline":"The Agent Can Refile a Worktree, Not Rewrite the Filing Cabinet","description":"Kilo Code’s new Agent Manager move gives an agent a way to reorganize parallel work—only through a live inventory, a targeted command, and a hard boundary around the recovery file.","image":["https://thegitreporter.com/assets/social/2026-08-04-daily-the-agent-can-refile-a-worktree-not-rewrite-the-filing-cabinet-og.jpg"],"datePublished":"2026-08-04T12:00:00Z","dateModified":"2026-08-04T12:00:00Z","author":[{"@type":"Organization","name":"The Git Reporter","url":"https://thegitreporter.com"}],"publisher":{"@type":"Organization","@id":"https://thegitreporter.com/#organization","name":"The Git Reporter","url":"https://thegitreporter.com","logo":{"@type":"ImageObject","url":"https://thegitreporter.com/assets/mark.svg"},"sameAs":["https://x.com/TheGitReporter"]},"articleSection":"Daily Edition","keywords":"Permissions, Memory, Delegation, Tools, Kilo-Org/kilocode"}]}</script>
+  <link rel="icon" href="/assets/mark.svg">
+  <link rel="stylesheet" href="/assets/site.css?v=2026-07-30-harness-memory">
+  <script defer src="/assets/feedback.js?v=2026-07-30-harness-memory"></script>
+  <script defer src="/assets/analytics.js?v=2026-07-30-harness-memory"></script>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-CH19T7M0T1"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){window.dataLayer.push(arguments);}
+    gtag("js", new Date());
+    gtag("config", "G-CH19T7M0T1");
+  </script>
+</head>
+<body>
+  <div class="site">
+    <header class="site-header" id="top">
+      <div class="wrap utility-row">
+        <a class="icon-link menu-icon" href="/archive/" aria-label="Open edition history"><span></span><span></span><span></span></a>
+        <a class="icon-link archive-icon" href="/archive/" aria-label="Open edition history"></a>
+      </div>
+      <div class="wrap masthead-lockup">
+        <a class="masthead-title" href="/">THE GIT REPORTER</a>
+        <div class="masthead-ornament" aria-hidden="true"></div>
+      </div>
+      <div class="wrap nav-wrap">
+        <nav class="paper-nav" aria-label="Primary navigation">
+    <a class="" href="/">Today</a><a class="active" href="/archive/">Editions</a><a class="" href="/about/">About</a><a class="" href="/battles/">Diff Derby</a><a class="" href="/agent-pulse/">Agent Pulse</a><a class="" href="/atlas/">Agent Atlas</a><a class="" href="/repos/">Repos</a>
+  </nav>
+        <div class="nav-rule"></div>
+      </div>
+    </header>
+    <main class="wrap page-shell article-page">
+      <section class="page-hero story-front">
+        <div class="story-topline">
+          <span>Daily Edition</span>
+          <span>Sources <strong>+4</strong></span>
+        </div>
+        <h1>The Agent Can Refile a Worktree, Not Rewrite the Filing Cabinet</h1>
+        <p class="summary">Kilo Code’s new Agent Manager move gives an agent a way to reorganize parallel work—only through a live inventory, a targeted command, and a hard boundary around the recovery file.</p>
+        <figure class="story-illustration article-illustration">
+    <img src="/assets/illustrations/2026-08-04-the-agent-can-refile-a-worktree-not-rewrite-the-filing-cabinet-diagram-punk-v1.png" alt="A rough marker diagram shows a worktree card moving between Kilo Code Agent Manager sections only after a List live IDs first card, while a crossed-out Agent Manager state file warns against direct edits." loading="lazy" decoding="async">
+    <figcaption><span>Diagram Punk</span>a worktree move belongs to the control API, not the recovery file.</figcaption>
+  </figure>
+        <div class="receipt">
+    <div class="receipt-line">
+      <span class="receipt-icon">repo</span>
+      <span class="receipt-main">Kilo-Org/kilocode</span>
+      <span class="branch-pill">evidence</span>
+    </div>
+    <div class="receipt-line receipt-muted">
+      <span>4 source signals</span>
+      <span>1 repo</span>
+      <span>commit 3d4294e</span>
+    </div>
+    <div class="commit-line">Evidence: commit 3d4294e / August 4, 2026 / Daily Edition</div>
+  </div>
+        <div class="article-route-row">
+          <a href="/editions/2026-08-04/">Open Edition</a>
+          <a href="#evidence">Evidence below</a>
+        </div>
+      </section>
+      <section class="story-reader">
+        <article class="story-shell story-body">
+          <p>At <code>Kilo-Org/kilocode</code>, parallel coding agents make a familiar human problem oddly consequential: the work is split into branches and worktrees, but someone still has to know what belongs in “Review,” what is active, and what can be safely filed away. Kilo Code’s <a href="https://github.com/Kilo-Org/kilocode/pull/12815">merged Agent Manager patch</a> lets an agent move its own worktree between those sections or ungroup it. The more revealing part is how narrow the move is: the agent must first ask the manager for its live inventory, then use the returned IDs in a dedicated command.</p>
+
+  <p>That sounds less dramatic than a new autonomous capability. It is more useful. A <code>Kilo-Org/kilocode</code> worktree manager is holding live coordination state while several agents can be running on separate branches. The public <a href="https://github.com/Kilo-Org/kilocode/commit/3d4294e3bb50630159233c8063b253dc5f3da8d3">source change</a> makes the manager—not a model’s memory—the authority on which section and session IDs exist right now. The new <code>move</code> action accepts one returned session ID and either a returned section ID or <code>null</code> to ungroup it.</p>
+
+  <h2>The inventory comes before the filing</h2>
+
+  <p>Kilo’s <a href="https://github.com/Kilo-Org/kilocode/blob/3d4294e3bb50630159233c8063b253dc5f3da8d3/packages/opencode/src/kilocode/tool/agent-manager.txt">tool instructions</a> spell out the sequence: list the overview, read the section and session IDs it returns, then make one targeted move. The contract says not to invent IDs or substitute a section name. It also says the operation moves the whole worktree—including multi-version siblings—not a stray session that happens to be visible in the panel. Local sessions are explicitly outside this section-assignment path.</p>
+
+  <p>That is a small protocol with a practical purpose. A model can remember “put the auth fix in Review,” but it cannot safely infer which of several live worktrees now represents that work. Asking the controller to name the target is a way of turning a fuzzy organizational instruction into a checked mutation. The patch’s domain code rejects an unknown session, an unknown section, and attempts to assign a local session that has no worktree.</p>
+
+  <h2>The state file is not an API</h2>
+
+  <p>Kilo draws the other half of the line where it matters. Its documentation calls <code>.kilo/agent-manager.json</code> persisted UI and recovery state; the new <a href="https://github.com/Kilo-Org/kilocode/blob/3d4294e3bb50630159233c8063b253dc5f3da8d3/packages/opencode/src/kilocode/agent-manager/protection.ts">state-path guard</a> rejects direct edits to that file and points the caller back to list-then-move. A focused <a href="https://github.com/Kilo-Org/kilocode/blob/3d4294e3bb50630159233c8063b253dc5f3da8d3/packages/opencode/test/kilocode/agent-manager-protection.test.ts">test</a> confirms the guard applies to the manager files, not ordinary files that merely share the name.</p>
+
+  <p>This is not evidence that Kilo has solved multi-agent coordination, or that moving a section transfers code, permissions, or execution safely.</p>
+
+  <p>It is evidence of a more modest discipline: when an agent needs to change live orchestration state, give it a supported, inspectable control operation instead of letting it write around the controller. Teams building their own agent managers should watch next for recovery and concurrent-update tests—the point where a tidy filing rule either becomes a durable system boundary or proves to be only a sidebar convenience.</p>
+        </article>
+      </section>
+      <section class="evidence-section" id="evidence" aria-labelledby="evidence-title">
+    <div class="evidence-head">
+      <div>
+        <div class="eyebrow">Evidence Trail</div>
+        <h2 id="evidence-title">Receipts below the story</h2>
+        <p>The article above is the public narrative. This section keeps the source trail and limits on the same page.</p>
+      </div>
+      <a class="paper-button" href="/editions/2026-08-04/">Edition</a>
+    </div>
+    <div class="evidence-table evidence-summary">
+      <div class="evidence-line"><span>Date</span><span>August 4, 2026</span></div>
+      <div class="evidence-line"><span>Lane</span><span>Daily Edition</span></div>
+      <div class="evidence-line"><span>Confidence</span><span>78%</span></div>
+      <div class="evidence-line"><span>Sources</span><span>4</span></div>
+      <div class="evidence-line"><span>Repos</span><span>Kilo-Org/kilocode</span></div>
+    </div>
+    <div class="markdown evidence-copy evidence-copy-block">
+      <h2>Primary Evidence</h2>
+<ul>
+<li>Kilo Code pull request #12815, “feat(agent-manager): allow sessions to move their worktree between sections or ungroup”: <a href="https://github.com/Kilo-Org/kilocode/pull/12815">https://github.com/Kilo-Org/kilocode/pull/12815</a>
+<ul>
+<li>Shows: the merged public change, including the new Agent Manager <code>move</code> operation, list-first contract, target validation, ungrouping through <code>sectionID: null</code>, and focused tests.
+</li>
+</ul>
+</li>
+<li>Kilo Code Agent Manager tool instructions at commit <code>3d4294e3bb</code>: <a href="https://github.com/Kilo-Org/kilocode/blob/3d4294e3bb50630159233c8063b253dc5f3da8d3/packages/opencode/src/kilocode/tool/agent-manager.txt">https://github.com/Kilo-Org/kilocode/blob/3d4294e3bb50630159233c8063b253dc5f3da8d3/packages/opencode/src/kilocode/tool/agent-manager.txt</a>
+<ul>
+<li>Shows: that the live <code>list</code> output is the source of truth for section and session IDs; a move affects a session's whole worktree; local sessions cannot be assigned; and the persisted manager file is not the API.
+</li>
+</ul>
+</li>
+<li>Kilo Code protected Agent Manager state-path implementation and test at commit <code>3d4294e3bb</code>: <a href="https://github.com/Kilo-Org/kilocode/blob/3d4294e3bb50630159233c8063b253dc5f3da8d3/packages/opencode/src/kilocode/agent-manager/protection.ts">https://github.com/Kilo-Org/kilocode/blob/3d4294e3bb50630159233c8063b253dc5f3da8d3/packages/opencode/src/kilocode/agent-manager/protection.ts</a> and <a href="https://github.com/Kilo-Org/kilocode/blob/3d4294e3bb50630159233c8063b253dc5f3da8d3/packages/opencode/test/kilocode/agent-manager-protection.test.ts">https://github.com/Kilo-Org/kilocode/blob/3d4294e3bb50630159233c8063b253dc5f3da8d3/packages/opencode/test/kilocode/agent-manager-protection.test.ts</a>
+<ul>
+<li>Shows: direct edits to the designated Agent Manager state files are rejected with a pointer to the supported list-then-move flow, while ordinary project files are not blocked.
+</li>
+</ul>
+</li>
+<li>Kilo Code Agent Manager documentation at commit <code>3d4294e3bb</code>: <a href="https://github.com/Kilo-Org/kilocode/blob/3d4294e3bb50630159233c8063b253dc5f3da8d3/packages/kilo-docs/pages/automate/agent-manager.md">https://github.com/Kilo-Org/kilocode/blob/3d4294e3bb50630159233c8063b253dc5f3da8d3/packages/kilo-docs/pages/automate/agent-manager.md</a>
+<ul>
+<li>Shows: the public product context of parallel, worktree-isolated sessions and sections used to group them.
+</li>
+</ul>
+</li>
+</ul>
+<h2>Evidence Limits</h2>
+<ul>
+<li>These public receipts establish source behavior and focused test intent. They do not establish that the change is in a released extension, that teams use it, or that every move/restore lifecycle is safe in production.
+</li>
+<li>A section change is organisation metadata, not proof that an agent transferred files, branches, permissions, credentials, or execution safely. Watch for end-to-end tests covering a move during recovery or after concurrent manager updates.
+</li>
+</ul>
+    </div>
+  </section>
+      <section class="related-edition-section atlas-context-section">
+    <div class="section-title-row">
+      <h2>Atlas Context</h2>
+      <a href="/atlas/">Open Atlas &rsaquo;</a>
+    </div>
+    <div class="updates-list">
+      <a class="article-card" href="/atlas/when-one-agent-becomes-many/">
+            <div class="article-meta"><span class="lane">Agent Atlas</span><span>Chapter 5</span></div>
+            <h3>Delegation Is a Distributed System</h3>
+            <p>A subagent is a remote worker with its own lifecycle, context snapshot, authority, failures, and result stream. Treating delegation as a prompt trick hides the contracts that determine whether the work can be trusted.</p>
+          </a>
+    </div>
+  </section>
+      <section class="reader-feedback"
+    data-tgr-feedback
+    data-article-slug="2026-08-04-daily-the-agent-can-refile-a-worktree-not-rewrite-the-filing-cabinet"
+    data-article-title="The Agent Can Refile a Worktree, Not Rewrite the Filing Cabinet"
+    data-article-url="/articles/2026-08-04-daily-the-agent-can-refile-a-worktree-not-rewrite-the-filing-cabinet/"
+    data-edition-date="2026-08-04"
+    data-lane="Daily Edition"
+    data-tags="Permissions,Memory,Delegation,Tools"
+    data-repos="Kilo-Org/kilocode">
+    <div class="reader-feedback-head">
+      <div>
+        <div class="eyebrow">Letters &amp; Corrections</div>
+        <h2>Send a note to the desk</h2>
+      </div>
+      <p>Corrections, missing context, or a follow-up lead.</p>
+    </div>
+    <form class="feedback-form">
+      <div class="feedback-votes" role="group" aria-label="Choose signal type">
+        <button class="feedback-choice" type="button" data-vote="follow-up" aria-pressed="false">
+          <span aria-hidden="true">+</span>
+          <span>Follow-up</span>
+        </button>
+        <button class="feedback-choice" type="button" data-vote="correction" aria-pressed="false">
+          <span aria-hidden="true">!</span>
+          <span>Correction</span>
+        </button>
+      </div>
+      <label class="feedback-comment">
+        <span>Note for the editor</span>
+        <textarea name="comment" rows="3" maxlength="320" placeholder="What did we miss, or what should we follow next?"></textarea>
+      </label>
+      <div class="feedback-submit-row">
+        <p class="feedback-status" aria-live="polite"></p>
+        <button class="paper-button primary feedback-submit" type="submit">Send to desk</button>
+      </div>
+    </form>
+  </section>
+      
+    </main>
+    <footer class="wrap site-footer">
+      <span>&copy; 2026 The Git Reporter</span>
+      <a href="/about/">About</a>
+      <a href="/battles/">Diff Derby</a>
+      <a href="/agent-pulse/">Agent Pulse</a>
+      <a href="/feed.xml">RSS</a>
+      <a href="https://x.com/TheGitReporter">Follow on X</a>
+      <a href="/articles.json">Manifest JSON</a>
+      <a href="/repos/">Sources</a>
+    </footer>
+  </div>
+</body>
+</html>
