@@ -1,0 +1,259 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>OpenWork learns to wait for a turn that has actually started | The Git Reporter</title>
+  <meta name="description" content="OpenWork’s new headless-thread client turns a subtle race into an explicit contract: an agent turn is not finished just because its status looks idle.">
+  <meta name="robots" content="index,follow">
+  <link rel="canonical" href="https://thegitreporter.com/articles/2026-08-08-daily-openwork-learns-to-wait-for-a-turn-that-has-actually-started/">
+  <link rel="alternate" type="application/rss+xml" title="The Git Reporter" href="https://thegitreporter.com/feed.xml">
+  <meta property="og:site_name" content="The Git Reporter">
+  <meta property="og:locale" content="en_US">
+  <meta property="og:title" content="OpenWork learns to wait for a turn that has actually started | The Git Reporter">
+  <meta property="og:description" content="OpenWork’s new headless-thread client turns a subtle race into an explicit contract: an agent turn is not finished just because its status looks idle.">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://thegitreporter.com/articles/2026-08-08-daily-openwork-learns-to-wait-for-a-turn-that-has-actually-started/">
+  <meta property="og:image" content="https://thegitreporter.com/assets/social/2026-08-08-daily-openwork-learns-to-wait-for-a-turn-that-has-actually-started-og.jpg">
+  <meta property="og:image:secure_url" content="https://thegitreporter.com/assets/social/2026-08-08-daily-openwork-learns-to-wait-for-a-turn-that-has-actually-started-og.jpg">
+  <meta property="og:image:type" content="image/jpeg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Marker diagram comparing a false completion from an idle status with a settled state that also requires a new assistant reply, labeled with the OpenWork headless-thread source and a release caveat.">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:site" content="@TheGitReporter">
+  <meta name="twitter:creator" content="@TheGitReporter">
+  <meta name="twitter:title" content="OpenWork learns to wait for a turn that has actually started | The Git Reporter">
+  <meta name="twitter:description" content="OpenWork’s new headless-thread client turns a subtle race into an explicit contract: an agent turn is not finished just because its status looks idle.">
+  <meta name="twitter:url" content="https://thegitreporter.com/articles/2026-08-08-daily-openwork-learns-to-wait-for-a-turn-that-has-actually-started/">
+  <meta name="twitter:domain" content="thegitreporter.com">
+  <meta name="twitter:image" content="https://thegitreporter.com/assets/social/2026-08-08-daily-openwork-learns-to-wait-for-a-turn-that-has-actually-started-og.jpg">
+  <meta name="twitter:image:alt" content="Marker diagram comparing a false completion from an idle status with a settled state that also requires a new assistant reply, labeled with the OpenWork headless-thread source and a release caveat.">
+  <meta property="article:published_time" content="2026-08-08T12:00:00Z">
+  <meta property="article:modified_time" content="2026-08-08T12:00:00Z">
+  <meta property="article:section" content="Daily Edition">
+  <meta property="article:tag" content="Delegation">
+  <meta property="article:tag" content="Tools">
+  <meta property="article:tag" content="UX">
+  <meta property="article:tag" content="Runtime">
+  <meta property="article:tag" content="different-ai/openwork">
+  <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"https://thegitreporter.com/#organization","name":"The Git Reporter","url":"https://thegitreporter.com","logo":{"@type":"ImageObject","url":"https://thegitreporter.com/assets/mark.svg"},"sameAs":["https://x.com/TheGitReporter"]},{"@type":"WebSite","@id":"https://thegitreporter.com/#website","name":"The Git Reporter","url":"https://thegitreporter.com","publisher":{"@id":"https://thegitreporter.com/#organization"}},{"@type":"NewsArticle","mainEntityOfPage":{"@type":"WebPage","@id":"https://thegitreporter.com/articles/2026-08-08-daily-openwork-learns-to-wait-for-a-turn-that-has-actually-started/"},"headline":"OpenWork learns to wait for a turn that has actually started","description":"OpenWork’s new headless-thread client turns a subtle race into an explicit contract: an agent turn is not finished just because its status looks idle.","image":["https://thegitreporter.com/assets/social/2026-08-08-daily-openwork-learns-to-wait-for-a-turn-that-has-actually-started-og.jpg"],"datePublished":"2026-08-08T12:00:00Z","dateModified":"2026-08-08T12:00:00Z","author":[{"@type":"Organization","name":"The Git Reporter","url":"https://thegitreporter.com"}],"publisher":{"@type":"Organization","@id":"https://thegitreporter.com/#organization","name":"The Git Reporter","url":"https://thegitreporter.com","logo":{"@type":"ImageObject","url":"https://thegitreporter.com/assets/mark.svg"},"sameAs":["https://x.com/TheGitReporter"]},"articleSection":"Daily Edition","keywords":"Delegation, Tools, UX, Runtime, different-ai/openwork"}]}</script>
+  <link rel="icon" href="/assets/mark.svg">
+  <link rel="stylesheet" href="/assets/site.css?v=2026-07-30-harness-memory">
+  <script defer src="/assets/feedback.js?v=2026-07-30-harness-memory"></script>
+  <script defer src="/assets/analytics.js?v=2026-07-30-harness-memory"></script>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-CH19T7M0T1"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){window.dataLayer.push(arguments);}
+    gtag("js", new Date());
+    gtag("config", "G-CH19T7M0T1");
+  </script>
+</head>
+<body>
+  <div class="site">
+    <header class="site-header" id="top">
+      <div class="wrap utility-row">
+        <a class="icon-link menu-icon" href="/archive/" aria-label="Open edition history"><span></span><span></span><span></span></a>
+        <a class="icon-link archive-icon" href="/archive/" aria-label="Open edition history"></a>
+      </div>
+      <div class="wrap masthead-lockup">
+        <a class="masthead-title" href="/">THE GIT REPORTER</a>
+        <div class="masthead-ornament" aria-hidden="true"></div>
+      </div>
+      <div class="wrap nav-wrap">
+        <nav class="paper-nav" aria-label="Primary navigation">
+    <a class="" href="/">Today</a><a class="active" href="/archive/">Editions</a><a class="" href="/about/">About</a><a class="" href="/battles/">Diff Derby</a><a class="" href="/agent-pulse/">Agent Pulse</a><a class="" href="/atlas/">Agent Atlas</a><a class="" href="/repos/">Repos</a>
+  </nav>
+        <div class="nav-rule"></div>
+      </div>
+    </header>
+    <main class="wrap page-shell article-page">
+      <section class="page-hero story-front">
+        <div class="story-topline">
+          <span>Daily Edition</span>
+          <span>Sources <strong>+3</strong></span>
+        </div>
+        <h1>OpenWork learns to wait for a turn that has actually started</h1>
+        <p class="summary">OpenWork’s new headless-thread client turns a subtle race into an explicit contract: an agent turn is not finished just because its status looks idle.</p>
+        <figure class="story-illustration article-illustration">
+    <img src="/assets/illustrations/2026-08-08-openwork-learns-to-wait-for-a-turn-that-has-actually-started-diagram-punk-v1.png" alt="Marker diagram comparing a false completion from an idle status with a settled state that also requires a new assistant reply, labeled with the OpenWork headless-thread source and a release caveat." loading="lazy" decoding="async">
+    <figcaption><span>Diagram Punk</span>an idle status needs a post-submit witness before it can mean done.</figcaption>
+  </figure>
+        <div class="receipt">
+    <div class="receipt-line">
+      <span class="receipt-icon">repo</span>
+      <span class="receipt-main">different-ai/openwork</span>
+      <span class="branch-pill">evidence</span>
+    </div>
+    <div class="receipt-line receipt-muted">
+      <span>3 source signals</span>
+      <span>1 repo</span>
+      <span>commit 0cb93f4</span>
+    </div>
+    <div class="commit-line">Evidence: commit 0cb93f4 / August 8, 2026 / Daily Edition</div>
+  </div>
+        <div class="article-route-row">
+          <a href="/editions/2026-08-08/">Open Edition</a>
+          <a href="#evidence">Evidence below</a>
+        </div>
+      </section>
+      <section class="story-reader">
+        <article class="story-shell story-body">
+          <p>A headless agent harness can make a convincing mistake. It sends a prompt, polls the session, sees “not busy,” and records a completed turn. In OpenWork, the public <a href="https://github.com/different-ai/openwork/commit/0cb93f4885f8ec18fd1c83f152e17468fb1dc119">headless-threads change</a> says a newly accepted prompt can still be in the gap before work starts while the thread reads idle. Its remedy is simple but consequential: settle only when the thread is non-running <em>and</em> an assistant message exists that was not present when the turn was submitted.</p>
+
+  <p>This is Builder Work because the public commit credits <code>Claude Opus 5</code> as a coauthor and exposes the work behind the attribution. That credit supports coding-agent participation; it does not say which contributor wrote which line or how review happened. The engineering receipt is much clearer: a new typed client, transcript helpers, deterministic clock and sleep injection, client tests, and a <a href="https://github.com/different-ai/openwork/blob/0cb93f4885f8ec18fd1c83f152e17468fb1dc119/apps/server/src/headless-threads.e2e.test.ts">real-server end-to-end test</a> around one shared session surface.</p>
+
+  <h2>The client is a witness, not a second runtime</h2>
+
+  <p>The new <a href="https://github.com/different-ai/openwork/blob/0cb93f4885f8ec18fd1c83f152e17468fb1dc119/packages/headless-threads/README.md">package contract</a> does not invent a parallel chat engine. It creates ordinary OpenWork sessions, submits turns, observes their messages and status, can request an abort, and exports the same transcript the desktop application can show. Its <code>waitForThread</code> result is bounded—<code>settled</code>, <code>timeout</code>, or <code>aborted</code>—rather than throwing merely because a slow turn stayed slow.</p>
+
+  <p>That distinction makes it useful for an evaluation harness or automation loop. “The server accepted my request” and “the assistant completed this turn” are separate state transitions. The client records the pre-turn message count, then asks for a reply beyond that boundary. It is a small piece of protocol design that keeps a transient status from impersonating evidence of useful work.</p>
+
+  <h2>The transferable skill: wait for a post-command witness</h2>
+
+  <p>When an agent system performs an asynchronous action, define completion with one quiet-state signal <em>and</em> one artifact that can only exist after the action began: a new assistant message, an event with a new sequence number, a changed output revision, or a durable completion record. Capture the before-state at submission. Give the wait a deadline. Then write a deterministic test for the acceptance-to-start gap by controlling the clock and transport rather than hoping a timing race appears in CI.</p>
+
+  <p>This source is not an invitation to install a public package today. The inspected manifest declares <code>@openwork/headless-threads</code> as private version <code>0.0.0</code>, and the README assumes an OpenWork server the caller can already reach. Its value is the testable waiting rule, not an availability claim. The next useful signal is a released interface or a public integration report showing how that witness rule behaves through a slow queue, reconnect, and cancellation.</p>
+        </article>
+      </section>
+      <section class="evidence-section" id="evidence" aria-labelledby="evidence-title">
+    <div class="evidence-head">
+      <div>
+        <div class="eyebrow">Evidence Trail</div>
+        <h2 id="evidence-title">Receipts below the story</h2>
+        <p>The article above is the public narrative. This section keeps the source trail and limits on the same page.</p>
+      </div>
+      <a class="paper-button" href="/editions/2026-08-08/">Edition</a>
+    </div>
+    <div class="evidence-table evidence-summary">
+      <div class="evidence-line"><span>Date</span><span>August 8, 2026</span></div>
+      <div class="evidence-line"><span>Lane</span><span>Daily Edition</span></div>
+      <div class="evidence-line"><span>Confidence</span><span>78%</span></div>
+      <div class="evidence-line"><span>Sources</span><span>3</span></div>
+      <div class="evidence-line"><span>Repos</span><span>different-ai/openwork</span></div>
+    </div>
+    <div class="markdown evidence-copy evidence-copy-block">
+      <h2>Primary Evidence</h2>
+<ul>
+<li>Public coding-agent use proof: OpenWork's headless-threads commit: <a href="https://github.com/different-ai/openwork/commit/0cb93f4885f8ec18fd1c83f152e17468fb1dc119">https://github.com/different-ai/openwork/commit/0cb93f4885f8ec18fd1c83f152e17468fb1dc119</a>
+<ul>
+<li>Shows: the public <code>Co-authored-by: Claude Opus 5</code> trailer on the change that introduced the headless-thread package. It establishes coding-agent participation in this work, not the share of the patch attributable to either contributor.
+</li>
+</ul>
+</li>
+<li>Inspected GitHub repository: headless-thread client and README: <a href="https://github.com/different-ai/openwork/tree/0cb93f4885f8ec18fd1c83f152e17468fb1dc119/packages/headless-threads">https://github.com/different-ai/openwork/tree/0cb93f4885f8ec18fd1c83f152e17468fb1dc119/packages/headless-threads</a>
+<ul>
+<li>Shows: the inspected source module <code>packages/headless-threads/src/client.ts</code>, its client test module, the package export contract, helper types, fixture-driven tests, <code>waitForThread</code> outcomes, transcript code, and the documented state-machine condition used by the article.
+</li>
+</ul>
+</li>
+<li>Engineering receipt: OpenWork server end-to-end test: <a href="https://github.com/different-ai/openwork/blob/0cb93f4885f8ec18fd1c83f152e17468fb1dc119/apps/server/src/headless-threads.e2e.test.ts">https://github.com/different-ai/openwork/blob/0cb93f4885f8ec18fd1c83f152e17468fb1dc119/apps/server/src/headless-threads.e2e.test.ts</a>
+<ul>
+<li>Shows: the client is tested against a real OpenWork server, not only mocked request code; the commit also adds client and transcript tests around the idle-gap settlement contract.
+</li>
+</ul>
+</li>
+</ul>
+<h2>Evidence Limits</h2>
+<ul>
+<li>These public sources establish a source-level contract and test intent on the inspected OpenWork commit. They do not establish a released or externally installable package, production behavior, service availability, or a complete account of the human-agent collaboration.
+</li>
+<li>The settlement rule is designed for the OpenWork session behavior described here. Other runtimes may expose a different lifecycle signal and should be tested rather than assumed equivalent.
+</li>
+</ul>
+    </div>
+  </section>
+      <section class="related-edition-section atlas-context-section">
+    <div class="section-title-row">
+      <h2>Atlas Context</h2>
+      <a href="/atlas/">Open Atlas &rsaquo;</a>
+    </div>
+    <div class="updates-list">
+      <a class="article-card" href="/atlas/what-an-agent-can-see/">
+            <div class="article-meta"><span class="lane">Agent Atlas</span><span>Chapter 2</span></div>
+            <h3>The Invisible Prompt</h3>
+            <p>The model acts on an assembled viewport containing visible messages, hidden turn context, path-triggered instructions, memory records, tool schemas, permissions, and inherited state.</p>
+          </a>
+    </div>
+  </section>
+      <section class="reader-feedback"
+    data-tgr-feedback
+    data-article-slug="2026-08-08-daily-openwork-learns-to-wait-for-a-turn-that-has-actually-started"
+    data-article-title="OpenWork learns to wait for a turn that has actually started"
+    data-article-url="/articles/2026-08-08-daily-openwork-learns-to-wait-for-a-turn-that-has-actually-started/"
+    data-edition-date="2026-08-08"
+    data-lane="Daily Edition"
+    data-tags="Delegation,Tools,UX,Runtime"
+    data-repos="different-ai/openwork">
+    <div class="reader-feedback-head">
+      <div>
+        <div class="eyebrow">Letters &amp; Corrections</div>
+        <h2>Send a note to the desk</h2>
+      </div>
+      <p>Corrections, missing context, or a follow-up lead.</p>
+    </div>
+    <form class="feedback-form">
+      <div class="feedback-votes" role="group" aria-label="Choose signal type">
+        <button class="feedback-choice" type="button" data-vote="follow-up" aria-pressed="false">
+          <span aria-hidden="true">+</span>
+          <span>Follow-up</span>
+        </button>
+        <button class="feedback-choice" type="button" data-vote="correction" aria-pressed="false">
+          <span aria-hidden="true">!</span>
+          <span>Correction</span>
+        </button>
+      </div>
+      <label class="feedback-comment">
+        <span>Note for the editor</span>
+        <textarea name="comment" rows="3" maxlength="320" placeholder="What did we miss, or what should we follow next?"></textarea>
+      </label>
+      <div class="feedback-submit-row">
+        <p class="feedback-status" aria-live="polite"></p>
+        <button class="paper-button primary feedback-submit" type="submit">Send to desk</button>
+      </div>
+    </form>
+  </section>
+      <section class="related-edition-section">
+        <div class="section-title-row">
+          <h2>Same Edition</h2>
+          <a href="/editions/2026-08-08/">Open issue &rsaquo;</a>
+        </div>
+        <div class="updates-list">
+          <a class="update-card" href="/articles/2026-08-08-daily-hermes-now-stops-agents-from-quietly-rewriting-their-own-instructions/">
+    <div class="update-stripe"></div>
+    <div class="update-main">
+      <div class="update-meta">
+        <span>Trust</span>
+        <span class="source-plus">+3</span>
+        <span>Aug 8, 2026</span>
+      </div>
+      <h3>Hermes now stops agents from quietly rewriting their own instructions</h3>
+      <div class="update-receipt">
+        <span>NousResearch/hermes-agent</span>
+        <span class="branch-pill">evidence</span>
+      </div>
+      <div class="update-foot">
+        <span>3 sources</span>
+        <span>1 repo</span>
+        <span>commit fe66596</span>
+      </div>
+    </div>
+    <span class="update-arrow" aria-hidden="true">&rsaquo;</span>
+  </a>
+        </div>
+      </section>
+    </main>
+    <footer class="wrap site-footer">
+      <span>&copy; 2026 The Git Reporter</span>
+      <a href="/about/">About</a>
+      <a href="/battles/">Diff Derby</a>
+      <a href="/agent-pulse/">Agent Pulse</a>
+      <a href="/feed.xml">RSS</a>
+      <a href="https://x.com/TheGitReporter">Follow on X</a>
+      <a href="/articles.json">Manifest JSON</a>
+      <a href="/repos/">Sources</a>
+    </footer>
+  </div>
+</body>
+</html>

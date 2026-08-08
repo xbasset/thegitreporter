@@ -1,0 +1,258 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Hermes now stops agents from quietly rewriting their own instructions | The Git Reporter</title>
+  <meta name="description" content="A new Hermes Agent write gate treats project instruction files as a persistence surface: even an auto-approved agent must ask a human before it changes the text that can steer tomorrow’s work.">
+  <meta name="robots" content="index,follow">
+  <link rel="canonical" href="https://thegitreporter.com/articles/2026-08-08-daily-hermes-now-stops-agents-from-quietly-rewriting-their-own-instructions/">
+  <link rel="alternate" type="application/rss+xml" title="The Git Reporter" href="https://thegitreporter.com/feed.xml">
+  <meta property="og:site_name" content="The Git Reporter">
+  <meta property="og:locale" content="en_US">
+  <meta property="og:title" content="Hermes now stops agents from quietly rewriting their own instructions | The Git Reporter">
+  <meta property="og:description" content="A new Hermes Agent write gate treats project instruction files as a persistence surface: even an auto-approved agent must ask a human before it changes the text that can steer tomorrow’s work.">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://thegitreporter.com/articles/2026-08-08-daily-hermes-now-stops-agents-from-quietly-rewriting-their-own-instructions/">
+  <meta property="og:image" content="https://thegitreporter.com/assets/social/2026-08-08-daily-hermes-now-stops-agents-from-quietly-rewriting-their-own-instructions-og.jpg">
+  <meta property="og:image:secure_url" content="https://thegitreporter.com/assets/social/2026-08-08-daily-hermes-now-stops-agents-from-quietly-rewriting-their-own-instructions-og.jpg">
+  <meta property="og:image:type" content="image/jpeg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Rough marker diagram of a file-write pen stopped by a human approval gate before instruction-file cards, with a crossed-out symlink and a red caveat stamp.">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:site" content="@TheGitReporter">
+  <meta name="twitter:creator" content="@TheGitReporter">
+  <meta name="twitter:title" content="Hermes now stops agents from quietly rewriting their own instructions | The Git Reporter">
+  <meta name="twitter:description" content="A new Hermes Agent write gate treats project instruction files as a persistence surface: even an auto-approved agent must ask a human before it changes the text that can steer tomorrow’s work.">
+  <meta name="twitter:url" content="https://thegitreporter.com/articles/2026-08-08-daily-hermes-now-stops-agents-from-quietly-rewriting-their-own-instructions/">
+  <meta name="twitter:domain" content="thegitreporter.com">
+  <meta name="twitter:image" content="https://thegitreporter.com/assets/social/2026-08-08-daily-hermes-now-stops-agents-from-quietly-rewriting-their-own-instructions-og.jpg">
+  <meta name="twitter:image:alt" content="Rough marker diagram of a file-write pen stopped by a human approval gate before instruction-file cards, with a crossed-out symlink and a red caveat stamp.">
+  <meta property="article:published_time" content="2026-08-08T12:00:00Z">
+  <meta property="article:modified_time" content="2026-08-08T12:00:00Z">
+  <meta property="article:section" content="Daily Edition">
+  <meta property="article:tag" content="Permissions">
+  <meta property="article:tag" content="Tools">
+  <meta property="article:tag" content="Runtime">
+  <meta property="article:tag" content="NousResearch/hermes-agent">
+  <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"https://thegitreporter.com/#organization","name":"The Git Reporter","url":"https://thegitreporter.com","logo":{"@type":"ImageObject","url":"https://thegitreporter.com/assets/mark.svg"},"sameAs":["https://x.com/TheGitReporter"]},{"@type":"WebSite","@id":"https://thegitreporter.com/#website","name":"The Git Reporter","url":"https://thegitreporter.com","publisher":{"@id":"https://thegitreporter.com/#organization"}},{"@type":"NewsArticle","mainEntityOfPage":{"@type":"WebPage","@id":"https://thegitreporter.com/articles/2026-08-08-daily-hermes-now-stops-agents-from-quietly-rewriting-their-own-instructions/"},"headline":"Hermes now stops agents from quietly rewriting their own instructions","description":"A new Hermes Agent write gate treats project instruction files as a persistence surface: even an auto-approved agent must ask a human before it changes the text that can steer tomorrow’s work.","image":["https://thegitreporter.com/assets/social/2026-08-08-daily-hermes-now-stops-agents-from-quietly-rewriting-their-own-instructions-og.jpg"],"datePublished":"2026-08-08T12:00:00Z","dateModified":"2026-08-08T12:00:00Z","author":[{"@type":"Organization","name":"The Git Reporter","url":"https://thegitreporter.com"}],"publisher":{"@type":"Organization","@id":"https://thegitreporter.com/#organization","name":"The Git Reporter","url":"https://thegitreporter.com","logo":{"@type":"ImageObject","url":"https://thegitreporter.com/assets/mark.svg"},"sameAs":["https://x.com/TheGitReporter"]},"articleSection":"Daily Edition","keywords":"Permissions, Tools, Runtime, NousResearch/hermes-agent"}]}</script>
+  <link rel="icon" href="/assets/mark.svg">
+  <link rel="stylesheet" href="/assets/site.css?v=2026-07-30-harness-memory">
+  <script defer src="/assets/feedback.js?v=2026-07-30-harness-memory"></script>
+  <script defer src="/assets/analytics.js?v=2026-07-30-harness-memory"></script>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-CH19T7M0T1"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){window.dataLayer.push(arguments);}
+    gtag("js", new Date());
+    gtag("config", "G-CH19T7M0T1");
+  </script>
+</head>
+<body>
+  <div class="site">
+    <header class="site-header" id="top">
+      <div class="wrap utility-row">
+        <a class="icon-link menu-icon" href="/archive/" aria-label="Open edition history"><span></span><span></span><span></span></a>
+        <a class="icon-link archive-icon" href="/archive/" aria-label="Open edition history"></a>
+      </div>
+      <div class="wrap masthead-lockup">
+        <a class="masthead-title" href="/">THE GIT REPORTER</a>
+        <div class="masthead-ornament" aria-hidden="true"></div>
+      </div>
+      <div class="wrap nav-wrap">
+        <nav class="paper-nav" aria-label="Primary navigation">
+    <a class="" href="/">Today</a><a class="active" href="/archive/">Editions</a><a class="" href="/about/">About</a><a class="" href="/battles/">Diff Derby</a><a class="" href="/agent-pulse/">Agent Pulse</a><a class="" href="/atlas/">Agent Atlas</a><a class="" href="/repos/">Repos</a>
+  </nav>
+        <div class="nav-rule"></div>
+      </div>
+    </header>
+    <main class="wrap page-shell article-page">
+      <section class="page-hero story-front">
+        <div class="story-topline">
+          <span>Daily Edition</span>
+          <span>Sources <strong>+3</strong></span>
+        </div>
+        <h1>Hermes now stops agents from quietly rewriting their own instructions</h1>
+        <p class="summary">A new Hermes Agent write gate treats project instruction files as a persistence surface: even an auto-approved agent must ask a human before it changes the text that can steer tomorrow’s work.</p>
+        <figure class="story-illustration article-illustration">
+    <img src="/assets/illustrations/2026-08-08-hermes-now-stops-agents-from-quietly-rewriting-their-own-instructions-diagram-punk-v1.png" alt="Rough marker diagram of a file-write pen stopped by a human approval gate before instruction-file cards, with a crossed-out symlink and a red caveat stamp." loading="lazy" decoding="async">
+    <figcaption><span>Diagram Punk</span>the write that shapes tomorrow's agent gets a fresh human stop.</figcaption>
+  </figure>
+        <div class="receipt">
+    <div class="receipt-line">
+      <span class="receipt-icon">repo</span>
+      <span class="receipt-main">NousResearch/hermes-agent</span>
+      <span class="branch-pill">evidence</span>
+    </div>
+    <div class="receipt-line receipt-muted">
+      <span>3 source signals</span>
+      <span>1 repo</span>
+      <span>commit fe66596</span>
+    </div>
+    <div class="commit-line">Evidence: commit fe66596 / August 8, 2026 / Daily Edition</div>
+  </div>
+        <div class="article-route-row">
+          <a href="/editions/2026-08-08/">Open Edition</a>
+          <a href="#evidence">Evidence below</a>
+        </div>
+      </section>
+      <section class="story-reader">
+        <article class="story-shell story-body">
+          <p>An agent that changes a project’s <code>AGENTS.md</code> is not merely editing another Markdown file. It may be changing what the next agent session reads as standing instruction. <code>NousResearch/hermes-agent</code>’s August 7 <a href="https://github.com/NousResearch/hermes-agent/commit/fe66596df342c660d0cb42172884070ae02ac5a0">public security commit</a> makes that distinction operational: writes and patches aimed at <code>AGENTS.md</code>, <code>CLAUDE.md</code>, <code>SOUL.md</code>, <code>.cursorrules</code>, or project-local <code>.hermes</code> configuration now require fresh human approval.</p>
+
+  <p>The sharp part is what does <em>not</em> get to overrule that prompt. The commit says the gate still applies under yolo or auto-approve settings, grants approval for one operation only, and blocks the edit when there is no human channel to answer. That is a deliberate refusal to treat an earlier broad permission as consent to alter the instructions that can persist beyond this task.</p>
+
+  <h2>The path matters as much as the filename</h2>
+
+  <p>A protection named only for a tidy path is easy to walk around. Hermes’ <a href="https://github.com/NousResearch/hermes-agent/blob/fe66596df342c660d0cb42172884070ae02ac5a0/tools/file_tools.py">new file-tool path</a> normalizes and resolves both the requested path and its real path before it decides whether a target is protected. That makes a symlink, a case variant, or a path such as <code>./x/../AGENTS.md</code> part of the question instead of a loophole. It also treats one protected target in a multi-file patch as a gate for the whole patch; a refusal leaves the batch unapplied rather than quietly editing the harmless-looking half.</p>
+
+  <p>The accompanying <a href="https://github.com/NousResearch/hermes-agent/blob/fe66596df342c660d0cb42172884070ae02ac5a0/tests/tools/test_file_write_safety.py">regression tests</a> make the intent unusually legible. They exercise yolo-bypass attempts, repeat writes that must re-prompt, symlink and traversal cases, project-local configuration, and the no-human case. The point is not to make every file precious. Ordinary notes remain ordinary writes. The project is drawing a boundary around files whose content can outlive the current request by changing the next request’s terms.</p>
+
+  <h2>Permission should get narrower near persistence</h2>
+
+  <p>The first, too-generous reading would call this a prompt-injection solution. It is not. The <a href="https://github.com/NousResearch/hermes-agent/blob/fe66596df342c660d0cb42172884070ae02ac5a0/hermes_cli/config_defaults.py">configuration</a> can disable the gate, and this patch does not prove coverage of every terminal route, loader, tool, or future instruction format. Nor do source tests establish a released build or an independently tested security outcome.</p>
+
+  <p>But the smaller claim matters. A system can safely grant an agent room to edit application code while reserving a more specific question for the moment it tries to change its own durable steering material: <em>do you want this instruction to survive?</em> The next public signal worth watching is an end-to-end adversarial test that follows that material from a write attempt through later instruction loading and another execution path. That is where this stop sign will either prove it belongs in a wider safety model or show its remaining gaps.</p>
+        </article>
+      </section>
+      <section class="evidence-section" id="evidence" aria-labelledby="evidence-title">
+    <div class="evidence-head">
+      <div>
+        <div class="eyebrow">Evidence Trail</div>
+        <h2 id="evidence-title">Receipts below the story</h2>
+        <p>The article above is the public narrative. This section keeps the source trail and limits on the same page.</p>
+      </div>
+      <a class="paper-button" href="/editions/2026-08-08/">Edition</a>
+    </div>
+    <div class="evidence-table evidence-summary">
+      <div class="evidence-line"><span>Date</span><span>August 8, 2026</span></div>
+      <div class="evidence-line"><span>Lane</span><span>Daily Edition</span></div>
+      <div class="evidence-line"><span>Confidence</span><span>78%</span></div>
+      <div class="evidence-line"><span>Sources</span><span>3</span></div>
+      <div class="evidence-line"><span>Repos</span><span>NousResearch/hermes-agent</span></div>
+    </div>
+    <div class="markdown evidence-copy evidence-copy-block">
+      <h2>Primary Evidence</h2>
+<ul>
+<li>Hermes Agent protected-instruction write gate commit: <a href="https://github.com/NousResearch/hermes-agent/commit/fe66596df342c660d0cb42172884070ae02ac5a0">https://github.com/NousResearch/hermes-agent/commit/fe66596df342c660d0cb42172884070ae02ac5a0</a>
+<ul>
+<li>Shows: the August 7 source change, its declared protected file set, one-operation human approval, yolo/auto-approve exclusion, fail-closed behavior, and 22 added tests.
+</li>
+</ul>
+</li>
+<li>Protected-write implementation: <a href="https://github.com/NousResearch/hermes-agent/blob/fe66596df342c660d0cb42172884070ae02ac5a0/tools/file_tools.py">https://github.com/NousResearch/hermes-agent/blob/fe66596df342c660d0cb42172884070ae02ac5a0/tools/file_tools.py</a>
+<ul>
+<li>Shows: matching after normalization and realpath resolution, protection for named instruction basenames and immediate project-local <code>.hermes</code> parents, and a separate approval flow that does not persist an allow decision.
+</li>
+</ul>
+</li>
+<li>File-write safety regression tests: <a href="https://github.com/NousResearch/hermes-agent/blob/fe66596df342c660d0cb42172884070ae02ac5a0/tests/tools/test_file_write_safety.py">https://github.com/NousResearch/hermes-agent/blob/fe66596df342c660d0cb42172884070ae02ac5a0/tests/tools/test_file_write_safety.py</a>
+<ul>
+<li>Shows: tests for yolo bypass attempts, repeated writes, symlink and traversal handling, atomic multi-file patches, and the no-human fail-closed case.
+</li>
+</ul>
+</li>
+</ul>
+<h2>Evidence Limits</h2>
+<ul>
+<li>These sources establish intended behavior in the inspected Hermes Agent main-branch patch. They do not prove release availability, independent security review, coverage of terminal or other write tools, or prevention of every prompt-injection route.
+</li>
+<li>The project exposes a configuration switch and extra patterns; future source or release evidence can change the practical boundary. Watch for end-to-end adversarial tests that cross instruction loading, terminals, and external tool paths.
+</li>
+</ul>
+    </div>
+  </section>
+      <section class="related-edition-section atlas-context-section">
+    <div class="section-title-row">
+      <h2>Atlas Context</h2>
+      <a href="/atlas/">Open Atlas &rsaquo;</a>
+    </div>
+    <div class="updates-list">
+      <a class="article-card" href="/atlas/friction-safety-and-approval/">
+            <div class="article-meta"><span class="lane">Agent Atlas</span><span>Chapter 7</span></div>
+            <h3>The Approval Trap</h3>
+            <p>Approval is useful only when it catches a meaningful change in authority, explains that change, and keeps the decision attached to the work.</p>
+          </a>
+    </div>
+  </section>
+      <section class="reader-feedback"
+    data-tgr-feedback
+    data-article-slug="2026-08-08-daily-hermes-now-stops-agents-from-quietly-rewriting-their-own-instructions"
+    data-article-title="Hermes now stops agents from quietly rewriting their own instructions"
+    data-article-url="/articles/2026-08-08-daily-hermes-now-stops-agents-from-quietly-rewriting-their-own-instructions/"
+    data-edition-date="2026-08-08"
+    data-lane="Daily Edition"
+    data-tags="Permissions,Tools,Runtime"
+    data-repos="NousResearch/hermes-agent">
+    <div class="reader-feedback-head">
+      <div>
+        <div class="eyebrow">Letters &amp; Corrections</div>
+        <h2>Send a note to the desk</h2>
+      </div>
+      <p>Corrections, missing context, or a follow-up lead.</p>
+    </div>
+    <form class="feedback-form">
+      <div class="feedback-votes" role="group" aria-label="Choose signal type">
+        <button class="feedback-choice" type="button" data-vote="follow-up" aria-pressed="false">
+          <span aria-hidden="true">+</span>
+          <span>Follow-up</span>
+        </button>
+        <button class="feedback-choice" type="button" data-vote="correction" aria-pressed="false">
+          <span aria-hidden="true">!</span>
+          <span>Correction</span>
+        </button>
+      </div>
+      <label class="feedback-comment">
+        <span>Note for the editor</span>
+        <textarea name="comment" rows="3" maxlength="320" placeholder="What did we miss, or what should we follow next?"></textarea>
+      </label>
+      <div class="feedback-submit-row">
+        <p class="feedback-status" aria-live="polite"></p>
+        <button class="paper-button primary feedback-submit" type="submit">Send to desk</button>
+      </div>
+    </form>
+  </section>
+      <section class="related-edition-section">
+        <div class="section-title-row">
+          <h2>Same Edition</h2>
+          <a href="/editions/2026-08-08/">Open issue &rsaquo;</a>
+        </div>
+        <div class="updates-list">
+          <a class="update-card" href="/articles/2026-08-08-daily-openwork-learns-to-wait-for-a-turn-that-has-actually-started/">
+    <div class="update-stripe"></div>
+    <div class="update-main">
+      <div class="update-meta">
+        <span>Agents</span>
+        <span class="source-plus">+3</span>
+        <span>Aug 8, 2026</span>
+      </div>
+      <h3>OpenWork learns to wait for a turn that has actually started</h3>
+      <div class="update-receipt">
+        <span>different-ai/openwork</span>
+        <span class="branch-pill">evidence</span>
+      </div>
+      <div class="update-foot">
+        <span>3 sources</span>
+        <span>1 repo</span>
+        <span>commit 0cb93f4</span>
+      </div>
+    </div>
+    <span class="update-arrow" aria-hidden="true">&rsaquo;</span>
+  </a>
+        </div>
+      </section>
+    </main>
+    <footer class="wrap site-footer">
+      <span>&copy; 2026 The Git Reporter</span>
+      <a href="/about/">About</a>
+      <a href="/battles/">Diff Derby</a>
+      <a href="/agent-pulse/">Agent Pulse</a>
+      <a href="/feed.xml">RSS</a>
+      <a href="https://x.com/TheGitReporter">Follow on X</a>
+      <a href="/articles.json">Manifest JSON</a>
+      <a href="/repos/">Sources</a>
+    </footer>
+  </div>
+</body>
+</html>
