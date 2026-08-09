@@ -1,0 +1,455 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Agent Plugins Standardizes the Box, Not What Runs Inside | The Git Reporter</title>
+  <meta name="description" content="Five client families now accept one Skills-and-MCP package. The first compatibility gap shows why the harder standard begins where this one stops.">
+  <meta name="robots" content="index,follow">
+  <link rel="canonical" href="https://thegitreporter.com/articles/2026-08-09-daily-agent-plugins-standardizes-the-box-not-what-runs-inside/">
+  <link rel="alternate" type="application/rss+xml" title="The Git Reporter" href="https://thegitreporter.com/feed.xml">
+  <meta property="og:site_name" content="The Git Reporter">
+  <meta property="og:locale" content="en_US">
+  <meta property="og:title" content="Agent Plugins Standardizes the Box, Not What Runs Inside | The Git Reporter">
+  <meta property="og:description" content="Five client families now accept one Skills-and-MCP package. The first compatibility gap shows why the harder standard begins where this one stops.">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://thegitreporter.com/articles/2026-08-09-daily-agent-plugins-standardizes-the-box-not-what-runs-inside/">
+  <meta property="og:image" content="https://thegitreporter.com/assets/social/2026-08-09-daily-agent-plugins-standardizes-the-box-not-what-runs-inside-og.jpg">
+  <meta property="og:image:secure_url" content="https://thegitreporter.com/assets/social/2026-08-09-daily-agent-plugins-standardizes-the-box-not-what-runs-inside-og.jpg">
+  <meta property="og:image:type" content="image/jpeg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="A rough zine-style cutaway shows a plugin.json chassis with skills/ and mcp.json rails feeding five different client machines, while empty sockets mark permissions, signing, catalog, updates, and conformance; a red stamp warns that package containment is not a sandbox.">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:site" content="@TheGitReporter">
+  <meta name="twitter:creator" content="@TheGitReporter">
+  <meta name="twitter:title" content="Agent Plugins Standardizes the Box, Not What Runs Inside | The Git Reporter">
+  <meta name="twitter:description" content="Five client families now accept one Skills-and-MCP package. The first compatibility gap shows why the harder standard begins where this one stops.">
+  <meta name="twitter:url" content="https://thegitreporter.com/articles/2026-08-09-daily-agent-plugins-standardizes-the-box-not-what-runs-inside/">
+  <meta name="twitter:domain" content="thegitreporter.com">
+  <meta name="twitter:image" content="https://thegitreporter.com/assets/social/2026-08-09-daily-agent-plugins-standardizes-the-box-not-what-runs-inside-og.jpg">
+  <meta name="twitter:image:alt" content="A rough zine-style cutaway shows a plugin.json chassis with skills/ and mcp.json rails feeding five different client machines, while empty sockets mark permissions, signing, catalog, updates, and conformance; a red stamp warns that package containment is not a sandbox.">
+  <meta property="article:published_time" content="2026-08-09T12:00:00Z">
+  <meta property="article:modified_time" content="2026-08-09T12:00:00Z">
+  <meta property="article:section" content="Daily Edition">
+  <meta property="article:tag" content="Permissions">
+  <meta property="article:tag" content="Memory">
+  <meta property="article:tag" content="Delegation">
+  <meta property="article:tag" content="Tools">
+  <meta property="article:tag" content="agentplugins/agent-plugins-spec">
+  <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"https://thegitreporter.com/#organization","name":"The Git Reporter","url":"https://thegitreporter.com","logo":{"@type":"ImageObject","url":"https://thegitreporter.com/assets/mark.svg"},"sameAs":["https://x.com/TheGitReporter"]},{"@type":"WebSite","@id":"https://thegitreporter.com/#website","name":"The Git Reporter","url":"https://thegitreporter.com","publisher":{"@id":"https://thegitreporter.com/#organization"}},{"@type":"NewsArticle","mainEntityOfPage":{"@type":"WebPage","@id":"https://thegitreporter.com/articles/2026-08-09-daily-agent-plugins-standardizes-the-box-not-what-runs-inside/"},"headline":"Agent Plugins Standardizes the Box, Not What Runs Inside","description":"Five client families now accept one Skills-and-MCP package. The first compatibility gap shows why the harder standard begins where this one stops.","image":["https://thegitreporter.com/assets/social/2026-08-09-daily-agent-plugins-standardizes-the-box-not-what-runs-inside-og.jpg"],"datePublished":"2026-08-09T12:00:00Z","dateModified":"2026-08-09T12:00:00Z","author":[{"@type":"Organization","name":"The Git Reporter","url":"https://thegitreporter.com"}],"publisher":{"@type":"Organization","@id":"https://thegitreporter.com/#organization","name":"The Git Reporter","url":"https://thegitreporter.com","logo":{"@type":"ImageObject","url":"https://thegitreporter.com/assets/mark.svg"},"sameAs":["https://x.com/TheGitReporter"]},"articleSection":"Daily Edition","keywords":"Permissions, Memory, Delegation, Tools, agentplugins/agent-plugins-spec"}]}</script>
+  <link rel="icon" href="/assets/mark.svg">
+  <link rel="stylesheet" href="/assets/site.css?v=2026-07-30-harness-memory">
+  <script defer src="/assets/feedback.js?v=2026-07-30-harness-memory"></script>
+  <script defer src="/assets/analytics.js?v=2026-07-30-harness-memory"></script>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-CH19T7M0T1"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){window.dataLayer.push(arguments);}
+    gtag("js", new Date());
+    gtag("config", "G-CH19T7M0T1");
+  </script>
+</head>
+<body>
+  <div class="site">
+    <header class="site-header" id="top">
+      <div class="wrap utility-row">
+        <a class="icon-link menu-icon" href="/archive/" aria-label="Open edition history"><span></span><span></span><span></span></a>
+        <a class="icon-link archive-icon" href="/archive/" aria-label="Open edition history"></a>
+      </div>
+      <div class="wrap masthead-lockup">
+        <a class="masthead-title" href="/">THE GIT REPORTER</a>
+        <div class="masthead-ornament" aria-hidden="true"></div>
+      </div>
+      <div class="wrap nav-wrap">
+        <nav class="paper-nav" aria-label="Primary navigation">
+    <a class="" href="/">Today</a><a class="active" href="/archive/">Editions</a><a class="" href="/about/">About</a><a class="" href="/battles/">Diff Derby</a><a class="" href="/agent-pulse/">Agent Pulse</a><a class="" href="/atlas/">Agent Atlas</a><a class="" href="/repos/">Repos</a>
+  </nav>
+        <div class="nav-rule"></div>
+      </div>
+    </header>
+    <main class="wrap page-shell article-page">
+      <section class="page-hero story-front">
+        <div class="story-topline">
+          <span>Daily Edition</span>
+          <span>Sources <strong>+17</strong></span>
+        </div>
+        <h1>Agent Plugins Standardizes the Box, Not What Runs Inside</h1>
+        <p class="summary">Five client families now accept one Skills-and-MCP package. The first compatibility gap shows why the harder standard begins where this one stops.</p>
+        <figure class="story-illustration article-illustration">
+    <img src="/assets/illustrations/2026-08-09-agent-plugins-standardizes-the-box-not-what-runs-inside-diagram-punk-v1.png" alt="A rough zine-style cutaway shows a plugin.json chassis with skills/ and mcp.json rails feeding five different client machines, while empty sockets mark permissions, signing, catalog, updates, and conformance; a red stamp warns that package containment is not a sandbox." loading="lazy" decoding="async">
+    <figcaption><span>Diagram Punk</span>one portable chassis reaches five clients, but trust and host policy still have empty sockets.</figcaption>
+  </figure>
+        <div class="receipt">
+    <div class="receipt-line">
+      <span class="receipt-icon">repo</span>
+      <span class="receipt-main">agentplugins/agent-plugins-spec</span>
+      <span class="branch-pill">evidence</span>
+    </div>
+    <div class="receipt-line receipt-muted">
+      <span>17 source signals</span>
+      <span>1 repo</span>
+      <span>6 linked commits</span>
+    </div>
+    <div class="commit-line">Evidence: 6 linked commits / August 9, 2026 / Daily Edition</div>
+  </div>
+        <div class="article-route-row">
+          <a href="/editions/2026-08-09/">Open Edition</a>
+          <a href="#evidence">Evidence below</a>
+        </div>
+      </section>
+      <section class="story-reader">
+        <article class="story-shell story-body">
+          <p>On July 24, <strong>agentplugins/agent-plugins-spec</strong> <a href="https://github.com/agentplugins/agent-plugins-spec/commit/1fc1b6270e3cc492ec2d24ad7a34277c6d53b9c1">marked Agent Plugins 1.0.0 published</a>: one root manifest, one place for reusable instructions, and one place for tool servers. That directory can now meet the same front door in VS Code, Cursor, GitHub Copilot, ChatGPT/Codex, and Kiro.</p>
+
+  <p>Those vendors did not agree on one runtime. They agreed on the boundary before it. The package is recognizable and partly loadable across clients; installation, permissions, secrets, UI, distribution, updates, and much of execution policy remain with each host. The useful standard exposes the next incompatibilities instead of disguising them.</p>
+
+  <p>A status warning remains: the <a href="https://agent-plugins.org/specification">rendered specification</a> calls v1.0.0 a “Working Draft,” while the <a href="https://raw.githubusercontent.com/agentplugins/agent-plugins-spec/main/spec/1.0.0.md">canonical repository text</a> says “Published.” This edition uses the canonical text for normative claims and reports the website label as unresolved documentation drift.</p>
+
+  <h2>The box is a contract</h2>
+
+  <p>Every package starts with <code>plugin.json</code>: schema version, name, and optional metadata. Its schema is closed. Unknown top-level fields are reported and ignored; invalid required fields reject the package. A client can decide which rules it knows before touching the contents.</p>
+
+  <p>V1 has exactly two portable component types. <code>skills/</code> contains immediate child directories whose <code>SKILL.md</code> files follow the <a href="https://agentskills.io/specification">Agent Skills specification</a>. Optional <code>mcp.json</code> describes MCP servers using <code>stdio</code>, current <code>streamable-http</code>, or deprecated <code>sse</code>. Adoption is incremental: Skills alone can conform; an MCP client needs at least stdio or Streamable HTTP and should support both. Legacy SSE is optional.</p>
+
+  <p>The contract fixes discovery paths, provides stdio servers with <code>PLUGIN_ROOT</code> for bundled files and persistent <code>PLUGIN_DATA</code> for writable state, and isolates failures so one invalid skill or server does not erase the rest of the plugin.</p>
+
+  <p>Path containment is easy to overread. A client rejects packaged paths that escape the plugin root, including through symlinks. But the <a href="https://agent-plugins.org/specification#plugin-package-model">spec says explicitly</a> that this does not sandbox a subprocess or restrict runtime paths. A safe box is not automatically a safe program.</p>
+
+  <p>Host-specific behavior gets a reverse-domain namespace in the manifest and a matching top-level directory—Kiro uses <code>dev.kiro/</code> for steering. Other clients ignore namespaces they do not implement. Experiments can coexist with the portable rails, but remain non-portable.</p>
+
+  <h2>One package, five compatibility profiles</h2>
+
+  <p>The project’s <a href="https://agent-plugins.org/compatible-clients">current compatible-client roster</a> lists the same core package across five client families, but not the same transport set or host behavior. This comparison was checked against current official client documentation and, for Codex, the open implementation:</p>
+
+  <div class="story-table-scroll" role="region" aria-label="Agent Plugins compatibility matrix" tabindex="0">
+  <table>
+    <caption>Agent Plugins compatibility checked August 9, 2026</caption>
+    <thead>
+      <tr><th scope="col">Client</th><th scope="col">Skills</th><th scope="col">stdio</th><th scope="col">Streamable HTTP</th><th scope="col">Legacy SSE</th><th scope="col">Host-owned difference</th></tr>
+    </thead>
+    <tbody>
+      <tr><th scope="row"><a href="https://code.visualstudio.com/docs/agent-customization/agent-plugins">VS Code</a></th><td>Yes</td><td>Yes</td><td>Yes</td><td>Yes</td><td>Plugin marketplace and update policy; optional sandboxing for locally configured stdio servers; Agent Plugins extension namespaces currently ignored.</td></tr>
+      <tr><th scope="row"><a href="https://cursor.com/docs/plugins">Cursor</a></th><td>Yes</td><td>Yes</td><td>Yes</td><td>Yes</td><td>Cursor’s parallel format adds rules, agents, commands, hooks, variables, canvases, and marketplace controls.</td></tr>
+      <tr><th scope="row"><a href="https://docs.github.com/en/copilot/concepts/agents/about-plugins">GitHub Copilot</a></th><td>Yes</td><td>Yes</td><td>Yes</td><td>Yes</td><td>Copilot-native packages can add agents, hooks, and LSP servers; marketplaces and enterprise standards govern installation.</td></tr>
+      <tr><th scope="row"><a href="https://developers.openai.com/plugins">ChatGPT &amp; Codex</a></th><td>Yes</td><td>Yes</td><td>Yes</td><td>No</td><td>OpenAI provides its own universal directory and review path; current Codex source rejects the Agent Plugins <code>sse</code> transport.</td></tr>
+      <tr><th scope="row"><a href="https://kiro.dev/docs/powers/">Kiro</a></th><td>Yes</td><td>Yes</td><td>Yes</td><td>Yes</td><td>“Powers” add <code>dev.kiro/</code> steering, dynamic context activation, and one-click catalog installation.</td></tr>
+    </tbody>
+  </table>
+  </div>
+
+  <p>The portable <code>mcp.json</code> requires the declared transport first and promises no fallback. A host’s native settings may differ: <a href="https://code.visualstudio.com/docs/agents/reference/mcp-configuration">VS Code HTTP config</a> can fall back to SSE; <a href="https://docs.github.com/en/copilot/reference/copilot-cli-reference/cli-command-reference#transport-types">Copilot CLI</a> accepts all three; <a href="https://github.com/openai/codex/blob/646f7c0a91b8e327d263335da68ae8ef212895ce/codex-rs/codex-mcp/src/agent_plugin_config.rs">Codex rejects Agent Plugins <code>sse</code></a>. “Compatible” means supported parts can load, not identical startup or approvals.</p>
+
+  <h2>The April proposal got smaller before it got a new name</h2>
+
+  <p>The <a href="https://github.com/agentplugins/agent-plugins-spec/commit/c01f3921f20b5e67efff5f8cd9e480be0cb65cfa">April 2 “Open Plugin Specification” draft</a> ran 1,200 lines. It allowed competing manifest locations, configurable component paths, inline MCP, and optional commands, agents, rules, hooks, LSP, output styles, user configuration, and marketplaces—both a common package and several hosts’ growing feature surfaces.</p>
+
+  <p>On July 10, one commit <a href="https://github.com/agentplugins/agent-plugins-spec/commit/f0d7a31cbe1539519b94d7a0b02fb48798e92646">removed 140 lines and limited v1 to Skills and MCP</a>; another <a href="https://github.com/agentplugins/agent-plugins-spec/commit/3ef1fb064bb2e32cfdf800c6badfcb5e7a317f78">fixed discovery paths</a>. Marketplaces left the normative draft, client behavior gained namespaces, and MCP got a closed file. The spec began defining only what clients could plausibly load alike.</p>
+
+  <p>The project <a href="https://github.com/agentplugins/agent-plugins-spec/commit/d83795f91a1a67cb0bf0f2826d71a8374b219d6d">became Agent Plugins on July 16</a>, recorded its TSC on July 20, relaxed transport adoption July 21, and published v1 July 24. VS Code and Kiro documented integrations by August 5–6; the repo then called itself an <a href="https://github.com/agentplugins/agent-plugins-spec/commit/cb50a53a8b972ed962772d8b5dc51822b49e3dba">open standard</a>. The history is a smaller promise five products could repeat.</p>
+
+  <h2>The missing layers are where power moves</h2>
+
+  <p>V1 does not say where a plugin is found, how it is installed, which publisher is trusted, when it updates, how an organization pins or blocks it, what permissions it declares, how secrets are injected, what UI explains risk, or how conformance is independently proved. A version string is metadata, not a content digest. A repository URL is not signed provenance. A client can claim compatibility while supporting only one core component type.</p>
+
+  <p>The project’s <a href="https://github.com/agentplugins/agent-plugins-spec/blob/main/FUTURE_CONSIDERATIONS.md">non-normative future list</a> names permissions, signatures, attestations, secrets, enterprise controls, audit events, dependencies, and conformance tooling. Its charter includes tests in scope, but scope is not a shipped harness.</p>
+
+  <p>Clients compete on the consequential parts. VS Code makes marketplace trust and policy host concerns. Cursor reviews its official marketplace. Copilot has enterprise-managed plugin standards. OpenAI has its own review and publication path. Kiro dynamically activates Powers. The shared chassis makes those choices easier to compare.</p>
+
+  <h2>Three useful precedents—and three breaking points</h2>
+
+  <p><strong>LSP is the reuse analogy.</strong> The <a href="https://microsoft.github.io/language-server-protocol/">Language Server Protocol</a> made one language server reusable across editors by standardizing JSON-RPC messages. But LSP specifies a behavioral conversation. Agent Plugins locates two existing component standards and configures one: a common loading dock, not a universal runtime.</p>
+
+  <p><strong>OCI is the boundary analogy.</strong> The <a href="https://opencontainers.org/">Open Container Initiative</a> separated image, runtime, and distribution specs, then built conformance. Agent Plugins also separates package from execution. But it is a plain directory with no standardized isolation, digest, registry, or signing chain.</p>
+
+  <p><strong>WebExtensions is the ecosystem analogy.</strong> Browser extensions share a <a href="https://developer.mozilla.org/en-US/docs/Mozilla/Add-ons/WebExtensions/manifest.json">manifest</a>, yet <a href="https://developer.mozilla.org/en-US/docs/Mozilla/Add-ons/WebExtensions/Chrome_incompatibilities">APIs and keys differ</a>. That resembles a portable core plus host additions. But WebExtensions specifies privileged APIs and permissions; Agent Plugins v1 specifies neither.</p>
+
+  <h2>The absent originator is a question, not a feud</h2>
+
+  <p>Both rails arrive with history. Agent Skills says the format was <a href="https://agentskills.io/home">originally developed by Anthropic</a>. The MCP project says Anthropic <a href="https://blog.modelcontextprotocol.io/posts/2025-12-09-mcp-joins-agentic-ai-foundation/">donated MCP to the Agentic AI Foundation</a> after creating it. Yet Anthropic does not appear in Agent Plugins’ published <a href="https://github.com/agentplugins/agent-plugins-spec/blob/main/MAINTAINERS.md">TSC roster</a> of Amazon, Cursor, Microsoft, OpenAI, and Vercel, and Claude is not on the current compatible-client page.</p>
+
+  <p>That is a reporting question, not evidence of motive or conflict. Watch whether Anthropic or another independent implementer joins governance, whether Claude accepts an unchanged package, and whether portability reaches clients beyond the founding roster.</p>
+
+  <h2>The next version can be predicted—and tested</h2>
+
+  <p>The first pressure will be provenance. If catalogs grow before signatures, digests, and source-to-build attestations, hosts duplicate trust policy. A testable signal is a proposal binding version, content, and publisher, followed by two clients enforcing it.</p>
+
+  <p>The second will be permissions and organization policy. Expect manifest-declared capabilities, host-mapped consent, scoped secrets, allowlists, and version pinning. The test is one declaration producing consistent deny and approval outcomes across clients.</p>
+
+  <p>The third will be conformance and distribution. A public fixture should install unchanged in three independent clients and test discovery, failure isolation, placeholders, transports, and unknown namespaces. Catalogs then need update rules and immutable identifiers.</p>
+
+  <p>Hooks are the clearest graduation test. They existed in the April draft, disappeared from v1, and now live in multiple host-specific formats. If two or more clients converge on the same lifecycle events and safety semantics, a public proposal should be able to move that useful extension into core. If the shapes keep diverging, the namespace escape hatch is doing its job by keeping a false common denominator out.</p>
+
+  <p>Success is measurable: one unchanged plugin working across at least three independent clients; authors beyond the founding vendors shipping useful packages; public conformance tests; signed provenance; a permission model; and evidence that a valuable vendor extension can graduate into the shared core. Until those signals appear, Agent Plugins has standardized a credible box. What the ecosystem trusts that box to do remains the real standardization fight.</p>
+        </article>
+      </section>
+      <section class="evidence-section" id="evidence" aria-labelledby="evidence-title">
+    <div class="evidence-head">
+      <div>
+        <div class="eyebrow">Evidence Trail</div>
+        <h2 id="evidence-title">Receipts below the story</h2>
+        <p>The article above is the public narrative. This section keeps the source trail and limits on the same page.</p>
+      </div>
+      <a class="paper-button" href="/editions/2026-08-09/">Edition</a>
+    </div>
+    <div class="evidence-table evidence-summary">
+      <div class="evidence-line"><span>Date</span><span>August 9, 2026</span></div>
+      <div class="evidence-line"><span>Lane</span><span>Daily Edition</span></div>
+      <div class="evidence-line"><span>Confidence</span><span>91%</span></div>
+      <div class="evidence-line"><span>Sources</span><span>17</span></div>
+      <div class="evidence-line"><span>Repos</span><span>agentplugins/agent-plugins-spec</span></div>
+    </div>
+    <div class="markdown evidence-copy evidence-copy-block">
+      <h2>Primary Evidence</h2>
+<ul>
+<li>Public source: <a href="https://raw.githubusercontent.com/agentplugins/agent-plugins-spec/main/spec/1.0.0.md">canonical Agent Plugins v1.0.0 specification</a>
+<ul>
+<li>Shows: the canonical published v1.0.0 contract, fixed package layout, exactly two core component types, MCP transports, failure isolation, extension namespaces, environment variables, and conformance floor.
+</li>
+</ul>
+</li>
+<li>Public source: <a href="https://agent-plugins.org/specification">rendered Agent Plugins specification</a>
+<ul>
+<li>Shows: the rendered documentation currently labels the same v1.0.0 text “Working Draft,” the status mismatch reported in the article, and the explicit warning that package containment is not subprocess sandboxing.
+</li>
+</ul>
+</li>
+<li>Public source: <a href="https://agent-plugins.org/compatible-clients">Agent Plugins compatible-client matrix</a>
+<ul>
+<li>Shows: current five-client Skills/transport matrix, including legacy SSE in four rows and its absence from ChatGPT/Codex.
+</li>
+</ul>
+</li>
+<li>Public source: <a href="https://github.com/agentplugins/agent-plugins-spec/blob/main/FUTURE_CONSIDERATIONS.md">Agent Plugins future considerations</a>
+<ul>
+<li>Shows: non-normative open areas for permissions, provenance, secrets, enterprise controls, audit events, dependencies, and testing/conformance.
+</li>
+</ul>
+</li>
+<li>Public source: <a href="https://github.com/agentplugins/agent-plugins-spec/commit/c01f3921f20b5e67efff5f8cd9e480be0cb65cfa">April 2 Open Plugin Specification draft</a>
+<ul>
+<li>Shows: the April 2 Open Plugin Specification draft with a broader, more configurable packaging design and extended component appendices.
+</li>
+</ul>
+</li>
+<li>Public source: <a href="https://github.com/agentplugins/agent-plugins-spec/commit/f0d7a31cbe1539519b94d7a0b02fb48798e92646">July 10 v1 component-scope change</a>
+<ul>
+<li>Shows: the July 10 deletion of 140 lines while limiting v1 to Skills and MCP.
+</li>
+</ul>
+</li>
+<li>Public source: <a href="https://github.com/agentplugins/agent-plugins-spec/commit/3ef1fb064bb2e32cfdf800c6badfcb5e7a317f78">fixed-path discovery change</a>
+<ul>
+<li>Shows: replacement of manifest-directed discovery with fixed component paths.
+</li>
+</ul>
+</li>
+<li>Public source: <a href="https://github.com/agentplugins/agent-plugins-spec/commit/d83795f91a1a67cb0bf0f2826d71a8374b219d6d">July 16 Agent Plugins rename</a>
+<ul>
+<li>Shows: the July 16 project rename from Open Plugin to Agent Plugins.
+</li>
+</ul>
+</li>
+<li>Public source: <a href="https://github.com/agentplugins/agent-plugins-spec/commit/1fc1b6270e3cc492ec2d24ad7a34277c6d53b9c1">July 24 specification publication change</a>
+<ul>
+<li>Shows: the July 24 publication change for specification 1.0.0.
+</li>
+</ul>
+</li>
+<li>Public sources: <a href="https://github.com/agentplugins/agent-plugins-spec/blob/main/GOVERNANCE.md">governance</a> and <a href="https://github.com/agentplugins/agent-plugins-spec/blob/main/MAINTAINERS.md">maintainers</a>
+<ul>
+<li>Shows: open governance, conformance tooling in project scope, and the TSC members from Amazon, Cursor, Microsoft, OpenAI, and Vercel.
+</li>
+</ul>
+</li>
+<li>Public sources: <a href="https://code.visualstudio.com/docs/agent-customization/agent-plugins">VS Code Agent Plugins</a> and <a href="https://code.visualstudio.com/docs/agents/reference/mcp-configuration">VS Code MCP configuration</a>
+<ul>
+<li>Shows: VS Code Agent Plugins support plus host-specific formats, marketplace/update behavior, trust, optional stdio sandboxing, and three MCP transports.
+</li>
+</ul>
+</li>
+<li>Public sources: <a href="https://cursor.com/docs/plugins">Cursor plugins</a> and <a href="https://docs.cursor.com/context/model-context-protocol">Cursor MCP</a>
+<ul>
+<li>Shows: Cursor’s standard support beside its own plugin format and current stdio, Streamable HTTP, and legacy SSE support.
+</li>
+</ul>
+</li>
+<li>Public sources: <a href="https://docs.github.com/en/copilot/concepts/agents/about-plugins">GitHub Copilot plugins</a> and <a href="https://docs.github.com/en/copilot/reference/copilot-cli-reference/cli-command-reference">Copilot CLI reference</a>
+<ul>
+<li>Shows: Copilot’s native plugin components and marketplace model plus stdio, Streamable HTTP, and SSE MCP transports.
+</li>
+</ul>
+</li>
+<li>Public sources: <a href="https://developers.openai.com/plugins">OpenAI plugins</a> and <a href="https://github.com/openai/codex/blob/646f7c0a91b8e327d263335da68ae8ef212895ce/codex-rs/codex-mcp/src/agent_plugin_config.rs">Codex Agent Plugin MCP loader</a>
+<ul>
+<li>Shows: OpenAI’s combined Skills/MCP plugin product direction and current Codex code accepting stdio/Streamable HTTP while rejecting Agent Plugins legacy SSE.
+</li>
+</ul>
+</li>
+<li>Public source: <a href="https://kiro.dev/docs/powers/">Kiro Powers</a>
+<ul>
+<li>Shows: Kiro Powers following Agent Plugins, <code>dev.kiro/</code> extension data, dynamic activation, and one-click distribution behavior.
+</li>
+</ul>
+</li>
+<li>Public sources: <a href="https://agentskills.io/home">Agent Skills</a> and <a href="https://blog.modelcontextprotocol.io/posts/2025-12-09-mcp-joins-agentic-ai-foundation/">MCP's Agentic AI Foundation announcement</a>
+<ul>
+<li>Shows: Agent Skills’ Anthropic origin and Anthropic’s donation of MCP to the Agentic AI Foundation.
+</li>
+</ul>
+</li>
+<li>Public sources: <a href="https://microsoft.github.io/language-server-protocol/">Language Server Protocol</a>, <a href="https://opencontainers.org/">Open Container Initiative</a>, and <a href="https://developer.mozilla.org/en-US/docs/Mozilla/Add-ons/WebExtensions/Chrome_incompatibilities">MDN's WebExtensions incompatibility guide</a>
+<ul>
+<li>Shows: the specific interoperability contracts and implementation differences used—and bounded—in the LSP, OCI, and WebExtensions comparisons.
+</li>
+</ul>
+</li>
+</ul>
+<h2>Evidence Limits</h2>
+<ul>
+<li>The compatible-client roster and host documentation describe support; no project-owned cross-client conformance suite was available to execute, so the article does not claim behavioral identity.
+</li>
+<li>No live install test was performed across all five proprietary client products. Open source was inspected where available, especially Codex; otherwise the article uses current official client documentation.
+</li>
+<li>A package version string is metadata, not a content digest or lock. The standard does not currently define a registry, signature, permission model, update protocol, or organization policy format.
+</li>
+<li>The website/canonical status mismatch remains unresolved as of August 9, 2026. It is reported as documentation drift without inferring which maintenance process failed.
+</li>
+<li>Forecasts are labeled and made falsifiable; they are not claims about private roadmaps.
+</li>
+</ul>
+    </div>
+  </section>
+      <section class="related-edition-section atlas-context-section">
+    <div class="section-title-row">
+      <h2>Atlas Context</h2>
+      <a href="/atlas/">Open Atlas &rsaquo;</a>
+    </div>
+    <div class="updates-list">
+      <a class="article-card" href="/atlas/hands-in-the-world/">
+            <div class="article-meta"><span class="lane">Agent Atlas</span><span>Chapter 3</span></div>
+            <h3>Tool Calls: Contract, Authorization, Execution</h3>
+            <p>A tool call crosses independently governed boundaries: schema, registration, policy, approval, execution authority, result handling, and audit.</p>
+          </a>
+    </div>
+  </section>
+      <section class="reader-feedback"
+    data-tgr-feedback
+    data-article-slug="2026-08-09-daily-agent-plugins-standardizes-the-box-not-what-runs-inside"
+    data-article-title="Agent Plugins Standardizes the Box, Not What Runs Inside"
+    data-article-url="/articles/2026-08-09-daily-agent-plugins-standardizes-the-box-not-what-runs-inside/"
+    data-edition-date="2026-08-09"
+    data-lane="Daily Edition"
+    data-tags="Permissions,Memory,Delegation,Tools"
+    data-repos="agentplugins/agent-plugins-spec">
+    <div class="reader-feedback-head">
+      <div>
+        <div class="eyebrow">Letters &amp; Corrections</div>
+        <h2>Send a note to the desk</h2>
+      </div>
+      <p>Corrections, missing context, or a follow-up lead.</p>
+    </div>
+    <form class="feedback-form">
+      <div class="feedback-votes" role="group" aria-label="Choose signal type">
+        <button class="feedback-choice" type="button" data-vote="follow-up" aria-pressed="false">
+          <span aria-hidden="true">+</span>
+          <span>Follow-up</span>
+        </button>
+        <button class="feedback-choice" type="button" data-vote="correction" aria-pressed="false">
+          <span aria-hidden="true">!</span>
+          <span>Correction</span>
+        </button>
+      </div>
+      <label class="feedback-comment">
+        <span>Note for the editor</span>
+        <textarea name="comment" rows="3" maxlength="320" placeholder="What did we miss, or what should we follow next?"></textarea>
+      </label>
+      <div class="feedback-submit-row">
+        <p class="feedback-status" aria-live="polite"></p>
+        <button class="paper-button primary feedback-submit" type="submit">Send to desk</button>
+      </div>
+    </form>
+  </section>
+      <section class="related-edition-section">
+        <div class="section-title-row">
+          <h2>Same Edition</h2>
+          <a href="/editions/2026-08-09/">Open issue &rsaquo;</a>
+        </div>
+        <div class="updates-list">
+          <a class="update-card" href="/articles/2026-08-09-daily-cline-gives-a-finished-agent-answer-a-diff-receipt/">
+    <div class="update-stripe"></div>
+    <div class="update-main">
+      <div class="update-meta">
+        <span>Reported</span>
+        <span class="source-plus">+2</span>
+        <span>Aug 9, 2026</span>
+      </div>
+      <h3>Cline gives a finished agent answer a diff receipt</h3>
+      <div class="update-receipt">
+        <span>cline/cline</span>
+        <span class="branch-pill">evidence</span>
+      </div>
+      <div class="update-foot">
+        <span>2 sources</span>
+        <span>1 repo</span>
+        <span>2 linked commits</span>
+      </div>
+    </div>
+    <span class="update-arrow" aria-hidden="true">&rsaquo;</span>
+  </a><a class="update-card" href="/articles/2026-08-09-daily-api-discovery-pydantic-ai-routes-cortex-work-through-snowflake/">
+    <div class="update-stripe"></div>
+    <div class="update-main">
+      <div class="update-meta">
+        <span>Reported</span>
+        <span class="source-plus">+3</span>
+        <span>Aug 9, 2026</span>
+      </div>
+      <h3>API Discovery: Pydantic AI routes Cortex work through Snowflake</h3>
+      <div class="update-receipt">
+        <span>pydantic/pydantic-ai</span>
+        <span class="branch-pill">evidence</span>
+      </div>
+      <div class="update-foot">
+        <span>3 sources</span>
+        <span>1 repo</span>
+        <span>commit f9cd74f</span>
+      </div>
+    </div>
+    <span class="update-arrow" aria-hidden="true">&rsaquo;</span>
+  </a><a class="update-card" href="/articles/2026-08-09-daily-crewai-teaches-telemetry-to-separate-the-agent-from-the-room/">
+    <div class="update-stripe"></div>
+    <div class="update-main">
+      <div class="update-meta">
+        <span>Context</span>
+        <span class="source-plus">+3</span>
+        <span>Aug 9, 2026</span>
+      </div>
+      <h3>CrewAI teaches telemetry to separate the agent from the room</h3>
+      <div class="update-receipt">
+        <span>crewAIInc/crewAI</span>
+        <span class="branch-pill">evidence</span>
+      </div>
+      <div class="update-foot">
+        <span>3 sources</span>
+        <span>1 repo</span>
+        <span>commit 92012ae</span>
+      </div>
+    </div>
+    <span class="update-arrow" aria-hidden="true">&rsaquo;</span>
+  </a>
+        </div>
+      </section>
+    </main>
+    <footer class="wrap site-footer">
+      <span>&copy; 2026 The Git Reporter</span>
+      <a href="/about/">About</a>
+      <a href="/battles/">Diff Derby</a>
+      <a href="/agent-pulse/">Agent Pulse</a>
+      <a href="/feed.xml">RSS</a>
+      <a href="https://x.com/TheGitReporter">Follow on X</a>
+      <a href="/articles.json">Manifest JSON</a>
+      <a href="/repos/">Sources</a>
+    </footer>
+  </div>
+</body>
+</html>
