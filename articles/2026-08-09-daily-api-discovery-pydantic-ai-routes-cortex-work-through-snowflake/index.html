@@ -1,0 +1,273 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>API Discovery: Pydantic AI routes Cortex work through Snowflake | The Git Reporter</title>
+  <meta name="description" content="Pydantic AI now has a Snowflake Cortex provider, but a useful trial starts by checking the selected model’s capability boundary—not by assuming one adapter makes every model equivalent.">
+  <meta name="robots" content="index,follow">
+  <link rel="canonical" href="https://thegitreporter.com/articles/2026-08-09-daily-api-discovery-pydantic-ai-routes-cortex-work-through-snowflake/">
+  <link rel="alternate" type="application/rss+xml" title="The Git Reporter" href="https://thegitreporter.com/feed.xml">
+  <meta property="og:site_name" content="The Git Reporter">
+  <meta property="og:locale" content="en_US">
+  <meta property="og:title" content="API Discovery: Pydantic AI routes Cortex work through Snowflake | The Git Reporter">
+  <meta property="og:description" content="Pydantic AI now has a Snowflake Cortex provider, but a useful trial starts by checking the selected model’s capability boundary—not by assuming one adapter makes every model equivalent.">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://thegitreporter.com/articles/2026-08-09-daily-api-discovery-pydantic-ai-routes-cortex-work-through-snowflake/">
+  <meta property="og:image" content="https://thegitreporter.com/assets/social/2026-08-09-daily-api-discovery-pydantic-ai-routes-cortex-work-through-snowflake-og.jpg">
+  <meta property="og:image:secure_url" content="https://thegitreporter.com/assets/social/2026-08-09-daily-api-discovery-pydantic-ai-routes-cortex-work-through-snowflake-og.jpg">
+  <meta property="og:image:type" content="image/jpeg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="A rough cream-paper diagram shows a Pydantic AI agent reaching Snowflake Cortex beside a split card that reserves tools and schemas for Claude and OpenAI families, stamped “TEST YOUR MODEL.”">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:site" content="@TheGitReporter">
+  <meta name="twitter:creator" content="@TheGitReporter">
+  <meta name="twitter:title" content="API Discovery: Pydantic AI routes Cortex work through Snowflake | The Git Reporter">
+  <meta name="twitter:description" content="Pydantic AI now has a Snowflake Cortex provider, but a useful trial starts by checking the selected model’s capability boundary—not by assuming one adapter makes every model equivalent.">
+  <meta name="twitter:url" content="https://thegitreporter.com/articles/2026-08-09-daily-api-discovery-pydantic-ai-routes-cortex-work-through-snowflake/">
+  <meta name="twitter:domain" content="thegitreporter.com">
+  <meta name="twitter:image" content="https://thegitreporter.com/assets/social/2026-08-09-daily-api-discovery-pydantic-ai-routes-cortex-work-through-snowflake-og.jpg">
+  <meta name="twitter:image:alt" content="A rough cream-paper diagram shows a Pydantic AI agent reaching Snowflake Cortex beside a split card that reserves tools and schemas for Claude and OpenAI families, stamped “TEST YOUR MODEL.”">
+  <meta property="article:published_time" content="2026-08-09T12:00:00Z">
+  <meta property="article:modified_time" content="2026-08-09T12:00:00Z">
+  <meta property="article:section" content="Daily Edition">
+  <meta property="article:tag" content="Tools">
+  <meta property="article:tag" content="UX">
+  <meta property="article:tag" content="pydantic/pydantic-ai">
+  <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"https://thegitreporter.com/#organization","name":"The Git Reporter","url":"https://thegitreporter.com","logo":{"@type":"ImageObject","url":"https://thegitreporter.com/assets/mark.svg"},"sameAs":["https://x.com/TheGitReporter"]},{"@type":"WebSite","@id":"https://thegitreporter.com/#website","name":"The Git Reporter","url":"https://thegitreporter.com","publisher":{"@id":"https://thegitreporter.com/#organization"}},{"@type":"NewsArticle","mainEntityOfPage":{"@type":"WebPage","@id":"https://thegitreporter.com/articles/2026-08-09-daily-api-discovery-pydantic-ai-routes-cortex-work-through-snowflake/"},"headline":"API Discovery: Pydantic AI routes Cortex work through Snowflake","description":"Pydantic AI now has a Snowflake Cortex provider, but a useful trial starts by checking the selected model’s capability boundary—not by assuming one adapter makes every model equivalent.","image":["https://thegitreporter.com/assets/social/2026-08-09-daily-api-discovery-pydantic-ai-routes-cortex-work-through-snowflake-og.jpg"],"datePublished":"2026-08-09T12:00:00Z","dateModified":"2026-08-09T12:00:00Z","author":[{"@type":"Organization","name":"The Git Reporter","url":"https://thegitreporter.com"}],"publisher":{"@type":"Organization","@id":"https://thegitreporter.com/#organization","name":"The Git Reporter","url":"https://thegitreporter.com","logo":{"@type":"ImageObject","url":"https://thegitreporter.com/assets/mark.svg"},"sameAs":["https://x.com/TheGitReporter"]},"articleSection":"Daily Edition","keywords":"Tools, UX, pydantic/pydantic-ai"}]}</script>
+  <link rel="icon" href="/assets/mark.svg">
+  <link rel="stylesheet" href="/assets/site.css?v=2026-07-30-harness-memory">
+  <script defer src="/assets/feedback.js?v=2026-07-30-harness-memory"></script>
+  <script defer src="/assets/analytics.js?v=2026-07-30-harness-memory"></script>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-CH19T7M0T1"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){window.dataLayer.push(arguments);}
+    gtag("js", new Date());
+    gtag("config", "G-CH19T7M0T1");
+  </script>
+</head>
+<body>
+  <div class="site">
+    <header class="site-header" id="top">
+      <div class="wrap utility-row">
+        <a class="icon-link menu-icon" href="/archive/" aria-label="Open edition history"><span></span><span></span><span></span></a>
+        <a class="icon-link archive-icon" href="/archive/" aria-label="Open edition history"></a>
+      </div>
+      <div class="wrap masthead-lockup">
+        <a class="masthead-title" href="/">THE GIT REPORTER</a>
+        <div class="masthead-ornament" aria-hidden="true"></div>
+      </div>
+      <div class="wrap nav-wrap">
+        <nav class="paper-nav" aria-label="Primary navigation">
+    <a class="" href="/">Today</a><a class="active" href="/archive/">Editions</a><a class="" href="/about/">About</a><a class="" href="/battles/">Diff Derby</a><a class="" href="/agent-pulse/">Agent Pulse</a><a class="" href="/atlas/">Agent Atlas</a><a class="" href="/repos/">Repos</a>
+  </nav>
+        <div class="nav-rule"></div>
+      </div>
+    </header>
+    <main class="wrap page-shell article-page">
+      <section class="page-hero story-front">
+        <div class="story-topline">
+          <span>Daily Edition</span>
+          <span>Sources <strong>+3</strong></span>
+        </div>
+        <h1>API Discovery: Pydantic AI routes Cortex work through Snowflake</h1>
+        <p class="summary">Pydantic AI now has a Snowflake Cortex provider, but a useful trial starts by checking the selected model’s capability boundary—not by assuming one adapter makes every model equivalent.</p>
+        <figure class="story-illustration article-illustration">
+    <img src="/assets/illustrations/2026-08-09-api-discovery-pydantic-ai-routes-cortex-work-through-snowflake-diagram-punk-v1.png" alt="A rough cream-paper diagram shows a Pydantic AI agent reaching Snowflake Cortex beside a split card that reserves tools and schemas for Claude and OpenAI families, stamped “TEST YOUR MODEL.”" loading="lazy" decoding="async">
+    <figcaption><span>Diagram Punk</span>provider access is not feature parity.</figcaption>
+  </figure>
+        <div class="receipt">
+    <div class="receipt-line">
+      <span class="receipt-icon">repo</span>
+      <span class="receipt-main">pydantic/pydantic-ai</span>
+      <span class="branch-pill">evidence</span>
+    </div>
+    <div class="receipt-line receipt-muted">
+      <span>3 source signals</span>
+      <span>1 repo</span>
+      <span>commit f9cd74f</span>
+    </div>
+    <div class="commit-line">Evidence: commit f9cd74f / August 9, 2026 / Daily Edition</div>
+  </div>
+        <div class="article-route-row">
+          <a href="/editions/2026-08-09/">Open Edition</a>
+          <a href="#evidence">Evidence below</a>
+        </div>
+      </section>
+      <section class="story-reader">
+        <article class="story-shell story-body">
+          <p><strong>API discovery:</strong> <a href="https://docs.snowflake.com/en/user-guide/snowflake-cortex/cortex-rest-api">Snowflake Cortex REST</a> is the public provider surface; Pydantic AI’s new <a href="https://github.com/pydantic/pydantic-ai/commit/f9cd74f8ebca92a7acfa6346df7bf67f3f9e12cc">SnowflakeModel and SnowflakeProvider</a> wrap it in the same agent interface used for other model backends. The practical hook is an account-bounded data-quality assistant: turn a proposed warehouse metric definition into a structured review brief without designing a fresh model adapter first.</p>
+
+  <h2>Try it</h2>
+
+  <p>Use a disposable Snowflake project and a least-privilege credential to make an agent produce a schema-checked “metric readiness” brief: intended definition, missing dimensions, access assumptions, and questions for the data owner. Pydantic AI’s documentation shows the account-and-token setup and the direct model form. The important design constraint comes from the same source: tool calling and native structured output are documented for OpenAI and Claude families; other Cortex families fall back to prompted output.</p>
+
+  <h2>Copy-paste agent instruction</h2>
+
+  <pre><code>In a new disposable Python project, add pydantic-ai with its Snowflake extra. Do not request, print, commit, or transmit any real token. Using only a test Snowflake account and a least-privilege credential supplied through local environment variables, create a small Pydantic AI agent for `snowflake:claude-sonnet-4-6` that returns a structured MetricReadinessBrief with definition, missing_dimensions, access_assumptions, and owner_questions. Before running it, show which selected model family supports native structured output and tool calling; if it does not, stop and explain the prompted-output fallback. Run only a harmless synthetic example, then remove the local test credential.</code></pre>
+
+  <h2>Test caveat</h2>
+
+  <p>This is a source-and-test discovery, not a live account result. The documented path needs a Snowflake account identifier plus a programmatic access token, OAuth token, or key-pair JWT and an appropriate Cortex role. Entitlement, billing, model availability, data policy, and performance are account-specific; test only against synthetic or approved data, and verify the capability profile of the exact model you choose.</p>
+        </article>
+      </section>
+      <section class="evidence-section" id="evidence" aria-labelledby="evidence-title">
+    <div class="evidence-head">
+      <div>
+        <div class="eyebrow">Evidence Trail</div>
+        <h2 id="evidence-title">Receipts below the story</h2>
+        <p>The article above is the public narrative. This section keeps the source trail and limits on the same page.</p>
+      </div>
+      <a class="paper-button" href="/editions/2026-08-09/">Edition</a>
+    </div>
+    <div class="evidence-table evidence-summary">
+      <div class="evidence-line"><span>Date</span><span>August 9, 2026</span></div>
+      <div class="evidence-line"><span>Lane</span><span>Daily Edition</span></div>
+      <div class="evidence-line"><span>Confidence</span><span>78%</span></div>
+      <div class="evidence-line"><span>Sources</span><span>3</span></div>
+      <div class="evidence-line"><span>Repos</span><span>pydantic/pydantic-ai</span></div>
+    </div>
+    <div class="markdown evidence-copy evidence-copy-block">
+      <h2>Primary Evidence</h2>
+<ul>
+<li>Public API source: Snowflake Cortex REST API: <a href="https://docs.snowflake.com/en/user-guide/snowflake-cortex/cortex-rest-api">https://docs.snowflake.com/en/user-guide/snowflake-cortex/cortex-rest-api</a>
+<ul>
+<li>Shows: Snowflake’s public Cortex REST surface that Pydantic AI names as the provider source; access is account-scoped and requires an appropriate Snowflake credential and role.
+</li>
+</ul>
+</li>
+<li>Supporting definition or documentation: Pydantic AI Snowflake model documentation: <a href="https://github.com/pydantic/pydantic-ai/blob/f9cd74f8ebca92a7acfa6346df7bf67f3f9e12cc/docs/models/snowflake.md">https://github.com/pydantic/pydantic-ai/blob/f9cd74f8ebca92a7acfa6346df7bf67f3f9e12cc/docs/models/snowflake.md</a>
+<ul>
+<li>Shows: the documented authentication path using a Snowflake account and token, the <code>SnowflakeModel</code> request setup, model-family capability limits, private-connectivity option, and thinking configuration.
+</li>
+</ul>
+</li>
+<li>Implementation and test receipt: Pydantic AI Snowflake provider commit: <a href="https://github.com/pydantic/pydantic-ai/commit/f9cd74f8ebca92a7acfa6346df7bf67f3f9e12cc">https://github.com/pydantic/pydantic-ai/commit/f9cd74f8ebca92a7acfa6346df7bf67f3f9e12cc</a>
+<ul>
+<li>Shows: provider construction, model profiles, recorded fixtures, and explicit tests for tool calling, structured output, streaming, and reasoning behavior.
+</li>
+</ul>
+</li>
+</ul>
+<h2>Evidence Limits</h2>
+<ul>
+<li>This is an inspected source and test path, not a live account test. A usable trial needs a Snowflake account identifier plus a PAT, OAuth token, or key-pair JWT and the right Cortex privilege; entitlement, billing, data policy, latency, and model availability remain account-specific. Tool calling and native structured output are documented only for OpenAI and Claude model families.
+</li>
+</ul>
+    </div>
+  </section>
+      <section class="related-edition-section atlas-context-section">
+    <div class="section-title-row">
+      <h2>Atlas Context</h2>
+      <a href="/atlas/">Open Atlas &rsaquo;</a>
+    </div>
+    <div class="updates-list">
+      <a class="article-card" href="/atlas/the-human-interface/">
+            <div class="article-meta"><span class="lane">Agent Atlas</span><span>Chapter 8</span></div>
+            <h3>The Human Control Loop</h3>
+            <p>A useful interface exposes active work, gives intervention a defined runtime effect, preserves evidence during correction, and resumes the intended session.</p>
+          </a>
+    </div>
+  </section>
+      <section class="reader-feedback"
+    data-tgr-feedback
+    data-article-slug="2026-08-09-daily-api-discovery-pydantic-ai-routes-cortex-work-through-snowflake"
+    data-article-title="API Discovery: Pydantic AI routes Cortex work through Snowflake"
+    data-article-url="/articles/2026-08-09-daily-api-discovery-pydantic-ai-routes-cortex-work-through-snowflake/"
+    data-edition-date="2026-08-09"
+    data-lane="Daily Edition"
+    data-tags="Tools,UX"
+    data-repos="pydantic/pydantic-ai">
+    <div class="reader-feedback-head">
+      <div>
+        <div class="eyebrow">Letters &amp; Corrections</div>
+        <h2>Send a note to the desk</h2>
+      </div>
+      <p>Corrections, missing context, or a follow-up lead.</p>
+    </div>
+    <form class="feedback-form">
+      <div class="feedback-votes" role="group" aria-label="Choose signal type">
+        <button class="feedback-choice" type="button" data-vote="follow-up" aria-pressed="false">
+          <span aria-hidden="true">+</span>
+          <span>Follow-up</span>
+        </button>
+        <button class="feedback-choice" type="button" data-vote="correction" aria-pressed="false">
+          <span aria-hidden="true">!</span>
+          <span>Correction</span>
+        </button>
+      </div>
+      <label class="feedback-comment">
+        <span>Note for the editor</span>
+        <textarea name="comment" rows="3" maxlength="320" placeholder="What did we miss, or what should we follow next?"></textarea>
+      </label>
+      <div class="feedback-submit-row">
+        <p class="feedback-status" aria-live="polite"></p>
+        <button class="paper-button primary feedback-submit" type="submit">Send to desk</button>
+      </div>
+    </form>
+  </section>
+      <section class="related-edition-section">
+        <div class="section-title-row">
+          <h2>Same Edition</h2>
+          <a href="/editions/2026-08-09/">Open issue &rsaquo;</a>
+        </div>
+        <div class="updates-list">
+          <a class="update-card" href="/articles/2026-08-09-daily-cline-gives-a-finished-agent-answer-a-diff-receipt/">
+    <div class="update-stripe"></div>
+    <div class="update-main">
+      <div class="update-meta">
+        <span>Reported</span>
+        <span class="source-plus">+2</span>
+        <span>Aug 9, 2026</span>
+      </div>
+      <h3>Cline gives a finished agent answer a diff receipt</h3>
+      <div class="update-receipt">
+        <span>cline/cline</span>
+        <span class="branch-pill">evidence</span>
+      </div>
+      <div class="update-foot">
+        <span>2 sources</span>
+        <span>1 repo</span>
+        <span>2 linked commits</span>
+      </div>
+    </div>
+    <span class="update-arrow" aria-hidden="true">&rsaquo;</span>
+  </a><a class="update-card" href="/articles/2026-08-09-daily-crewai-teaches-telemetry-to-separate-the-agent-from-the-room/">
+    <div class="update-stripe"></div>
+    <div class="update-main">
+      <div class="update-meta">
+        <span>Context</span>
+        <span class="source-plus">+3</span>
+        <span>Aug 9, 2026</span>
+      </div>
+      <h3>CrewAI teaches telemetry to separate the agent from the room</h3>
+      <div class="update-receipt">
+        <span>crewAIInc/crewAI</span>
+        <span class="branch-pill">evidence</span>
+      </div>
+      <div class="update-foot">
+        <span>3 sources</span>
+        <span>1 repo</span>
+        <span>commit 92012ae</span>
+      </div>
+    </div>
+    <span class="update-arrow" aria-hidden="true">&rsaquo;</span>
+  </a>
+        </div>
+      </section>
+    </main>
+    <footer class="wrap site-footer">
+      <span>&copy; 2026 The Git Reporter</span>
+      <a href="/about/">About</a>
+      <a href="/battles/">Diff Derby</a>
+      <a href="/agent-pulse/">Agent Pulse</a>
+      <a href="/feed.xml">RSS</a>
+      <a href="https://x.com/TheGitReporter">Follow on X</a>
+      <a href="/articles.json">Manifest JSON</a>
+      <a href="/repos/">Sources</a>
+    </footer>
+  </div>
+</body>
+</html>
