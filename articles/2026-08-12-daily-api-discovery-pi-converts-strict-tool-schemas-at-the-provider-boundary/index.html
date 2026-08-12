@@ -1,0 +1,254 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>API Discovery: Pi converts strict tool schemas at the provider boundary | The Git Reporter</title>
+  <meta name="description" content="Pi’s public constrained-sampling API now has a fresher compatibility layer for builders who want strict tool calls without permanently rewriting the schema their application owns.">
+  <meta name="robots" content="index,follow">
+  <link rel="canonical" href="https://thegitreporter.com/articles/2026-08-12-daily-api-discovery-pi-converts-strict-tool-schemas-at-the-provider-boundary/">
+  <link rel="alternate" type="application/rss+xml" title="The Git Reporter" href="https://thegitreporter.com/feed.xml">
+  <meta property="og:site_name" content="The Git Reporter">
+  <meta property="og:locale" content="en_US">
+  <meta property="og:title" content="API Discovery: Pi converts strict tool schemas at the provider boundary | The Git Reporter">
+  <meta property="og:description" content="Pi’s public constrained-sampling API now has a fresher compatibility layer for builders who want strict tool calls without permanently rewriting the schema their application owns.">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://thegitreporter.com/articles/2026-08-12-daily-api-discovery-pi-converts-strict-tool-schemas-at-the-provider-boundary/">
+  <meta property="og:image" content="https://thegitreporter.com/assets/social/2026-08-12-daily-api-discovery-pi-converts-strict-tool-schemas-at-the-provider-boundary-og.jpg">
+  <meta property="og:image:secure_url" content="https://thegitreporter.com/assets/social/2026-08-12-daily-api-discovery-pi-converts-strict-tool-schemas-at-the-provider-boundary-og.jpg">
+  <meta property="og:image:type" content="image/jpeg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Diagram showing a Pi tool schema crossing a provider boundary into a closed strict schema, with cards for required properties, nullable optional fields, and a caveat about unreleased provider-dependent support.">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:site" content="@TheGitReporter">
+  <meta name="twitter:creator" content="@TheGitReporter">
+  <meta name="twitter:title" content="API Discovery: Pi converts strict tool schemas at the provider boundary | The Git Reporter">
+  <meta name="twitter:description" content="Pi’s public constrained-sampling API now has a fresher compatibility layer for builders who want strict tool calls without permanently rewriting the schema their application owns.">
+  <meta name="twitter:url" content="https://thegitreporter.com/articles/2026-08-12-daily-api-discovery-pi-converts-strict-tool-schemas-at-the-provider-boundary/">
+  <meta name="twitter:domain" content="thegitreporter.com">
+  <meta name="twitter:image" content="https://thegitreporter.com/assets/social/2026-08-12-daily-api-discovery-pi-converts-strict-tool-schemas-at-the-provider-boundary-og.jpg">
+  <meta name="twitter:image:alt" content="Diagram showing a Pi tool schema crossing a provider boundary into a closed strict schema, with cards for required properties, nullable optional fields, and a caveat about unreleased provider-dependent support.">
+  <meta property="article:published_time" content="2026-08-12T12:00:00Z">
+  <meta property="article:modified_time" content="2026-08-12T12:00:00Z">
+  <meta property="article:section" content="Daily Edition">
+  <meta property="article:tag" content="Memory">
+  <meta property="article:tag" content="Tools">
+  <meta property="article:tag" content="earendil-works/pi">
+  <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"https://thegitreporter.com/#organization","name":"The Git Reporter","url":"https://thegitreporter.com","logo":{"@type":"ImageObject","url":"https://thegitreporter.com/assets/mark.svg"},"sameAs":["https://x.com/TheGitReporter"]},{"@type":"WebSite","@id":"https://thegitreporter.com/#website","name":"The Git Reporter","url":"https://thegitreporter.com","publisher":{"@id":"https://thegitreporter.com/#organization"}},{"@type":"NewsArticle","mainEntityOfPage":{"@type":"WebPage","@id":"https://thegitreporter.com/articles/2026-08-12-daily-api-discovery-pi-converts-strict-tool-schemas-at-the-provider-boundary/"},"headline":"API Discovery: Pi converts strict tool schemas at the provider boundary","description":"Pi’s public constrained-sampling API now has a fresher compatibility layer for builders who want strict tool calls without permanently rewriting the schema their application owns.","image":["https://thegitreporter.com/assets/social/2026-08-12-daily-api-discovery-pi-converts-strict-tool-schemas-at-the-provider-boundary-og.jpg"],"datePublished":"2026-08-12T12:00:00Z","dateModified":"2026-08-12T12:00:00Z","author":[{"@type":"Organization","name":"The Git Reporter","url":"https://thegitreporter.com"}],"publisher":{"@type":"Organization","@id":"https://thegitreporter.com/#organization","name":"The Git Reporter","url":"https://thegitreporter.com","logo":{"@type":"ImageObject","url":"https://thegitreporter.com/assets/mark.svg"},"sameAs":["https://x.com/TheGitReporter"]},"articleSection":"Daily Edition","keywords":"Memory, Tools, earendil-works/pi"}]}</script>
+  <link rel="icon" href="/assets/mark.svg">
+  <link rel="stylesheet" href="/assets/site.css?v=2026-07-30-harness-memory">
+  <script defer src="/assets/feedback.js?v=2026-07-30-harness-memory"></script>
+  <script defer src="/assets/analytics.js?v=2026-07-30-harness-memory"></script>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-CH19T7M0T1"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){window.dataLayer.push(arguments);}
+    gtag("js", new Date());
+    gtag("config", "G-CH19T7M0T1");
+  </script>
+</head>
+<body>
+  <div class="site">
+    <header class="site-header" id="top">
+      <div class="wrap utility-row">
+        <a class="icon-link menu-icon" href="/archive/" aria-label="Open edition history"><span></span><span></span><span></span></a>
+        <a class="icon-link archive-icon" href="/archive/" aria-label="Open edition history"></a>
+      </div>
+      <div class="wrap masthead-lockup">
+        <a class="masthead-title" href="/">THE GIT REPORTER</a>
+        <div class="masthead-ornament" aria-hidden="true"></div>
+      </div>
+      <div class="wrap nav-wrap">
+        <nav class="paper-nav" aria-label="Primary navigation">
+    <a class="" href="/">Today</a><a class="active" href="/archive/">Editions</a><a class="" href="/about/">About</a><a class="" href="/battles/">Diff Derby</a><a class="" href="/agent-pulse/">Agent Pulse</a><a class="" href="/atlas/">Agent Atlas</a><a class="" href="/repos/">Repos</a>
+  </nav>
+        <div class="nav-rule"></div>
+      </div>
+    </header>
+    <main class="wrap page-shell article-page">
+      <section class="page-hero story-front">
+        <div class="story-topline">
+          <span>Daily Edition</span>
+          <span>Sources <strong>+3</strong></span>
+        </div>
+        <h1>API Discovery: Pi converts strict tool schemas at the provider boundary</h1>
+        <p class="summary">Pi’s public constrained-sampling API now has a fresher compatibility layer for builders who want strict tool calls without permanently rewriting the schema their application owns.</p>
+        <figure class="story-illustration article-illustration">
+    <img src="/assets/illustrations/2026-08-12-api-discovery-pi-converts-strict-tool-schemas-at-the-provider-boundary-diagram-punk-v1.png" alt="Diagram showing a Pi tool schema crossing a provider boundary into a closed strict schema, with cards for required properties, nullable optional fields, and a caveat about unreleased provider-dependent support." loading="lazy" decoding="async">
+    <figcaption><span>Diagram Punk</span>A strict provider schema need not become the application’s permanent schema.</figcaption>
+  </figure>
+        <div class="receipt">
+    <div class="receipt-line">
+      <span class="receipt-icon">repo</span>
+      <span class="receipt-main">earendil-works/pi</span>
+      <span class="branch-pill">evidence</span>
+    </div>
+    <div class="receipt-line receipt-muted">
+      <span>3 source signals</span>
+      <span>1 repo</span>
+      <span>commit 7915cda</span>
+    </div>
+    <div class="commit-line">Evidence: commit 7915cda / August 12, 2026 / Daily Edition</div>
+  </div>
+        <div class="article-route-row">
+          <a href="/editions/2026-08-12/">Open Edition</a>
+          <a href="#evidence">Evidence below</a>
+        </div>
+      </section>
+      <section class="story-reader">
+        <article class="story-shell story-body">
+          <p><strong>API discovery:</strong> Pi’s <a href="https://github.com/earendil-works/pi/blob/main/packages/ai/README.md#constrained-sampling-for-tools">AI package</a> lets a tool opt into provider-side JSON Schema constraints with <code>constrainedSampling: { type: "json_schema", strict: "prefer" }</code> or <code>"require"</code>. The fresh <a href="https://github.com/earendil-works/pi/commit/7915cdac64abdb5fe8674d017e69f8c4f3bf6ff9">schema-conversion change</a> takes the supported strict form at the provider boundary: it closes the object, makes every property required, and represents optional non-nullable fields as nullable there while retaining the caller’s original tool definition.</p>
+
+  <h2>Try it</h2>
+  <p>Consider an internal change-request tool with required <code>summary</code> and optional <code>owner</code> and <code>rolloutWindow</code> fields. Your app can keep that readable, ordinary schema. On a model and provider that honor strict tools, Pi can send the tightened provider payload instead—so a model must return a closed object with each named field, using <code>null</code> when an optional value is absent. That is useful when you want a reliable handoff to a reviewer, ticketing API, or deployment preview without making your application schema imitate one provider’s dialect.</p>
+
+  <h2>Copy-paste agent instruction</h2>
+  <pre><code>In a disposable TypeScript fixture using the installed @earendil-works/pi-ai version, define one Tool with a JSON Schema object that has one required field and two optional fields. Set constrainedSampling to { type: "json_schema", strict: "prefer" }. Do not mutate the application-owned parameters object. Add a stubbed provider-adapter test that captures the outbound tool schema and asserts that it is a closed object, names every property in required, and permits null for the originally optional fields. Then run the same fixture against the exact target provider/model only with non-sensitive test data. If the provider cannot honor strict mode, record the fallback; switch to strict: "require" only when a hard failure is preferable to ordinary tool calling.</code></pre>
+
+  <h2>Test caveat</h2>
+  <p>The public implementation is currently listed in Pi’s <em>Unreleased</em> changelog, so this is not a claim about an available package version. Strict capability is model- and adapter-specific: the <a href="https://github.com/earendil-works/pi/blob/main/packages/ai/README.md#constrained-sampling-for-tools">README</a> documents both fallback and rejection cases. No live provider was run for this brief. Start with the stubbed payload test, then use a disposable account and non-sensitive inputs while accounting for authentication, cost, quotas, and your provider’s own schema rules.</p>
+        </article>
+      </section>
+      <section class="evidence-section" id="evidence" aria-labelledby="evidence-title">
+    <div class="evidence-head">
+      <div>
+        <div class="eyebrow">Evidence Trail</div>
+        <h2 id="evidence-title">Receipts below the story</h2>
+        <p>The article above is the public narrative. This section keeps the source trail and limits on the same page.</p>
+      </div>
+      <a class="paper-button" href="/editions/2026-08-12/">Edition</a>
+    </div>
+    <div class="evidence-table evidence-summary">
+      <div class="evidence-line"><span>Date</span><span>August 12, 2026</span></div>
+      <div class="evidence-line"><span>Lane</span><span>Daily Edition</span></div>
+      <div class="evidence-line"><span>Confidence</span><span>78%</span></div>
+      <div class="evidence-line"><span>Sources</span><span>3</span></div>
+      <div class="evidence-line"><span>Repos</span><span>earendil-works/pi</span></div>
+    </div>
+    <div class="markdown evidence-copy evidence-copy-block">
+      <h2>Primary Evidence</h2>
+<ul>
+<li>Public API source: Pi AI package constrained-sampling guide, <a href="https://github.com/earendil-works/pi/blob/main/packages/ai/README.md#constrained-sampling-for-tools">https://github.com/earendil-works/pi/blob/main/packages/ai/README.md#constrained-sampling-for-tools</a>
+<ul>
+<li>Shows: the public <code>Tool.constrainedSampling</code> API, the <code>json_schema</code> form, <code>strict: &quot;prefer&quot;</code> and <code>&quot;require&quot;</code> modes, and the provider/model support and fallback boundaries.
+</li>
+</ul>
+</li>
+<li>Supporting definition or documentation: Pi strict-tool schema conversion commit, <a href="https://github.com/earendil-works/pi/commit/7915cdac64abdb5fe8674d017e69f8c4f3bf6ff9">https://github.com/earendil-works/pi/commit/7915cdac64abdb5fe8674d017e69f8c4f3bf6ff9</a>
+<ul>
+<li>Shows: the provider adapter’s outbound request-schema transformation and test behavior: focused conversion tests cover strict-schema support, closed-object requirements, nullable optional fields, and provider-specific compatibility.
+</li>
+</ul>
+</li>
+<li>Supporting implementation: Pi constrained-sampling module, <a href="https://github.com/earendil-works/pi/blob/main/packages/ai/src/api/constrained-sampling.ts">https://github.com/earendil-works/pi/blob/main/packages/ai/src/api/constrained-sampling.ts</a>
+<ul>
+<li>Shows: the transformation’s concrete rules: a root object, closed properties, required property names, nullable handling for optional fields, and <code>prefer</code>/<code>require</code> selection behavior.
+</li>
+</ul>
+</li>
+</ul>
+<h2>Evidence Limits</h2>
+<ul>
+<li>The source change appears in the Unreleased package changelog. It does not establish a published version, release availability, or behavior in any particular installed Pi build.
+</li>
+<li>Strict support is provider- and model-dependent. Use <code>strict: &quot;prefer&quot;</code> when normal tool calling is an acceptable fallback; use <code>&quot;require&quot;</code> only after testing the target provider and schema shape.
+</li>
+<li>This brief did not send a real provider request. Test with a stubbed adapter first, then a disposable account and non-sensitive tool data; provider credentials, cost, quotas, and policy still apply.
+</li>
+</ul>
+    </div>
+  </section>
+      <section class="related-edition-section atlas-context-section">
+    <div class="section-title-row">
+      <h2>Atlas Context</h2>
+      <a href="/atlas/">Open Atlas &rsaquo;</a>
+    </div>
+    <div class="updates-list">
+      <a class="article-card" href="/atlas/hands-in-the-world/">
+            <div class="article-meta"><span class="lane">Agent Atlas</span><span>Chapter 3</span></div>
+            <h3>Tool Calls: Contract, Authorization, Execution</h3>
+            <p>A tool call crosses independently governed boundaries: schema, registration, policy, approval, execution authority, result handling, and audit.</p>
+          </a>
+    </div>
+  </section>
+      <section class="reader-feedback"
+    data-tgr-feedback
+    data-article-slug="2026-08-12-daily-api-discovery-pi-converts-strict-tool-schemas-at-the-provider-boundary"
+    data-article-title="API Discovery: Pi converts strict tool schemas at the provider boundary"
+    data-article-url="/articles/2026-08-12-daily-api-discovery-pi-converts-strict-tool-schemas-at-the-provider-boundary/"
+    data-edition-date="2026-08-12"
+    data-lane="Daily Edition"
+    data-tags="Memory,Tools"
+    data-repos="earendil-works/pi">
+    <div class="reader-feedback-head">
+      <div>
+        <div class="eyebrow">Letters &amp; Corrections</div>
+        <h2>Send a note to the desk</h2>
+      </div>
+      <p>Corrections, missing context, or a follow-up lead.</p>
+    </div>
+    <form class="feedback-form">
+      <div class="feedback-votes" role="group" aria-label="Choose signal type">
+        <button class="feedback-choice" type="button" data-vote="follow-up" aria-pressed="false">
+          <span aria-hidden="true">+</span>
+          <span>Follow-up</span>
+        </button>
+        <button class="feedback-choice" type="button" data-vote="correction" aria-pressed="false">
+          <span aria-hidden="true">!</span>
+          <span>Correction</span>
+        </button>
+      </div>
+      <label class="feedback-comment">
+        <span>Note for the editor</span>
+        <textarea name="comment" rows="3" maxlength="320" placeholder="What did we miss, or what should we follow next?"></textarea>
+      </label>
+      <div class="feedback-submit-row">
+        <p class="feedback-status" aria-live="polite"></p>
+        <button class="paper-button primary feedback-submit" type="submit">Send to desk</button>
+      </div>
+    </form>
+  </section>
+      <section class="related-edition-section">
+        <div class="section-title-row">
+          <h2>Same Edition</h2>
+          <a href="/editions/2026-08-12/">Open issue &rsaquo;</a>
+        </div>
+        <div class="updates-list">
+          <a class="update-card" href="/articles/2026-08-12-daily-openclaw-s-shared-channels-gain-a-per-requester-login/">
+    <div class="update-stripe"></div>
+    <div class="update-main">
+      <div class="update-meta">
+        <span>Context</span>
+        <span class="source-plus">+3</span>
+        <span>Aug 12, 2026</span>
+      </div>
+      <h3>OpenClaw’s shared channels gain a per-requester login</h3>
+      <div class="update-receipt">
+        <span>openclaw/openclaw</span>
+        <span class="branch-pill">evidence</span>
+      </div>
+      <div class="update-foot">
+        <span>3 sources</span>
+        <span>1 repo</span>
+        <span>commit 6a4a546</span>
+      </div>
+    </div>
+    <span class="update-arrow" aria-hidden="true">&rsaquo;</span>
+  </a>
+        </div>
+      </section>
+    </main>
+    <footer class="wrap site-footer">
+      <span>&copy; 2026 The Git Reporter</span>
+      <a href="/about/">About</a>
+      <a href="/battles/">Diff Derby</a>
+      <a href="/agent-pulse/">Agent Pulse</a>
+      <a href="/feed.xml">RSS</a>
+      <a href="https://x.com/TheGitReporter">Follow on X</a>
+      <a href="/articles.json">Manifest JSON</a>
+      <a href="/repos/">Sources</a>
+    </footer>
+  </div>
+</body>
+</html>
