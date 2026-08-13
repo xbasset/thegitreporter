@@ -1,0 +1,272 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>CrewAI’s Flow Telemetry Learns Where a Run Actually Stopped | The Git Reporter</title>
+  <meta name="description" content="CrewAI’s public agent-assisted telemetry change teaches a durable craft: model a run’s lifecycle explicitly instead of guessing the ending from a start event.">
+  <meta name="robots" content="index,follow">
+  <link rel="canonical" href="https://thegitreporter.com/articles/2026-08-13-daily-crewai-s-flow-telemetry-learns-where-a-run-actually-stopped/">
+  <link rel="alternate" type="application/rss+xml" title="The Git Reporter" href="https://thegitreporter.com/feed.xml">
+  <meta property="og:site_name" content="The Git Reporter">
+  <meta property="og:locale" content="en_US">
+  <meta property="og:title" content="CrewAI’s Flow Telemetry Learns Where a Run Actually Stopped | The Git Reporter">
+  <meta property="og:description" content="CrewAI’s public agent-assisted telemetry change teaches a durable craft: model a run’s lifecycle explicitly instead of guessing the ending from a start event.">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://thegitreporter.com/articles/2026-08-13-daily-crewai-s-flow-telemetry-learns-where-a-run-actually-stopped/">
+  <meta property="og:image" content="https://thegitreporter.com/assets/social/2026-08-13-daily-crewai-s-flow-telemetry-learns-where-a-run-actually-stopped-og.jpg">
+  <meta property="og:image:secure_url" content="https://thegitreporter.com/assets/social/2026-08-13-daily-crewai-s-flow-telemetry-learns-where-a-run-actually-stopped-og.jpg">
+  <meta property="og:image:type" content="image/jpeg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="A rough flowchart on torn paper separates a started flow from paused, completed, and failed paths, with a small user-versus-internal origin card and a privacy caveat stamp.">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:site" content="@TheGitReporter">
+  <meta name="twitter:creator" content="@TheGitReporter">
+  <meta name="twitter:title" content="CrewAI’s Flow Telemetry Learns Where a Run Actually Stopped | The Git Reporter">
+  <meta name="twitter:description" content="CrewAI’s public agent-assisted telemetry change teaches a durable craft: model a run’s lifecycle explicitly instead of guessing the ending from a start event.">
+  <meta name="twitter:url" content="https://thegitreporter.com/articles/2026-08-13-daily-crewai-s-flow-telemetry-learns-where-a-run-actually-stopped/">
+  <meta name="twitter:domain" content="thegitreporter.com">
+  <meta name="twitter:image" content="https://thegitreporter.com/assets/social/2026-08-13-daily-crewai-s-flow-telemetry-learns-where-a-run-actually-stopped-og.jpg">
+  <meta name="twitter:image:alt" content="A rough flowchart on torn paper separates a started flow from paused, completed, and failed paths, with a small user-versus-internal origin card and a privacy caveat stamp.">
+  <meta property="article:published_time" content="2026-08-13T12:00:00Z">
+  <meta property="article:modified_time" content="2026-08-13T12:00:00Z">
+  <meta property="article:section" content="Daily Edition">
+  <meta property="article:tag" content="Runtime">
+  <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"https://thegitreporter.com/#organization","name":"The Git Reporter","url":"https://thegitreporter.com","logo":{"@type":"ImageObject","url":"https://thegitreporter.com/assets/mark.svg"},"sameAs":["https://x.com/TheGitReporter"]},{"@type":"WebSite","@id":"https://thegitreporter.com/#website","name":"The Git Reporter","url":"https://thegitreporter.com","publisher":{"@id":"https://thegitreporter.com/#organization"}},{"@type":"NewsArticle","mainEntityOfPage":{"@type":"WebPage","@id":"https://thegitreporter.com/articles/2026-08-13-daily-crewai-s-flow-telemetry-learns-where-a-run-actually-stopped/"},"headline":"CrewAI’s Flow Telemetry Learns Where a Run Actually Stopped","description":"CrewAI’s public agent-assisted telemetry change teaches a durable craft: model a run’s lifecycle explicitly instead of guessing the ending from a start event.","image":["https://thegitreporter.com/assets/social/2026-08-13-daily-crewai-s-flow-telemetry-learns-where-a-run-actually-stopped-og.jpg"],"datePublished":"2026-08-13T12:00:00Z","dateModified":"2026-08-13T12:00:00Z","author":[{"@type":"Organization","name":"The Git Reporter","url":"https://thegitreporter.com"}],"publisher":{"@type":"Organization","@id":"https://thegitreporter.com/#organization","name":"The Git Reporter","url":"https://thegitreporter.com","logo":{"@type":"ImageObject","url":"https://thegitreporter.com/assets/mark.svg"},"sameAs":["https://x.com/TheGitReporter"]},"articleSection":"Daily Edition","keywords":"Runtime"}]}</script>
+  <link rel="icon" href="/assets/mark.svg">
+  <link rel="stylesheet" href="/assets/site.css?v=2026-07-30-harness-memory">
+  <script defer src="/assets/feedback.js?v=2026-07-30-harness-memory"></script>
+  <script defer src="/assets/analytics.js?v=2026-07-30-harness-memory"></script>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-CH19T7M0T1"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){window.dataLayer.push(arguments);}
+    gtag("js", new Date());
+    gtag("config", "G-CH19T7M0T1");
+  </script>
+</head>
+<body>
+  <div class="site">
+    <header class="site-header" id="top">
+      <div class="wrap utility-row">
+        <a class="icon-link menu-icon" href="/archive/" aria-label="Open edition history"><span></span><span></span><span></span></a>
+        <a class="icon-link archive-icon" href="/archive/" aria-label="Open edition history"></a>
+      </div>
+      <div class="wrap masthead-lockup">
+        <a class="masthead-title" href="/">THE GIT REPORTER</a>
+        <div class="masthead-ornament" aria-hidden="true"></div>
+      </div>
+      <div class="wrap nav-wrap">
+        <nav class="paper-nav" aria-label="Primary navigation">
+    <a class="" href="/">Today</a><a class="active" href="/archive/">Editions</a><a class="" href="/about/">About</a><a class="" href="/battles/">Diff Derby</a><a class="" href="/agent-pulse/">Agent Pulse</a><a class="" href="/atlas/">Agent Atlas</a><a class="" href="/repos/">Repos</a>
+  </nav>
+        <div class="nav-rule"></div>
+      </div>
+    </header>
+    <main class="wrap page-shell article-page">
+      <section class="page-hero story-front">
+        <div class="story-topline">
+          <span>Daily Edition</span>
+          <span>Sources <strong>+3</strong></span>
+        </div>
+        <h1>CrewAI’s Flow Telemetry Learns Where a Run Actually Stopped</h1>
+        <p class="summary">CrewAI’s public agent-assisted telemetry change teaches a durable craft: model a run’s lifecycle explicitly instead of guessing the ending from a start event.</p>
+        <figure class="story-illustration article-illustration">
+    <img src="/assets/illustrations/2026-08-13-crewai-s-flow-telemetry-learns-where-a-run-actually-stopped-diagram-punk-v1.png" alt="A rough flowchart on torn paper separates a started flow from paused, completed, and failed paths, with a small user-versus-internal origin card and a privacy caveat stamp." loading="lazy" decoding="async">
+    <figcaption><span>Diagram Punk</span>A started flow has not yet told you what happened.</figcaption>
+  </figure>
+        <div class="receipt">
+    <div class="receipt-line">
+      <span class="receipt-icon">repos</span>
+      <span class="receipt-main">source trail</span>
+      <span class="branch-pill">evidence</span>
+    </div>
+    <div class="receipt-line receipt-muted">
+      <span>3 source signals</span>
+      <span>0 repos</span>
+      <span>commit 7642e61</span>
+    </div>
+    <div class="commit-line">Evidence: commit 7642e61 / August 13, 2026 / Daily Edition</div>
+  </div>
+        <div class="article-route-row">
+          <a href="/editions/2026-08-13/">Open Edition</a>
+          <a href="#evidence">Evidence below</a>
+        </div>
+      </section>
+      <section class="story-reader">
+        <article class="story-shell story-body">
+          <p>Many agent runtimes can tell an operator that a flow started. That is not enough to tell whether it completed, failed, paused for a human, or quietly vanished. In <a href="https://github.com/crewAIInc/crewAI/commit/7642e615a3707a65b29678d93e98cb75302124a1">CrewAI’s #6961 change</a>, the public commit credits Claude Opus 5 and links a Claude session while addressing that exact blind spot: flow outcome, duration, pause, resume, and human-in-the-loop signals now have distinct receipts.</p>
+
+  <h2>The repo evidence</h2>
+  <p>The interesting work is in the design constraints, not the span count. The <a href="https://github.com/crewAIInc/crewAI/blob/7642e615a3707a65b29678d93e98cb75302124a1/lib/crewai/src/crewai/events/event_listener.py">event listener</a> marks whether a flow is user-authored or an internal CrewAI flow, emits a separate terminal event for completion or failure, and recognizes a human-feedback pause as a lifecycle state. It takes duration from a monotonic start stamp. It does not hold the start span open, because the daily aggregation counts that span at start and a killed run would otherwise disappear from the execution count.</p>
+
+  <p>The companion <a href="https://github.com/crewAIInc/crewAI/blob/7642e615a3707a65b29678d93e98cb75302124a1/lib/crewai/src/crewai/telemetry/telemetry.py">telemetry code</a> records duration as an explicit value rather than the span’s formatted duration, which the project says downstream parsing cannot reliably use. It keeps user-authored method names out of the event. The focused <a href="https://github.com/crewAIInc/crewAI/blob/7642e615a3707a65b29678d93e98cb75302124a1/lib/crewai/tests/telemetry/test_flow_telemetry.py">tests</a> cover slow completion, failure, pause, duplicate terminal events, and restored flows—precisely the paths that make a clean dashboard lie.</p>
+
+  <h2>The transferable building skill</h2>
+  <p>Give transitions their own contract. Write down which events mean “started,” “waiting,” “resumed,” “completed,” and “failed”; decide which values are safe to record at each point; and test that a restore or duplicate signal does not rewrite the story. In particular, keep the event that counts an attempt separate from the event that proves an outcome. That makes an abandoned run visible without pretending it was a failure—and lets an operator ask where human intervention actually changed the work.</p>
+
+  <h2>The limit</h2>
+  <p>The public source proves coding-agent participation in this change and shows intended implementation plus tests. It does not establish production deployment, adoption, an independent privacy review, or that the telemetry pipeline preserves every semantic distinction downstream. The next useful receipt is a released schema or an end-to-end demonstration showing how a paused, resumed, and failed flow remain distinguishable after export.</p>
+        </article>
+      </section>
+      <section class="evidence-section" id="evidence" aria-labelledby="evidence-title">
+    <div class="evidence-head">
+      <div>
+        <div class="eyebrow">Evidence Trail</div>
+        <h2 id="evidence-title">Receipts below the story</h2>
+        <p>The article above is the public narrative. This section keeps the source trail and limits on the same page.</p>
+      </div>
+      <a class="paper-button" href="/editions/2026-08-13/">Edition</a>
+    </div>
+    <div class="evidence-table evidence-summary">
+      <div class="evidence-line"><span>Date</span><span>August 13, 2026</span></div>
+      <div class="evidence-line"><span>Lane</span><span>Daily Edition</span></div>
+      <div class="evidence-line"><span>Confidence</span><span>78%</span></div>
+      <div class="evidence-line"><span>Sources</span><span>3</span></div>
+      <div class="evidence-line"><span>Repos</span><span>source trail</span></div>
+    </div>
+    <div class="markdown evidence-copy evidence-copy-block">
+      <h2>Primary Evidence</h2>
+<ul>
+<li>Public coding-agent use proof: <a href="https://github.com/crewAIInc/crewAI/commit/7642e615a3707a65b29678d93e98cb75302124a1">https://github.com/crewAIInc/crewAI/commit/7642e615a3707a65b29678d93e98cb75302124a1</a>
+<ul>
+<li>Shows: the public commit explicitly records Claude Opus 5 as co-author and a <code>claude.ai/code</code> session—the source’s public evidence of Claude Code coding-agent assistance in this telemetry change.
+</li>
+</ul>
+</li>
+<li>Inspected GitHub repository: <a href="https://github.com/crewAIInc/crewAI/blob/7642e615a3707a65b29678d93e98cb75302124a1/lib/crewai/src/crewai/events/event_listener.py">https://github.com/crewAIInc/crewAI/blob/7642e615a3707a65b29678d93e98cb75302124a1/lib/crewai/src/crewai/events/event_listener.py</a>
+<ul>
+<li>Shows: the inspected <code>event_listener.py</code> source-code module adds distinct paths for flow completion, failure, pause, human-in-the-loop pause, failed conversation turns, origin, and resumption rather than treating every run as a start event.
+</li>
+</ul>
+</li>
+<li>Engineering receipt: <a href="https://github.com/crewAIInc/crewAI/blob/7642e615a3707a65b29678d93e98cb75302124a1/lib/crewai/tests/telemetry/test_flow_telemetry.py">https://github.com/crewAIInc/crewAI/blob/7642e615a3707a65b29678d93e98cb75302124a1/lib/crewai/tests/telemetry/test_flow_telemetry.py</a>
+<ul>
+<li>Shows: focused tests cover measured duration, failure, pause, duplicate terminal events, and restored-flow semantics; the paired telemetry implementation emits a separate terminal span and keeps arbitrary method names out of the telemetry payload.
+</li>
+</ul>
+</li>
+</ul>
+<h2>Evidence Limits</h2>
+<ul>
+<li>Public co-authorship proves coding-agent participation in this contribution, not that an agent authored every line or that the implementation was deployed.
+</li>
+<li>The implementation and tests show intended behavior. They do not prove data-pipeline reliability, adoption, privacy outcomes, or an independent review in real deployments.
+</li>
+</ul>
+    </div>
+  </section>
+      <section class="related-edition-section atlas-context-section">
+    <div class="section-title-row">
+      <h2>Atlas Context</h2>
+      <a href="/atlas/">Open Atlas &rsaquo;</a>
+    </div>
+    <div class="updates-list">
+      <a class="article-card" href="/atlas/the-loop/">
+            <div class="article-meta"><span class="lane">Agent Atlas</span><span>Chapter 4</span></div>
+            <h3>Loops, Workflows, and Recovery</h3>
+            <p>Repeated model-tool interaction is only one control structure. Production runtimes combine probabilistic loops with host-defined workflows, queues, interrupts, terminal states, and recovery operations.</p>
+          </a>
+    </div>
+  </section>
+      <section class="reader-feedback"
+    data-tgr-feedback
+    data-article-slug="2026-08-13-daily-crewai-s-flow-telemetry-learns-where-a-run-actually-stopped"
+    data-article-title="CrewAI’s Flow Telemetry Learns Where a Run Actually Stopped"
+    data-article-url="/articles/2026-08-13-daily-crewai-s-flow-telemetry-learns-where-a-run-actually-stopped/"
+    data-edition-date="2026-08-13"
+    data-lane="Daily Edition"
+    data-tags="Runtime"
+    data-repos="">
+    <div class="reader-feedback-head">
+      <div>
+        <div class="eyebrow">Letters &amp; Corrections</div>
+        <h2>Send a note to the desk</h2>
+      </div>
+      <p>Corrections, missing context, or a follow-up lead.</p>
+    </div>
+    <form class="feedback-form">
+      <div class="feedback-votes" role="group" aria-label="Choose signal type">
+        <button class="feedback-choice" type="button" data-vote="follow-up" aria-pressed="false">
+          <span aria-hidden="true">+</span>
+          <span>Follow-up</span>
+        </button>
+        <button class="feedback-choice" type="button" data-vote="correction" aria-pressed="false">
+          <span aria-hidden="true">!</span>
+          <span>Correction</span>
+        </button>
+      </div>
+      <label class="feedback-comment">
+        <span>Note for the editor</span>
+        <textarea name="comment" rows="3" maxlength="320" placeholder="What did we miss, or what should we follow next?"></textarea>
+      </label>
+      <div class="feedback-submit-row">
+        <p class="feedback-status" aria-live="polite"></p>
+        <button class="paper-button primary feedback-submit" type="submit">Send to desk</button>
+      </div>
+    </form>
+  </section>
+      <section class="related-edition-section">
+        <div class="section-title-row">
+          <h2>Same Edition</h2>
+          <a href="/editions/2026-08-13/">Open issue &rsaquo;</a>
+        </div>
+        <div class="updates-list">
+          <a class="update-card" href="/articles/2026-08-13-daily-a-session-approval-needs-something-to-hold-on-to/">
+    <div class="update-stripe"></div>
+    <div class="update-main">
+      <div class="update-meta">
+        <span>Trust</span>
+        <span class="source-plus">+3</span>
+        <span>Aug 13, 2026</span>
+      </div>
+      <h3>A Session Approval Needs Something to Hold On To</h3>
+      <div class="update-receipt">
+        <span>NousResearch/hermes-agent + github/copilot</span>
+        <span class="branch-pill">evidence</span>
+      </div>
+      <div class="update-foot">
+        <span>3 sources</span>
+        <span>2 repos</span>
+        <span>2 linked commits</span>
+      </div>
+    </div>
+    <span class="update-arrow" aria-hidden="true">&rsaquo;</span>
+  </a><a class="update-card" href="/articles/2026-08-13-daily-api-discovery-pydantic-ai-maps-the-fastmcp-4-fault-line/">
+    <div class="update-stripe"></div>
+    <div class="update-main">
+      <div class="update-meta">
+        <span>Reported</span>
+        <span class="source-plus">+3</span>
+        <span>Aug 13, 2026</span>
+      </div>
+      <h3>API Discovery: Pydantic AI Maps the FastMCP 4 Fault Line</h3>
+      <div class="update-receipt">
+        <span>source trail</span>
+        <span class="branch-pill">evidence</span>
+      </div>
+      <div class="update-foot">
+        <span>3 sources</span>
+        <span>0 repos</span>
+        <span>commit 1844574</span>
+      </div>
+    </div>
+    <span class="update-arrow" aria-hidden="true">&rsaquo;</span>
+  </a>
+        </div>
+      </section>
+    </main>
+    <footer class="wrap site-footer">
+      <span>&copy; 2026 The Git Reporter</span>
+      <a href="/about/">About</a>
+      <a href="/battles/">Diff Derby</a>
+      <a href="/agent-pulse/">Agent Pulse</a>
+      <a href="/feed.xml">RSS</a>
+      <a href="https://x.com/TheGitReporter">Follow on X</a>
+      <a href="/articles.json">Manifest JSON</a>
+      <a href="/repos/">Sources</a>
+    </footer>
+  </div>
+</body>
+</html>

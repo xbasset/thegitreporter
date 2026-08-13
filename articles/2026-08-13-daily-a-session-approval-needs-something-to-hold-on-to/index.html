@@ -1,0 +1,279 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>A Session Approval Needs Something to Hold On To | The Git Reporter</title>
+  <meta name="description" content="Two fresh code changes make the same point: a human’s “yes” is only useful when an agent can name exactly what that yes still authorizes.">
+  <meta name="robots" content="index,follow">
+  <link rel="canonical" href="https://thegitreporter.com/articles/2026-08-13-daily-a-session-approval-needs-something-to-hold-on-to/">
+  <link rel="alternate" type="application/rss+xml" title="The Git Reporter" href="https://thegitreporter.com/feed.xml">
+  <meta property="og:site_name" content="The Git Reporter">
+  <meta property="og:locale" content="en_US">
+  <meta property="og:title" content="A Session Approval Needs Something to Hold On To | The Git Reporter">
+  <meta property="og:description" content="Two fresh code changes make the same point: a human’s “yes” is only useful when an agent can name exactly what that yes still authorizes.">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://thegitreporter.com/articles/2026-08-13-daily-a-session-approval-needs-something-to-hold-on-to/">
+  <meta property="og:image" content="https://thegitreporter.com/assets/social/2026-08-13-daily-a-session-approval-needs-something-to-hold-on-to-og.jpg">
+  <meta property="og:image:secure_url" content="https://thegitreporter.com/assets/social/2026-08-13-daily-a-session-approval-needs-something-to-hold-on-to-og.jpg">
+  <meta property="og:image:type" content="image/jpeg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="A torn-paper diagram shows a session approval tied by arrows to a shell command, an MCP tool, and a domain, with a separate Hermes request-and-digest card and a red fail-closed stamp.">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:site" content="@TheGitReporter">
+  <meta name="twitter:creator" content="@TheGitReporter">
+  <meta name="twitter:title" content="A Session Approval Needs Something to Hold On To | The Git Reporter">
+  <meta name="twitter:description" content="Two fresh code changes make the same point: a human’s “yes” is only useful when an agent can name exactly what that yes still authorizes.">
+  <meta name="twitter:url" content="https://thegitreporter.com/articles/2026-08-13-daily-a-session-approval-needs-something-to-hold-on-to/">
+  <meta name="twitter:domain" content="thegitreporter.com">
+  <meta name="twitter:image" content="https://thegitreporter.com/assets/social/2026-08-13-daily-a-session-approval-needs-something-to-hold-on-to-og.jpg">
+  <meta name="twitter:image:alt" content="A torn-paper diagram shows a session approval tied by arrows to a shell command, an MCP tool, and a domain, with a separate Hermes request-and-digest card and a red fail-closed stamp.">
+  <meta property="article:published_time" content="2026-08-13T12:00:00Z">
+  <meta property="article:modified_time" content="2026-08-13T12:00:00Z">
+  <meta property="article:section" content="Daily Edition">
+  <meta property="article:tag" content="Permissions">
+  <meta property="article:tag" content="Tools">
+  <meta property="article:tag" content="Runtime">
+  <meta property="article:tag" content="NousResearch/hermes-agent">
+  <meta property="article:tag" content="github/copilot">
+  <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"https://thegitreporter.com/#organization","name":"The Git Reporter","url":"https://thegitreporter.com","logo":{"@type":"ImageObject","url":"https://thegitreporter.com/assets/mark.svg"},"sameAs":["https://x.com/TheGitReporter"]},{"@type":"WebSite","@id":"https://thegitreporter.com/#website","name":"The Git Reporter","url":"https://thegitreporter.com","publisher":{"@id":"https://thegitreporter.com/#organization"}},{"@type":"NewsArticle","mainEntityOfPage":{"@type":"WebPage","@id":"https://thegitreporter.com/articles/2026-08-13-daily-a-session-approval-needs-something-to-hold-on-to/"},"headline":"A Session Approval Needs Something to Hold On To","description":"Two fresh code changes make the same point: a human’s “yes” is only useful when an agent can name exactly what that yes still authorizes.","image":["https://thegitreporter.com/assets/social/2026-08-13-daily-a-session-approval-needs-something-to-hold-on-to-og.jpg"],"datePublished":"2026-08-13T12:00:00Z","dateModified":"2026-08-13T12:00:00Z","author":[{"@type":"Organization","name":"The Git Reporter","url":"https://thegitreporter.com"}],"publisher":{"@type":"Organization","@id":"https://thegitreporter.com/#organization","name":"The Git Reporter","url":"https://thegitreporter.com","logo":{"@type":"ImageObject","url":"https://thegitreporter.com/assets/mark.svg"},"sameAs":["https://x.com/TheGitReporter"]},"articleSection":"Daily Edition","keywords":"Permissions, Tools, Runtime, NousResearch/hermes-agent, github/copilot"}]}</script>
+  <link rel="icon" href="/assets/mark.svg">
+  <link rel="stylesheet" href="/assets/site.css?v=2026-07-30-harness-memory">
+  <script defer src="/assets/feedback.js?v=2026-07-30-harness-memory"></script>
+  <script defer src="/assets/analytics.js?v=2026-07-30-harness-memory"></script>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-CH19T7M0T1"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){window.dataLayer.push(arguments);}
+    gtag("js", new Date());
+    gtag("config", "G-CH19T7M0T1");
+  </script>
+</head>
+<body>
+  <div class="site">
+    <header class="site-header" id="top">
+      <div class="wrap utility-row">
+        <a class="icon-link menu-icon" href="/archive/" aria-label="Open edition history"><span></span><span></span><span></span></a>
+        <a class="icon-link archive-icon" href="/archive/" aria-label="Open edition history"></a>
+      </div>
+      <div class="wrap masthead-lockup">
+        <a class="masthead-title" href="/">THE GIT REPORTER</a>
+        <div class="masthead-ornament" aria-hidden="true"></div>
+      </div>
+      <div class="wrap nav-wrap">
+        <nav class="paper-nav" aria-label="Primary navigation">
+    <a class="" href="/">Today</a><a class="active" href="/archive/">Editions</a><a class="" href="/about/">About</a><a class="" href="/battles/">Diff Derby</a><a class="" href="/agent-pulse/">Agent Pulse</a><a class="" href="/atlas/">Agent Atlas</a><a class="" href="/repos/">Repos</a>
+  </nav>
+        <div class="nav-rule"></div>
+      </div>
+    </header>
+    <main class="wrap page-shell article-page">
+      <section class="page-hero story-front">
+        <div class="story-topline">
+          <span>Daily Edition</span>
+          <span>Sources <strong>+3</strong></span>
+        </div>
+        <h1>A Session Approval Needs Something to Hold On To</h1>
+        <p class="summary">Two fresh code changes make the same point: a human’s “yes” is only useful when an agent can name exactly what that yes still authorizes.</p>
+        <figure class="story-illustration article-illustration">
+    <img src="/assets/illustrations/2026-08-13-a-session-approval-needs-something-to-hold-on-to-diagram-punk-v1.png" alt="A torn-paper diagram shows a session approval tied by arrows to a shell command, an MCP tool, and a domain, with a separate Hermes request-and-digest card and a red fail-closed stamp." loading="lazy" decoding="async">
+    <figcaption><span>Diagram Punk</span>A session approval needs an object, not just a button.</figcaption>
+  </figure>
+        <div class="receipt">
+    <div class="receipt-line">
+      <span class="receipt-icon">repos</span>
+      <span class="receipt-main">NousResearch/hermes-agent + github/copilot</span>
+      <span class="branch-pill">evidence</span>
+    </div>
+    <div class="receipt-line receipt-muted">
+      <span>3 source signals</span>
+      <span>2 repos</span>
+      <span>2 linked commits</span>
+    </div>
+    <div class="commit-line">Evidence: 2 linked commits / August 13, 2026 / Daily Edition</div>
+  </div>
+        <div class="article-route-row">
+          <a href="/editions/2026-08-13/">Open Edition</a>
+          <a href="#evidence">Evidence below</a>
+        </div>
+      </section>
+      <section class="story-reader">
+        <article class="story-shell story-body">
+          <p>A fresh <a href="https://github.com/microsoft/agent-framework/commit/7cfa905486acd325e8958a090b05af481285e525">Microsoft Agent Framework commit</a> fixed a session-approval reply that carried neither a tool scope nor a domain and could crash the Copilot CLI while it was interpreted. “Approve for this session” sounds like a simple convenience; it is actually a promise to remember an authority decision after the current prompt disappears.</p>
+
+  <p>The repair does not turn an empty reply into a broad pass. The adapter reconstructs the scope from the prompt that caused it: a shell request becomes approval for those command identifiers; an MCP request names its server and tool; a URL request can name its domain. If a prompt cannot safely offer a session scope, the response is narrowed to one use. Existing explicit scopes pass through unchanged.</p>
+
+  <h2>The dangerous part is not the button</h2>
+  <p>The most instructive detail is the URL path. Python and the CLI do not parse every crafted URL authority the same way. The change treats a backslash, tab, newline, carriage return, or missing host as a reason not to mint a domain-wide approval; it drops back to a one-shot decision instead. That is a useful rule for any agent integration: uncertainty about the object of authority should reduce its lifetime, not silently stretch it.</p>
+
+  <p>A separate <a href="https://github.com/NousResearch/hermes-agent/commit/de56e49a7c776f52ffcff8e0d768d64f0faa48cf">Hermes change</a> shows why this matters once the approval UI leaves the terminal. It adds plugin transports so a human can answer an approval request elsewhere, but the host creates an immutable request, gives it an ID and digest, offers only permitted choices, and rejects a reply that is late, altered, or attached to another request. A timeout or transport failure denies by default. The <a href="https://github.com/NousResearch/hermes-agent/blob/main/website/docs/user-guide/features/plugins.md">public guide</a> is unusually clear: the plugin changes where the prompt is presented; it is not the authorization-policy engine.</p>
+
+  <h2>Give every remembered yes an address</h2>
+  <p>For builders, the practical audit is compact. Follow one approval from display to execution and ask what identifies its target, what response fields are signed or correlated, which scopes are actually offered, and what happens when the UI is slow, wrong, or offline. “Approved” should never be the only answer in the log.</p>
+
+  <p>These repositories have not announced a common protocol, and main-branch code cannot prove a deployed or independently audited security property. They have, however, made the next public test precise: look for releases and adversarial tests in which stale replies, changed tool identities, and parser-ambiguous URLs all fail closed rather than inheriting yesterday’s permission.</p>
+        </article>
+      </section>
+      <section class="evidence-section" id="evidence" aria-labelledby="evidence-title">
+    <div class="evidence-head">
+      <div>
+        <div class="eyebrow">Evidence Trail</div>
+        <h2 id="evidence-title">Receipts below the story</h2>
+        <p>The article above is the public narrative. This section keeps the source trail and limits on the same page.</p>
+      </div>
+      <a class="paper-button" href="/editions/2026-08-13/">Edition</a>
+    </div>
+    <div class="evidence-table evidence-summary">
+      <div class="evidence-line"><span>Date</span><span>August 13, 2026</span></div>
+      <div class="evidence-line"><span>Lane</span><span>Daily Edition</span></div>
+      <div class="evidence-line"><span>Confidence</span><span>78%</span></div>
+      <div class="evidence-line"><span>Sources</span><span>3</span></div>
+      <div class="evidence-line"><span>Repos</span><span>NousResearch/hermes-agent, github/copilot</span></div>
+    </div>
+    <div class="markdown evidence-copy evidence-copy-block">
+      <h2>Primary Evidence</h2>
+<ul>
+<li>Microsoft Agent Framework commit #7607: <a href="https://github.com/microsoft/agent-framework/commit/7cfa905486acd325e8958a090b05af481285e525">https://github.com/microsoft/agent-framework/commit/7cfa905486acd325e8958a090b05af481285e525</a>
+<ul>
+<li>Shows: a bare session approval could be unscoped and crash the Copilot CLI; the adapter now derives a command, server-and-tool, or domain scope from the triggering request, never widens an existing scope, and uses one-shot approval for unsupported or ambiguous cases.
+</li>
+</ul>
+</li>
+<li>Hermes approval transport commit: <a href="https://github.com/NousResearch/hermes-agent/commit/de56e49a7c776f52ffcff8e0d768d64f0faa48cf">https://github.com/NousResearch/hermes-agent/commit/de56e49a7c776f52ffcff8e0d768d64f0faa48cf</a>
+<ul>
+<li>Shows: Hermes adds a host-owned transport contract with immutable approval requests, request ID and digest correlation, allowed-choice validation, bounded workers, and denial for timeout, stale, invalid, or failed replies.
+</li>
+</ul>
+</li>
+<li>Hermes plugin guide: <a href="https://github.com/NousResearch/hermes-agent/blob/main/website/docs/user-guide/features/plugins.md">https://github.com/NousResearch/hermes-agent/blob/main/website/docs/user-guide/features/plugins.md</a>
+<ul>
+<li>Shows: the public transport boundary: a plugin changes where a human sees a request, while the host retains authorization policy and denies by default when the transport fails.
+</li>
+</ul>
+</li>
+</ul>
+<h2>Evidence Limits</h2>
+<ul>
+<li>These are source and test receipts, not proof that a released build is deployed, that a third-party approval UI authenticates its user correctly, or that either approach protects every tool integration.
+</li>
+<li>The sources show two independent implementations under similar pressure; they do not establish a shared standard or coordination.
+</li>
+<li>Watch for release notes, adversarial integration tests, or public regressions involving a stale approval, a changed tool identity, or a parser-ambiguous URL.
+</li>
+</ul>
+    </div>
+  </section>
+      <section class="related-edition-section atlas-context-section">
+    <div class="section-title-row">
+      <h2>Atlas Context</h2>
+      <a href="/atlas/">Open Atlas &rsaquo;</a>
+    </div>
+    <div class="updates-list">
+      <a class="article-card" href="/atlas/what-an-agent-can-see/">
+            <div class="article-meta"><span class="lane">Agent Atlas</span><span>Chapter 2</span></div>
+            <h3>The Invisible Prompt</h3>
+            <p>The model acts on an assembled viewport containing visible messages, hidden turn context, path-triggered instructions, memory records, tool schemas, permissions, and inherited state.</p>
+          </a>
+    </div>
+  </section>
+      <section class="reader-feedback"
+    data-tgr-feedback
+    data-article-slug="2026-08-13-daily-a-session-approval-needs-something-to-hold-on-to"
+    data-article-title="A Session Approval Needs Something to Hold On To"
+    data-article-url="/articles/2026-08-13-daily-a-session-approval-needs-something-to-hold-on-to/"
+    data-edition-date="2026-08-13"
+    data-lane="Daily Edition"
+    data-tags="Permissions,Tools,Runtime"
+    data-repos="NousResearch/hermes-agent,github/copilot">
+    <div class="reader-feedback-head">
+      <div>
+        <div class="eyebrow">Letters &amp; Corrections</div>
+        <h2>Send a note to the desk</h2>
+      </div>
+      <p>Corrections, missing context, or a follow-up lead.</p>
+    </div>
+    <form class="feedback-form">
+      <div class="feedback-votes" role="group" aria-label="Choose signal type">
+        <button class="feedback-choice" type="button" data-vote="follow-up" aria-pressed="false">
+          <span aria-hidden="true">+</span>
+          <span>Follow-up</span>
+        </button>
+        <button class="feedback-choice" type="button" data-vote="correction" aria-pressed="false">
+          <span aria-hidden="true">!</span>
+          <span>Correction</span>
+        </button>
+      </div>
+      <label class="feedback-comment">
+        <span>Note for the editor</span>
+        <textarea name="comment" rows="3" maxlength="320" placeholder="What did we miss, or what should we follow next?"></textarea>
+      </label>
+      <div class="feedback-submit-row">
+        <p class="feedback-status" aria-live="polite"></p>
+        <button class="paper-button primary feedback-submit" type="submit">Send to desk</button>
+      </div>
+    </form>
+  </section>
+      <section class="related-edition-section">
+        <div class="section-title-row">
+          <h2>Same Edition</h2>
+          <a href="/editions/2026-08-13/">Open issue &rsaquo;</a>
+        </div>
+        <div class="updates-list">
+          <a class="update-card" href="/articles/2026-08-13-daily-api-discovery-pydantic-ai-maps-the-fastmcp-4-fault-line/">
+    <div class="update-stripe"></div>
+    <div class="update-main">
+      <div class="update-meta">
+        <span>Reported</span>
+        <span class="source-plus">+3</span>
+        <span>Aug 13, 2026</span>
+      </div>
+      <h3>API Discovery: Pydantic AI Maps the FastMCP 4 Fault Line</h3>
+      <div class="update-receipt">
+        <span>source trail</span>
+        <span class="branch-pill">evidence</span>
+      </div>
+      <div class="update-foot">
+        <span>3 sources</span>
+        <span>0 repos</span>
+        <span>commit 1844574</span>
+      </div>
+    </div>
+    <span class="update-arrow" aria-hidden="true">&rsaquo;</span>
+  </a><a class="update-card" href="/articles/2026-08-13-daily-crewai-s-flow-telemetry-learns-where-a-run-actually-stopped/">
+    <div class="update-stripe"></div>
+    <div class="update-main">
+      <div class="update-meta">
+        <span>Reported</span>
+        <span class="source-plus">+3</span>
+        <span>Aug 13, 2026</span>
+      </div>
+      <h3>CrewAI’s Flow Telemetry Learns Where a Run Actually Stopped</h3>
+      <div class="update-receipt">
+        <span>source trail</span>
+        <span class="branch-pill">evidence</span>
+      </div>
+      <div class="update-foot">
+        <span>3 sources</span>
+        <span>0 repos</span>
+        <span>commit 7642e61</span>
+      </div>
+    </div>
+    <span class="update-arrow" aria-hidden="true">&rsaquo;</span>
+  </a>
+        </div>
+      </section>
+    </main>
+    <footer class="wrap site-footer">
+      <span>&copy; 2026 The Git Reporter</span>
+      <a href="/about/">About</a>
+      <a href="/battles/">Diff Derby</a>
+      <a href="/agent-pulse/">Agent Pulse</a>
+      <a href="/feed.xml">RSS</a>
+      <a href="https://x.com/TheGitReporter">Follow on X</a>
+      <a href="/articles.json">Manifest JSON</a>
+      <a href="/repos/">Sources</a>
+    </footer>
+  </div>
+</body>
+</html>
