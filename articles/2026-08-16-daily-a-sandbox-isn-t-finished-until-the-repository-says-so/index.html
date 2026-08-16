@@ -1,0 +1,240 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>A Sandbox Isn’t Finished Until the Repository Says So | The Git Reporter</title>
+  <meta name="description" content="Mastra Factory is making one understated agent-system choice explicit: before a session workspace is scrubbed, pooled, or destroyed, the repository can say how its own worktree should be put away.">
+  <meta name="robots" content="index,follow">
+  <link rel="canonical" href="https://thegitreporter.com/articles/2026-08-16-daily-a-sandbox-isn-t-finished-until-the-repository-says-so/">
+  <link rel="alternate" type="application/rss+xml" title="The Git Reporter" href="https://thegitreporter.com/feed.xml">
+  <meta property="og:site_name" content="The Git Reporter">
+  <meta property="og:locale" content="en_US">
+  <meta property="og:title" content="A Sandbox Isn’t Finished Until the Repository Says So | The Git Reporter">
+  <meta property="og:description" content="Mastra Factory is making one understated agent-system choice explicit: before a session workspace is scrubbed, pooled, or destroyed, the repository can say how its own worktree should be put away.">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://thegitreporter.com/articles/2026-08-16-daily-a-sandbox-isn-t-finished-until-the-repository-says-so/">
+  <meta property="og:image" content="https://thegitreporter.com/assets/social/2026-08-16-daily-a-sandbox-isn-t-finished-until-the-repository-says-so-og.jpg">
+  <meta property="og:image:secure_url" content="https://thegitreporter.com/assets/social/2026-08-16-daily-a-sandbox-isn-t-finished-until-the-repository-says-so-og.jpg">
+  <meta property="og:image:type" content="image/jpeg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="A rough cream-paper diagram shows a project repository teardown card running before a scrub-worktree card, then branching to pool or destroy and cache invalidation, with a red caveat stamp that a failed hook is not proof of cleanup.">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:site" content="@TheGitReporter">
+  <meta name="twitter:creator" content="@TheGitReporter">
+  <meta name="twitter:title" content="A Sandbox Isn’t Finished Until the Repository Says So | The Git Reporter">
+  <meta name="twitter:description" content="Mastra Factory is making one understated agent-system choice explicit: before a session workspace is scrubbed, pooled, or destroyed, the repository can say how its own worktree should be put away.">
+  <meta name="twitter:url" content="https://thegitreporter.com/articles/2026-08-16-daily-a-sandbox-isn-t-finished-until-the-repository-says-so/">
+  <meta name="twitter:domain" content="thegitreporter.com">
+  <meta name="twitter:image" content="https://thegitreporter.com/assets/social/2026-08-16-daily-a-sandbox-isn-t-finished-until-the-repository-says-so-og.jpg">
+  <meta name="twitter:image:alt" content="A rough cream-paper diagram shows a project repository teardown card running before a scrub-worktree card, then branching to pool or destroy and cache invalidation, with a red caveat stamp that a failed hook is not proof of cleanup.">
+  <meta property="article:published_time" content="2026-08-16T12:00:00Z">
+  <meta property="article:modified_time" content="2026-08-16T12:00:00Z">
+  <meta property="article:section" content="Daily Edition">
+  <meta property="article:tag" content="Permissions">
+  <meta property="article:tag" content="Tools">
+  <meta property="article:tag" content="Runtime">
+  <meta property="article:tag" content="mastra-ai/mastra">
+  <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"https://thegitreporter.com/#organization","name":"The Git Reporter","url":"https://thegitreporter.com","logo":{"@type":"ImageObject","url":"https://thegitreporter.com/assets/mark.svg"},"sameAs":["https://x.com/TheGitReporter"]},{"@type":"WebSite","@id":"https://thegitreporter.com/#website","name":"The Git Reporter","url":"https://thegitreporter.com","publisher":{"@id":"https://thegitreporter.com/#organization"}},{"@type":"NewsArticle","mainEntityOfPage":{"@type":"WebPage","@id":"https://thegitreporter.com/articles/2026-08-16-daily-a-sandbox-isn-t-finished-until-the-repository-says-so/"},"headline":"A Sandbox Isn’t Finished Until the Repository Says So","description":"Mastra Factory is making one understated agent-system choice explicit: before a session workspace is scrubbed, pooled, or destroyed, the repository can say how its own worktree should be put away.","image":["https://thegitreporter.com/assets/social/2026-08-16-daily-a-sandbox-isn-t-finished-until-the-repository-says-so-og.jpg"],"datePublished":"2026-08-16T12:00:00Z","dateModified":"2026-08-16T12:00:00Z","author":[{"@type":"Organization","name":"The Git Reporter","url":"https://thegitreporter.com"}],"publisher":{"@type":"Organization","@id":"https://thegitreporter.com/#organization","name":"The Git Reporter","url":"https://thegitreporter.com","logo":{"@type":"ImageObject","url":"https://thegitreporter.com/assets/mark.svg"},"sameAs":["https://x.com/TheGitReporter"]},"articleSection":"Daily Edition","keywords":"Permissions, Tools, Runtime, mastra-ai/mastra"}]}</script>
+  <link rel="icon" href="/assets/mark.svg">
+  <link rel="stylesheet" href="/assets/site.css?v=2026-07-30-harness-memory">
+  <script defer src="/assets/feedback.js?v=2026-07-30-harness-memory"></script>
+  <script defer src="/assets/analytics.js?v=2026-07-30-harness-memory"></script>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-CH19T7M0T1"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){window.dataLayer.push(arguments);}
+    gtag("js", new Date());
+    gtag("config", "G-CH19T7M0T1");
+  </script>
+</head>
+<body>
+  <div class="site">
+    <header class="site-header" id="top">
+      <div class="wrap utility-row">
+        <a class="icon-link menu-icon" href="/archive/" aria-label="Open edition history"><span></span><span></span><span></span></a>
+        <a class="icon-link archive-icon" href="/archive/" aria-label="Open edition history"></a>
+      </div>
+      <div class="wrap masthead-lockup">
+        <a class="masthead-title" href="/">THE GIT REPORTER</a>
+        <div class="masthead-ornament" aria-hidden="true"></div>
+      </div>
+      <div class="wrap nav-wrap">
+        <nav class="paper-nav" aria-label="Primary navigation">
+    <a class="" href="/">Today</a><a class="active" href="/archive/">Editions</a><a class="" href="/about/">About</a><a class="" href="/battles/">Diff Derby</a><a class="" href="/agent-pulse/">Agent Pulse</a><a class="" href="/atlas/">Agent Atlas</a><a class="" href="/repos/">Repos</a>
+  </nav>
+        <div class="nav-rule"></div>
+      </div>
+    </header>
+    <main class="wrap page-shell article-page">
+      <section class="page-hero story-front">
+        <div class="story-topline">
+          <span>Daily Edition</span>
+          <span>Sources <strong>+4</strong></span>
+        </div>
+        <h1>A Sandbox Isn’t Finished Until the Repository Says So</h1>
+        <p class="summary">Mastra Factory is making one understated agent-system choice explicit: before a session workspace is scrubbed, pooled, or destroyed, the repository can say how its own worktree should be put away.</p>
+        <figure class="story-illustration article-illustration">
+    <img src="/assets/illustrations/2026-08-16-a-sandbox-isn-t-finished-until-the-repository-says-so-diagram-punk-v1.png" alt="A rough cream-paper diagram shows a project repository teardown card running before a scrub-worktree card, then branching to pool or destroy and cache invalidation, with a red caveat stamp that a failed hook is not proof of cleanup." loading="lazy" decoding="async">
+    <figcaption><span>Diagram Punk</span>cleanup belongs to the repository before a sandbox can be reclaimed.</figcaption>
+  </figure>
+        <div class="receipt">
+    <div class="receipt-line">
+      <span class="receipt-icon">repo</span>
+      <span class="receipt-main">mastra-ai/mastra</span>
+      <span class="branch-pill">evidence</span>
+    </div>
+    <div class="receipt-line receipt-muted">
+      <span>4 source signals</span>
+      <span>1 repo</span>
+      <span>commit c7a5020</span>
+    </div>
+    <div class="commit-line">Evidence: commit c7a5020 / August 16, 2026 / Daily Edition</div>
+  </div>
+        <div class="article-route-row">
+          <a href="/editions/2026-08-16/">Open Edition</a>
+          <a href="#evidence">Evidence below</a>
+        </div>
+      </section>
+      <section class="story-reader">
+        <article class="story-shell story-body">
+          <p>In <code>mastra-ai/mastra</code> commit <a href="https://github.com/mastra-ai/mastra/commit/c7a50204ffc19be8bdcf54d76ab4db1a6ace338f">#21564</a>, Mastra Factory added a place for a linked repository to say how its own worktree should be put away before the generic reset begins. That matters because “clean up the sandbox” is deceptively broad: a generated project might need to stop a local service, remove a tool-specific cache, or undo a checkout arrangement before its workspace can be scrubbed, pooled, or destroyed.</p>
+
+  <p>The commit’s co-author record credits <code>Mastra Code (openai/gpt-5.6-sol)</code>. That is public evidence that a coding agent participated; it is not a claim that an agent designed or wrote every part. The sharper engineering receipt is in the code. The new <a href="https://github.com/mastra-ai/mastra/blob/c7a50204ffc19be8bdcf54d76ab4db1a6ace338f/mastracode/factory/src/sandbox/session-retirement.ts">retirement coordinator</a> serializes competing retirement requests for the same session, loads the linked repository’s command, and then keeps the rest of the cleanup path accountable to the session rather than to a hopeful shell script.</p>
+
+  <h2>A hook gets a place in the recovery sequence</h2>
+
+  <p>For a remote sandbox, Factory attempts the repository teardown, scrubs the released workspace, returns the sandbox to its repository-scoped pool, and invalidates cached session state. For a local sandbox, the hook runs before destruction. The accompanying <a href="https://github.com/mastra-ai/mastra/blob/c7a50204ffc19be8bdcf54d76ab4db1a6ace338f/mastracode/factory/src/sandbox/session-retirement.test.ts">tests</a> make that order concrete: teardown must precede the git scrub, pooling, and invalidation; two simultaneous retirement requests must not run the hook twice.</p>
+
+  <p>That order is why this is more than another configuration field. It turns a project’s cleanup knowledge into a lifecycle boundary that the orchestrator can call from terminal work, explicit deletion, and destructive project cleanup. It also extends the earlier <a href="/articles/2026-07-30-daily-builder-work-a-sandbox-is-reusable-only-after-it-forgets/">Factory pool-and-scrub work</a> in a specific direction: the system already knew how to reclaim a workspace; now the linked repository gets a chance to leave it in a state the generic scrub understands.</p>
+
+  <h2>A failed hook is a warning, not a clean bill of health</h2>
+
+  <p>The test suite prevents the easy but wrong headline. In one case the teardown command exits with an error; Factory logs the failure and still scrubs, clears the session binding, and pools the remote sandbox. That is a sensible recovery choice—one broken project script should not leave a resource stranded forever—but it means the hook is best-effort. It does not certify that every project-specific trace is gone, and it does not make an arbitrary shell command safe.</p>
+
+  <h2>Transferable building skill: make cleanup two contracts, not one</h2>
+
+  <p>Builders can borrow the shape without copying Factory. Let the repository own its domain cleanup, but pair it with an independent platform postcondition: scrub or destroy the workspace, clear the session binding, and make duplicate retirement harmless. Test the order, the failed-hook path, the unavailable-machine path, and the concurrency path. A cleanup command can be useful; only those follow-on invariants make it safe to reclaim the resource.</p>
+
+  <p>These are main-branch implementation and test receipts, not proof of a shipped release, provider-wide reliability, or hardened isolation. The next signal worth watching is public integration coverage that runs a real configured teardown through a provider interruption and then proves that the next repository claim begins without stale state or credentials.</p>
+        </article>
+      </section>
+      <section class="evidence-section" id="evidence" aria-labelledby="evidence-title">
+    <div class="evidence-head">
+      <div>
+        <div class="eyebrow">Evidence Trail</div>
+        <h2 id="evidence-title">Receipts below the story</h2>
+        <p>The article above is the public narrative. This section keeps the source trail and limits on the same page.</p>
+      </div>
+      <a class="paper-button" href="/editions/2026-08-16/">Edition</a>
+    </div>
+    <div class="evidence-table evidence-summary">
+      <div class="evidence-line"><span>Date</span><span>August 16, 2026</span></div>
+      <div class="evidence-line"><span>Lane</span><span>Daily Edition</span></div>
+      <div class="evidence-line"><span>Confidence</span><span>78%</span></div>
+      <div class="evidence-line"><span>Sources</span><span>4</span></div>
+      <div class="evidence-line"><span>Repos</span><span>mastra-ai/mastra</span></div>
+    </div>
+    <div class="markdown evidence-copy evidence-copy-block">
+      <h2>Primary Evidence</h2>
+<ul>
+<li><a href="https://github.com/mastra-ai/mastra/commit/c7a50204ffc19be8bdcf54d76ab4db1a6ace338f">Public coding-agent use proof — Mastra Factory commit #21564</a>
+<ul>
+<li>Shows: the public change that adds per-repository worktree teardown during Factory session cleanup and credits Mastra Code (openai/gpt-5.6-sol) as a co-author. The attribution establishes coding-agent participation in this public change, not a line-by-line account of authorship or review.
+</li>
+</ul>
+</li>
+<li><a href="https://github.com/mastra-ai/mastra/blob/c7a50204ffc19be8bdcf54d76ab4db1a6ace338f/mastracode/factory/src/sandbox/session-retirement.ts">Inspected GitHub repository — Factory session retirement coordinator</a>
+<ul>
+<li>Shows: a session-id-serialized retirement path that loads a project repository’s configured teardown command, attempts it before remote release or local destruction, then invalidates the workspace cache and optionally removes the session row. It also shows that teardown errors are logged while retirement continues.
+</li>
+</ul>
+</li>
+<li><a href="https://github.com/mastra-ai/mastra/blob/c7a50204ffc19be8bdcf54d76ab4db1a6ace338f/mastracode/factory/src/sandbox/session-retirement.test.ts">Engineering receipt — Factory retirement tests</a>
+<ul>
+<li>Shows: focused tests for teardown before scrub, pooling, and invalidation; continued cleanup after a failing teardown; local destruction order; unavailable-sandbox handling; and at-most-once teardown for duplicate retirement requests.
+</li>
+</ul>
+</li>
+<li><a href="https://github.com/mastra-ai/mastra/blob/c7a50204ffc19be8bdcf54d76ab4db1a6ace338f/mastracode/factory/src/integrations/github/sandbox.ts">Lifecycle helper — worktree teardown contract</a>
+<ul>
+<li>Shows: the helper runs the configured command from the session worktree with a bounded timeout and leaves the caller responsible for reporting failures while continuing scrub, pooling or destruction, invalidation, and deletion.
+</li>
+</ul>
+</li>
+</ul>
+<h2>Evidence Limits</h2>
+<ul>
+<li>These are public main-branch implementation and test receipts. They do not establish a shipped release, any customer’s configured teardown command, real-provider reliability, cost savings, broad adoption, or security certification.
+</li>
+<li>A repository-owned shell command is not itself proof of safe cleanup. The next meaningful public evidence would be release or integration coverage that exercises a configured teardown through an interrupted provider, a malformed command, and a reused worktree without leaving stale state or credentials behind.
+</li>
+</ul>
+    </div>
+  </section>
+      <section class="related-edition-section atlas-context-section">
+    <div class="section-title-row">
+      <h2>Atlas Context</h2>
+      <a href="/atlas/">Open Atlas &rsaquo;</a>
+    </div>
+    <div class="updates-list">
+      <a class="article-card" href="/atlas/friction-safety-and-approval/">
+            <div class="article-meta"><span class="lane">Agent Atlas</span><span>Chapter 7</span></div>
+            <h3>The Approval Trap</h3>
+            <p>Approval is useful only when it catches a meaningful change in authority, explains that change, and keeps the decision attached to the work.</p>
+          </a>
+    </div>
+  </section>
+      <section class="reader-feedback"
+    data-tgr-feedback
+    data-article-slug="2026-08-16-daily-a-sandbox-isn-t-finished-until-the-repository-says-so"
+    data-article-title="A Sandbox Isn’t Finished Until the Repository Says So"
+    data-article-url="/articles/2026-08-16-daily-a-sandbox-isn-t-finished-until-the-repository-says-so/"
+    data-edition-date="2026-08-16"
+    data-lane="Daily Edition"
+    data-tags="Permissions,Tools,Runtime"
+    data-repos="mastra-ai/mastra">
+    <div class="reader-feedback-head">
+      <div>
+        <div class="eyebrow">Letters &amp; Corrections</div>
+        <h2>Send a note to the desk</h2>
+      </div>
+      <p>Corrections, missing context, or a follow-up lead.</p>
+    </div>
+    <form class="feedback-form">
+      <div class="feedback-votes" role="group" aria-label="Choose signal type">
+        <button class="feedback-choice" type="button" data-vote="follow-up" aria-pressed="false">
+          <span aria-hidden="true">+</span>
+          <span>Follow-up</span>
+        </button>
+        <button class="feedback-choice" type="button" data-vote="correction" aria-pressed="false">
+          <span aria-hidden="true">!</span>
+          <span>Correction</span>
+        </button>
+      </div>
+      <label class="feedback-comment">
+        <span>Note for the editor</span>
+        <textarea name="comment" rows="3" maxlength="320" placeholder="What did we miss, or what should we follow next?"></textarea>
+      </label>
+      <div class="feedback-submit-row">
+        <p class="feedback-status" aria-live="polite"></p>
+        <button class="paper-button primary feedback-submit" type="submit">Send to desk</button>
+      </div>
+    </form>
+  </section>
+      
+    </main>
+    <footer class="wrap site-footer">
+      <span>&copy; 2026 The Git Reporter</span>
+      <a href="/about/">About</a>
+      <a href="/battles/">Diff Derby</a>
+      <a href="/agent-pulse/">Agent Pulse</a>
+      <a href="/feed.xml">RSS</a>
+      <a href="https://x.com/TheGitReporter">Follow on X</a>
+      <a href="/articles.json">Manifest JSON</a>
+      <a href="/repos/">Sources</a>
+    </footer>
+  </div>
+</body>
+</html>
