@@ -1,0 +1,271 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Builder Work: A Test Double Is a Contract | The Git Reporter</title>
+  <meta name="description" content="Unsloth’s agent-assisted CI repair shows a durable testing move: put a shared fake at the same interface boundary as production, then make the test harness reveal the task that actually failed.">
+  <meta name="robots" content="index,follow">
+  <link rel="canonical" href="https://thegitreporter.com/articles/2026-08-17-daily-builder-work-a-test-double-is-a-contract/">
+  <link rel="alternate" type="application/rss+xml" title="The Git Reporter" href="https://thegitreporter.com/feed.xml">
+  <meta property="og:site_name" content="The Git Reporter">
+  <meta property="og:locale" content="en_US">
+  <meta property="og:title" content="Builder Work: A Test Double Is a Contract | The Git Reporter">
+  <meta property="og:description" content="Unsloth’s agent-assisted CI repair shows a durable testing move: put a shared fake at the same interface boundary as production, then make the test harness reveal the task that actually failed.">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://thegitreporter.com/articles/2026-08-17-daily-builder-work-a-test-double-is-a-contract/">
+  <meta property="og:image" content="https://thegitreporter.com/assets/social/2026-08-17-daily-builder-work-a-test-double-is-a-contract-og.jpg">
+  <meta property="og:image:secure_url" content="https://thegitreporter.com/assets/social/2026-08-17-daily-builder-work-a-test-double-is-a-contract-og.jpg">
+  <meta property="og:image:type" content="image/jpeg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="A photocopied diagram shows several duplicate fake backends merging into one shared contract and an async timeout crossed out in favor of the real task exception.">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:site" content="@TheGitReporter">
+  <meta name="twitter:creator" content="@TheGitReporter">
+  <meta name="twitter:title" content="Builder Work: A Test Double Is a Contract | The Git Reporter">
+  <meta name="twitter:description" content="Unsloth’s agent-assisted CI repair shows a durable testing move: put a shared fake at the same interface boundary as production, then make the test harness reveal the task that actually failed.">
+  <meta name="twitter:url" content="https://thegitreporter.com/articles/2026-08-17-daily-builder-work-a-test-double-is-a-contract/">
+  <meta name="twitter:domain" content="thegitreporter.com">
+  <meta name="twitter:image" content="https://thegitreporter.com/assets/social/2026-08-17-daily-builder-work-a-test-double-is-a-contract-og.jpg">
+  <meta name="twitter:image:alt" content="A photocopied diagram shows several duplicate fake backends merging into one shared contract and an async timeout crossed out in favor of the real task exception.">
+  <meta property="article:published_time" content="2026-08-17T12:00:00Z">
+  <meta property="article:modified_time" content="2026-08-17T12:00:00Z">
+  <meta property="article:section" content="Daily Edition">
+  <meta property="article:tag" content="Memory">
+  <meta property="article:tag" content="UX">
+  <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"https://thegitreporter.com/#organization","name":"The Git Reporter","url":"https://thegitreporter.com","logo":{"@type":"ImageObject","url":"https://thegitreporter.com/assets/mark.svg"},"sameAs":["https://x.com/TheGitReporter"]},{"@type":"WebSite","@id":"https://thegitreporter.com/#website","name":"The Git Reporter","url":"https://thegitreporter.com","publisher":{"@id":"https://thegitreporter.com/#organization"}},{"@type":"NewsArticle","mainEntityOfPage":{"@type":"WebPage","@id":"https://thegitreporter.com/articles/2026-08-17-daily-builder-work-a-test-double-is-a-contract/"},"headline":"Builder Work: A Test Double Is a Contract","description":"Unsloth’s agent-assisted CI repair shows a durable testing move: put a shared fake at the same interface boundary as production, then make the test harness reveal the task that actually failed.","image":["https://thegitreporter.com/assets/social/2026-08-17-daily-builder-work-a-test-double-is-a-contract-og.jpg"],"datePublished":"2026-08-17T12:00:00Z","dateModified":"2026-08-17T12:00:00Z","author":[{"@type":"Organization","name":"The Git Reporter","url":"https://thegitreporter.com"}],"publisher":{"@type":"Organization","@id":"https://thegitreporter.com/#organization","name":"The Git Reporter","url":"https://thegitreporter.com","logo":{"@type":"ImageObject","url":"https://thegitreporter.com/assets/mark.svg"},"sameAs":["https://x.com/TheGitReporter"]},"articleSection":"Daily Edition","keywords":"Memory, UX"}]}</script>
+  <link rel="icon" href="/assets/mark.svg">
+  <link rel="stylesheet" href="/assets/site.css?v=2026-07-30-harness-memory">
+  <script defer src="/assets/feedback.js?v=2026-07-30-harness-memory"></script>
+  <script defer src="/assets/analytics.js?v=2026-07-30-harness-memory"></script>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-CH19T7M0T1"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){window.dataLayer.push(arguments);}
+    gtag("js", new Date());
+    gtag("config", "G-CH19T7M0T1");
+  </script>
+</head>
+<body>
+  <div class="site">
+    <header class="site-header" id="top">
+      <div class="wrap utility-row">
+        <a class="icon-link menu-icon" href="/archive/" aria-label="Open edition history"><span></span><span></span><span></span></a>
+        <a class="icon-link archive-icon" href="/archive/" aria-label="Open edition history"></a>
+      </div>
+      <div class="wrap masthead-lockup">
+        <a class="masthead-title" href="/">THE GIT REPORTER</a>
+        <div class="masthead-ornament" aria-hidden="true"></div>
+      </div>
+      <div class="wrap nav-wrap">
+        <nav class="paper-nav" aria-label="Primary navigation">
+    <a class="" href="/">Today</a><a class="active" href="/archive/">Editions</a><a class="" href="/about/">About</a><a class="" href="/battles/">Diff Derby</a><a class="" href="/agent-pulse/">Agent Pulse</a><a class="" href="/atlas/">Agent Atlas</a><a class="" href="/repos/">Repos</a>
+  </nav>
+        <div class="nav-rule"></div>
+      </div>
+    </header>
+    <main class="wrap page-shell article-page">
+      <section class="page-hero story-front">
+        <div class="story-topline">
+          <span>Daily Edition</span>
+          <span>Sources <strong>+3</strong></span>
+        </div>
+        <h1>Builder Work: A Test Double Is a Contract</h1>
+        <p class="summary">Unsloth’s agent-assisted CI repair shows a durable testing move: put a shared fake at the same interface boundary as production, then make the test harness reveal the task that actually failed.</p>
+        <figure class="story-illustration article-illustration">
+    <img src="/assets/illustrations/2026-08-17-builder-work-a-test-double-is-a-contract-diagram-punk-v1.png" alt="A photocopied diagram shows several duplicate fake backends merging into one shared contract and an async timeout crossed out in favor of the real task exception." loading="lazy" decoding="async">
+    <figcaption><span>Diagram Punk</span>a test fake is part of the interface it imitates.</figcaption>
+  </figure>
+        <div class="receipt">
+    <div class="receipt-line">
+      <span class="receipt-icon">repos</span>
+      <span class="receipt-main">source trail</span>
+      <span class="branch-pill">evidence</span>
+    </div>
+    <div class="receipt-line receipt-muted">
+      <span>3 source signals</span>
+      <span>0 repos</span>
+      <span>commit 1351478</span>
+    </div>
+    <div class="commit-line">Evidence: commit 1351478 / August 17, 2026 / Daily Edition</div>
+  </div>
+        <div class="article-route-row">
+          <a href="/editions/2026-08-17/">Open Edition</a>
+          <a href="#evidence">Evidence below</a>
+        </div>
+      </section>
+      <section class="story-reader">
+        <article class="story-shell story-body">
+          <p>When a test double omits a production attribute, the visible failure is often the least useful part of the story. In <a href="https://github.com/unslothai/unsloth/commit/135147814b54f1e3c1a7f0a8e93ddd69cd7402ec">Unsloth’s CI-repair commit</a>, an unguarded backend read left multiple hand-written fakes behind. Some tests surfaced an attribute error directly; others waited twenty seconds for an async frame that would never arrive. The commit carries a public <code>Co-authored-by: Claude Opus 5</code> trailer, evidence of coding-agent involvement—but not a claim about who authored each line.</p>
+
+  <h2>The repo evidence</h2>
+  <p>The engineering answer is small enough to reuse and broad enough to matter. A new <a href="https://github.com/unslothai/unsloth/blob/135147814b54f1e3c1a7f0a8e93ddd69cd7402ec/studio/backend/tests/llama_backend_double.py">shared <code>FakeLlamaCppBackend</code></a> defines the common production-facing attributes once, including <code>context_length</code>. Scenario-specific tests can still override behavior, but they no longer each invent the shape of a loaded backend. That shifts the next drift from a scattered aftershock into one explicit contract update.</p>
+
+  <p>The companion <a href="https://github.com/unslothai/unsloth/blob/135147814b54f1e3c1a7f0a8e93ddd69cd7402ec/studio/backend/tests/asgi_stream_helpers.py">frame-wait helper</a> makes the second repair more revealing. It waits on both the event and the task driving the request, checks the task first, and rethrows a real exception even when a frame event happened too. A timeout remains possible—but only when the request is genuinely still parked rather than when the assertion machinery has swallowed the cause.</p>
+
+  <h2>The transferable skill</h2>
+  <p>For builders using agents to repair a test suite, ask the agent to map every fake to the production reads it stands in for before it edits the failing assertion. Centralize the shared surface, then add a canary that passes the sparsest valid fake through the real route. In asynchronous tests, inspect and surface the driver task’s exception before declaring an event wait a timeout. Those two constraints turn a persuasive patch into a test that can accuse the next change at the right boundary.</p>
+
+  <h2>The limit</h2>
+  <p>The public code and tests show a focused repair, not a universal CI cure or a production reliability result. The agent attribution is deliberately limited to the commit trailer. The next useful receipt would be a follow-up failure caught by the shared canary—or evidence that a new backend read must be represented somewhere other than this fake’s common surface.</p>
+        </article>
+      </section>
+      <section class="evidence-section" id="evidence" aria-labelledby="evidence-title">
+    <div class="evidence-head">
+      <div>
+        <div class="eyebrow">Evidence Trail</div>
+        <h2 id="evidence-title">Receipts below the story</h2>
+        <p>The article above is the public narrative. This section keeps the source trail and limits on the same page.</p>
+      </div>
+      <a class="paper-button" href="/editions/2026-08-17/">Edition</a>
+    </div>
+    <div class="evidence-table evidence-summary">
+      <div class="evidence-line"><span>Date</span><span>August 17, 2026</span></div>
+      <div class="evidence-line"><span>Lane</span><span>Daily Edition</span></div>
+      <div class="evidence-line"><span>Confidence</span><span>78%</span></div>
+      <div class="evidence-line"><span>Sources</span><span>3</span></div>
+      <div class="evidence-line"><span>Repos</span><span>source trail</span></div>
+    </div>
+    <div class="markdown evidence-copy evidence-copy-block">
+      <h2>Primary Evidence</h2>
+<ul>
+<li>Public coding-agent use proof: <a href="https://github.com/unslothai/unsloth/commit/135147814b54f1e3c1a7f0a8e93ddd69cd7402ec">Unsloth commit 135147814</a>
+<ul>
+<li>Shows: the public commit explicitly carries a <code>Co-authored-by: Claude Opus 5</code> trailer. It establishes a declared coding-agent contribution, while leaving the division of labor unknown.
+</li>
+</ul>
+</li>
+<li>Inspected GitHub repository: <a href="https://github.com/unslothai/unsloth/blob/135147814b54f1e3c1a7f0a8e93ddd69cd7402ec/studio/backend/tests/llama_backend_double.py">shared <code>FakeLlamaCppBackend</code></a>
+<ul>
+<li>Shows: in the inspected test module, Unsloth replaced repeated, underspecified backend doubles with one shared attribute surface whose <code>context_length</code> default matches the production code path’s unguarded read.
+</li>
+</ul>
+</li>
+<li>Engineering receipt: <a href="https://github.com/unslothai/unsloth/blob/135147814b54f1e3c1a7f0a8e93ddd69cd7402ec/studio/backend/tests/asgi_stream_helpers.py">async <code>wait_for_frame</code> test helper</a>
+<ul>
+<li>Shows: the helper observes the request task before the frame event, rethrows its exception, distinguishes failure-before-frame from failure-after-frame, and reserves the timeout for a path that is genuinely still running.
+</li>
+</ul>
+</li>
+</ul>
+<h2>Evidence Limits</h2>
+<ul>
+<li>The public attribution does not prove who wrote or reviewed each change. Code and tests prove an intended contract, not that every CI environment, supported platform, or production path now behaves as described.
+</li>
+</ul>
+    </div>
+  </section>
+      <section class="related-edition-section atlas-context-section">
+    <div class="section-title-row">
+      <h2>Atlas Context</h2>
+      <a href="/atlas/">Open Atlas &rsaquo;</a>
+    </div>
+    <div class="updates-list">
+      <a class="article-card" href="/atlas/the-human-interface/">
+            <div class="article-meta"><span class="lane">Agent Atlas</span><span>Chapter 8</span></div>
+            <h3>The Human Control Loop</h3>
+            <p>A useful interface exposes active work, gives intervention a defined runtime effect, preserves evidence during correction, and resumes the intended session.</p>
+          </a>
+    </div>
+  </section>
+      <section class="reader-feedback"
+    data-tgr-feedback
+    data-article-slug="2026-08-17-daily-builder-work-a-test-double-is-a-contract"
+    data-article-title="Builder Work: A Test Double Is a Contract"
+    data-article-url="/articles/2026-08-17-daily-builder-work-a-test-double-is-a-contract/"
+    data-edition-date="2026-08-17"
+    data-lane="Daily Edition"
+    data-tags="Memory,UX"
+    data-repos="">
+    <div class="reader-feedback-head">
+      <div>
+        <div class="eyebrow">Letters &amp; Corrections</div>
+        <h2>Send a note to the desk</h2>
+      </div>
+      <p>Corrections, missing context, or a follow-up lead.</p>
+    </div>
+    <form class="feedback-form">
+      <div class="feedback-votes" role="group" aria-label="Choose signal type">
+        <button class="feedback-choice" type="button" data-vote="follow-up" aria-pressed="false">
+          <span aria-hidden="true">+</span>
+          <span>Follow-up</span>
+        </button>
+        <button class="feedback-choice" type="button" data-vote="correction" aria-pressed="false">
+          <span aria-hidden="true">!</span>
+          <span>Correction</span>
+        </button>
+      </div>
+      <label class="feedback-comment">
+        <span>Note for the editor</span>
+        <textarea name="comment" rows="3" maxlength="320" placeholder="What did we miss, or what should we follow next?"></textarea>
+      </label>
+      <div class="feedback-submit-row">
+        <p class="feedback-status" aria-live="polite"></p>
+        <button class="paper-button primary feedback-submit" type="submit">Send to desk</button>
+      </div>
+    </form>
+  </section>
+      <section class="related-edition-section">
+        <div class="section-title-row">
+          <h2>Same Edition</h2>
+          <a href="/editions/2026-08-17/">Open issue &rsaquo;</a>
+        </div>
+        <div class="updates-list">
+          <a class="update-card" href="/articles/2026-08-17-daily-when-a-context-limit-drops-the-user-s-turn/">
+    <div class="update-stripe"></div>
+    <div class="update-main">
+      <div class="update-meta">
+        <span>Context</span>
+        <span class="source-plus">+3</span>
+        <span>Aug 17, 2026</span>
+      </div>
+      <h3>When a Context Limit Drops the User’s Turn</h3>
+      <div class="update-receipt">
+        <span>openai/codex + openclaw/openclaw</span>
+        <span class="branch-pill">evidence</span>
+      </div>
+      <div class="update-foot">
+        <span>3 sources</span>
+        <span>2 repos</span>
+        <span>commit 16cde04</span>
+      </div>
+    </div>
+    <span class="update-arrow" aria-hidden="true">&rsaquo;</span>
+  </a><a class="update-card" href="/articles/2026-08-17-daily-api-discovery-pi-s-xai-route-keeps-reasoning-state-in-play/">
+    <div class="update-stripe"></div>
+    <div class="update-main">
+      <div class="update-meta">
+        <span>Reported</span>
+        <span class="source-plus">+3</span>
+        <span>Aug 17, 2026</span>
+      </div>
+      <h3>API Discovery: Pi’s xAI Route Keeps Reasoning State in Play</h3>
+      <div class="update-receipt">
+        <span>earendil-works/pi</span>
+        <span class="branch-pill">evidence</span>
+      </div>
+      <div class="update-foot">
+        <span>3 sources</span>
+        <span>1 repo</span>
+        <span>commit 70e878d</span>
+      </div>
+    </div>
+    <span class="update-arrow" aria-hidden="true">&rsaquo;</span>
+  </a>
+        </div>
+      </section>
+    </main>
+    <footer class="wrap site-footer">
+      <span>&copy; 2026 The Git Reporter</span>
+      <a href="/about/">About</a>
+      <a href="/battles/">Diff Derby</a>
+      <a href="/agent-pulse/">Agent Pulse</a>
+      <a href="/feed.xml">RSS</a>
+      <a href="https://x.com/TheGitReporter">Follow on X</a>
+      <a href="/articles.json">Manifest JSON</a>
+      <a href="/repos/">Sources</a>
+    </footer>
+  </div>
+</body>
+</html>

@@ -1,0 +1,275 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>When a Context Limit Drops the User’s Turn | The Git Reporter</title>
+  <meta name="description" content="OpenClaw found a required Codex compaction preflight treating an intentional no-op as a fatal failure—so an overlong session could lose the incoming user turn before the model ever answered.">
+  <meta name="robots" content="index,follow">
+  <link rel="canonical" href="https://thegitreporter.com/articles/2026-08-17-daily-when-a-context-limit-drops-the-user-s-turn/">
+  <link rel="alternate" type="application/rss+xml" title="The Git Reporter" href="https://thegitreporter.com/feed.xml">
+  <meta property="og:site_name" content="The Git Reporter">
+  <meta property="og:locale" content="en_US">
+  <meta property="og:title" content="When a Context Limit Drops the User’s Turn | The Git Reporter">
+  <meta property="og:description" content="OpenClaw found a required Codex compaction preflight treating an intentional no-op as a fatal failure—so an overlong session could lose the incoming user turn before the model ever answered.">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://thegitreporter.com/articles/2026-08-17-daily-when-a-context-limit-drops-the-user-s-turn/">
+  <meta property="og:image" content="https://thegitreporter.com/assets/social/2026-08-17-daily-when-a-context-limit-drops-the-user-s-turn-og.jpg">
+  <meta property="og:image:secure_url" content="https://thegitreporter.com/assets/social/2026-08-17-daily-when-a-context-limit-drops-the-user-s-turn-og.jpg">
+  <meta property="og:image:type" content="image/jpeg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="A rough paper diagram shows a user turn reaching required preflight, a crossed-out successful-but-uncompacted response, a circled Codex compaction request, and a stale-binding fallback card.">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:site" content="@TheGitReporter">
+  <meta name="twitter:creator" content="@TheGitReporter">
+  <meta name="twitter:title" content="When a Context Limit Drops the User’s Turn | The Git Reporter">
+  <meta name="twitter:description" content="OpenClaw found a required Codex compaction preflight treating an intentional no-op as a fatal failure—so an overlong session could lose the incoming user turn before the model ever answered.">
+  <meta name="twitter:url" content="https://thegitreporter.com/articles/2026-08-17-daily-when-a-context-limit-drops-the-user-s-turn/">
+  <meta name="twitter:domain" content="thegitreporter.com">
+  <meta name="twitter:image" content="https://thegitreporter.com/assets/social/2026-08-17-daily-when-a-context-limit-drops-the-user-s-turn-og.jpg">
+  <meta name="twitter:image:alt" content="A rough paper diagram shows a user turn reaching required preflight, a crossed-out successful-but-uncompacted response, a circled Codex compaction request, and a stale-binding fallback card.">
+  <meta property="article:published_time" content="2026-08-17T12:00:00Z">
+  <meta property="article:modified_time" content="2026-08-17T12:00:00Z">
+  <meta property="article:section" content="Daily Edition">
+  <meta property="article:tag" content="Permissions">
+  <meta property="article:tag" content="Memory">
+  <meta property="article:tag" content="Runtime">
+  <meta property="article:tag" content="openai/codex">
+  <meta property="article:tag" content="openclaw/openclaw">
+  <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"https://thegitreporter.com/#organization","name":"The Git Reporter","url":"https://thegitreporter.com","logo":{"@type":"ImageObject","url":"https://thegitreporter.com/assets/mark.svg"},"sameAs":["https://x.com/TheGitReporter"]},{"@type":"WebSite","@id":"https://thegitreporter.com/#website","name":"The Git Reporter","url":"https://thegitreporter.com","publisher":{"@id":"https://thegitreporter.com/#organization"}},{"@type":"NewsArticle","mainEntityOfPage":{"@type":"WebPage","@id":"https://thegitreporter.com/articles/2026-08-17-daily-when-a-context-limit-drops-the-user-s-turn/"},"headline":"When a Context Limit Drops the User’s Turn","description":"OpenClaw found a required Codex compaction preflight treating an intentional no-op as a fatal failure—so an overlong session could lose the incoming user turn before the model ever answered.","image":["https://thegitreporter.com/assets/social/2026-08-17-daily-when-a-context-limit-drops-the-user-s-turn-og.jpg"],"datePublished":"2026-08-17T12:00:00Z","dateModified":"2026-08-17T12:00:00Z","author":[{"@type":"Organization","name":"The Git Reporter","url":"https://thegitreporter.com"}],"publisher":{"@type":"Organization","@id":"https://thegitreporter.com/#organization","name":"The Git Reporter","url":"https://thegitreporter.com","logo":{"@type":"ImageObject","url":"https://thegitreporter.com/assets/mark.svg"},"sameAs":["https://x.com/TheGitReporter"]},"articleSection":"Daily Edition","keywords":"Permissions, Memory, Runtime, openai/codex, openclaw/openclaw"}]}</script>
+  <link rel="icon" href="/assets/mark.svg">
+  <link rel="stylesheet" href="/assets/site.css?v=2026-07-30-harness-memory">
+  <script defer src="/assets/feedback.js?v=2026-07-30-harness-memory"></script>
+  <script defer src="/assets/analytics.js?v=2026-07-30-harness-memory"></script>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-CH19T7M0T1"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){window.dataLayer.push(arguments);}
+    gtag("js", new Date());
+    gtag("config", "G-CH19T7M0T1");
+  </script>
+</head>
+<body>
+  <div class="site">
+    <header class="site-header" id="top">
+      <div class="wrap utility-row">
+        <a class="icon-link menu-icon" href="/archive/" aria-label="Open edition history"><span></span><span></span><span></span></a>
+        <a class="icon-link archive-icon" href="/archive/" aria-label="Open edition history"></a>
+      </div>
+      <div class="wrap masthead-lockup">
+        <a class="masthead-title" href="/">THE GIT REPORTER</a>
+        <div class="masthead-ornament" aria-hidden="true"></div>
+      </div>
+      <div class="wrap nav-wrap">
+        <nav class="paper-nav" aria-label="Primary navigation">
+    <a class="" href="/">Today</a><a class="active" href="/archive/">Editions</a><a class="" href="/about/">About</a><a class="" href="/battles/">Diff Derby</a><a class="" href="/agent-pulse/">Agent Pulse</a><a class="" href="/atlas/">Agent Atlas</a><a class="" href="/repos/">Repos</a>
+  </nav>
+        <div class="nav-rule"></div>
+      </div>
+    </header>
+    <main class="wrap page-shell article-page">
+      <section class="page-hero story-front">
+        <div class="story-topline">
+          <span>Daily Edition</span>
+          <span>Sources <strong>+3</strong></span>
+        </div>
+        <h1>When a Context Limit Drops the User’s Turn</h1>
+        <p class="summary">OpenClaw found a required Codex compaction preflight treating an intentional no-op as a fatal failure—so an overlong session could lose the incoming user turn before the model ever answered.</p>
+        <figure class="story-illustration article-illustration">
+    <img src="/assets/illustrations/2026-08-17-when-a-context-limit-drops-the-user-s-turn-diagram-punk-v1.png" alt="A rough paper diagram shows a user turn reaching required preflight, a crossed-out successful-but-uncompacted response, a circled Codex compaction request, and a stale-binding fallback card." loading="lazy" decoding="async">
+    <figcaption><span>Diagram Punk</span>a required preflight cannot mistake an uncompacted no-op for recovery.</figcaption>
+  </figure>
+        <div class="receipt">
+    <div class="receipt-line">
+      <span class="receipt-icon">repos</span>
+      <span class="receipt-main">openai/codex + openclaw/openclaw</span>
+      <span class="branch-pill">evidence</span>
+    </div>
+    <div class="receipt-line receipt-muted">
+      <span>3 source signals</span>
+      <span>2 repos</span>
+      <span>commit 16cde04</span>
+    </div>
+    <div class="commit-line">Evidence: commit 16cde04 / August 17, 2026 / Daily Edition</div>
+  </div>
+        <div class="article-route-row">
+          <a href="/editions/2026-08-17/">Open Edition</a>
+          <a href="#evidence">Evidence below</a>
+        </div>
+      </section>
+      <section class="story-reader">
+        <article class="story-shell story-body">
+          <p>OpenClaw <a href="https://github.com/openclaw/openclaw/issues/119971">issue #119971</a> records a concrete failure: a Codex app-server session crossed its budget, emitted an intentional “app-server owns automatic compaction” result, and then rejected the user’s message before a model call ran. That is the wrong way for a long conversation to become difficult. It should trim what it can, preserve useful state, and keep the next message moving—not drop the turn.</p>
+
+  <p>That sequence matters because the system had decided compaction was required. A result shaped like success—<code>ok: true</code>, but <code>compacted: false</code>—was only safe if something else had already done the recovery. Here, the reply-preflight path had not asked Codex to perform a non-manual native compaction, then treated the resulting skip as a hard failure. The public issue traces the mismatch from the budget gate to the user-facing error.</p>
+
+  <h2>A name for the handoff</h2>
+  <p>The fix in <a href="https://github.com/openclaw/openclaw/pull/120197">PR #120197</a> does more than bless the skip. It labels the request <code>required_preflight</code>, routes it through OpenClaw’s private native-compaction bridge, and asks the Codex app server to begin compaction. The accompanying <a href="https://github.com/openclaw/openclaw/commit/16cde041368f40fd287cd69ff823be537167666e">commit and tests</a> make the distinction visible: a required preflight records its origin and calls the native thread-compaction endpoint; a binding that changes underneath it becomes an explicit stale-binding failure so the existing context engine can take over.</p>
+
+  <p>That is a more demanding rule than “don’t error on a no-op.” If a preflight is mandatory, quietly accepting an uncompacted thread only hides the next failure. The patch also keeps its escape hatch narrow: the special recovery is for missing or stale Codex bindings in this preflight route, not a general permission to dissolve model locks or treat every skipped compaction as harmless.</p>
+
+  <h2>The next signal is a shipped path</h2>
+  <p>For an operator, the useful question is now precise: does the installed OpenClaw build contain this required-preflight route, and can a disposable Codex app-server session cross its context budget without discarding the next message? The evidence here is a public issue, PR, main-branch change, and focused tests—not a release receipt or a fleet reliability study. Watch for the version that carries the patch and for an independent end-to-end report; until then, “automatic compaction” is still a contract worth checking at the handoff.</p>
+        </article>
+      </section>
+      <section class="evidence-section" id="evidence" aria-labelledby="evidence-title">
+    <div class="evidence-head">
+      <div>
+        <div class="eyebrow">Evidence Trail</div>
+        <h2 id="evidence-title">Receipts below the story</h2>
+        <p>The article above is the public narrative. This section keeps the source trail and limits on the same page.</p>
+      </div>
+      <a class="paper-button" href="/editions/2026-08-17/">Edition</a>
+    </div>
+    <div class="evidence-table evidence-summary">
+      <div class="evidence-line"><span>Date</span><span>August 17, 2026</span></div>
+      <div class="evidence-line"><span>Lane</span><span>Daily Edition</span></div>
+      <div class="evidence-line"><span>Confidence</span><span>78%</span></div>
+      <div class="evidence-line"><span>Sources</span><span>3</span></div>
+      <div class="evidence-line"><span>Repos</span><span>openai/codex, openclaw/openclaw</span></div>
+    </div>
+    <div class="markdown evidence-copy evidence-copy-block">
+      <h2>Primary Evidence</h2>
+<ul>
+<li><a href="https://github.com/openclaw/openclaw/issues/119971">OpenClaw issue #119971: preflight compaction drops the user's turn</a>
+<ul>
+<li>Shows: a public reproduction in which a Codex app-server session crosses the budget, receives the intentional automatic-compaction no-op, and then aborts before a model call.
+</li>
+</ul>
+</li>
+<li><a href="https://github.com/openclaw/openclaw/pull/120197">OpenClaw pull request #120197: typed required-preflight compaction and narrow fallback</a>
+<ul>
+<li>Shows: the proposed repair changes required preflight into a native Codex request and treats missing or stale bindings as recoverable only through the existing context-engine path.
+</li>
+</ul>
+</li>
+<li><a href="https://github.com/openclaw/openclaw/commit/16cde041368f40fd287cd69ff823be537167666e">OpenClaw commit 16cde04136</a>
+<ul>
+<li>Shows: the inspected implementation and regression tests record the request origin, start <code>thread/compact/start</code> for a required preflight, and preserve a specific stale-binding failure instead of accepting an uncompacted success.
+</li>
+</ul>
+</li>
+</ul>
+<h2>Evidence Limits</h2>
+<ul>
+<li>These are public issue, PR, main-branch code, and tests. They do not prove a released build contains the fix, measure how often the failure occurs outside the reported case, or establish long-context reliability for other harnesses.
+</li>
+<li>Watch for a release note or independently reproducible operator report that identifies the shipped version and confirms the required-preflight path with a real Codex app-server session.
+</li>
+</ul>
+    </div>
+  </section>
+      <section class="related-edition-section atlas-context-section">
+    <div class="section-title-row">
+      <h2>Atlas Context</h2>
+      <a href="/atlas/">Open Atlas &rsaquo;</a>
+    </div>
+    <div class="updates-list">
+      <a class="article-card" href="/atlas/what-an-agent-can-see/">
+            <div class="article-meta"><span class="lane">Agent Atlas</span><span>Chapter 2</span></div>
+            <h3>The Invisible Prompt</h3>
+            <p>The model acts on an assembled viewport containing visible messages, hidden turn context, path-triggered instructions, memory records, tool schemas, permissions, and inherited state.</p>
+          </a>
+    </div>
+  </section>
+      <section class="reader-feedback"
+    data-tgr-feedback
+    data-article-slug="2026-08-17-daily-when-a-context-limit-drops-the-user-s-turn"
+    data-article-title="When a Context Limit Drops the User’s Turn"
+    data-article-url="/articles/2026-08-17-daily-when-a-context-limit-drops-the-user-s-turn/"
+    data-edition-date="2026-08-17"
+    data-lane="Daily Edition"
+    data-tags="Permissions,Memory,Runtime"
+    data-repos="openai/codex,openclaw/openclaw">
+    <div class="reader-feedback-head">
+      <div>
+        <div class="eyebrow">Letters &amp; Corrections</div>
+        <h2>Send a note to the desk</h2>
+      </div>
+      <p>Corrections, missing context, or a follow-up lead.</p>
+    </div>
+    <form class="feedback-form">
+      <div class="feedback-votes" role="group" aria-label="Choose signal type">
+        <button class="feedback-choice" type="button" data-vote="follow-up" aria-pressed="false">
+          <span aria-hidden="true">+</span>
+          <span>Follow-up</span>
+        </button>
+        <button class="feedback-choice" type="button" data-vote="correction" aria-pressed="false">
+          <span aria-hidden="true">!</span>
+          <span>Correction</span>
+        </button>
+      </div>
+      <label class="feedback-comment">
+        <span>Note for the editor</span>
+        <textarea name="comment" rows="3" maxlength="320" placeholder="What did we miss, or what should we follow next?"></textarea>
+      </label>
+      <div class="feedback-submit-row">
+        <p class="feedback-status" aria-live="polite"></p>
+        <button class="paper-button primary feedback-submit" type="submit">Send to desk</button>
+      </div>
+    </form>
+  </section>
+      <section class="related-edition-section">
+        <div class="section-title-row">
+          <h2>Same Edition</h2>
+          <a href="/editions/2026-08-17/">Open issue &rsaquo;</a>
+        </div>
+        <div class="updates-list">
+          <a class="update-card" href="/articles/2026-08-17-daily-api-discovery-pi-s-xai-route-keeps-reasoning-state-in-play/">
+    <div class="update-stripe"></div>
+    <div class="update-main">
+      <div class="update-meta">
+        <span>Reported</span>
+        <span class="source-plus">+3</span>
+        <span>Aug 17, 2026</span>
+      </div>
+      <h3>API Discovery: Pi’s xAI Route Keeps Reasoning State in Play</h3>
+      <div class="update-receipt">
+        <span>earendil-works/pi</span>
+        <span class="branch-pill">evidence</span>
+      </div>
+      <div class="update-foot">
+        <span>3 sources</span>
+        <span>1 repo</span>
+        <span>commit 70e878d</span>
+      </div>
+    </div>
+    <span class="update-arrow" aria-hidden="true">&rsaquo;</span>
+  </a><a class="update-card" href="/articles/2026-08-17-daily-builder-work-a-test-double-is-a-contract/">
+    <div class="update-stripe"></div>
+    <div class="update-main">
+      <div class="update-meta">
+        <span>Context</span>
+        <span class="source-plus">+3</span>
+        <span>Aug 17, 2026</span>
+      </div>
+      <h3>Builder Work: A Test Double Is a Contract</h3>
+      <div class="update-receipt">
+        <span>source trail</span>
+        <span class="branch-pill">evidence</span>
+      </div>
+      <div class="update-foot">
+        <span>3 sources</span>
+        <span>0 repos</span>
+        <span>commit 1351478</span>
+      </div>
+    </div>
+    <span class="update-arrow" aria-hidden="true">&rsaquo;</span>
+  </a>
+        </div>
+      </section>
+    </main>
+    <footer class="wrap site-footer">
+      <span>&copy; 2026 The Git Reporter</span>
+      <a href="/about/">About</a>
+      <a href="/battles/">Diff Derby</a>
+      <a href="/agent-pulse/">Agent Pulse</a>
+      <a href="/feed.xml">RSS</a>
+      <a href="https://x.com/TheGitReporter">Follow on X</a>
+      <a href="/articles.json">Manifest JSON</a>
+      <a href="/repos/">Sources</a>
+    </footer>
+  </div>
+</body>
+</html>
