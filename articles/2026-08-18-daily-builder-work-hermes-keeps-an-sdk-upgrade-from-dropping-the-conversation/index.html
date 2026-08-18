@@ -1,0 +1,280 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Builder Work: Hermes Keeps an SDK Upgrade From Dropping the Conversation | The Git Reporter</title>
+  <meta name="description" content="A public Claude-assisted MCP migration in Hermes Agent shows the durable craft: make a compatibility seam explicit, then test every way an upgrade can lose meaning without crashing.">
+  <meta name="robots" content="index,follow">
+  <link rel="canonical" href="https://thegitreporter.com/articles/2026-08-18-daily-builder-work-hermes-keeps-an-sdk-upgrade-from-dropping-the-conversation/">
+  <link rel="alternate" type="application/rss+xml" title="The Git Reporter" href="https://thegitreporter.com/feed.xml">
+  <meta property="og:site_name" content="The Git Reporter">
+  <meta property="og:locale" content="en_US">
+  <meta property="og:title" content="Builder Work: Hermes Keeps an SDK Upgrade From Dropping the Conversation | The Git Reporter">
+  <meta property="og:description" content="A public Claude-assisted MCP migration in Hermes Agent shows the durable craft: make a compatibility seam explicit, then test every way an upgrade can lose meaning without crashing.">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://thegitreporter.com/articles/2026-08-18-daily-builder-work-hermes-keeps-an-sdk-upgrade-from-dropping-the-conversation/">
+  <meta property="og:image" content="https://thegitreporter.com/assets/social/2026-08-18-daily-builder-work-hermes-keeps-an-sdk-upgrade-from-dropping-the-conversation-og.jpg">
+  <meta property="og:image:secure_url" content="https://thegitreporter.com/assets/social/2026-08-18-daily-builder-work-hermes-keeps-an-sdk-upgrade-from-dropping-the-conversation-og.jpg">
+  <meta property="og:image:type" content="image/jpeg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="A rough-marker diagram connects a Hermes MCP field adapter and HTTP transport change to a public server test, with a broken-arrow warning beside a tool-result card.">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:site" content="@TheGitReporter">
+  <meta name="twitter:creator" content="@TheGitReporter">
+  <meta name="twitter:title" content="Builder Work: Hermes Keeps an SDK Upgrade From Dropping the Conversation | The Git Reporter">
+  <meta name="twitter:description" content="A public Claude-assisted MCP migration in Hermes Agent shows the durable craft: make a compatibility seam explicit, then test every way an upgrade can lose meaning without crashing.">
+  <meta name="twitter:url" content="https://thegitreporter.com/articles/2026-08-18-daily-builder-work-hermes-keeps-an-sdk-upgrade-from-dropping-the-conversation/">
+  <meta name="twitter:domain" content="thegitreporter.com">
+  <meta name="twitter:image" content="https://thegitreporter.com/assets/social/2026-08-18-daily-builder-work-hermes-keeps-an-sdk-upgrade-from-dropping-the-conversation-og.jpg">
+  <meta name="twitter:image:alt" content="A rough-marker diagram connects a Hermes MCP field adapter and HTTP transport change to a public server test, with a broken-arrow warning beside a tool-result card.">
+  <meta property="article:published_time" content="2026-08-18T12:00:00Z">
+  <meta property="article:modified_time" content="2026-08-18T12:00:00Z">
+  <meta property="article:section" content="Daily Edition">
+  <meta property="article:tag" content="Memory">
+  <meta property="article:tag" content="Tools">
+  <meta property="article:tag" content="NousResearch/hermes-agent">
+  <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"https://thegitreporter.com/#organization","name":"The Git Reporter","url":"https://thegitreporter.com","logo":{"@type":"ImageObject","url":"https://thegitreporter.com/assets/mark.svg"},"sameAs":["https://x.com/TheGitReporter"]},{"@type":"WebSite","@id":"https://thegitreporter.com/#website","name":"The Git Reporter","url":"https://thegitreporter.com","publisher":{"@id":"https://thegitreporter.com/#organization"}},{"@type":"NewsArticle","mainEntityOfPage":{"@type":"WebPage","@id":"https://thegitreporter.com/articles/2026-08-18-daily-builder-work-hermes-keeps-an-sdk-upgrade-from-dropping-the-conversation/"},"headline":"Builder Work: Hermes Keeps an SDK Upgrade From Dropping the Conversation","description":"A public Claude-assisted MCP migration in Hermes Agent shows the durable craft: make a compatibility seam explicit, then test every way an upgrade can lose meaning without crashing.","image":["https://thegitreporter.com/assets/social/2026-08-18-daily-builder-work-hermes-keeps-an-sdk-upgrade-from-dropping-the-conversation-og.jpg"],"datePublished":"2026-08-18T12:00:00Z","dateModified":"2026-08-18T12:00:00Z","author":[{"@type":"Organization","name":"The Git Reporter","url":"https://thegitreporter.com"}],"publisher":{"@type":"Organization","@id":"https://thegitreporter.com/#organization","name":"The Git Reporter","url":"https://thegitreporter.com","logo":{"@type":"ImageObject","url":"https://thegitreporter.com/assets/mark.svg"},"sameAs":["https://x.com/TheGitReporter"]},"articleSection":"Daily Edition","keywords":"Memory, Tools, NousResearch/hermes-agent"}]}</script>
+  <link rel="icon" href="/assets/mark.svg">
+  <link rel="stylesheet" href="/assets/site.css?v=2026-07-30-harness-memory">
+  <script defer src="/assets/feedback.js?v=2026-07-30-harness-memory"></script>
+  <script defer src="/assets/analytics.js?v=2026-07-30-harness-memory"></script>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-CH19T7M0T1"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){window.dataLayer.push(arguments);}
+    gtag("js", new Date());
+    gtag("config", "G-CH19T7M0T1");
+  </script>
+</head>
+<body>
+  <div class="site">
+    <header class="site-header" id="top">
+      <div class="wrap utility-row">
+        <a class="icon-link menu-icon" href="/archive/" aria-label="Open edition history"><span></span><span></span><span></span></a>
+        <a class="icon-link archive-icon" href="/archive/" aria-label="Open edition history"></a>
+      </div>
+      <div class="wrap masthead-lockup">
+        <a class="masthead-title" href="/">THE GIT REPORTER</a>
+        <div class="masthead-ornament" aria-hidden="true"></div>
+      </div>
+      <div class="wrap nav-wrap">
+        <nav class="paper-nav" aria-label="Primary navigation">
+    <a class="" href="/">Today</a><a class="active" href="/archive/">Editions</a><a class="" href="/about/">About</a><a class="" href="/battles/">Diff Derby</a><a class="" href="/agent-pulse/">Agent Pulse</a><a class="" href="/atlas/">Agent Atlas</a><a class="" href="/repos/">Repos</a>
+  </nav>
+        <div class="nav-rule"></div>
+      </div>
+    </header>
+    <main class="wrap page-shell article-page">
+      <section class="page-hero story-front">
+        <div class="story-topline">
+          <span>Daily Edition</span>
+          <span>Sources <strong>+4</strong></span>
+        </div>
+        <h1>Builder Work: Hermes Keeps an SDK Upgrade From Dropping the Conversation</h1>
+        <p class="summary">A public Claude-assisted MCP migration in Hermes Agent shows the durable craft: make a compatibility seam explicit, then test every way an upgrade can lose meaning without crashing.</p>
+        <figure class="story-illustration article-illustration">
+    <img src="/assets/illustrations/2026-08-18-builder-work-hermes-keeps-an-sdk-upgrade-from-dropping-the-conversation-diagram-punk-v1.png" alt="A rough-marker diagram connects a Hermes MCP field adapter and HTTP transport change to a public server test, with a broken-arrow warning beside a tool-result card." loading="lazy" decoding="async">
+    <figcaption><span>Diagram Punk</span>version changes deserve adapters and tests for what can disappear silently.</figcaption>
+  </figure>
+        <div class="receipt">
+    <div class="receipt-line">
+      <span class="receipt-icon">repo</span>
+      <span class="receipt-main">NousResearch/hermes-agent</span>
+      <span class="branch-pill">evidence</span>
+    </div>
+    <div class="receipt-line receipt-muted">
+      <span>4 source signals</span>
+      <span>1 repo</span>
+      <span>commit 11a9dcf</span>
+    </div>
+    <div class="commit-line">Evidence: commit 11a9dcf / August 18, 2026 / Daily Edition</div>
+  </div>
+        <div class="article-route-row">
+          <a href="/editions/2026-08-18/">Open Edition</a>
+          <a href="#evidence">Evidence below</a>
+        </div>
+      </section>
+      <section class="story-reader">
+        <article class="story-shell story-body">
+          <p>Dependency upgrades are often presented as a version number and a green lockfile. Hermes Agent’s <a href="https://github.com/NousResearch/hermes-agent/commit/11a9dcf56743c2e4a0866b6bd5fbae2dfa5d32ff">MCP 2.0 migration</a> is the more useful kind of public receipt: it names <code>Claude Opus 5 (1M context)</code> in its co-author metadata, then shows the unglamorous work needed to keep an agent conversation intact after an SDK changes its surface.</p>
+
+  <h2>The repo evidence</h2>
+  <p>MCP 2.0 moved model fields from camelCase to snake_case, changed the server import, and moved its HTTP stack to a different module. Hermes did not scatter version checks through its tools. In the inspected <a href="https://github.com/NousResearch/hermes-agent/blob/11a9dcf56743c2e4a0866b6bd5fbae2dfa5d32ff/tools/mcp_tool.py">MCP tool module</a>, <code>mcp_field</code> reads both field spellings while <code>sdk_httpx()</code> asks the installed SDK which HTTP implementation it actually uses.</p>
+
+  <p>That distinction is not cosmetic. A missing field alias could make a failed tool result look successful, an image lose its MIME type, or pagination stop after the first page. The migration also moves server tests toward <code>MCPServer.call_tool</code>, the public call surface, instead of a private manager whose contract changed beneath it.</p>
+
+  <h2>The transferable skill</h2>
+  <p><strong>The transferable building skill:</strong> treat a library upgrade as a translation boundary, not a find-and-replace exercise. Put field normalization and foreign-client selection behind small adapters; then write tests for the dangerous direction of failure—the response that looks plausible but has silently lost a tool result, a cursor, or an auth error. Builders can reuse that pattern whenever an agent spans an SDK, a protocol, and an optional dependency.</p>
+
+  <h2>The limit</h2>
+  <p>The co-author trailer is public proof of coding-agent participation, not an audit of who wrote which line or a guarantee of correctness. The commit and tests describe merged source; they do not prove a released package, a reader’s dependency mix, or interoperability with every MCP server. The next meaningful receipt would be a release note and a real cross-version connection test.</p>
+        </article>
+      </section>
+      <section class="evidence-section" id="evidence" aria-labelledby="evidence-title">
+    <div class="evidence-head">
+      <div>
+        <div class="eyebrow">Evidence Trail</div>
+        <h2 id="evidence-title">Receipts below the story</h2>
+        <p>The article above is the public narrative. This section keeps the source trail and limits on the same page.</p>
+      </div>
+      <a class="paper-button" href="/editions/2026-08-18/">Edition</a>
+    </div>
+    <div class="evidence-table evidence-summary">
+      <div class="evidence-line"><span>Date</span><span>August 18, 2026</span></div>
+      <div class="evidence-line"><span>Lane</span><span>Daily Edition</span></div>
+      <div class="evidence-line"><span>Confidence</span><span>78%</span></div>
+      <div class="evidence-line"><span>Sources</span><span>4</span></div>
+      <div class="evidence-line"><span>Repos</span><span>NousResearch/hermes-agent</span></div>
+    </div>
+    <div class="markdown evidence-copy evidence-copy-block">
+      <h2>Primary Evidence</h2>
+<ul>
+<li>Public coding-agent use proof: <a href="https://github.com/NousResearch/hermes-agent/commit/11a9dcf56743c2e4a0866b6bd5fbae2dfa5d32ff">https://github.com/NousResearch/hermes-agent/commit/11a9dcf56743c2e4a0866b6bd5fbae2dfa5d32ff</a>
+<ul>
+<li>Shows: the public commit message names <code>Claude Opus 5 (1M context)</code> in a <code>Co-Authored-By</code> trailer, which is a disclosed record that a coding agent assisted this migration; it does not quantify that assistance.
+</li>
+</ul>
+</li>
+<li>Inspected GitHub repository: <a href="https://github.com/NousResearch/hermes-agent/blob/11a9dcf56743c2e4a0866b6bd5fbae2dfa5d32ff/tools/mcp_tool.py">https://github.com/NousResearch/hermes-agent/blob/11a9dcf56743c2e4a0866b6bd5fbae2dfa5d32ff/tools/mcp_tool.py</a>
+<ul>
+<li>Shows: the inspected <code>tools/mcp_tool.py</code> module centralizes MCP 1.x/2.0 field access with <code>mcp_field</code>, selects the SDK's own HTTP module, and updates the MCP client code path rather than limiting the migration to dependency metadata.
+</li>
+</ul>
+</li>
+<li>Engineering receipt: <a href="https://github.com/NousResearch/hermes-agent/blob/11a9dcf56743c2e4a0866b6bd5fbae2dfa5d32ff/tests/test_mcp_serve.py">https://github.com/NousResearch/hermes-agent/blob/11a9dcf56743c2e4a0866b6bd5fbae2dfa5d32ff/tests/test_mcp_serve.py</a>
+<ul>
+<li>Shows: focused integration tests moved from a private tool manager to the server's public <code>call_tool</code> API and handle both result shapes, proving the migration covers a concrete server integration and its test contract.
+</li>
+</ul>
+</li>
+<li>Supporting protocol definition: <a href="https://modelcontextprotocol.io/specification/2026-07-28">https://modelcontextprotocol.io/specification/2026-07-28</a>
+<ul>
+<li>Shows: the public MCP specification provides the protocol context for the migration but does not itself certify the Hermes implementation.
+</li>
+</ul>
+</li>
+</ul>
+<h2>Evidence Limits</h2>
+<ul>
+<li>The co-author trailer proves disclosed coding-agent participation, not a contribution share, authorship attribution beyond the commit, or a release outcome.
+</li>
+<li>Merged source and tests do not prove that all installations use MCP 2.0 successfully, that every optional dependency combination works, or that a release includes the change.
+</li>
+</ul>
+    </div>
+  </section>
+      <section class="related-edition-section atlas-context-section">
+    <div class="section-title-row">
+      <h2>Atlas Context</h2>
+      <a href="/atlas/">Open Atlas &rsaquo;</a>
+    </div>
+    <div class="updates-list">
+      <a class="article-card" href="/atlas/hands-in-the-world/">
+            <div class="article-meta"><span class="lane">Agent Atlas</span><span>Chapter 3</span></div>
+            <h3>Tool Calls: Contract, Authorization, Execution</h3>
+            <p>A tool call crosses independently governed boundaries: schema, registration, policy, approval, execution authority, result handling, and audit.</p>
+          </a>
+    </div>
+  </section>
+      <section class="reader-feedback"
+    data-tgr-feedback
+    data-article-slug="2026-08-18-daily-builder-work-hermes-keeps-an-sdk-upgrade-from-dropping-the-conversation"
+    data-article-title="Builder Work: Hermes Keeps an SDK Upgrade From Dropping the Conversation"
+    data-article-url="/articles/2026-08-18-daily-builder-work-hermes-keeps-an-sdk-upgrade-from-dropping-the-conversation/"
+    data-edition-date="2026-08-18"
+    data-lane="Daily Edition"
+    data-tags="Memory,Tools"
+    data-repos="NousResearch/hermes-agent">
+    <div class="reader-feedback-head">
+      <div>
+        <div class="eyebrow">Letters &amp; Corrections</div>
+        <h2>Send a note to the desk</h2>
+      </div>
+      <p>Corrections, missing context, or a follow-up lead.</p>
+    </div>
+    <form class="feedback-form">
+      <div class="feedback-votes" role="group" aria-label="Choose signal type">
+        <button class="feedback-choice" type="button" data-vote="follow-up" aria-pressed="false">
+          <span aria-hidden="true">+</span>
+          <span>Follow-up</span>
+        </button>
+        <button class="feedback-choice" type="button" data-vote="correction" aria-pressed="false">
+          <span aria-hidden="true">!</span>
+          <span>Correction</span>
+        </button>
+      </div>
+      <label class="feedback-comment">
+        <span>Note for the editor</span>
+        <textarea name="comment" rows="3" maxlength="320" placeholder="What did we miss, or what should we follow next?"></textarea>
+      </label>
+      <div class="feedback-submit-row">
+        <p class="feedback-status" aria-live="polite"></p>
+        <button class="paper-button primary feedback-submit" type="submit">Send to desk</button>
+      </div>
+    </form>
+  </section>
+      <section class="related-edition-section">
+        <div class="section-title-row">
+          <h2>Same Edition</h2>
+          <a href="/editions/2026-08-18/">Open issue &rsaquo;</a>
+        </div>
+        <div class="updates-list">
+          <a class="update-card" href="/articles/2026-08-18-daily-an-agent-can-t-review-the-wrong-tree/">
+    <div class="update-stripe"></div>
+    <div class="update-main">
+      <div class="update-meta">
+        <span>Agents</span>
+        <span class="source-plus">+3</span>
+        <span>Aug 18, 2026</span>
+      </div>
+      <h3>An Agent Can’t Review the Wrong Tree</h3>
+      <div class="update-receipt">
+        <span>source trail</span>
+        <span class="branch-pill">evidence</span>
+      </div>
+      <div class="update-foot">
+        <span>3 sources</span>
+        <span>0 repos</span>
+        <span>commit 2bbaafb</span>
+      </div>
+    </div>
+    <span class="update-arrow" aria-hidden="true">&rsaquo;</span>
+  </a><a class="update-card" href="/articles/2026-08-18-daily-api-discovery-cloudflare-s-gateway-keeps-native-agent-apis-intact/">
+    <div class="update-stripe"></div>
+    <div class="update-main">
+      <div class="update-meta">
+        <span>Reported</span>
+        <span class="source-plus">+3</span>
+        <span>Aug 18, 2026</span>
+      </div>
+      <h3>API Discovery: Cloudflare’s Gateway Keeps Native Agent APIs Intact</h3>
+      <div class="update-receipt">
+        <span>anomalyco/opencode</span>
+        <span class="branch-pill">evidence</span>
+      </div>
+      <div class="update-foot">
+        <span>3 sources</span>
+        <span>1 repo</span>
+        <span>commit cba6b5f</span>
+      </div>
+    </div>
+    <span class="update-arrow" aria-hidden="true">&rsaquo;</span>
+  </a>
+        </div>
+      </section>
+    </main>
+    <footer class="wrap site-footer">
+      <span>&copy; 2026 The Git Reporter</span>
+      <a href="/about/">About</a>
+      <a href="/battles/">Diff Derby</a>
+      <a href="/agent-pulse/">Agent Pulse</a>
+      <a href="/feed.xml">RSS</a>
+      <a href="https://x.com/TheGitReporter">Follow on X</a>
+      <a href="/articles.json">Manifest JSON</a>
+      <a href="/repos/">Sources</a>
+    </footer>
+  </div>
+</body>
+</html>

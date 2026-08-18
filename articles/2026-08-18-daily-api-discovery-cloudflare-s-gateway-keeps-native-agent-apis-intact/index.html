@@ -1,0 +1,273 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>API Discovery: Cloudflare’s Gateway Keeps Native Agent APIs Intact | The Git Reporter</title>
+  <meta name="description" content="Cloudflare’s public Responses and Messages endpoints give agent builders a choice that generic gateway adapters often erase: keep the provider-shaped request format that the workflow actually needs.">
+  <meta name="robots" content="index,follow">
+  <link rel="canonical" href="https://thegitreporter.com/articles/2026-08-18-daily-api-discovery-cloudflare-s-gateway-keeps-native-agent-apis-intact/">
+  <link rel="alternate" type="application/rss+xml" title="The Git Reporter" href="https://thegitreporter.com/feed.xml">
+  <meta property="og:site_name" content="The Git Reporter">
+  <meta property="og:locale" content="en_US">
+  <meta property="og:title" content="API Discovery: Cloudflare’s Gateway Keeps Native Agent APIs Intact | The Git Reporter">
+  <meta property="og:description" content="Cloudflare’s public Responses and Messages endpoints give agent builders a choice that generic gateway adapters often erase: keep the provider-shaped request format that the workflow actually needs.">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://thegitreporter.com/articles/2026-08-18-daily-api-discovery-cloudflare-s-gateway-keeps-native-agent-apis-intact/">
+  <meta property="og:image" content="https://thegitreporter.com/assets/social/2026-08-18-daily-api-discovery-cloudflare-s-gateway-keeps-native-agent-apis-intact-og.jpg">
+  <meta property="og:image:secure_url" content="https://thegitreporter.com/assets/social/2026-08-18-daily-api-discovery-cloudflare-s-gateway-keeps-native-agent-apis-intact-og.jpg">
+  <meta property="og:image:type" content="image/jpeg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="A rough-marker routing diagram links Cloudflare Responses and Messages endpoint cards to matching OpenAI and Anthropic route cards, with an access-and-credits caveat stamp.">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:site" content="@TheGitReporter">
+  <meta name="twitter:creator" content="@TheGitReporter">
+  <meta name="twitter:title" content="API Discovery: Cloudflare’s Gateway Keeps Native Agent APIs Intact | The Git Reporter">
+  <meta name="twitter:description" content="Cloudflare’s public Responses and Messages endpoints give agent builders a choice that generic gateway adapters often erase: keep the provider-shaped request format that the workflow actually needs.">
+  <meta name="twitter:url" content="https://thegitreporter.com/articles/2026-08-18-daily-api-discovery-cloudflare-s-gateway-keeps-native-agent-apis-intact/">
+  <meta name="twitter:domain" content="thegitreporter.com">
+  <meta name="twitter:image" content="https://thegitreporter.com/assets/social/2026-08-18-daily-api-discovery-cloudflare-s-gateway-keeps-native-agent-apis-intact-og.jpg">
+  <meta name="twitter:image:alt" content="A rough-marker routing diagram links Cloudflare Responses and Messages endpoint cards to matching OpenAI and Anthropic route cards, with an access-and-credits caveat stamp.">
+  <meta property="article:published_time" content="2026-08-18T12:00:00Z">
+  <meta property="article:modified_time" content="2026-08-18T12:00:00Z">
+  <meta property="article:section" content="Daily Edition">
+  <meta property="article:tag" content="UX">
+  <meta property="article:tag" content="anomalyco/opencode">
+  <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"https://thegitreporter.com/#organization","name":"The Git Reporter","url":"https://thegitreporter.com","logo":{"@type":"ImageObject","url":"https://thegitreporter.com/assets/mark.svg"},"sameAs":["https://x.com/TheGitReporter"]},{"@type":"WebSite","@id":"https://thegitreporter.com/#website","name":"The Git Reporter","url":"https://thegitreporter.com","publisher":{"@id":"https://thegitreporter.com/#organization"}},{"@type":"NewsArticle","mainEntityOfPage":{"@type":"WebPage","@id":"https://thegitreporter.com/articles/2026-08-18-daily-api-discovery-cloudflare-s-gateway-keeps-native-agent-apis-intact/"},"headline":"API Discovery: Cloudflare’s Gateway Keeps Native Agent APIs Intact","description":"Cloudflare’s public Responses and Messages endpoints give agent builders a choice that generic gateway adapters often erase: keep the provider-shaped request format that the workflow actually needs.","image":["https://thegitreporter.com/assets/social/2026-08-18-daily-api-discovery-cloudflare-s-gateway-keeps-native-agent-apis-intact-og.jpg"],"datePublished":"2026-08-18T12:00:00Z","dateModified":"2026-08-18T12:00:00Z","author":[{"@type":"Organization","name":"The Git Reporter","url":"https://thegitreporter.com"}],"publisher":{"@type":"Organization","@id":"https://thegitreporter.com/#organization","name":"The Git Reporter","url":"https://thegitreporter.com","logo":{"@type":"ImageObject","url":"https://thegitreporter.com/assets/mark.svg"},"sameAs":["https://x.com/TheGitReporter"]},"articleSection":"Daily Edition","keywords":"UX, anomalyco/opencode"}]}</script>
+  <link rel="icon" href="/assets/mark.svg">
+  <link rel="stylesheet" href="/assets/site.css?v=2026-07-30-harness-memory">
+  <script defer src="/assets/feedback.js?v=2026-07-30-harness-memory"></script>
+  <script defer src="/assets/analytics.js?v=2026-07-30-harness-memory"></script>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-CH19T7M0T1"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){window.dataLayer.push(arguments);}
+    gtag("js", new Date());
+    gtag("config", "G-CH19T7M0T1");
+  </script>
+</head>
+<body>
+  <div class="site">
+    <header class="site-header" id="top">
+      <div class="wrap utility-row">
+        <a class="icon-link menu-icon" href="/archive/" aria-label="Open edition history"><span></span><span></span><span></span></a>
+        <a class="icon-link archive-icon" href="/archive/" aria-label="Open edition history"></a>
+      </div>
+      <div class="wrap masthead-lockup">
+        <a class="masthead-title" href="/">THE GIT REPORTER</a>
+        <div class="masthead-ornament" aria-hidden="true"></div>
+      </div>
+      <div class="wrap nav-wrap">
+        <nav class="paper-nav" aria-label="Primary navigation">
+    <a class="" href="/">Today</a><a class="active" href="/archive/">Editions</a><a class="" href="/about/">About</a><a class="" href="/battles/">Diff Derby</a><a class="" href="/agent-pulse/">Agent Pulse</a><a class="" href="/atlas/">Agent Atlas</a><a class="" href="/repos/">Repos</a>
+  </nav>
+        <div class="nav-rule"></div>
+      </div>
+    </header>
+    <main class="wrap page-shell article-page">
+      <section class="page-hero story-front">
+        <div class="story-topline">
+          <span>Daily Edition</span>
+          <span>Sources <strong>+3</strong></span>
+        </div>
+        <h1>API Discovery: Cloudflare’s Gateway Keeps Native Agent APIs Intact</h1>
+        <p class="summary">Cloudflare’s public Responses and Messages endpoints give agent builders a choice that generic gateway adapters often erase: keep the provider-shaped request format that the workflow actually needs.</p>
+        <figure class="story-illustration article-illustration">
+    <img src="/assets/illustrations/2026-08-18-api-discovery-cloudflare-s-gateway-keeps-native-agent-apis-intact-diagram-punk-v1.png" alt="A rough-marker routing diagram links Cloudflare Responses and Messages endpoint cards to matching OpenAI and Anthropic route cards, with an access-and-credits caveat stamp." loading="lazy" decoding="async">
+    <figcaption><span>Diagram Punk</span>choose the public endpoint whose request semantics match the job.</figcaption>
+  </figure>
+        <div class="receipt">
+    <div class="receipt-line">
+      <span class="receipt-icon">repo</span>
+      <span class="receipt-main">anomalyco/opencode</span>
+      <span class="branch-pill">evidence</span>
+    </div>
+    <div class="receipt-line receipt-muted">
+      <span>3 source signals</span>
+      <span>1 repo</span>
+      <span>commit cba6b5f</span>
+    </div>
+    <div class="commit-line">Evidence: commit cba6b5f / August 18, 2026 / Daily Edition</div>
+  </div>
+        <div class="article-route-row">
+          <a href="/editions/2026-08-18/">Open Edition</a>
+          <a href="#evidence">Evidence below</a>
+        </div>
+      </section>
+      <section class="story-reader">
+        <article class="story-shell story-body">
+          <p><strong>API discovery:</strong> Cloudflare documents <a href="https://developers.cloudflare.com/ai-gateway/usage/rest-api/"><code>POST /ai/v1/responses</code></a> as its OpenAI Responses-compatible surface for agentic workflows, alongside a separate Messages endpoint. That distinction became newly practical in <a href="https://github.com/anomalyco/opencode/commit/cba6b5f2f74080239cdc7405efcb83219c980136">OpenCode's merged gateway routing</a>: OpenAI models are sent through a native Responses path and Anthropic models through a native Messages path, rather than both being squeezed through a compatible chat endpoint.</p>
+
+  <p>The consequence is plain. A coding or repair agent that depends on the Responses API's request semantics should be tested on the route that speaks Responses, not on a translation layer that happens to accept a similar model name. Cloudflare says those public REST routes apply its configured gateway controls while authenticating through the account.</p>
+
+  <h2>Practical example: a bounded repair rehearsal</h2>
+  <p>Build a disposable one-turn repair rehearsal: ask an OpenAI Responses-compatible model to turn a fictional bug report into a short patch plan and a test checklist, then inspect the request and response shape before connecting it to a repository. The useful experiment is not “does an LLM answer?” but whether your agent harness preserves the endpoint and model semantics you intended.</p>
+
+  <h2>Copy-paste agent instruction</h2>
+  <pre><code>In a new disposable project, prepare but do not execute a minimal OpenAI Responses API smoke test for Cloudflare AI Gateway. Use the documented REST base URL ending in /ai/v1, read the Cloudflare token only from an environment variable, and send one fictional bug report to an openai/ model through responses.create. Produce: (1) a short setup README, (2) code that redacts credentials from logs, and (3) an assertion that the response can be recorded without sending repository contents. Do not create tokens, do not call a live endpoint, and flag the account, credit, and model-access checks the operator must complete first.</code></pre>
+
+  <h2>Access and test caveat</h2>
+  <p>This is a preparation recipe, not a claim that the request will run everywhere. Cloudflare access requires the right account token and credits, and model availability can differ by provider and account. The OpenCode change is merged-source evidence with a stubbed network test; verify the installed version, keep the first call synthetic, and never place provider or gateway credentials in an agent prompt or source-control file.</p>
+        </article>
+      </section>
+      <section class="evidence-section" id="evidence" aria-labelledby="evidence-title">
+    <div class="evidence-head">
+      <div>
+        <div class="eyebrow">Evidence Trail</div>
+        <h2 id="evidence-title">Receipts below the story</h2>
+        <p>The article above is the public narrative. This section keeps the source trail and limits on the same page.</p>
+      </div>
+      <a class="paper-button" href="/editions/2026-08-18/">Edition</a>
+    </div>
+    <div class="evidence-table evidence-summary">
+      <div class="evidence-line"><span>Date</span><span>August 18, 2026</span></div>
+      <div class="evidence-line"><span>Lane</span><span>Daily Edition</span></div>
+      <div class="evidence-line"><span>Confidence</span><span>78%</span></div>
+      <div class="evidence-line"><span>Sources</span><span>3</span></div>
+      <div class="evidence-line"><span>Repos</span><span>anomalyco/opencode</span></div>
+    </div>
+    <div class="markdown evidence-copy evidence-copy-block">
+      <h2>Primary Evidence</h2>
+<ul>
+<li>Public API source: <a href="https://developers.cloudflare.com/ai-gateway/usage/rest-api/">https://developers.cloudflare.com/ai-gateway/usage/rest-api/</a>
+<ul>
+<li>Shows: Cloudflare publishes an AI Gateway REST API with <code>POST /ai/v1/responses</code> for OpenAI Responses-compatible agentic workflows, distinct endpoint choices, provider-qualified model names, and Cloudflare account authentication and billing conditions.
+</li>
+</ul>
+</li>
+<li>Supporting definition or documentation: <a href="https://developers.cloudflare.com/ai-gateway/usage/providers/openai/">https://developers.cloudflare.com/ai-gateway/usage/providers/openai/</a>
+<ul>
+<li>Shows: the provider documentation defines the OpenAI-native Responses request endpoint, request shape, and the gateway authentication boundary for provider-native calls.
+</li>
+</ul>
+</li>
+<li>OpenCode routing and test receipt: <a href="https://github.com/anomalyco/opencode/commit/cba6b5f2f74080239cdc7405efcb83219c980136">https://github.com/anomalyco/opencode/commit/cba6b5f2f74080239cdc7405efcb83219c980136</a>
+<ul>
+<li>Shows: merged OpenCode source directs <code>openai/</code> models through a native OpenAI Responses path and <code>anthropic/</code> models through Messages, with tests that keep the Cloudflare gateway token out of third-party upstream authorization headers.
+</li>
+</ul>
+</li>
+</ul>
+<h2>Evidence Limits</h2>
+<ul>
+<li>The API requires appropriate Cloudflare account access, a token, and credits; model and feature availability can vary by account and provider.
+</li>
+<li>The OpenCode receipt is merged code with stubbed network tests. It does not prove a released OpenCode version, a configured gateway, or the result of a live request.
+</li>
+</ul>
+    </div>
+  </section>
+      <section class="related-edition-section atlas-context-section">
+    <div class="section-title-row">
+      <h2>Atlas Context</h2>
+      <a href="/atlas/">Open Atlas &rsaquo;</a>
+    </div>
+    <div class="updates-list">
+      <a class="article-card" href="/atlas/the-human-interface/">
+            <div class="article-meta"><span class="lane">Agent Atlas</span><span>Chapter 8</span></div>
+            <h3>The Human Control Loop</h3>
+            <p>A useful interface exposes active work, gives intervention a defined runtime effect, preserves evidence during correction, and resumes the intended session.</p>
+          </a>
+    </div>
+  </section>
+      <section class="reader-feedback"
+    data-tgr-feedback
+    data-article-slug="2026-08-18-daily-api-discovery-cloudflare-s-gateway-keeps-native-agent-apis-intact"
+    data-article-title="API Discovery: Cloudflare’s Gateway Keeps Native Agent APIs Intact"
+    data-article-url="/articles/2026-08-18-daily-api-discovery-cloudflare-s-gateway-keeps-native-agent-apis-intact/"
+    data-edition-date="2026-08-18"
+    data-lane="Daily Edition"
+    data-tags="UX"
+    data-repos="anomalyco/opencode">
+    <div class="reader-feedback-head">
+      <div>
+        <div class="eyebrow">Letters &amp; Corrections</div>
+        <h2>Send a note to the desk</h2>
+      </div>
+      <p>Corrections, missing context, or a follow-up lead.</p>
+    </div>
+    <form class="feedback-form">
+      <div class="feedback-votes" role="group" aria-label="Choose signal type">
+        <button class="feedback-choice" type="button" data-vote="follow-up" aria-pressed="false">
+          <span aria-hidden="true">+</span>
+          <span>Follow-up</span>
+        </button>
+        <button class="feedback-choice" type="button" data-vote="correction" aria-pressed="false">
+          <span aria-hidden="true">!</span>
+          <span>Correction</span>
+        </button>
+      </div>
+      <label class="feedback-comment">
+        <span>Note for the editor</span>
+        <textarea name="comment" rows="3" maxlength="320" placeholder="What did we miss, or what should we follow next?"></textarea>
+      </label>
+      <div class="feedback-submit-row">
+        <p class="feedback-status" aria-live="polite"></p>
+        <button class="paper-button primary feedback-submit" type="submit">Send to desk</button>
+      </div>
+    </form>
+  </section>
+      <section class="related-edition-section">
+        <div class="section-title-row">
+          <h2>Same Edition</h2>
+          <a href="/editions/2026-08-18/">Open issue &rsaquo;</a>
+        </div>
+        <div class="updates-list">
+          <a class="update-card" href="/articles/2026-08-18-daily-an-agent-can-t-review-the-wrong-tree/">
+    <div class="update-stripe"></div>
+    <div class="update-main">
+      <div class="update-meta">
+        <span>Agents</span>
+        <span class="source-plus">+3</span>
+        <span>Aug 18, 2026</span>
+      </div>
+      <h3>An Agent Can’t Review the Wrong Tree</h3>
+      <div class="update-receipt">
+        <span>source trail</span>
+        <span class="branch-pill">evidence</span>
+      </div>
+      <div class="update-foot">
+        <span>3 sources</span>
+        <span>0 repos</span>
+        <span>commit 2bbaafb</span>
+      </div>
+    </div>
+    <span class="update-arrow" aria-hidden="true">&rsaquo;</span>
+  </a><a class="update-card" href="/articles/2026-08-18-daily-builder-work-hermes-keeps-an-sdk-upgrade-from-dropping-the-conversation/">
+    <div class="update-stripe"></div>
+    <div class="update-main">
+      <div class="update-meta">
+        <span>Context</span>
+        <span class="source-plus">+4</span>
+        <span>Aug 18, 2026</span>
+      </div>
+      <h3>Builder Work: Hermes Keeps an SDK Upgrade From Dropping the Conversation</h3>
+      <div class="update-receipt">
+        <span>NousResearch/hermes-agent</span>
+        <span class="branch-pill">evidence</span>
+      </div>
+      <div class="update-foot">
+        <span>4 sources</span>
+        <span>1 repo</span>
+        <span>commit 11a9dcf</span>
+      </div>
+    </div>
+    <span class="update-arrow" aria-hidden="true">&rsaquo;</span>
+  </a>
+        </div>
+      </section>
+    </main>
+    <footer class="wrap site-footer">
+      <span>&copy; 2026 The Git Reporter</span>
+      <a href="/about/">About</a>
+      <a href="/battles/">Diff Derby</a>
+      <a href="/agent-pulse/">Agent Pulse</a>
+      <a href="/feed.xml">RSS</a>
+      <a href="https://x.com/TheGitReporter">Follow on X</a>
+      <a href="/articles.json">Manifest JSON</a>
+      <a href="/repos/">Sources</a>
+    </footer>
+  </div>
+</body>
+</html>
