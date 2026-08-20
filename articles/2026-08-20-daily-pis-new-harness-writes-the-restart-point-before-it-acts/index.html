@@ -1,0 +1,281 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Pi's New Harness Writes the Restart Point Before It Acts | The Git Reporter</title>
+  <meta name="description" content="Pi&#39;s dev branch is turning an agent run into a durable, remotely attachable session—but its most important promise is also the simplest: record the restart point before the model or tool gets to act.">
+  <meta name="robots" content="index,follow">
+  <link rel="canonical" href="https://thegitreporter.com/articles/2026-08-20-daily-pis-new-harness-writes-the-restart-point-before-it-acts/">
+  <link rel="alternate" type="application/rss+xml" title="The Git Reporter" href="https://thegitreporter.com/feed.xml">
+  <meta property="og:site_name" content="The Git Reporter">
+  <meta property="og:locale" content="en_US">
+  <meta property="og:title" content="Pi&#39;s New Harness Writes the Restart Point Before It Acts | The Git Reporter">
+  <meta property="og:description" content="Pi&#39;s dev branch is turning an agent run into a durable, remotely attachable session—but its most important promise is also the simplest: record the restart point before the model or tool gets to act.">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://thegitreporter.com/articles/2026-08-20-daily-pis-new-harness-writes-the-restart-point-before-it-acts/">
+  <meta property="og:image" content="https://thegitreporter.com/assets/social/2026-08-20-daily-pis-new-harness-writes-the-restart-point-before-it-acts-og.jpg">
+  <meta property="og:image:secure_url" content="https://thegitreporter.com/assets/social/2026-08-20-daily-pis-new-harness-writes-the-restart-point-before-it-acts-og.jpg">
+  <meta property="og:image:type" content="image/jpeg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="A rough paper diagram puts durable acceptance and operation state before a provider or tool effect, then points to an attachable remote session, with a stamp warning that the dev-branch drive is not wired.">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:site" content="@TheGitReporter">
+  <meta name="twitter:creator" content="@TheGitReporter">
+  <meta name="twitter:title" content="Pi&#39;s New Harness Writes the Restart Point Before It Acts | The Git Reporter">
+  <meta name="twitter:description" content="Pi&#39;s dev branch is turning an agent run into a durable, remotely attachable session—but its most important promise is also the simplest: record the restart point before the model or tool gets to act.">
+  <meta name="twitter:url" content="https://thegitreporter.com/articles/2026-08-20-daily-pis-new-harness-writes-the-restart-point-before-it-acts/">
+  <meta name="twitter:domain" content="thegitreporter.com">
+  <meta name="twitter:image" content="https://thegitreporter.com/assets/social/2026-08-20-daily-pis-new-harness-writes-the-restart-point-before-it-acts-og.jpg">
+  <meta name="twitter:image:alt" content="A rough paper diagram puts durable acceptance and operation state before a provider or tool effect, then points to an attachable remote session, with a stamp warning that the dev-branch drive is not wired.">
+  <meta property="article:published_time" content="2026-08-20T12:00:00Z">
+  <meta property="article:modified_time" content="2026-08-20T12:00:00Z">
+  <meta property="article:section" content="Daily Edition">
+  <meta property="article:tag" content="Memory">
+  <meta property="article:tag" content="Tools">
+  <meta property="article:tag" content="UX">
+  <meta property="article:tag" content="Runtime">
+  <meta property="article:tag" content="earendil-works/pi">
+  <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"https://thegitreporter.com/#organization","name":"The Git Reporter","url":"https://thegitreporter.com","logo":{"@type":"ImageObject","url":"https://thegitreporter.com/assets/mark.svg"},"sameAs":["https://x.com/TheGitReporter"]},{"@type":"WebSite","@id":"https://thegitreporter.com/#website","name":"The Git Reporter","url":"https://thegitreporter.com","publisher":{"@id":"https://thegitreporter.com/#organization"}},{"@type":"NewsArticle","mainEntityOfPage":{"@type":"WebPage","@id":"https://thegitreporter.com/articles/2026-08-20-daily-pis-new-harness-writes-the-restart-point-before-it-acts/"},"headline":"Pi's New Harness Writes the Restart Point Before It Acts","description":"Pi's dev branch is turning an agent run into a durable, remotely attachable session—but its most important promise is also the simplest: record the restart point before the model or tool gets to act.","image":["https://thegitreporter.com/assets/social/2026-08-20-daily-pis-new-harness-writes-the-restart-point-before-it-acts-og.jpg"],"datePublished":"2026-08-20T12:00:00Z","dateModified":"2026-08-20T12:00:00Z","author":[{"@type":"Organization","name":"The Git Reporter","url":"https://thegitreporter.com"}],"publisher":{"@type":"Organization","@id":"https://thegitreporter.com/#organization","name":"The Git Reporter","url":"https://thegitreporter.com","logo":{"@type":"ImageObject","url":"https://thegitreporter.com/assets/mark.svg"},"sameAs":["https://x.com/TheGitReporter"]},"articleSection":"Daily Edition","keywords":"Memory, Tools, UX, Runtime, earendil-works/pi"}]}</script>
+  <link rel="icon" href="/assets/mark.svg">
+  <link rel="stylesheet" href="/assets/site.css?v=2026-07-30-harness-memory">
+  <script defer src="/assets/feedback.js?v=2026-07-30-harness-memory"></script>
+  <script defer src="/assets/analytics.js?v=2026-07-30-harness-memory"></script>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-CH19T7M0T1"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){window.dataLayer.push(arguments);}
+    gtag("js", new Date());
+    gtag("config", "G-CH19T7M0T1");
+  </script>
+</head>
+<body>
+  <div class="site">
+    <header class="site-header" id="top">
+      <div class="wrap utility-row">
+        <a class="icon-link menu-icon" href="/archive/" aria-label="Open edition history"><span></span><span></span><span></span></a>
+        <a class="icon-link archive-icon" href="/archive/" aria-label="Open edition history"></a>
+      </div>
+      <div class="wrap masthead-lockup">
+        <a class="masthead-title" href="/">THE GIT REPORTER</a>
+        <div class="masthead-ornament" aria-hidden="true"></div>
+      </div>
+      <div class="wrap nav-wrap">
+        <nav class="paper-nav" aria-label="Primary navigation">
+    <a class="" href="/">Today</a><a class="active" href="/archive/">Editions</a><a class="" href="/about/">About</a><a class="" href="/battles/">Diff Derby</a><a class="" href="/agent-pulse/">Agent Pulse</a><a class="" href="/atlas/">Agent Atlas</a><a class="" href="/repos/">Repos</a>
+  </nav>
+        <div class="nav-rule"></div>
+      </div>
+    </header>
+    <main class="wrap page-shell article-page">
+      <section class="page-hero story-front">
+        <div class="story-topline">
+          <span>Daily Edition</span>
+          <span>Sources <strong>+6</strong></span>
+        </div>
+        <h1>Pi's New Harness Writes the Restart Point Before It Acts</h1>
+        <p class="summary">Pi's dev branch is turning an agent run into a durable, remotely attachable session—but its most important promise is also the simplest: record the restart point before the model or tool gets to act.</p>
+        <figure class="story-illustration article-illustration">
+    <img src="/assets/illustrations/2026-08-20-pis-new-harness-writes-the-restart-point-before-it-acts-diagram-punk-v1.png" alt="A rough paper diagram puts durable acceptance and operation state before a provider or tool effect, then points to an attachable remote session, with a stamp warning that the dev-branch drive is not wired." loading="lazy" decoding="async">
+    <figcaption><span>Diagram Punk</span>Pi writes the restart point before the uncertain effect.</figcaption>
+  </figure>
+        <div class="receipt">
+    <div class="receipt-line">
+      <span class="receipt-icon">repo</span>
+      <span class="receipt-main">earendil-works/pi</span>
+      <span class="branch-pill">evidence</span>
+    </div>
+    <div class="receipt-line receipt-muted">
+      <span>6 source signals</span>
+      <span>1 repo</span>
+      <span>6 linked commits</span>
+    </div>
+    <div class="commit-line">Evidence: 6 linked commits / August 20, 2026 / Daily Edition</div>
+  </div>
+        <div class="article-route-row">
+          <a href="/editions/2026-08-20/">Open Edition</a>
+          <a href="#evidence">Evidence below</a>
+        </div>
+      </section>
+      <section class="story-reader">
+        <article class="story-shell story-body">
+          <p>The revealing change in Pi is not on its front page. At the inspected August 20 tips, <a href="https://github.com/earendil-works/pi/compare/b7bb00b936dbe21b8e160b3e89efdec361846699...7ebf9087e7220d434bc7fa9a60940361b68b14b2"><code>dev</code> carried 260 commits that were not on <code>main</code></a>, while seven newer main-branch commits had not crossed back. The comparison spans 374 files and reaches from the agent package into the coding agent, session backends, protocol, server, client, and terminal UI. Those counts are only telemetry. The story is the boundary running through them: Pi is rebuilding an agent conversation so a process can disappear without making the session guess what happened.</p>
+  <p>That is a different ambition from adding a server mode to a terminal agent. The <a href="https://github.com/earendil-works/pi/blob/7ebf9087e7220d434bc7fa9a60940361b68b14b2/packages/agent/docs/harness.md">new harness specification</a> calls itself a durable runtime for agent conversations. Its session has an immutable entry tree, typed mutable values and lists, named lanes over shared history, and an append-only usage ledger. Its operation state is supposed to be a complete restart point, not a clue that recovery code must combine with whatever files happen to remain.</p>
+  <h2>The first commit happens before the model call</h2>
+  <p>The sharpest implemented seam is <a href="https://github.com/earendil-works/pi/commit/beac75ecc2254713cc2d7f3ab682c015762cc481">atomic run acceptance</a>. When a prompt is accepted, Pi writes the user entry, immutable operation metadata, the operation's complete <code>starting</code> state, the lane leaf, and the lane's current-operation pointer in one storage transaction. The acceptance path deliberately does not resolve a model, call a provider, run a tool, fire a timer, or start an execution owner. A prompt can therefore exist durably before the process that will execute it does.</p>
+  <p>That split changes what “the agent received my request” can mean. In the old conversational mental model, receiving and running blur into one in-memory call stack. Here, acceptance is a receipt. Execution is a separate owner that may arrive later, be replaced, or crash. Pi's focused tests check that the acceptance family commits once, that queued next-run messages are placed before the new prompt, and that model lookup never happens on the acceptance boundary.</p>
+  <p>The design then puts provider and tool effects inside an explicit two-commit sandwich. Before an external effect, durable state records the intent and reserves the identifiers its result would use. Afterward, settlement commits the complete output and next state. The space between those commits is named as uncertain. The spec does not claim exactly-once effects: a crash can leave the system knowing that a tool may have run without knowing whether it finished. A read-only tool can declare itself safe to replay; a destructive tool can decline replay and produce a synthetic interrupted result instead. The useful move is not pretending the uncertainty is gone. It is making the uncertainty a state the runtime can reason about.</p>
+  <h2>A session is becoming a service, not just a transcript</h2>
+  <p>The same branch is building the surfaces needed to come back to that state from somewhere else. <a href="https://github.com/earendil-works/pi/commit/48a07ddbfd3abff279187286cd6da97f722a75a3">Server-scoped session services</a> let a client list, create, attach, and detach sessions without handing raw session authority to the presentation. A later change <a href="https://github.com/earendil-works/pi/commit/d5e3b478775a65ee87179b19e14433db7ca34306">routes prompting through a typed <code>Chat</code> service</a>. Then <a href="https://github.com/earendil-works/pi/commit/8df02a436ce6102363101ee30a39a97adeebd0b3">remote events and a client TUI</a> make session switching and model selection visible through those service facades.</p>
+  <p>The trust boundary is notable. A presentation selects a session through a management service; the host binds the session namespace and rejects stale traffic when that binding changes. The client does not put an arbitrary session ID on every business call, and the server does not expose the raw harness, tool registry, hooks, filesystem data, or storage object as generic remote capabilities. That leaves room for a local terminal, a reconnecting client, or another presentation without turning “remote” into “everything serializes across the wire.”</p>
+  <p>Durability also has to account for the users Pi already has. The new JSONL work can read legacy v3 sessions, including branches, summaries, labels, names, and usage. At the inspected tip, <a href="https://github.com/earendil-works/pi/commit/2f642c5d736ea1a6c159cd74ac895efaca70abfa">the first write upgrades that old representation atomically</a>. Its tests cover publication failure and zero-usage adjustment instead of treating migration as a file-copy footnote. A new runtime that cannot safely cross yesterday's session boundary would be a reset, not continuity.</p>
+  <h2>The caveat is executable</h2>
+  <p>This is not a release announcement. In the current runtime2 lane, <a href="https://github.com/earendil-works/pi/blob/7ebf9087e7220d434bc7fa9a60940361b68b14b2/packages/agent/src/harness/runtime2/lane.ts#L443-L537"><code>drive</code>, <code>prompt</code>, <code>resume</code>, abort, queues, compaction, navigation, and related convenience methods still throw <code>SliceNotImplemented</code></a>. The Chat service has real prompt and durable-abort adapters, while its steer, follow-up, next-run, resume, compact, and navigate methods explicitly report that their slices are missing. The public drive stays disabled until the whole reachable execution and recovery graph exists.</p>
+  <p>The project's <a href="https://github.com/earendil-works/pi/blob/7ebf9087e7220d434bc7fa9a60940361b68b14b2/packages/agent/docs/work-packages/05-direct-durable-drive.md">direct durable-drive work package</a> is marked implementation-ready, not complete. Earlier packages for bound storage, atomic acceptance, coherent observation, and event publication are marked complete. That distinction is why the branch can contain real storage, migration, RPC, service, and TUI work while still not constitute a replacement agent loop.</p>
+  <p>Main moved during this reporting too. Armin Ronacher added <a href="https://github.com/earendil-works/pi/commit/5cd93f688aaab89dbb6dfa4aca535f21796ae185">a development <code>pi</code> wrapper</a> that runs a checkout's latest build with <code>PI_EXPERIMENTAL=1</code> by default and falls back to the stable executable for <code>--stable</code> or self-update. That is a doorway for maintainers testing the new path. It does not merge the hidden harness work into a released build.</p>
+  <h2>What to watch on dev</h2>
+  <p>The next decisive change is not another interface or diagram. It is the disappearance of those execution guards: a prompt accepted into <code>starting</code>, driven through a real provider and tool boundary, interrupted between intent and settlement, then reopened through the client without duplicating a settled effect. After that comes release documentation that says which server, client, storage, and migration shapes Pi is prepared to support.</p>
+  <p>Until then, the dev branch already exposes a useful design test for every agent builder: can the system say what work it accepted, what effect it intended, what outcome it settled, and what remains unknowable after the process dies? Pi's new harness is being built around the idea that those are different facts. The interesting part is that it writes the distinction down before it acts.</p>
+        </article>
+      </section>
+      <section class="evidence-section" id="evidence" aria-labelledby="evidence-title">
+    <div class="evidence-head">
+      <div>
+        <div class="eyebrow">Evidence Trail</div>
+        <h2 id="evidence-title">Receipts below the story</h2>
+        <p>The article above is the public narrative. This section keeps the source trail and limits on the same page.</p>
+      </div>
+      <a class="paper-button" href="/editions/2026-08-20/">Edition</a>
+    </div>
+    <div class="evidence-table evidence-summary">
+      <div class="evidence-line"><span>Date</span><span>August 20, 2026</span></div>
+      <div class="evidence-line"><span>Lane</span><span>Daily Edition</span></div>
+      <div class="evidence-line"><span>Confidence</span><span>87%</span></div>
+      <div class="evidence-line"><span>Sources</span><span>6</span></div>
+      <div class="evidence-line"><span>Repos</span><span>earendil-works/pi</span></div>
+    </div>
+    <div class="markdown evidence-copy evidence-copy-block">
+      <h2>Primary Evidence</h2>
+<ul>
+<li>Pi dev-branch comparison pinned at <code>7ebf9087e</code>: <a href="https://github.com/earendil-works/pi/compare/b7bb00b936dbe21b8e160b3e89efdec361846699...7ebf9087e7220d434bc7fa9a60940361b68b14b2">https://github.com/earendil-works/pi/compare/b7bb00b936dbe21b8e160b3e89efdec361846699...7ebf9087e7220d434bc7fa9a60940361b68b14b2</a>
+<ul>
+<li>Shows: the harness, session-backend, protocol, server, client, coding-agent, and TUI work after dev's shared base with main.
+</li>
+</ul>
+</li>
+<li>Atomic acceptance implementation: <a href="https://github.com/earendil-works/pi/commit/beac75ecc2254713cc2d7f3ab682c015762cc481">https://github.com/earendil-works/pi/commit/beac75ecc2254713cc2d7f3ab682c015762cc481</a>
+<ul>
+<li>Shows: a prompt enters durable operation metadata and <code>starting</code> state in one transaction before provider or tool execution.
+</li>
+</ul>
+</li>
+<li>Durable harness specification: <a href="https://github.com/earendil-works/pi/blob/7ebf9087e7220d434bc7fa9a60940361b68b14b2/packages/agent/docs/harness.md">https://github.com/earendil-works/pi/blob/7ebf9087e7220d434bc7fa9a60940361b68b14b2/packages/agent/docs/harness.md</a>
+<ul>
+<li>Shows: the entry tree, bound state, usage ledger, restart point, effect-intent/settlement model, lanes, recovery policy, and non-goals.
+</li>
+</ul>
+</li>
+<li>Remote events and experimental client TUI: <a href="https://github.com/earendil-works/pi/commit/8df02a436ce6102363101ee30a39a97adeebd0b3">https://github.com/earendil-works/pi/commit/8df02a436ce6102363101ee30a39a97adeebd0b3</a>
+<ul>
+<li>Shows: remote event propagation and a client that creates and switches sessions and selects models through service facades.
+</li>
+</ul>
+</li>
+<li>Legacy v3 first-write upgrade: <a href="https://github.com/earendil-works/pi/commit/2f642c5d736ea1a6c159cd74ac895efaca70abfa">https://github.com/earendil-works/pi/commit/2f642c5d736ea1a6c159cd74ac895efaca70abfa</a>
+<ul>
+<li>Shows: old JSONL sessions upgrading their durable representation atomically on first write.
+</li>
+</ul>
+</li>
+<li>Runtime2 execution guards: <a href="https://github.com/earendil-works/pi/blob/7ebf9087e7220d434bc7fa9a60940361b68b14b2/packages/agent/src/harness/runtime2/lane.ts">https://github.com/earendil-works/pi/blob/7ebf9087e7220d434bc7fa9a60940361b68b14b2/packages/agent/src/harness/runtime2/lane.ts</a>
+<ul>
+<li>Shows: <code>drive</code>, prompt conveniences, abort, queues, compaction, navigation, and related operations still throw <code>SliceNotImplemented</code>.
+</li>
+</ul>
+</li>
+</ul>
+<h2>Evidence Limits</h2>
+<ul>
+<li>The comparison is pinned to moving branch tips: dev <code>7ebf9087e</code>, main <code>5cd93f688</code>, and shared base <code>b7bb00b93</code>.
+</li>
+<li>These receipts do not establish a released package, production reliability, exactly-once external effects, or a complete replacement for stable Pi.
+</li>
+<li>Watch for the drive/prompt guards to disappear, an end-to-end crash/reopen test, and release documentation for the supported client/server shape.
+</li>
+</ul>
+    </div>
+  </section>
+      <section class="related-edition-section atlas-context-section">
+    <div class="section-title-row">
+      <h2>Atlas Context</h2>
+      <a href="/atlas/">Open Atlas &rsaquo;</a>
+    </div>
+    <div class="updates-list">
+      <a class="article-card" href="/atlas/what-an-agent-can-see/">
+            <div class="article-meta"><span class="lane">Agent Atlas</span><span>Chapter 2</span></div>
+            <h3>The Invisible Prompt</h3>
+            <p>The model acts on an assembled viewport containing visible messages, hidden turn context, path-triggered instructions, memory records, tool schemas, permissions, and inherited state.</p>
+          </a>
+    </div>
+  </section>
+      <section class="reader-feedback"
+    data-tgr-feedback
+    data-article-slug="2026-08-20-daily-pis-new-harness-writes-the-restart-point-before-it-acts"
+    data-article-title="Pi's New Harness Writes the Restart Point Before It Acts"
+    data-article-url="/articles/2026-08-20-daily-pis-new-harness-writes-the-restart-point-before-it-acts/"
+    data-edition-date="2026-08-20"
+    data-lane="Daily Edition"
+    data-tags="Memory,Tools,UX,Runtime"
+    data-repos="earendil-works/pi">
+    <div class="reader-feedback-head">
+      <div>
+        <div class="eyebrow">Letters &amp; Corrections</div>
+        <h2>Send a note to the desk</h2>
+      </div>
+      <p>Corrections, missing context, or a follow-up lead.</p>
+    </div>
+    <form class="feedback-form">
+      <div class="feedback-votes" role="group" aria-label="Choose signal type">
+        <button class="feedback-choice" type="button" data-vote="follow-up" aria-pressed="false">
+          <span aria-hidden="true">+</span>
+          <span>Follow-up</span>
+        </button>
+        <button class="feedback-choice" type="button" data-vote="correction" aria-pressed="false">
+          <span aria-hidden="true">!</span>
+          <span>Correction</span>
+        </button>
+      </div>
+      <label class="feedback-comment">
+        <span>Note for the editor</span>
+        <textarea name="comment" rows="3" maxlength="320" placeholder="What did we miss, or what should we follow next?"></textarea>
+      </label>
+      <div class="feedback-submit-row">
+        <p class="feedback-status" aria-live="polite"></p>
+        <button class="paper-button primary feedback-submit" type="submit">Send to desk</button>
+      </div>
+    </form>
+  </section>
+      <section class="related-edition-section">
+        <div class="section-title-row">
+          <h2>Same Edition</h2>
+          <a href="/editions/2026-08-20/">Open issue &rsaquo;</a>
+        </div>
+        <div class="updates-list">
+          <a class="update-card" href="/articles/2026-08-20-daily-cline-lets-an-agent-schedule-work-but-not-anywhere-it-likes/">
+    <div class="update-stripe"></div>
+    <div class="update-main">
+      <div class="update-meta">
+        <span>Trust</span>
+        <span class="source-plus">+4</span>
+        <span>Aug 20, 2026</span>
+      </div>
+      <h3>Cline Lets an Agent Schedule Work—But Not Anywhere It Likes</h3>
+      <div class="update-receipt">
+        <span>source trail</span>
+        <span class="branch-pill">evidence</span>
+      </div>
+      <div class="update-foot">
+        <span>4 sources</span>
+        <span>0 repos</span>
+        <span>commit ff14ab6</span>
+      </div>
+    </div>
+    <span class="update-arrow" aria-hidden="true">&rsaquo;</span>
+  </a>
+        </div>
+      </section>
+    </main>
+    <footer class="wrap site-footer">
+      <span>&copy; 2026 The Git Reporter</span>
+      <a href="/about/">About</a>
+      <a href="/battles/">Diff Derby</a>
+      <a href="/agent-pulse/">Agent Pulse</a>
+      <a href="/feed.xml">RSS</a>
+      <a href="https://x.com/TheGitReporter">Follow on X</a>
+      <a href="/articles.json">Manifest JSON</a>
+      <a href="/repos/">Sources</a>
+    </footer>
+  </div>
+</body>
+</html>
