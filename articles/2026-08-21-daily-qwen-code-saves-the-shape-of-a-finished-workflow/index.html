@@ -1,0 +1,249 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Qwen Code Saves the Shape of a Finished Workflow | The Git Reporter</title>
+  <meta name="description" content="Qwen Code is teaching a finished multi-agent run to leave behind a reviewable shape—rather than a pile of logs that dies with the terminal.">
+  <meta name="robots" content="index,follow">
+  <link rel="canonical" href="https://thegitreporter.com/articles/2026-08-21-daily-qwen-code-saves-the-shape-of-a-finished-workflow/">
+  <link rel="alternate" type="application/rss+xml" title="The Git Reporter" href="https://thegitreporter.com/feed.xml">
+  <meta property="og:site_name" content="The Git Reporter">
+  <meta property="og:locale" content="en_US">
+  <meta property="og:title" content="Qwen Code Saves the Shape of a Finished Workflow | The Git Reporter">
+  <meta property="og:description" content="Qwen Code is teaching a finished multi-agent run to leave behind a reviewable shape—rather than a pile of logs that dies with the terminal.">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://thegitreporter.com/articles/2026-08-21-daily-qwen-code-saves-the-shape-of-a-finished-workflow/">
+  <meta property="og:image" content="https://thegitreporter.com/assets/social/2026-08-21-daily-qwen-code-saves-the-shape-of-a-finished-workflow-og.jpg">
+  <meta property="og:image:secure_url" content="https://thegitreporter.com/assets/social/2026-08-21-daily-qwen-code-saves-the-shape-of-a-finished-workflow-og.jpg">
+  <meta property="og:image:type" content="image/jpeg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="A torn-paper marker diagram shows a merged PR card feeding a terminal snapshot of phase visits, dispatches, events, and retry lineage across a CLI-restart seam into a /workflows card, with a stamp saying finished runs are not live tracing.">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:site" content="@TheGitReporter">
+  <meta name="twitter:creator" content="@TheGitReporter">
+  <meta name="twitter:title" content="Qwen Code Saves the Shape of a Finished Workflow | The Git Reporter">
+  <meta name="twitter:description" content="Qwen Code is teaching a finished multi-agent run to leave behind a reviewable shape—rather than a pile of logs that dies with the terminal.">
+  <meta name="twitter:url" content="https://thegitreporter.com/articles/2026-08-21-daily-qwen-code-saves-the-shape-of-a-finished-workflow/">
+  <meta name="twitter:domain" content="thegitreporter.com">
+  <meta name="twitter:image" content="https://thegitreporter.com/assets/social/2026-08-21-daily-qwen-code-saves-the-shape-of-a-finished-workflow-og.jpg">
+  <meta name="twitter:image:alt" content="A torn-paper marker diagram shows a merged PR card feeding a terminal snapshot of phase visits, dispatches, events, and retry lineage across a CLI-restart seam into a /workflows card, with a stamp saying finished runs are not live tracing.">
+  <meta property="article:published_time" content="2026-08-21T12:00:00Z">
+  <meta property="article:modified_time" content="2026-08-21T12:00:00Z">
+  <meta property="article:section" content="Daily Edition">
+  <meta property="article:tag" content="Permissions">
+  <meta property="article:tag" content="Memory">
+  <meta property="article:tag" content="Delegation">
+  <meta property="article:tag" content="Tools">
+  <meta property="article:tag" content="QwenLM/qwen-code">
+  <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"https://thegitreporter.com/#organization","name":"The Git Reporter","url":"https://thegitreporter.com","logo":{"@type":"ImageObject","url":"https://thegitreporter.com/assets/mark.svg"},"sameAs":["https://x.com/TheGitReporter"]},{"@type":"WebSite","@id":"https://thegitreporter.com/#website","name":"The Git Reporter","url":"https://thegitreporter.com","publisher":{"@id":"https://thegitreporter.com/#organization"}},{"@type":"NewsArticle","mainEntityOfPage":{"@type":"WebPage","@id":"https://thegitreporter.com/articles/2026-08-21-daily-qwen-code-saves-the-shape-of-a-finished-workflow/"},"headline":"Qwen Code Saves the Shape of a Finished Workflow","description":"Qwen Code is teaching a finished multi-agent run to leave behind a reviewable shape—rather than a pile of logs that dies with the terminal.","image":["https://thegitreporter.com/assets/social/2026-08-21-daily-qwen-code-saves-the-shape-of-a-finished-workflow-og.jpg"],"datePublished":"2026-08-21T12:00:00Z","dateModified":"2026-08-21T12:00:00Z","author":[{"@type":"Organization","name":"The Git Reporter","url":"https://thegitreporter.com"}],"publisher":{"@type":"Organization","@id":"https://thegitreporter.com/#organization","name":"The Git Reporter","url":"https://thegitreporter.com","logo":{"@type":"ImageObject","url":"https://thegitreporter.com/assets/mark.svg"},"sameAs":["https://x.com/TheGitReporter"]},"articleSection":"Daily Edition","keywords":"Permissions, Memory, Delegation, Tools, QwenLM/qwen-code"}]}</script>
+  <link rel="icon" href="/assets/mark.svg">
+  <link rel="stylesheet" href="/assets/site.css?v=2026-07-30-harness-memory">
+  <script defer src="/assets/feedback.js?v=2026-07-30-harness-memory"></script>
+  <script defer src="/assets/analytics.js?v=2026-07-30-harness-memory"></script>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-CH19T7M0T1"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){window.dataLayer.push(arguments);}
+    gtag("js", new Date());
+    gtag("config", "G-CH19T7M0T1");
+  </script>
+</head>
+<body>
+  <div class="site">
+    <header class="site-header" id="top">
+      <div class="wrap utility-row">
+        <a class="icon-link menu-icon" href="/archive/" aria-label="Open edition history"><span></span><span></span><span></span></a>
+        <a class="icon-link archive-icon" href="/archive/" aria-label="Open edition history"></a>
+      </div>
+      <div class="wrap masthead-lockup">
+        <a class="masthead-title" href="/">THE GIT REPORTER</a>
+        <div class="masthead-ornament" aria-hidden="true"></div>
+      </div>
+      <div class="wrap nav-wrap">
+        <nav class="paper-nav" aria-label="Primary navigation">
+    <a class="" href="/">Today</a><a class="active" href="/archive/">Editions</a><a class="" href="/about/">About</a><a class="" href="/battles/">Diff Derby</a><a class="" href="/agent-pulse/">Agent Pulse</a><a class="" href="/atlas/">Agent Atlas</a><a class="" href="/repos/">Repos</a>
+  </nav>
+        <div class="nav-rule"></div>
+      </div>
+    </header>
+    <main class="wrap page-shell article-page">
+      <section class="page-hero story-front">
+        <div class="story-topline">
+          <span>Daily Edition</span>
+          <span>Sources <strong>+6</strong></span>
+        </div>
+        <h1>Qwen Code Saves the Shape of a Finished Workflow</h1>
+        <p class="summary">Qwen Code is teaching a finished multi-agent run to leave behind a reviewable shape—rather than a pile of logs that dies with the terminal.</p>
+        <figure class="story-illustration article-illustration">
+    <img src="/assets/illustrations/2026-08-21-qwen-code-saves-the-shape-of-a-finished-workflow-diagram-punk-v1.png" alt="A torn-paper marker diagram shows a merged PR card feeding a terminal snapshot of phase visits, dispatches, events, and retry lineage across a CLI-restart seam into a /workflows card, with a stamp saying finished runs are not live tracing." loading="lazy" decoding="async">
+    <figcaption><span>Diagram Punk</span>a workflow needs a durable shape before it can be reviewed after a restart.</figcaption>
+  </figure>
+        <div class="receipt">
+    <div class="receipt-line">
+      <span class="receipt-icon">repo</span>
+      <span class="receipt-main">QwenLM/qwen-code</span>
+      <span class="branch-pill">evidence</span>
+    </div>
+    <div class="receipt-line receipt-muted">
+      <span>6 source signals</span>
+      <span>1 repo</span>
+      <span>commit 63fe7c1</span>
+    </div>
+    <div class="commit-line">Evidence: commit 63fe7c1 / August 21, 2026 / Daily Edition</div>
+  </div>
+        <div class="article-route-row">
+          <a href="/editions/2026-08-21/">Open Edition</a>
+          <a href="#evidence">Evidence below</a>
+        </div>
+      </section>
+      <section class="story-reader">
+        <article class="story-shell story-body">
+          <p>On August 20, <code>QwenLM/qwen-code</code> merged <a href="https://github.com/QwenLM/qwen-code/pull/9034">PR #9034</a>, a 14-commit change that gives its workflow runtime a structured record of state. The <a href="https://github.com/QwenLM/qwen-code/commit/63fe7c174a6a5dc50d25f78c214fb671df5a3547">merge</a> reaches the registry, runner, orchestrator, command surface, snapshots, and focused tests.</p>
+
+  <p>When a workflow fans work across subagents, a restart can erase the useful part of the story: not merely what printed, but which phase led to which dispatch, what was retried, and where a run actually ended.</p>
+
+  <p>The important move is not that <code>QwenLM/qwen-code</code> added more history. It decided what a workflow history has to remember. Its <a href="https://github.com/QwenLM/qwen-code/blob/63fe7c174a6a5dc50d25f78c214fb671df5a3547/packages/core/src/agents/workflow-snapshot.ts">persisted snapshot</a> carries the run that a retry or rerun came from, visits to phases, dispatch traces and their dependencies, event records, token accounting, the recent log tail, and the final result or error.</p>
+
+  <p>The file describes this as a whole-run summary that survives the CLI process. After a terminal run, <code>/workflows</code> can reconstruct a recent record instead of asking an operator to infer a graph from a transcript.</p>
+
+  <h2>A restart becomes a review point</h2>
+
+  <p>That changes the failure conversation. A task can now carry a visible lineage back to the run it retried; a dispatch can retain what it depended on; and lifecycle events can distinguish queued, running, completed, failed, or cancelled work.</p>
+
+  <p>Those are the pieces an operator needs to ask a concrete question after the screen is gone: did a branch finish, was it cancelled, or did the next attempt start from a known predecessor? The <a href="https://github.com/QwenLM/qwen-code/pull/9034">pull request's public description</a> names the same design in plainer terms—run and step events, persisted journal state, reconstructed snapshots, cancellation, and retention for downstream consumers.</p>
+
+  <p>There is a modest but meaningful engineering lesson here for anyone building an agent runtime: persist the topology, not just the output. An answer and a log line can tell a reader that something happened. They rarely identify the phase, dependency edge, or predecessor that lets a human safely decide what to rerun.</p>
+
+  <p>The new source-level tests cover restart-boundary reconstruction and workflow event handling. That is a stronger receipt than a UI mock—but still only a receipt for the implementation's intended behavior.</p>
+
+  <h2>Not a live debugger—yet</h2>
+
+  <p>The first reading of this merge was too generous: “workflow execution state” can sound like full observability while work is running. Qwen Code's own <a href="https://github.com/QwenLM/qwen-code/blob/63fe7c174a6a5dc50d25f78c214fb671df5a3547/docs/design/workflow-tracing-gaps.md">public tracing analysis</a> draws a harder boundary. It identifies gaps around approval waits, hooks, subagent trace trees, and stable parent-child wiring.</p>
+
+  <p>The snapshot code is candid about its limit too: it is written on a terminal transition and is a convenience rather than a correctness dependency. This is a record of a finished run, not a promise that an active one can be inspected or recovered without ambiguity.</p>
+
+  <p>That makes the next signal unusually clear. Watch for release documentation and a public end-to-end reproduction in which a workflow crosses a restart boundary, retains its phase and dispatch record, and lets an operator explain the result without replaying an uncertain external effect.</p>
+
+  <p>If that arrives, Qwen Code will have turned a useful post-mortem artifact into a sturdier operational contract. For now, it has made one valuable choice visible: a workflow should leave behind more than its last words.</p>
+        </article>
+      </section>
+      <section class="evidence-section" id="evidence" aria-labelledby="evidence-title">
+    <div class="evidence-head">
+      <div>
+        <div class="eyebrow">Evidence Trail</div>
+        <h2 id="evidence-title">Receipts below the story</h2>
+        <p>The article above is the public narrative. This section keeps the source trail and limits on the same page.</p>
+      </div>
+      <a class="paper-button" href="/editions/2026-08-21/">Edition</a>
+    </div>
+    <div class="evidence-table evidence-summary">
+      <div class="evidence-line"><span>Date</span><span>August 21, 2026</span></div>
+      <div class="evidence-line"><span>Lane</span><span>Daily Edition</span></div>
+      <div class="evidence-line"><span>Confidence</span><span>87%</span></div>
+      <div class="evidence-line"><span>Sources</span><span>6</span></div>
+      <div class="evidence-line"><span>Repos</span><span>QwenLM/qwen-code</span></div>
+    </div>
+    <div class="markdown evidence-copy evidence-copy-block">
+      <h2>Primary Evidence</h2>
+<ul>
+<li>Qwen Code merged workflow-execution-state commit: <a href="https://github.com/QwenLM/qwen-code/commit/63fe7c174a6a5dc50d25f78c214fb671df5a3547">https://github.com/QwenLM/qwen-code/commit/63fe7c174a6a5dc50d25f78c214fb671df5a3547</a>
+<ul>
+<li>Shows: the August 20 merge of PR #9034 across 18 files, including the workflow registry, snapshots, runner, orchestrator, command surface, and focused tests.
+</li>
+</ul>
+</li>
+<li>PR #9034, “feat(core): expose workflow execution state”: <a href="https://github.com/QwenLM/qwen-code/pull/9034">https://github.com/QwenLM/qwen-code/pull/9034</a>
+<ul>
+<li>Shows: the project's stated model: run and step lifecycle events, persisted journal state, reconstructed snapshots, cancellation, and retention primitives for downstream consumers.
+</li>
+</ul>
+</li>
+<li>Persisted workflow snapshot implementation: <a href="https://github.com/QwenLM/qwen-code/blob/63fe7c174a6a5dc50d25f78c214fb671df5a3547/packages/core/src/agents/workflow-snapshot.ts">https://github.com/QwenLM/qwen-code/blob/63fe7c174a6a5dc50d25f78c214fb671df5a3547/packages/core/src/agents/workflow-snapshot.ts</a>
+<ul>
+<li>Shows: terminal workflow snapshots retain source-run lineage, phase visits, dispatch traces and dependencies, event records, logs, token accounting, and result or error state; the file describes the snapshot as a whole-run summary surviving a CLI restart.
+</li>
+</ul>
+</li>
+<li>Public workflow-tracing gap analysis: <a href="https://github.com/QwenLM/qwen-code/blob/63fe7c174a6a5dc50d25f78c214fb671df5a3547/docs/design/workflow-tracing-gaps.md">https://github.com/QwenLM/qwen-code/blob/63fe7c174a6a5dc50d25f78c214fb671df5a3547/docs/design/workflow-tracing-gaps.md</a>
+<ul>
+<li>Shows: the public design analysis distinguishes workflow tracing gaps such as approval waits, hooks, subagent trace trees, and stable parent-child wiring from general logs and metrics.
+</li>
+</ul>
+</li>
+</ul>
+<h2>Evidence Limits</h2>
+<ul>
+<li>These are public main-branch sources and tests. They do not prove a released build, production reliability, adoption, or that a snapshot can inspect a workflow that is still active.
+</li>
+<li>The tracing analysis is a public design context, not proof that every listed gap persists unchanged after PR #9034. Watch for release notes and an end-to-end restart reproduction that shows the supported operator experience.
+</li>
+</ul>
+    </div>
+  </section>
+      <section class="related-edition-section atlas-context-section">
+    <div class="section-title-row">
+      <h2>Atlas Context</h2>
+      <a href="/atlas/">Open Atlas &rsaquo;</a>
+    </div>
+    <div class="updates-list">
+      <a class="article-card" href="/atlas/memory-is-not-one-thing/">
+            <div class="article-meta"><span class="lane">Agent Atlas</span><span>Chapter 6</span></div>
+            <h3>Memory Is a Typed Storage Contract</h3>
+            <p>Calling every retained fact memory obscures incompatible stores and guarantees. Thread history, notes, retrieval indexes, summaries, caches, and archives have different owners, lifetimes, and deletion behavior.</p>
+          </a>
+    </div>
+  </section>
+      <section class="reader-feedback"
+    data-tgr-feedback
+    data-article-slug="2026-08-21-daily-qwen-code-saves-the-shape-of-a-finished-workflow"
+    data-article-title="Qwen Code Saves the Shape of a Finished Workflow"
+    data-article-url="/articles/2026-08-21-daily-qwen-code-saves-the-shape-of-a-finished-workflow/"
+    data-edition-date="2026-08-21"
+    data-lane="Daily Edition"
+    data-tags="Permissions,Memory,Delegation,Tools"
+    data-repos="QwenLM/qwen-code">
+    <div class="reader-feedback-head">
+      <div>
+        <div class="eyebrow">Letters &amp; Corrections</div>
+        <h2>Send a note to the desk</h2>
+      </div>
+      <p>Corrections, missing context, or a follow-up lead.</p>
+    </div>
+    <form class="feedback-form">
+      <div class="feedback-votes" role="group" aria-label="Choose signal type">
+        <button class="feedback-choice" type="button" data-vote="follow-up" aria-pressed="false">
+          <span aria-hidden="true">+</span>
+          <span>Follow-up</span>
+        </button>
+        <button class="feedback-choice" type="button" data-vote="correction" aria-pressed="false">
+          <span aria-hidden="true">!</span>
+          <span>Correction</span>
+        </button>
+      </div>
+      <label class="feedback-comment">
+        <span>Note for the editor</span>
+        <textarea name="comment" rows="3" maxlength="320" placeholder="What did we miss, or what should we follow next?"></textarea>
+      </label>
+      <div class="feedback-submit-row">
+        <p class="feedback-status" aria-live="polite"></p>
+        <button class="paper-button primary feedback-submit" type="submit">Send to desk</button>
+      </div>
+    </form>
+  </section>
+      
+    </main>
+    <footer class="wrap site-footer">
+      <span>&copy; 2026 The Git Reporter</span>
+      <a href="/about/">About</a>
+      <a href="/battles/">Diff Derby</a>
+      <a href="/agent-pulse/">Agent Pulse</a>
+      <a href="/feed.xml">RSS</a>
+      <a href="https://x.com/TheGitReporter">Follow on X</a>
+      <a href="/articles.json">Manifest JSON</a>
+      <a href="/repos/">Sources</a>
+    </footer>
+  </div>
+</body>
+</html>
