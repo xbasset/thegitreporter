@@ -1,0 +1,245 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>A Release Should Not Fetch Its Rules From a Moving Main | The Git Reporter</title>
+  <meta name="description" content="OpenClaw is making a narrow release promise: when the product is frozen, the workflow allowed to publish it must stay identifiable even after main changes.">
+  <meta name="robots" content="index,follow">
+  <link rel="canonical" href="https://thegitreporter.com/articles/2026-08-22-daily-a-release-should-not-fetch-its-rules-from-a-moving-main/">
+  <link rel="alternate" type="application/rss+xml" title="The Git Reporter" href="https://thegitreporter.com/feed.xml">
+  <meta property="og:site_name" content="The Git Reporter">
+  <meta property="og:locale" content="en_US">
+  <meta property="og:title" content="A Release Should Not Fetch Its Rules From a Moving Main | The Git Reporter">
+  <meta property="og:description" content="OpenClaw is making a narrow release promise: when the product is frozen, the workflow allowed to publish it must stay identifiable even after main changes.">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://thegitreporter.com/articles/2026-08-22-daily-a-release-should-not-fetch-its-rules-from-a-moving-main/">
+  <meta property="og:image" content="https://thegitreporter.com/assets/social/2026-08-22-daily-a-release-should-not-fetch-its-rules-from-a-moving-main-og.jpg">
+  <meta property="og:image:secure_url" content="https://thegitreporter.com/assets/social/2026-08-22-daily-a-release-should-not-fetch-its-rules-from-a-moving-main-og.jpg">
+  <meta property="og:image:type" content="image/jpeg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="A torn-paper marker diagram separates a code SHA and tooling SHA from a moving main branch, then sends a protected release-publish tag through a verification gate to npm publish, with a stamp saying npm paths only.">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:site" content="@TheGitReporter">
+  <meta name="twitter:creator" content="@TheGitReporter">
+  <meta name="twitter:title" content="A Release Should Not Fetch Its Rules From a Moving Main | The Git Reporter">
+  <meta name="twitter:description" content="OpenClaw is making a narrow release promise: when the product is frozen, the workflow allowed to publish it must stay identifiable even after main changes.">
+  <meta name="twitter:url" content="https://thegitreporter.com/articles/2026-08-22-daily-a-release-should-not-fetch-its-rules-from-a-moving-main/">
+  <meta name="twitter:domain" content="thegitreporter.com">
+  <meta name="twitter:image" content="https://thegitreporter.com/assets/social/2026-08-22-daily-a-release-should-not-fetch-its-rules-from-a-moving-main-og.jpg">
+  <meta name="twitter:image:alt" content="A torn-paper marker diagram separates a code SHA and tooling SHA from a moving main branch, then sends a protected release-publish tag through a verification gate to npm publish, with a stamp saying npm paths only.">
+  <meta property="article:published_time" content="2026-08-22T12:00:00Z">
+  <meta property="article:modified_time" content="2026-08-22T12:00:00Z">
+  <meta property="article:section" content="Daily Edition">
+  <meta property="article:tag" content="Tools">
+  <meta property="article:tag" content="UX">
+  <meta property="article:tag" content="openclaw/openclaw">
+  <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"https://thegitreporter.com/#organization","name":"The Git Reporter","url":"https://thegitreporter.com","logo":{"@type":"ImageObject","url":"https://thegitreporter.com/assets/mark.svg"},"sameAs":["https://x.com/TheGitReporter"]},{"@type":"WebSite","@id":"https://thegitreporter.com/#website","name":"The Git Reporter","url":"https://thegitreporter.com","publisher":{"@id":"https://thegitreporter.com/#organization"}},{"@type":"NewsArticle","mainEntityOfPage":{"@type":"WebPage","@id":"https://thegitreporter.com/articles/2026-08-22-daily-a-release-should-not-fetch-its-rules-from-a-moving-main/"},"headline":"A Release Should Not Fetch Its Rules From a Moving Main","description":"OpenClaw is making a narrow release promise: when the product is frozen, the workflow allowed to publish it must stay identifiable even after main changes.","image":["https://thegitreporter.com/assets/social/2026-08-22-daily-a-release-should-not-fetch-its-rules-from-a-moving-main-og.jpg"],"datePublished":"2026-08-22T12:00:00Z","dateModified":"2026-08-22T12:00:00Z","author":[{"@type":"Organization","name":"The Git Reporter","url":"https://thegitreporter.com"}],"publisher":{"@type":"Organization","@id":"https://thegitreporter.com/#organization","name":"The Git Reporter","url":"https://thegitreporter.com","logo":{"@type":"ImageObject","url":"https://thegitreporter.com/assets/mark.svg"},"sameAs":["https://x.com/TheGitReporter"]},"articleSection":"Daily Edition","keywords":"Tools, UX, openclaw/openclaw"}]}</script>
+  <link rel="icon" href="/assets/mark.svg">
+  <link rel="stylesheet" href="/assets/site.css?v=2026-07-30-harness-memory">
+  <script defer src="/assets/feedback.js?v=2026-07-30-harness-memory"></script>
+  <script defer src="/assets/analytics.js?v=2026-07-30-harness-memory"></script>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-CH19T7M0T1"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){window.dataLayer.push(arguments);}
+    gtag("js", new Date());
+    gtag("config", "G-CH19T7M0T1");
+  </script>
+</head>
+<body>
+  <div class="site">
+    <header class="site-header" id="top">
+      <div class="wrap utility-row">
+        <a class="icon-link menu-icon" href="/archive/" aria-label="Open edition history"><span></span><span></span><span></span></a>
+        <a class="icon-link archive-icon" href="/archive/" aria-label="Open edition history"></a>
+      </div>
+      <div class="wrap masthead-lockup">
+        <a class="masthead-title" href="/">THE GIT REPORTER</a>
+        <div class="masthead-ornament" aria-hidden="true"></div>
+      </div>
+      <div class="wrap nav-wrap">
+        <nav class="paper-nav" aria-label="Primary navigation">
+    <a class="" href="/">Today</a><a class="active" href="/archive/">Editions</a><a class="" href="/about/">About</a><a class="" href="/battles/">Diff Derby</a><a class="" href="/agent-pulse/">Agent Pulse</a><a class="" href="/atlas/">Agent Atlas</a><a class="" href="/repos/">Repos</a>
+  </nav>
+        <div class="nav-rule"></div>
+      </div>
+    </header>
+    <main class="wrap page-shell article-page">
+      <section class="page-hero story-front">
+        <div class="story-topline">
+          <span>Daily Edition</span>
+          <span>Sources <strong>+5</strong></span>
+        </div>
+        <h1>A Release Should Not Fetch Its Rules From a Moving Main</h1>
+        <p class="summary">OpenClaw is making a narrow release promise: when the product is frozen, the workflow allowed to publish it must stay identifiable even after main changes.</p>
+        <figure class="story-illustration article-illustration">
+    <img src="/assets/illustrations/2026-08-22-a-release-should-not-fetch-its-rules-from-a-moving-main-diagram-punk-v1.png" alt="A torn-paper marker diagram separates a code SHA and tooling SHA from a moving main branch, then sends a protected release-publish tag through a verification gate to npm publish, with a stamp saying npm paths only." loading="lazy" decoding="async">
+    <figcaption><span>Diagram Punk</span>a frozen release needs a frozen publishing identity.</figcaption>
+  </figure>
+        <div class="receipt">
+    <div class="receipt-line">
+      <span class="receipt-icon">repo</span>
+      <span class="receipt-main">openclaw/openclaw</span>
+      <span class="branch-pill">evidence</span>
+    </div>
+    <div class="receipt-line receipt-muted">
+      <span>5 source signals</span>
+      <span>1 repo</span>
+      <span>commit fa86caf</span>
+    </div>
+    <div class="commit-line">Evidence: commit fa86caf / August 22, 2026 / Daily Edition</div>
+  </div>
+        <div class="article-route-row">
+          <a href="/editions/2026-08-22/">Open Edition</a>
+          <a href="#evidence">Evidence below</a>
+        </div>
+      </section>
+      <section class="story-reader">
+        <article class="story-shell story-body">
+          <p>A release can be ready while the repository around it is not still. A maintainer may freeze a product commit, complete review, and begin validation; then ordinary work lands on <code>main</code>. If the release workflow asks current <code>main</code> what it is allowed to run, the work that received review and the work that publishes are no longer necessarily the same program.</p>
+
+  <p>That is the race OpenClaw says it addressed in <a href="https://github.com/openclaw/openclaw/pull/126881">merged PR #126881</a>. The public write-up describes SHA-pinned release tooling losing trust merely because <code>main</code> had moved past that revision. Its remedy is not to trust an old branch more loosely. It records a frozen Code SHA/ref separately from a Tooling SHA/ref, then lets the covered release route rely on an exact lightweight <code>release-publish/&lt;sha&gt;-&lt;run&gt;</code> tag that still resolves to the reviewed tooling commit.</p>
+
+  <h2>The tag has to answer twice</h2>
+
+  <p>The interesting part is when the answer is checked. The new <a href="https://github.com/openclaw/openclaw/blob/fa86caf94f64c66c3fed4955cb763ed6c4e80055/scripts/release-tooling-identity.mjs">identity verifier</a> distinguishes an ordinary <code>main</code> route from a protected-tag route. For the latter, it asks GitHub for the live tag reference and requires a lightweight commit tag at the exact full ref, with the expected SHA. A missing, moved, annotated, or wrong-SHA tag does not count. Nor does a branch that happens to have the same name.</p>
+
+  <p>That identity is joined to a second receipt: the exact Release Publish workflow run and attempt. The verifier checks its repository, event, head branch, head SHA, workflow path, and state policy before allowing the covered path to continue. In plain language, the tag’s creation record is not being used as a substitute for the current publish authorization. The release has to show both which tooling was frozen and which approved run is now asking to use it.</p>
+
+  <p>The <a href="https://github.com/openclaw/openclaw/blob/fa86caf94f64c66c3fed4955cb763ed6c4e80055/test/scripts/release-tooling-identity.test.ts">focused tests</a> make the intended boundary unusually concrete. They reject a moved tag, deleted tag, annotated tag, wrong SHA prefix, and same-name branch; they also preserve a separate ancestry test for the normal <code>main</code> route. This is a small but important release-engineering habit: do not confuse a convenient ref with the identity that a privileged action is meant to trust.</p>
+
+  <h2>A foundation is not the whole building</h2>
+
+  <p>The first reading of a 3,000-line release patch was too broad: “immutable tooling” can sound like a blanket claim about every way a project ships. OpenClaw’s own <a href="https://github.com/openclaw/openclaw/blob/fa86caf94f64c66c3fed4955cb763ed6c4e80055/docs/reference/RELEASING.md">release guide</a> and the PR narrow it. The protected-tag enforcement in this merge covers core and plugin npm publication and dist-tag mutations. Other privileged writers—including the paths around GitHub releases, Windows promotion, ClawHub, Docker, and VCR—need their dependent enforcement changes before the route is complete.</p>
+
+  <p>That limit is the story’s useful discipline, not a footnote. A release system is only as reproducible as the exact code that validates and mutates it at each boundary. The PR says no beta candidate, package, release tag, or active release run was changed, so this is evidence of a merged control and focused tests—not a receipt for a shipped package.</p>
+
+  <p>For anyone running a release pipeline, the next audit is direct: freeze the workflow revision with the candidate, then try to substitute a moved tag, an annotated tag, a look-alike branch, or the wrong approving run in a dry-run path. The next public signal for OpenClaw is a release record showing the covered npm route survives an unrelated <code>main</code> advance while rejecting every substituted identity. Until then, the strongest claim is also the modest one: the project has made the question “which code is allowed to publish?” much harder to answer by accident.</p>
+        </article>
+      </section>
+      <section class="evidence-section" id="evidence" aria-labelledby="evidence-title">
+    <div class="evidence-head">
+      <div>
+        <div class="eyebrow">Evidence Trail</div>
+        <h2 id="evidence-title">Receipts below the story</h2>
+        <p>The article above is the public narrative. This section keeps the source trail and limits on the same page.</p>
+      </div>
+      <a class="paper-button" href="/editions/2026-08-22/">Edition</a>
+    </div>
+    <div class="evidence-table evidence-summary">
+      <div class="evidence-line"><span>Date</span><span>August 22, 2026</span></div>
+      <div class="evidence-line"><span>Lane</span><span>Daily Edition</span></div>
+      <div class="evidence-line"><span>Confidence</span><span>78%</span></div>
+      <div class="evidence-line"><span>Sources</span><span>5</span></div>
+      <div class="evidence-line"><span>Repos</span><span>openclaw/openclaw</span></div>
+    </div>
+    <div class="markdown evidence-copy evidence-copy-block">
+      <h2>Primary Evidence</h2>
+<ul>
+<li>OpenClaw merge commit, “fix(release): keep protected tooling trusted after main moves”: <a href="https://github.com/openclaw/openclaw/commit/fa86caf94f64c66c3fed4955cb763ed6c4e80055">https://github.com/openclaw/openclaw/commit/fa86caf94f64c66c3fed4955cb763ed6c4e80055</a>
+<ul>
+<li>Shows: the August 21 merge of the release-workflow, identity-verifier, documentation, and focused-test changes across 28 files.
+</li>
+</ul>
+</li>
+<li>PR #126881, “fix(release): keep protected tooling trusted after main moves”: <a href="https://github.com/openclaw/openclaw/pull/126881">https://github.com/openclaw/openclaw/pull/126881</a>
+<ul>
+<li>Shows: the stated failure when reviewed SHA-pinned tooling loses trust after <code>main</code> advances; the intended exact remote tag-to-SHA check, distinct parent-run validation, tested failure modes, and the explicit limit that only core and plugin npm mutations are enforced here.
+</li>
+</ul>
+</li>
+<li>OpenClaw release guide at the merged revision: <a href="https://github.com/openclaw/openclaw/blob/fa86caf94f64c66c3fed4955cb763ed6c4e80055/docs/reference/RELEASING.md">https://github.com/openclaw/openclaw/blob/fa86caf94f64c66c3fed4955cb763ed6c4e80055/docs/reference/RELEASING.md</a>
+<ul>
+<li>Shows: the public release procedure keeps Code SHA/ref and Tooling SHA/ref distinct, never refreshes tooling from moving <code>main</code>, and describes the protected lightweight tag plus immediate npm-boundary revalidation.
+</li>
+</ul>
+</li>
+<li>Release tooling identity verifier at the merged revision: <a href="https://github.com/openclaw/openclaw/blob/fa86caf94f64c66c3fed4955cb763ed6c4e80055/scripts/release-tooling-identity.mjs">https://github.com/openclaw/openclaw/blob/fa86caf94f64c66c3fed4955cb763ed6c4e80055/scripts/release-tooling-identity.mjs</a>
+<ul>
+<li>Shows: the implementation accepts a protected route only as the exact tag and SHA, reads the live remote tag, and checks the trusted release-publish parent run and attempt before a covered writer can proceed.
+</li>
+</ul>
+</li>
+<li>Focused release-tooling identity tests at the merged revision: <a href="https://github.com/openclaw/openclaw/blob/fa86caf94f64c66c3fed4955cb763ed6c4e80055/test/scripts/release-tooling-identity.test.ts">https://github.com/openclaw/openclaw/blob/fa86caf94f64c66c3fed4955cb763ed6c4e80055/test/scripts/release-tooling-identity.test.ts</a>
+<ul>
+<li>Shows: tests reject a moved, deleted, or annotated tag, a wrong SHA prefix, and a same-name branch; they also keep the ordinary current-<code>main</code> ancestry route distinct.
+</li>
+</ul>
+</li>
+</ul>
+<h2>Evidence Limits</h2>
+<ul>
+<li>These public main-branch sources and focused tests do not establish a released OpenClaw build, an executed package publish, end-to-end reliability, or adoption by another release system.
+</li>
+<li>The protected-tag route in this merge covers core and plugin npm publication and dist-tag mutations, not every privileged writer. Watch for the dependent enforcement changes and a public release receipt that exercises the covered path after <code>main</code> advances without accepting a moved or substituted identity.
+</li>
+</ul>
+    </div>
+  </section>
+      <section class="related-edition-section atlas-context-section">
+    <div class="section-title-row">
+      <h2>Atlas Context</h2>
+      <a href="/atlas/">Open Atlas &rsaquo;</a>
+    </div>
+    <div class="updates-list">
+      <a class="article-card" href="/atlas/hands-in-the-world/">
+            <div class="article-meta"><span class="lane">Agent Atlas</span><span>Chapter 3</span></div>
+            <h3>Tool Calls: Contract, Authorization, Execution</h3>
+            <p>A tool call crosses independently governed boundaries: schema, registration, policy, approval, execution authority, result handling, and audit.</p>
+          </a>
+    </div>
+  </section>
+      <section class="reader-feedback"
+    data-tgr-feedback
+    data-article-slug="2026-08-22-daily-a-release-should-not-fetch-its-rules-from-a-moving-main"
+    data-article-title="A Release Should Not Fetch Its Rules From a Moving Main"
+    data-article-url="/articles/2026-08-22-daily-a-release-should-not-fetch-its-rules-from-a-moving-main/"
+    data-edition-date="2026-08-22"
+    data-lane="Daily Edition"
+    data-tags="Tools,UX"
+    data-repos="openclaw/openclaw">
+    <div class="reader-feedback-head">
+      <div>
+        <div class="eyebrow">Letters &amp; Corrections</div>
+        <h2>Send a note to the desk</h2>
+      </div>
+      <p>Corrections, missing context, or a follow-up lead.</p>
+    </div>
+    <form class="feedback-form">
+      <div class="feedback-votes" role="group" aria-label="Choose signal type">
+        <button class="feedback-choice" type="button" data-vote="follow-up" aria-pressed="false">
+          <span aria-hidden="true">+</span>
+          <span>Follow-up</span>
+        </button>
+        <button class="feedback-choice" type="button" data-vote="correction" aria-pressed="false">
+          <span aria-hidden="true">!</span>
+          <span>Correction</span>
+        </button>
+      </div>
+      <label class="feedback-comment">
+        <span>Note for the editor</span>
+        <textarea name="comment" rows="3" maxlength="320" placeholder="What did we miss, or what should we follow next?"></textarea>
+      </label>
+      <div class="feedback-submit-row">
+        <p class="feedback-status" aria-live="polite"></p>
+        <button class="paper-button primary feedback-submit" type="submit">Send to desk</button>
+      </div>
+    </form>
+  </section>
+      
+    </main>
+    <footer class="wrap site-footer">
+      <span>&copy; 2026 The Git Reporter</span>
+      <a href="/about/">About</a>
+      <a href="/battles/">Diff Derby</a>
+      <a href="/agent-pulse/">Agent Pulse</a>
+      <a href="/feed.xml">RSS</a>
+      <a href="https://x.com/TheGitReporter">Follow on X</a>
+      <a href="/articles.json">Manifest JSON</a>
+      <a href="/repos/">Sources</a>
+    </footer>
+  </div>
+</body>
+</html>
