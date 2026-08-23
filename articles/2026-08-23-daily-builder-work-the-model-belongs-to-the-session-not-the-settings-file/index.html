@@ -1,0 +1,275 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Builder Work: The Model Belongs to the Session, Not the Settings File | The Git Reporter</title>
+  <meta name="description" content="Qwen Code’s agent-assisted daemon patch turns a fragile global preference into a tested per-session record—and offers a durable-state lesson other builders can steal.">
+  <meta name="robots" content="index,follow">
+  <link rel="canonical" href="https://thegitreporter.com/articles/2026-08-23-daily-builder-work-the-model-belongs-to-the-session-not-the-settings-file/">
+  <link rel="alternate" type="application/rss+xml" title="The Git Reporter" href="https://thegitreporter.com/feed.xml">
+  <meta property="og:site_name" content="The Git Reporter">
+  <meta property="og:locale" content="en_US">
+  <meta property="og:title" content="Builder Work: The Model Belongs to the Session, Not the Settings File | The Git Reporter">
+  <meta property="og:description" content="Qwen Code’s agent-assisted daemon patch turns a fragile global preference into a tested per-session record—and offers a durable-state lesson other builders can steal.">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://thegitreporter.com/articles/2026-08-23-daily-builder-work-the-model-belongs-to-the-session-not-the-settings-file/">
+  <meta property="og:image" content="https://thegitreporter.com/assets/social/2026-08-23-daily-builder-work-the-model-belongs-to-the-session-not-the-settings-file-og.jpg">
+  <meta property="og:image:secure_url" content="https://thegitreporter.com/assets/social/2026-08-23-daily-builder-work-the-model-belongs-to-the-session-not-the-settings-file-og.jpg">
+  <meta property="og:image:type" content="image/jpeg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="A rough marker diagram contrasts two Qwen Code daemon sessions with a crossed-out global settings arrow, then traces a session-model JSONL record through restore-before-auth and a safe fallback; a stamp says the evidence is merged source and tests, not a release receipt.">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:site" content="@TheGitReporter">
+  <meta name="twitter:creator" content="@TheGitReporter">
+  <meta name="twitter:title" content="Builder Work: The Model Belongs to the Session, Not the Settings File | The Git Reporter">
+  <meta name="twitter:description" content="Qwen Code’s agent-assisted daemon patch turns a fragile global preference into a tested per-session record—and offers a durable-state lesson other builders can steal.">
+  <meta name="twitter:url" content="https://thegitreporter.com/articles/2026-08-23-daily-builder-work-the-model-belongs-to-the-session-not-the-settings-file/">
+  <meta name="twitter:domain" content="thegitreporter.com">
+  <meta name="twitter:image" content="https://thegitreporter.com/assets/social/2026-08-23-daily-builder-work-the-model-belongs-to-the-session-not-the-settings-file-og.jpg">
+  <meta name="twitter:image:alt" content="A rough marker diagram contrasts two Qwen Code daemon sessions with a crossed-out global settings arrow, then traces a session-model JSONL record through restore-before-auth and a safe fallback; a stamp says the evidence is merged source and tests, not a release receipt.">
+  <meta property="article:published_time" content="2026-08-23T12:00:00Z">
+  <meta property="article:modified_time" content="2026-08-23T12:00:00Z">
+  <meta property="article:section" content="Daily Edition">
+  <meta property="article:tag" content="Tools">
+  <meta property="article:tag" content="Runtime">
+  <meta property="article:tag" content="QwenLM/qwen-code">
+  <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"https://thegitreporter.com/#organization","name":"The Git Reporter","url":"https://thegitreporter.com","logo":{"@type":"ImageObject","url":"https://thegitreporter.com/assets/mark.svg"},"sameAs":["https://x.com/TheGitReporter"]},{"@type":"WebSite","@id":"https://thegitreporter.com/#website","name":"The Git Reporter","url":"https://thegitreporter.com","publisher":{"@id":"https://thegitreporter.com/#organization"}},{"@type":"NewsArticle","mainEntityOfPage":{"@type":"WebPage","@id":"https://thegitreporter.com/articles/2026-08-23-daily-builder-work-the-model-belongs-to-the-session-not-the-settings-file/"},"headline":"Builder Work: The Model Belongs to the Session, Not the Settings File","description":"Qwen Code’s agent-assisted daemon patch turns a fragile global preference into a tested per-session record—and offers a durable-state lesson other builders can steal.","image":["https://thegitreporter.com/assets/social/2026-08-23-daily-builder-work-the-model-belongs-to-the-session-not-the-settings-file-og.jpg"],"datePublished":"2026-08-23T12:00:00Z","dateModified":"2026-08-23T12:00:00Z","author":[{"@type":"Organization","name":"The Git Reporter","url":"https://thegitreporter.com"}],"publisher":{"@type":"Organization","@id":"https://thegitreporter.com/#organization","name":"The Git Reporter","url":"https://thegitreporter.com","logo":{"@type":"ImageObject","url":"https://thegitreporter.com/assets/mark.svg"},"sameAs":["https://x.com/TheGitReporter"]},"articleSection":"Daily Edition","keywords":"Tools, Runtime, QwenLM/qwen-code"}]}</script>
+  <link rel="icon" href="/assets/mark.svg">
+  <link rel="stylesheet" href="/assets/site.css?v=2026-07-30-harness-memory">
+  <script defer src="/assets/feedback.js?v=2026-07-30-harness-memory"></script>
+  <script defer src="/assets/analytics.js?v=2026-07-30-harness-memory"></script>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-CH19T7M0T1"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){window.dataLayer.push(arguments);}
+    gtag("js", new Date());
+    gtag("config", "G-CH19T7M0T1");
+  </script>
+</head>
+<body>
+  <div class="site">
+    <header class="site-header" id="top">
+      <div class="wrap utility-row">
+        <a class="icon-link menu-icon" href="/archive/" aria-label="Open edition history"><span></span><span></span><span></span></a>
+        <a class="icon-link archive-icon" href="/archive/" aria-label="Open edition history"></a>
+      </div>
+      <div class="wrap masthead-lockup">
+        <a class="masthead-title" href="/">THE GIT REPORTER</a>
+        <div class="masthead-ornament" aria-hidden="true"></div>
+      </div>
+      <div class="wrap nav-wrap">
+        <nav class="paper-nav" aria-label="Primary navigation">
+    <a class="" href="/">Today</a><a class="active" href="/archive/">Editions</a><a class="" href="/about/">About</a><a class="" href="/battles/">Diff Derby</a><a class="" href="/agent-pulse/">Agent Pulse</a><a class="" href="/atlas/">Agent Atlas</a><a class="" href="/repos/">Repos</a>
+  </nav>
+        <div class="nav-rule"></div>
+      </div>
+    </header>
+    <main class="wrap page-shell article-page">
+      <section class="page-hero story-front">
+        <div class="story-topline">
+          <span>Daily Edition</span>
+          <span>Sources <strong>+3</strong></span>
+        </div>
+        <h1>Builder Work: The Model Belongs to the Session, Not the Settings File</h1>
+        <p class="summary">Qwen Code’s agent-assisted daemon patch turns a fragile global preference into a tested per-session record—and offers a durable-state lesson other builders can steal.</p>
+        <figure class="story-illustration article-illustration">
+    <img src="/assets/illustrations/2026-08-23-builder-work-the-model-belongs-to-the-session-not-the-settings-file-diagram-punk-v1.png" alt="A rough marker diagram contrasts two Qwen Code daemon sessions with a crossed-out global settings arrow, then traces a session-model JSONL record through restore-before-auth and a safe fallback; a stamp says the evidence is merged source and tests, not a release receipt." loading="lazy" decoding="async">
+    <figcaption><span>Diagram Punk</span>session state should survive a changing default.</figcaption>
+  </figure>
+        <div class="receipt">
+    <div class="receipt-line">
+      <span class="receipt-icon">repo</span>
+      <span class="receipt-main">QwenLM/qwen-code</span>
+      <span class="branch-pill">evidence</span>
+    </div>
+    <div class="receipt-line receipt-muted">
+      <span>3 source signals</span>
+      <span>1 repo</span>
+      <span>commit 2172721</span>
+    </div>
+    <div class="commit-line">Evidence: commit 2172721 / August 23, 2026 / Daily Edition</div>
+  </div>
+        <div class="article-route-row">
+          <a href="/editions/2026-08-23/">Open Edition</a>
+          <a href="#evidence">Evidence below</a>
+        </div>
+      </section>
+      <section class="story-reader">
+        <article class="story-shell story-body">
+          <p>Two people can share an agent daemon without sharing the same model choice. That sounds obvious until an idle session goes away and comes back: if a model switch also rewrites the global setting, Session A can wake up configured like Session B.</p>
+
+  <p>Qwen Code’s <a href="https://github.com/QwenLM/qwen-code/commit/21727214059cc928c768af5fb7b6d6dd495b93f2">merged session-model change</a> takes that leak seriously. The public commit credits Cursor as a co-author; the attribution establishes coding-agent involvement in this implementation, not how the work was divided. What matters for builders is the craft in the source: a successful daemon-side switch records a compact <code>session_model</code> entry with the canonical model, auth type, and, only when appropriate, the configured registry route.</p>
+
+  <h2>Restore the choice before it becomes a failed login</h2>
+
+  <p>The inspected <a href="https://github.com/QwenLM/qwen-code/blob/21727214059cc928c768af5fb7b6d6dd495b93f2/docs/design/daemon-session-model.md">design note</a> draws an important boundary. New sessions may still inherit the current settings default; cold daemon loads and resumes may instead read the last valid session record. Resume remains read-only, so merely reopening a conversation does not manufacture a transcript for an otherwise empty session.</p>
+
+  <p>The restore code applies that record before authentication, but does not trust it as a free-form endpoint. It accepts only known authentication types and registry-resolved routes; a missing runtime snapshot or unavailable credential can fall back to the settings model and retry authentication. The matching <a href="https://github.com/QwenLM/qwen-code/blob/21727214059cc928c768af5fb7b6d6dd495b93f2/packages/cli/src/acp-integration/session-model-persistence.test.ts">test file</a> adds 1,117 lines around malformed records, legacy assistant-model fallback, route mismatches, snapshots, and failure recovery. That is not a preference toggle. It is a recovery protocol with a deliberately small record format.</p>
+
+  <h2>The transferable skill: record intent at the right boundary</h2>
+
+  <p>For anyone building durable agents, the reusable move is to persist the user’s session-level intent only after the switch succeeds, then replay it before the systems that depend on it initialize. Make the record last-wins but validate it like untrusted state; keep an explicit fallback; and do not let recovery writes mutate the thing they are trying to restore. That separates a session’s identity from the mutable default meant for the next new session.</p>
+
+  <p>The public evidence is main-branch code and focused tests, not a release receipt or a guarantee that every provider configuration will restore cleanly. The next useful signal is a released daemon build with an end-to-end reproduction: two sessions select different providers, the daemon restarts, one stored route disappears, and the surviving session retains its own model without borrowing the other one’s default.</p>
+        </article>
+      </section>
+      <section class="evidence-section" id="evidence" aria-labelledby="evidence-title">
+    <div class="evidence-head">
+      <div>
+        <div class="eyebrow">Evidence Trail</div>
+        <h2 id="evidence-title">Receipts below the story</h2>
+        <p>The article above is the public narrative. This section keeps the source trail and limits on the same page.</p>
+      </div>
+      <a class="paper-button" href="/editions/2026-08-23/">Edition</a>
+    </div>
+    <div class="evidence-table evidence-summary">
+      <div class="evidence-line"><span>Date</span><span>August 23, 2026</span></div>
+      <div class="evidence-line"><span>Lane</span><span>Daily Edition</span></div>
+      <div class="evidence-line"><span>Confidence</span><span>78%</span></div>
+      <div class="evidence-line"><span>Sources</span><span>3</span></div>
+      <div class="evidence-line"><span>Repos</span><span>QwenLM/qwen-code</span></div>
+    </div>
+    <div class="markdown evidence-copy evidence-copy-block">
+      <h2>Primary Evidence</h2>
+<ul>
+<li>Public coding-agent use proof: Qwen Code commit #9687: <a href="https://github.com/QwenLM/qwen-code/commit/21727214059cc928c768af5fb7b6d6dd495b93f2">https://github.com/QwenLM/qwen-code/commit/21727214059cc928c768af5fb7b6d6dd495b93f2</a>
+<ul>
+<li>Shows: the public merged commit credits <code>Cursor &lt;cursoragent@cursor.com&gt;</code> as a co-author while describing the session-model persistence change and its review fixes.
+</li>
+</ul>
+</li>
+<li>Inspected GitHub repository: daemon session model design and restore code: <a href="https://github.com/QwenLM/qwen-code/blob/21727214059cc928c768af5fb7b6d6dd495b93f2/packages/cli/src/acp-integration/session-model-persistence.ts">https://github.com/QwenLM/qwen-code/blob/21727214059cc928c768af5fb7b6d6dd495b93f2/packages/cli/src/acp-integration/session-model-persistence.ts</a>
+<ul>
+<li>Shows: the inspected source module records a model/auth/optional route binding for a daemon session, validates known auth and registry routes, applies it before authentication during cold restore, and retries the original settings model when restored authentication fails.
+</li>
+</ul>
+</li>
+<li>Engineering receipt: session-model persistence tests: <a href="https://github.com/QwenLM/qwen-code/blob/21727214059cc928c768af5fb7b6d6dd495b93f2/packages/cli/src/acp-integration/session-model-persistence.test.ts">https://github.com/QwenLM/qwen-code/blob/21727214059cc928c768af5fb7b6d6dd495b93f2/packages/cli/src/acp-integration/session-model-persistence.test.ts</a>
+<ul>
+<li>Shows: focused coverage for last-wins records, old-transcript fallback, malformed data, runtime snapshots, route resolution, and failure recovery; the merged change adds 1,117 lines in this test file alongside recording and transcript-reader tests.
+</li>
+</ul>
+</li>
+</ul>
+<h2>Evidence Limits</h2>
+<ul>
+<li>The attribution and public sources establish an agent-assisted, merged main-branch implementation. They do not establish who authored each decision, release availability, production success, or compatibility with every credential and provider configuration.
+</li>
+</ul>
+    </div>
+  </section>
+      <section class="related-edition-section atlas-context-section">
+    <div class="section-title-row">
+      <h2>Atlas Context</h2>
+      <a href="/atlas/">Open Atlas &rsaquo;</a>
+    </div>
+    <div class="updates-list">
+      <a class="article-card" href="/atlas/what-an-agent-can-see/">
+            <div class="article-meta"><span class="lane">Agent Atlas</span><span>Chapter 2</span></div>
+            <h3>The Invisible Prompt</h3>
+            <p>The model acts on an assembled viewport containing visible messages, hidden turn context, path-triggered instructions, memory records, tool schemas, permissions, and inherited state.</p>
+          </a>
+    </div>
+  </section>
+      <section class="reader-feedback"
+    data-tgr-feedback
+    data-article-slug="2026-08-23-daily-builder-work-the-model-belongs-to-the-session-not-the-settings-file"
+    data-article-title="Builder Work: The Model Belongs to the Session, Not the Settings File"
+    data-article-url="/articles/2026-08-23-daily-builder-work-the-model-belongs-to-the-session-not-the-settings-file/"
+    data-edition-date="2026-08-23"
+    data-lane="Daily Edition"
+    data-tags="Tools,Runtime"
+    data-repos="QwenLM/qwen-code">
+    <div class="reader-feedback-head">
+      <div>
+        <div class="eyebrow">Letters &amp; Corrections</div>
+        <h2>Send a note to the desk</h2>
+      </div>
+      <p>Corrections, missing context, or a follow-up lead.</p>
+    </div>
+    <form class="feedback-form">
+      <div class="feedback-votes" role="group" aria-label="Choose signal type">
+        <button class="feedback-choice" type="button" data-vote="follow-up" aria-pressed="false">
+          <span aria-hidden="true">+</span>
+          <span>Follow-up</span>
+        </button>
+        <button class="feedback-choice" type="button" data-vote="correction" aria-pressed="false">
+          <span aria-hidden="true">!</span>
+          <span>Correction</span>
+        </button>
+      </div>
+      <label class="feedback-comment">
+        <span>Note for the editor</span>
+        <textarea name="comment" rows="3" maxlength="320" placeholder="What did we miss, or what should we follow next?"></textarea>
+      </label>
+      <div class="feedback-submit-row">
+        <p class="feedback-status" aria-live="polite"></p>
+        <button class="paper-button primary feedback-submit" type="submit">Send to desk</button>
+      </div>
+    </form>
+  </section>
+      <section class="related-edition-section">
+        <div class="section-title-row">
+          <h2>Same Edition</h2>
+          <a href="/editions/2026-08-23/">Open issue &rsaquo;</a>
+        </div>
+        <div class="updates-list">
+          <a class="update-card" href="/articles/2026-08-23-daily-before-cline-replaces-an-agent-hub-it-starts-saying-no/">
+    <div class="update-stripe"></div>
+    <div class="update-main">
+      <div class="update-meta">
+        <span>Trust</span>
+        <span class="source-plus">+3</span>
+        <span>Aug 23, 2026</span>
+      </div>
+      <h3>Before Cline Replaces an Agent Hub, It Starts Saying No</h3>
+      <div class="update-receipt">
+        <span>cline/cline</span>
+        <span class="branch-pill">evidence</span>
+      </div>
+      <div class="update-foot">
+        <span>3 sources</span>
+        <span>1 repo</span>
+        <span>commit 1de61b1</span>
+      </div>
+    </div>
+    <span class="update-arrow" aria-hidden="true">&rsaquo;</span>
+  </a><a class="update-card" href="/articles/2026-08-23-daily-api-discovery-a-running-foundry-agent-can-take-a-course-correction/">
+    <div class="update-stripe"></div>
+    <div class="update-main">
+      <div class="update-meta">
+        <span>Context</span>
+        <span class="source-plus">+3</span>
+        <span>Aug 23, 2026</span>
+      </div>
+      <h3>API Discovery: A Running Foundry Agent Can Take a Course Correction</h3>
+      <div class="update-receipt">
+        <span>microsoft/agent-framework</span>
+        <span class="branch-pill">evidence</span>
+      </div>
+      <div class="update-foot">
+        <span>3 sources</span>
+        <span>1 repo</span>
+        <span>commit abe1f62</span>
+      </div>
+    </div>
+    <span class="update-arrow" aria-hidden="true">&rsaquo;</span>
+  </a>
+        </div>
+      </section>
+    </main>
+    <footer class="wrap site-footer">
+      <span>&copy; 2026 The Git Reporter</span>
+      <a href="/about/">About</a>
+      <a href="/battles/">Diff Derby</a>
+      <a href="/agent-pulse/">Agent Pulse</a>
+      <a href="/feed.xml">RSS</a>
+      <a href="https://x.com/TheGitReporter">Follow on X</a>
+      <a href="/articles.json">Manifest JSON</a>
+      <a href="/repos/">Sources</a>
+    </footer>
+  </div>
+</body>
+</html>
