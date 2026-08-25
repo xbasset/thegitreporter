@@ -1,0 +1,261 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Codex Puts a Broker Between the Agent and the Secret | The Git Reporter</title>
+  <meta name="description" content="A newly merged Codex change says a project file can describe the work, but it should not be able to switch on the credential broker or choose the provider context that reaches an agent shell.">
+  <meta name="robots" content="index,follow">
+  <link rel="canonical" href="https://thegitreporter.com/articles/2026-08-25-daily-codex-puts-a-broker-between-the-agent-and-the-secret/">
+  <link rel="alternate" type="application/rss+xml" title="The Git Reporter" href="https://thegitreporter.com/feed.xml">
+  <meta property="og:site_name" content="The Git Reporter">
+  <meta property="og:locale" content="en_US">
+  <meta property="og:title" content="Codex Puts a Broker Between the Agent and the Secret | The Git Reporter">
+  <meta property="og:description" content="A newly merged Codex change says a project file can describe the work, but it should not be able to switch on the credential broker or choose the provider context that reaches an agent shell.">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://thegitreporter.com/articles/2026-08-25-daily-codex-puts-a-broker-between-the-agent-and-the-secret/">
+  <meta property="og:image" content="https://thegitreporter.com/assets/social/2026-08-25-daily-codex-puts-a-broker-between-the-agent-and-the-secret-og.jpg">
+  <meta property="og:image:secure_url" content="https://thegitreporter.com/assets/social/2026-08-25-daily-codex-puts-a-broker-between-the-agent-and-the-secret-og.jpg">
+  <meta property="og:image:type" content="image/jpeg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Photocopied marker diagram showing a repository config card barred from a credential broker, with trusted configuration feeding masked credentials to a sandbox shell and a caveat that the change is main-branch evidence, not a release.">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:site" content="@TheGitReporter">
+  <meta name="twitter:creator" content="@TheGitReporter">
+  <meta name="twitter:title" content="Codex Puts a Broker Between the Agent and the Secret | The Git Reporter">
+  <meta name="twitter:description" content="A newly merged Codex change says a project file can describe the work, but it should not be able to switch on the credential broker or choose the provider context that reaches an agent shell.">
+  <meta name="twitter:url" content="https://thegitreporter.com/articles/2026-08-25-daily-codex-puts-a-broker-between-the-agent-and-the-secret/">
+  <meta name="twitter:domain" content="thegitreporter.com">
+  <meta name="twitter:image" content="https://thegitreporter.com/assets/social/2026-08-25-daily-codex-puts-a-broker-between-the-agent-and-the-secret-og.jpg">
+  <meta name="twitter:image:alt" content="Photocopied marker diagram showing a repository config card barred from a credential broker, with trusted configuration feeding masked credentials to a sandbox shell and a caveat that the change is main-branch evidence, not a release.">
+  <meta property="article:published_time" content="2026-08-25T12:00:00Z">
+  <meta property="article:modified_time" content="2026-08-25T12:00:00Z">
+  <meta property="article:section" content="Daily Edition">
+  <meta property="article:tag" content="Permissions">
+  <meta property="article:tag" content="Memory">
+  <meta property="article:tag" content="Tools">
+  <meta property="article:tag" content="Runtime">
+  <meta property="article:tag" content="openai/codex">
+  <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"https://thegitreporter.com/#organization","name":"The Git Reporter","url":"https://thegitreporter.com","logo":{"@type":"ImageObject","url":"https://thegitreporter.com/assets/mark.svg"},"sameAs":["https://x.com/TheGitReporter"]},{"@type":"WebSite","@id":"https://thegitreporter.com/#website","name":"The Git Reporter","url":"https://thegitreporter.com","publisher":{"@id":"https://thegitreporter.com/#organization"}},{"@type":"NewsArticle","mainEntityOfPage":{"@type":"WebPage","@id":"https://thegitreporter.com/articles/2026-08-25-daily-codex-puts-a-broker-between-the-agent-and-the-secret/"},"headline":"Codex Puts a Broker Between the Agent and the Secret","description":"A newly merged Codex change says a project file can describe the work, but it should not be able to switch on the credential broker or choose the provider context that reaches an agent shell.","image":["https://thegitreporter.com/assets/social/2026-08-25-daily-codex-puts-a-broker-between-the-agent-and-the-secret-og.jpg"],"datePublished":"2026-08-25T12:00:00Z","dateModified":"2026-08-25T12:00:00Z","author":[{"@type":"Organization","name":"The Git Reporter","url":"https://thegitreporter.com"}],"publisher":{"@type":"Organization","@id":"https://thegitreporter.com/#organization","name":"The Git Reporter","url":"https://thegitreporter.com","logo":{"@type":"ImageObject","url":"https://thegitreporter.com/assets/mark.svg"},"sameAs":["https://x.com/TheGitReporter"]},"articleSection":"Daily Edition","keywords":"Permissions, Memory, Tools, Runtime, openai/codex"}]}</script>
+  <link rel="icon" href="/assets/mark.svg">
+  <link rel="stylesheet" href="/assets/site.css?v=2026-07-30-harness-memory">
+  <script defer src="/assets/feedback.js?v=2026-07-30-harness-memory"></script>
+  <script defer src="/assets/analytics.js?v=2026-07-30-harness-memory"></script>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-CH19T7M0T1"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){window.dataLayer.push(arguments);}
+    gtag("js", new Date());
+    gtag("config", "G-CH19T7M0T1");
+  </script>
+</head>
+<body>
+  <div class="site">
+    <header class="site-header" id="top">
+      <div class="wrap utility-row">
+        <a class="icon-link menu-icon" href="/archive/" aria-label="Open edition history"><span></span><span></span><span></span></a>
+        <a class="icon-link archive-icon" href="/archive/" aria-label="Open edition history"></a>
+      </div>
+      <div class="wrap masthead-lockup">
+        <a class="masthead-title" href="/">THE GIT REPORTER</a>
+        <div class="masthead-ornament" aria-hidden="true"></div>
+      </div>
+      <div class="wrap nav-wrap">
+        <nav class="paper-nav" aria-label="Primary navigation">
+    <a class="" href="/">Today</a><a class="active" href="/archive/">Editions</a><a class="" href="/about/">About</a><a class="" href="/battles/">Diff Derby</a><a class="" href="/agent-pulse/">Agent Pulse</a><a class="" href="/atlas/">Agent Atlas</a><a class="" href="/repos/">Repos</a>
+  </nav>
+        <div class="nav-rule"></div>
+      </div>
+    </header>
+    <main class="wrap page-shell article-page">
+      <section class="page-hero story-front">
+        <div class="story-topline">
+          <span>Daily Edition</span>
+          <span>Sources <strong>+3</strong></span>
+        </div>
+        <h1>Codex Puts a Broker Between the Agent and the Secret</h1>
+        <p class="summary">A newly merged Codex change says a project file can describe the work, but it should not be able to switch on the credential broker or choose the provider context that reaches an agent shell.</p>
+        <figure class="story-illustration article-illustration">
+    <img src="/assets/illustrations/2026-08-25-codex-puts-a-broker-between-the-agent-and-the-secret-diagram-punk-v1.png" alt="Photocopied marker diagram showing a repository config card barred from a credential broker, with trusted configuration feeding masked credentials to a sandbox shell and a caveat that the change is main-branch evidence, not a release." loading="lazy" decoding="async">
+    <figcaption><span>Diagram Punk</span>the repository is not the credential boundary.</figcaption>
+  </figure>
+        <div class="receipt">
+    <div class="receipt-line">
+      <span class="receipt-icon">repo</span>
+      <span class="receipt-main">openai/codex</span>
+      <span class="branch-pill">evidence</span>
+    </div>
+    <div class="receipt-line receipt-muted">
+      <span>3 source signals</span>
+      <span>1 repo</span>
+      <span>commit c3d5e44</span>
+    </div>
+    <div class="commit-line">Evidence: commit c3d5e44 / August 25, 2026 / Daily Edition</div>
+  </div>
+        <div class="article-route-row">
+          <a href="/editions/2026-08-25/">Open Edition</a>
+          <a href="#evidence">Evidence below</a>
+        </div>
+      </section>
+      <section class="story-reader">
+        <article class="story-shell story-body">
+          <p>Once a coding agent can run shells, access a network, and work in a repository, a small configuration question becomes a trust question: which layer decides how a credential reaches a command? A <a href="https://github.com/openai/codex/pull/40466">merged Codex pull request</a> puts the broker’s enablement and provider context in trusted configuration, not the project.</p>
+
+  <p>The change adds credential brokering to the network-proxy configuration, then prevents the project itself from changing the broker’s enablement or provider context when that broker has been configured in a trusted layer.</p>
+
+  <p>That matters because repository configuration is collaborative by design. It is often reviewed, copied, forked, and changed to make a task run. Credentials are not. The story here is not that Codex has found a magical way to make secrets safe; it is that the implementation chooses a different owner for the decision to broker them.</p>
+
+  <h2>Configuration stops at the repository door</h2>
+  <p>The public <a href="https://github.com/openai/codex/commit/c3d5e4418f05908ffeb68f6257fbacbb1e65e607">commit</a> adds <wbr><code>features.network_proxy.<wbr>credential_broker</code> and treats the network-proxy feature as structured configuration rather than a loose boolean.</p>
+
+  <p>More importantly, its loader strips a project’s attempt to set the broker, set the network-proxy toggle, or replace the provider-context environment keys once trusted broker configuration exists. The same path carries trusted context into a filtered shell environment. In plain language: the repository can still be the place an agent learns the job, without also becoming the place that decides the credential plumbing.</p>
+
+  <h2>A brokered shell is not an escalated shell</h2>
+  <p>The implementation does not blur every execution mode together. Its approval-suite test sets up a GitHub host and a fixture token, runs a command through the zsh-fork runtime, and asserts that the command output does not contain the real token while the broker reports active.</p>
+
+  <p>Separately, the changed escalation code restores brokered credentials for an explicitly unsandboxed command. That distinction is the useful design pressure: a masked or brokered environment can serve a constrained task, while a higher-trust transition is made in one visible place rather than accidentally inheriting the same authority.</p>
+
+  <p>There is a limit worth keeping in view. The evidence is a main-branch change and test suite, not a release note, a default-on promise, or a field report from a deployed organisation. The next useful signal is public configuration documentation that names the supported providers and explains the behavior across sandboxed and escalated commands. Until then, teams evaluating the feature should audit their configuration layers—not assume that a broker has erased the need for a credential policy.</p>
+        </article>
+      </section>
+      <section class="evidence-section" id="evidence" aria-labelledby="evidence-title">
+    <div class="evidence-head">
+      <div>
+        <div class="eyebrow">Evidence Trail</div>
+        <h2 id="evidence-title">Receipts below the story</h2>
+        <p>The article above is the public narrative. This section keeps the source trail and limits on the same page.</p>
+      </div>
+      <a class="paper-button" href="/editions/2026-08-25/">Edition</a>
+    </div>
+    <div class="evidence-table evidence-summary">
+      <div class="evidence-line"><span>Date</span><span>August 25, 2026</span></div>
+      <div class="evidence-line"><span>Lane</span><span>Daily Edition</span></div>
+      <div class="evidence-line"><span>Confidence</span><span>78%</span></div>
+      <div class="evidence-line"><span>Sources</span><span>3</span></div>
+      <div class="evidence-line"><span>Repos</span><span>openai/codex</span></div>
+    </div>
+    <div class="markdown evidence-copy evidence-copy-block">
+      <h2>Primary Evidence</h2>
+<ul>
+<li><a href="https://github.com/openai/codex/pull/40466">Codex pull request #40466 — credential brokering</a>
+<ul>
+<li>Shows: the change was merged into Codex <code>main</code> on August 24, 2026 and explicitly describes a broker feature, project-config protection, filtered-shell handling, unsandboxed escalation, and the intended test coverage.
+</li>
+</ul>
+</li>
+<li><a href="https://github.com/openai/codex/commit/c3d5e4418f05908ffeb68f6257fbacbb1e65e607">Codex commit c3d5e4418f</a>
+<ul>
+<li>Shows: the public implementation adds a credential-broker configuration field, sanitizes project configuration, threads trusted provider context through the configuration loader, and changes the shell escalation path.
+</li>
+</ul>
+</li>
+<li><a href="https://github.com/openai/codex/blob/c3d5e4418f05908ffeb68f6257fbacbb1e65e607/codex-rs/core/tests/suite/approvals.rs">Codex approval-suite broker test at c3d5e4418f</a>
+<ul>
+<li>Shows: the end-to-end zsh-fork test configures a GitHub host and fixture credential, verifies the sandboxed command does not print the real token, and checks that the credential broker reports active.
+</li>
+</ul>
+</li>
+</ul>
+<h2>Evidence Limits</h2>
+<ul>
+<li>These main-branch sources do not prove a released default, deployment at any organisation, or the security of every credential provider and execution environment.
+</li>
+<li>Watch for a public release note and configuration documentation that specifies which users can enable the broker, which providers it covers, and how its boundary behaves across sandboxed and escalated commands.
+</li>
+</ul>
+    </div>
+  </section>
+      <section class="related-edition-section atlas-context-section">
+    <div class="section-title-row">
+      <h2>Atlas Context</h2>
+      <a href="/atlas/">Open Atlas &rsaquo;</a>
+    </div>
+    <div class="updates-list">
+      <a class="article-card" href="/atlas/what-an-agent-can-see/">
+            <div class="article-meta"><span class="lane">Agent Atlas</span><span>Chapter 2</span></div>
+            <h3>The Invisible Prompt</h3>
+            <p>The model acts on an assembled viewport containing visible messages, hidden turn context, path-triggered instructions, memory records, tool schemas, permissions, and inherited state.</p>
+          </a>
+    </div>
+  </section>
+      <section class="reader-feedback"
+    data-tgr-feedback
+    data-article-slug="2026-08-25-daily-codex-puts-a-broker-between-the-agent-and-the-secret"
+    data-article-title="Codex Puts a Broker Between the Agent and the Secret"
+    data-article-url="/articles/2026-08-25-daily-codex-puts-a-broker-between-the-agent-and-the-secret/"
+    data-edition-date="2026-08-25"
+    data-lane="Daily Edition"
+    data-tags="Permissions,Memory,Tools,Runtime"
+    data-repos="openai/codex">
+    <div class="reader-feedback-head">
+      <div>
+        <div class="eyebrow">Letters &amp; Corrections</div>
+        <h2>Send a note to the desk</h2>
+      </div>
+      <p>Corrections, missing context, or a follow-up lead.</p>
+    </div>
+    <form class="feedback-form">
+      <div class="feedback-votes" role="group" aria-label="Choose signal type">
+        <button class="feedback-choice" type="button" data-vote="follow-up" aria-pressed="false">
+          <span aria-hidden="true">+</span>
+          <span>Follow-up</span>
+        </button>
+        <button class="feedback-choice" type="button" data-vote="correction" aria-pressed="false">
+          <span aria-hidden="true">!</span>
+          <span>Correction</span>
+        </button>
+      </div>
+      <label class="feedback-comment">
+        <span>Note for the editor</span>
+        <textarea name="comment" rows="3" maxlength="320" placeholder="What did we miss, or what should we follow next?"></textarea>
+      </label>
+      <div class="feedback-submit-row">
+        <p class="feedback-status" aria-live="polite"></p>
+        <button class="paper-button primary feedback-submit" type="submit">Send to desk</button>
+      </div>
+    </form>
+  </section>
+      <section class="related-edition-section">
+        <div class="section-title-row">
+          <h2>Same Edition</h2>
+          <a href="/editions/2026-08-25/">Open issue &rsaquo;</a>
+        </div>
+        <div class="updates-list">
+          <a class="update-card" href="/articles/2026-08-25-daily-builder-work-crewai-keeps-the-speaker-labels/">
+    <div class="update-stripe"></div>
+    <div class="update-main">
+      <div class="update-meta">
+        <span>Context</span>
+        <span class="source-plus">+3</span>
+        <span>Aug 25, 2026</span>
+      </div>
+      <h3>Builder Work: CrewAI Keeps the Speaker Labels</h3>
+      <div class="update-receipt">
+        <span>source trail</span>
+        <span class="branch-pill">evidence</span>
+      </div>
+      <div class="update-foot">
+        <span>3 sources</span>
+        <span>0 repos</span>
+        <span>commit 9652af6</span>
+      </div>
+    </div>
+    <span class="update-arrow" aria-hidden="true">&rsaquo;</span>
+  </a>
+        </div>
+      </section>
+    </main>
+    <footer class="wrap site-footer">
+      <span>&copy; 2026 The Git Reporter</span>
+      <a href="/about/">About</a>
+      <a href="/battles/">Diff Derby</a>
+      <a href="/agent-pulse/">Agent Pulse</a>
+      <a href="/feed.xml">RSS</a>
+      <a href="https://x.com/TheGitReporter">Follow on X</a>
+      <a href="/articles.json">Manifest JSON</a>
+      <a href="/repos/">Sources</a>
+    </footer>
+  </div>
+</body>
+</html>
