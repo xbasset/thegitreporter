@@ -1,0 +1,231 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>A Shared Terminal Is Not Shared Permission | The Git Reporter</title>
+  <meta name="description" content="OpenClaw’s new terminal-input path separates an agent being allowed to see an operator’s terminal from being allowed to send a keystroke into it.">
+  <meta name="robots" content="index,follow">
+  <link rel="canonical" href="https://thegitreporter.com/articles/2026-08-26-daily-a-shared-terminal-is-not-shared-permission/">
+  <link rel="alternate" type="application/rss+xml" title="The Git Reporter" href="https://thegitreporter.com/feed.xml">
+  <meta property="og:site_name" content="The Git Reporter">
+  <meta property="og:locale" content="en_US">
+  <meta property="og:title" content="A Shared Terminal Is Not Shared Permission | The Git Reporter">
+  <meta property="og:description" content="OpenClaw’s new terminal-input path separates an agent being allowed to see an operator’s terminal from being allowed to send a keystroke into it.">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://thegitreporter.com/articles/2026-08-26-daily-a-shared-terminal-is-not-shared-permission/">
+  <meta property="og:image" content="https://thegitreporter.com/assets/social/2026-08-26-daily-a-shared-terminal-is-not-shared-permission-og.jpg">
+  <meta property="og:image:secure_url" content="https://thegitreporter.com/assets/social/2026-08-26-daily-a-shared-terminal-is-not-shared-permission-og.jpg">
+  <meta property="og:image:type" content="image/jpeg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Photocopied marker diagram of an operator-opened terminal, a shared-session card, an agent input path with a one-shot approval checkpoint, and a policy dial, with a stamp saying the evidence is main branch rather than a release.">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:site" content="@TheGitReporter">
+  <meta name="twitter:creator" content="@TheGitReporter">
+  <meta name="twitter:title" content="A Shared Terminal Is Not Shared Permission | The Git Reporter">
+  <meta name="twitter:description" content="OpenClaw’s new terminal-input path separates an agent being allowed to see an operator’s terminal from being allowed to send a keystroke into it.">
+  <meta name="twitter:url" content="https://thegitreporter.com/articles/2026-08-26-daily-a-shared-terminal-is-not-shared-permission/">
+  <meta name="twitter:domain" content="thegitreporter.com">
+  <meta name="twitter:image" content="https://thegitreporter.com/assets/social/2026-08-26-daily-a-shared-terminal-is-not-shared-permission-og.jpg">
+  <meta name="twitter:image:alt" content="Photocopied marker diagram of an operator-opened terminal, a shared-session card, an agent input path with a one-shot approval checkpoint, and a policy dial, with a stamp saying the evidence is main branch rather than a release.">
+  <meta property="article:published_time" content="2026-08-26T12:00:00Z">
+  <meta property="article:modified_time" content="2026-08-26T12:00:00Z">
+  <meta property="article:section" content="Daily Edition">
+  <meta property="article:tag" content="Permissions">
+  <meta property="article:tag" content="Memory">
+  <meta property="article:tag" content="Delegation">
+  <meta property="article:tag" content="Tools">
+  <meta property="article:tag" content="openclaw/openclaw">
+  <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"https://thegitreporter.com/#organization","name":"The Git Reporter","url":"https://thegitreporter.com","logo":{"@type":"ImageObject","url":"https://thegitreporter.com/assets/mark.svg"},"sameAs":["https://x.com/TheGitReporter"]},{"@type":"WebSite","@id":"https://thegitreporter.com/#website","name":"The Git Reporter","url":"https://thegitreporter.com","publisher":{"@id":"https://thegitreporter.com/#organization"}},{"@type":"NewsArticle","mainEntityOfPage":{"@type":"WebPage","@id":"https://thegitreporter.com/articles/2026-08-26-daily-a-shared-terminal-is-not-shared-permission/"},"headline":"A Shared Terminal Is Not Shared Permission","description":"OpenClaw’s new terminal-input path separates an agent being allowed to see an operator’s terminal from being allowed to send a keystroke into it.","image":["https://thegitreporter.com/assets/social/2026-08-26-daily-a-shared-terminal-is-not-shared-permission-og.jpg"],"datePublished":"2026-08-26T12:00:00Z","dateModified":"2026-08-26T12:00:00Z","author":[{"@type":"Organization","name":"The Git Reporter","url":"https://thegitreporter.com"}],"publisher":{"@type":"Organization","@id":"https://thegitreporter.com/#organization","name":"The Git Reporter","url":"https://thegitreporter.com","logo":{"@type":"ImageObject","url":"https://thegitreporter.com/assets/mark.svg"},"sameAs":["https://x.com/TheGitReporter"]},"articleSection":"Daily Edition","keywords":"Permissions, Memory, Delegation, Tools, openclaw/openclaw"}]}</script>
+  <link rel="icon" href="/assets/mark.svg">
+  <link rel="stylesheet" href="/assets/site.css?v=2026-07-30-harness-memory">
+  <script defer src="/assets/feedback.js?v=2026-07-30-harness-memory"></script>
+  <script defer src="/assets/analytics.js?v=2026-07-30-harness-memory"></script>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-CH19T7M0T1"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){window.dataLayer.push(arguments);}
+    gtag("js", new Date());
+    gtag("config", "G-CH19T7M0T1");
+  </script>
+</head>
+<body>
+  <div class="site">
+    <header class="site-header" id="top">
+      <div class="wrap utility-row">
+        <a class="icon-link menu-icon" href="/archive/" aria-label="Open edition history"><span></span><span></span><span></span></a>
+        <a class="icon-link archive-icon" href="/archive/" aria-label="Open edition history"></a>
+      </div>
+      <div class="wrap masthead-lockup">
+        <a class="masthead-title" href="/">THE GIT REPORTER</a>
+        <div class="masthead-ornament" aria-hidden="true"></div>
+      </div>
+      <div class="wrap nav-wrap">
+        <nav class="paper-nav" aria-label="Primary navigation">
+    <a class="" href="/">Today</a><a class="active" href="/archive/">Editions</a><a class="" href="/about/">About</a><a class="" href="/battles/">Diff Derby</a><a class="" href="/agent-pulse/">Agent Pulse</a><a class="" href="/atlas/">Agent Atlas</a><a class="" href="/repos/">Repos</a>
+  </nav>
+        <div class="nav-rule"></div>
+      </div>
+    </header>
+    <main class="wrap page-shell article-page">
+      <section class="page-hero story-front">
+        <div class="story-topline">
+          <span>Daily Edition</span>
+          <span>Sources <strong>+3</strong></span>
+        </div>
+        <h1>A Shared Terminal Is Not Shared Permission</h1>
+        <p class="summary">OpenClaw’s new terminal-input path separates an agent being allowed to see an operator’s terminal from being allowed to send a keystroke into it.</p>
+        <figure class="story-illustration article-illustration">
+    <img src="/assets/illustrations/2026-08-26-a-shared-terminal-is-not-shared-permission-diagram-punk-v1.png" alt="Photocopied marker diagram of an operator-opened terminal, a shared-session card, an agent input path with a one-shot approval checkpoint, and a policy dial, with a stamp saying the evidence is main branch rather than a release." loading="lazy" decoding="async">
+    <figcaption><span>Diagram Punk</span>sharing a terminal does not grant standing authority to type.</figcaption>
+  </figure>
+        <div class="receipt">
+    <div class="receipt-line">
+      <span class="receipt-icon">repo</span>
+      <span class="receipt-main">openclaw/openclaw</span>
+      <span class="branch-pill">evidence</span>
+    </div>
+    <div class="receipt-line receipt-muted">
+      <span>3 source signals</span>
+      <span>1 repo</span>
+      <span>commit 3626a8e</span>
+    </div>
+    <div class="commit-line">Evidence: commit 3626a8e / August 26, 2026 / Daily Edition</div>
+  </div>
+        <div class="article-route-row">
+          <a href="/editions/2026-08-26/">Open Edition</a>
+          <a href="#evidence">Evidence below</a>
+        </div>
+      </section>
+      <section class="story-reader">
+        <article class="story-shell story-body">
+          <p>On August 25, a public <a href="https://github.com/openclaw/openclaw/commit/3626a8e18e2c18708398d166565927ea4b29a596">OpenClaw main-branch commit</a> removed agent-side terminal creation and added a policy-bound approval path for agent input to an existing shared terminal.</p>
+
+  <p>A terminal can be shared without becoming a blank cheque: an agent can work with a terminal an operator opened in the Control UI, but its ability to type is now resolved against the exact session’s execution policy and the exact live run.</p>
+
+  <p>The important move is not “more confirmation screens.” It is separating three facts that often get collapsed in an agent interface: a person opened the terminal, an agent can locate or read that terminal, and an agent can send a command into it. The changed terminal tool no longer offers agent-side terminal creation. It can list, read, resize, close, or enter input into an existing shared session; input is the one operation that crosses from observation and management into execution.</p>
+
+  <h2>The permission follows the keystroke</h2>
+  <p>For a session whose execution policy is <code>deny</code>, the new path refuses terminal input. Outside <code>full</code> access, it creates an approval request for the exact text the agent wants to send, requires an <em>allow once</em> decision, and explicitly rules out an “allow always” decision. The source then checks that the run still has its delegated authority and that the terminal manager has not changed before it writes to the PTY.</p>
+
+  <p>Those last checks are easy to skip in a product summary, but they make the boundary concrete. An approval is not treated as a reusable pass after the run ends; it cannot be redeemed against a terminal that vanished while the person was deciding; and a policy change is not meant to be widened merely because the agent retained a reference to an old session. The public <a href="https://github.com/openclaw/openclaw/blob/3626a8e18e2c18708398d166565927ea4b29a596/src/agents/tools/terminal-tool.test.ts">behavior tests</a> cover each of those cases, including two separate guarded inputs, a missing approval route, and authority loss while approval is pending.</p>
+
+  <h2>What operators can stop assuming</h2>
+  <p>For teams building agent-assisted operations, “the agent has a terminal” is too coarse a question. Ask instead: who opened it, which session owns it, what policy applies to input, who can review one proposed write, and what happens if the run or terminal changes halfway through that decision? A shared display can be useful without turning every visible shell into standing execution authority.</p>
+
+  <p>The source is deliberately narrower than a security guarantee. It is implementation and tests on the project’s public main branch, not evidence of a release, default configuration, or every possible gateway and terminal client. It also does not show an industry-wide policy shift; other projects have their own permission work, not a proven common standard. The next signal worth watching is public release and configuration guidance that keeps this line intact: the terminal may be shared, but the right to type remains a separate decision.</p>
+        </article>
+      </section>
+      <section class="evidence-section" id="evidence" aria-labelledby="evidence-title">
+    <div class="evidence-head">
+      <div>
+        <div class="eyebrow">Evidence Trail</div>
+        <h2 id="evidence-title">Receipts below the story</h2>
+        <p>The article above is the public narrative. This section keeps the source trail and limits on the same page.</p>
+      </div>
+      <a class="paper-button" href="/editions/2026-08-26/">Edition</a>
+    </div>
+    <div class="evidence-table evidence-summary">
+      <div class="evidence-line"><span>Date</span><span>August 26, 2026</span></div>
+      <div class="evidence-line"><span>Lane</span><span>Daily Edition</span></div>
+      <div class="evidence-line"><span>Confidence</span><span>78%</span></div>
+      <div class="evidence-line"><span>Sources</span><span>3</span></div>
+      <div class="evidence-line"><span>Repos</span><span>openclaw/openclaw</span></div>
+    </div>
+    <div class="markdown evidence-copy evidence-copy-block">
+      <h2>Primary Evidence</h2>
+<ul>
+<li>OpenClaw commit: <a href="https://github.com/openclaw/openclaw/commit/3626a8e18e2c18708398d166565927ea4b29a596">“fix(agents): enforce session permissions for shared terminal input”</a>
+<ul>
+<li>Shows: the public implementation removes agent-side terminal creation, passes session policy into the terminal tool, denies input under a deny policy, registers one exact input for approval outside full access, and validates the live authority again before writing to the shared terminal.
+</li>
+</ul>
+</li>
+<li>OpenClaw behavior tests: <a href="https://github.com/openclaw/openclaw/blob/3626a8e18e2c18708398d166565927ea4b29a596/src/agents/tools/terminal-tool.test.ts">terminal-tool.test.ts at commit 3626a8e</a>
+<ul>
+<li>Shows: the intended boundary is exercised for read-only and denied sessions, unrestricted full access, two separate guarded inputs, missing approval delivery, and a run, session, or Gateway changing while approval is pending.
+</li>
+</ul>
+</li>
+<li>OpenClaw protocol documentation: <a href="https://docs.openclaw.ai/web/control-ui#operator-terminal">Operator terminal</a>
+<ul>
+<li>Shows: the public operator-terminal surface is session-aware and distinguishes the terminal a person opens from the agent-facing tool’s limited session operations.
+</li>
+</ul>
+</li>
+</ul>
+<h2>Evidence Limits</h2>
+<ul>
+<li>These are source and test receipts for a main-branch change. They do not prove that a release contains it, that it is enabled by default, or that every deployment and terminal client enforces the same boundary.
+</li>
+<li>The evidence does not show a shared industry standard or coordination with other agent projects. Watch for release and configuration guidance that preserves the distinction among opening, viewing, and entering input into a terminal.
+</li>
+</ul>
+    </div>
+  </section>
+      <section class="related-edition-section atlas-context-section">
+    <div class="section-title-row">
+      <h2>Atlas Context</h2>
+      <a href="/atlas/">Open Atlas &rsaquo;</a>
+    </div>
+    <div class="updates-list">
+      <a class="article-card" href="/atlas/friction-safety-and-approval/">
+            <div class="article-meta"><span class="lane">Agent Atlas</span><span>Chapter 7</span></div>
+            <h3>The Approval Trap</h3>
+            <p>Approval is useful only when it catches a meaningful change in authority, explains that change, and keeps the decision attached to the work.</p>
+          </a>
+    </div>
+  </section>
+      <section class="reader-feedback"
+    data-tgr-feedback
+    data-article-slug="2026-08-26-daily-a-shared-terminal-is-not-shared-permission"
+    data-article-title="A Shared Terminal Is Not Shared Permission"
+    data-article-url="/articles/2026-08-26-daily-a-shared-terminal-is-not-shared-permission/"
+    data-edition-date="2026-08-26"
+    data-lane="Daily Edition"
+    data-tags="Permissions,Memory,Delegation,Tools"
+    data-repos="openclaw/openclaw">
+    <div class="reader-feedback-head">
+      <div>
+        <div class="eyebrow">Letters &amp; Corrections</div>
+        <h2>Send a note to the desk</h2>
+      </div>
+      <p>Corrections, missing context, or a follow-up lead.</p>
+    </div>
+    <form class="feedback-form">
+      <div class="feedback-votes" role="group" aria-label="Choose signal type">
+        <button class="feedback-choice" type="button" data-vote="follow-up" aria-pressed="false">
+          <span aria-hidden="true">+</span>
+          <span>Follow-up</span>
+        </button>
+        <button class="feedback-choice" type="button" data-vote="correction" aria-pressed="false">
+          <span aria-hidden="true">!</span>
+          <span>Correction</span>
+        </button>
+      </div>
+      <label class="feedback-comment">
+        <span>Note for the editor</span>
+        <textarea name="comment" rows="3" maxlength="320" placeholder="What did we miss, or what should we follow next?"></textarea>
+      </label>
+      <div class="feedback-submit-row">
+        <p class="feedback-status" aria-live="polite"></p>
+        <button class="paper-button primary feedback-submit" type="submit">Send to desk</button>
+      </div>
+    </form>
+  </section>
+      
+    </main>
+    <footer class="wrap site-footer">
+      <span>&copy; 2026 The Git Reporter</span>
+      <a href="/about/">About</a>
+      <a href="/battles/">Diff Derby</a>
+      <a href="/agent-pulse/">Agent Pulse</a>
+      <a href="/feed.xml">RSS</a>
+      <a href="https://x.com/TheGitReporter">Follow on X</a>
+      <a href="/articles.json">Manifest JSON</a>
+      <a href="/repos/">Sources</a>
+    </footer>
+  </div>
+</body>
+</html>
