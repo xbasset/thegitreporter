@@ -1,0 +1,256 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Before Docker Reads the File | The Git Reporter</title>
+  <meta name="description" content="Headlong’s Docker broker is treating the pre-render Compose file as an authority boundary—because a path is no longer safe to inspect after the renderer has already opened it.">
+  <meta name="robots" content="index,follow">
+  <link rel="canonical" href="https://thegitreporter.com/articles/2026-08-27-daily-before-docker-reads-the-file/">
+  <link rel="alternate" type="application/rss+xml" title="The Git Reporter" href="https://thegitreporter.com/feed.xml">
+  <meta property="og:site_name" content="The Git Reporter">
+  <meta property="og:locale" content="en_US">
+  <meta property="og:title" content="Before Docker Reads the File | The Git Reporter">
+  <meta property="og:description" content="Headlong’s Docker broker is treating the pre-render Compose file as an authority boundary—because a path is no longer safe to inspect after the renderer has already opened it.">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://thegitreporter.com/articles/2026-08-27-daily-before-docker-reads-the-file/">
+  <meta property="og:image" content="https://thegitreporter.com/assets/social/2026-08-27-daily-before-docker-reads-the-file-og.jpg">
+  <meta property="og:image:secure_url" content="https://thegitreporter.com/assets/social/2026-08-27-daily-before-docker-reads-the-file-og.jpg">
+  <meta property="og:image:type" content="image/jpeg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Photocopied marker diagram of a raw Compose file passing through a path-check gate before Docker rendering, with a crossed-out host-file read and a caveat stamp saying the evidence is public source and tests, not a release.">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:site" content="@TheGitReporter">
+  <meta name="twitter:creator" content="@TheGitReporter">
+  <meta name="twitter:title" content="Before Docker Reads the File | The Git Reporter">
+  <meta name="twitter:description" content="Headlong’s Docker broker is treating the pre-render Compose file as an authority boundary—because a path is no longer safe to inspect after the renderer has already opened it.">
+  <meta name="twitter:url" content="https://thegitreporter.com/articles/2026-08-27-daily-before-docker-reads-the-file/">
+  <meta name="twitter:domain" content="thegitreporter.com">
+  <meta name="twitter:image" content="https://thegitreporter.com/assets/social/2026-08-27-daily-before-docker-reads-the-file-og.jpg">
+  <meta name="twitter:image:alt" content="Photocopied marker diagram of a raw Compose file passing through a path-check gate before Docker rendering, with a crossed-out host-file read and a caveat stamp saying the evidence is public source and tests, not a release.">
+  <meta property="article:published_time" content="2026-08-27T12:00:00Z">
+  <meta property="article:modified_time" content="2026-08-27T12:00:00Z">
+  <meta property="article:section" content="Daily Edition">
+  <meta property="article:tag" content="Permissions">
+  <meta property="article:tag" content="Memory">
+  <meta property="article:tag" content="Tools">
+  <meta property="article:tag" content="Runtime">
+  <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"https://thegitreporter.com/#organization","name":"The Git Reporter","url":"https://thegitreporter.com","logo":{"@type":"ImageObject","url":"https://thegitreporter.com/assets/mark.svg"},"sameAs":["https://x.com/TheGitReporter"]},{"@type":"WebSite","@id":"https://thegitreporter.com/#website","name":"The Git Reporter","url":"https://thegitreporter.com","publisher":{"@id":"https://thegitreporter.com/#organization"}},{"@type":"NewsArticle","mainEntityOfPage":{"@type":"WebPage","@id":"https://thegitreporter.com/articles/2026-08-27-daily-before-docker-reads-the-file/"},"headline":"Before Docker Reads the File","description":"Headlong’s Docker broker is treating the pre-render Compose file as an authority boundary—because a path is no longer safe to inspect after the renderer has already opened it.","image":["https://thegitreporter.com/assets/social/2026-08-27-daily-before-docker-reads-the-file-og.jpg"],"datePublished":"2026-08-27T12:00:00Z","dateModified":"2026-08-27T12:00:00Z","author":[{"@type":"Organization","name":"The Git Reporter","url":"https://thegitreporter.com"}],"publisher":{"@type":"Organization","@id":"https://thegitreporter.com/#organization","name":"The Git Reporter","url":"https://thegitreporter.com","logo":{"@type":"ImageObject","url":"https://thegitreporter.com/assets/mark.svg"},"sameAs":["https://x.com/TheGitReporter"]},"articleSection":"Daily Edition","keywords":"Permissions, Memory, Tools, Runtime"}]}</script>
+  <link rel="icon" href="/assets/mark.svg">
+  <link rel="stylesheet" href="/assets/site.css?v=2026-07-30-harness-memory">
+  <script defer src="/assets/feedback.js?v=2026-07-30-harness-memory"></script>
+  <script defer src="/assets/analytics.js?v=2026-07-30-harness-memory"></script>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-CH19T7M0T1"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){window.dataLayer.push(arguments);}
+    gtag("js", new Date());
+    gtag("config", "G-CH19T7M0T1");
+  </script>
+</head>
+<body>
+  <div class="site">
+    <header class="site-header" id="top">
+      <div class="wrap utility-row">
+        <a class="icon-link menu-icon" href="/archive/" aria-label="Open edition history"><span></span><span></span><span></span></a>
+        <a class="icon-link archive-icon" href="/archive/" aria-label="Open edition history"></a>
+      </div>
+      <div class="wrap masthead-lockup">
+        <a class="masthead-title" href="/">THE GIT REPORTER</a>
+        <div class="masthead-ornament" aria-hidden="true"></div>
+      </div>
+      <div class="wrap nav-wrap">
+        <nav class="paper-nav" aria-label="Primary navigation">
+    <a class="" href="/">Today</a><a class="active" href="/archive/">Editions</a><a class="" href="/about/">About</a><a class="" href="/battles/">Diff Derby</a><a class="" href="/agent-pulse/">Agent Pulse</a><a class="" href="/atlas/">Agent Atlas</a><a class="" href="/repos/">Repos</a>
+  </nav>
+        <div class="nav-rule"></div>
+      </div>
+    </header>
+    <main class="wrap page-shell article-page">
+      <section class="page-hero story-front">
+        <div class="story-topline">
+          <span>Daily Edition</span>
+          <span>Sources <strong>+3</strong></span>
+        </div>
+        <h1>Before Docker Reads the File</h1>
+        <p class="summary">Headlong’s Docker broker is treating the pre-render Compose file as an authority boundary—because a path is no longer safe to inspect after the renderer has already opened it.</p>
+        <figure class="story-illustration article-illustration">
+    <img src="/assets/illustrations/2026-08-27-before-docker-reads-the-file-diagram-punk-v1.png" alt="Photocopied marker diagram of a raw Compose file passing through a path-check gate before Docker rendering, with a crossed-out host-file read and a caveat stamp saying the evidence is public source and tests, not a release." loading="lazy" decoding="async">
+    <figcaption><span>Diagram Punk</span>the policy gate has to run before rendering opens the file.</figcaption>
+  </figure>
+        <div class="receipt">
+    <div class="receipt-line">
+      <span class="receipt-icon">repos</span>
+      <span class="receipt-main">source trail</span>
+      <span class="branch-pill">evidence</span>
+    </div>
+    <div class="receipt-line receipt-muted">
+      <span>3 source signals</span>
+      <span>0 repos</span>
+      <span>commit c11d08d</span>
+    </div>
+    <div class="commit-line">Evidence: commit c11d08d / August 27, 2026 / Daily Edition</div>
+  </div>
+        <div class="article-route-row">
+          <a href="/editions/2026-08-27/">Open Edition</a>
+          <a href="#evidence">Evidence below</a>
+        </div>
+      </section>
+      <section class="story-reader">
+        <article class="story-shell story-body">
+          <p>Headlong’s public <a href="https://github.com/laude-institute/headlong/pull/47">Docker-broker pull request #47</a> reports that an agent-authored Compose model could reach host data through a sibling-prefix path, <code>..</code>, a symlink, or fields the gate did not inspect. The awkward moment comes earlier than the container: when a trusted tool turns that configuration into an execution plan.</p>
+
+  <p>The project’s broker is the host-side gate for a shell-capable agent that can ask to run Compose. Its authors found that checking a convenient, already-rendered model was too late for some inputs. A path in <code>env_file</code> or <code>label_file</code> can be read and inlined while Compose renders the configuration; afterwards, the validator sees values, not the path that caused the host read.</p>
+
+  <h2>The path disappears at rendering time</h2>
+  <p>The original public report describes several more familiar escapes too: a sibling path that merely shares a text prefix with the work directory, an absolute path carrying <code>..</code>, and a symlink planted inside the work tree. The broker now resolves the candidate and the allowed root instead of comparing spellings. It also expands the question from “is this a bind mount?” to “does this Compose field name something on the host?”—including volume devices, secrets, configs, additional build contexts, build SSH keys and local caches.</p>
+
+  <p>The follow-up <a href="https://github.com/laude-institute/headlong/commit/c11d08d7431f08582eeb2c64391419ab4a1febc3">implementation and tests</a> put the ordering in code. It first asks Compose for an uninterpolated model, validates the raw environment and label-file paths, and only then permits the ordinary render. An unexpanded variable is rejected rather than optimistically treated as contained; a render error is withheld from the requester because the error itself might quote a file it just tried to read. That is a policy boundary with a time dimension, not a prettier path check.</p>
+
+  <h2>Ask what the renderer touched</h2>
+  <p>Headlong’s public documentation matters here because <a href="https://github.com/laude-institute/headlong/blob/main/docs/shellm.md">shellm executes model-written Bash in Docker when it can</a>. For an operator of any agent that can assemble infrastructure configuration, “it runs in a container” is therefore not the last question. Ask which tool resolves the request, which inputs that tool opens before a policy check, and whether errors can relay the contents back across the boundary.</p>
+
+  <p>This is source and test evidence, not proof of a shipped security guarantee. The public pull request and commits do not establish release availability, default settings, or a complete inventory of every Compose feature. But they do make the next signal precise: a sandbox is only as bounded as the first trusted parser that touches the agent’s configuration.</p>
+        </article>
+      </section>
+      <section class="evidence-section" id="evidence" aria-labelledby="evidence-title">
+    <div class="evidence-head">
+      <div>
+        <div class="eyebrow">Evidence Trail</div>
+        <h2 id="evidence-title">Receipts below the story</h2>
+        <p>The article above is the public narrative. This section keeps the source trail and limits on the same page.</p>
+      </div>
+      <a class="paper-button" href="/editions/2026-08-27/">Edition</a>
+    </div>
+    <div class="evidence-table evidence-summary">
+      <div class="evidence-line"><span>Date</span><span>August 27, 2026</span></div>
+      <div class="evidence-line"><span>Lane</span><span>Daily Edition</span></div>
+      <div class="evidence-line"><span>Confidence</span><span>78%</span></div>
+      <div class="evidence-line"><span>Sources</span><span>3</span></div>
+      <div class="evidence-line"><span>Repos</span><span>source trail</span></div>
+    </div>
+    <div class="markdown evidence-copy evidence-copy-block">
+      <h2>Primary Evidence</h2>
+<ul>
+<li>Headlong Docker-broker pull request: <a href="https://github.com/laude-institute/headlong/pull/47">“contain compose host paths by resolution, and check the fields it never read”</a>
+<ul>
+<li>Shows: the public report of the original containment failures and the reason the broker must inspect volume devices, secrets, configs, build contexts, and raw <code>env_file</code> paths before ordinary Compose rendering can consume them.
+</li>
+</ul>
+</li>
+<li>Headlong broker follow-up: <a href="https://github.com/laude-institute/headlong/commit/c11d08d7431f08582eeb2c64391419ab4a1febc3">commit c11d08d</a>
+<ul>
+<li>Shows: the public implementation and test expansion that treats <code>oci-layout</code> contexts, build SSH keys and caches, <code>label_file</code>, unexpanded variables, and render errors as containment and disclosure problems rather than benign configuration details.
+</li>
+</ul>
+</li>
+<li>Headlong shellm documentation: <a href="https://github.com/laude-institute/headlong/blob/main/docs/shellm.md">the shellm Docker execution model</a>
+<ul>
+<li>Shows: the public context that a shellm agent runs model-written Bash in Docker when available and has shell access, explaining why a host-side Docker broker is an operational authority boundary.
+</li>
+</ul>
+</li>
+</ul>
+<h2>Evidence Limits</h2>
+<ul>
+<li>These source and test receipts do not prove that a release contains the change, that brokered Docker is the default everywhere, or that every Compose path-bearing feature is now covered.
+</li>
+<li>The public pull request and commits establish implementation intent and adversarial test cases, not a completed security audit or a measured reduction in real-world exposure. Watch for merge and release guidance, plus any newly discovered renderer input that changes the boundary.
+</li>
+</ul>
+    </div>
+  </section>
+      <section class="related-edition-section atlas-context-section">
+    <div class="section-title-row">
+      <h2>Atlas Context</h2>
+      <a href="/atlas/">Open Atlas &rsaquo;</a>
+    </div>
+    <div class="updates-list">
+      <a class="article-card" href="/atlas/friction-safety-and-approval/">
+            <div class="article-meta"><span class="lane">Agent Atlas</span><span>Chapter 7</span></div>
+            <h3>The Approval Trap</h3>
+            <p>Approval is useful only when it catches a meaningful change in authority, explains that change, and keeps the decision attached to the work.</p>
+          </a>
+    </div>
+  </section>
+      <section class="reader-feedback"
+    data-tgr-feedback
+    data-article-slug="2026-08-27-daily-before-docker-reads-the-file"
+    data-article-title="Before Docker Reads the File"
+    data-article-url="/articles/2026-08-27-daily-before-docker-reads-the-file/"
+    data-edition-date="2026-08-27"
+    data-lane="Daily Edition"
+    data-tags="Permissions,Memory,Tools,Runtime"
+    data-repos="">
+    <div class="reader-feedback-head">
+      <div>
+        <div class="eyebrow">Letters &amp; Corrections</div>
+        <h2>Send a note to the desk</h2>
+      </div>
+      <p>Corrections, missing context, or a follow-up lead.</p>
+    </div>
+    <form class="feedback-form">
+      <div class="feedback-votes" role="group" aria-label="Choose signal type">
+        <button class="feedback-choice" type="button" data-vote="follow-up" aria-pressed="false">
+          <span aria-hidden="true">+</span>
+          <span>Follow-up</span>
+        </button>
+        <button class="feedback-choice" type="button" data-vote="correction" aria-pressed="false">
+          <span aria-hidden="true">!</span>
+          <span>Correction</span>
+        </button>
+      </div>
+      <label class="feedback-comment">
+        <span>Note for the editor</span>
+        <textarea name="comment" rows="3" maxlength="320" placeholder="What did we miss, or what should we follow next?"></textarea>
+      </label>
+      <div class="feedback-submit-row">
+        <p class="feedback-status" aria-live="polite"></p>
+        <button class="paper-button primary feedback-submit" type="submit">Send to desk</button>
+      </div>
+    </form>
+  </section>
+      <section class="related-edition-section">
+        <div class="section-title-row">
+          <h2>Same Edition</h2>
+          <a href="/editions/2026-08-27/">Open issue &rsaquo;</a>
+        </div>
+        <div class="updates-list">
+          <a class="update-card" href="/articles/2026-08-27-daily-headlong-makes-the-parser-part-of-the-sandbox/">
+    <div class="update-stripe"></div>
+    <div class="update-main">
+      <div class="update-meta">
+        <span>Context</span>
+        <span class="source-plus">+3</span>
+        <span>Aug 27, 2026</span>
+      </div>
+      <h3>Headlong Makes the Parser Part of the Sandbox</h3>
+      <div class="update-receipt">
+        <span>source trail</span>
+        <span class="branch-pill">evidence</span>
+      </div>
+      <div class="update-foot">
+        <span>3 sources</span>
+        <span>0 repos</span>
+        <span>3 source signals</span>
+      </div>
+    </div>
+    <span class="update-arrow" aria-hidden="true">&rsaquo;</span>
+  </a>
+        </div>
+      </section>
+    </main>
+    <footer class="wrap site-footer">
+      <span>&copy; 2026 The Git Reporter</span>
+      <a href="/about/">About</a>
+      <a href="/battles/">Diff Derby</a>
+      <a href="/agent-pulse/">Agent Pulse</a>
+      <a href="/feed.xml">RSS</a>
+      <a href="https://x.com/TheGitReporter">Follow on X</a>
+      <a href="/articles.json">Manifest JSON</a>
+      <a href="/repos/">Sources</a>
+    </footer>
+  </div>
+</body>
+</html>
