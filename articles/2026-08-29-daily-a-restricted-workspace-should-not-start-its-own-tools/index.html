@@ -1,0 +1,255 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>A Restricted Workspace Should Not Start Its Own Tools | The Git Reporter</title>
+  <meta name="description" content="Gemini CLI now gives an explicitly restricted or untrusted workspace a narrower configuration path: repository-defined tools, MCP servers, policies and telemetry no longer accompany its A2A server into startup.">
+  <meta name="robots" content="index,follow">
+  <link rel="canonical" href="https://thegitreporter.com/articles/2026-08-29-daily-a-restricted-workspace-should-not-start-its-own-tools/">
+  <link rel="alternate" type="application/rss+xml" title="The Git Reporter" href="https://thegitreporter.com/feed.xml">
+  <meta property="og:site_name" content="The Git Reporter">
+  <meta property="og:locale" content="en_US">
+  <meta property="og:title" content="A Restricted Workspace Should Not Start Its Own Tools | The Git Reporter">
+  <meta property="og:description" content="Gemini CLI now gives an explicitly restricted or untrusted workspace a narrower configuration path: repository-defined tools, MCP servers, policies and telemetry no longer accompany its A2A server into startup.">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://thegitreporter.com/articles/2026-08-29-daily-a-restricted-workspace-should-not-start-its-own-tools/">
+  <meta property="og:image" content="https://thegitreporter.com/assets/social/2026-08-29-daily-a-restricted-workspace-should-not-start-its-own-tools-og.jpg">
+  <meta property="og:image:secure_url" content="https://thegitreporter.com/assets/social/2026-08-29-daily-a-restricted-workspace-should-not-start-its-own-tools-og.jpg">
+  <meta property="og:image:type" content="image/jpeg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Marker diagram showing a restricted-mode signal crossing out repository MCP, policy, tool and telemetry cards before an A2A server receives trusted configuration.">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:site" content="@TheGitReporter">
+  <meta name="twitter:creator" content="@TheGitReporter">
+  <meta name="twitter:title" content="A Restricted Workspace Should Not Start Its Own Tools | The Git Reporter">
+  <meta name="twitter:description" content="Gemini CLI now gives an explicitly restricted or untrusted workspace a narrower configuration path: repository-defined tools, MCP servers, policies and telemetry no longer accompany its A2A server into startup.">
+  <meta name="twitter:url" content="https://thegitreporter.com/articles/2026-08-29-daily-a-restricted-workspace-should-not-start-its-own-tools/">
+  <meta name="twitter:domain" content="thegitreporter.com">
+  <meta name="twitter:image" content="https://thegitreporter.com/assets/social/2026-08-29-daily-a-restricted-workspace-should-not-start-its-own-tools-og.jpg">
+  <meta name="twitter:image:alt" content="Marker diagram showing a restricted-mode signal crossing out repository MCP, policy, tool and telemetry cards before an A2A server receives trusted configuration.">
+  <meta property="article:published_time" content="2026-08-29T12:00:00Z">
+  <meta property="article:modified_time" content="2026-08-29T12:00:00Z">
+  <meta property="article:section" content="Daily Edition">
+  <meta property="article:tag" content="Memory">
+  <meta property="article:tag" content="Tools">
+  <meta property="article:tag" content="UX">
+  <meta property="article:tag" content="Runtime">
+  <meta property="article:tag" content="google-gemini/gemini-cli">
+  <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"https://thegitreporter.com/#organization","name":"The Git Reporter","url":"https://thegitreporter.com","logo":{"@type":"ImageObject","url":"https://thegitreporter.com/assets/mark.svg"},"sameAs":["https://x.com/TheGitReporter"]},{"@type":"WebSite","@id":"https://thegitreporter.com/#website","name":"The Git Reporter","url":"https://thegitreporter.com","publisher":{"@id":"https://thegitreporter.com/#organization"}},{"@type":"NewsArticle","mainEntityOfPage":{"@type":"WebPage","@id":"https://thegitreporter.com/articles/2026-08-29-daily-a-restricted-workspace-should-not-start-its-own-tools/"},"headline":"A Restricted Workspace Should Not Start Its Own Tools","description":"Gemini CLI now gives an explicitly restricted or untrusted workspace a narrower configuration path: repository-defined tools, MCP servers, policies and telemetry no longer accompany its A2A server into startup.","image":["https://thegitreporter.com/assets/social/2026-08-29-daily-a-restricted-workspace-should-not-start-its-own-tools-og.jpg"],"datePublished":"2026-08-29T12:00:00Z","dateModified":"2026-08-29T12:00:00Z","author":[{"@type":"Organization","name":"The Git Reporter","url":"https://thegitreporter.com"}],"publisher":{"@type":"Organization","@id":"https://thegitreporter.com/#organization","name":"The Git Reporter","url":"https://thegitreporter.com","logo":{"@type":"ImageObject","url":"https://thegitreporter.com/assets/mark.svg"},"sameAs":["https://x.com/TheGitReporter"]},"articleSection":"Daily Edition","keywords":"Memory, Tools, UX, Runtime, google-gemini/gemini-cli"}]}</script>
+  <link rel="icon" href="/assets/mark.svg">
+  <link rel="stylesheet" href="/assets/site.css?v=2026-07-30-harness-memory">
+  <script defer src="/assets/feedback.js?v=2026-07-30-harness-memory"></script>
+  <script defer src="/assets/analytics.js?v=2026-07-30-harness-memory"></script>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-CH19T7M0T1"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){window.dataLayer.push(arguments);}
+    gtag("js", new Date());
+    gtag("config", "G-CH19T7M0T1");
+  </script>
+</head>
+<body>
+  <div class="site">
+    <header class="site-header" id="top">
+      <div class="wrap utility-row">
+        <a class="icon-link menu-icon" href="/archive/" aria-label="Open edition history"><span></span><span></span><span></span></a>
+        <a class="icon-link archive-icon" href="/archive/" aria-label="Open edition history"></a>
+      </div>
+      <div class="wrap masthead-lockup">
+        <a class="masthead-title" href="/">THE GIT REPORTER</a>
+        <div class="masthead-ornament" aria-hidden="true"></div>
+      </div>
+      <div class="wrap nav-wrap">
+        <nav class="paper-nav" aria-label="Primary navigation">
+    <a class="" href="/">Today</a><a class="active" href="/archive/">Editions</a><a class="" href="/about/">About</a><a class="" href="/battles/">Diff Derby</a><a class="" href="/agent-pulse/">Agent Pulse</a><a class="" href="/atlas/">Agent Atlas</a><a class="" href="/repos/">Repos</a>
+  </nav>
+        <div class="nav-rule"></div>
+      </div>
+    </header>
+    <main class="wrap page-shell article-page">
+      <section class="page-hero story-front">
+        <div class="story-topline">
+          <span>Daily Edition</span>
+          <span>Sources <strong>+3</strong></span>
+        </div>
+        <h1>A Restricted Workspace Should Not Start Its Own Tools</h1>
+        <p class="summary">Gemini CLI now gives an explicitly restricted or untrusted workspace a narrower configuration path: repository-defined tools, MCP servers, policies and telemetry no longer accompany its A2A server into startup.</p>
+        <figure class="story-illustration article-illustration">
+    <img src="/assets/illustrations/2026-08-29-a-restricted-workspace-should-not-start-its-own-tools-diagram-punk-v1.png" alt="Marker diagram showing a restricted-mode signal crossing out repository MCP, policy, tool and telemetry cards before an A2A server receives trusted configuration." loading="lazy" decoding="async">
+    <figcaption><span>Diagram Punk</span>restricted should cut repository startup authority before the server sees it.</figcaption>
+  </figure>
+        <div class="receipt">
+    <div class="receipt-line">
+      <span class="receipt-icon">repo</span>
+      <span class="receipt-main">google-gemini/gemini-cli</span>
+      <span class="branch-pill">evidence</span>
+    </div>
+    <div class="receipt-line receipt-muted">
+      <span>3 source signals</span>
+      <span>1 repo</span>
+      <span>commit 0bd1d43</span>
+    </div>
+    <div class="commit-line">Evidence: commit 0bd1d43 / August 29, 2026 / Daily Edition</div>
+  </div>
+        <div class="article-route-row">
+          <a href="/editions/2026-08-29/">Open Edition</a>
+          <a href="#evidence">Evidence below</a>
+        </div>
+      </section>
+      <section class="story-reader">
+        <article class="story-shell story-body">
+          <p>A project folder can do more than hold code. In an agent workflow it can also describe servers to start, policies to load, tools to enable and places to send telemetry. Gemini CLI’s merged <a href="https://github.com/google-gemini/gemini-cli/pull/29099">workspace-trust change</a> makes one boundary explicit: when the environment says the workspace is restricted or untrusted, those repository-supplied settings must not make the trip into the A2A server’s startup configuration.</p>
+
+  <p>The first reading was too small: filter an MCP configuration and move on. The final <a href="https://github.com/google-gemini/gemini-cli/commit/0bd1d439751478771c45d3d0895a6a9760554bf4">main-branch diff</a> filters five families when the A2A server is not trusted: <code>mcpServers</code>, policy paths, admin-policy paths, tool settings and telemetry. That matters because each family is a different claim by a checkout about what an agent should execute, permit or report.</p>
+
+  <h2>Trust has to win before configuration is assembled</h2>
+  <p>At the core, the change makes an explicit <code>GEMINI_RESTRICTED_MODE=true</code> or an explicit false workspace-trust signal win before folder or IDE fallbacks. The A2A loader then creates a safe view of the repository settings rather than mutating the caller’s original object. Its <a href="https://github.com/google-gemini/gemini-cli/blob/0bd1d439751478771c45d3d0895a6a9760554bf4/packages/a2a-server/src/config/workspace_trust.test.ts">new tests</a> assert that the server sees none of those configuration families when trust is false—and that it keeps them when trust is true.</p>
+
+  <p>The pull request’s public review trail explains why the distinction grew. Early review findings did not stop at MCP servers: policy paths, admin-policy paths and tools could also let a repository influence the server’s authority. The merged version strips all of them, plus telemetry. That is a more useful security shape than a single blacklist: decide whether the workspace is trusted, then keep its startup instructions out of the privileged path until it is.</p>
+
+  <h2>The next audit question is concrete</h2>
+  <p>For a maintainer or operator, this turns “do we trust this project?” into a testable question: can an untrusted checkout cause any repository-defined server, policy, tool or telemetry route to be active before an explicit trust decision? The public receipts show intended main-branch behavior, not a shipped release, a complete audit or every Gemini CLI execution path. The signal to watch is release guidance—and tests beyond this A2A path—that make the same answer visible wherever a project can shape an agent runtime.</p>
+        </article>
+      </section>
+      <section class="evidence-section" id="evidence" aria-labelledby="evidence-title">
+    <div class="evidence-head">
+      <div>
+        <div class="eyebrow">Evidence Trail</div>
+        <h2 id="evidence-title">Receipts below the story</h2>
+        <p>The article above is the public narrative. This section keeps the source trail and limits on the same page.</p>
+      </div>
+      <a class="paper-button" href="/editions/2026-08-29/">Edition</a>
+    </div>
+    <div class="evidence-table evidence-summary">
+      <div class="evidence-line"><span>Date</span><span>August 29, 2026</span></div>
+      <div class="evidence-line"><span>Lane</span><span>Daily Edition</span></div>
+      <div class="evidence-line"><span>Confidence</span><span>78%</span></div>
+      <div class="evidence-line"><span>Sources</span><span>3</span></div>
+      <div class="evidence-line"><span>Repos</span><span>google-gemini/gemini-cli</span></div>
+    </div>
+    <div class="markdown evidence-copy evidence-copy-block">
+      <h2>Primary Evidence</h2>
+<ul>
+<li>Gemini CLI workspace-trust change: <a href="https://github.com/google-gemini/gemini-cli/pull/29099">pull request #29099</a>
+<ul>
+<li>Shows: the merged public change's stated purpose: environment trust signals take precedence in restricted or untrusted contexts, and repository-defined MCP server configuration is filtered before A2A server startup.
+</li>
+</ul>
+</li>
+<li>Gemini CLI implementation: <a href="https://github.com/google-gemini/gemini-cli/commit/0bd1d439751478771c45d3d0895a6a9760554bf4">commit 0bd1d439</a>
+<ul>
+<li>Shows: the exact main-branch implementation that returns an untrusted result for restricted-mode or explicit false-trust environment signals and removes MCP servers, policy paths, admin-policy paths, tool settings and telemetry from the untrusted A2A-server configuration.
+</li>
+</ul>
+</li>
+<li>Gemini CLI trust tests: <a href="https://github.com/google-gemini/gemini-cli/blob/0bd1d439751478771c45d3d0895a6a9760554bf4/packages/a2a-server/src/config/workspace_trust.test.ts">workspace-trust test</a>
+<ul>
+<li>Shows: focused tests that the sensitive configuration families are absent when <code>trusted</code> is false and present when it is true; they also exercise restricted environment signals.
+</li>
+</ul>
+</li>
+</ul>
+<h2>Evidence Limits</h2>
+<ul>
+<li>These receipts establish a merged main-branch implementation and its intended test behavior. They do not establish that a released Gemini CLI build contains it, that every entry point uses the same path, or that the code is a complete security guarantee.
+</li>
+<li>Watch for release documentation and additional public tests that specify how restricted mode and every repository-controlled extension or configuration surface behave in practice.
+</li>
+</ul>
+    </div>
+  </section>
+      <section class="related-edition-section atlas-context-section">
+    <div class="section-title-row">
+      <h2>Atlas Context</h2>
+      <a href="/atlas/">Open Atlas &rsaquo;</a>
+    </div>
+    <div class="updates-list">
+      <a class="article-card" href="/atlas/hands-in-the-world/">
+            <div class="article-meta"><span class="lane">Agent Atlas</span><span>Chapter 3</span></div>
+            <h3>Tool Calls: Contract, Authorization, Execution</h3>
+            <p>A tool call crosses independently governed boundaries: schema, registration, policy, approval, execution authority, result handling, and audit.</p>
+          </a>
+    </div>
+  </section>
+      <section class="reader-feedback"
+    data-tgr-feedback
+    data-article-slug="2026-08-29-daily-a-restricted-workspace-should-not-start-its-own-tools"
+    data-article-title="A Restricted Workspace Should Not Start Its Own Tools"
+    data-article-url="/articles/2026-08-29-daily-a-restricted-workspace-should-not-start-its-own-tools/"
+    data-edition-date="2026-08-29"
+    data-lane="Daily Edition"
+    data-tags="Memory,Tools,UX,Runtime"
+    data-repos="google-gemini/gemini-cli">
+    <div class="reader-feedback-head">
+      <div>
+        <div class="eyebrow">Letters &amp; Corrections</div>
+        <h2>Send a note to the desk</h2>
+      </div>
+      <p>Corrections, missing context, or a follow-up lead.</p>
+    </div>
+    <form class="feedback-form">
+      <div class="feedback-votes" role="group" aria-label="Choose signal type">
+        <button class="feedback-choice" type="button" data-vote="follow-up" aria-pressed="false">
+          <span aria-hidden="true">+</span>
+          <span>Follow-up</span>
+        </button>
+        <button class="feedback-choice" type="button" data-vote="correction" aria-pressed="false">
+          <span aria-hidden="true">!</span>
+          <span>Correction</span>
+        </button>
+      </div>
+      <label class="feedback-comment">
+        <span>Note for the editor</span>
+        <textarea name="comment" rows="3" maxlength="320" placeholder="What did we miss, or what should we follow next?"></textarea>
+      </label>
+      <div class="feedback-submit-row">
+        <p class="feedback-status" aria-live="polite"></p>
+        <button class="paper-button primary feedback-submit" type="submit">Send to desk</button>
+      </div>
+    </form>
+  </section>
+      <section class="related-edition-section">
+        <div class="section-title-row">
+          <h2>Same Edition</h2>
+          <a href="/editions/2026-08-29/">Open issue &rsaquo;</a>
+        </div>
+        <div class="updates-list">
+          <a class="update-card" href="/articles/2026-08-29-daily-pydantic-ai-opens-its-durable-engine-to-other-runtimes/">
+    <div class="update-stripe"></div>
+    <div class="update-main">
+      <div class="update-meta">
+        <span>Agents</span>
+        <span class="source-plus">+3</span>
+        <span>Aug 29, 2026</span>
+      </div>
+      <h3>Pydantic AI Opens Its Durable Engine to Other Runtimes</h3>
+      <div class="update-receipt">
+        <span>source trail</span>
+        <span class="branch-pill">evidence</span>
+      </div>
+      <div class="update-foot">
+        <span>3 sources</span>
+        <span>0 repos</span>
+        <span>commit 4306d7e</span>
+      </div>
+    </div>
+    <span class="update-arrow" aria-hidden="true">&rsaquo;</span>
+  </a>
+        </div>
+      </section>
+    </main>
+    <footer class="wrap site-footer">
+      <span>&copy; 2026 The Git Reporter</span>
+      <a href="/about/">About</a>
+      <a href="/battles/">Diff Derby</a>
+      <a href="/agent-pulse/">Agent Pulse</a>
+      <a href="/feed.xml">RSS</a>
+      <a href="https://x.com/TheGitReporter">Follow on X</a>
+      <a href="/articles.json">Manifest JSON</a>
+      <a href="/repos/">Sources</a>
+    </footer>
+  </div>
+</body>
+</html>

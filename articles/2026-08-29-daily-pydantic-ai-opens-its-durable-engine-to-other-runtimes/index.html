@@ -1,0 +1,253 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Pydantic AI Opens Its Durable Engine to Other Runtimes | The Git Reporter</title>
+  <meta name="description" content="Pydantic AI has published a durable-execution backend surface for third-party workflow engines—useful when an agent needs recovery without every integration rebuilding the model, tool and capability loop.">
+  <meta name="robots" content="index,follow">
+  <link rel="canonical" href="https://thegitreporter.com/articles/2026-08-29-daily-pydantic-ai-opens-its-durable-engine-to-other-runtimes/">
+  <link rel="alternate" type="application/rss+xml" title="The Git Reporter" href="https://thegitreporter.com/feed.xml">
+  <meta property="og:site_name" content="The Git Reporter">
+  <meta property="og:locale" content="en_US">
+  <meta property="og:title" content="Pydantic AI Opens Its Durable Engine to Other Runtimes | The Git Reporter">
+  <meta property="og:description" content="Pydantic AI has published a durable-execution backend surface for third-party workflow engines—useful when an agent needs recovery without every integration rebuilding the model, tool and capability loop.">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://thegitreporter.com/articles/2026-08-29-daily-pydantic-ai-opens-its-durable-engine-to-other-runtimes/">
+  <meta property="og:image" content="https://thegitreporter.com/assets/social/2026-08-29-daily-pydantic-ai-opens-its-durable-engine-to-other-runtimes-og.jpg">
+  <meta property="og:image:secure_url" content="https://thegitreporter.com/assets/social/2026-08-29-daily-pydantic-ai-opens-its-durable-engine-to-other-runtimes-og.jpg">
+  <meta property="og:image:type" content="image/jpeg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Marker diagram showing two Pydantic AI durable-backend types routing model, tool and capability operations through a shared identity, codec and naming lane, with a replay caveat.">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:site" content="@TheGitReporter">
+  <meta name="twitter:creator" content="@TheGitReporter">
+  <meta name="twitter:title" content="Pydantic AI Opens Its Durable Engine to Other Runtimes | The Git Reporter">
+  <meta name="twitter:description" content="Pydantic AI has published a durable-execution backend surface for third-party workflow engines—useful when an agent needs recovery without every integration rebuilding the model, tool and capability loop.">
+  <meta name="twitter:url" content="https://thegitreporter.com/articles/2026-08-29-daily-pydantic-ai-opens-its-durable-engine-to-other-runtimes/">
+  <meta name="twitter:domain" content="thegitreporter.com">
+  <meta name="twitter:image" content="https://thegitreporter.com/assets/social/2026-08-29-daily-pydantic-ai-opens-its-durable-engine-to-other-runtimes-og.jpg">
+  <meta name="twitter:image:alt" content="Marker diagram showing two Pydantic AI durable-backend types routing model, tool and capability operations through a shared identity, codec and naming lane, with a replay caveat.">
+  <meta property="article:published_time" content="2026-08-29T12:00:00Z">
+  <meta property="article:modified_time" content="2026-08-29T12:00:00Z">
+  <meta property="article:section" content="Daily Edition">
+  <meta property="article:tag" content="Delegation">
+  <meta property="article:tag" content="Tools">
+  <meta property="article:tag" content="UX">
+  <meta property="article:tag" content="Runtime">
+  <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"https://thegitreporter.com/#organization","name":"The Git Reporter","url":"https://thegitreporter.com","logo":{"@type":"ImageObject","url":"https://thegitreporter.com/assets/mark.svg"},"sameAs":["https://x.com/TheGitReporter"]},{"@type":"WebSite","@id":"https://thegitreporter.com/#website","name":"The Git Reporter","url":"https://thegitreporter.com","publisher":{"@id":"https://thegitreporter.com/#organization"}},{"@type":"NewsArticle","mainEntityOfPage":{"@type":"WebPage","@id":"https://thegitreporter.com/articles/2026-08-29-daily-pydantic-ai-opens-its-durable-engine-to-other-runtimes/"},"headline":"Pydantic AI Opens Its Durable Engine to Other Runtimes","description":"Pydantic AI has published a durable-execution backend surface for third-party workflow engines—useful when an agent needs recovery without every integration rebuilding the model, tool and capability loop.","image":["https://thegitreporter.com/assets/social/2026-08-29-daily-pydantic-ai-opens-its-durable-engine-to-other-runtimes-og.jpg"],"datePublished":"2026-08-29T12:00:00Z","dateModified":"2026-08-29T12:00:00Z","author":[{"@type":"Organization","name":"The Git Reporter","url":"https://thegitreporter.com"}],"publisher":{"@type":"Organization","@id":"https://thegitreporter.com/#organization","name":"The Git Reporter","url":"https://thegitreporter.com","logo":{"@type":"ImageObject","url":"https://thegitreporter.com/assets/mark.svg"},"sameAs":["https://x.com/TheGitReporter"]},"articleSection":"Daily Edition","keywords":"Delegation, Tools, UX, Runtime"}]}</script>
+  <link rel="icon" href="/assets/mark.svg">
+  <link rel="stylesheet" href="/assets/site.css?v=2026-07-30-harness-memory">
+  <script defer src="/assets/feedback.js?v=2026-07-30-harness-memory"></script>
+  <script defer src="/assets/analytics.js?v=2026-07-30-harness-memory"></script>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-CH19T7M0T1"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){window.dataLayer.push(arguments);}
+    gtag("js", new Date());
+    gtag("config", "G-CH19T7M0T1");
+  </script>
+</head>
+<body>
+  <div class="site">
+    <header class="site-header" id="top">
+      <div class="wrap utility-row">
+        <a class="icon-link menu-icon" href="/archive/" aria-label="Open edition history"><span></span><span></span><span></span></a>
+        <a class="icon-link archive-icon" href="/archive/" aria-label="Open edition history"></a>
+      </div>
+      <div class="wrap masthead-lockup">
+        <a class="masthead-title" href="/">THE GIT REPORTER</a>
+        <div class="masthead-ornament" aria-hidden="true"></div>
+      </div>
+      <div class="wrap nav-wrap">
+        <nav class="paper-nav" aria-label="Primary navigation">
+    <a class="" href="/">Today</a><a class="active" href="/archive/">Editions</a><a class="" href="/about/">About</a><a class="" href="/battles/">Diff Derby</a><a class="" href="/agent-pulse/">Agent Pulse</a><a class="" href="/atlas/">Agent Atlas</a><a class="" href="/repos/">Repos</a>
+  </nav>
+        <div class="nav-rule"></div>
+      </div>
+    </header>
+    <main class="wrap page-shell article-page">
+      <section class="page-hero story-front">
+        <div class="story-topline">
+          <span>Daily Edition</span>
+          <span>Sources <strong>+3</strong></span>
+        </div>
+        <h1>Pydantic AI Opens Its Durable Engine to Other Runtimes</h1>
+        <p class="summary">Pydantic AI has published a durable-execution backend surface for third-party workflow engines—useful when an agent needs recovery without every integration rebuilding the model, tool and capability loop.</p>
+        <figure class="story-illustration article-illustration">
+    <img src="/assets/illustrations/2026-08-29-pydantic-ai-opens-its-durable-engine-to-other-runtimes-diagram-punk-v1.png" alt="Marker diagram showing two Pydantic AI durable-backend types routing model, tool and capability operations through a shared identity, codec and naming lane, with a replay caveat." loading="lazy" decoding="async">
+    <figcaption><span>Diagram Punk</span>a durable adapter inherits the contract—and its replay responsibility.</figcaption>
+  </figure>
+        <div class="receipt">
+    <div class="receipt-line">
+      <span class="receipt-icon">repos</span>
+      <span class="receipt-main">source trail</span>
+      <span class="branch-pill">evidence</span>
+    </div>
+    <div class="receipt-line receipt-muted">
+      <span>3 source signals</span>
+      <span>0 repos</span>
+      <span>commit 4306d7e</span>
+    </div>
+    <div class="commit-line">Evidence: commit 4306d7e / August 29, 2026 / Daily Edition</div>
+  </div>
+        <div class="article-route-row">
+          <a href="/editions/2026-08-29/">Open Edition</a>
+          <a href="#evidence">Evidence below</a>
+        </div>
+      </section>
+      <section class="story-reader">
+        <article class="story-shell story-body">
+          <p><strong>API discovery:</strong> Pydantic AI’s public <a href="https://github.com/pydantic/pydantic-ai/commit/4306d7e0bf3a07c8c3c2bb7be4fbb902b656b608">durable-execution change</a> exposes the seam that a new workflow engine needs to implement. Instead of duplicating the framework’s orchestration, an adapter can use <code>CallableOperationBackend</code> when its SDK accepts a callback at invocation time, or <code>RegisteredOperationBackend</code> when handlers must exist before a worker starts. Both carry the same typed operation identity, naming, codec and configuration work around the engine-specific primitive.</p>
+
+  <h2>Try it</h2>
+  <p>Imagine an internal review agent that turns a long investigation into resumable stages: model request, evidence lookup, tool validation and a custom “write the findings” capability. A small adapter can begin with the documentation’s in-process callable backend, then replace its <code>execute</code> method with the workflow engine’s activity or task call. The benefit is not magic persistence; it is one place to preserve operation identity and serialization rules before retry logic meets a real side effect. Pydantic AI’s <a href="https://github.com/pydantic/pydantic-ai/blob/4306d7e0bf3a07c8c3c2bb7be4fbb902b656b608/docs/durable_execution/backends.md">backend guide</a> includes that minimal shape.</p>
+
+  <h2>Copy-paste agent instruction</h2>
+  <pre><code>Build a minimal Pydantic AI durable-execution adapter for our chosen workflow engine. Start from CallableOperationBackend if the engine accepts an async callback per activity; otherwise explain why RegisteredOperationBackend is required. Keep model requests, tool calls and @durable_operation capability methods on the shared Pydantic AI operation path. Choose and document the codec, preserve stable operation names, and add a replay test for a failure after a side effect. Make the side effect idempotent or use a documented at-most-once engine guarantee. Work in a disposable environment and do not claim this public main-branch API is released or production-proven.</code></pre>
+
+  <h2>Test caveat</h2>
+  <p>The source is public main-branch documentation and code, not a release guarantee or a tested adapter for your engine. The in-process example needs no credentials, but a real adapter needs its own access controls, serialization policy and recovery tests. The documentation is blunt about the hard part: a durable unit can run again after a failure, so a side effect must be idempotent unless the engine offers a suitable at-most-once mode.</p>
+        </article>
+      </section>
+      <section class="evidence-section" id="evidence" aria-labelledby="evidence-title">
+    <div class="evidence-head">
+      <div>
+        <div class="eyebrow">Evidence Trail</div>
+        <h2 id="evidence-title">Receipts below the story</h2>
+        <p>The article above is the public narrative. This section keeps the source trail and limits on the same page.</p>
+      </div>
+      <a class="paper-button" href="/editions/2026-08-29/">Edition</a>
+    </div>
+    <div class="evidence-table evidence-summary">
+      <div class="evidence-line"><span>Date</span><span>August 29, 2026</span></div>
+      <div class="evidence-line"><span>Lane</span><span>Daily Edition</span></div>
+      <div class="evidence-line"><span>Confidence</span><span>78%</span></div>
+      <div class="evidence-line"><span>Sources</span><span>3</span></div>
+      <div class="evidence-line"><span>Repos</span><span>source trail</span></div>
+    </div>
+    <div class="markdown evidence-copy evidence-copy-block">
+      <h2>Primary Evidence</h2>
+<ul>
+<li>Public API source: <a href="https://github.com/pydantic/pydantic-ai/commit/4306d7e0bf3a07c8c3c2bb7be4fbb902b656b608">Pydantic AI durable-execution API commit 4306d7e</a>
+<ul>
+<li>Shows: Pydantic AI, the provider and maintainer of this public Python API surface, adding <code>pydantic_ai.durable_exec</code> interfaces, <code>@durable_operation</code>, operation backends and their implementation/test surface for third-party durable engines.
+</li>
+</ul>
+</li>
+<li>Supporting definition or documentation: <a href="https://github.com/pydantic/pydantic-ai/blob/4306d7e0bf3a07c8c3c2bb7be4fbb902b656b608/docs/durable_execution/backends.md">Building a durable execution backend</a>
+<ul>
+<li>Shows: the documented request-invocation behavior for callable and registered backends: a minimal callable <code>execute</code> implementation receives a typed operation, name, callback body, cache identity and configuration; the guide also specifies registration, codec and replay-test behavior an integration must handle.
+</li>
+</ul>
+</li>
+<li>Supporting behavior example: <a href="https://github.com/pydantic/pydantic-ai/blob/4306d7e0bf3a07c8c3c2bb7be4fbb902b656b608/docs/capabilities/custom.md#durable-capability-operations">durable capability operations</a>
+<ul>
+<li>Shows: a public example in which a named capability operation is dispatched through a bound durability engine while the same method can run directly without one.
+</li>
+</ul>
+</li>
+</ul>
+<h2>Evidence Limits</h2>
+<ul>
+<li>This is public main-branch source and documentation, not a release-availability guarantee or a tested adapter for any reader's workflow engine. API names, compatibility behavior and packaging may change before a supported release.
+</li>
+<li>The example has no external service credentials or rate limit, but a real engine adapter must supply its own access controls, serialization policy, replay tests and side-effect guarantees. Test it in a disposable environment before placing it behind production agents.
+</li>
+</ul>
+    </div>
+  </section>
+      <section class="related-edition-section atlas-context-section">
+    <div class="section-title-row">
+      <h2>Atlas Context</h2>
+      <a href="/atlas/">Open Atlas &rsaquo;</a>
+    </div>
+    <div class="updates-list">
+      <a class="article-card" href="/atlas/the-loop/">
+            <div class="article-meta"><span class="lane">Agent Atlas</span><span>Chapter 4</span></div>
+            <h3>Loops, Workflows, and Recovery</h3>
+            <p>Repeated model-tool interaction is only one control structure. Production runtimes combine probabilistic loops with host-defined workflows, queues, interrupts, terminal states, and recovery operations.</p>
+          </a>
+    </div>
+  </section>
+      <section class="reader-feedback"
+    data-tgr-feedback
+    data-article-slug="2026-08-29-daily-pydantic-ai-opens-its-durable-engine-to-other-runtimes"
+    data-article-title="Pydantic AI Opens Its Durable Engine to Other Runtimes"
+    data-article-url="/articles/2026-08-29-daily-pydantic-ai-opens-its-durable-engine-to-other-runtimes/"
+    data-edition-date="2026-08-29"
+    data-lane="Daily Edition"
+    data-tags="Delegation,Tools,UX,Runtime"
+    data-repos="">
+    <div class="reader-feedback-head">
+      <div>
+        <div class="eyebrow">Letters &amp; Corrections</div>
+        <h2>Send a note to the desk</h2>
+      </div>
+      <p>Corrections, missing context, or a follow-up lead.</p>
+    </div>
+    <form class="feedback-form">
+      <div class="feedback-votes" role="group" aria-label="Choose signal type">
+        <button class="feedback-choice" type="button" data-vote="follow-up" aria-pressed="false">
+          <span aria-hidden="true">+</span>
+          <span>Follow-up</span>
+        </button>
+        <button class="feedback-choice" type="button" data-vote="correction" aria-pressed="false">
+          <span aria-hidden="true">!</span>
+          <span>Correction</span>
+        </button>
+      </div>
+      <label class="feedback-comment">
+        <span>Note for the editor</span>
+        <textarea name="comment" rows="3" maxlength="320" placeholder="What did we miss, or what should we follow next?"></textarea>
+      </label>
+      <div class="feedback-submit-row">
+        <p class="feedback-status" aria-live="polite"></p>
+        <button class="paper-button primary feedback-submit" type="submit">Send to desk</button>
+      </div>
+    </form>
+  </section>
+      <section class="related-edition-section">
+        <div class="section-title-row">
+          <h2>Same Edition</h2>
+          <a href="/editions/2026-08-29/">Open issue &rsaquo;</a>
+        </div>
+        <div class="updates-list">
+          <a class="update-card" href="/articles/2026-08-29-daily-a-restricted-workspace-should-not-start-its-own-tools/">
+    <div class="update-stripe"></div>
+    <div class="update-main">
+      <div class="update-meta">
+        <span>Context</span>
+        <span class="source-plus">+3</span>
+        <span>Aug 29, 2026</span>
+      </div>
+      <h3>A Restricted Workspace Should Not Start Its Own Tools</h3>
+      <div class="update-receipt">
+        <span>google-gemini/gemini-cli</span>
+        <span class="branch-pill">evidence</span>
+      </div>
+      <div class="update-foot">
+        <span>3 sources</span>
+        <span>1 repo</span>
+        <span>commit 0bd1d43</span>
+      </div>
+    </div>
+    <span class="update-arrow" aria-hidden="true">&rsaquo;</span>
+  </a>
+        </div>
+      </section>
+    </main>
+    <footer class="wrap site-footer">
+      <span>&copy; 2026 The Git Reporter</span>
+      <a href="/about/">About</a>
+      <a href="/battles/">Diff Derby</a>
+      <a href="/agent-pulse/">Agent Pulse</a>
+      <a href="/feed.xml">RSS</a>
+      <a href="https://x.com/TheGitReporter">Follow on X</a>
+      <a href="/articles.json">Manifest JSON</a>
+      <a href="/repos/">Sources</a>
+    </footer>
+  </div>
+</body>
+</html>
