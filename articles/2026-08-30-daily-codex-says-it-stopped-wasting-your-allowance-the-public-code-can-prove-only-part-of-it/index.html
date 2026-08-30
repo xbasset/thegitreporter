@@ -1,0 +1,426 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Codex Says It Stopped Wasting Your Allowance. The Public Code Can Prove Only Part of It | The Git Reporter</title>
+  <meta name="description" content="Eight fixes, five public code trails and three closed rooms: OpenAI&#39;s repository strongly supports several mechanisms in its Codex usage announcement, but not the reset, the savings percentages or every background worker.">
+  <meta name="robots" content="index,follow">
+  <link rel="canonical" href="https://thegitreporter.com/articles/2026-08-30-daily-codex-says-it-stopped-wasting-your-allowance-the-public-code-can-prove-only-part-of-it/">
+  <link rel="alternate" type="application/rss+xml" title="The Git Reporter" href="https://thegitreporter.com/feed.xml">
+  <meta property="og:site_name" content="The Git Reporter">
+  <meta property="og:locale" content="en_US">
+  <meta property="og:title" content="Codex Says It Stopped Wasting Your Allowance. The Public Code Can Prove Only Part of It | The Git Reporter">
+  <meta property="og:description" content="Eight fixes, five public code trails and three closed rooms: OpenAI&#39;s repository strongly supports several mechanisms in its Codex usage announcement, but not the reset, the savings percentages or every background worker.">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://thegitreporter.com/articles/2026-08-30-daily-codex-says-it-stopped-wasting-your-allowance-the-public-code-can-prove-only-part-of-it/">
+  <meta property="og:image" content="https://thegitreporter.com/assets/social/2026-08-30-daily-codex-says-it-stopped-wasting-your-allowance-the-public-code-can-prove-only-part-of-it-og.jpg">
+  <meta property="og:image:secure_url" content="https://thegitreporter.com/assets/social/2026-08-30-daily-codex-says-it-stopped-wasting-your-allowance-the-public-code-can-prove-only-part-of-it-og.jpg">
+  <meta property="og:image:type" content="image/jpeg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="A punk newspaper evidence board shows five open source-fix cards—image budget, Stop hook, goal cap, root tier, and MCP output—beside three locked boxes for scheduler, history, and summaries stamped “Not the numbers.”">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:site" content="@TheGitReporter">
+  <meta name="twitter:creator" content="@TheGitReporter">
+  <meta name="twitter:title" content="Codex Says It Stopped Wasting Your Allowance. The Public Code Can Prove Only Part of It | The Git Reporter">
+  <meta name="twitter:description" content="Eight fixes, five public code trails and three closed rooms: OpenAI&#39;s repository strongly supports several mechanisms in its Codex usage announcement, but not the reset, the savings percentages or every background worker.">
+  <meta name="twitter:url" content="https://thegitreporter.com/articles/2026-08-30-daily-codex-says-it-stopped-wasting-your-allowance-the-public-code-can-prove-only-part-of-it/">
+  <meta name="twitter:domain" content="thegitreporter.com">
+  <meta name="twitter:image" content="https://thegitreporter.com/assets/social/2026-08-30-daily-codex-says-it-stopped-wasting-your-allowance-the-public-code-can-prove-only-part-of-it-og.jpg">
+  <meta name="twitter:image:alt" content="A punk newspaper evidence board shows five open source-fix cards—image budget, Stop hook, goal cap, root tier, and MCP output—beside three locked boxes for scheduler, history, and summaries stamped “Not the numbers.”">
+  <meta property="article:published_time" content="2026-08-30T12:00:00Z">
+  <meta property="article:modified_time" content="2026-08-30T12:00:00Z">
+  <meta property="article:section" content="Daily Edition">
+  <meta property="article:tag" content="Permissions">
+  <meta property="article:tag" content="Memory">
+  <meta property="article:tag" content="Delegation">
+  <meta property="article:tag" content="Tools">
+  <meta property="article:tag" content="openai/codex">
+  <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"https://thegitreporter.com/#organization","name":"The Git Reporter","url":"https://thegitreporter.com","logo":{"@type":"ImageObject","url":"https://thegitreporter.com/assets/mark.svg"},"sameAs":["https://x.com/TheGitReporter"]},{"@type":"WebSite","@id":"https://thegitreporter.com/#website","name":"The Git Reporter","url":"https://thegitreporter.com","publisher":{"@id":"https://thegitreporter.com/#organization"}},{"@type":"NewsArticle","mainEntityOfPage":{"@type":"WebPage","@id":"https://thegitreporter.com/articles/2026-08-30-daily-codex-says-it-stopped-wasting-your-allowance-the-public-code-can-prove-only-part-of-it/"},"headline":"Codex Says It Stopped Wasting Your Allowance. The Public Code Can Prove Only Part of It","description":"Eight fixes, five public code trails and three closed rooms: OpenAI's repository strongly supports several mechanisms in its Codex usage announcement, but not the reset, the savings percentages or every background worker.","image":["https://thegitreporter.com/assets/social/2026-08-30-daily-codex-says-it-stopped-wasting-your-allowance-the-public-code-can-prove-only-part-of-it-og.jpg"],"datePublished":"2026-08-30T12:00:00Z","dateModified":"2026-08-30T12:00:00Z","author":[{"@type":"Organization","name":"The Git Reporter","url":"https://thegitreporter.com"}],"publisher":{"@type":"Organization","@id":"https://thegitreporter.com/#organization","name":"The Git Reporter","url":"https://thegitreporter.com","logo":{"@type":"ImageObject","url":"https://thegitreporter.com/assets/mark.svg"},"sameAs":["https://x.com/TheGitReporter"]},"articleSection":"Daily Edition","keywords":"Permissions, Memory, Delegation, Tools, openai/codex"}]}</script>
+  <link rel="icon" href="/assets/mark.svg">
+  <link rel="stylesheet" href="/assets/site.css?v=2026-07-30-harness-memory">
+  <script defer src="/assets/feedback.js?v=2026-07-30-harness-memory"></script>
+  <script defer src="/assets/analytics.js?v=2026-07-30-harness-memory"></script>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-CH19T7M0T1"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){window.dataLayer.push(arguments);}
+    gtag("js", new Date());
+    gtag("config", "G-CH19T7M0T1");
+  </script>
+</head>
+<body>
+  <div class="site">
+    <header class="site-header" id="top">
+      <div class="wrap utility-row">
+        <a class="icon-link menu-icon" href="/archive/" aria-label="Open edition history"><span></span><span></span><span></span></a>
+        <a class="icon-link archive-icon" href="/archive/" aria-label="Open edition history"></a>
+      </div>
+      <div class="wrap masthead-lockup">
+        <a class="masthead-title" href="/">THE GIT REPORTER</a>
+        <div class="masthead-ornament" aria-hidden="true"></div>
+      </div>
+      <div class="wrap nav-wrap">
+        <nav class="paper-nav" aria-label="Primary navigation">
+    <a class="" href="/">Today</a><a class="active" href="/archive/">Editions</a><a class="" href="/about/">About</a><a class="" href="/battles/">Diff Derby</a><a class="" href="/agent-pulse/">Agent Pulse</a><a class="" href="/atlas/">Agent Atlas</a><a class="" href="/repos/">Repos</a>
+  </nav>
+        <div class="nav-rule"></div>
+      </div>
+    </header>
+    <main class="wrap page-shell article-page">
+      <section class="page-hero story-front">
+        <div class="story-topline">
+          <span>Daily Edition</span>
+          <span>Sources <strong>+15</strong></span>
+        </div>
+        <h1>Codex Says It Stopped Wasting Your Allowance. The Public Code Can Prove Only Part of It</h1>
+        <p class="summary">Eight fixes, five public code trails and three closed rooms: OpenAI's repository strongly supports several mechanisms in its Codex usage announcement, but not the reset, the savings percentages or every background worker.</p>
+        <figure class="story-illustration article-illustration">
+    <img src="/assets/illustrations/2026-08-30-codex-says-it-stopped-wasting-your-allowance-the-public-code-can-prove-only-part-of-it-diagram-punk-v1.png" alt="A punk newspaper evidence board shows five open source-fix cards—image budget, Stop hook, goal cap, root tier, and MCP output—beside three locked boxes for scheduler, history, and summaries stamped “Not the numbers.”" loading="lazy" decoding="async">
+    <figcaption><span>Diagram Punk</span>the public code preserves the mechanisms; the impact numbers remain private.</figcaption>
+  </figure>
+        <div class="receipt">
+    <div class="receipt-line">
+      <span class="receipt-icon">repo</span>
+      <span class="receipt-main">openai/codex</span>
+      <span class="branch-pill">evidence</span>
+    </div>
+    <div class="receipt-line receipt-muted">
+      <span>15 source signals</span>
+      <span>1 repo</span>
+      <span>15 linked commits</span>
+    </div>
+    <div class="commit-line">Evidence: 15 linked commits / August 30, 2026 / Daily Edition</div>
+  </div>
+        <div class="article-route-row">
+          <a href="/editions/2026-08-30/">Open Edition</a>
+          <a href="#evidence">Evidence below</a>
+        </div>
+      </section>
+      <section class="story-reader">
+        <article class="story-shell story-body">
+          <p>On Saturday, August 29, Tibo Sottiaux of the Codex team <a href="https://x.com/thsottiaux/status/2093801758665715784">said OpenAI had reset usage for paid Codex and ChatGPT Work users</a> after fixing eight sources of unintended consumption. The post attached unusually specific numbers: usage dropped about 10% for heavy image users, one memory thread checked whether it could stop 15,000 times, goal failures consumed as much as 70% of a weekly allowance, and old Computer History behavior could take one fifth.</p>
+
+  <p>Those are two different kinds of statement. A source diff can prove that an image was missing from a budget or that a child inherited the wrong service tier. It cannot, by itself, prove how many accounts encountered the bug, what the billing system charged, or whether every user received a reset. We treated the announcement as twelve checkable claims—the eight fixes plus the reset, the 10–50% overall estimate, regression paging and a promised usage view—and looked for the closest public artifact for each.</p>
+
+  <p>The result is more substantial than a trust-us changelog and less complete than a public incident report. Five fixes leave close code fingerprints. Three point into components absent from the open repository. The four surrounding promises remain backend or future-product claims. Here is the proof, the limit and the most useful question for every one.</p>
+
+  <h2>1. Compaction: the missing image budget is in the diff</h2>
+  <p><strong>Verdict: mechanism verified; impact private.</strong> The closest match is almost word for word. Codex commit <a href="https://github.com/openai/codex/commit/b7d9ed272069f5018f36ad5a335a6627911cee50">“Budget retained images during remote compaction”</a> says the retained-message budget counted text but not images, allowing an image-heavy history to retain more context than the budget represented. The new history builder <a href="https://github.com/openai/codex/blob/b7d9ed272069f5018f36ad5a335a6627911cee50/codex-rs/core/src/compact_remote_v2.rs#L473-L502">passes an image budget into retained-message truncation</a>; the loop then <a href="https://github.com/openai/codex/blob/b7d9ed272069f5018f36ad5a335a6627911cee50/codex-rs/core/src/compact_remote_v2.rs#L578-L668">charges image content and refuses to backfill older messages when a boundary image does not fit</a>.</p>
+
+  <p>The regression is better than its title: it uses an eight-image fixture—seven images initially and an eighth between cycles—and <a href="https://github.com/openai/codex/blob/b7d9ed272069f5018f36ad5a335a6627911cee50/codex-rs/core/tests/suite/compact_remote.rs#L1294-L1433">runs the history through two compaction cycles</a>, comparing enabled, disabled and then-current default behavior. A later commit <a href="https://github.com/openai/codex/commit/528fd7ace5ec0a1c2a387dcb9c76a09f3fa011ee">enabled the image budget by default</a>, and the change appeared in the <a href="https://github.com/openai/codex/releases/tag/rust-v0.150.1">0.150.1 hotfix</a>. An unconfirmed user report of <a href="https://github.com/openai/codex/issues/33493">224 compactions and 92 retained images</a> supplies a plausible field symptom.</p>
+
+  <p>What the repository does not contain is the reported roughly 10% reduction for heavy image users. The test manually requests compaction; it does not prove that a short follow-up cannot cross the automatic threshold again. <strong>The constructive question:</strong> what cohort, usage unit and before/after distribution produced 10%, and can the automatic-compaction suite assert enough post-compaction headroom for a short next turn?</p>
+
+  <h2>2. Memory: the inherited Stop-hook loop is visible before and after</h2>
+  <p><strong>Verdict: mechanism verified; incidence and 15,000-check example private.</strong> Before the fix, the Stop dispatcher gave subagents special handling but let a memory-consolidation session <a href="https://github.com/openai/codex/blob/4fa6ad173055f6438e8baf81cd55cb59f46179d7/codex-rs/core/src/hook_runtime.rs#L356-L360">fall through to the ordinary Stop target</a>. When that Stop was blocked, the turn path could <a href="https://github.com/openai/codex/blob/4fa6ad173055f6438e8baf81cd55cb59f46179d7/codex-rs/core/src/session/turn.rs#L500-L525">continue the model loop</a>. That is unusually close corroboration of a background worker inheriting a hook that would not let it finish.</p>
+
+  <p>Commit <a href="https://github.com/openai/codex/commit/7c6eb0eef113ddc16ae5b207ac9add364b489798">“Scope stop hooks for memory consolidation”</a> adds a <a href="https://github.com/openai/codex/blob/7c6eb0eef113ddc16ae5b207ac9add364b489798/codex-rs/core/src/hook_runtime.rs#L357-L364">memory-specific Stop target</a>. Its <a href="https://github.com/openai/codex/blob/7c6eb0eef113ddc16ae5b207ac9add364b489798/codex-rs/hooks/src/events/stop.rs#L68-L93">selector excludes user, project, session and plugin lifecycle hooks</a> while preserving managed policy and executor cleanup; a <a href="https://github.com/openai/codex/blob/7c6eb0eef113ddc16ae5b207ac9add364b489798/codex-rs/core/src/session/turn.rs#L502-L520">blocking or stopping managed-hook outcome becomes a terminal error</a> instead of another unattended turn. The startup integration test installs a blocking user Stop hook and <a href="https://github.com/openai/codex/blob/7c6eb0eef113ddc16ae5b207ac9add364b489798/codex-rs/memories/write/src/startup_tests.rs#L179-L320">asserts that memory consolidation neither invokes it nor sends the ordinary notification</a>.</p>
+
+  <p>The public code does not define “affected fewer than 1%” or reveal what was counted 15,000 times. <strong>The constructive question:</strong> were those hook invocations, stop attempts or model turns, over what window? A privacy-safe counter at the memory worker's Stop evaluation could page at a team-defined bound; a focused regression can assert one terminal outcome for a blocking managed hook and bound request and hook counts, not only the final state.</p>
+
+  <h2>3. Goals: execution-host loops now have a guard; the completed-goal path is not publicly reproduced</h2>
+  <p><strong>Verdict: strong proof for execution-host failures and terminal turn errors; partial for arbitrary broken tools and post-completion continuation.</strong> The newest fix is explicit: <a href="https://github.com/openai/codex/commit/62b458c93151595cdf2b5ef5e37aa3d8b5613aeb">“Block goals after repeated execution host failures”</a>. Accounting now <a href="https://github.com/openai/codex/blob/62b458c93151595cdf2b5ef5e37aa3d8b5613aeb/codex-rs/ext/goal/src/accounting.rs#L102-L152">counts default-namespace exec failures only when the handler ran, resets on any successful tool and trips after three qualifying failure turns</a>. It does not count every failed script, pre-handler failure, blocked call, MCP call or other tool. The app-server test points Codex at an unavailable execution host, observes three failure turns and three follow-up responses, then <a href="https://github.com/openai/codex/blob/62b458c93151595cdf2b5ef5e37aa3d8b5613aeb/codex-rs/app-server/tests/suite/v2/code_mode_host.rs#L324-L392">asserts a blocked goal and exactly six model requests</a>. At the audited snapshot this commit was merged to main but was not contained in a public release tag.</p>
+
+  <p>This sits on top of an earlier change that made goals <a href="https://github.com/openai/codex/commit/c62d79259d0ccd83ad515d3444840e0e0e18059a">stop auto-continuing after terminal turn failures</a>, including permanent HTTP errors. Together, the source supports two likely loop classes—unavailable exec hosts and terminal turn errors—but not a general retry ceiling for failing scripts, MCP calls or other tools. Current main <a href="https://github.com/openai/codex/blob/63d213884daea50e4f74efc192cdc44f549b67d5/codex-rs/ext/goal/src/tool.rs#L234-L304">clears current-turn accounting after a complete update</a>, and the idle continuation path <a href="https://github.com/openai/codex/blob/63d213884daea50e4f74efc192cdc44f549b67d5/codex-rs/ext/goal/src/runtime.rs#L402-L459">re-reads persisted state and returns unless the goal is active</a>. That shows the intended guard, but we found no public historical fix or reproduction for a persisted <code>Complete</code> goal that nevertheless scheduled a later automatic turn. Nor is the stated 15–70% weekly-allowance loss public.</p>
+
+  <p><strong>The constructive question:</strong> did “finish” mean persisted <code>Complete</code>, a model's prose claim, a verifier result or another stop condition? The missing end-to-end case should mark the goal complete, allow its final answer, wait for idle and assert zero later goal-triggered turns or tools.</p>
+
+  <h2>4. Automations: the deployed custom-schedule fix is not in public main</h2>
+  <p><strong>Verdict: no merged artifact tied to the production fix; related prototype code identifies the likely controls.</strong> OpenAI's <a href="https://learn.chatgpt.com/docs/automations">automation documentation</a> says advanced custom schedules can be expressed as RFC 5545 recurrence rules and that tasks run in the background. The only schedule-shaped API we found at public main commit <code>63d2138</code> is <a href="https://github.com/openai/codex/blob/63d213884daea50e4f74efc192cdc44f549b67d5/codex-rs/app-server-protocol/src/protocol/v2/plugin.rs#L710-L760">remote plugin scheduled-task template metadata with hourly, daily, weekday and weekly labels</a>. That snapshot has no automation-runtime RRULE occurrence, lease or next-run implementation.</p>
+
+  <p>A public but unmerged prototype commit, <a href="https://github.com/openai/codex/commit/df52f88f0546c3bb9021acf152ffe031b50d6b84">“Add heartbeat cooldown defer,”</a> parses a limited recurrence subset, computes next runs and <a href="https://github.com/openai/codex/blob/df52f88f0546c3bb9021acf152ffe031b50d6b84/codex-rs/state/src/runtime/automation_schedule.rs#L154-L184">defers a heartbeat from the later of its last run or thread activity</a>; its test <a href="https://github.com/openai/codex/blob/df52f88f0546c3bb9021acf152ffe031b50d6b84/codex-rs/state/src/runtime/automations_tests.rs#L373-L445">prevents immediate second-worker reclaim</a>. It predates the announcement, is not an ancestor of main and does not prove the deployed custom-schedule fix. Public issues show adjacent trouble—a <a href="https://github.com/openai/codex/issues/27177">local schedule whose next run appeared in UTC</a>, for example—but not the reported over-frequency repair. The missing evidence must come from the closed scheduling layer that owned the affected task type; public evidence does not identify whether that was web, desktop-local or shared backend.</p>
+
+  <p><strong>The constructive question:</strong> which scheduling layer and recurrence shapes were affected—<code>INTERVAL</code>, multiple <code>BY*</code> fields, daylight-saving transitions, retry overlap or expired leases? For time-based RRULE tasks, a proposed durable invariant is one successful claim per <code>(task_id, scheduled_occurrence_at)</code>, with an alert when actual executions exceed expected occurrences in a window; event-triggered tasks need their own coalescing rule.</p>
+
+  <h2>5. Subagents: two commits map to the two halves of the claim</h2>
+  <p><strong>Verdict: direct public fixes, with one enforcement caveat.</strong> Commit <a href="https://github.com/openai/codex/commit/5f49aba876922d6f2f55caa153bbb0ed1b46feba">“Require explicit requests for spawn model overrides”</a> changes the exposed subagent contract from permitting a “clear task-specific reason” to allowing a different model <a href="https://github.com/openai/codex/blob/5f49aba876922d6f2f55caa153bbb0ed1b46feba/codex-rs/core/src/tools/handlers/multi_agents_spec.rs#L700-L715">only when the user explicitly asks</a>. That closely matches smaller orchestrators selecting more capable helpers without permission.</p>
+
+  <p>The Fast-mode half has a harder runtime fix. Commit <a href="https://github.com/openai/codex/commit/dc2ccc6843abb09c9d297862dc10b6bd12a3935d">“Make subagents follow the root service tier”</a> gives the agent tree <a href="https://github.com/openai/codex/blob/dc2ccc6843abb09c9d297862dc10b6bd12a3935d/codex-rs/core/src/agent/control/service_tier.rs#L1-L18">root-owned tier state</a>, copies that tier on spawn and tests live changes, reloads and remote compaction. The public test matrix covers supported and unsupported child models rather than merely changing instructions.</p>
+
+  <p>The caveat is important: explicit model choice is enforced in the tool description, while the handler still accepts a model argument. The commit does not name Luna or publish frequency and cost data. <strong>The constructive question:</strong> is there also a managed runtime check that an override came from explicit user intent? An evaluation matrix should run under the smaller model and require every child model to equal its parent unless the fixture contains override language; telemetry can record parent model, child model and an authorization reason without recording the prompt.</p>
+
+  <h2>6. Computer History: public architecture, private deduplication</h2>
+  <p><strong>Verdict: related architecture and field evidence; no public fix or one-fifth measurement.</strong> OpenAI's official <a href="https://learn.chatgpt.com/docs/customization/computer-history">Computer History documentation</a> says the rebuilt system periodically starts ephemeral Codex sessions to summarize an event stream, stores the result under its Skysight memory extension and uses tokens. Public Codex exposes a <a href="https://github.com/openai/codex/blob/63d213884daea50e4f74efc192cdc44f549b67d5/codex-rs/features/src/lib.rs#L1093-L1098">default-off Chronicle sidecar flag</a> and downstream memory compatibility—not the production window scheduler or summarizer.</p>
+
+  <p>A user investigation in issue <a href="https://github.com/openai/codex/issues/37983">#37983</a> reported 11,848 ten-minute summary starts over fourteen days and quoted a legacy rolling window refreshed every minute. That makes overlapping source windows plausible, but it does not prove duplicate billing or linkage to OpenAI's incident. Another report, <a href="https://github.com/openai/codex/issues/40386">#40386</a>, identifies the present boundary as Skysight event segments, a bundled <code>codex_chronicle</code> helper and generated memory resources.</p>
+
+  <p>If the defect was duplicate scheduling, its likely ownership boundary is a durable event cursor or idempotent window claim in the Skysight/Computer History scheduler, plus dedupe in the summary writer. <strong>The constructive question:</strong> what cursor or window policy prevents the same activity interval from producing more billable summary work than intended, and can OpenAI publish a redacted regression with window bounds, source hashes, prior watermark, dedupe result and token count? None of that requires raw activity. Only anonymized production before/after telemetry can substantiate the reported one-fifth maximum.</p>
+
+  <h2>7. Rolling task summaries: the closest public feature may be the wrong one</h2>
+  <p><strong>Verdict: exact worker and disablement not public; roughly 1% remains internal telemetry.</strong> Issue <a href="https://github.com/openai/codex/issues/41130">#41130</a> is the closest field report: its reporter says they traced hidden Luna sessions to a prompt that fills a compact, search-oriented thread description. That resembles a rolling summary worker, but it is user evidence, not source or fix proof.</p>
+
+  <p>There is also a separate public feature that must not be quietly substituted for the missing one. Commit <a href="https://github.com/openai/codex/commit/6988d390b30b7bda03579c9add506e24bb6bbcc1">“Generate automatic and manual conversation recaps”</a> <a href="https://github.com/openai/codex/blob/6988d390b30b7bda03579c9add506e24bb6bbcc1/codex-rs/tui/src/app/recap.rs#L33-L38">sets a three-turn and three-minute eligibility threshold</a>, then schedules a <a href="https://github.com/openai/codex/blob/6988d390b30b7bda03579c9add506e24bb6bbcc1/codex-rs/tui/src/app/recap.rs#L202-L290">temporary structured model thread</a>; its <a href="https://github.com/openai/codex/blob/6988d390b30b7bda03579c9add506e24bb6bbcc1/codex-rs/tui/src/app/tests/recap_generation_tests.rs#L53-L191">one-request regression</a> is public. At audit time, that commit was on main and 0.151 alpha tags rather than the 0.150.1 stable hotfix. It may be entirely different from the disabled worker in the announcement.</p>
+
+  <p><strong>The constructive question:</strong> does “rolling task summaries” mean the desktop retrieval-description worker, TUI recaps or a separate backend service—and where is its production kill switch? The missing regression should complete ordinary turns under production defaults and assert zero requests categorized as rolling-task summaries or retrieval descriptions, while allowing separately eligible recap work; background usage should be labeled by trigger rather than mixed into the parent task.</p>
+
+  <h2>8. MCP: the double encoding is direct; truncation-to-refetch is a chain</h2>
+  <p><strong>Verdict: direct proof for encoded-twice output and truncated instructions; related proof for cache loss and unnecessary server startup.</strong> Commit <a href="https://github.com/openai/codex/commit/75cb7c903d474b6637a6e9fe6f76cedf76ef1472">“Preserve MCP tool output as content items”</a> replaces an unstructured result serialized as a JSON array inside text with typed content items. The conversion now <a href="https://github.com/openai/codex/blob/75cb7c903d474b6637a6e9fe6f76cedf76ef1472/codex-rs/protocol/src/models.rs#L2180-L2345">distinguishes typed unstructured blocks from deliberately serialized structured content</a>, and a wire-level test <a href="https://github.com/openai/codex/blob/75cb7c903d474b6637a6e9fe6f76cedf76ef1472/codex-rs/core/tests/suite/rmcp_client.rs#L590-L673">rejects the escaped array form</a>. That is a precise public match for “some tool results could be encoded twice.”</p>
+
+  <p>The instruction half has its own receipts. One patch <a href="https://github.com/openai/codex/commit/fd1e4d7a6d7defca01bde1b746c24dee70aeb9a7">raised a 1,000-byte namespace-description ceiling</a>; the next <a href="https://github.com/openai/codex/commit/fcc4ca552f7753c537fe4b8af4276caf8edff762">raised a 4 KiB aggregate tool-search ceiling to 512 KiB</a> because metadata could be truncated before reaching the model. Later commits <a href="https://github.com/openai/codex/commit/42b5f05cef69491bc578901fb324b3c9a278b253">preserved namespace descriptions in the cache</a> and <a href="https://github.com/openai/codex/commit/7625343977154efed8c0dadba956374992a1580b">prevented cache rereads from omitting tools or causing unnecessary server startup</a>.</p>
+
+  <p>No single public trace proves that truncated instructions themselves caused repeated fetches. <strong>The constructive question:</strong> did “fetched again” mean another MCP <code>tools/list</code>, another tool search or another lazy server startup, and which cache patch closed that causal path? An end-to-end test should combine more than 4 KiB of multibyte instructions, a near-expiry catalog and repeated model steps, then assert a stable spec hash and one discovery fetch per catalog generation.</p>
+
+  <h2>9. The paid-user reset: individual redemption is public; the bulk operation is not</h2>
+  <p><strong>Verdict: public account-scoped reset path; first-party bulk-reset claim.</strong> The app server authenticates the account, creates a backend client and <a href="https://github.com/openai/codex/blob/63d213884daea50e4f74efc192cdc44f549b67d5/codex-rs/app-server/src/request_processors/account_processor.rs#L1131-L1201">fetches rate limits and reset-credit data</a>. It also exposes <a href="https://github.com/openai/codex/blob/63d213884daea50e4f74efc192cdc44f549b67d5/codex-rs/app-server/src/request_processors/account_processor/rate_limit_resets.rs#L45-L98">an account-scoped reset-credit consume method</a> whose backend response distinguishes reset, nothing to reset, no credit and already redeemed. That code can request and observe one account's redemption. It contains neither the announced bulk grant/reset operation nor a snapshot of the eligible-account ledger, so it cannot independently verify “all.”</p>
+
+  <p><strong>The constructive question:</strong> how many accounts were eligible, how many reset mutations succeeded, when did propagation finish, and were any plan, region or account-state exceptions retried? A one-line completion record with aggregate counts and no identifiers would turn “all” into an auditable operational statement.</p>
+
+  <h2>10. The 10–50% improvement: no denominator, no reproducible range</h2>
+  <p><strong>Verdict: internal analysis only.</strong> The commits make lower waste plausible, and several changes plainly reduce redundant context or requests. But no public dataset defines “go further.” It could mean completed tasks, model input tokens, weekly credits, wall time or a weighted quota unit. Nor does the announcement publish the cohort, date window, model mix, task mix or distribution behind the lower and upper bounds.</p>
+
+  <p><strong>The constructive question:</strong> is 10–50% observed or modeled, which metric is in the denominator, and what are the median and tails after holding model and Fast-mode mix constant? A sanitized before/after chart per fix—with cohort size, p10, median, p90 and attribution method—would let users map the range to their own workload.</p>
+
+  <h2>11. Regression prevention and paging: tests are public; paging configuration is not</h2>
+  <p><strong>Verdict: partially supported.</strong> The compaction, memory, goal, subagent and MCP changes all add targeted regressions, and some are genuine end-to-end tests. That is concrete architecture against recurrence. But the stronger promise—that teams will be paged regardless—depends on production counters, alert thresholds, routing and ownership that are not in the repository.</p>
+
+  <p><strong>The constructive question:</strong> what invariant pages for each class? Useful examples are compaction-again-on-next-turn rate, Stop evaluations per memory worker, continuation admitted for a non-active goal, child/root tier mismatch, executions per scheduled occurrence, duplicate history-window claims and MCP wire bytes divided by logical bytes. Publishing names and thresholds, not internal dashboards or user data, would make the assurance testable.</p>
+
+  <h2>12. Showing where usage goes: a thread estimate exists; richer attribution is unverified</h2>
+  <p><strong>Verdict: partial public implementation; promised attribution and rollout unverified.</strong> The account processor already <a href="https://github.com/openai/codex/blob/63d213884daea50e4f74efc192cdc44f549b67d5/codex-rs/app-server/src/request_processors/account_processor.rs#L1233-L1264">maps backend thread-usage estimates</a>, and commit <a href="https://github.com/openai/codex/commit/f1a1fce26af057ca568a876ff5ce6f49d72013f6">“Show estimated thread usage in <code>/status</code>”</a> renders a TUI view for eligible Business and Enterprise plans with estimated credits or dollars plus model, reasoning, speed and token groups. That is already a user-facing usage surface. It does not yet prove which other clients or plans receive the promised view, whether background work will be separated, which categories it will use, or when a broader rollout will land.</p>
+
+  <p><strong>The constructive question:</strong> will the view distinguish foreground model work, compaction, memory, goals, automations, Computer History, summaries, subagents and MCP overhead—and reconcile those categories to the quota ledger? A usage view that omits the background categories named in this incident would answer the wrong question.</p>
+
+  <h2>The useful standard is a small incident matrix</h2>
+  <p>Public code gives this announcement real weight. It lets readers verify the shape of five fixes and trace the other three to adjacent public interfaces while showing why their production implementations cannot be audited from <code>openai/codex</code>. It also prevents a category error: a good regression proves intended behavior, not the claimed population effect.</p>
+
+  <p>OpenAI could close nearly every remaining gap with one privacy-safe table: component, first affected build, fixed build or server flag, affected-account denominator, before/after usage distribution, regression link, production invariant and alert threshold. For closed components, name the owning boundary and describe the test. For the numbers, define the unit. For the reset, publish aggregate completion. That would turn a detailed and constructive engineering update into a source-grounded incident record—and give users the clarification they actually need.</p>
+        </article>
+      </section>
+      <section class="evidence-section" id="evidence" aria-labelledby="evidence-title">
+    <div class="evidence-head">
+      <div>
+        <div class="eyebrow">Evidence Trail</div>
+        <h2 id="evidence-title">Receipts below the story</h2>
+        <p>The article above is the public narrative. This section keeps the source trail and limits on the same page.</p>
+      </div>
+      <a class="paper-button" href="/editions/2026-08-30/">Edition</a>
+    </div>
+    <div class="evidence-table evidence-summary">
+      <div class="evidence-line"><span>Date</span><span>August 30, 2026</span></div>
+      <div class="evidence-line"><span>Lane</span><span>Daily Edition</span></div>
+      <div class="evidence-line"><span>Confidence</span><span>91%</span></div>
+      <div class="evidence-line"><span>Sources</span><span>15</span></div>
+      <div class="evidence-line"><span>Repos</span><span>openai/codex</span></div>
+    </div>
+    <div class="markdown evidence-copy evidence-copy-block">
+      <h2>Primary Evidence</h2>
+<ul>
+<li>Codex team announcement: <a href="https://x.com/thsottiaux/status/2093801758665715784">https://x.com/thsottiaux/status/2093801758665715784</a>
+<ul>
+<li>Shows: the first-party claims being audited, including the paid-user reset, 10–50% range, eight named fixes, regression paging, and planned in-app usage visibility.
+</li>
+</ul>
+</li>
+<li>Compaction fix and regression: <a href="https://github.com/openai/codex/commit/b7d9ed272069f5018f36ad5a335a6627911cee50">https://github.com/openai/codex/commit/b7d9ed272069f5018f36ad5a335a6627911cee50</a>
+<ul>
+<li>Shows: retained images had not been charged to the remote-compaction message budget; the patch adds an image budget and a two-cycle image-heavy compaction test.
+</li>
+</ul>
+</li>
+<li>Memory-consolidation Stop-hook fix: <a href="https://github.com/openai/codex/commit/7c6eb0eef113ddc16ae5b207ac9add364b489798">https://github.com/openai/codex/commit/7c6eb0eef113ddc16ae5b207ac9add364b489798</a>
+<ul>
+<li>Shows: the background memory worker now has its own Stop target, excludes user/project lifecycle hooks, and turns a managed rejection into a terminal worker error.
+</li>
+</ul>
+</li>
+<li>Goal execution-host failure cap: <a href="https://github.com/openai/codex/commit/62b458c93151595cdf2b5ef5e37aa3d8b5613aeb">https://github.com/openai/codex/commit/62b458c93151595cdf2b5ef5e37aa3d8b5613aeb</a>
+<ul>
+<li>Shows: three qualifying execution-host failure turns block a goal, success resets the streak, and the app-server regression bounds the loop.
+</li>
+</ul>
+</li>
+<li>Official automation surface and an unmerged scheduler prototype: <a href="https://learn.chatgpt.com/docs/automations">https://learn.chatgpt.com/docs/automations</a> and <a href="https://github.com/openai/codex/commit/df52f88f0546c3bb9021acf152ffe031b50d6b84">https://github.com/openai/codex/commit/df52f88f0546c3bb9021acf152ffe031b50d6b84</a>
+<ul>
+<li>Shows: advanced schedules may use RFC 5545 rules; a public prototype contains limited recurrence and cooldown logic, but is not on main and is not evidence of the deployed production fix.
+</li>
+</ul>
+</li>
+<li>Explicit model-override contract: <a href="https://github.com/openai/codex/commit/5f49aba876922d6f2f55caa153bbb0ed1b46feba">https://github.com/openai/codex/commit/5f49aba876922d6f2f55caa153bbb0ed1b46feba</a>
+<ul>
+<li>Shows: the subagent tool guidance changed from allowing a task-specific override to requiring an explicit user request.
+</li>
+</ul>
+</li>
+<li>Root service-tier inheritance: <a href="https://github.com/openai/codex/commit/dc2ccc6843abb09c9d297862dc10b6bd12a3935d">https://github.com/openai/codex/commit/dc2ccc6843abb09c9d297862dc10b6bd12a3935d</a>
+<ul>
+<li>Shows: subagents share the root thread's service tier, including live changes and remote compaction, rather than receiving per-spawn Fast overrides.
+</li>
+</ul>
+</li>
+<li>MCP typed-output fix: <a href="https://github.com/openai/codex/commit/75cb7c903d474b6637a6e9fe6f76cedf76ef1472">https://github.com/openai/codex/commit/75cb7c903d474b6637a6e9fe6f76cedf76ef1472</a>
+<ul>
+<li>Shows: unstructured MCP blocks now travel as typed content items instead of an escaped serialized array inside text.
+</li>
+</ul>
+</li>
+<li>MCP instruction-length and cache fixes: <a href="https://github.com/openai/codex/commit/fcc4ca552f7753c537fe4b8af4276caf8edff762">https://github.com/openai/codex/commit/fcc4ca552f7753c537fe4b8af4276caf8edff762</a> and <a href="https://github.com/openai/codex/commit/7625343977154efed8c0dadba956374992a1580b">https://github.com/openai/codex/commit/7625343977154efed8c0dadba956374992a1580b</a>
+<ul>
+<li>Shows: the tool-search description ceiling had truncated metadata, and later cache binding could omit tools or cause unnecessary startup.
+</li>
+</ul>
+</li>
+<li>Official Computer History documentation: <a href="https://learn.chatgpt.com/docs/customization/computer-history">https://learn.chatgpt.com/docs/customization/computer-history</a>
+<ul>
+<li>Shows: the product periodically starts ephemeral Codex sessions to summarize an event stream and that the feature uses tokens; the closed summarizer is therefore the relevant source boundary.
+</li>
+</ul>
+</li>
+<li>Computer History field report: <a href="https://github.com/openai/codex/issues/37983">https://github.com/openai/codex/issues/37983</a>
+<ul>
+<li>Shows: a user-observed Chronicle installation produced 11,848 ten-minute summary starts over fourteen days; useful corroboration of the class of failure, not maintainer verification of the announced incident.
+</li>
+</ul>
+</li>
+<li>Rolling-description field report: <a href="https://github.com/openai/codex/issues/41130">https://github.com/openai/codex/issues/41130</a>
+<ul>
+<li>Shows: a user traced hidden Luna work to a structured thread-description prompt; it identifies a plausible worker but not the announced disablement.
+</li>
+</ul>
+</li>
+<li>Automatic TUI recap implementation: <a href="https://github.com/openai/codex/commit/6988d390b30b7bda03579c9add506e24bb6bbcc1">https://github.com/openai/codex/commit/6988d390b30b7bda03579c9add506e24bb6bbcc1</a>
+<ul>
+<li>Shows: a separate public feature starts a temporary structured model turn for eligible idle, unfocused conversations. It must not be conflated with the announced rolling-summary worker.
+</li>
+</ul>
+</li>
+<li>Public account usage plumbing: <a href="https://github.com/openai/codex/blob/63d213884daea50e4f74efc192cdc44f549b67d5/codex-rs/app-server/src/request_processors/account_processor.rs#L1131-L1201">https://github.com/openai/codex/blob/63d213884daea50e4f74efc192cdc44f549b67d5/codex-rs/app-server/src/request_processors/account_processor.rs#L1131-L1201</a> and <a href="https://github.com/openai/codex/blob/63d213884daea50e4f74efc192cdc44f549b67d5/codex-rs/app-server/src/request_processors/account_processor/rate_limit_resets.rs#L45-L98">https://github.com/openai/codex/blob/63d213884daea50e4f74efc192cdc44f549b67d5/codex-rs/app-server/src/request_processors/account_processor/rate_limit_resets.rs#L45-L98</a>
+<ul>
+<li>Shows: the client reads rate limits and can request one account's reset-credit redemption; it does not expose the announced bulk reset or cohort analysis.
+</li>
+</ul>
+</li>
+<li>TUI thread-usage view: <a href="https://github.com/openai/codex/commit/f1a1fce26af057ca568a876ff5ce6f49d72013f6">https://github.com/openai/codex/commit/f1a1fce26af057ca568a876ff5ce6f49d72013f6</a>
+<ul>
+<li>Shows: eligible Business and Enterprise users already have estimated thread usage in <code>/status</code>; richer background-category attribution and rollout remain unverified.
+</li>
+</ul>
+</li>
+</ul>
+<h2>Evidence Limits</h2>
+<ul>
+<li>Public commits establish source behavior and regression intent. They do not establish rollout completeness, affected-user counts, weekly-allowance impact, or the 10–50% overall improvement range.
+</li>
+<li>Public main does not contain the deployed RFC 5545 scheduler fix, the rebuilt Computer History summarizer, or an identifiable rolling-task-summary disable switch.
+</li>
+<li>No public artifact independently proves that every eligible paid account was reset, exposes the paging configuration, or shows the promised per-feature usage interface.
+</li>
+<li>GitHub issues are field observations. They can locate a failure boundary or test a claim's plausibility, but they are not proof that the reporter's example and the user's symptom are the same incident.
+</li>
+</ul>
+    </div>
+  </section>
+      <section class="related-edition-section atlas-context-section">
+    <div class="section-title-row">
+      <h2>Atlas Context</h2>
+      <a href="/atlas/">Open Atlas &rsaquo;</a>
+    </div>
+    <div class="updates-list">
+      <a class="article-card" href="/atlas/memory-is-not-one-thing/">
+            <div class="article-meta"><span class="lane">Agent Atlas</span><span>Chapter 6</span></div>
+            <h3>Memory Is a Typed Storage Contract</h3>
+            <p>Calling every retained fact memory obscures incompatible stores and guarantees. Thread history, notes, retrieval indexes, summaries, caches, and archives have different owners, lifetimes, and deletion behavior.</p>
+          </a>
+    </div>
+  </section>
+      <section class="reader-feedback"
+    data-tgr-feedback
+    data-article-slug="2026-08-30-daily-codex-says-it-stopped-wasting-your-allowance-the-public-code-can-prove-only-part-of-it"
+    data-article-title="Codex Says It Stopped Wasting Your Allowance. The Public Code Can Prove Only Part of It"
+    data-article-url="/articles/2026-08-30-daily-codex-says-it-stopped-wasting-your-allowance-the-public-code-can-prove-only-part-of-it/"
+    data-edition-date="2026-08-30"
+    data-lane="Daily Edition"
+    data-tags="Permissions,Memory,Delegation,Tools"
+    data-repos="openai/codex">
+    <div class="reader-feedback-head">
+      <div>
+        <div class="eyebrow">Letters &amp; Corrections</div>
+        <h2>Send a note to the desk</h2>
+      </div>
+      <p>Corrections, missing context, or a follow-up lead.</p>
+    </div>
+    <form class="feedback-form">
+      <div class="feedback-votes" role="group" aria-label="Choose signal type">
+        <button class="feedback-choice" type="button" data-vote="follow-up" aria-pressed="false">
+          <span aria-hidden="true">+</span>
+          <span>Follow-up</span>
+        </button>
+        <button class="feedback-choice" type="button" data-vote="correction" aria-pressed="false">
+          <span aria-hidden="true">!</span>
+          <span>Correction</span>
+        </button>
+      </div>
+      <label class="feedback-comment">
+        <span>Note for the editor</span>
+        <textarea name="comment" rows="3" maxlength="320" placeholder="What did we miss, or what should we follow next?"></textarea>
+      </label>
+      <div class="feedback-submit-row">
+        <p class="feedback-status" aria-live="polite"></p>
+        <button class="paper-button primary feedback-submit" type="submit">Send to desk</button>
+      </div>
+    </form>
+  </section>
+      <section class="related-edition-section">
+        <div class="section-title-row">
+          <h2>Same Edition</h2>
+          <a href="/editions/2026-08-30/">Open issue &rsaquo;</a>
+        </div>
+        <div class="updates-list">
+          <a class="update-card" href="/articles/2026-08-30-daily-the-last-click-shouldn-t-redirect-an-automation/">
+    <div class="update-stripe"></div>
+    <div class="update-main">
+      <div class="update-meta">
+        <span>Context</span>
+        <span class="source-plus">+3</span>
+        <span>Aug 30, 2026</span>
+      </div>
+      <h3>The Last Click Shouldn’t Redirect an Automation</h3>
+      <div class="update-receipt">
+        <span>different-ai/openwork</span>
+        <span class="branch-pill">evidence</span>
+      </div>
+      <div class="update-foot">
+        <span>3 sources</span>
+        <span>1 repo</span>
+        <span>commit c10eb81</span>
+      </div>
+    </div>
+    <span class="update-arrow" aria-hidden="true">&rsaquo;</span>
+  </a><a class="update-card" href="/articles/2026-08-30-daily-api-discovery-tool-calls-need-a-home-in-the-stream/">
+    <div class="update-stripe"></div>
+    <div class="update-main">
+      <div class="update-meta">
+        <span>Context</span>
+        <span class="source-plus">+2</span>
+        <span>Aug 30, 2026</span>
+      </div>
+      <h3>API Discovery: Tool Calls Need a Home in the Stream</h3>
+      <div class="update-receipt">
+        <span>pydantic/pydantic-ai</span>
+        <span class="branch-pill">evidence</span>
+      </div>
+      <div class="update-foot">
+        <span>2 sources</span>
+        <span>1 repo</span>
+        <span>commit 0c6cf81</span>
+      </div>
+    </div>
+    <span class="update-arrow" aria-hidden="true">&rsaquo;</span>
+  </a>
+        </div>
+      </section>
+    </main>
+    <footer class="wrap site-footer">
+      <span>&copy; 2026 The Git Reporter</span>
+      <a href="/about/">About</a>
+      <a href="/battles/">Diff Derby</a>
+      <a href="/agent-pulse/">Agent Pulse</a>
+      <a href="/feed.xml">RSS</a>
+      <a href="https://x.com/TheGitReporter">Follow on X</a>
+      <a href="/articles.json">Manifest JSON</a>
+      <a href="/repos/">Sources</a>
+    </footer>
+  </div>
+</body>
+</html>
