@@ -1,0 +1,295 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Kilo’s Migration API Lets Agents Resume Without Shipping Their Transcripts | The Git Reporter</title>
+  <meta name="description" content="Kilo Code’s public migration endpoint lets a configured server rediscover Claude Code or Codex history it can read, create a Kilo session per source, and make a normal retry a skip instead of a duplicate.">
+  <meta name="robots" content="index,follow">
+  <link rel="canonical" href="https://thegitreporter.com/articles/2026-09-01-daily-kilo-s-migration-api-lets-agents-resume-without-shipping-their-transcripts/">
+  <link rel="alternate" type="application/rss+xml" title="The Git Reporter" href="https://thegitreporter.com/feed.xml">
+  <meta property="og:site_name" content="The Git Reporter">
+  <meta property="og:locale" content="en_US">
+  <meta property="og:title" content="Kilo’s Migration API Lets Agents Resume Without Shipping Their Transcripts | The Git Reporter">
+  <meta property="og:description" content="Kilo Code’s public migration endpoint lets a configured server rediscover Claude Code or Codex history it can read, create a Kilo session per source, and make a normal retry a skip instead of a duplicate.">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://thegitreporter.com/articles/2026-09-01-daily-kilo-s-migration-api-lets-agents-resume-without-shipping-their-transcripts/">
+  <meta property="og:image" content="https://thegitreporter.com/assets/social/2026-09-01-daily-kilo-s-migration-api-lets-agents-resume-without-shipping-their-transcripts-og.jpg">
+  <meta property="og:image:secure_url" content="https://thegitreporter.com/assets/social/2026-09-01-daily-kilo-s-migration-api-lets-agents-resume-without-shipping-their-transcripts-og.jpg">
+  <meta property="og:image:type" content="image/jpeg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="A rough-paper flow shows a client sending formats and IDs to a configured Kilo server, which discovers a session, records migration metadata, and skips it on a normal rerun.">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:site" content="@TheGitReporter">
+  <meta name="twitter:creator" content="@TheGitReporter">
+  <meta name="twitter:title" content="Kilo’s Migration API Lets Agents Resume Without Shipping Their Transcripts | The Git Reporter">
+  <meta name="twitter:description" content="Kilo Code’s public migration endpoint lets a configured server rediscover Claude Code or Codex history it can read, create a Kilo session per source, and make a normal retry a skip instead of a duplicate.">
+  <meta name="twitter:url" content="https://thegitreporter.com/articles/2026-09-01-daily-kilo-s-migration-api-lets-agents-resume-without-shipping-their-transcripts/">
+  <meta name="twitter:domain" content="thegitreporter.com">
+  <meta name="twitter:image" content="https://thegitreporter.com/assets/social/2026-09-01-daily-kilo-s-migration-api-lets-agents-resume-without-shipping-their-transcripts-og.jpg">
+  <meta name="twitter:image:alt" content="A rough-paper flow shows a client sending formats and IDs to a configured Kilo server, which discovers a session, records migration metadata, and skips it on a normal rerun.">
+  <meta property="article:published_time" content="2026-09-01T12:00:00Z">
+  <meta property="article:modified_time" content="2026-09-01T12:00:00Z">
+  <meta property="article:section" content="Daily Edition">
+  <meta property="article:tag" content="API Discovery">
+  <meta property="article:tag" content="Session migration">
+  <meta property="article:tag" content="Idempotency">
+  <meta property="article:tag" content="Portability">
+  <meta property="article:tag" content="Kilo-Org/kilocode">
+  <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"https://thegitreporter.com/#organization","name":"The Git Reporter","url":"https://thegitreporter.com","logo":{"@type":"ImageObject","url":"https://thegitreporter.com/assets/mark.svg"},"sameAs":["https://x.com/TheGitReporter"]},{"@type":"WebSite","@id":"https://thegitreporter.com/#website","name":"The Git Reporter","url":"https://thegitreporter.com","publisher":{"@id":"https://thegitreporter.com/#organization"}},{"@type":"NewsArticle","mainEntityOfPage":{"@type":"WebPage","@id":"https://thegitreporter.com/articles/2026-09-01-daily-kilo-s-migration-api-lets-agents-resume-without-shipping-their-transcripts/"},"headline":"Kilo’s Migration API Lets Agents Resume Without Shipping Their Transcripts","description":"Kilo Code’s public migration endpoint lets a configured server rediscover Claude Code or Codex history it can read, create a Kilo session per source, and make a normal retry a skip instead of a duplicate.","image":["https://thegitreporter.com/assets/social/2026-09-01-daily-kilo-s-migration-api-lets-agents-resume-without-shipping-their-transcripts-og.jpg"],"datePublished":"2026-09-01T12:00:00Z","dateModified":"2026-09-01T12:00:00Z","author":[{"@type":"Organization","name":"The Git Reporter","url":"https://thegitreporter.com"}],"publisher":{"@type":"Organization","@id":"https://thegitreporter.com/#organization","name":"The Git Reporter","url":"https://thegitreporter.com","logo":{"@type":"ImageObject","url":"https://thegitreporter.com/assets/mark.svg"},"sameAs":["https://x.com/TheGitReporter"]},"articleSection":"Daily Edition","keywords":"API Discovery, Session migration, Idempotency, Portability, Kilo-Org/kilocode"}]}</script>
+  <link rel="icon" href="/assets/mark.svg">
+  <link rel="stylesheet" href="/assets/site.css?v=2026-07-30-harness-memory">
+  <script defer src="/assets/feedback.js?v=2026-07-30-harness-memory"></script>
+  <script defer src="/assets/analytics.js?v=2026-07-30-harness-memory"></script>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-CH19T7M0T1"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){window.dataLayer.push(arguments);}
+    gtag("js", new Date());
+    gtag("config", "G-CH19T7M0T1");
+  </script>
+</head>
+<body>
+  <div class="site">
+    <header class="site-header" id="top">
+      <div class="wrap utility-row">
+        <a class="icon-link menu-icon" href="/archive/" aria-label="Open edition history"><span></span><span></span><span></span></a>
+        <a class="icon-link archive-icon" href="/archive/" aria-label="Open edition history"></a>
+      </div>
+      <div class="wrap masthead-lockup">
+        <a class="masthead-title" href="/">THE GIT REPORTER</a>
+        <div class="masthead-ornament" aria-hidden="true"></div>
+      </div>
+      <div class="wrap nav-wrap">
+        <nav class="paper-nav" aria-label="Primary navigation">
+    <a class="" href="/">Today</a><a class="active" href="/archive/">Editions</a><a class="" href="/about/">About</a><a class="" href="/battles/">Diff Derby</a><a class="" href="/agent-pulse/">Agent Pulse</a><a class="" href="/atlas/">Agent Atlas</a><a class="" href="/repos/">Repos</a>
+  </nav>
+        <div class="nav-rule"></div>
+      </div>
+    </header>
+    <main class="wrap page-shell article-page">
+      <section class="page-hero story-front">
+        <div class="story-topline">
+          <span>Daily Edition</span>
+          <span>Sources <strong>+4</strong></span>
+        </div>
+        <h1>Kilo’s Migration API Lets Agents Resume Without Shipping Their Transcripts</h1>
+        <p class="summary">Kilo Code’s public migration endpoint lets a configured server rediscover Claude Code or Codex history it can read, create a Kilo session per source, and make a normal retry a skip instead of a duplicate.</p>
+        <figure class="story-illustration article-illustration">
+    <img src="/assets/illustrations/2026-09-01-kilo-s-migration-api-lets-agents-resume-without-shipping-their-transcripts-diagram-punk-v1.png" alt="A rough-paper flow shows a client sending formats and IDs to a configured Kilo server, which discovers a session, records migration metadata, and skips it on a normal rerun." loading="lazy" decoding="async">
+    <figcaption><span>Diagram Punk</span>idempotent migration starts with a server that can see the source.</figcaption>
+  </figure>
+        <div class="receipt">
+    <div class="receipt-line">
+      <span class="receipt-icon">repo</span>
+      <span class="receipt-main">Kilo-Org/kilocode</span>
+      <span class="branch-pill">evidence</span>
+    </div>
+    <div class="receipt-line receipt-muted">
+      <span>4 source signals</span>
+      <span>1 repo</span>
+      <span>commit 6cc21af</span>
+    </div>
+    <div class="commit-line">Evidence: commit 6cc21af / September 1, 2026 / Daily Edition</div>
+  </div>
+        <div class="article-route-row">
+          <a href="/editions/2026-09-01/">Open Edition</a>
+          <a href="#evidence">Evidence below</a>
+        </div>
+      </section>
+      <section class="story-reader">
+        <article class="story-shell story-body">
+          <p><strong>API discovery:</strong> Kilo Code’s public <a href="https://github.com/Kilo-Org/kilocode/blob/6cc21af6d0e19887d5be887a9771865ccf2963af/packages/sdk/openapi.json">OpenAPI contract</a> defines <code>POST /kilocode/migrate/sessions</code>. Its fresh <a href="https://github.com/Kilo-Org/kilocode/commit/6cc21af6d0e19887d5be887a9771865ccf2963af">server-side migration change</a> removes the awkward older pattern of sending transcript bytes and a target session from the client. Instead, the configured Kilo server rediscovers Claude Code or Codex sources it can read, creates one Kilo session per source, and records migration provenance so an ordinary rerun can return <code>skipped: true</code>.</p>
+
+  <h2>Try it</h2>
+
+  <p>Build a small migration concierge for a team changing agent clients. Let a developer select a prior Codex session, then have the configured Kilo service migrate only that source and return the new Kilo session ID for a review screen. The useful part is not bulk import; it is a retry-safe handoff that never asks a browser or remote client to upload transcript bytes merely because the server needs to do the import.</p>
+
+  <pre><code>POST /kilocode/migrate/sessions
+Content-Type: application/json
+
+{
+  "cwd": "/workspace/atlas",
+  "formats": ["codex"],
+  "ids": ["selected-session-uuid"],
+  "agent": "build"
+}</code></pre>
+
+  <p>The public contract also allows a model and an explicit <code>force</code> flag. Leave force off for a normal retry: the integration tests show that a second identical migration points back to the existing session and is counted as skipped.</p>
+
+  <h2>Copy-paste agent instruction</h2>
+
+  <pre><code>In a disposable, authenticated Kilo Code server that is authorized to read the selected machine's Claude Code or Codex session directories, inspect the public OpenAPI contract for POST /kilocode/migrate/sessions. Ask the user to select one session ID and one format, then call the configured server with filters only; do not upload transcript bytes. Surface each returned session ID, skipped flag, dropped-content notice, and per-session error. Treat a normal rerun as a no-op, and do not use force unless the user explicitly wants a new migration.</code></pre>
+
+  <h2>Test caveat</h2>
+
+  <p>This reporting run did not call a live Kilo server. The inspected public sources describe the endpoint and its tests but do not publish a base URL, authentication recipe, rate limit, or permission model. The server must actually have authorized access to the relevant source directories; it cannot discover a developer’s files on another machine. Kilo’s public CLI documentation also says imports can skip content it cannot represent. Test against disposable transcripts, review the returned dropped entries, and do not treat server-side discovery as a privacy guarantee.</p>
+        </article>
+      </section>
+      <section class="evidence-section" id="evidence" aria-labelledby="evidence-title">
+    <div class="evidence-head">
+      <div>
+        <div class="eyebrow">Evidence Trail</div>
+        <h2 id="evidence-title">Receipts below the story</h2>
+        <p>The article above is the public narrative. This section keeps the source trail and limits on the same page.</p>
+      </div>
+      <a class="paper-button" href="/editions/2026-09-01/">Edition</a>
+    </div>
+    <div class="evidence-table evidence-summary">
+      <div class="evidence-line"><span>Date</span><span>September 1, 2026</span></div>
+      <div class="evidence-line"><span>Lane</span><span>Daily Edition</span></div>
+      <div class="evidence-line"><span>Confidence</span><span>78%</span></div>
+      <div class="evidence-line"><span>Sources</span><span>4</span></div>
+      <div class="evidence-line"><span>Repos</span><span>Kilo-Org/kilocode</span></div>
+    </div>
+    <div class="markdown evidence-copy evidence-copy-block">
+      <h2>Primary Evidence</h2>
+<ul>
+<li>Public API source: <a href="https://github.com/Kilo-Org/kilocode/blob/6cc21af6d0e19887d5be887a9771865ccf2963af/packages/sdk/openapi.json">https://github.com/Kilo-Org/kilocode/blob/6cc21af6d0e19887d5be887a9771865ccf2963af/packages/sdk/openapi.json</a>
+<ul>
+<li>Shows: Kilo Code publishes the POST /kilocode/migrate/sessions API surface, including formats, selected IDs, agent, model, force, response schema, and the provider's description of an idempotent external-session migration service.
+</li>
+</ul>
+</li>
+<li>Supporting definition or documentation: <a href="https://github.com/Kilo-Org/kilocode/blob/6cc21af6d0e19887d5be887a9771865ccf2963af/packages/opencode/test/kilocode/session-resume-integration.test.ts">https://github.com/Kilo-Org/kilocode/blob/6cc21af6d0e19887d5be887a9771865ccf2963af/packages/opencode/test/kilocode/session-resume-integration.test.ts</a>
+<ul>
+<li>Shows: the public integration test checks request behavior: server-side discovery, one created Kilo session per transcript, persisted source metadata, skipped reruns, force remigration, selected IDs, and per-entry errors for unreadable transcripts.
+</li>
+</ul>
+</li>
+<li>Migration-design receipt: <a href="https://github.com/Kilo-Org/kilocode/commit/6cc21af6d0e19887d5be887a9771865ccf2963af">https://github.com/Kilo-Org/kilocode/commit/6cc21af6d0e19887d5be887a9771865ccf2963af</a>
+<ul>
+<li>Shows: the main-branch change removes client transcript bytes and a client target session from the request, re-discovers Claude Code and Codex sources server-side, and removes an empty session when a post-create write fails.
+</li>
+</ul>
+</li>
+<li>Public CLI documentation: <a href="https://github.com/Kilo-Org/kilocode/blob/6cc21af6d0e19887d5be887a9771865ccf2963af/packages/kilo-docs/pages/code-with-ai/platforms/cli.md">https://github.com/Kilo-Org/kilocode/blob/6cc21af6d0e19887d5be887a9771865ccf2963af/packages/kilo-docs/pages/code-with-ai/platforms/cli.md</a>
+<ul>
+<li>Shows: the documented interactive import flow, source directories, empty-session requirement, and the limit that unrepresentable content can be skipped.
+</li>
+</ul>
+</li>
+</ul>
+<h2>Evidence Limits</h2>
+<ul>
+<li>The public sources establish a source-level API contract and test behavior, not a live endpoint, deployment URL, authentication setup, rate limit, access control, or release availability.
+</li>
+<li>A server must have authorized filesystem access to the source session roots. Do not send production transcript contents to an unverified service or assume this endpoint can discover history that exists only on another machine.
+</li>
+</ul>
+    </div>
+  </section>
+      <section class="related-edition-section atlas-context-section">
+    <div class="section-title-row">
+      <h2>Atlas Context</h2>
+      <a href="/atlas/">Open Atlas &rsaquo;</a>
+    </div>
+    <div class="updates-list">
+      <a class="article-card" href="/atlas/memory-is-not-one-thing/">
+            <div class="article-meta"><span class="lane">Agent Atlas</span><span>Chapter 6</span></div>
+            <h3>Memory Is a Typed Storage Contract</h3>
+            <p>Calling every retained fact memory obscures incompatible stores and guarantees. Thread history, notes, retrieval indexes, summaries, caches, and archives have different owners, lifetimes, and deletion behavior.</p>
+          </a>
+    </div>
+  </section>
+      <section class="reader-feedback"
+    data-tgr-feedback
+    data-article-slug="2026-09-01-daily-kilo-s-migration-api-lets-agents-resume-without-shipping-their-transcripts"
+    data-article-title="Kilo’s Migration API Lets Agents Resume Without Shipping Their Transcripts"
+    data-article-url="/articles/2026-09-01-daily-kilo-s-migration-api-lets-agents-resume-without-shipping-their-transcripts/"
+    data-edition-date="2026-09-01"
+    data-lane="Daily Edition"
+    data-tags="API Discovery,Session migration,Idempotency,Portability"
+    data-repos="Kilo-Org/kilocode">
+    <div class="reader-feedback-head">
+      <div>
+        <div class="eyebrow">Letters &amp; Corrections</div>
+        <h2>Send a note to the desk</h2>
+      </div>
+      <p>Corrections, missing context, or a follow-up lead.</p>
+    </div>
+    <form class="feedback-form">
+      <div class="feedback-votes" role="group" aria-label="Choose signal type">
+        <button class="feedback-choice" type="button" data-vote="follow-up" aria-pressed="false">
+          <span aria-hidden="true">+</span>
+          <span>Follow-up</span>
+        </button>
+        <button class="feedback-choice" type="button" data-vote="correction" aria-pressed="false">
+          <span aria-hidden="true">!</span>
+          <span>Correction</span>
+        </button>
+      </div>
+      <label class="feedback-comment">
+        <span>Note for the editor</span>
+        <textarea name="comment" rows="3" maxlength="320" placeholder="What did we miss, or what should we follow next?"></textarea>
+      </label>
+      <div class="feedback-submit-row">
+        <p class="feedback-status" aria-live="polite"></p>
+        <button class="paper-button primary feedback-submit" type="submit">Send to desk</button>
+      </div>
+    </form>
+  </section>
+      <section class="related-edition-section">
+        <div class="section-title-row">
+          <h2>Same Edition</h2>
+          <a href="/editions/2026-09-01/">Open issue &rsaquo;</a>
+        </div>
+        <div class="updates-list">
+          <a class="update-card" href="/articles/2026-09-01-daily-a-completed-agent-run-is-not-a-successful-one/">
+    <div class="update-stripe"></div>
+    <div class="update-main">
+      <div class="update-meta">
+        <span>Reported</span>
+        <span class="source-plus">+3</span>
+        <span>Sep 1, 2026</span>
+      </div>
+      <h3>A Completed Agent Run Is Not a Successful One</h3>
+      <div class="update-receipt">
+        <span>OpenHands/OpenHands</span>
+        <span class="branch-pill">evidence</span>
+      </div>
+      <div class="update-foot">
+        <span>3 sources</span>
+        <span>1 repo</span>
+        <span>commit 744e865</span>
+      </div>
+    </div>
+    <span class="update-arrow" aria-hidden="true">&rsaquo;</span>
+  </a><a class="update-card" href="/articles/2026-09-01-daily-builder-work-mastra-tests-memory-prompts-against-their-own-noise/">
+    <div class="update-stripe"></div>
+    <div class="update-main">
+      <div class="update-meta">
+        <span>Context</span>
+        <span class="source-plus">+4</span>
+        <span>Sep 1, 2026</span>
+      </div>
+      <h3>Builder Work: Mastra Tests Memory Prompts Against Their Own Noise</h3>
+      <div class="update-receipt">
+        <span>mastra-ai/mastra</span>
+        <span class="branch-pill">evidence</span>
+      </div>
+      <div class="update-foot">
+        <span>4 sources</span>
+        <span>1 repo</span>
+        <span>commit eda942c</span>
+      </div>
+    </div>
+    <span class="update-arrow" aria-hidden="true">&rsaquo;</span>
+  </a>
+        </div>
+      </section>
+    </main>
+    <footer class="wrap site-footer">
+      <span>&copy; 2026 The Git Reporter</span>
+      <a href="/about/">About</a>
+      <a href="/battles/">Diff Derby</a>
+      <a href="/agent-pulse/">Agent Pulse</a>
+      <a href="/feed.xml">RSS</a>
+      <a href="https://x.com/TheGitReporter">Follow on X</a>
+      <a href="/articles.json">Manifest JSON</a>
+      <a href="/repos/">Sources</a>
+    </footer>
+  </div>
+</body>
+</html>
