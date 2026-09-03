@@ -1,0 +1,293 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>API Discovery: Let an Agent Notice When Its Reasoning Was Dropped | The Git Reporter</title>
+  <meta name="description" content="Pydantic AI now carries an Anthropic thinking-block fallback through later turns—but the useful operator move is to expose the loss, then fix the unstable prompt prefix that caused it.">
+  <meta name="robots" content="index,follow">
+  <link rel="canonical" href="https://thegitreporter.com/articles/2026-09-03-daily-api-discovery-let-an-agent-notice-when-its-reasoning-was-dropped/">
+  <link rel="alternate" type="application/rss+xml" title="The Git Reporter" href="https://thegitreporter.com/feed.xml">
+  <meta property="og:site_name" content="The Git Reporter">
+  <meta property="og:locale" content="en_US">
+  <meta property="og:title" content="API Discovery: Let an Agent Notice When Its Reasoning Was Dropped | The Git Reporter">
+  <meta property="og:description" content="Pydantic AI now carries an Anthropic thinking-block fallback through later turns—but the useful operator move is to expose the loss, then fix the unstable prompt prefix that caused it.">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://thegitreporter.com/articles/2026-09-03-daily-api-discovery-let-an-agent-notice-when-its-reasoning-was-dropped/">
+  <meta property="og:image" content="https://thegitreporter.com/assets/social/2026-09-03-daily-api-discovery-let-an-agent-notice-when-its-reasoning-was-dropped-og.jpg">
+  <meta property="og:image:secure_url" content="https://thegitreporter.com/assets/social/2026-09-03-daily-api-discovery-let-an-agent-notice-when-its-reasoning-was-dropped-og.jpg">
+  <meta property="og:image:type" content="image/jpeg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="A torn-paper diagram shows a changed prompt prefix causing a bound-thinking-block error; a drop-block stamp removes the prior reasoning card while a response receipt records a thinking-dropped transformation, with a caveat that automatic recovery excludes AWS Bedrock Messages and Foundry.">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:site" content="@TheGitReporter">
+  <meta name="twitter:creator" content="@TheGitReporter">
+  <meta name="twitter:title" content="API Discovery: Let an Agent Notice When Its Reasoning Was Dropped | The Git Reporter">
+  <meta name="twitter:description" content="Pydantic AI now carries an Anthropic thinking-block fallback through later turns—but the useful operator move is to expose the loss, then fix the unstable prompt prefix that caused it.">
+  <meta name="twitter:url" content="https://thegitreporter.com/articles/2026-09-03-daily-api-discovery-let-an-agent-notice-when-its-reasoning-was-dropped/">
+  <meta name="twitter:domain" content="thegitreporter.com">
+  <meta name="twitter:image" content="https://thegitreporter.com/assets/social/2026-09-03-daily-api-discovery-let-an-agent-notice-when-its-reasoning-was-dropped-og.jpg">
+  <meta name="twitter:image:alt" content="A torn-paper diagram shows a changed prompt prefix causing a bound-thinking-block error; a drop-block stamp removes the prior reasoning card while a response receipt records a thinking-dropped transformation, with a caveat that automatic recovery excludes AWS Bedrock Messages and Foundry.">
+  <meta property="article:published_time" content="2026-09-03T12:00:00Z">
+  <meta property="article:modified_time" content="2026-09-03T12:00:00Z">
+  <meta property="article:section" content="Daily Edition">
+  <meta property="article:tag" content="Memory">
+  <meta property="article:tag" content="Tools">
+  <meta property="article:tag" content="UX">
+  <meta property="article:tag" content="pydantic/pydantic-ai">
+  <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"https://thegitreporter.com/#organization","name":"The Git Reporter","url":"https://thegitreporter.com","logo":{"@type":"ImageObject","url":"https://thegitreporter.com/assets/mark.svg"},"sameAs":["https://x.com/TheGitReporter"]},{"@type":"WebSite","@id":"https://thegitreporter.com/#website","name":"The Git Reporter","url":"https://thegitreporter.com","publisher":{"@id":"https://thegitreporter.com/#organization"}},{"@type":"NewsArticle","mainEntityOfPage":{"@type":"WebPage","@id":"https://thegitreporter.com/articles/2026-09-03-daily-api-discovery-let-an-agent-notice-when-its-reasoning-was-dropped/"},"headline":"API Discovery: Let an Agent Notice When Its Reasoning Was Dropped","description":"Pydantic AI now carries an Anthropic thinking-block fallback through later turns—but the useful operator move is to expose the loss, then fix the unstable prompt prefix that caused it.","image":["https://thegitreporter.com/assets/social/2026-09-03-daily-api-discovery-let-an-agent-notice-when-its-reasoning-was-dropped-og.jpg"],"datePublished":"2026-09-03T12:00:00Z","dateModified":"2026-09-03T12:00:00Z","author":[{"@type":"Organization","name":"The Git Reporter","url":"https://thegitreporter.com"}],"publisher":{"@type":"Organization","@id":"https://thegitreporter.com/#organization","name":"The Git Reporter","url":"https://thegitreporter.com","logo":{"@type":"ImageObject","url":"https://thegitreporter.com/assets/mark.svg"},"sameAs":["https://x.com/TheGitReporter"]},"articleSection":"Daily Edition","keywords":"Memory, Tools, UX, pydantic/pydantic-ai"}]}</script>
+  <link rel="icon" href="/assets/mark.svg">
+  <link rel="stylesheet" href="/assets/site.css?v=2026-07-30-harness-memory">
+  <script defer src="/assets/feedback.js?v=2026-07-30-harness-memory"></script>
+  <script defer src="/assets/analytics.js?v=2026-07-30-harness-memory"></script>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-CH19T7M0T1"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){window.dataLayer.push(arguments);}
+    gtag("js", new Date());
+    gtag("config", "G-CH19T7M0T1");
+  </script>
+</head>
+<body>
+  <div class="site">
+    <header class="site-header" id="top">
+      <div class="wrap utility-row">
+        <a class="icon-link menu-icon" href="/archive/" aria-label="Open edition history"><span></span><span></span><span></span></a>
+        <a class="icon-link archive-icon" href="/archive/" aria-label="Open edition history"></a>
+      </div>
+      <div class="wrap masthead-lockup">
+        <a class="masthead-title" href="/">THE GIT REPORTER</a>
+        <div class="masthead-ornament" aria-hidden="true"></div>
+      </div>
+      <div class="wrap nav-wrap">
+        <nav class="paper-nav" aria-label="Primary navigation">
+    <a class="" href="/">Today</a><a class="active" href="/archive/">Editions</a><a class="" href="/about/">About</a><a class="" href="/battles/">Diff Derby</a><a class="" href="/agent-pulse/">Agent Pulse</a><a class="" href="/atlas/">Agent Atlas</a><a class="" href="/repos/">Repos</a>
+  </nav>
+        <div class="nav-rule"></div>
+      </div>
+    </header>
+    <main class="wrap page-shell article-page">
+      <section class="page-hero story-front">
+        <div class="story-topline">
+          <span>Daily Edition</span>
+          <span>Sources <strong>+3</strong></span>
+        </div>
+        <h1>API Discovery: Let an Agent Notice When Its Reasoning Was Dropped</h1>
+        <p class="summary">Pydantic AI now carries an Anthropic thinking-block fallback through later turns—but the useful operator move is to expose the loss, then fix the unstable prompt prefix that caused it.</p>
+        <figure class="story-illustration article-illustration">
+    <img src="/assets/illustrations/2026-09-03-api-discovery-let-an-agent-notice-when-its-reasoning-was-dropped-diagram-punk-v1.png" alt="A torn-paper diagram shows a changed prompt prefix causing a bound-thinking-block error; a drop-block stamp removes the prior reasoning card while a response receipt records a thinking-dropped transformation, with a caveat that automatic recovery excludes AWS Bedrock Messages and Foundry." loading="lazy" decoding="async">
+    <figcaption><span>Diagram Punk</span>a stable prefix preserves the turn; fallback should leave a visible receipt when it cannot.</figcaption>
+  </figure>
+        <div class="receipt">
+    <div class="receipt-line">
+      <span class="receipt-icon">repo</span>
+      <span class="receipt-main">pydantic/pydantic-ai</span>
+      <span class="branch-pill">evidence</span>
+    </div>
+    <div class="receipt-line receipt-muted">
+      <span>3 source signals</span>
+      <span>1 repo</span>
+      <span>2 linked commits</span>
+    </div>
+    <div class="commit-line">Evidence: 2 linked commits / September 3, 2026 / Daily Edition</div>
+  </div>
+        <div class="article-route-row">
+          <a href="/editions/2026-09-03/">Open Edition</a>
+          <a href="#evidence">Evidence below</a>
+        </div>
+      </section>
+      <section class="story-reader">
+        <article class="story-shell story-body">
+          <p><strong>API discovery:</strong> Pydantic AI's public <a href="https://github.com/pydantic/pydantic-ai/blob/bce2e76ce14c1a448b803c34549c4d2805d61238/docs/models/anthropic.md#thinking-block-binding">Anthropic model guide</a> gives a Python agent a concrete handle on a subtle provider failure: a thinking block can be bound to the conversation prefix that produced it. If the next request changes that prefix, the provider can reject the replay with a 400. Pydantic AI exposes the relevant request surface through <code>AnthropicModelSettings</code>, including <code>anthropic_thinking.block_binding.prefix_mismatch_behavior</code>, and records a provider-reported drop in the response's <code>provider_details</code>.</p>
+
+  <p>This belongs in a compact API slot, not the lead, because it is a narrow integration contract rather than a public product shift. It is still useful for agent builders: a run that answers after an invalid reasoning block was dropped has crossed a continuity boundary, and the public API gives the operator a way to see it rather than mistake it for ordinary success.</p>
+
+  <h2>Fix the prefix before you rescue the turn</h2>
+
+  <p>The guide names two ordinary ways an otherwise careful agent can create the mismatch: a dynamic-instructions function returns different text on the next run, or a filtered toolset advertises a new tool mid-conversation. Those changes also spoil the prompt-cache prefix. That is why “retry on 400” is not the thesis here. A stable prefix saves the failed request, preserves the original reasoning context, and avoids the quiet cache cost that follows a shifting conversation shape.</p>
+
+  <p>When that stability is not immediately possible, Pydantic AI has two honest choices. Set <code>prefix_mismatch_behavior</code> to <code>error</code> to stop and investigate, or set it to <code>drop_block</code> to let the request continue without the stale thinking block. The latter is not a repair of the thought: the model no longer sees that prior turn's reasoning. The guide says the provider returns an <code>input_transformations</code> record, which Pydantic AI makes available in <code>ModelResponse.provider_details</code> and, with instrumentation, on the model-request trace.</p>
+
+  <p>The fresh <a href="https://github.com/pydantic/pydantic-ai/commit/bce2e76ce14c1a448b803c34549c4d2805d61238">`bce2e76` change</a> tightens the operational story. The earlier public change, <a href="https://github.com/pydantic/pydantic-ai/commit/e1357f6adb6a129ebb0228e803708ffd7d67354c">`e1357f6`</a>, introduced the binding support and its focused tests. The current one uses the provider's returned transformation history so later requests in the affected conversation can send <code>drop_block</code> directly rather than incur the same rejected retry again. That makes an explicit alert more important, not less: the fallback can become the continuing state of that conversation.</p>
+
+  <h2>Practical example: a release-review agent changes its rulebook</h2>
+
+  <p>Build a disposable release-review rehearsal with entirely synthetic notes. Let the first turn produce a short risk list; before the second turn, have a dynamic instruction add a harmless formatting rule or let a filtered toolset reveal a mock “dependency glossary” tool. The useful test is not whether the second answer sounds plausible. It is whether the run reports <code>thinking_dropped</code>, which exact history item changed, and whether the operator chooses to stop on <code>error</code>, proceed on <code>drop_block</code>, or redesign the workflow so the prefix stays stable.</p>
+
+  <p>That distinction lets a team turn an opaque provider edge case into a reviewable operating signal: a response can be accepted as a new answer while still being marked as one that did not receive the preceding reasoning. For a release reviewer, that is a reason to regenerate or escalate, not a reason to silently attach the result to the same decision record.</p>
+
+  <h2>Copy-paste agent instruction</h2>
+
+  <pre><code>Build a disposable two-turn Pydantic AI test for an Anthropic thinking-block-binding model. On the second turn, deliberately change one dynamic instruction or filtered toolset, retain the returned message history, and inspect every ModelResponse.provider_details input_transformations value for thinking_dropped. First configure anthropic_thinking.block_binding.prefix_mismatch_behavior as error; only then repeat with drop_block and record that the earlier reasoning was discarded. Keep the real workflow's prompt prefix stable, use synthetic data and an environment-variable API key, do not run production tasks, and report whether the configured client is direct Anthropic, a compatible proxy, Claude Platform on AWS, legacy Bedrock, Vertex, AWS-operated Bedrock Messages, or Foundry.</code></pre>
+
+  <h2>Test caveat</h2>
+
+  <p>This is source-backed preparation, not a live provider test. You need appropriate credentials or platform identity, model entitlement, billing and rate-limit headroom, and the Pydantic AI version that contains this behavior. The documented automatic recovery is available for the direct Anthropic API, compatible <code>AsyncAnthropic</code> proxies, Claude Platform on AWS, legacy Amazon Bedrock, and Google Vertex AI. It is not enabled for the AWS-operated Bedrock Messages client (<code>AsyncAnthropicBedrockMantle</code>) or Microsoft Foundry. An explicit setting may pass through elsewhere, but this report makes no claim that automatic recovery—or provider behavior—is universal. Use disposable credentials, synthetic content, and a visible receipt before trusting a continuation that dropped reasoning.</p>
+        </article>
+      </section>
+      <section class="evidence-section" id="evidence" aria-labelledby="evidence-title">
+    <div class="evidence-head">
+      <div>
+        <div class="eyebrow">Evidence Trail</div>
+        <h2 id="evidence-title">Receipts below the story</h2>
+        <p>The article above is the public narrative. This section keeps the source trail and limits on the same page.</p>
+      </div>
+      <a class="paper-button" href="/editions/2026-09-03/">Edition</a>
+    </div>
+    <div class="evidence-table evidence-summary">
+      <div class="evidence-line"><span>Date</span><span>September 3, 2026</span></div>
+      <div class="evidence-line"><span>Lane</span><span>Daily Edition</span></div>
+      <div class="evidence-line"><span>Confidence</span><span>78%</span></div>
+      <div class="evidence-line"><span>Sources</span><span>3</span></div>
+      <div class="evidence-line"><span>Repos</span><span>pydantic/pydantic-ai</span></div>
+    </div>
+    <div class="markdown evidence-copy evidence-copy-block">
+      <h2>Primary Evidence</h2>
+<ul>
+<li>Public API source: Pydantic AI Anthropic model guide, “Thinking block binding”: <a href="https://github.com/pydantic/pydantic-ai/blob/bce2e76ce14c1a448b803c34549c4d2805d61238/docs/models/anthropic.md#thinking-block-binding">https://github.com/pydantic/pydantic-ai/blob/bce2e76ce14c1a448b803c34549c4d2805d61238/docs/models/anthropic.md#thinking-block-binding</a>
+<ul>
+<li>Shows: Pydantic AI, the published Python agent-framework provider surface, documents <code>AnthropicModelSettings</code> with <code>anthropic_thinking.block_binding.prefix_mismatch_behavior</code>; it names <code>drop_block</code> and <code>error</code>, explains the public Anthropic binding context, and states which client transports receive automatic recovery.
+</li>
+</ul>
+</li>
+<li>Supporting definition or documentation: Pydantic AI commit <code>bce2e76</code>, “Persist Anthropic stale thinking-block recovery across turns”: <a href="https://github.com/pydantic/pydantic-ai/commit/bce2e76ce14c1a448b803c34549c4d2805d61238">https://github.com/pydantic/pydantic-ai/commit/bce2e76ce14c1a448b803c34549c4d2805d61238</a>
+<ul>
+<li>Shows: the public implementation and request/response tests send <code>thinking.block_binding</code> with the required beta, return <code>input_transformations</code> through <code>ModelResponse.provider_details</code>, and use recorded recovery history so later affected requests can carry <code>drop_block</code> without another rejected request.
+</li>
+</ul>
+</li>
+</ul>
+<h2>Reporting Context</h2>
+<ul>
+<li>Initial feature context: Pydantic AI commit <code>e1357f6</code>, “Add Claude Fable 5.1 and Claude Mythos 5.1 support”: <a href="https://github.com/pydantic/pydantic-ai/commit/e1357f6adb6a129ebb0228e803708ffd7d67354c">https://github.com/pydantic/pydantic-ai/commit/e1357f6adb6a129ebb0228e803708ffd7d67354c</a>
+<ul>
+<li>Shows: the immediately prior public change added the thinking-block-binding documentation, model-profile plumbing, fixtures, and tests that the current persistence change extends.
+</li>
+</ul>
+</li>
+</ul>
+<h2>Evidence Limits</h2>
+<ul>
+<li>This is a public-source reading, not a live provider test. A real call needs an authorized Anthropic-compatible client, suitable model access, an API credential or platform identity, and account-dependent billing and rate-limit headroom; no credentials or live endpoint were used for this report.
+</li>
+<li><code>drop_block</code> means the model no longer receives that earlier turn's reasoning. Keep the prompt prefix stable where possible; a successful fallback is not evidence of equivalent reasoning, cache behavior, or output quality.
+</li>
+<li>The documented automatic recovery is not universal. It is unavailable for the AWS-operated Bedrock Messages client (<code>AsyncAnthropicBedrockMantle</code>) and Microsoft Foundry; explicit settings can be passed through on transports without proving that the automatic retry or the provider's behavior is the same.
+</li>
+</ul>
+    </div>
+  </section>
+      <section class="related-edition-section atlas-context-section">
+    <div class="section-title-row">
+      <h2>Atlas Context</h2>
+      <a href="/atlas/">Open Atlas &rsaquo;</a>
+    </div>
+    <div class="updates-list">
+      <a class="article-card" href="/atlas/what-an-agent-can-see/">
+            <div class="article-meta"><span class="lane">Agent Atlas</span><span>Chapter 2</span></div>
+            <h3>The Invisible Prompt</h3>
+            <p>The model acts on an assembled viewport containing visible messages, hidden turn context, path-triggered instructions, memory records, tool schemas, permissions, and inherited state.</p>
+          </a>
+    </div>
+  </section>
+      <section class="reader-feedback"
+    data-tgr-feedback
+    data-article-slug="2026-09-03-daily-api-discovery-let-an-agent-notice-when-its-reasoning-was-dropped"
+    data-article-title="API Discovery: Let an Agent Notice When Its Reasoning Was Dropped"
+    data-article-url="/articles/2026-09-03-daily-api-discovery-let-an-agent-notice-when-its-reasoning-was-dropped/"
+    data-edition-date="2026-09-03"
+    data-lane="Daily Edition"
+    data-tags="Memory,Tools,UX"
+    data-repos="pydantic/pydantic-ai">
+    <div class="reader-feedback-head">
+      <div>
+        <div class="eyebrow">Letters &amp; Corrections</div>
+        <h2>Send a note to the desk</h2>
+      </div>
+      <p>Corrections, missing context, or a follow-up lead.</p>
+    </div>
+    <form class="feedback-form">
+      <div class="feedback-votes" role="group" aria-label="Choose signal type">
+        <button class="feedback-choice" type="button" data-vote="follow-up" aria-pressed="false">
+          <span aria-hidden="true">+</span>
+          <span>Follow-up</span>
+        </button>
+        <button class="feedback-choice" type="button" data-vote="correction" aria-pressed="false">
+          <span aria-hidden="true">!</span>
+          <span>Correction</span>
+        </button>
+      </div>
+      <label class="feedback-comment">
+        <span>Note for the editor</span>
+        <textarea name="comment" rows="3" maxlength="320" placeholder="What did we miss, or what should we follow next?"></textarea>
+      </label>
+      <div class="feedback-submit-row">
+        <p class="feedback-status" aria-live="polite"></p>
+        <button class="paper-button primary feedback-submit" type="submit">Send to desk</button>
+      </div>
+    </form>
+  </section>
+      <section class="related-edition-section">
+        <div class="section-title-row">
+          <h2>Same Edition</h2>
+          <a href="/editions/2026-09-03/">Open issue &rsaquo;</a>
+        </div>
+        <div class="updates-list">
+          <a class="update-card" href="/articles/2026-09-03-daily-before-codex-trusts-a-workspace-it-stops-letting-the-workspace-choose-its-helpers/">
+    <div class="update-stripe"></div>
+    <div class="update-main">
+      <div class="update-meta">
+        <span>Reported</span>
+        <span class="source-plus">+6</span>
+        <span>Sep 3, 2026</span>
+      </div>
+      <h3>Before Codex Trusts a Workspace, It Stops Letting the Workspace Choose Its Helpers</h3>
+      <div class="update-receipt">
+        <span>openai/codex + google-gemini/gemini-cli</span>
+        <span class="branch-pill">evidence</span>
+      </div>
+      <div class="update-foot">
+        <span>6 sources</span>
+        <span>2 repos</span>
+        <span>commit 637c322</span>
+      </div>
+    </div>
+    <span class="update-arrow" aria-hidden="true">&rsaquo;</span>
+  </a><a class="update-card" href="/articles/2026-09-03-daily-builder-work-an-approval-must-point-to-this-exact-invocation/">
+    <div class="update-stripe"></div>
+    <div class="update-main">
+      <div class="update-meta">
+        <span>Reported</span>
+        <span class="source-plus">+4</span>
+        <span>Sep 3, 2026</span>
+      </div>
+      <h3>Builder Work: An Approval Must Point to This Exact Invocation</h3>
+      <div class="update-receipt">
+        <span>microsoft/agent-framework</span>
+        <span class="branch-pill">evidence</span>
+      </div>
+      <div class="update-foot">
+        <span>4 sources</span>
+        <span>1 repo</span>
+        <span>commit 95b6b48</span>
+      </div>
+    </div>
+    <span class="update-arrow" aria-hidden="true">&rsaquo;</span>
+  </a>
+        </div>
+      </section>
+    </main>
+    <footer class="wrap site-footer">
+      <span>&copy; 2026 The Git Reporter</span>
+      <a href="/about/">About</a>
+      <a href="/battles/">Diff Derby</a>
+      <a href="/agent-pulse/">Agent Pulse</a>
+      <a href="/feed.xml">RSS</a>
+      <a href="https://x.com/TheGitReporter">Follow on X</a>
+      <a href="/articles.json">Manifest JSON</a>
+      <a href="/repos/">Sources</a>
+    </footer>
+  </div>
+</body>
+</html>

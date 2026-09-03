@@ -1,0 +1,299 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Before Codex Trusts a Workspace, It Stops Letting the Workspace Choose Its Helpers | The Git Reporter</title>
+  <meta name="description" content="A merged Codex change moves automatic pre-trust helper lookups to known system locations, sanitizes plugin-sync Git, and makes diagnostics inspect a workspace-influenced path without running what they find.">
+  <meta name="robots" content="index,follow">
+  <link rel="canonical" href="https://thegitreporter.com/articles/2026-09-03-daily-before-codex-trusts-a-workspace-it-stops-letting-the-workspace-choose-its-helpers/">
+  <link rel="alternate" type="application/rss+xml" title="The Git Reporter" href="https://thegitreporter.com/feed.xml">
+  <meta property="og:site_name" content="The Git Reporter">
+  <meta property="og:locale" content="en_US">
+  <meta property="og:title" content="Before Codex Trusts a Workspace, It Stops Letting the Workspace Choose Its Helpers | The Git Reporter">
+  <meta property="og:description" content="A merged Codex change moves automatic pre-trust helper lookups to known system locations, sanitizes plugin-sync Git, and makes diagnostics inspect a workspace-influenced path without running what they find.">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://thegitreporter.com/articles/2026-09-03-daily-before-codex-trusts-a-workspace-it-stops-letting-the-workspace-choose-its-helpers/">
+  <meta property="og:image" content="https://thegitreporter.com/assets/social/2026-09-03-daily-before-codex-trusts-a-workspace-it-stops-letting-the-workspace-choose-its-helpers-og.jpg">
+  <meta property="og:image:secure_url" content="https://thegitreporter.com/assets/social/2026-09-03-daily-before-codex-trusts-a-workspace-it-stops-letting-the-workspace-choose-its-helpers-og.jpg">
+  <meta property="og:image:type" content="image/jpeg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Photocopied marker diagram of a workspace PATH card blocked at a trust gate while system locations, sanitized plugin Git, and non-executing diagnostics feed a circled automatic-helper path; a stamp says the evidence is merged main-branch tests, not a release or complete audit.">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:site" content="@TheGitReporter">
+  <meta name="twitter:creator" content="@TheGitReporter">
+  <meta name="twitter:title" content="Before Codex Trusts a Workspace, It Stops Letting the Workspace Choose Its Helpers | The Git Reporter">
+  <meta name="twitter:description" content="A merged Codex change moves automatic pre-trust helper lookups to known system locations, sanitizes plugin-sync Git, and makes diagnostics inspect a workspace-influenced path without running what they find.">
+  <meta name="twitter:url" content="https://thegitreporter.com/articles/2026-09-03-daily-before-codex-trusts-a-workspace-it-stops-letting-the-workspace-choose-its-helpers/">
+  <meta name="twitter:domain" content="thegitreporter.com">
+  <meta name="twitter:image" content="https://thegitreporter.com/assets/social/2026-09-03-daily-before-codex-trusts-a-workspace-it-stops-letting-the-workspace-choose-its-helpers-og.jpg">
+  <meta name="twitter:image:alt" content="Photocopied marker diagram of a workspace PATH card blocked at a trust gate while system locations, sanitized plugin Git, and non-executing diagnostics feed a circled automatic-helper path; a stamp says the evidence is merged main-branch tests, not a release or complete audit.">
+  <meta property="article:published_time" content="2026-09-03T12:00:00Z">
+  <meta property="article:modified_time" content="2026-09-03T12:00:00Z">
+  <meta property="article:section" content="Daily Edition">
+  <meta property="article:tag" content="Tools">
+  <meta property="article:tag" content="UX">
+  <meta property="article:tag" content="Runtime">
+  <meta property="article:tag" content="openai/codex">
+  <meta property="article:tag" content="google-gemini/gemini-cli">
+  <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"https://thegitreporter.com/#organization","name":"The Git Reporter","url":"https://thegitreporter.com","logo":{"@type":"ImageObject","url":"https://thegitreporter.com/assets/mark.svg"},"sameAs":["https://x.com/TheGitReporter"]},{"@type":"WebSite","@id":"https://thegitreporter.com/#website","name":"The Git Reporter","url":"https://thegitreporter.com","publisher":{"@id":"https://thegitreporter.com/#organization"}},{"@type":"NewsArticle","mainEntityOfPage":{"@type":"WebPage","@id":"https://thegitreporter.com/articles/2026-09-03-daily-before-codex-trusts-a-workspace-it-stops-letting-the-workspace-choose-its-helpers/"},"headline":"Before Codex Trusts a Workspace, It Stops Letting the Workspace Choose Its Helpers","description":"A merged Codex change moves automatic pre-trust helper lookups to known system locations, sanitizes plugin-sync Git, and makes diagnostics inspect a workspace-influenced path without running what they find.","image":["https://thegitreporter.com/assets/social/2026-09-03-daily-before-codex-trusts-a-workspace-it-stops-letting-the-workspace-choose-its-helpers-og.jpg"],"datePublished":"2026-09-03T12:00:00Z","dateModified":"2026-09-03T12:00:00Z","author":[{"@type":"Organization","name":"The Git Reporter","url":"https://thegitreporter.com"}],"publisher":{"@type":"Organization","@id":"https://thegitreporter.com/#organization","name":"The Git Reporter","url":"https://thegitreporter.com","logo":{"@type":"ImageObject","url":"https://thegitreporter.com/assets/mark.svg"},"sameAs":["https://x.com/TheGitReporter"]},"articleSection":"Daily Edition","keywords":"Tools, UX, Runtime, openai/codex, google-gemini/gemini-cli"}]}</script>
+  <link rel="icon" href="/assets/mark.svg">
+  <link rel="stylesheet" href="/assets/site.css?v=2026-07-30-harness-memory">
+  <script defer src="/assets/feedback.js?v=2026-07-30-harness-memory"></script>
+  <script defer src="/assets/analytics.js?v=2026-07-30-harness-memory"></script>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-CH19T7M0T1"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){window.dataLayer.push(arguments);}
+    gtag("js", new Date());
+    gtag("config", "G-CH19T7M0T1");
+  </script>
+</head>
+<body>
+  <div class="site">
+    <header class="site-header" id="top">
+      <div class="wrap utility-row">
+        <a class="icon-link menu-icon" href="/archive/" aria-label="Open edition history"><span></span><span></span><span></span></a>
+        <a class="icon-link archive-icon" href="/archive/" aria-label="Open edition history"></a>
+      </div>
+      <div class="wrap masthead-lockup">
+        <a class="masthead-title" href="/">THE GIT REPORTER</a>
+        <div class="masthead-ornament" aria-hidden="true"></div>
+      </div>
+      <div class="wrap nav-wrap">
+        <nav class="paper-nav" aria-label="Primary navigation">
+    <a class="" href="/">Today</a><a class="active" href="/archive/">Editions</a><a class="" href="/about/">About</a><a class="" href="/battles/">Diff Derby</a><a class="" href="/agent-pulse/">Agent Pulse</a><a class="" href="/atlas/">Agent Atlas</a><a class="" href="/repos/">Repos</a>
+  </nav>
+        <div class="nav-rule"></div>
+      </div>
+    </header>
+    <main class="wrap page-shell article-page">
+      <section class="page-hero story-front">
+        <div class="story-topline">
+          <span>Daily Edition</span>
+          <span>Sources <strong>+6</strong></span>
+        </div>
+        <h1>Before Codex Trusts a Workspace, It Stops Letting the Workspace Choose Its Helpers</h1>
+        <p class="summary">A merged Codex change moves automatic pre-trust helper lookups to known system locations, sanitizes plugin-sync Git, and makes diagnostics inspect a workspace-influenced path without running what they find.</p>
+        <figure class="story-illustration article-illustration">
+    <img src="/assets/illustrations/2026-09-03-before-codex-trusts-a-workspace-it-stops-letting-the-workspace-choose-its-helpers-diagram-punk-v1.png" alt="Photocopied marker diagram of a workspace PATH card blocked at a trust gate while system locations, sanitized plugin Git, and non-executing diagnostics feed a circled automatic-helper path; a stamp says the evidence is merged main-branch tests, not a release or complete audit." loading="lazy" decoding="async">
+    <figcaption><span>Diagram Punk</span>before trust, a workspace should not get to choose an automatic helper.</figcaption>
+  </figure>
+        <div class="receipt">
+    <div class="receipt-line">
+      <span class="receipt-icon">repos</span>
+      <span class="receipt-main">openai/codex + google-gemini/gemini-cli</span>
+      <span class="branch-pill">evidence</span>
+    </div>
+    <div class="receipt-line receipt-muted">
+      <span>6 source signals</span>
+      <span>2 repos</span>
+      <span>commit 637c322</span>
+    </div>
+    <div class="commit-line">Evidence: commit 637c322 / September 3, 2026 / Daily Edition</div>
+  </div>
+        <div class="article-route-row">
+          <a href="/editions/2026-09-03/">Open Edition</a>
+          <a href="#evidence">Evidence below</a>
+        </div>
+      </section>
+      <section class="story-reader">
+        <article class="story-shell story-body">
+          <p>Before a coding tool asks whether you trust a folder, that folder can still be present in the launch environment. If a helper lookup consults a repository-controlled <code>PATH</code>, a program in the checkout can be selected before the trust question is answered. The <a href="https://github.com/openai/codex/pull/42324">Codex pull request merged September 2</a> now resolves automatic startup helpers from named system installation locations, not from ambient <code>PATH</code> or the working directory.</p>
+
+  <p>This is not a rerun of the configuration boundary we covered on <a href="/articles/2026-08-29-daily-a-restricted-workspace-should-not-start-its-own-tools/">August 29</a>. That Gemini CLI change stopped an untrusted workspace's settings from being assembled into an A2A server.</p>
+
+  <p>Codex's <a href="https://github.com/openai/codex/commit/637c3227b3c5327d64a73fe0b3764ade139efd1f">new main-branch change</a> starts earlier and lower down: before trust, who gets to choose the executable that performs an automatic probe, startup task, or support routine? Configuration can describe an agent's work; executable resolution decides which program gets to speak first.</p>
+
+  <h2>A trusted filename is not enough if its helpers inherit the workspace</h2>
+  <p>The new <a href="https://github.com/openai/codex/blob/637c3227b3c5327d64a73fe0b3764ade139efd1f/codex-rs/utils/path-utils/src/system_commands.rs">system-command resolver</a> looks for automatic helpers in OS and conventional package-manager locations, rejects path-like helper names, and declines a symlink that resolves outside those installation roots. For curated-plugin sync, Codex uses that resolver for Git, then gives the Git child process a system-only <code>PATH</code>, removes <code>GIT_EXEC_PATH</code>, <code>GIT_TEMPLATE_DIR</code>, and <code>DEVELOPER_DIR</code>, and disables terminal prompts. That second step matters: choosing a trusted <code>git</code> binary would not by itself prevent one of Git's own helper lookups from wandering back into the workspace.</p>
+
+  <p>The patch also trades a little diagnostic certainty for a safer pre-trust posture. Its <a href="https://github.com/openai/codex/blob/637c3227b3c5327d64a73fe0b3764ade139efd1f/codex-rs/cli/src/doctor/git.rs">Git check</a> can report a candidate's location but says execution is not verified; terminal detection now reads environment variables instead of running terminal helpers. The source is explicit that the new system-only child path is for automatic helpers, not user-requested tools. That is the useful distinction: a tool should not quietly repurpose a user's normal command choices, but it should know when it is acting on its own before the workspace has earned trust.</p>
+
+  <h2>The test asks the right uncomfortable question</h2>
+  <p>The new <a href="https://github.com/openai/codex/blob/637c3227b3c5327d64a73fe0b3764ade139efd1f/codex-rs/cli/tests/doctor_path_safety.rs">black-box fixture</a> plants marker scripts named <code>zellij</code>, <code>tmux</code>, <code>which</code>, <code>where</code>, <code>npm</code>, <code>rg</code>, <code>git</code>, and <code>curl</code> in <code>workspace/node_modules/.bin</code>, prepends that directory to <code>PATH</code>, and then exercises startup, <code>doctor</code>, feedback collection, and interactive tmux startup. The marker must remain absent. A separate <a href="https://github.com/openai/codex/blob/637c3227b3c5327d64a73fe0b3764ade139efd1f/codex-rs/core-plugins/src/startup_sync_tests.rs">plugin-sync test</a> does the same for Git and its transport helpers while proving the sync still completes.</p>
+
+  <p>Those are strong receipts for intended main-branch behavior, not a release claim, an account of adoption, proof of an exploit, or a complete audit. The resolver also assumes the named system locations are trustworthy. Still, the public engineering decision is a useful one to carry into any agent review: list every command the product runs automatically before trust, then ask whether it merely inspects a path, resolves a known system executable, or lets the workspace select its helper. The next signal worth watching is release guidance—and tests for every new pre-trust automatic call—that keep those three answers visible.</p>
+        </article>
+      </section>
+      <section class="evidence-section" id="evidence" aria-labelledby="evidence-title">
+    <div class="evidence-head">
+      <div>
+        <div class="eyebrow">Evidence Trail</div>
+        <h2 id="evidence-title">Receipts below the story</h2>
+        <p>The article above is the public narrative. This section keeps the source trail and limits on the same page.</p>
+      </div>
+      <a class="paper-button" href="/editions/2026-09-03/">Edition</a>
+    </div>
+    <div class="evidence-table evidence-summary">
+      <div class="evidence-line"><span>Date</span><span>September 3, 2026</span></div>
+      <div class="evidence-line"><span>Lane</span><span>Daily Edition</span></div>
+      <div class="evidence-line"><span>Confidence</span><span>87%</span></div>
+      <div class="evidence-line"><span>Sources</span><span>6</span></div>
+      <div class="evidence-line"><span>Repos</span><span>openai/codex, google-gemini/gemini-cli</span></div>
+    </div>
+    <div class="markdown evidence-copy evidence-copy-block">
+      <h2>Primary Evidence</h2>
+<ul>
+<li>Codex change rationale and merged status: <a href="https://github.com/openai/codex/pull/42324">pull request #42324</a>
+<ul>
+<li>Shows: the public statement that automatic startup and <code>codex doctor</code> can run before a workspace is trusted, plus the merged change's stated scope: trusted helper locations, sanitized plugin-sync Git, non-executing diagnostics, and hostile-PATH tests.
+</li>
+</ul>
+</li>
+<li>Merged main-branch implementation: <a href="https://github.com/openai/codex/commit/637c3227b3c5327d64a73fe0b3764ade139efd1f">commit <code>637c322</code></a>
+<ul>
+<li>Shows: the exact September 2 main-branch diff across the resolver, startup sync, terminal detection, doctor, update check, and tests; it is the source for saying the change is merged code rather than a future proposal.
+</li>
+</ul>
+</li>
+<li>Automatic-helper resolver: <a href="https://github.com/openai/codex/blob/637c3227b3c5327d64a73fe0b3764ade139efd1f/codex-rs/utils/path-utils/src/system_commands.rs"><code>system_commands.rs</code></a>
+<ul>
+<li>Shows: <code>system_executable</code> looks in named system and conventional package-manager directories without consulting ambient <code>PATH</code>, <code>PATHEXT</code>, or the working directory; it refuses a helper name containing a path and rejects a canonical target outside its installation roots.
+</li>
+</ul>
+</li>
+<li>Plugin Git child environment: <a href="https://github.com/openai/codex/blob/637c3227b3c5327d64a73fe0b3764ade139efd1f/codex-rs/core-plugins/src/startup_sync.rs"><code>startup_sync.rs</code></a>
+<ul>
+<li>Shows: curated-plugin synchronization selects a trusted Git executable and constructs a system-only child <code>PATH</code>, removes Git helper-related environment variables, and disables terminal prompts for that automatic path.
+</li>
+</ul>
+</li>
+<li>Hostile-PATH diagnostic coverage: <a href="https://github.com/openai/codex/blob/637c3227b3c5327d64a73fe0b3764ade139efd1f/codex-rs/cli/tests/doctor_path_safety.rs"><code>doctor_path_safety.rs</code></a>
+<ul>
+<li>Shows: black-box tests put executable marker scripts in a workspace <code>node_modules/.bin</code> directory, prepend it to <code>PATH</code>, exercise startup, <code>doctor</code>, feedback collection, and interactive tmux startup, then assert that no marker was written.
+</li>
+</ul>
+</li>
+<li>Plugin-sync hostile-PATH coverage: <a href="https://github.com/openai/codex/blob/637c3227b3c5327d64a73fe0b3764ade139efd1f/codex-rs/core-plugins/src/startup_sync_tests.rs"><code>startup_sync_tests.rs</code></a>
+<ul>
+<li>Shows: a focused test plants workspace <code>git</code>, <code>git-upload-pack</code>, and <code>git-remote-https</code> scripts, makes the repository-controlled path hostile, and verifies curated-plugin sync completes without running the marker helper.
+</li>
+</ul>
+</li>
+</ul>
+<h2>Evidence Limits</h2>
+<ul>
+<li>These receipts establish a merged main-branch implementation and its intended test behavior. They do not establish a released Codex version, deployment or adoption, a real-world exploit, or a complete security audit.
+</li>
+<li>The trusted-directory model assumes those system installation locations are themselves trustworthy. It does not cover compromise of the host's installed software, every platform-specific fallback, or every future helper lookup.
+</li>
+<li>The important next signal is public release guidance and adversarial coverage showing that newly added automatic, pre-trust helper calls keep the same distinction between inspection, trusted resolution, and user-requested execution.
+</li>
+</ul>
+    </div>
+  </section>
+      <section class="related-edition-section atlas-context-section">
+    <div class="section-title-row">
+      <h2>Atlas Context</h2>
+      <a href="/atlas/">Open Atlas &rsaquo;</a>
+    </div>
+    <div class="updates-list">
+      <a class="article-card" href="/atlas/friction-safety-and-approval/">
+            <div class="article-meta"><span class="lane">Agent Atlas</span><span>Chapter 7</span></div>
+            <h3>The Approval Trap</h3>
+            <p>Approval is useful only when it catches a meaningful change in authority, explains that change, and keeps the decision attached to the work.</p>
+          </a>
+    </div>
+  </section>
+      <section class="reader-feedback"
+    data-tgr-feedback
+    data-article-slug="2026-09-03-daily-before-codex-trusts-a-workspace-it-stops-letting-the-workspace-choose-its-helpers"
+    data-article-title="Before Codex Trusts a Workspace, It Stops Letting the Workspace Choose Its Helpers"
+    data-article-url="/articles/2026-09-03-daily-before-codex-trusts-a-workspace-it-stops-letting-the-workspace-choose-its-helpers/"
+    data-edition-date="2026-09-03"
+    data-lane="Daily Edition"
+    data-tags="Tools,UX,Runtime"
+    data-repos="openai/codex,google-gemini/gemini-cli">
+    <div class="reader-feedback-head">
+      <div>
+        <div class="eyebrow">Letters &amp; Corrections</div>
+        <h2>Send a note to the desk</h2>
+      </div>
+      <p>Corrections, missing context, or a follow-up lead.</p>
+    </div>
+    <form class="feedback-form">
+      <div class="feedback-votes" role="group" aria-label="Choose signal type">
+        <button class="feedback-choice" type="button" data-vote="follow-up" aria-pressed="false">
+          <span aria-hidden="true">+</span>
+          <span>Follow-up</span>
+        </button>
+        <button class="feedback-choice" type="button" data-vote="correction" aria-pressed="false">
+          <span aria-hidden="true">!</span>
+          <span>Correction</span>
+        </button>
+      </div>
+      <label class="feedback-comment">
+        <span>Note for the editor</span>
+        <textarea name="comment" rows="3" maxlength="320" placeholder="What did we miss, or what should we follow next?"></textarea>
+      </label>
+      <div class="feedback-submit-row">
+        <p class="feedback-status" aria-live="polite"></p>
+        <button class="paper-button primary feedback-submit" type="submit">Send to desk</button>
+      </div>
+    </form>
+  </section>
+      <section class="related-edition-section">
+        <div class="section-title-row">
+          <h2>Same Edition</h2>
+          <a href="/editions/2026-09-03/">Open issue &rsaquo;</a>
+        </div>
+        <div class="updates-list">
+          <a class="update-card" href="/articles/2026-09-03-daily-builder-work-an-approval-must-point-to-this-exact-invocation/">
+    <div class="update-stripe"></div>
+    <div class="update-main">
+      <div class="update-meta">
+        <span>Reported</span>
+        <span class="source-plus">+4</span>
+        <span>Sep 3, 2026</span>
+      </div>
+      <h3>Builder Work: An Approval Must Point to This Exact Invocation</h3>
+      <div class="update-receipt">
+        <span>microsoft/agent-framework</span>
+        <span class="branch-pill">evidence</span>
+      </div>
+      <div class="update-foot">
+        <span>4 sources</span>
+        <span>1 repo</span>
+        <span>commit 95b6b48</span>
+      </div>
+    </div>
+    <span class="update-arrow" aria-hidden="true">&rsaquo;</span>
+  </a><a class="update-card" href="/articles/2026-09-03-daily-api-discovery-let-an-agent-notice-when-its-reasoning-was-dropped/">
+    <div class="update-stripe"></div>
+    <div class="update-main">
+      <div class="update-meta">
+        <span>Context</span>
+        <span class="source-plus">+3</span>
+        <span>Sep 3, 2026</span>
+      </div>
+      <h3>API Discovery: Let an Agent Notice When Its Reasoning Was Dropped</h3>
+      <div class="update-receipt">
+        <span>pydantic/pydantic-ai</span>
+        <span class="branch-pill">evidence</span>
+      </div>
+      <div class="update-foot">
+        <span>3 sources</span>
+        <span>1 repo</span>
+        <span>2 linked commits</span>
+      </div>
+    </div>
+    <span class="update-arrow" aria-hidden="true">&rsaquo;</span>
+  </a>
+        </div>
+      </section>
+    </main>
+    <footer class="wrap site-footer">
+      <span>&copy; 2026 The Git Reporter</span>
+      <a href="/about/">About</a>
+      <a href="/battles/">Diff Derby</a>
+      <a href="/agent-pulse/">Agent Pulse</a>
+      <a href="/feed.xml">RSS</a>
+      <a href="https://x.com/TheGitReporter">Follow on X</a>
+      <a href="/articles.json">Manifest JSON</a>
+      <a href="/repos/">Sources</a>
+    </footer>
+  </div>
+</body>
+</html>
