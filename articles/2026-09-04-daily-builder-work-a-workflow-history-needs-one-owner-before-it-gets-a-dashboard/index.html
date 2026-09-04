@@ -1,0 +1,284 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Builder Work: A Workflow History Needs One Owner Before It Gets a Dashboard | The Git Reporter</title>
+  <meta name="description" content="Qwen Code&#39;s workflow controls are interesting not because they add buttons, but because the runtime now gives retry, delete, cancel, and history one shared answer to “which run is this?”">
+  <meta name="robots" content="index,follow">
+  <link rel="canonical" href="https://thegitreporter.com/articles/2026-09-04-daily-builder-work-a-workflow-history-needs-one-owner-before-it-gets-a-dashboard/">
+  <link rel="alternate" type="application/rss+xml" title="The Git Reporter" href="https://thegitreporter.com/feed.xml">
+  <meta property="og:site_name" content="The Git Reporter">
+  <meta property="og:locale" content="en_US">
+  <meta property="og:title" content="Builder Work: A Workflow History Needs One Owner Before It Gets a Dashboard | The Git Reporter">
+  <meta property="og:description" content="Qwen Code&#39;s workflow controls are interesting not because they add buttons, but because the runtime now gives retry, delete, cancel, and history one shared answer to “which run is this?”">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://thegitreporter.com/articles/2026-09-04-daily-builder-work-a-workflow-history-needs-one-owner-before-it-gets-a-dashboard/">
+  <meta property="og:image" content="https://thegitreporter.com/assets/social/2026-09-04-daily-builder-work-a-workflow-history-needs-one-owner-before-it-gets-a-dashboard-og.jpg">
+  <meta property="og:image:secure_url" content="https://thegitreporter.com/assets/social/2026-09-04-daily-builder-work-a-workflow-history-needs-one-owner-before-it-gets-a-dashboard-og.jpg">
+  <meta property="og:image:type" content="image/jpeg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="A rough paper workflow diagram carries a starting run into a task-global key, with pause, retry, delete, and cancel controls converging on it beside Qwen source and test cards.">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:site" content="@TheGitReporter">
+  <meta name="twitter:creator" content="@TheGitReporter">
+  <meta name="twitter:title" content="Builder Work: A Workflow History Needs One Owner Before It Gets a Dashboard | The Git Reporter">
+  <meta name="twitter:description" content="Qwen Code&#39;s workflow controls are interesting not because they add buttons, but because the runtime now gives retry, delete, cancel, and history one shared answer to “which run is this?”">
+  <meta name="twitter:url" content="https://thegitreporter.com/articles/2026-09-04-daily-builder-work-a-workflow-history-needs-one-owner-before-it-gets-a-dashboard/">
+  <meta name="twitter:domain" content="thegitreporter.com">
+  <meta name="twitter:image" content="https://thegitreporter.com/assets/social/2026-09-04-daily-builder-work-a-workflow-history-needs-one-owner-before-it-gets-a-dashboard-og.jpg">
+  <meta name="twitter:image:alt" content="A rough paper workflow diagram carries a starting run into a task-global key, with pause, retry, delete, and cancel controls converging on it beside Qwen source and test cards.">
+  <meta property="article:published_time" content="2026-09-04T12:00:00Z">
+  <meta property="article:modified_time" content="2026-09-04T12:00:00Z">
+  <meta property="article:section" content="Daily Edition">
+  <meta property="article:tag" content="Memory">
+  <meta property="article:tag" content="Tools">
+  <meta property="article:tag" content="UX">
+  <meta property="article:tag" content="Runtime">
+  <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"https://thegitreporter.com/#organization","name":"The Git Reporter","url":"https://thegitreporter.com","logo":{"@type":"ImageObject","url":"https://thegitreporter.com/assets/mark.svg"},"sameAs":["https://x.com/TheGitReporter"]},{"@type":"WebSite","@id":"https://thegitreporter.com/#website","name":"The Git Reporter","url":"https://thegitreporter.com","publisher":{"@id":"https://thegitreporter.com/#organization"}},{"@type":"NewsArticle","mainEntityOfPage":{"@type":"WebPage","@id":"https://thegitreporter.com/articles/2026-09-04-daily-builder-work-a-workflow-history-needs-one-owner-before-it-gets-a-dashboard/"},"headline":"Builder Work: A Workflow History Needs One Owner Before It Gets a Dashboard","description":"Qwen Code's workflow controls are interesting not because they add buttons, but because the runtime now gives retry, delete, cancel, and history one shared answer to “which run is this?”","image":["https://thegitreporter.com/assets/social/2026-09-04-daily-builder-work-a-workflow-history-needs-one-owner-before-it-gets-a-dashboard-og.jpg"],"datePublished":"2026-09-04T12:00:00Z","dateModified":"2026-09-04T12:00:00Z","author":[{"@type":"Organization","name":"The Git Reporter","url":"https://thegitreporter.com"}],"publisher":{"@type":"Organization","@id":"https://thegitreporter.com/#organization","name":"The Git Reporter","url":"https://thegitreporter.com","logo":{"@type":"ImageObject","url":"https://thegitreporter.com/assets/mark.svg"},"sameAs":["https://x.com/TheGitReporter"]},"articleSection":"Daily Edition","keywords":"Memory, Tools, UX, Runtime"}]}</script>
+  <link rel="icon" href="/assets/mark.svg">
+  <link rel="stylesheet" href="/assets/site.css?v=2026-07-30-harness-memory">
+  <script defer src="/assets/feedback.js?v=2026-07-30-harness-memory"></script>
+  <script defer src="/assets/analytics.js?v=2026-07-30-harness-memory"></script>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-CH19T7M0T1"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){window.dataLayer.push(arguments);}
+    gtag("js", new Date());
+    gtag("config", "G-CH19T7M0T1");
+  </script>
+</head>
+<body>
+  <div class="site">
+    <header class="site-header" id="top">
+      <div class="wrap utility-row">
+        <a class="icon-link menu-icon" href="/archive/" aria-label="Open edition history"><span></span><span></span><span></span></a>
+        <a class="icon-link archive-icon" href="/archive/" aria-label="Open edition history"></a>
+      </div>
+      <div class="wrap masthead-lockup">
+        <a class="masthead-title" href="/">THE GIT REPORTER</a>
+        <div class="masthead-ornament" aria-hidden="true"></div>
+      </div>
+      <div class="wrap nav-wrap">
+        <nav class="paper-nav" aria-label="Primary navigation">
+    <a class="" href="/">Today</a><a class="active" href="/archive/">Editions</a><a class="" href="/about/">About</a><a class="" href="/battles/">Diff Derby</a><a class="" href="/agent-pulse/">Agent Pulse</a><a class="" href="/atlas/">Agent Atlas</a><a class="" href="/repos/">Repos</a>
+  </nav>
+        <div class="nav-rule"></div>
+      </div>
+    </header>
+    <main class="wrap page-shell article-page">
+      <section class="page-hero story-front">
+        <div class="story-topline">
+          <span>Daily Edition</span>
+          <span>Sources <strong>+4</strong></span>
+        </div>
+        <h1>Builder Work: A Workflow History Needs One Owner Before It Gets a Dashboard</h1>
+        <p class="summary">Qwen Code's workflow controls are interesting not because they add buttons, but because the runtime now gives retry, delete, cancel, and history one shared answer to “which run is this?”</p>
+        <figure class="story-illustration article-illustration">
+    <img src="/assets/illustrations/2026-09-04-builder-work-a-workflow-history-needs-one-owner-before-it-gets-a-dashboard-diagram-punk-v1.png" alt="A rough paper workflow diagram carries a starting run into a task-global key, with pause, retry, delete, and cancel controls converging on it beside Qwen source and test cards." loading="lazy" decoding="async">
+    <figcaption><span>Diagram Punk</span>name the run before you draw the controls.</figcaption>
+  </figure>
+        <div class="receipt">
+    <div class="receipt-line">
+      <span class="receipt-icon">repos</span>
+      <span class="receipt-main">source trail</span>
+      <span class="branch-pill">evidence</span>
+    </div>
+    <div class="receipt-line receipt-muted">
+      <span>4 source signals</span>
+      <span>0 repos</span>
+      <span>commit ce634b8</span>
+    </div>
+    <div class="commit-line">Evidence: commit ce634b8 / September 4, 2026 / Daily Edition</div>
+  </div>
+        <div class="article-route-row">
+          <a href="/editions/2026-09-04/">Open Edition</a>
+          <a href="#evidence">Evidence below</a>
+        </div>
+      </section>
+      <section class="story-reader">
+        <article class="story-shell story-body">
+          <p>A dashboard makes a promise the moment it shows a Stop or Delete button: the operation refers to a real thing, and it will still refer to that thing while the interface is waiting, retrying, or switching sessions. Qwen Code's <a href="https://github.com/QwenLM/qwen-code/pull/10594">workflow-control pull request</a> takes that promise seriously. Its public merge record carries several <code>Claude-Session</code> links, direct evidence that a coding agent was used in the work, but the durable lesson is in the repository: the lifecycle rules underneath the Web Shell are treated as an engineering problem in their own right.</p>
+
+  <h2>The state before the state</h2>
+
+  <p>The <a href="https://github.com/QwenLM/qwen-code/commit/ce634b8905f421ba8d87396f68fd968406a674a3">merged change</a> spans a public 64-commit, 79-file effort across the runtime, daemon/API, SDK, Web Shell, and regression suites. The key design move is that mutations which affect a shared workflow history use a storage-scoped identity rather than a session-local one. That matters when one session retries a run while another deletes its history: if each session owns a separate lock, both operations can honestly believe they are alone.</p>
+
+  <p>The inspected <a href="https://github.com/QwenLM/qwen-code/blob/ce634b8905f421ba8d87396f68fd968406a674a3/packages/core/src/agents/workflow-run-registry.ts#L603-L649">workflow-run registry</a> also names the awkward state that UI work often skips. Between <code>reserveStart</code> and <code>register</code>, a runner may be loading a script or replaying a journal: it has begun, but it is not yet a normal registry entry. The code makes that interval visible through reservations and lets <code>cancelStarting</code> reach it. A control plane that ignores that interval can show a run as starting while answering “not found” to the user's cancel request.</p>
+
+  <h2>The transferable skill</h2>
+
+  <p>Model every operator control against the same identity the durable store uses, then give the transitional state a first-class name. That is the transferable craft here: make “starting,” “registered,” “settling,” and “deleted” part of the system's truth before decorating them with status colors. Qwen's <a href="https://github.com/QwenLM/qwen-code/blob/ce634b8905f421ba8d87396f68fd968406a674a3/packages/cli/src/acp-integration/acpAgent.test.ts#L12786-L12984">daemon tests</a> exercise a reserved-but-unregistered cancel and deny workflow surfaces when the workspace is untrusted. The same discipline applies to any agent UI that exposes controls over background work: boundary checks belong at the daemon that owns the state, not only in the client that renders it.</p>
+
+  <h2>What the work does not settle</h2>
+
+  <p>These are strong public receipts for intended source behavior and for non-trivial engineering, not a release or adoption report. The public implementation notes do not prove that every platform, narrow layout, or real operator workflow has been exercised. They also do not mean a dashboard itself makes a system safe. The next useful signal is a tagged release and cross-platform evidence that the same shared identity survives a real start, retry, delete, and cancellation sequence outside the test harness.</p>
+        </article>
+      </section>
+      <section class="evidence-section" id="evidence" aria-labelledby="evidence-title">
+    <div class="evidence-head">
+      <div>
+        <div class="eyebrow">Evidence Trail</div>
+        <h2 id="evidence-title">Receipts below the story</h2>
+        <p>The article above is the public narrative. This section keeps the source trail and limits on the same page.</p>
+      </div>
+      <a class="paper-button" href="/editions/2026-09-04/">Edition</a>
+    </div>
+    <div class="evidence-table evidence-summary">
+      <div class="evidence-line"><span>Date</span><span>September 4, 2026</span></div>
+      <div class="evidence-line"><span>Lane</span><span>Daily Edition</span></div>
+      <div class="evidence-line"><span>Confidence</span><span>78%</span></div>
+      <div class="evidence-line"><span>Sources</span><span>4</span></div>
+      <div class="evidence-line"><span>Repos</span><span>source trail</span></div>
+    </div>
+    <div class="markdown evidence-copy evidence-copy-block">
+      <h2>Primary Evidence</h2>
+<ul>
+<li>Public coding-agent use proof: Qwen Code workflow-controls merge commit <a href="https://github.com/QwenLM/qwen-code/commit/ce634b8905f421ba8d87396f68fd968406a674a3">https://github.com/QwenLM/qwen-code/commit/ce634b8905f421ba8d87396f68fd968406a674a3</a>
+<ul>
+<li>Shows: the public merge record for #10594 includes several <code>Claude-Session</code> links alongside its implementation narrative and verification notes, directly documenting coding-agent use in this body of work.
+</li>
+</ul>
+</li>
+<li>Inspected GitHub repository: workflow-run registry <a href="https://github.com/QwenLM/qwen-code/blob/ce634b8905f421ba8d87396f68fd968406a674a3/packages/core/src/agents/workflow-run-registry.ts#L56-L76">https://github.com/QwenLM/qwen-code/blob/ce634b8905f421ba8d87396f68fd968406a674a3/packages/core/src/agents/workflow-run-registry.ts#L56-L76</a>
+<ul>
+<li>Shows: the inspected <code>workflow-run-registry.ts</code> source module uses storage-scoped workflow identity and explicitly represents an in-between start state so cancel, retry, and history operations do not mistake an initializing run for an absent one.
+</li>
+</ul>
+</li>
+<li>Engineering receipt: daemon workflow regressions <a href="https://github.com/QwenLM/qwen-code/blob/ce634b8905f421ba8d87396f68fd968406a674a3/packages/cli/src/acp-integration/acpAgent.test.ts#L12786-L12984">https://github.com/QwenLM/qwen-code/blob/ce634b8905f421ba8d87396f68fd968406a674a3/packages/cli/src/acp-integration/acpAgent.test.ts#L12786-L12984</a>
+<ul>
+<li>Shows: the test coverage exercises canceling a reserved but unregistered run and refuses workflow surfaces when controls are disabled or the workspace is untrusted, demonstrating a lifecycle and security-boundary mechanism beyond a dashboard skin.
+</li>
+</ul>
+</li>
+<li>Public project and change context: Qwen Code pull request #10594 <a href="https://github.com/QwenLM/qwen-code/pull/10594">https://github.com/QwenLM/qwen-code/pull/10594</a>
+<ul>
+<li>Shows: the public 64-commit, 79-file change spans the Web Shell, runtime, daemon/API, SDK, and regression suites rather than a shallow visual wrapper.
+</li>
+</ul>
+</li>
+</ul>
+<h2>Evidence Limits</h2>
+<ul>
+<li>The public record establishes coding-agent involvement and intended source behavior; it does not prove every contributor relied on an agent, that the UI is released, that tests cover all platforms and layouts, or that operators will use the controls correctly.
+</li>
+<li>Watch for a tagged release and public cross-platform or live-browser evidence that exercises the same start, retry, delete, and trust-boundary paths.
+</li>
+</ul>
+    </div>
+  </section>
+      <section class="related-edition-section atlas-context-section">
+    <div class="section-title-row">
+      <h2>Atlas Context</h2>
+      <a href="/atlas/">Open Atlas &rsaquo;</a>
+    </div>
+    <div class="updates-list">
+      <a class="article-card" href="/atlas/the-loop/">
+            <div class="article-meta"><span class="lane">Agent Atlas</span><span>Chapter 4</span></div>
+            <h3>Loops, Workflows, and Recovery</h3>
+            <p>Repeated model-tool interaction is only one control structure. Production runtimes combine probabilistic loops with host-defined workflows, queues, interrupts, terminal states, and recovery operations.</p>
+          </a>
+    </div>
+  </section>
+      <section class="reader-feedback"
+    data-tgr-feedback
+    data-article-slug="2026-09-04-daily-builder-work-a-workflow-history-needs-one-owner-before-it-gets-a-dashboard"
+    data-article-title="Builder Work: A Workflow History Needs One Owner Before It Gets a Dashboard"
+    data-article-url="/articles/2026-09-04-daily-builder-work-a-workflow-history-needs-one-owner-before-it-gets-a-dashboard/"
+    data-edition-date="2026-09-04"
+    data-lane="Daily Edition"
+    data-tags="Memory,Tools,UX,Runtime"
+    data-repos="">
+    <div class="reader-feedback-head">
+      <div>
+        <div class="eyebrow">Letters &amp; Corrections</div>
+        <h2>Send a note to the desk</h2>
+      </div>
+      <p>Corrections, missing context, or a follow-up lead.</p>
+    </div>
+    <form class="feedback-form">
+      <div class="feedback-votes" role="group" aria-label="Choose signal type">
+        <button class="feedback-choice" type="button" data-vote="follow-up" aria-pressed="false">
+          <span aria-hidden="true">+</span>
+          <span>Follow-up</span>
+        </button>
+        <button class="feedback-choice" type="button" data-vote="correction" aria-pressed="false">
+          <span aria-hidden="true">!</span>
+          <span>Correction</span>
+        </button>
+      </div>
+      <label class="feedback-comment">
+        <span>Note for the editor</span>
+        <textarea name="comment" rows="3" maxlength="320" placeholder="What did we miss, or what should we follow next?"></textarea>
+      </label>
+      <div class="feedback-submit-row">
+        <p class="feedback-status" aria-live="polite"></p>
+        <button class="paper-button primary feedback-submit" type="submit">Send to desk</button>
+      </div>
+    </form>
+  </section>
+      <section class="related-edition-section">
+        <div class="section-title-row">
+          <h2>Same Edition</h2>
+          <a href="/editions/2026-09-04/">Open issue &rsaquo;</a>
+        </div>
+        <div class="updates-list">
+          <a class="update-card" href="/articles/2026-09-04-daily-hermes-decides-that-a-preference-can-have-a-home/">
+    <div class="update-stripe"></div>
+    <div class="update-main">
+      <div class="update-meta">
+        <span>Context</span>
+        <span class="source-plus">+4</span>
+        <span>Sep 4, 2026</span>
+      </div>
+      <h3>Hermes Decides That a Preference Can Have a Home</h3>
+      <div class="update-receipt">
+        <span>NousResearch/hermes-agent</span>
+        <span class="branch-pill">evidence</span>
+      </div>
+      <div class="update-foot">
+        <span>4 sources</span>
+        <span>1 repo</span>
+        <span>commit 562ee8a</span>
+      </div>
+    </div>
+    <span class="update-arrow" aria-hidden="true">&rsaquo;</span>
+  </a><a class="update-card" href="/articles/2026-09-04-daily-api-discovery-an-mcp-hint-can-feed-a-human-approval-map/">
+    <div class="update-stripe"></div>
+    <div class="update-main">
+      <div class="update-meta">
+        <span>Trust</span>
+        <span class="source-plus">+3</span>
+        <span>Sep 4, 2026</span>
+      </div>
+      <h3>API Discovery: An MCP Hint Can Feed a Human Approval Map</h3>
+      <div class="update-receipt">
+        <span>langchain-ai/langchain</span>
+        <span class="branch-pill">evidence</span>
+      </div>
+      <div class="update-foot">
+        <span>3 sources</span>
+        <span>1 repo</span>
+        <span>commit 280442b</span>
+      </div>
+    </div>
+    <span class="update-arrow" aria-hidden="true">&rsaquo;</span>
+  </a>
+        </div>
+      </section>
+    </main>
+    <footer class="wrap site-footer">
+      <span>&copy; 2026 The Git Reporter</span>
+      <a href="/about/">About</a>
+      <a href="/battles/">Diff Derby</a>
+      <a href="/agent-pulse/">Agent Pulse</a>
+      <a href="/feed.xml">RSS</a>
+      <a href="https://x.com/TheGitReporter">Follow on X</a>
+      <a href="/articles.json">Manifest JSON</a>
+      <a href="/repos/">Sources</a>
+    </footer>
+  </div>
+</body>
+</html>
