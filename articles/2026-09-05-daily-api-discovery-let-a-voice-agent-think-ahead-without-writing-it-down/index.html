@@ -1,0 +1,272 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>API Discovery: Let a Voice Agent Think Ahead Without Writing It Down | The Git Reporter</title>
+  <meta name="description" content="Mastra’s LiveKit integration can pass memory.options.readOnly to speculative voice turns, so they read context without leaving unfinished speech or unspoken replies in the thread.">
+  <meta name="robots" content="index,follow">
+  <link rel="canonical" href="https://thegitreporter.com/articles/2026-09-05-daily-api-discovery-let-a-voice-agent-think-ahead-without-writing-it-down/">
+  <link rel="alternate" type="application/rss+xml" title="The Git Reporter" href="https://thegitreporter.com/feed.xml">
+  <meta property="og:site_name" content="The Git Reporter">
+  <meta property="og:locale" content="en_US">
+  <meta property="og:title" content="API Discovery: Let a Voice Agent Think Ahead Without Writing It Down | The Git Reporter">
+  <meta property="og:description" content="Mastra’s LiveKit integration can pass memory.options.readOnly to speculative voice turns, so they read context without leaving unfinished speech or unspoken replies in the thread.">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://thegitreporter.com/articles/2026-09-05-daily-api-discovery-let-a-voice-agent-think-ahead-without-writing-it-down/">
+  <meta property="og:image" content="https://thegitreporter.com/assets/social/2026-09-05-daily-api-discovery-let-a-voice-agent-think-ahead-without-writing-it-down-og.jpg">
+  <meta property="og:image:secure_url" content="https://thegitreporter.com/assets/social/2026-09-05-daily-api-discovery-let-a-voice-agent-think-ahead-without-writing-it-down-og.jpg">
+  <meta property="og:image:type" content="image/jpeg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Rough paper diagram showing an interim voice transcript reading a thread through a read-only memory switch, while only a committed conversation event reaches an idempotent save card.">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:site" content="@TheGitReporter">
+  <meta name="twitter:creator" content="@TheGitReporter">
+  <meta name="twitter:title" content="API Discovery: Let a Voice Agent Think Ahead Without Writing It Down | The Git Reporter">
+  <meta name="twitter:description" content="Mastra’s LiveKit integration can pass memory.options.readOnly to speculative voice turns, so they read context without leaving unfinished speech or unspoken replies in the thread.">
+  <meta name="twitter:url" content="https://thegitreporter.com/articles/2026-09-05-daily-api-discovery-let-a-voice-agent-think-ahead-without-writing-it-down/">
+  <meta name="twitter:domain" content="thegitreporter.com">
+  <meta name="twitter:image" content="https://thegitreporter.com/assets/social/2026-09-05-daily-api-discovery-let-a-voice-agent-think-ahead-without-writing-it-down-og.jpg">
+  <meta name="twitter:image:alt" content="Rough paper diagram showing an interim voice transcript reading a thread through a read-only memory switch, while only a committed conversation event reaches an idempotent save card.">
+  <meta property="article:published_time" content="2026-09-05T12:00:00Z">
+  <meta property="article:modified_time" content="2026-09-05T12:00:00Z">
+  <meta property="article:section" content="Daily Edition">
+  <meta property="article:tag" content="Memory">
+  <meta property="article:tag" content="UX">
+  <meta property="article:tag" content="Runtime">
+  <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"https://thegitreporter.com/#organization","name":"The Git Reporter","url":"https://thegitreporter.com","logo":{"@type":"ImageObject","url":"https://thegitreporter.com/assets/mark.svg"},"sameAs":["https://x.com/TheGitReporter"]},{"@type":"WebSite","@id":"https://thegitreporter.com/#website","name":"The Git Reporter","url":"https://thegitreporter.com","publisher":{"@id":"https://thegitreporter.com/#organization"}},{"@type":"NewsArticle","mainEntityOfPage":{"@type":"WebPage","@id":"https://thegitreporter.com/articles/2026-09-05-daily-api-discovery-let-a-voice-agent-think-ahead-without-writing-it-down/"},"headline":"API Discovery: Let a Voice Agent Think Ahead Without Writing It Down","description":"Mastra’s LiveKit integration can pass memory.options.readOnly to speculative voice turns, so they read context without leaving unfinished speech or unspoken replies in the thread.","image":["https://thegitreporter.com/assets/social/2026-09-05-daily-api-discovery-let-a-voice-agent-think-ahead-without-writing-it-down-og.jpg"],"datePublished":"2026-09-05T12:00:00Z","dateModified":"2026-09-05T12:00:00Z","author":[{"@type":"Organization","name":"The Git Reporter","url":"https://thegitreporter.com"}],"publisher":{"@type":"Organization","@id":"https://thegitreporter.com/#organization","name":"The Git Reporter","url":"https://thegitreporter.com","logo":{"@type":"ImageObject","url":"https://thegitreporter.com/assets/mark.svg"},"sameAs":["https://x.com/TheGitReporter"]},"articleSection":"Daily Edition","keywords":"Memory, UX, Runtime"}]}</script>
+  <link rel="icon" href="/assets/mark.svg">
+  <link rel="stylesheet" href="/assets/site.css?v=2026-07-30-harness-memory">
+  <script defer src="/assets/feedback.js?v=2026-07-30-harness-memory"></script>
+  <script defer src="/assets/analytics.js?v=2026-07-30-harness-memory"></script>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-CH19T7M0T1"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){window.dataLayer.push(arguments);}
+    gtag("js", new Date());
+    gtag("config", "G-CH19T7M0T1");
+  </script>
+</head>
+<body>
+  <div class="site">
+    <header class="site-header" id="top">
+      <div class="wrap utility-row">
+        <a class="icon-link menu-icon" href="/archive/" aria-label="Open edition history"><span></span><span></span><span></span></a>
+        <a class="icon-link archive-icon" href="/archive/" aria-label="Open edition history"></a>
+      </div>
+      <div class="wrap masthead-lockup">
+        <a class="masthead-title" href="/">THE GIT REPORTER</a>
+        <div class="masthead-ornament" aria-hidden="true"></div>
+      </div>
+      <div class="wrap nav-wrap">
+        <nav class="paper-nav" aria-label="Primary navigation">
+    <a class="" href="/">Today</a><a class="active" href="/archive/">Editions</a><a class="" href="/about/">About</a><a class="" href="/battles/">Diff Derby</a><a class="" href="/agent-pulse/">Agent Pulse</a><a class="" href="/atlas/">Agent Atlas</a><a class="" href="/repos/">Repos</a>
+  </nav>
+        <div class="nav-rule"></div>
+      </div>
+    </header>
+    <main class="wrap page-shell article-page">
+      <section class="page-hero story-front">
+        <div class="story-topline">
+          <span>Daily Edition</span>
+          <span>Sources <strong>+3</strong></span>
+        </div>
+        <h1>API Discovery: Let a Voice Agent Think Ahead Without Writing It Down</h1>
+        <p class="summary">Mastra’s LiveKit integration can pass memory.options.readOnly to speculative voice turns, so they read context without leaving unfinished speech or unspoken replies in the thread.</p>
+        <figure class="story-illustration article-illustration">
+    <img src="/assets/illustrations/2026-09-05-api-discovery-let-a-voice-agent-think-ahead-without-writing-it-down-diagram-punk-v1.png" alt="Rough paper diagram showing an interim voice transcript reading a thread through a read-only memory switch, while only a committed conversation event reaches an idempotent save card." loading="lazy" decoding="async">
+    <figcaption><span>Diagram Punk</span>Let speculative speech read context; let committed speech write it.</figcaption>
+  </figure>
+        <div class="receipt">
+    <div class="receipt-line">
+      <span class="receipt-icon">repos</span>
+      <span class="receipt-main">source trail</span>
+      <span class="branch-pill">evidence</span>
+    </div>
+    <div class="receipt-line receipt-muted">
+      <span>3 source signals</span>
+      <span>0 repos</span>
+      <span>commit 910dcca</span>
+    </div>
+    <div class="commit-line">Evidence: commit 910dcca / September 5, 2026 / Daily Edition</div>
+  </div>
+        <div class="article-route-row">
+          <a href="/editions/2026-09-05/">Open Edition</a>
+          <a href="#evidence">Evidence below</a>
+        </div>
+      </section>
+      <section class="story-reader">
+        <article class="story-shell story-body">
+          <p><strong>API discovery:</strong> Mastra’s <a href="https://github.com/mastra-ai/mastra/blob/910dccaef375e7cee1ed13117d8e6ea3e642f262/docs/src/content/en/integrations/voice/livekit.mdx">public LiveKit recipe</a> documents a small but consequential memory option. LiveKit can start a reply while a caller is still speaking, then discard that run when the transcript changes. Before the merged <a href="https://github.com/mastra-ai/mastra/commit/910dccaef375e7cee1ed13117d8e6ea3e642f262">integration change</a>, turning on memory meant those speculative turns could persist a partial user message and a partial reply the caller never heard. Passing <code>options: { readOnly: true }</code> lets the turn consult thread history without writing to it.</p>
+
+  <h2>Try it</h2>
+  <p>Use this workflow in a disposable support-line integration: a caller begins, “I need to change my—” and corrects to, “I need to cancel my subscription.” Preemptive generation can begin working before the sentence is complete. Read-only memory means the abandoned first guess can use the existing account context without becoming a fake durable turn. When LiveKit commits the actual user or assistant message, save that event using its LiveKit ID; retries remain idempotent because the same message keeps the same identity.</p>
+
+  <h2>Copy-paste agent instruction</h2>
+  <pre><code>Implement Mastra + LiveKit speculative voice memory as a two-phase flow: map memory with { thread, resource, options: { readOnly: true } } while preemptiveGeneration is enabled; let speculative turns read but never persist; subscribe to ConversationItemAdded and save only committed user or assistant messages using item.id as the durable idempotency key. Do not write interim transcripts or replies the caller never heard.</code></pre>
+
+  <h2>Test caveat</h2>
+  <p>Test this in a disposable environment: the plugin cannot tell by itself whether a LiveKit call is speculative, so this is not a switch-and-forget safety feature. The application must own the committed-event persistence and retry policy. The public change includes in-process and remote forwarding tests, but it is not evidence of a live telephony deployment, a released package in your environment, or a correct memory backend configuration.</p>
+        </article>
+      </section>
+      <section class="evidence-section" id="evidence" aria-labelledby="evidence-title">
+    <div class="evidence-head">
+      <div>
+        <div class="eyebrow">Evidence Trail</div>
+        <h2 id="evidence-title">Receipts below the story</h2>
+        <p>The article above is the public narrative. This section keeps the source trail and limits on the same page.</p>
+      </div>
+      <a class="paper-button" href="/editions/2026-09-05/">Edition</a>
+    </div>
+    <div class="evidence-table evidence-summary">
+      <div class="evidence-line"><span>Date</span><span>September 5, 2026</span></div>
+      <div class="evidence-line"><span>Lane</span><span>Daily Edition</span></div>
+      <div class="evidence-line"><span>Confidence</span><span>78%</span></div>
+      <div class="evidence-line"><span>Sources</span><span>3</span></div>
+      <div class="evidence-line"><span>Repos</span><span>source trail</span></div>
+    </div>
+    <div class="markdown evidence-copy evidence-copy-block">
+      <h2>Primary Evidence</h2>
+<ul>
+<li>Public API source: Mastra <code>@mastra/livekit</code> merged API change for <code>MastraVoiceAgentMemory.options</code>: <a href="https://github.com/mastra-ai/mastra/commit/910dccaef375e7cee1ed13117d8e6ea3e642f262">https://github.com/mastra-ai/mastra/commit/910dccaef375e7cee1ed13117d8e6ea3e642f262</a>
+<ul>
+<li>Shows: the public API lets a caller send the <code>memory.options.readOnly</code> parameter through both in-process and remote LiveKit reply paths.
+</li>
+</ul>
+</li>
+<li>Supporting definition or documentation: Mastra's LiveKit “Preemptive generation with memory” recipe: <a href="https://github.com/mastra-ai/mastra/blob/910dccaef375e7cee1ed13117d8e6ea3e642f262/docs/src/content/en/integrations/voice/livekit.mdx">https://github.com/mastra-ai/mastra/blob/910dccaef375e7cee1ed13117d8e6ea3e642f262/docs/src/content/en/integrations/voice/livekit.mdx</a>
+<ul>
+<li>Shows: the documentation explains the <code>readOnly</code> parameter: speculative turns can read thread history without persisting, while committed <code>ConversationItemAdded</code> messages are saved separately with stable LiveKit IDs so retries are idempotent.
+</li>
+</ul>
+</li>
+<li>Forwarding tests for the in-process and remote paths: <a href="https://github.com/mastra-ai/mastra/blob/910dccaef375e7cee1ed13117d8e6ea3e642f262/integrations/livekit/src/remote.test.ts">https://github.com/mastra-ai/mastra/blob/910dccaef375e7cee1ed13117d8e6ea3e642f262/integrations/livekit/src/remote.test.ts</a>
+<ul>
+<li>Shows: the public test sends <code>options: { readOnly: true }</code> in the memory object and verifies the remote request body retains it.
+</li>
+</ul>
+</li>
+</ul>
+<h2>Evidence Limits</h2>
+<ul>
+<li>This is a caller-managed pattern, not automatic speculation detection. It requires a configured Mastra agent, LiveKit integration, memory backend, and an application event handler.
+</li>
+<li>The sources show code, docs, and local tests; they do not prove release availability, live voice latency, telephony behavior, or that a caller's persistence retries are correct.
+</li>
+</ul>
+    </div>
+  </section>
+      <section class="related-edition-section atlas-context-section">
+    <div class="section-title-row">
+      <h2>Atlas Context</h2>
+      <a href="/atlas/">Open Atlas &rsaquo;</a>
+    </div>
+    <div class="updates-list">
+      <a class="article-card" href="/atlas/memory-is-not-one-thing/">
+            <div class="article-meta"><span class="lane">Agent Atlas</span><span>Chapter 6</span></div>
+            <h3>Memory Is a Typed Storage Contract</h3>
+            <p>Calling every retained fact memory obscures incompatible stores and guarantees. Thread history, notes, retrieval indexes, summaries, caches, and archives have different owners, lifetimes, and deletion behavior.</p>
+          </a>
+    </div>
+  </section>
+      <section class="reader-feedback"
+    data-tgr-feedback
+    data-article-slug="2026-09-05-daily-api-discovery-let-a-voice-agent-think-ahead-without-writing-it-down"
+    data-article-title="API Discovery: Let a Voice Agent Think Ahead Without Writing It Down"
+    data-article-url="/articles/2026-09-05-daily-api-discovery-let-a-voice-agent-think-ahead-without-writing-it-down/"
+    data-edition-date="2026-09-05"
+    data-lane="Daily Edition"
+    data-tags="Memory,UX,Runtime"
+    data-repos="">
+    <div class="reader-feedback-head">
+      <div>
+        <div class="eyebrow">Letters &amp; Corrections</div>
+        <h2>Send a note to the desk</h2>
+      </div>
+      <p>Corrections, missing context, or a follow-up lead.</p>
+    </div>
+    <form class="feedback-form">
+      <div class="feedback-votes" role="group" aria-label="Choose signal type">
+        <button class="feedback-choice" type="button" data-vote="follow-up" aria-pressed="false">
+          <span aria-hidden="true">+</span>
+          <span>Follow-up</span>
+        </button>
+        <button class="feedback-choice" type="button" data-vote="correction" aria-pressed="false">
+          <span aria-hidden="true">!</span>
+          <span>Correction</span>
+        </button>
+      </div>
+      <label class="feedback-comment">
+        <span>Note for the editor</span>
+        <textarea name="comment" rows="3" maxlength="320" placeholder="What did we miss, or what should we follow next?"></textarea>
+      </label>
+      <div class="feedback-submit-row">
+        <p class="feedback-status" aria-live="polite"></p>
+        <button class="paper-button primary feedback-submit" type="submit">Send to desk</button>
+      </div>
+    </form>
+  </section>
+      <section class="related-edition-section">
+        <div class="section-title-row">
+          <h2>Same Edition</h2>
+          <a href="/editions/2026-09-05/">Open issue &rsaquo;</a>
+        </div>
+        <div class="updates-list">
+          <a class="update-card" href="/articles/2026-09-05-daily-an-agent-s-no-needs-a-way-back-but-not-a-shortcut/">
+    <div class="update-stripe"></div>
+    <div class="update-main">
+      <div class="update-meta">
+        <span>Context</span>
+        <span class="source-plus">+3</span>
+        <span>Sep 5, 2026</span>
+      </div>
+      <h3>An Agent’s ‘No’ Needs a Way Back—But Not a Shortcut</h3>
+      <div class="update-receipt">
+        <span>source trail</span>
+        <span class="branch-pill">evidence</span>
+      </div>
+      <div class="update-foot">
+        <span>3 sources</span>
+        <span>0 repos</span>
+        <span>commit f6ba502</span>
+      </div>
+    </div>
+    <span class="update-arrow" aria-hidden="true">&rsaquo;</span>
+  </a><a class="update-card" href="/articles/2026-09-05-daily-builder-work-crush-records-the-model-that-actually-answered/">
+    <div class="update-stripe"></div>
+    <div class="update-main">
+      <div class="update-meta">
+        <span>Reported</span>
+        <span class="source-plus">+3</span>
+        <span>Sep 5, 2026</span>
+      </div>
+      <h3>Builder Work: Crush Records the Model That Actually Answered</h3>
+      <div class="update-receipt">
+        <span>charmbracelet/crush</span>
+        <span class="branch-pill">evidence</span>
+      </div>
+      <div class="update-foot">
+        <span>3 sources</span>
+        <span>1 repo</span>
+        <span>commit 35a7bca</span>
+      </div>
+    </div>
+    <span class="update-arrow" aria-hidden="true">&rsaquo;</span>
+  </a>
+        </div>
+      </section>
+    </main>
+    <footer class="wrap site-footer">
+      <span>&copy; 2026 The Git Reporter</span>
+      <a href="/about/">About</a>
+      <a href="/battles/">Diff Derby</a>
+      <a href="/agent-pulse/">Agent Pulse</a>
+      <a href="/feed.xml">RSS</a>
+      <a href="https://x.com/TheGitReporter">Follow on X</a>
+      <a href="/articles.json">Manifest JSON</a>
+      <a href="/repos/">Sources</a>
+    </footer>
+  </div>
+</body>
+</html>
