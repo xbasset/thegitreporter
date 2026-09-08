@@ -1,0 +1,284 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>A Child Agent Can't Promise Its Watcher to the Parent | The Git Reporter</title>
+  <meta name="description" content="Hermes now makes a child wait, kill, or formally hand over background work before it returns—ending one treacherous kind of progress report.">
+  <meta name="robots" content="index,follow">
+  <link rel="canonical" href="https://thegitreporter.com/articles/2026-09-08-daily-a-child-agent-cant-promise-its-watcher-to-the-parent/">
+  <link rel="alternate" type="application/rss+xml" title="The Git Reporter" href="https://thegitreporter.com/feed.xml">
+  <meta property="og:site_name" content="The Git Reporter">
+  <meta property="og:locale" content="en_US">
+  <meta property="og:title" content="A Child Agent Can&#39;t Promise Its Watcher to the Parent | The Git Reporter">
+  <meta property="og:description" content="Hermes now makes a child wait, kill, or formally hand over background work before it returns—ending one treacherous kind of progress report.">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://thegitreporter.com/articles/2026-09-08-daily-a-child-agent-cant-promise-its-watcher-to-the-parent/">
+  <meta property="og:image" content="https://thegitreporter.com/assets/social/2026-09-08-daily-a-child-agent-cant-promise-its-watcher-to-the-parent-og.jpg">
+  <meta property="og:image:secure_url" content="https://thegitreporter.com/assets/social/2026-09-08-daily-a-child-agent-cant-promise-its-watcher-to-the-parent-og.jpg">
+  <meta property="og:image:type" content="image/jpeg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Photocopied marker diagram showing a child agent’s watcher stopped at teardown unless a handoff crosses a registry lock to the parent, with a live-handoff-not-restart-safe caveat.">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:site" content="@TheGitReporter">
+  <meta name="twitter:creator" content="@TheGitReporter">
+  <meta name="twitter:title" content="A Child Agent Can&#39;t Promise Its Watcher to the Parent | The Git Reporter">
+  <meta name="twitter:description" content="Hermes now makes a child wait, kill, or formally hand over background work before it returns—ending one treacherous kind of progress report.">
+  <meta name="twitter:url" content="https://thegitreporter.com/articles/2026-09-08-daily-a-child-agent-cant-promise-its-watcher-to-the-parent/">
+  <meta name="twitter:domain" content="thegitreporter.com">
+  <meta name="twitter:image" content="https://thegitreporter.com/assets/social/2026-09-08-daily-a-child-agent-cant-promise-its-watcher-to-the-parent-og.jpg">
+  <meta name="twitter:image:alt" content="Photocopied marker diagram showing a child agent’s watcher stopped at teardown unless a handoff crosses a registry lock to the parent, with a live-handoff-not-restart-safe caveat.">
+  <meta property="article:published_time" content="2026-09-08T12:00:00Z">
+  <meta property="article:modified_time" content="2026-09-08T12:00:00Z">
+  <meta property="article:section" content="Daily Edition">
+  <meta property="article:tag" content="Delegation">
+  <meta property="article:tag" content="Runtime">
+  <meta property="article:tag" content="Background processes">
+  <meta property="article:tag" content="NousResearch/hermes-agent">
+  <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"https://thegitreporter.com/#organization","name":"The Git Reporter","url":"https://thegitreporter.com","logo":{"@type":"ImageObject","url":"https://thegitreporter.com/assets/mark.svg"},"sameAs":["https://x.com/TheGitReporter"]},{"@type":"WebSite","@id":"https://thegitreporter.com/#website","name":"The Git Reporter","url":"https://thegitreporter.com","publisher":{"@id":"https://thegitreporter.com/#organization"}},{"@type":"NewsArticle","mainEntityOfPage":{"@type":"WebPage","@id":"https://thegitreporter.com/articles/2026-09-08-daily-a-child-agent-cant-promise-its-watcher-to-the-parent/"},"headline":"A Child Agent Can't Promise Its Watcher to the Parent","description":"Hermes now makes a child wait, kill, or formally hand over background work before it returns—ending one treacherous kind of progress report.","image":["https://thegitreporter.com/assets/social/2026-09-08-daily-a-child-agent-cant-promise-its-watcher-to-the-parent-og.jpg"],"datePublished":"2026-09-08T12:00:00Z","dateModified":"2026-09-08T12:00:00Z","author":[{"@type":"Organization","name":"The Git Reporter","url":"https://thegitreporter.com"}],"publisher":{"@type":"Organization","@id":"https://thegitreporter.com/#organization","name":"The Git Reporter","url":"https://thegitreporter.com","logo":{"@type":"ImageObject","url":"https://thegitreporter.com/assets/mark.svg"},"sameAs":["https://x.com/TheGitReporter"]},"articleSection":"Daily Edition","keywords":"Delegation, Runtime, Background processes, NousResearch/hermes-agent"}]}</script>
+  <link rel="icon" href="/assets/mark.svg">
+  <link rel="stylesheet" href="/assets/site.css?v=2026-09-08-article-feed">
+  <script defer src="/assets/feedback.js?v=2026-09-08-article-feed"></script>
+  <script defer src="/assets/analytics.js?v=2026-09-08-article-feed"></script>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-CH19T7M0T1"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){window.dataLayer.push(arguments);}
+    gtag("js", new Date());
+    gtag("config", "G-CH19T7M0T1");
+  </script>
+</head>
+<body>
+  <div class="site">
+    <header class="site-header" id="top">
+      <div class="wrap utility-row">
+        <a class="icon-link menu-icon" href="/archive/" aria-label="Open edition history"><span></span><span></span><span></span></a>
+        <a class="icon-link archive-icon" href="/archive/" aria-label="Open edition history"></a>
+      </div>
+      <div class="wrap masthead-lockup">
+        <a class="masthead-title" href="/">THE GIT REPORTER</a>
+        <div class="masthead-ornament" aria-hidden="true"></div>
+      </div>
+      <div class="wrap nav-wrap">
+        <nav class="paper-nav" aria-label="Primary navigation">
+    <a class=""  href="/">Stories</a><a class=""  href="/today/">Today</a><a class="active" aria-current="page" href="/archive/">Editions</a><a class=""  href="/about/">About</a><a class=""  href="/battles/">Diff Derby</a><a class=""  href="/agent-pulse/">Agent Pulse</a><a class=""  href="/atlas/">Agent Atlas</a><a class=""  href="/repos/">Repos</a>
+  </nav>
+        <div class="nav-rule"></div>
+      </div>
+    </header>
+    <main class="wrap page-shell article-page">
+      <section class="page-hero story-front">
+        <div class="story-topline">
+          <span>Daily Edition</span>
+          <span>Sources <strong>+4</strong></span>
+        </div>
+        <h1>A Child Agent Can't Promise Its Watcher to the Parent</h1>
+        <p class="summary">Hermes now makes a child wait, kill, or formally hand over background work before it returns—ending one treacherous kind of progress report.</p>
+        <figure class="story-illustration article-illustration">
+    <img src="/assets/illustrations/2026-09-08-a-child-agent-cant-promise-its-watcher-to-the-parent-diagram-punk-v1.png" alt="Photocopied marker diagram showing a child agent’s watcher stopped at teardown unless a handoff crosses a registry lock to the parent, with a live-handoff-not-restart-safe caveat." loading="lazy" decoding="async">
+    <figcaption><span>Diagram Punk</span>Hermes makes the owner of a background result visible before the child leaves.</figcaption>
+  </figure>
+        <div class="receipt">
+    <div class="receipt-line">
+      <span class="receipt-icon">repo</span>
+      <span class="receipt-main">NousResearch/hermes-agent</span>
+      <span class="branch-pill">evidence</span>
+    </div>
+    <div class="receipt-line receipt-muted">
+      <span>4 source signals</span>
+      <span>1 repo</span>
+      <span>commit 3c0d90e</span>
+    </div>
+    <div class="commit-line">Evidence: commit 3c0d90e / September 8, 2026 / Daily Edition</div>
+  </div>
+        <div class="article-route-row">
+          <a href="/editions/2026-09-08/">Open Edition</a>
+          <a href="#evidence">Evidence below</a>
+        </div>
+      </section>
+      <section class="story-reader">
+        <article class="story-shell story-body">
+          <p>In a September 7 <a href="https://github.com/NousResearch/hermes-agent/commit/3c0d90e8ef2ba7c1d3dfdaea19a21d7733d3c82c">NousResearch/hermes-agent commit</a>, a child must now wait, kill, or formally hand off background work before it returns. That matters when a parent hears “the CI watcher is running,” waits for a result, and never gets one because child teardown killed the watcher: a result needs an owner who can actually receive it.</p>
+
+  <p>The new <code>handoff</code> action lets a child transfer a running process it owns to its parent. Hermes changes the process’s owner and session under a registry lock, carries a one-sentence purpose with its completion, and lets the parent poll, stop, or receive the result. The transfer is deliberately narrow: it is only for a live child-owned process, rejects foreign or exited work, and caps each child at three handoffs.</p>
+
+  <h2>“Running” is not a status if nobody will hear the finish</h2>
+
+  <p>That boundary is the story. Hermes’ public <a href="https://github.com/NousResearch/hermes-agent/blob/3c0d90e8ef2ba7c1d3dfdaea19a21d7733d3c82c/website/docs/user-guide/features/delegation.md#L327-L333">delegation guide</a> says that child-owned background processes are killed when the child ends unless the child waits, kills them, or hands them off. Sharing a terminal environment does not silently transfer ownership. The runtime now refuses to let a child’s final prose do that job by implication.</p>
+
+  <p>The focused <a href="https://github.com/NousResearch/hermes-agent/blob/3c0d90e8ef2ba7c1d3dfdaea19a21d7733d3c82c/tests/tools/test_subagent_process_handoff.py">handoff test</a> makes the difference concrete. It hands one child-owned process to the parent and checks that its completion arrives with the purpose “CI watcher for PR 1.” A sibling process that was not handed off is recorded as orphaned before cleanup terminates it. The parent gets a receipt from the runtime, not a hopeful sentence from the child.</p>
+
+  <h2>Handoff is not durability</h2>
+
+  <p>The tempting headline would be that Hermes made child work survive. Its own source says otherwise. Handoff moves a live process to a parent; it does not checkpoint it, make it restart-safe, or guarantee a remote CI service will stay reachable. For a watcher, the documentation still prefers a simpler pattern: return the PR number and SHA, then let the parent start the watcher it intends to own. The change is included in Hermes’ <a href="https://github.com/NousResearch/hermes-agent/releases/tag/v2026.9.7">v2026.9.7 patch rollup</a>, but that is packaging evidence, not a report of adoption or reliability in the wild.</p>
+
+  <p>That restraint is the transferable rule. In any nested agent system, a “done” message should mean one of three things: the work finished, ownership was explicitly transferred, or the work was stopped and disclosed. The next useful signal is a test of what happens when the <em>parent</em> is interrupted—because a watcher only becomes trustworthy when its ownership remains visible at the next failure boundary.</p>
+        </article>
+      </section>
+      <section class="evidence-section" id="evidence" aria-labelledby="evidence-title">
+    <div class="evidence-head">
+      <div>
+        <div class="eyebrow">Evidence Trail</div>
+        <h2 id="evidence-title">Receipts below the story</h2>
+        <p>The article above is the public narrative. This section keeps the source trail and limits on the same page.</p>
+      </div>
+      <a class="paper-button" href="/editions/2026-09-08/">Edition</a>
+    </div>
+    <div class="evidence-table evidence-summary">
+      <div class="evidence-line"><span>Date</span><span>September 8, 2026</span></div>
+      <div class="evidence-line"><span>Lane</span><span>Daily Edition</span></div>
+      <div class="evidence-line"><span>Confidence</span><span>78%</span></div>
+      <div class="evidence-line"><span>Sources</span><span>4</span></div>
+      <div class="evidence-line"><span>Repos</span><span>NousResearch/hermes-agent</span></div>
+    </div>
+    <div class="markdown evidence-copy evidence-copy-block">
+      <h2>Primary Evidence</h2>
+<ul>
+<li>Hermes process-handoff implementation: <a href="https://github.com/NousResearch/hermes-agent/commit/3c0d90e8ef2ba7c1d3dfdaea19a21d7733d3c82c">commit <code>3c0d90e</code></a>
+<ul>
+<li>Shows: the public implementation change that adds a child-only <code>handoff</code> action, moves a running process to the parent under the registry lock, records a purpose with the completion, and names work left for teardown.
+</li>
+</ul>
+</li>
+<li>Hermes delegation guide: <a href="https://github.com/NousResearch/hermes-agent/blob/3c0d90e8ef2ba7c1d3dfdaea19a21d7733d3c82c/website/docs/user-guide/features/delegation.md#L327-L333">background-process handoff guidance</a>
+<ul>
+<li>Shows: the documented user-facing contract: child background work must be waited on, killed, or handed off; parent ownership is explicit rather than implied by a child’s final summary.
+</li>
+</ul>
+</li>
+<li>Hermes regression receipt: <a href="https://github.com/NousResearch/hermes-agent/blob/3c0d90e8ef2ba7c1d3dfdaea19a21d7733d3c82c/tests/tools/test_subagent_process_handoff.py">subagent process-handoff test</a>
+<ul>
+<li>Shows: a public test of both sides of the rule—an explicitly handed-off completion reaches the parent, while an unhanded child process is reported as orphaned and then cleaned up.
+</li>
+</ul>
+</li>
+<li>Packaging receipt: <a href="https://github.com/NousResearch/hermes-agent/releases/tag/v2026.9.7">Hermes <code>v2026.9.7</code> tag</a>
+<ul>
+<li>Shows: the patch-rollup tag ancestry containing the implementation, without claiming a feature-specific release announcement.
+</li>
+</ul>
+</li>
+</ul>
+<h2>Evidence Limits</h2>
+<ul>
+<li>These public commit, documentation, test, and tag receipts do not prove production reliability, adoption, restart recovery, or behavior across every platform and CI provider. They demonstrate an intended live-process ownership rule.
+</li>
+<li>Watch for release notes or regression evidence covering parent interruption, process restoration, and long-running external watchers. The most useful next question is whether a transferred process remains correctly owned when the parent itself is interrupted or resumed.
+</li>
+</ul>
+    </div>
+  </section>
+      <section class="related-edition-section atlas-context-section">
+    <div class="section-title-row">
+      <h2>Atlas Context</h2>
+      <a href="/atlas/">Open Atlas &rsaquo;</a>
+    </div>
+    <div class="updates-list">
+      <a class="article-card" href="/atlas/when-one-agent-becomes-many/">
+            <div class="article-meta"><span class="lane">Agent Atlas</span><span>Chapter 5</span></div>
+            <h3>Delegation Is a Distributed System</h3>
+            <p>A subagent is a remote worker with its own lifecycle, context snapshot, authority, failures, and result stream. Treating delegation as a prompt trick hides the contracts that determine whether the work can be trusted.</p>
+          </a>
+    </div>
+  </section>
+      <section class="reader-feedback"
+    data-tgr-feedback
+    data-article-slug="2026-09-08-daily-a-child-agent-cant-promise-its-watcher-to-the-parent"
+    data-article-title="A Child Agent Can't Promise Its Watcher to the Parent"
+    data-article-url="/articles/2026-09-08-daily-a-child-agent-cant-promise-its-watcher-to-the-parent/"
+    data-edition-date="2026-09-08"
+    data-lane="Daily Edition"
+    data-tags="Delegation,Runtime,Background processes"
+    data-repos="NousResearch/hermes-agent">
+    <div class="reader-feedback-head">
+      <div>
+        <div class="eyebrow">Letters &amp; Corrections</div>
+        <h2>Send a note to the desk</h2>
+      </div>
+      <p>Corrections, missing context, or a follow-up lead.</p>
+    </div>
+    <form class="feedback-form">
+      <div class="feedback-votes" role="group" aria-label="Choose signal type">
+        <button class="feedback-choice" type="button" data-vote="follow-up" aria-pressed="false">
+          <span aria-hidden="true">+</span>
+          <span>Follow-up</span>
+        </button>
+        <button class="feedback-choice" type="button" data-vote="correction" aria-pressed="false">
+          <span aria-hidden="true">!</span>
+          <span>Correction</span>
+        </button>
+      </div>
+      <label class="feedback-comment">
+        <span>Note for the editor</span>
+        <textarea name="comment" rows="3" maxlength="320" placeholder="What did we miss, or what should we follow next?"></textarea>
+      </label>
+      <div class="feedback-submit-row">
+        <p class="feedback-status" aria-live="polite"></p>
+        <button class="paper-button primary feedback-submit" type="submit">Send to desk</button>
+      </div>
+    </form>
+  </section>
+      <section class="related-edition-section">
+        <div class="section-title-row">
+          <h2>Same Edition</h2>
+          <a href="/editions/2026-09-08/">Open issue &rsaquo;</a>
+        </div>
+        <div class="updates-list">
+          <a class="update-card" href="/articles/2026-09-08-daily-builder-work-let-the-author-lookup-fail-without-losing-the-feedback/">
+    <div class="update-stripe"></div>
+    <div class="update-main">
+      <div class="update-meta">
+        <span>Reported</span>
+        <span class="source-plus">+4</span>
+        <span>Sep 8, 2026</span>
+      </div>
+      <h3>Builder Work: Let the Author Lookup Fail Without Losing the Feedback</h3>
+      <div class="update-receipt">
+        <span>mastra-ai/mastra</span>
+        <span class="branch-pill">evidence</span>
+      </div>
+      <div class="update-foot">
+        <span>4 sources</span>
+        <span>1 repo</span>
+        <span>commit 99c97ab</span>
+      </div>
+    </div>
+    <span class="update-arrow" aria-hidden="true">&rsaquo;</span>
+  </a><a class="update-card" href="/articles/2026-09-08-daily-api-discovery-let-a-pydantic-ai-agent-use-your-codex-subscription/">
+    <div class="update-stripe"></div>
+    <div class="update-main">
+      <div class="update-meta">
+        <span>Reported</span>
+        <span class="source-plus">+3</span>
+        <span>Sep 8, 2026</span>
+      </div>
+      <h3>API Discovery: Let a Pydantic AI Agent Use Your Codex Subscription</h3>
+      <div class="update-receipt">
+        <span>pydantic/pydantic-ai</span>
+        <span class="branch-pill">evidence</span>
+      </div>
+      <div class="update-foot">
+        <span>3 sources</span>
+        <span>1 repo</span>
+        <span>3 source signals</span>
+      </div>
+    </div>
+    <span class="update-arrow" aria-hidden="true">&rsaquo;</span>
+  </a>
+        </div>
+      </section>
+    </main>
+    <footer class="wrap site-footer">
+      <span>&copy; 2026 The Git Reporter</span>
+      <a href="/about/">About</a>
+      <a href="/battles/">Diff Derby</a>
+      <a href="/agent-pulse/">Agent Pulse</a>
+      <a href="/feed.xml">RSS</a>
+      <a href="https://x.com/TheGitReporter">Follow on X</a>
+      <a href="/articles.json">Manifest JSON</a>
+      <a href="/repos/">Sources</a>
+    </footer>
+  </div>
+</body>
+</html>

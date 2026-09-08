@@ -3936,3 +3936,31 @@ svg {
     min-width: 0;
   }
 }
+
+/* Continuous article archive; native scrolling also preserves browser Back. */
+.story-feed { width: min(100%, 56rem); }
+.feed-intro { padding: 2rem 0 1.8rem; border-bottom: 3px solid var(--ink); }
+.feed-intro h1 { font: 700 clamp(2rem, 5vw, 3rem)/1.08 var(--serif); margin: .6rem 0; letter-spacing: -.035em; }
+.feed-intro p { color: var(--muted); line-height: 1.6; max-width: 34rem; }
+.feed-intro > a { font-size: .85rem; font-weight: 700; color: var(--green-dark); }
+.feed-date { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: .5rem; padding: 1.5rem 0 .7rem; border-bottom: 1px solid var(--rule-soft); }
+.feed-date h2 { margin: 0; font: 700 .8rem/1.5 var(--sans); text-transform: uppercase; letter-spacing: .07em; }
+.feed-date > a { font-size: .75rem; color: var(--muted); text-decoration: underline; text-underline-offset: 3px; }
+.feed-story { border-bottom: 1px solid var(--rule-soft); }
+.feed-card { display: grid; grid-template-columns: 17rem minmax(0, 1fr); gap: 1.5rem; padding: 1.5rem 0; }
+.feed-card:not(:has(.feed-image)) { grid-template-columns: 1fr; }
+.feed-image { align-self: start; background: var(--paper-deep); border: 1px solid var(--rule-soft); }
+.feed-image img { display: block; width: 100%; height: auto; aspect-ratio: 3 / 2; object-fit: contain; }
+.feed-meta { font: 600 .68rem/1.6 var(--sans); color: var(--muted); overflow-wrap: anywhere; }
+.feed-copy h3 { font: 700 1.55rem/1.14 var(--serif); letter-spacing: -.025em; margin: .45rem 0 .6rem; overflow-wrap: anywhere; }
+.feed-copy p { margin: 0 0 .85rem; color: var(--ink-soft); font-size: .9rem; line-height: 1.55; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
+.feed-read { font-size: .75rem; font-weight: 700; color: var(--green-dark); }
+.feed-card:hover h3 { text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 3px; }
+.feed-card:focus-visible { outline: 3px solid var(--green-dark); outline-offset: 4px; }
+.feed-end { padding: 2rem 0; color: var(--muted); font-size: .85rem; }
+.feed-end a { text-decoration: underline; }
+@media (max-width: 600px) {
+  .feed-card { grid-template-columns: 1fr; gap: 1rem; }
+  .feed-intro { padding-top: 1.5rem; }
+  .feed-copy h3 { font-size: 1.65rem; }
+}
