@@ -1,0 +1,313 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>API Discovery: Give the Reviewer Fewer Tools Than the Builder | The Git Reporter</title>
+  <meta name="description" content="Qwen Code’s workflow API can set one agent’s reasoning effort and remove tools from that step. Those choices also change which saved result a resumed workflow may reuse.">
+  <meta name="robots" content="index,follow">
+  <link rel="canonical" href="https://thegitreporter.com/articles/2026-09-15-daily-api-discovery-give-the-reviewer-fewer-tools-than-the-builder/">
+  <link rel="alternate" type="application/rss+xml" title="The Git Reporter" href="https://thegitreporter.com/feed.xml">
+  <meta property="og:site_name" content="The Git Reporter">
+  <meta property="og:locale" content="en_US">
+  <meta property="og:title" content="API Discovery: Give the Reviewer Fewer Tools Than the Builder | The Git Reporter">
+  <meta property="og:description" content="Qwen Code’s workflow API can set one agent’s reasoning effort and remove tools from that step. Those choices also change which saved result a resumed workflow may reuse.">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://thegitreporter.com/articles/2026-09-15-daily-api-discovery-give-the-reviewer-fewer-tools-than-the-builder/">
+  <meta property="og:image" content="https://thegitreporter.com/assets/social/2026-09-15-daily-api-discovery-give-the-reviewer-fewer-tools-than-the-builder-og.jpg">
+  <meta property="og:image:secure_url" content="https://thegitreporter.com/assets/social/2026-09-15-daily-api-discovery-give-the-reviewer-fewer-tools-than-the-builder-og.jpg">
+  <meta property="og:image:type" content="image/jpeg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Qwen workflow cards show reasoning effort, denied shell and editing tools, and a changed resume key, with a deny-list-versus-sandbox caveat.">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:site" content="@TheGitReporter">
+  <meta name="twitter:creator" content="@TheGitReporter">
+  <meta name="twitter:title" content="API Discovery: Give the Reviewer Fewer Tools Than the Builder | The Git Reporter">
+  <meta name="twitter:description" content="Qwen Code’s workflow API can set one agent’s reasoning effort and remove tools from that step. Those choices also change which saved result a resumed workflow may reuse.">
+  <meta name="twitter:url" content="https://thegitreporter.com/articles/2026-09-15-daily-api-discovery-give-the-reviewer-fewer-tools-than-the-builder/">
+  <meta name="twitter:domain" content="thegitreporter.com">
+  <meta name="twitter:image" content="https://thegitreporter.com/assets/social/2026-09-15-daily-api-discovery-give-the-reviewer-fewer-tools-than-the-builder-og.jpg">
+  <meta name="twitter:image:alt" content="Qwen workflow cards show reasoning effort, denied shell and editing tools, and a changed resume key, with a deny-list-versus-sandbox caveat.">
+  <meta property="article:published_time" content="2026-09-15T12:00:00Z">
+  <meta property="article:modified_time" content="2026-09-15T12:00:00Z">
+  <meta property="article:section" content="Daily Edition">
+  <meta property="article:tag" content="API Discovery">
+  <meta property="article:tag" content="Workflow">
+  <meta property="article:tag" content="Tool permissions">
+  <meta property="article:tag" content="QwenLM/qwen-code">
+  <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"https://thegitreporter.com/#organization","name":"The Git Reporter","url":"https://thegitreporter.com","logo":{"@type":"ImageObject","url":"https://thegitreporter.com/assets/mark.svg"},"sameAs":["https://x.com/TheGitReporter"]},{"@type":"WebSite","@id":"https://thegitreporter.com/#website","name":"The Git Reporter","url":"https://thegitreporter.com","publisher":{"@id":"https://thegitreporter.com/#organization"}},{"@type":"NewsArticle","mainEntityOfPage":{"@type":"WebPage","@id":"https://thegitreporter.com/articles/2026-09-15-daily-api-discovery-give-the-reviewer-fewer-tools-than-the-builder/"},"headline":"API Discovery: Give the Reviewer Fewer Tools Than the Builder","description":"Qwen Code’s workflow API can set one agent’s reasoning effort and remove tools from that step. Those choices also change which saved result a resumed workflow may reuse.","image":["https://thegitreporter.com/assets/social/2026-09-15-daily-api-discovery-give-the-reviewer-fewer-tools-than-the-builder-og.jpg"],"datePublished":"2026-09-15T12:00:00Z","dateModified":"2026-09-15T12:00:00Z","author":[{"@type":"Organization","name":"The Git Reporter","url":"https://thegitreporter.com"}],"publisher":{"@type":"Organization","@id":"https://thegitreporter.com/#organization","name":"The Git Reporter","url":"https://thegitreporter.com","logo":{"@type":"ImageObject","url":"https://thegitreporter.com/assets/mark.svg"},"sameAs":["https://x.com/TheGitReporter"]},"articleSection":"Daily Edition","keywords":"API Discovery, Workflow, Tool permissions, QwenLM/qwen-code"}]}</script>
+  <link rel="icon" href="/assets/mark.svg">
+  <link rel="stylesheet" href="/assets/site.css?v=2026-09-08-article-feed">
+  <script defer src="/assets/feedback.js?v=2026-09-08-article-feed"></script>
+  <script defer src="/assets/analytics.js?v=2026-09-08-article-feed"></script>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-CH19T7M0T1"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){window.dataLayer.push(arguments);}
+    gtag("js", new Date());
+    gtag("config", "G-CH19T7M0T1");
+  </script>
+</head>
+<body>
+  <div class="site">
+    <header class="site-header" id="top">
+      <div class="wrap utility-row">
+        <a class="icon-link menu-icon" href="/archive/" aria-label="Open edition history"><span></span><span></span><span></span></a>
+        <a class="icon-link archive-icon" href="/archive/" aria-label="Open edition history"></a>
+      </div>
+      <div class="wrap masthead-lockup">
+        <a class="masthead-title" href="/">THE GIT REPORTER</a>
+        <div class="masthead-ornament" aria-hidden="true"></div>
+      </div>
+      <div class="wrap nav-wrap">
+        <nav class="paper-nav" aria-label="Primary navigation">
+    <a class=""  href="/">Stories</a><a class=""  href="/today/">Today</a><a class="active" aria-current="page" href="/archive/">Editions</a><a class=""  href="/about/">About</a><a class=""  href="/battles/">Diff Derby</a><a class=""  href="/agent-pulse/">Agent Pulse</a><a class=""  href="/atlas/">Agent Atlas</a><a class=""  href="/repos/">Repos</a>
+  </nav>
+        <div class="nav-rule"></div>
+      </div>
+    </header>
+    <main class="wrap page-shell article-page">
+      <section class="page-hero story-front">
+        <div class="story-topline">
+          <span>Daily Edition</span>
+          <span>Sources <strong>+7</strong></span>
+        </div>
+        <h1>API Discovery: Give the Reviewer Fewer Tools Than the Builder</h1>
+        <p class="summary">Qwen Code’s workflow API can set one agent’s reasoning effort and remove tools from that step. Those choices also change which saved result a resumed workflow may reuse.</p>
+        <figure class="story-illustration article-illustration">
+    <img src="/assets/illustrations/2026-09-15-api-discovery-give-the-reviewer-fewer-tools-than-the-builder-diagram-punk-v1.png" alt="Qwen workflow cards show reasoning effort, denied shell and editing tools, and a changed resume key, with a deny-list-versus-sandbox caveat." loading="lazy" decoding="async">
+    <figcaption><span>Diagram Punk</span>per-agent tool restrictions are part of the work request, including its resume identity.</figcaption>
+  </figure>
+        <div class="receipt">
+    <div class="receipt-line">
+      <span class="receipt-icon">repo</span>
+      <span class="receipt-main">QwenLM/qwen-code</span>
+      <span class="branch-pill">evidence</span>
+    </div>
+    <div class="receipt-line receipt-muted">
+      <span>7 source signals</span>
+      <span>1 repo</span>
+      <span>7 source signals</span>
+    </div>
+    <div class="commit-line">Evidence: 7 source signals / September 15, 2026 / Daily Edition</div>
+  </div>
+        <div class="article-route-row">
+          <a href="/editions/2026-09-15/">Open Edition</a>
+          <a href="#evidence">Evidence below</a>
+        </div>
+      </section>
+      <section class="story-reader">
+        <article class="story-shell story-body">
+          <p>A migration’s author and reviewer need different powers. Qwen Code’s <a href="https://github.com/QwenLM/qwen-code/pull/11691">September 12 workflow change</a>, included in <a href="https://github.com/QwenLM/qwen-code/releases/tag/v0.23.4">v0.23.4</a>, adds <code>effort</code> and <code>disallowedTools</code> to the script’s <code>agent(prompt, options)</code> API. It is an API inside Qwen’s Workflow tool, not an HTTP endpoint or a standalone JavaScript library.</p>
+<h2>A practical example</h2>
+<p>After an implementation pass, give a reviewer a fixed list of changed files and ask it to find incompatible configuration migrations. This minimal step removes the built-in shell, write and edit tools while requesting high reasoning effort:</p>
+<pre><code>const review = await agent(
+  "Inspect the listed migration files. Report compatibility risks " +
+  "with file references. Do not change files: " + args.files.join(", "),
+  {
+    label: "migration-review",
+    effort: "high",
+    disallowedTools: ["run_shell_command", "write_file", "edit"]
+  }
+);
+if (review === null) throw new Error("Review did not complete");
+return review;</code></pre>
+<p>The <a href="https://github.com/QwenLM/qwen-code/blob/ba3a51e71d23fb35baa5f2cc6db0bf72b7356af1/packages/core/src/skills/bundled/workflow-authoring/SKILL.md">authoring reference</a> requires plain JavaScript, an explicit return, and a workflow the user has opted into. Pass <code>args.files</code> as an array. Tool denials add to the existing restrictions; they cannot restore a forbidden tool. This short list blocks three tools, not every possible way to mutate a system. Check installed tools and deny relevant MCP tools too before treating the review as read-only.</p>
+<h2>Copy-paste agent instruction</h2>
+<pre><code>Prepare a Qwen Code workflow for reviewing my migration diff.
+First list the files and inspect the registered tools. Give the
+reviewer high effort, deny shell/write/edit, and add every relevant
+mutating tool or MCP server to its deny list. Keep the current model.
+If you cannot establish that tool scope, stop and explain the gap.
+Pass the file list through args.files. Treat a null result as failure.
+Show me the script and get my workflow opt-in before running it.
+Do not edit files or change configuration as part of this review.</code></pre>
+<h2>The useful catch</h2>
+<p>The <a href="https://github.com/QwenLM/qwen-code/blob/ba3a51e71d23fb35baa5f2cc6db0bf72b7356af1/packages/core/src/agents/runtime/workflow-journal.test.ts">resume tests</a> verify that changing effort or denied tools changes the stored-result key. Reordering an equivalent list should not. That prevents a newly restricted review request from silently accepting a result obtained under different options.</p>
+<h2>What to check before running it</h2>
+<p>We inspected the implementation, tests and released reference; we did not execute this workflow or test a provider account. Effort depends on the model’s supported tiers and settings, and does not force thinking on when disabled. A deny list is not operating-system isolation. The first useful trial is one small diff, followed by checking the actual tool calls and whether the requested restrictions reached the reviewer.</p>
+        </article>
+      </section>
+      <section class="evidence-section" id="evidence" aria-labelledby="evidence-title">
+    <div class="evidence-head">
+      <div>
+        <div class="eyebrow">Evidence Trail</div>
+        <h2 id="evidence-title">Receipts below the story</h2>
+        <p>The article above is the public narrative. This section keeps the source trail and limits on the same page.</p>
+      </div>
+      <a class="paper-button" href="/editions/2026-09-15/">Edition</a>
+    </div>
+    <div class="evidence-table evidence-summary">
+      <div class="evidence-line"><span>Date</span><span>September 15, 2026</span></div>
+      <div class="evidence-line"><span>Lane</span><span>Daily Edition</span></div>
+      <div class="evidence-line"><span>Confidence</span><span>87%</span></div>
+      <div class="evidence-line"><span>Sources</span><span>7</span></div>
+      <div class="evidence-line"><span>Repos</span><span>QwenLM/qwen-code</span></div>
+    </div>
+    <div class="markdown evidence-copy evidence-copy-block">
+      <h2>Primary Evidence</h2>
+<ul>
+<li>Public API source: <a href="https://github.com/QwenLM/qwen-code/blob/ba3a51e71d23fb35baa5f2cc6db0bf72b7356af1/packages/core/src/agents/runtime/workflow-sandbox.ts">https://github.com/QwenLM/qwen-code/blob/ba3a51e71d23fb35baa5f2cc6db0bf72b7356af1/packages/core/src/agents/runtime/workflow-sandbox.ts</a>
+<ul>
+<li>Shows: Qwen Code provides a public Workflow script API whose WorkflowAgentOptions expose per-call effort and disallowedTools. This in-product surface requires a compatible Qwen Code installation and configured model access; it is not an HTTP endpoint.
+</li>
+</ul>
+</li>
+<li>Supporting definition or documentation: <a href="https://github.com/QwenLM/qwen-code/blob/ba3a51e71d23fb35baa5f2cc6db0bf72b7356af1/packages/core/src/skills/bundled/workflow-authoring/SKILL.md">https://github.com/QwenLM/qwen-code/blob/ba3a51e71d23fb35baa5f2cc6db0bf72b7356af1/packages/core/src/skills/bundled/workflow-authoring/SKILL.md</a>
+<ul>
+<li>Shows: the documentation describes agent(prompt, options) parameters, plain JavaScript and explicit return rules, supported effort tiers, tool-denial normalization, failure cases, null responses and workflow opt-in.
+</li>
+</ul>
+</li>
+<li>Implementation and review corrections: <a href="https://github.com/QwenLM/qwen-code/pull/11691">https://github.com/QwenLM/qwen-code/pull/11691</a>
+<ul>
+<li>Shows: per-agent configuration, narrowing-only tool denials, unknown built-in denial rejection and the limits on reasoning effort.
+</li>
+</ul>
+</li>
+<li>Resume identity tests: <a href="https://github.com/QwenLM/qwen-code/blob/ba3a51e71d23fb35baa5f2cc6db0bf72b7356af1/packages/core/src/agents/runtime/workflow-journal.test.ts">https://github.com/QwenLM/qwen-code/blob/ba3a51e71d23fb35baa5f2cc6db0bf72b7356af1/packages/core/src/agents/runtime/workflow-journal.test.ts</a>
+<ul>
+<li>Shows: a changed effort or deny list changes the reuse key; stable equivalent options retain identity.
+</li>
+</ul>
+</li>
+<li>Integrated normalization tests: <a href="https://github.com/QwenLM/qwen-code/blob/ba3a51e71d23fb35baa5f2cc6db0bf72b7356af1/packages/core/src/agents/runtime/workflow-orchestrator.test.ts">https://github.com/QwenLM/qwen-code/blob/ba3a51e71d23fb35baa5f2cc6db0bf72b7356af1/packages/core/src/agents/runtime/workflow-orchestrator.test.ts</a>
+<ul>
+<li>Shows: normalized aliases and equivalent deny lists share identity, while different options do not, and per-call restrictions combine with existing restrictions.
+</li>
+</ul>
+</li>
+<li>Release containing the API: <a href="https://github.com/QwenLM/qwen-code/releases/tag/v0.23.4">https://github.com/QwenLM/qwen-code/releases/tag/v0.23.4</a>
+<ul>
+<li>Shows: the September 14 release lists PR 11691 among its included features.
+</li>
+</ul>
+</li>
+</ul>
+<h2>Evidence Limits</h2>
+<ul>
+<li>The example was checked against source and documentation, not executed in a live workflow or provider account.
+</li>
+<li>This is Qwen Code’s in-product script API. Its globals are not a standalone Node.js library.
+</li>
+<li>Denying shell/write/edit alone does not block every installed mutating tool or MCP endpoint and is not an operating-system sandbox.
+</li>
+<li>Effort depends on model/provider support and does not force disabled thinking on; this report makes no latency, quality or cost claim.
+</li>
+</ul>
+    </div>
+  </section>
+      <section class="related-edition-section atlas-context-section">
+    <div class="section-title-row">
+      <h2>Atlas Context</h2>
+      <a href="/atlas/">Open Atlas &rsaquo;</a>
+    </div>
+    <div class="updates-list">
+      <a class="article-card" href="/atlas/hands-in-the-world/">
+            <div class="article-meta"><span class="lane">Agent Atlas</span><span>Chapter 3</span></div>
+            <h3>Tool Calls: Contract, Authorization, Execution</h3>
+            <p>A tool call crosses independently governed boundaries: schema, registration, policy, approval, execution authority, result handling, and audit.</p>
+          </a>
+    </div>
+  </section>
+      <section class="reader-feedback"
+    data-tgr-feedback
+    data-article-slug="2026-09-15-daily-api-discovery-give-the-reviewer-fewer-tools-than-the-builder"
+    data-article-title="API Discovery: Give the Reviewer Fewer Tools Than the Builder"
+    data-article-url="/articles/2026-09-15-daily-api-discovery-give-the-reviewer-fewer-tools-than-the-builder/"
+    data-edition-date="2026-09-15"
+    data-lane="Daily Edition"
+    data-tags="API Discovery,Workflow,Tool permissions"
+    data-repos="QwenLM/qwen-code">
+    <div class="reader-feedback-head">
+      <div>
+        <div class="eyebrow">Letters &amp; Corrections</div>
+        <h2>Send a note to the desk</h2>
+      </div>
+      <p>Corrections, missing context, or a follow-up lead.</p>
+    </div>
+    <form class="feedback-form">
+      <div class="feedback-votes" role="group" aria-label="Choose signal type">
+        <button class="feedback-choice" type="button" data-vote="follow-up" aria-pressed="false">
+          <span aria-hidden="true">+</span>
+          <span>Follow-up</span>
+        </button>
+        <button class="feedback-choice" type="button" data-vote="correction" aria-pressed="false">
+          <span aria-hidden="true">!</span>
+          <span>Correction</span>
+        </button>
+      </div>
+      <label class="feedback-comment">
+        <span>Note for the editor</span>
+        <textarea name="comment" rows="3" maxlength="320" placeholder="What did we miss, or what should we follow next?"></textarea>
+      </label>
+      <div class="feedback-submit-row">
+        <p class="feedback-status" aria-live="polite"></p>
+        <button class="paper-button primary feedback-submit" type="submit">Send to desk</button>
+      </div>
+    </form>
+  </section>
+      <section class="related-edition-section">
+        <div class="section-title-row">
+          <h2>Same Edition</h2>
+          <a href="/editions/2026-09-15/">Open issue &rsaquo;</a>
+        </div>
+        <div class="updates-list">
+          <a class="update-card" href="/articles/2026-09-15-daily-the-fine-print-behind-kilo-s-swarm-default/">
+    <div class="update-stripe"></div>
+    <div class="update-main">
+      <div class="update-meta">
+        <span>Agents</span>
+        <span class="source-plus">+7</span>
+        <span>Sep 15, 2026</span>
+      </div>
+      <h3>The Fine Print Behind Kilo’s Swarm Default</h3>
+      <div class="update-receipt">
+        <span>Kilo-Org/kilocode</span>
+        <span class="branch-pill">evidence</span>
+      </div>
+      <div class="update-foot">
+        <span>7 sources</span>
+        <span>1 repo</span>
+        <span>commit 50fc57d</span>
+      </div>
+    </div>
+    <span class="update-arrow" aria-hidden="true">&rsaquo;</span>
+  </a><a class="update-card" href="/articles/2026-09-15-daily-builder-work-save-the-good-citation-before-the-reviewer-times-out/">
+    <div class="update-stripe"></div>
+    <div class="update-main">
+      <div class="update-meta">
+        <span>Reported</span>
+        <span class="source-plus">+7</span>
+        <span>Sep 15, 2026</span>
+      </div>
+      <h3>Builder Work: Save the Good Citation Before the Reviewer Times Out</h3>
+      <div class="update-receipt">
+        <span>shepherd-agents/shepherd</span>
+        <span class="branch-pill">evidence</span>
+      </div>
+      <div class="update-foot">
+        <span>7 sources</span>
+        <span>1 repo</span>
+        <span>commit d34d5ca</span>
+      </div>
+    </div>
+    <span class="update-arrow" aria-hidden="true">&rsaquo;</span>
+  </a>
+        </div>
+      </section>
+    </main>
+    <footer class="wrap site-footer">
+      <span>&copy; 2026 The Git Reporter</span>
+      <a href="/about/">About</a>
+      <a href="/battles/">Diff Derby</a>
+      <a href="/agent-pulse/">Agent Pulse</a>
+      <a href="/feed.xml">RSS</a>
+      <a href="https://x.com/TheGitReporter">Follow on X</a>
+      <a href="/articles.json">Manifest JSON</a>
+      <a href="/repos/">Sources</a>
+    </footer>
+  </div>
+</body>
+</html>
