@@ -1,0 +1,318 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Builder Work: Headlong Puts Its Runtime Out of Reach | The Git Reporter</title>
+  <meta name="description" content="A persistent agent needs somewhere to experiment without rewriting the machinery that keeps it alive. Headlong’s systemd deployment draws that line—and its migration shows why the line is harder than a read-only flag.">
+  <meta name="robots" content="index,follow">
+  <link rel="canonical" href="https://thegitreporter.com/articles/2026-09-16-daily-builder-work-headlong-puts-its-runtime-out-of-reach/">
+  <link rel="alternate" type="application/rss+xml" title="The Git Reporter" href="https://thegitreporter.com/feed.xml">
+  <meta property="og:site_name" content="The Git Reporter">
+  <meta property="og:locale" content="en_US">
+  <meta property="og:title" content="Builder Work: Headlong Puts Its Runtime Out of Reach | The Git Reporter">
+  <meta property="og:description" content="A persistent agent needs somewhere to experiment without rewriting the machinery that keeps it alive. Headlong’s systemd deployment draws that line—and its migration shows why the line is harder than a read-only flag.">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://thegitreporter.com/articles/2026-09-16-daily-builder-work-headlong-puts-its-runtime-out-of-reach/">
+  <meta property="og:image" content="https://thegitreporter.com/assets/social/2026-09-16-daily-builder-work-headlong-puts-its-runtime-out-of-reach-og.jpg">
+  <meta property="og:image:secure_url" content="https://thegitreporter.com/assets/social/2026-09-16-daily-builder-work-headlong-puts-its-runtime-out-of-reach-og.jpg">
+  <meta property="og:image:type" content="image/jpeg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="A writable Headlong identity folder sits beside a locked runtime and pull-request route, with a warning about alert-token separation.">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:site" content="@TheGitReporter">
+  <meta name="twitter:creator" content="@TheGitReporter">
+  <meta name="twitter:title" content="Builder Work: Headlong Puts Its Runtime Out of Reach | The Git Reporter">
+  <meta name="twitter:description" content="A persistent agent needs somewhere to experiment without rewriting the machinery that keeps it alive. Headlong’s systemd deployment draws that line—and its migration shows why the line is harder than a read-only flag.">
+  <meta name="twitter:url" content="https://thegitreporter.com/articles/2026-09-16-daily-builder-work-headlong-puts-its-runtime-out-of-reach/">
+  <meta name="twitter:domain" content="thegitreporter.com">
+  <meta name="twitter:image" content="https://thegitreporter.com/assets/social/2026-09-16-daily-builder-work-headlong-puts-its-runtime-out-of-reach-og.jpg">
+  <meta name="twitter:image:alt" content="A writable Headlong identity folder sits beside a locked runtime and pull-request route, with a warning about alert-token separation.">
+  <meta property="article:published_time" content="2026-09-16T12:00:00Z">
+  <meta property="article:modified_time" content="2026-09-16T12:00:00Z">
+  <meta property="article:section" content="Daily Edition">
+  <meta property="article:tag" content="Builder Work">
+  <meta property="article:tag" content="Runtime isolation">
+  <meta property="article:tag" content="Persistent agents">
+  <meta property="article:tag" content="laude-institute/headlong">
+  <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"https://thegitreporter.com/#organization","name":"The Git Reporter","url":"https://thegitreporter.com","logo":{"@type":"ImageObject","url":"https://thegitreporter.com/assets/mark.svg"},"sameAs":["https://x.com/TheGitReporter"]},{"@type":"WebSite","@id":"https://thegitreporter.com/#website","name":"The Git Reporter","url":"https://thegitreporter.com","publisher":{"@id":"https://thegitreporter.com/#organization"}},{"@type":"NewsArticle","mainEntityOfPage":{"@type":"WebPage","@id":"https://thegitreporter.com/articles/2026-09-16-daily-builder-work-headlong-puts-its-runtime-out-of-reach/"},"headline":"Builder Work: Headlong Puts Its Runtime Out of Reach","description":"A persistent agent needs somewhere to experiment without rewriting the machinery that keeps it alive. Headlong’s systemd deployment draws that line—and its migration shows why the line is harder than a read-only flag.","image":["https://thegitreporter.com/assets/social/2026-09-16-daily-builder-work-headlong-puts-its-runtime-out-of-reach-og.jpg"],"datePublished":"2026-09-16T12:00:00Z","dateModified":"2026-09-16T12:00:00Z","author":[{"@type":"Organization","name":"The Git Reporter","url":"https://thegitreporter.com"}],"publisher":{"@type":"Organization","@id":"https://thegitreporter.com/#organization","name":"The Git Reporter","url":"https://thegitreporter.com","logo":{"@type":"ImageObject","url":"https://thegitreporter.com/assets/mark.svg"},"sameAs":["https://x.com/TheGitReporter"]},"articleSection":"Daily Edition","keywords":"Builder Work, Runtime isolation, Persistent agents, laude-institute/headlong"}]}</script>
+  <link rel="icon" href="/assets/mark.svg">
+  <link rel="stylesheet" href="/assets/site.css?v=2026-09-08-article-feed">
+  <script defer src="/assets/feedback.js?v=2026-09-08-article-feed"></script>
+  <script defer src="/assets/analytics.js?v=2026-09-08-article-feed"></script>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-CH19T7M0T1"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){window.dataLayer.push(arguments);}
+    gtag("js", new Date());
+    gtag("config", "G-CH19T7M0T1");
+  </script>
+</head>
+<body>
+  <div class="site">
+    <header class="site-header" id="top">
+      <div class="wrap utility-row">
+        <a class="icon-link menu-icon" href="/archive/" aria-label="Open edition history"><span></span><span></span><span></span></a>
+        <a class="icon-link archive-icon" href="/archive/" aria-label="Open edition history"></a>
+      </div>
+      <div class="wrap masthead-lockup">
+        <a class="masthead-title" href="/">THE GIT REPORTER</a>
+        <div class="masthead-ornament" aria-hidden="true"></div>
+      </div>
+      <div class="wrap nav-wrap">
+        <nav class="paper-nav" aria-label="Primary navigation">
+    <a class=""  href="/">Stories</a><a class=""  href="/today/">Today</a><a class="active" aria-current="page" href="/archive/">Editions</a><a class=""  href="/about/">About</a><a class=""  href="/battles/">Diff Derby</a><a class=""  href="/agent-pulse/">Agent Pulse</a><a class=""  href="/atlas/">Agent Atlas</a><a class=""  href="/repos/">Repos</a>
+  </nav>
+        <div class="nav-rule"></div>
+      </div>
+    </header>
+    <main class="wrap page-shell article-page">
+      <section class="page-hero story-front">
+        <div class="story-topline">
+          <span>Daily Edition</span>
+          <span>Sources <strong>+9</strong></span>
+        </div>
+        <h1>Builder Work: Headlong Puts Its Runtime Out of Reach</h1>
+        <p class="summary">A persistent agent needs somewhere to experiment without rewriting the machinery that keeps it alive. Headlong’s systemd deployment draws that line—and its migration shows why the line is harder than a read-only flag.</p>
+        <figure class="story-illustration article-illustration">
+    <img src="/assets/illustrations/2026-09-16-builder-work-headlong-puts-its-runtime-out-of-reach-diagram-punk-v1.png" alt="A writable Headlong identity folder sits beside a locked runtime and pull-request route, with a warning about alert-token separation." loading="lazy" decoding="async">
+    <figcaption><span>Diagram Punk</span>protect the shared runtime while keeping the agent’s own work editable.</figcaption>
+  </figure>
+        <div class="receipt">
+    <div class="receipt-line">
+      <span class="receipt-icon">repo</span>
+      <span class="receipt-main">laude-institute/headlong</span>
+      <span class="branch-pill">evidence</span>
+    </div>
+    <div class="receipt-line receipt-muted">
+      <span>9 source signals</span>
+      <span>1 repo</span>
+      <span>2 linked commits</span>
+    </div>
+    <div class="commit-line">Evidence: 2 linked commits / September 16, 2026 / Daily Edition</div>
+  </div>
+        <div class="article-route-row">
+          <a href="/editions/2026-09-16/">Open Edition</a>
+          <a href="#evidence">Evidence below</a>
+        </div>
+      </section>
+      <section class="story-reader">
+        <article class="story-shell story-body">
+          <p>A September 14 incident in Headlong’s <a href="https://github.com/laude-institute/headlong/blob/2d0919ee9293e2ea19a2e7229f726839a9d8d075/design/runtime_isolation.md">public engineering account</a> describes an agent creating another identity, starting two web servers and wedging its own wake loop for seven hours. This is the project’s account, not an independently reproduced outage. It explains the pressure behind the next day’s work: keep the agent’s experiments from altering the shared runtime in place.</p>
+<p>Headlong is Laude’s open-source experiment in an agent that continues working between human messages. Its <a href="https://www.laude.org/updates/headlong-a-microharness-for-persistent-agents">launch post</a> describes both agent contributions to the project and accidental self-stops. That makes the boundary unusually consequential. Changing itself is part of the experiment; disabling the machinery that schedules its next thought ends the experiment.</p>
+<p>The <a href="https://github.com/laude-institute/headlong/commit/06526d4b195f1ae90881c23ef7cb518c3c07da20">runtime-isolation commit</a> credits Claude as a co-author. That is public evidence of coding-agent participation in this engineering work, not proof of which lines the agent wrote or of autonomous authorship.</p>
+<h2>Keep an editable life inside a protected installation</h2>
+<p>The <a href="https://github.com/laude-institute/headlong/blob/2d0919ee9293e2ea19a2e7229f726839a9d8d075/deploy/thinkers-sandbox.sh">deployment script</a> renders a systemd service drop-in. It makes the filesystem read-only by default, permits writes to the agent’s home and temporary directories, then places a narrower read-only boundary around the application checkout. The individual identity directory remains writable. That is where the agent keeps its memories, prompts, work and its own repository clone.</p>
+<p>These are mount rules for the service’s filesystem view, so they also govern processes the agent starts in the background. They do not depend on every shell command consulting a tool-level permission check. Proposed changes to the shared runtime can still travel through the agent’s own clone and a pull request.</p>
+<p>The scope is specific: this is the project’s systemd deployment, not a claim that every Headlong installation has this layout. The setting is on by default in that deployment, can be disabled, and takes effect for a running identity after a restart. The updater installs changed rules without automatically restarting the agent.</p>
+<h2>The path that looked right and behaved wrong</h2>
+<p>The team then moved identity data out of the code checkout. Its first implementation left a symbolic link at the old location. The <a href="https://github.com/laude-institute/headlong/commit/2d0919ee9293e2ea19a2e7229f726839a9d8d075">follow-up commit</a> records why that was insufficient: the web discovery code did not walk the linked root, and the intended writable identity path needed special handling in the sandbox. The engineering account says one deployed agent briefly stopped receiving Slack messages through that discovery path.</p>
+<p>The replacement uses a bind mount: data lives outside the checkout while existing tools continue to see a directory at the familiar location. The web scanner also learned to traverse a linked root, and the sandbox renderer resolves a symlink if that layout is used. The lesson is in the reversal. Preserving a pathname does not preserve how every consumer discovers or mounts it.</p>
+<h2>The transferable skill: test the boundary from both sides</h2>
+<p>We ran the repository’s focused sandbox-rendering and credential-splitting tests: 23 and 19 checks passed. They exercise generated rules, repeated installation, explicit opt-out, moved identity paths, token migration and repeat runs. They do not start a real systemd sandbox. The project separately reports tests inside a service on Ubuntu 24.04; we have not reproduced that deployment.</p>
+<p>Builders can borrow a concrete test matrix: prove that an agent can still write its own work, cannot write shared executables, and can be found by the web and messaging services after state moves. Run those checks through the actual consumers, including inside the service’s mount namespace. A configuration string is only one of those receipts.</p>
+<p>The credential work exposes another boundary worth testing. The Slack bridge’s bot and app tokens move into an inaccessible file, but the migration initially copies the bot token into <code>HEADLONG_ALERT_TOKEN</code> so alerts keep working. The <a href="https://github.com/laude-institute/headlong/blob/2d0919ee9293e2ea19a2e7229f726839a9d8d075/deploy/SECURITY.md#runtime-sandbox-and-the-bridge-tokens">security notes</a> say the separation is incomplete until that copy is replaced with a dedicated alert-only credential. Renaming a secret does not reduce its authority.</p>
+<p>Headlong still permits outbound traffic and leaves substantial agent-owned state writable. This is a boundary around a particular failure mode, not complete containment. Its next convincing receipt would pair the intended read/write behavior in a running deployment with a genuinely separate alert credential. The agent can keep changing its work; the machinery that wakes it should survive the attempt.</p>
+        </article>
+      </section>
+      <section class="evidence-section" id="evidence" aria-labelledby="evidence-title">
+    <div class="evidence-head">
+      <div>
+        <div class="eyebrow">Evidence Trail</div>
+        <h2 id="evidence-title">Receipts below the story</h2>
+        <p>The article above is the public narrative. This section keeps the source trail and limits on the same page.</p>
+      </div>
+      <a class="paper-button" href="/editions/2026-09-16/">Edition</a>
+    </div>
+    <div class="evidence-table evidence-summary">
+      <div class="evidence-line"><span>Date</span><span>September 16, 2026</span></div>
+      <div class="evidence-line"><span>Lane</span><span>Daily Edition</span></div>
+      <div class="evidence-line"><span>Confidence</span><span>91%</span></div>
+      <div class="evidence-line"><span>Sources</span><span>9</span></div>
+      <div class="evidence-line"><span>Repos</span><span>laude-institute/headlong</span></div>
+    </div>
+    <div class="markdown evidence-copy evidence-copy-block">
+      <h2>Primary Evidence</h2>
+<ul>
+<li>Public coding-agent use proof: <a href="https://github.com/laude-institute/headlong/commit/06526d4b195f1ae90881c23ef7cb518c3c07da20">https://github.com/laude-institute/headlong/commit/06526d4b195f1ae90881c23ef7cb518c3c07da20</a>
+<ul>
+<li>Shows: Public coding-agent participation is established by Claude co-author credit on the runtime-isolation work, adding systemd rules, credential migration and tests. This establishes credited participation, not line-level authorship.
+</li>
+</ul>
+</li>
+<li>Inspected GitHub repository: <a href="https://github.com/laude-institute/headlong/tree/2d0919ee9293e2ea19a2e7229f726839a9d8d075">https://github.com/laude-institute/headlong/tree/2d0919ee9293e2ea19a2e7229f726839a9d8d075</a>
+<ul>
+<li>Shows: Inspected deploy/thinkers-sandbox.sh, split-bridge-env.sh, setup/update integration, identity discovery, runtime design and tests beyond the README.
+</li>
+</ul>
+</li>
+<li>Engineering receipt: <a href="https://github.com/laude-institute/headlong/blob/2d0919ee9293e2ea19a2e7229f726839a9d8d075/deploy/thinkers-sandbox.sh">https://github.com/laude-institute/headlong/blob/2d0919ee9293e2ea19a2e7229f726839a9d8d075/deploy/thinkers-sandbox.sh</a>
+<ul>
+<li>Shows: The runtime boundary uses ProtectSystem=strict, nested writable identity paths, inaccessible bridge file, identity-root resolution and repeatable installation.
+</li>
+</ul>
+</li>
+<li>Migration reversal: <a href="https://github.com/laude-institute/headlong/commit/2d0919ee9293e2ea19a2e7229f726839a9d8d075">https://github.com/laude-institute/headlong/commit/2d0919ee9293e2ea19a2e7229f726839a9d8d075</a>
+<ul>
+<li>Shows: Bind-mount replacement for the symlink layout and discovery compatibility repair.
+</li>
+</ul>
+</li>
+<li>Sandbox tests: <a href="https://github.com/laude-institute/headlong/blob/2d0919ee9293e2ea19a2e7229f726839a9d8d075/tests/test_thinkers_sandbox.sh">https://github.com/laude-institute/headlong/blob/2d0919ee9293e2ea19a2e7229f726839a9d8d075/tests/test_thinkers_sandbox.sh</a>
+<ul>
+<li>Shows: Rule rendering, installation, opt-out and moved identity paths. Our execution passed 23 checks.
+</li>
+</ul>
+</li>
+<li>Credential migration tests: <a href="https://github.com/laude-institute/headlong/blob/2d0919ee9293e2ea19a2e7229f726839a9d8d075/tests/test_split_bridge_env.sh">https://github.com/laude-institute/headlong/blob/2d0919ee9293e2ea19a2e7229f726839a9d8d075/tests/test_split_bridge_env.sh</a>
+<ul>
+<li>Shows: Token extraction, alert-token copy, rotation and idempotence. Our execution passed 19 checks.
+</li>
+</ul>
+</li>
+<li>Public engineering account: <a href="https://github.com/laude-institute/headlong/blob/2d0919ee9293e2ea19a2e7229f726839a9d8d075/design/runtime_isolation.md">https://github.com/laude-institute/headlong/blob/2d0919ee9293e2ea19a2e7229f726839a9d8d075/design/runtime_isolation.md</a>
+<ul>
+<li>Shows: The reported September 14 interruption, migration reversal and project-reported service verification.
+</li>
+</ul>
+</li>
+<li>Credential caveat: <a href="https://github.com/laude-institute/headlong/blob/2d0919ee9293e2ea19a2e7229f726839a9d8d075/deploy/SECURITY.md#runtime-sandbox-and-the-bridge-tokens">https://github.com/laude-institute/headlong/blob/2d0919ee9293e2ea19a2e7229f726839a9d8d075/deploy/SECURITY.md#runtime-sandbox-and-the-bridge-tokens</a>
+<ul>
+<li>Shows: The alert copy retains bot posting authority until replaced; outbound traffic remains allowed.
+</li>
+</ul>
+</li>
+<li>Project context: <a href="https://www.laude.org/updates/headlong-a-microharness-for-persistent-agents">https://www.laude.org/updates/headlong-a-microharness-for-persistent-agents</a>
+<ul>
+<li>Shows: Persistent agency, project-reported agent contributions and accidental self-stops explain the operating pressure.
+</li>
+</ul>
+</li>
+</ul>
+<h2>Evidence Limits</h2>
+<ul>
+<li>Fixture tests do not prove live systemd enforcement.
+</li>
+<li>Incident timing and service verification are project accounts, not independent observations.
+</li>
+<li>This deployment allows writable state and outbound traffic; it is not complete containment or every Headlong installation.
+</li>
+<li>Co-author credit does not prove autonomous development.
+</li>
+</ul>
+    </div>
+  </section>
+      <section class="related-edition-section atlas-context-section">
+    <div class="section-title-row">
+      <h2>Atlas Context</h2>
+      <a href="/atlas/">Open Atlas &rsaquo;</a>
+    </div>
+    <div class="updates-list">
+      <a class="article-card" href="/atlas/the-loop/">
+            <div class="article-meta"><span class="lane">Agent Atlas</span><span>Chapter 4</span></div>
+            <h3>Loops, Workflows, and Recovery</h3>
+            <p>Repeated model-tool interaction is only one control structure. Production runtimes combine probabilistic loops with host-defined workflows, queues, interrupts, terminal states, and recovery operations.</p>
+          </a>
+    </div>
+  </section>
+      <section class="reader-feedback"
+    data-tgr-feedback
+    data-article-slug="2026-09-16-daily-builder-work-headlong-puts-its-runtime-out-of-reach"
+    data-article-title="Builder Work: Headlong Puts Its Runtime Out of Reach"
+    data-article-url="/articles/2026-09-16-daily-builder-work-headlong-puts-its-runtime-out-of-reach/"
+    data-edition-date="2026-09-16"
+    data-lane="Daily Edition"
+    data-tags="Builder Work,Runtime isolation,Persistent agents"
+    data-repos="laude-institute/headlong">
+    <div class="reader-feedback-head">
+      <div>
+        <div class="eyebrow">Letters &amp; Corrections</div>
+        <h2>Send a note to the desk</h2>
+      </div>
+      <p>Corrections, missing context, or a follow-up lead.</p>
+    </div>
+    <form class="feedback-form">
+      <div class="feedback-votes" role="group" aria-label="Choose signal type">
+        <button class="feedback-choice" type="button" data-vote="follow-up" aria-pressed="false">
+          <span aria-hidden="true">+</span>
+          <span>Follow-up</span>
+        </button>
+        <button class="feedback-choice" type="button" data-vote="correction" aria-pressed="false">
+          <span aria-hidden="true">!</span>
+          <span>Correction</span>
+        </button>
+      </div>
+      <label class="feedback-comment">
+        <span>Note for the editor</span>
+        <textarea name="comment" rows="3" maxlength="320" placeholder="What did we miss, or what should we follow next?"></textarea>
+      </label>
+      <div class="feedback-submit-row">
+        <p class="feedback-status" aria-live="polite"></p>
+        <button class="paper-button primary feedback-submit" type="submit">Send to desk</button>
+      </div>
+    </form>
+  </section>
+      <section class="related-edition-section">
+        <div class="section-title-row">
+          <h2>Same Edition</h2>
+          <a href="/editions/2026-09-16/">Open issue &rsaquo;</a>
+        </div>
+        <div class="updates-list">
+          <a class="update-card" href="/articles/2026-09-16-daily-the-cookie-jar-between-two-agent-sessions/">
+    <div class="update-stripe"></div>
+    <div class="update-main">
+      <div class="update-meta">
+        <span>Reported</span>
+        <span class="source-plus">+6</span>
+        <span>Sep 16, 2026</span>
+      </div>
+      <h3>The Cookie Jar Between Two Agent Sessions</h3>
+      <div class="update-receipt">
+        <span>microsoft/agent-framework</span>
+        <span class="branch-pill">evidence</span>
+      </div>
+      <div class="update-foot">
+        <span>6 sources</span>
+        <span>1 repo</span>
+        <span>commit 5d5fa52</span>
+      </div>
+    </div>
+    <span class="update-arrow" aria-hidden="true">&rsaquo;</span>
+  </a><a class="update-card" href="/articles/2026-09-16-daily-api-discovery-tell-a-running-pydantic-agent-what-just-changed/">
+    <div class="update-stripe"></div>
+    <div class="update-main">
+      <div class="update-meta">
+        <span>Reported</span>
+        <span class="source-plus">+6</span>
+        <span>Sep 16, 2026</span>
+      </div>
+      <h3>API Discovery: Tell a Running Pydantic Agent What Just Changed</h3>
+      <div class="update-receipt">
+        <span>pydantic/pydantic-ai</span>
+        <span class="branch-pill">evidence</span>
+      </div>
+      <div class="update-foot">
+        <span>6 sources</span>
+        <span>1 repo</span>
+        <span>6 source signals</span>
+      </div>
+    </div>
+    <span class="update-arrow" aria-hidden="true">&rsaquo;</span>
+  </a>
+        </div>
+      </section>
+    </main>
+    <footer class="wrap site-footer">
+      <span>&copy; 2026 The Git Reporter</span>
+      <a href="/about/">About</a>
+      <a href="/battles/">Diff Derby</a>
+      <a href="/agent-pulse/">Agent Pulse</a>
+      <a href="/feed.xml">RSS</a>
+      <a href="https://x.com/TheGitReporter">Follow on X</a>
+      <a href="/articles.json">Manifest JSON</a>
+      <a href="/repos/">Sources</a>
+    </footer>
+  </div>
+</body>
+</html>

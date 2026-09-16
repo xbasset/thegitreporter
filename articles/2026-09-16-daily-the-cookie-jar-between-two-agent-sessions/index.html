@@ -1,0 +1,301 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>The Cookie Jar Between Two Agent Sessions | The Git Reporter</title>
+  <meta name="description" content="Microsoft’s Agent Framework is changing what its Python HTTP clients remember. A new conversation can still inherit an old login when both use the same cookie jar.">
+  <meta name="robots" content="index,follow">
+  <link rel="canonical" href="https://thegitreporter.com/articles/2026-09-16-daily-the-cookie-jar-between-two-agent-sessions/">
+  <link rel="alternate" type="application/rss+xml" title="The Git Reporter" href="https://thegitreporter.com/feed.xml">
+  <meta property="og:site_name" content="The Git Reporter">
+  <meta property="og:locale" content="en_US">
+  <meta property="og:title" content="The Cookie Jar Between Two Agent Sessions | The Git Reporter">
+  <meta property="og:description" content="Microsoft’s Agent Framework is changing what its Python HTTP clients remember. A new conversation can still inherit an old login when both use the same cookie jar.">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://thegitreporter.com/articles/2026-09-16-daily-the-cookie-jar-between-two-agent-sessions/">
+  <meta property="og:image" content="https://thegitreporter.com/assets/social/2026-09-16-daily-the-cookie-jar-between-two-agent-sessions-og.jpg">
+  <meta property="og:image:secure_url" content="https://thegitreporter.com/assets/social/2026-09-16-daily-the-cookie-jar-between-two-agent-sessions-og.jpg">
+  <meta property="og:image:type" content="image/jpeg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Two agent sessions connect through an HTTP cookie jar, with a barrier marking the no-persistence default and a caveat for custom clients.">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:site" content="@TheGitReporter">
+  <meta name="twitter:creator" content="@TheGitReporter">
+  <meta name="twitter:title" content="The Cookie Jar Between Two Agent Sessions | The Git Reporter">
+  <meta name="twitter:description" content="Microsoft’s Agent Framework is changing what its Python HTTP clients remember. A new conversation can still inherit an old login when both use the same cookie jar.">
+  <meta name="twitter:url" content="https://thegitreporter.com/articles/2026-09-16-daily-the-cookie-jar-between-two-agent-sessions/">
+  <meta name="twitter:domain" content="thegitreporter.com">
+  <meta name="twitter:image" content="https://thegitreporter.com/assets/social/2026-09-16-daily-the-cookie-jar-between-two-agent-sessions-og.jpg">
+  <meta name="twitter:image:alt" content="Two agent sessions connect through an HTTP cookie jar, with a barrier marking the no-persistence default and a caveat for custom clients.">
+  <meta property="article:published_time" content="2026-09-16T12:00:00Z">
+  <meta property="article:modified_time" content="2026-09-16T12:00:00Z">
+  <meta property="article:section" content="Daily Edition">
+  <meta property="article:tag" content="HTTP">
+  <meta property="article:tag" content="Identity">
+  <meta property="article:tag" content="Agent infrastructure">
+  <meta property="article:tag" content="microsoft/agent-framework">
+  <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"https://thegitreporter.com/#organization","name":"The Git Reporter","url":"https://thegitreporter.com","logo":{"@type":"ImageObject","url":"https://thegitreporter.com/assets/mark.svg"},"sameAs":["https://x.com/TheGitReporter"]},{"@type":"WebSite","@id":"https://thegitreporter.com/#website","name":"The Git Reporter","url":"https://thegitreporter.com","publisher":{"@id":"https://thegitreporter.com/#organization"}},{"@type":"NewsArticle","mainEntityOfPage":{"@type":"WebPage","@id":"https://thegitreporter.com/articles/2026-09-16-daily-the-cookie-jar-between-two-agent-sessions/"},"headline":"The Cookie Jar Between Two Agent Sessions","description":"Microsoft’s Agent Framework is changing what its Python HTTP clients remember. A new conversation can still inherit an old login when both use the same cookie jar.","image":["https://thegitreporter.com/assets/social/2026-09-16-daily-the-cookie-jar-between-two-agent-sessions-og.jpg"],"datePublished":"2026-09-16T12:00:00Z","dateModified":"2026-09-16T12:00:00Z","author":[{"@type":"Organization","name":"The Git Reporter","url":"https://thegitreporter.com"}],"publisher":{"@type":"Organization","@id":"https://thegitreporter.com/#organization","name":"The Git Reporter","url":"https://thegitreporter.com","logo":{"@type":"ImageObject","url":"https://thegitreporter.com/assets/mark.svg"},"sameAs":["https://x.com/TheGitReporter"]},"articleSection":"Daily Edition","keywords":"HTTP, Identity, Agent infrastructure, microsoft/agent-framework"}]}</script>
+  <link rel="icon" href="/assets/mark.svg">
+  <link rel="stylesheet" href="/assets/site.css?v=2026-09-08-article-feed">
+  <script defer src="/assets/feedback.js?v=2026-09-08-article-feed"></script>
+  <script defer src="/assets/analytics.js?v=2026-09-08-article-feed"></script>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-CH19T7M0T1"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){window.dataLayer.push(arguments);}
+    gtag("js", new Date());
+    gtag("config", "G-CH19T7M0T1");
+  </script>
+</head>
+<body>
+  <div class="site">
+    <header class="site-header" id="top">
+      <div class="wrap utility-row">
+        <a class="icon-link menu-icon" href="/archive/" aria-label="Open edition history"><span></span><span></span><span></span></a>
+        <a class="icon-link archive-icon" href="/archive/" aria-label="Open edition history"></a>
+      </div>
+      <div class="wrap masthead-lockup">
+        <a class="masthead-title" href="/">THE GIT REPORTER</a>
+        <div class="masthead-ornament" aria-hidden="true"></div>
+      </div>
+      <div class="wrap nav-wrap">
+        <nav class="paper-nav" aria-label="Primary navigation">
+    <a class=""  href="/">Stories</a><a class=""  href="/today/">Today</a><a class="active" aria-current="page" href="/archive/">Editions</a><a class=""  href="/about/">About</a><a class=""  href="/battles/">Diff Derby</a><a class=""  href="/agent-pulse/">Agent Pulse</a><a class=""  href="/atlas/">Agent Atlas</a><a class=""  href="/repos/">Repos</a>
+  </nav>
+        <div class="nav-rule"></div>
+      </div>
+    </header>
+    <main class="wrap page-shell article-page">
+      <section class="page-hero story-front">
+        <div class="story-topline">
+          <span>Daily Edition</span>
+          <span>Sources <strong>+6</strong></span>
+        </div>
+        <h1>The Cookie Jar Between Two Agent Sessions</h1>
+        <p class="summary">Microsoft’s Agent Framework is changing what its Python HTTP clients remember. A new conversation can still inherit an old login when both use the same cookie jar.</p>
+        <figure class="story-illustration article-illustration">
+    <img src="/assets/illustrations/2026-09-16-the-cookie-jar-between-two-agent-sessions-diagram-punk-v1.png" alt="Two agent sessions connect through an HTTP cookie jar, with a barrier marking the no-persistence default and a caveat for custom clients." loading="lazy" decoding="async">
+    <figcaption><span>Diagram Punk</span>a reused connection does not decide whose identity may persist.</figcaption>
+  </figure>
+        <div class="receipt">
+    <div class="receipt-line">
+      <span class="receipt-icon">repo</span>
+      <span class="receipt-main">microsoft/agent-framework</span>
+      <span class="branch-pill">evidence</span>
+    </div>
+    <div class="receipt-line receipt-muted">
+      <span>6 source signals</span>
+      <span>1 repo</span>
+      <span>commit 5d5fa52</span>
+    </div>
+    <div class="commit-line">Evidence: commit 5d5fa52 / September 16, 2026 / Daily Edition</div>
+  </div>
+        <div class="article-route-row">
+          <a href="/editions/2026-09-16/">Open Edition</a>
+          <a href="#evidence">Evidence below</a>
+        </div>
+      </section>
+      <section class="story-reader">
+        <article class="story-shell story-body">
+          <p>A regression test added to <a href="https://github.com/microsoft/agent-framework/blob/5d5fa52147655d2ab8051a212d62443403cc0b98/python/packages/a2a/tests/test_a2a_agent.py">microsoft/agent-framework</a> on September 15 stages an awkward encounter. The first caller signs in; the second asks for a private record. They have separate agent sessions but share one HTTP client. If it saved the first response’s cookie, the second request can arrive wearing the first caller’s identity.</p>
+<p>The server is simulated, its private record fictional. The test makes a real architectural problem concrete: starting another agent conversation does not necessarily start another authenticated transport.</p>
+<p>On September 15, Microsoft merged <a href="https://github.com/microsoft/agent-framework/pull/8371">a breaking change to its Python integrations</a> that stops internally created HTTP clients from retaining response cookies. It covers MCP tools, agent-to-agent connections, AG-UI chat clients and declarative HTTP workflows. The connection can still be reused. The remote service’s cookie should no longer silently become part of the next request.</p>
+<h2>The state beneath the conversation</h2>
+<p>A cookie is a small value a server asks a client to remember and send back. That convenience supports logins, session continuity and routing a user back to the same backend. It becomes a design decision when a reusable client sits underneath several agent runs: who, exactly, owns the remembered state?</p>
+<p>The <a href="https://github.com/microsoft/agent-framework/commit/5d5fa52147655d2ab8051a212d62443403cc0b98">implementation</a> gives framework-created clients a standard Python cookie policy with an empty domain allowlist. There is no eligible domain for a response cookie to enter the jar. The change retains connection pooling and the existing timeout and redirect defaults; it does not solve the problem by opening a fresh connection for every message.</p>
+<p>The A2A test preserves the real HTTPX client and its cookie handling while substituting an in-memory server for the network. One run receives a sign-in response with a cookie. A second, separately created agent session asks for the record. The assertions require that the outgoing request carries no cookie and the simulated server denies access. This checks the transport boundary directly, without asking a model to remember which user it represents.</p>
+<p>Other tests examine repeated requests, failed responses, explicit cookies and overlapping HTTP work. Those cases matter because a response can leave state behind even when the application treats the request as a failure.</p>
+<h2>The migration is also a choice about ownership</h2>
+<p>The new default can break legitimate applications. A service that expects a cookie on its second request may stop recognizing the client—even inside the same MCP session, thread or workflow. Load-balancer affinity can depend on cookies too. The change is broader than clearing state when an agent run ends.</p>
+<p>The <a href="https://github.com/microsoft/agent-framework/blob/5d5fa52147655d2ab8051a212d62443403cc0b98/python/packages/core/README.md#mcp-http-client-ownership-and-cookies">migration documentation</a> leaves the application an explicit route: supply its own <code>httpx.AsyncClient</code> through <code>http_client=</code>. Declarative workflows accept <code>client=</code> or a <code>client_provider</code>. Caller-supplied clients retain their cookie behavior. They also retain an obligation: the application must scope a cookie-bearing client to the intended authenticated user and close it itself.</p>
+<p>One ownership repair accompanies the policy change. A2A previously marked a supplied HTTP client for cleanup in a construction path that also received an A2A protocol client. The new code leaves that HTTP client open. An application relying on the old implicit close has another lifecycle decision to make.</p>
+<h2>A safer default is a smaller claim than isolation</h2>
+<p>It would be easy to read the patch as “agent sessions are now isolated.” The documentation explicitly rules that out. Rejecting cookies does not partition an MCP protocol session or other state held by the server. Explicit <code>Cookie</code> headers remain supported. A custom client can still share its jar. In declarative HTTP responses, <code>Set-Cookie</code> headers remain visible; disabling persistence does not redact them.</p>
+<p>There is no public incident linked in the pull request, and the regression scenario is not evidence that a real user’s record was exposed. This is a source-level behavior change. At our September 16 check, the newest listed Python release was <a href="https://github.com/microsoft/agent-framework/releases/tag/python-1.18.0">1.18.0, published September 10</a>, before the merge. We inspected the diff and tests; we did not run the framework’s integration suite or verify an installed service.</p>
+<p>For a team preparing to adopt the change, the useful audit starts below the prompt: identify who creates each HTTP client, which users share it, and whether the remote service depends on remembered cookies. Then exercise two distinct users against a disposable service and inspect the requests. The next release can change the default jar. Only the application can decide whose identity belongs inside it.</p>
+        </article>
+      </section>
+      <section class="evidence-section" id="evidence" aria-labelledby="evidence-title">
+    <div class="evidence-head">
+      <div>
+        <div class="eyebrow">Evidence Trail</div>
+        <h2 id="evidence-title">Receipts below the story</h2>
+        <p>The article above is the public narrative. This section keeps the source trail and limits on the same page.</p>
+      </div>
+      <a class="paper-button" href="/editions/2026-09-16/">Edition</a>
+    </div>
+    <div class="evidence-table evidence-summary">
+      <div class="evidence-line"><span>Date</span><span>September 16, 2026</span></div>
+      <div class="evidence-line"><span>Lane</span><span>Daily Edition</span></div>
+      <div class="evidence-line"><span>Confidence</span><span>87%</span></div>
+      <div class="evidence-line"><span>Sources</span><span>6</span></div>
+      <div class="evidence-line"><span>Repos</span><span>microsoft/agent-framework</span></div>
+    </div>
+    <div class="markdown evidence-copy evidence-copy-block">
+      <h2>Primary Evidence</h2>
+<ul>
+<li>Cookie policy implementation: <a href="https://github.com/microsoft/agent-framework/commit/5d5fa52147655d2ab8051a212d62443403cc0b98">https://github.com/microsoft/agent-framework/commit/5d5fa52147655d2ab8051a212d62443403cc0b98</a>
+<ul>
+<li>Shows: Four internally managed Python HTTP integration paths receive a cookie policy with an empty allowed-domain list; supplied A2A client ownership is corrected.
+</li>
+</ul>
+</li>
+<li>A2A regression: <a href="https://github.com/microsoft/agent-framework/blob/5d5fa52147655d2ab8051a212d62443403cc0b98/python/packages/a2a/tests/test_a2a_agent.py">https://github.com/microsoft/agent-framework/blob/5d5fa52147655d2ab8051a212d62443403cc0b98/python/packages/a2a/tests/test_a2a_agent.py</a>
+<ul>
+<li>Shows: Real HTTPX cookie handling with mocked network I/O; a second agent session must send no prior sign-in cookie and receive access denied.
+</li>
+</ul>
+</li>
+<li>MCP migration contract: <a href="https://github.com/microsoft/agent-framework/blob/5d5fa52147655d2ab8051a212d62443403cc0b98/python/packages/core/README.md">https://github.com/microsoft/agent-framework/blob/5d5fa52147655d2ab8051a212d62443403cc0b98/python/packages/core/README.md</a>
+<ul>
+<li>Shows: Same-session compatibility cost, explicit Cookie headers and caller-owned clients preserved, and no partitioning of protocol sessions or server-side state.
+</li>
+</ul>
+</li>
+<li>Declarative ownership: <a href="https://github.com/microsoft/agent-framework/blob/5d5fa52147655d2ab8051a212d62443403cc0b98/python/packages/declarative/README.md">https://github.com/microsoft/agent-framework/blob/5d5fa52147655d2ab8051a212d62443403cc0b98/python/packages/declarative/README.md</a>
+<ul>
+<li>Shows: client/client_provider migration, caller cleanup, provider fallback and preserved Set-Cookie response headers.
+</li>
+</ul>
+</li>
+<li>Merged proposal: <a href="https://github.com/microsoft/agent-framework/pull/8371">https://github.com/microsoft/agent-framework/pull/8371</a>
+<ul>
+<li>Shows: September 15 merge and compatibility rationale; no public incident linked.
+</li>
+</ul>
+</li>
+<li>Python release boundary: <a href="https://github.com/microsoft/agent-framework/releases/tag/python-1.18.0">https://github.com/microsoft/agent-framework/releases/tag/python-1.18.0</a>
+<ul>
+<li>Shows: September 10 release predates the merge.
+</li>
+</ul>
+</li>
+</ul>
+<h2>Evidence Limits</h2>
+<ul>
+<li>The opening is a synthetic regression scenario, not a verified breach.
+</li>
+<li>We inspected tests but did not execute the framework suite or a deployed service.
+</li>
+<li>Main-branch code does not establish released availability.
+</li>
+<li>Cookie rejection does not isolate all identities, protocol sessions or server-side state.
+</li>
+</ul>
+    </div>
+  </section>
+      <section class="related-edition-section atlas-context-section">
+    <div class="section-title-row">
+      <h2>Atlas Context</h2>
+      <a href="/atlas/">Open Atlas &rsaquo;</a>
+    </div>
+    <div class="updates-list">
+      <a class="article-card" href="/atlas/what-an-agent-can-see/">
+            <div class="article-meta"><span class="lane">Agent Atlas</span><span>Chapter 2</span></div>
+            <h3>The Invisible Prompt</h3>
+            <p>The model acts on an assembled viewport containing visible messages, hidden turn context, path-triggered instructions, memory records, tool schemas, permissions, and inherited state.</p>
+          </a>
+    </div>
+  </section>
+      <section class="reader-feedback"
+    data-tgr-feedback
+    data-article-slug="2026-09-16-daily-the-cookie-jar-between-two-agent-sessions"
+    data-article-title="The Cookie Jar Between Two Agent Sessions"
+    data-article-url="/articles/2026-09-16-daily-the-cookie-jar-between-two-agent-sessions/"
+    data-edition-date="2026-09-16"
+    data-lane="Daily Edition"
+    data-tags="HTTP,Identity,Agent infrastructure"
+    data-repos="microsoft/agent-framework">
+    <div class="reader-feedback-head">
+      <div>
+        <div class="eyebrow">Letters &amp; Corrections</div>
+        <h2>Send a note to the desk</h2>
+      </div>
+      <p>Corrections, missing context, or a follow-up lead.</p>
+    </div>
+    <form class="feedback-form">
+      <div class="feedback-votes" role="group" aria-label="Choose signal type">
+        <button class="feedback-choice" type="button" data-vote="follow-up" aria-pressed="false">
+          <span aria-hidden="true">+</span>
+          <span>Follow-up</span>
+        </button>
+        <button class="feedback-choice" type="button" data-vote="correction" aria-pressed="false">
+          <span aria-hidden="true">!</span>
+          <span>Correction</span>
+        </button>
+      </div>
+      <label class="feedback-comment">
+        <span>Note for the editor</span>
+        <textarea name="comment" rows="3" maxlength="320" placeholder="What did we miss, or what should we follow next?"></textarea>
+      </label>
+      <div class="feedback-submit-row">
+        <p class="feedback-status" aria-live="polite"></p>
+        <button class="paper-button primary feedback-submit" type="submit">Send to desk</button>
+      </div>
+    </form>
+  </section>
+      <section class="related-edition-section">
+        <div class="section-title-row">
+          <h2>Same Edition</h2>
+          <a href="/editions/2026-09-16/">Open issue &rsaquo;</a>
+        </div>
+        <div class="updates-list">
+          <a class="update-card" href="/articles/2026-09-16-daily-builder-work-headlong-puts-its-runtime-out-of-reach/">
+    <div class="update-stripe"></div>
+    <div class="update-main">
+      <div class="update-meta">
+        <span>Reported</span>
+        <span class="source-plus">+9</span>
+        <span>Sep 16, 2026</span>
+      </div>
+      <h3>Builder Work: Headlong Puts Its Runtime Out of Reach</h3>
+      <div class="update-receipt">
+        <span>laude-institute/headlong</span>
+        <span class="branch-pill">evidence</span>
+      </div>
+      <div class="update-foot">
+        <span>9 sources</span>
+        <span>1 repo</span>
+        <span>2 linked commits</span>
+      </div>
+    </div>
+    <span class="update-arrow" aria-hidden="true">&rsaquo;</span>
+  </a><a class="update-card" href="/articles/2026-09-16-daily-api-discovery-tell-a-running-pydantic-agent-what-just-changed/">
+    <div class="update-stripe"></div>
+    <div class="update-main">
+      <div class="update-meta">
+        <span>Reported</span>
+        <span class="source-plus">+6</span>
+        <span>Sep 16, 2026</span>
+      </div>
+      <h3>API Discovery: Tell a Running Pydantic Agent What Just Changed</h3>
+      <div class="update-receipt">
+        <span>pydantic/pydantic-ai</span>
+        <span class="branch-pill">evidence</span>
+      </div>
+      <div class="update-foot">
+        <span>6 sources</span>
+        <span>1 repo</span>
+        <span>6 source signals</span>
+      </div>
+    </div>
+    <span class="update-arrow" aria-hidden="true">&rsaquo;</span>
+  </a>
+        </div>
+      </section>
+    </main>
+    <footer class="wrap site-footer">
+      <span>&copy; 2026 The Git Reporter</span>
+      <a href="/about/">About</a>
+      <a href="/battles/">Diff Derby</a>
+      <a href="/agent-pulse/">Agent Pulse</a>
+      <a href="/feed.xml">RSS</a>
+      <a href="https://x.com/TheGitReporter">Follow on X</a>
+      <a href="/articles.json">Manifest JSON</a>
+      <a href="/repos/">Sources</a>
+    </footer>
+  </div>
+</body>
+</html>

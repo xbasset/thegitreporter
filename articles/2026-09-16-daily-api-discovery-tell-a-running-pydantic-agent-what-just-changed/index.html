@@ -1,0 +1,313 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>API Discovery: Tell a Running Pydantic Agent What Just Changed | The Git Reporter</title>
+  <meta name="description" content="Pydantic AI’s enqueue API lets a worker add context while an agent is running. A September 15 repair makes the closing boundary explicit: the message enters the queue, or the caller gets an error.">
+  <meta name="robots" content="index,follow">
+  <link rel="canonical" href="https://thegitreporter.com/articles/2026-09-16-daily-api-discovery-tell-a-running-pydantic-agent-what-just-changed/">
+  <link rel="alternate" type="application/rss+xml" title="The Git Reporter" href="https://thegitreporter.com/feed.xml">
+  <meta property="og:site_name" content="The Git Reporter">
+  <meta property="og:locale" content="en_US">
+  <meta property="og:title" content="API Discovery: Tell a Running Pydantic Agent What Just Changed | The Git Reporter">
+  <meta property="og:description" content="Pydantic AI’s enqueue API lets a worker add context while an agent is running. A September 15 repair makes the closing boundary explicit: the message enters the queue, or the caller gets an error.">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://thegitreporter.com/articles/2026-09-16-daily-api-discovery-tell-a-running-pydantic-agent-what-just-changed/">
+  <meta property="og:image" content="https://thegitreporter.com/assets/social/2026-09-16-daily-api-discovery-tell-a-running-pydantic-agent-what-just-changed-og.jpg">
+  <meta property="og:image:secure_url" content="https://thegitreporter.com/assets/social/2026-09-16-daily-api-discovery-tell-a-running-pydantic-agent-what-just-changed-og.jpg">
+  <meta property="og:image:type" content="image/jpeg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="A worker result enters a synchronized queue that accepts messages while open or returns an error after closing; a stamp notes it is not a durable inbox.">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:site" content="@TheGitReporter">
+  <meta name="twitter:creator" content="@TheGitReporter">
+  <meta name="twitter:title" content="API Discovery: Tell a Running Pydantic Agent What Just Changed | The Git Reporter">
+  <meta name="twitter:description" content="Pydantic AI’s enqueue API lets a worker add context while an agent is running. A September 15 repair makes the closing boundary explicit: the message enters the queue, or the caller gets an error.">
+  <meta name="twitter:url" content="https://thegitreporter.com/articles/2026-09-16-daily-api-discovery-tell-a-running-pydantic-agent-what-just-changed/">
+  <meta name="twitter:domain" content="thegitreporter.com">
+  <meta name="twitter:image" content="https://thegitreporter.com/assets/social/2026-09-16-daily-api-discovery-tell-a-running-pydantic-agent-what-just-changed-og.jpg">
+  <meta name="twitter:image:alt" content="A worker result enters a synchronized queue that accepts messages while open or returns an error after closing; a stamp notes it is not a durable inbox.">
+  <meta property="article:published_time" content="2026-09-16T12:00:00Z">
+  <meta property="article:modified_time" content="2026-09-16T12:00:00Z">
+  <meta property="article:section" content="Daily Edition">
+  <meta property="article:tag" content="API Discovery">
+  <meta property="article:tag" content="Concurrency">
+  <meta property="article:tag" content="Agent messages">
+  <meta property="article:tag" content="pydantic/pydantic-ai">
+  <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"https://thegitreporter.com/#organization","name":"The Git Reporter","url":"https://thegitreporter.com","logo":{"@type":"ImageObject","url":"https://thegitreporter.com/assets/mark.svg"},"sameAs":["https://x.com/TheGitReporter"]},{"@type":"WebSite","@id":"https://thegitreporter.com/#website","name":"The Git Reporter","url":"https://thegitreporter.com","publisher":{"@id":"https://thegitreporter.com/#organization"}},{"@type":"NewsArticle","mainEntityOfPage":{"@type":"WebPage","@id":"https://thegitreporter.com/articles/2026-09-16-daily-api-discovery-tell-a-running-pydantic-agent-what-just-changed/"},"headline":"API Discovery: Tell a Running Pydantic Agent What Just Changed","description":"Pydantic AI’s enqueue API lets a worker add context while an agent is running. A September 15 repair makes the closing boundary explicit: the message enters the queue, or the caller gets an error.","image":["https://thegitreporter.com/assets/social/2026-09-16-daily-api-discovery-tell-a-running-pydantic-agent-what-just-changed-og.jpg"],"datePublished":"2026-09-16T12:00:00Z","dateModified":"2026-09-16T12:00:00Z","author":[{"@type":"Organization","name":"The Git Reporter","url":"https://thegitreporter.com"}],"publisher":{"@type":"Organization","@id":"https://thegitreporter.com/#organization","name":"The Git Reporter","url":"https://thegitreporter.com","logo":{"@type":"ImageObject","url":"https://thegitreporter.com/assets/mark.svg"},"sameAs":["https://x.com/TheGitReporter"]},"articleSection":"Daily Edition","keywords":"API Discovery, Concurrency, Agent messages, pydantic/pydantic-ai"}]}</script>
+  <link rel="icon" href="/assets/mark.svg">
+  <link rel="stylesheet" href="/assets/site.css?v=2026-09-08-article-feed">
+  <script defer src="/assets/feedback.js?v=2026-09-08-article-feed"></script>
+  <script defer src="/assets/analytics.js?v=2026-09-08-article-feed"></script>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-CH19T7M0T1"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){window.dataLayer.push(arguments);}
+    gtag("js", new Date());
+    gtag("config", "G-CH19T7M0T1");
+  </script>
+</head>
+<body>
+  <div class="site">
+    <header class="site-header" id="top">
+      <div class="wrap utility-row">
+        <a class="icon-link menu-icon" href="/archive/" aria-label="Open edition history"><span></span><span></span><span></span></a>
+        <a class="icon-link archive-icon" href="/archive/" aria-label="Open edition history"></a>
+      </div>
+      <div class="wrap masthead-lockup">
+        <a class="masthead-title" href="/">THE GIT REPORTER</a>
+        <div class="masthead-ornament" aria-hidden="true"></div>
+      </div>
+      <div class="wrap nav-wrap">
+        <nav class="paper-nav" aria-label="Primary navigation">
+    <a class=""  href="/">Stories</a><a class=""  href="/today/">Today</a><a class="active" aria-current="page" href="/archive/">Editions</a><a class=""  href="/about/">About</a><a class=""  href="/battles/">Diff Derby</a><a class=""  href="/agent-pulse/">Agent Pulse</a><a class=""  href="/atlas/">Agent Atlas</a><a class=""  href="/repos/">Repos</a>
+  </nav>
+        <div class="nav-rule"></div>
+      </div>
+    </header>
+    <main class="wrap page-shell article-page">
+      <section class="page-hero story-front">
+        <div class="story-topline">
+          <span>Daily Edition</span>
+          <span>Sources <strong>+6</strong></span>
+        </div>
+        <h1>API Discovery: Tell a Running Pydantic Agent What Just Changed</h1>
+        <p class="summary">Pydantic AI’s enqueue API lets a worker add context while an agent is running. A September 15 repair makes the closing boundary explicit: the message enters the queue, or the caller gets an error.</p>
+        <figure class="story-illustration article-illustration">
+    <img src="/assets/illustrations/2026-09-16-api-discovery-tell-a-running-pydantic-agent-what-just-changed-diagram-punk-v1.png" alt="A worker result enters a synchronized queue that accepts messages while open or returns an error after closing; a stamp notes it is not a durable inbox." loading="lazy" decoding="async">
+    <figcaption><span>Diagram Punk</span>a late result needs an explicit accepted-or-rejected path.</figcaption>
+  </figure>
+        <div class="receipt">
+    <div class="receipt-line">
+      <span class="receipt-icon">repo</span>
+      <span class="receipt-main">pydantic/pydantic-ai</span>
+      <span class="branch-pill">evidence</span>
+    </div>
+    <div class="receipt-line receipt-muted">
+      <span>6 source signals</span>
+      <span>1 repo</span>
+      <span>6 source signals</span>
+    </div>
+    <div class="commit-line">Evidence: 6 source signals / September 16, 2026 / Daily Edition</div>
+  </div>
+        <div class="article-route-row">
+          <a href="/editions/2026-09-16/">Open Edition</a>
+          <a href="#evidence">Evidence below</a>
+        </div>
+      </section>
+      <section class="story-reader">
+        <article class="story-shell story-body">
+          <p>A test job finishes while an agent is drafting the deployment summary. Its result belongs in that conversation—but the agent may be ending at the same moment. Pydantic AI’s <a href="https://github.com/pydantic/pydantic-ai/pull/7758">merged worker-thread repair</a> addresses the awkward interval when submitting a message could appear successful and still lose it.</p>
+<p>This is a Python library API, not a hosted endpoint. Use <code>RunContext.enqueue()</code> inside a tool, or <code>AgentRun.enqueue()</code> when external code drives <code>agent.iter()</code>. The <a href="https://github.com/pydantic/pydantic-ai/blob/95c9890bef0aaee66ca5d46743db18ca470382a5/docs/message-history.md#injecting-messages-mid-run">public reference</a> allows direct calls from synchronous and asynchronous code, including a worker thread. <code>asap</code> supplies context at the next opportunity; <code>when_idle</code> waits until the run would otherwise finish. Neither means interrupting an in-flight model request.</p>
+<h2>A useful example: the late test result</h2>
+<p>Register a callback while an <code>AgentRun</code> is active. Pass it a bounded summary of a test result, treated as data. This adapter returns the enqueue receipt for later correlation and reports a rejected submission to its caller:</p>
+<pre><code>from pydantic_ai.exceptions import UserError
+
+def submit_test_result(agent_run, summary: str):
+    try:
+        receipt = agent_run.enqueue(
+            "Test result (untrusted data):\n" + summary,
+            priority="when_idle",
+        )
+    except UserError:
+        return {"accepted": False, "summary": summary}
+    return {"accepted": True, "receipt": receipt}</code></pre>
+<p>The calling application must handle <code>accepted: False</code>—for example, by saving the result in its existing job record and offering a follow-up. This function does not persist anything. An accepted receipt identifies queue submission; it does not establish that a model understood the result or completed the requested revision.</p>
+<h2>Copy-paste agent instruction</h2>
+<pre><code>Inspect our installed Pydantic AI version for the worker-thread
+queue fix in commit 95c9890be. Build a disposable demonstration
+using AgentRun.enqueue while agent.iter is active. Forward a
+short simulated test result with priority="when_idle" as user
+content, never as a system instruction. Show its enqueue receipt
+and delivered history. Then submit after the run closes: catch
+UserError and preserve that result in the demo's job record.
+Use a test model, cap requests, and do not connect production CI.</code></pre>
+<h2>What to check before integrating it</h2>
+<p>The <a href="https://github.com/pydantic/pydantic-ai/blob/95c9890bef0aaee66ca5d46743db18ca470382a5/pydantic_ai_slim/pydantic_ai/_enqueue.py">new queue</a> puts appending, draining and the final empty-queue close under one lock. Final draining happens after all capability hooks, so a hook can still redirect an apparently finished run. Calls after the run or realtime session ends raise <code>UserError</code>. This prevents a particular silent-loss race; it does not make the queue a durable inbox that survives a process crash.</p>
+<p>We inspected the code, documentation and concurrency tests; we did not execute this adapter or a live model run. At our September 16 check, the latest published release was <a href="https://github.com/pydantic/pydantic-ai/releases/tag/v2.43.0">v2.43.0 from September 12</a>, before this merge. Verify that your build includes the change before relying on its thread and closure behavior. The most useful first test is the rejected late result: it should remain visible somewhere your application actually owns.</p>
+        </article>
+      </section>
+      <section class="evidence-section" id="evidence" aria-labelledby="evidence-title">
+    <div class="evidence-head">
+      <div>
+        <div class="eyebrow">Evidence Trail</div>
+        <h2 id="evidence-title">Receipts below the story</h2>
+        <p>The article above is the public narrative. This section keeps the source trail and limits on the same page.</p>
+      </div>
+      <a class="paper-button" href="/editions/2026-09-16/">Edition</a>
+    </div>
+    <div class="evidence-table evidence-summary">
+      <div class="evidence-line"><span>Date</span><span>September 16, 2026</span></div>
+      <div class="evidence-line"><span>Lane</span><span>Daily Edition</span></div>
+      <div class="evidence-line"><span>Confidence</span><span>87%</span></div>
+      <div class="evidence-line"><span>Sources</span><span>6</span></div>
+      <div class="evidence-line"><span>Repos</span><span>pydantic/pydantic-ai</span></div>
+    </div>
+    <div class="markdown evidence-copy evidence-copy-block">
+      <h2>Primary Evidence</h2>
+<ul>
+<li>Public API source: <a href="https://github.com/pydantic/pydantic-ai/blob/95c9890bef0aaee66ca5d46743db18ca470382a5/pydantic_ai_slim/pydantic_ai/_run_context.py">https://github.com/pydantic/pydantic-ai/blob/95c9890bef0aaee66ca5d46743db18ca470382a5/pydantic_ai_slim/pydantic_ai/_run_context.py</a>
+<ul>
+<li>Shows: Pydantic AI publishes this Python library API. RunContext.enqueue accepts content and priority, returns a receipt and raises UserError without a live accepting queue; worker-thread use is documented.
+</li>
+</ul>
+</li>
+<li>Supporting definition or documentation: <a href="https://github.com/pydantic/pydantic-ai/blob/95c9890bef0aaee66ca5d46743db18ca470382a5/docs/message-history.md#injecting-messages-mid-run">https://github.com/pydantic/pydantic-ai/blob/95c9890bef0aaee66ca5d46743db18ca470382a5/docs/message-history.md#injecting-messages-mid-run</a>
+<ul>
+<li>Shows: Documentation of the priority parameter, AgentRun.enqueue and agent.iter examples, asap and when_idle delivery points, and synchronized final draining for standard runs.
+</li>
+</ul>
+</li>
+<li>Queue implementation: <a href="https://github.com/pydantic/pydantic-ai/blob/95c9890bef0aaee66ca5d46743db18ca470382a5/pydantic_ai_slim/pydantic_ai/_enqueue.py">https://github.com/pydantic/pydantic-ai/blob/95c9890bef0aaee66ca5d46743db18ca470382a5/pydantic_ai_slim/pydantic_ai/_enqueue.py</a>
+<ul>
+<li>Shows: One lock guards append, priority drain and empty-queue closure; closed queues raise UserError.
+</li>
+</ul>
+</li>
+<li>Concurrency tests: <a href="https://github.com/pydantic/pydantic-ai/blob/95c9890bef0aaee66ca5d46743db18ca470382a5/tests/test_capability_pending_messages.py">https://github.com/pydantic/pydantic-ai/blob/95c9890bef0aaee66ca5d46743db18ca470382a5/tests/test_capability_pending_messages.py</a>
+<ul>
+<li>Shows: Controlled worker/drain interleavings, post-exit rejection and hooks that enqueue at an apparent end.
+</li>
+</ul>
+</li>
+<li>Merged repair: <a href="https://github.com/pydantic/pydantic-ai/pull/7758">https://github.com/pydantic/pydantic-ai/pull/7758</a>
+<ul>
+<li>Shows: September 15 merge and compatibility change from silent post-close loss to rejection.
+</li>
+</ul>
+</li>
+<li>Release boundary: <a href="https://github.com/pydantic/pydantic-ai/releases/tag/v2.43.0">https://github.com/pydantic/pydantic-ai/releases/tag/v2.43.0</a>
+<ul>
+<li>Shows: September 12 release predates the repair.
+</li>
+</ul>
+</li>
+</ul>
+<h2>Evidence Limits</h2>
+<ul>
+<li>We inspected tests but did not execute the adapter, full suite or a live model.
+</li>
+<li>The example is an integration fragment; the caller must register it, keep driving the run and preserve rejected results.
+</li>
+<li>Acceptance is not comprehension, successful action or crash-safe persistence.
+</li>
+<li>Verify the installed build contains the September 15 repair.
+</li>
+</ul>
+    </div>
+  </section>
+      <section class="related-edition-section atlas-context-section">
+    <div class="section-title-row">
+      <h2>Atlas Context</h2>
+      <a href="/atlas/">Open Atlas &rsaquo;</a>
+    </div>
+    <div class="updates-list">
+      <a class="article-card" href="/atlas/what-an-agent-can-see/">
+            <div class="article-meta"><span class="lane">Agent Atlas</span><span>Chapter 2</span></div>
+            <h3>The Invisible Prompt</h3>
+            <p>The model acts on an assembled viewport containing visible messages, hidden turn context, path-triggered instructions, memory records, tool schemas, permissions, and inherited state.</p>
+          </a>
+    </div>
+  </section>
+      <section class="reader-feedback"
+    data-tgr-feedback
+    data-article-slug="2026-09-16-daily-api-discovery-tell-a-running-pydantic-agent-what-just-changed"
+    data-article-title="API Discovery: Tell a Running Pydantic Agent What Just Changed"
+    data-article-url="/articles/2026-09-16-daily-api-discovery-tell-a-running-pydantic-agent-what-just-changed/"
+    data-edition-date="2026-09-16"
+    data-lane="Daily Edition"
+    data-tags="API Discovery,Concurrency,Agent messages"
+    data-repos="pydantic/pydantic-ai">
+    <div class="reader-feedback-head">
+      <div>
+        <div class="eyebrow">Letters &amp; Corrections</div>
+        <h2>Send a note to the desk</h2>
+      </div>
+      <p>Corrections, missing context, or a follow-up lead.</p>
+    </div>
+    <form class="feedback-form">
+      <div class="feedback-votes" role="group" aria-label="Choose signal type">
+        <button class="feedback-choice" type="button" data-vote="follow-up" aria-pressed="false">
+          <span aria-hidden="true">+</span>
+          <span>Follow-up</span>
+        </button>
+        <button class="feedback-choice" type="button" data-vote="correction" aria-pressed="false">
+          <span aria-hidden="true">!</span>
+          <span>Correction</span>
+        </button>
+      </div>
+      <label class="feedback-comment">
+        <span>Note for the editor</span>
+        <textarea name="comment" rows="3" maxlength="320" placeholder="What did we miss, or what should we follow next?"></textarea>
+      </label>
+      <div class="feedback-submit-row">
+        <p class="feedback-status" aria-live="polite"></p>
+        <button class="paper-button primary feedback-submit" type="submit">Send to desk</button>
+      </div>
+    </form>
+  </section>
+      <section class="related-edition-section">
+        <div class="section-title-row">
+          <h2>Same Edition</h2>
+          <a href="/editions/2026-09-16/">Open issue &rsaquo;</a>
+        </div>
+        <div class="updates-list">
+          <a class="update-card" href="/articles/2026-09-16-daily-the-cookie-jar-between-two-agent-sessions/">
+    <div class="update-stripe"></div>
+    <div class="update-main">
+      <div class="update-meta">
+        <span>Reported</span>
+        <span class="source-plus">+6</span>
+        <span>Sep 16, 2026</span>
+      </div>
+      <h3>The Cookie Jar Between Two Agent Sessions</h3>
+      <div class="update-receipt">
+        <span>microsoft/agent-framework</span>
+        <span class="branch-pill">evidence</span>
+      </div>
+      <div class="update-foot">
+        <span>6 sources</span>
+        <span>1 repo</span>
+        <span>commit 5d5fa52</span>
+      </div>
+    </div>
+    <span class="update-arrow" aria-hidden="true">&rsaquo;</span>
+  </a><a class="update-card" href="/articles/2026-09-16-daily-builder-work-headlong-puts-its-runtime-out-of-reach/">
+    <div class="update-stripe"></div>
+    <div class="update-main">
+      <div class="update-meta">
+        <span>Reported</span>
+        <span class="source-plus">+9</span>
+        <span>Sep 16, 2026</span>
+      </div>
+      <h3>Builder Work: Headlong Puts Its Runtime Out of Reach</h3>
+      <div class="update-receipt">
+        <span>laude-institute/headlong</span>
+        <span class="branch-pill">evidence</span>
+      </div>
+      <div class="update-foot">
+        <span>9 sources</span>
+        <span>1 repo</span>
+        <span>2 linked commits</span>
+      </div>
+    </div>
+    <span class="update-arrow" aria-hidden="true">&rsaquo;</span>
+  </a>
+        </div>
+      </section>
+    </main>
+    <footer class="wrap site-footer">
+      <span>&copy; 2026 The Git Reporter</span>
+      <a href="/about/">About</a>
+      <a href="/battles/">Diff Derby</a>
+      <a href="/agent-pulse/">Agent Pulse</a>
+      <a href="/feed.xml">RSS</a>
+      <a href="https://x.com/TheGitReporter">Follow on X</a>
+      <a href="/articles.json">Manifest JSON</a>
+      <a href="/repos/">Sources</a>
+    </footer>
+  </div>
+</body>
+</html>
