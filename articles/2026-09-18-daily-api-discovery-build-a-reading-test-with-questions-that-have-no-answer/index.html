@@ -1,0 +1,299 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>API Discovery: Build a Reading Test with Questions That Have No Answer | The Git Reporter</title>
+  <meta name="description" content="Hugging Face’s Dataset Viewer can select labelled unanswerable questions before you download a corpus. Keep those labels out of the model’s input.">
+  <meta name="robots" content="index,follow">
+  <link rel="canonical" href="https://thegitreporter.com/articles/2026-09-18-daily-api-discovery-build-a-reading-test-with-questions-that-have-no-answer/">
+  <link rel="alternate" type="application/rss+xml" title="The Git Reporter" href="https://thegitreporter.com/feed.xml">
+  <meta property="og:site_name" content="The Git Reporter">
+  <meta property="og:locale" content="en_US">
+  <meta property="og:title" content="API Discovery: Build a Reading Test with Questions That Have No Answer | The Git Reporter">
+  <meta property="og:description" content="Hugging Face’s Dataset Viewer can select labelled unanswerable questions before you download a corpus. Keep those labels out of the model’s input.">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://thegitreporter.com/articles/2026-09-18-daily-api-discovery-build-a-reading-test-with-questions-that-have-no-answer/">
+  <meta property="og:image" content="https://thegitreporter.com/assets/social/2026-09-18-daily-api-discovery-build-a-reading-test-with-questions-that-have-no-answer-og.jpg">
+  <meta property="og:image:secure_url" content="https://thegitreporter.com/assets/social/2026-09-18-daily-api-discovery-build-a-reading-test-with-questions-that-have-no-answer-og.jpg">
+  <meta property="og:image:type" content="image/jpeg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="DuoRC questions pass through a no-answer filter into a reading test with labels withheld.">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:site" content="@TheGitReporter">
+  <meta name="twitter:creator" content="@TheGitReporter">
+  <meta name="twitter:title" content="API Discovery: Build a Reading Test with Questions That Have No Answer | The Git Reporter">
+  <meta name="twitter:description" content="Hugging Face’s Dataset Viewer can select labelled unanswerable questions before you download a corpus. Keep those labels out of the model’s input.">
+  <meta name="twitter:url" content="https://thegitreporter.com/articles/2026-09-18-daily-api-discovery-build-a-reading-test-with-questions-that-have-no-answer/">
+  <meta name="twitter:domain" content="thegitreporter.com">
+  <meta name="twitter:image" content="https://thegitreporter.com/assets/social/2026-09-18-daily-api-discovery-build-a-reading-test-with-questions-that-have-no-answer-og.jpg">
+  <meta name="twitter:image:alt" content="DuoRC questions pass through a no-answer filter into a reading test with labels withheld.">
+  <meta property="article:published_time" content="2026-09-18T12:00:00Z">
+  <meta property="article:modified_time" content="2026-09-18T12:00:00Z">
+  <meta property="article:section" content="Daily Edition">
+  <meta property="article:tag" content="API Discovery">
+  <meta property="article:tag" content="Datasets">
+  <meta property="article:tag" content="Evaluation">
+  <meta property="article:tag" content="huggingface/dataset-viewer">
+  <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"https://thegitreporter.com/#organization","name":"The Git Reporter","url":"https://thegitreporter.com","logo":{"@type":"ImageObject","url":"https://thegitreporter.com/assets/mark.svg"},"sameAs":["https://x.com/TheGitReporter"]},{"@type":"WebSite","@id":"https://thegitreporter.com/#website","name":"The Git Reporter","url":"https://thegitreporter.com","publisher":{"@id":"https://thegitreporter.com/#organization"}},{"@type":"NewsArticle","mainEntityOfPage":{"@type":"WebPage","@id":"https://thegitreporter.com/articles/2026-09-18-daily-api-discovery-build-a-reading-test-with-questions-that-have-no-answer/"},"headline":"API Discovery: Build a Reading Test with Questions That Have No Answer","description":"Hugging Face’s Dataset Viewer can select labelled unanswerable questions before you download a corpus. Keep those labels out of the model’s input.","image":["https://thegitreporter.com/assets/social/2026-09-18-daily-api-discovery-build-a-reading-test-with-questions-that-have-no-answer-og.jpg"],"datePublished":"2026-09-18T12:00:00Z","dateModified":"2026-09-18T12:00:00Z","author":[{"@type":"Organization","name":"The Git Reporter","url":"https://thegitreporter.com"}],"publisher":{"@type":"Organization","@id":"https://thegitreporter.com/#organization","name":"The Git Reporter","url":"https://thegitreporter.com","logo":{"@type":"ImageObject","url":"https://thegitreporter.com/assets/mark.svg"},"sameAs":["https://x.com/TheGitReporter"]},"articleSection":"Daily Edition","keywords":"API Discovery, Datasets, Evaluation, huggingface/dataset-viewer"}]}</script>
+  <link rel="icon" href="/assets/mark.svg">
+  <link rel="stylesheet" href="/assets/site.css?v=2026-09-08-article-feed">
+  <script defer src="/assets/feedback.js?v=2026-09-08-article-feed"></script>
+  <script defer src="/assets/analytics.js?v=2026-09-08-article-feed"></script>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-CH19T7M0T1"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){window.dataLayer.push(arguments);}
+    gtag("js", new Date());
+    gtag("config", "G-CH19T7M0T1");
+  </script>
+</head>
+<body>
+  <div class="site">
+    <header class="site-header" id="top">
+      <div class="wrap utility-row">
+        <a class="icon-link menu-icon" href="/archive/" aria-label="Open edition history"><span></span><span></span><span></span></a>
+        <a class="icon-link archive-icon" href="/archive/" aria-label="Open edition history"></a>
+      </div>
+      <div class="wrap masthead-lockup">
+        <a class="masthead-title" href="/">THE GIT REPORTER</a>
+        <div class="masthead-ornament" aria-hidden="true"></div>
+      </div>
+      <div class="wrap nav-wrap">
+        <nav class="paper-nav" aria-label="Primary navigation">
+    <a class=""  href="/">Stories</a><a class=""  href="/today/">Today</a><a class="active" aria-current="page" href="/archive/">Editions</a><a class=""  href="/about/">About</a><a class=""  href="/battles/">Diff Derby</a><a class=""  href="/agent-pulse/">Agent Pulse</a><a class=""  href="/atlas/">Agent Atlas</a><a class=""  href="/repos/">Repos</a>
+  </nav>
+        <div class="nav-rule"></div>
+      </div>
+    </header>
+    <main class="wrap page-shell article-page">
+      <section class="page-hero story-front">
+        <div class="story-topline">
+          <span>Daily Edition</span>
+          <span>Sources <strong>+4</strong></span>
+        </div>
+        <h1>API Discovery: Build a Reading Test with Questions That Have No Answer</h1>
+        <p class="summary">Hugging Face’s Dataset Viewer can select labelled unanswerable questions before you download a corpus. Keep those labels out of the model’s input.</p>
+        <figure class="story-illustration article-illustration">
+    <img src="/assets/illustrations/2026-09-18-api-discovery-build-a-reading-test-with-questions-that-have-no-answer-diagram-punk-v1.png" alt="DuoRC questions pass through a no-answer filter into a reading test with labels withheld." loading="lazy" decoding="async">
+    <figcaption><span>Diagram Punk</span>select labelled examples, then keep the answers out of the model input.</figcaption>
+  </figure>
+        <div class="receipt">
+    <div class="receipt-line">
+      <span class="receipt-icon">repo</span>
+      <span class="receipt-main">huggingface/dataset-viewer</span>
+      <span class="branch-pill">evidence</span>
+    </div>
+    <div class="receipt-line receipt-muted">
+      <span>4 source signals</span>
+      <span>1 repo</span>
+      <span>4 source signals</span>
+    </div>
+    <div class="commit-line">Evidence: 4 source signals / September 18, 2026 / Daily Edition</div>
+  </div>
+        <div class="article-route-row">
+          <a href="/editions/2026-09-18/">Open Edition</a>
+          <a href="#evidence">Evidence below</a>
+        </div>
+      </section>
+      <section class="story-reader">
+        <article class="story-shell story-body">
+          <p>A reading assistant needs practice saying that a supplied passage does not contain the answer. <a href="https://huggingface.co/docs/dataset-viewer/filter">Hugging Face’s Dataset Viewer filter API</a> offers a small way to build that check: request rows whose existing dataset label says no answer is available, alongside answerable controls.</p>
+<h2>A useful example</h2>
+<p><a href="https://huggingface.co/datasets/ibm-research/duorc">IBM Research’s DuoRC</a> includes movie plots, questions, answers and a <code>no_answer</code> field. For a local reading exercise, select a few rows from each label, give the model only the plot and question, then compare its answer or abstention with the held-back labels. Review disagreements manually. This is a small diagnostic, not a representative benchmark or proof that the model resists hallucination.</p>
+<pre><code>curl --get 'https://datasets-server.huggingface.co/filter' \
+  --data-urlencode 'dataset=ibm-research/duorc' \
+  --data-urlencode 'config=SelfRC' \
+  --data-urlencode 'split=train' \
+  --data-urlencode 'where="no_answer"=true' \
+  --data-urlencode 'offset=0' \
+  --data-urlencode 'length=3'</code></pre>
+<p>The endpoint returns row content and feature definitions. It requires a dataset with Parquet exports, and caps a requested page at 100 rows. Use the current dataset name: the older <code>ibm/duorc</code> name in the filter guide returned a rename error during our check.</p>
+<h2>Copyable agent instruction</h2>
+<pre><code>Build a local reading-comprehension fixture using the Hugging Face
+Dataset Viewer /filter endpoint. Use ibm-research/duorc, SelfRC,
+train. Retrieve three rows where "no_answer"=true and three where
+it is false, with length=3 and offset=0. Stop and report HTTP errors;
+do not treat an error response as an empty dataset.
+Check the returned labels and truncated_cells. Save retrieval time,
+query parameters, response revision header if present, row indices
+and question IDs. Keep answers and labels in a separate scoring file.
+Create model inputs containing only plot and question, instructing
+the model to answer from the passage or say there is no answer.
+Do not call a model yet. Show me the fixture and dataset terms first.</code></pre>
+<h2>Test caveat: retrieval, not a model score</h2>
+<p>On September 18, both corrected requests returned HTTP 200 without credentials. The three positive-filter rows had <code>no_answer=true</code> and empty answer lists; the three controls had false labels and nonempty answers. All six reported no truncated cells. We tested retrieval, not model performance or label correctness.</p>
+<p>Access to other datasets may require authorization. Dataset terms still govern reuse, and a small first-page sample is neither random nor stable across dataset changes. Preserve provenance, inspect partial-result metadata and check the <a href="https://github.com/huggingface/dataset-viewer/blob/85cd60b9e16fb9c641e4175cdc3f08d00f8a12d6/docs/source/openapi.json">API definition</a> when adapting the query. The useful outcome is an inspectable fixture you can challenge before spending money on an evaluation.</p>
+        </article>
+      </section>
+      <section class="evidence-section" id="evidence" aria-labelledby="evidence-title">
+    <div class="evidence-head">
+      <div>
+        <div class="eyebrow">Evidence Trail</div>
+        <h2 id="evidence-title">Receipts below the story</h2>
+        <p>The article above is the public narrative. This section keeps the source trail and limits on the same page.</p>
+      </div>
+      <a class="paper-button" href="/editions/2026-09-18/">Edition</a>
+    </div>
+    <div class="evidence-table evidence-summary">
+      <div class="evidence-line"><span>Date</span><span>September 18, 2026</span></div>
+      <div class="evidence-line"><span>Lane</span><span>Daily Edition</span></div>
+      <div class="evidence-line"><span>Confidence</span><span>78%</span></div>
+      <div class="evidence-line"><span>Sources</span><span>4</span></div>
+      <div class="evidence-line"><span>Repos</span><span>huggingface/dataset-viewer</span></div>
+    </div>
+    <div class="markdown evidence-copy evidence-copy-block">
+      <h2>Primary Evidence</h2>
+<ul>
+<li>Public API source: <a href="https://huggingface.co/docs/dataset-viewer/filter">https://huggingface.co/docs/dataset-viewer/filter</a>
+<ul>
+<li>Shows: /filter accepts dataset, config, split, where, offset and length; supported datasets have Parquet exports, and pages are limited to 100 rows.
+</li>
+</ul>
+</li>
+<li>Supporting definition or documentation: <a href="https://github.com/huggingface/dataset-viewer/blob/85cd60b9e16fb9c641e4175cdc3f08d00f8a12d6/docs/source/openapi.json">https://github.com/huggingface/dataset-viewer/blob/85cd60b9e16fb9c641e4175cdc3f08d00f8a12d6/docs/source/openapi.json</a>
+<ul>
+<li>Shows: the public Dataset Viewer API's request and response definitions, suitable for checking an adapted client.
+</li>
+</ul>
+</li>
+<li>Dataset definition: <a href="https://huggingface.co/datasets/ibm-research/duorc">https://huggingface.co/datasets/ibm-research/duorc</a>
+<ul>
+<li>Shows: DuoRC's plot, question, answer and no_answer fields and current dataset namespace; dataset terms remain relevant to reuse.
+</li>
+</ul>
+</li>
+<li>Endpoint regression contract: <a href="https://github.com/huggingface/dataset-viewer/blob/85cd60b9e16fb9c641e4175cdc3f08d00f8a12d6/e2e/tests/test_53_filter.py">https://github.com/huggingface/dataset-viewer/blob/85cd60b9e16fb9c641e4175cdc3f08d00f8a12d6/e2e/tests/test_53_filter.py</a>
+<ul>
+<li>Shows: filter tests assert row content, feature schema, partial-result status, page metadata, predicates, ordering and revision-header checks.
+</li>
+</ul>
+</li>
+</ul>
+<h2>Evidence Limits</h2>
+<ul>
+<li>Six live rows were retrieved on September 18, 2026; no model was evaluated and label correctness was not independently judged.
+</li>
+<li>A first-page sample is not random, representative or guaranteed unchanged later.
+</li>
+<li>Other datasets may require authorization; API access does not override dataset reuse terms.
+</li>
+<li>The older dataset name in the guide returned a rename error. Index-loading failures can also prevent retrieval; an error is not an empty result.
+</li>
+</ul>
+    </div>
+  </section>
+      <section class="related-edition-section atlas-context-section">
+    <div class="section-title-row">
+      <h2>Atlas Context</h2>
+      <a href="/atlas/">Open Atlas &rsaquo;</a>
+    </div>
+    <div class="updates-list">
+      <a class="article-card" href="/atlas/the-architecture-of-trust/">
+            <div class="article-meta"><span class="lane">Agent Atlas</span><span>Chapter 9</span></div>
+            <h3>Trust Must Make Its Case</h3>
+            <p>Trustworthy behavior is not a personality trait or product promise. It is an assurance case built from inspectable policy provenance, durable control state, bounded execution, traceable lineage, recoverable records, and explicit residual risk.</p>
+          </a>
+    </div>
+  </section>
+      <section class="reader-feedback"
+    data-tgr-feedback
+    data-article-slug="2026-09-18-daily-api-discovery-build-a-reading-test-with-questions-that-have-no-answer"
+    data-article-title="API Discovery: Build a Reading Test with Questions That Have No Answer"
+    data-article-url="/articles/2026-09-18-daily-api-discovery-build-a-reading-test-with-questions-that-have-no-answer/"
+    data-edition-date="2026-09-18"
+    data-lane="Daily Edition"
+    data-tags="API Discovery,Datasets,Evaluation"
+    data-repos="huggingface/dataset-viewer">
+    <div class="reader-feedback-head">
+      <div>
+        <div class="eyebrow">Letters &amp; Corrections</div>
+        <h2>Send a note to the desk</h2>
+      </div>
+      <p>Corrections, missing context, or a follow-up lead.</p>
+    </div>
+    <form class="feedback-form">
+      <div class="feedback-votes" role="group" aria-label="Choose signal type">
+        <button class="feedback-choice" type="button" data-vote="follow-up" aria-pressed="false">
+          <span aria-hidden="true">+</span>
+          <span>Follow-up</span>
+        </button>
+        <button class="feedback-choice" type="button" data-vote="correction" aria-pressed="false">
+          <span aria-hidden="true">!</span>
+          <span>Correction</span>
+        </button>
+      </div>
+      <label class="feedback-comment">
+        <span>Note for the editor</span>
+        <textarea name="comment" rows="3" maxlength="320" placeholder="What did we miss, or what should we follow next?"></textarea>
+      </label>
+      <div class="feedback-submit-row">
+        <p class="feedback-status" aria-live="polite"></p>
+        <button class="paper-button primary feedback-submit" type="submit">Send to desk</button>
+      </div>
+    </form>
+  </section>
+      <section class="related-edition-section">
+        <div class="section-title-row">
+          <h2>Same Edition</h2>
+          <a href="/editions/2026-09-18/">Open issue &rsaquo;</a>
+        </div>
+        <div class="updates-list">
+          <a class="update-card" href="/articles/2026-09-18-daily-unsloth-rolled-back-the-sandbox-its-review-had-just-cleared/">
+    <div class="update-stripe"></div>
+    <div class="update-main">
+      <div class="update-meta">
+        <span>Reported</span>
+        <span class="source-plus">+5</span>
+        <span>Sep 18, 2026</span>
+      </div>
+      <h3>Unsloth Rolled Back the Sandbox Its Review Had Just Cleared</h3>
+      <div class="update-receipt">
+        <span>unslothai/unsloth</span>
+        <span class="branch-pill">evidence</span>
+      </div>
+      <div class="update-foot">
+        <span>5 sources</span>
+        <span>1 repo</span>
+        <span>2 linked commits</span>
+      </div>
+    </div>
+    <span class="update-arrow" aria-hidden="true">&rsaquo;</span>
+  </a><a class="update-card" href="/articles/2026-09-18-daily-builder-work-keep-the-failure-useful-and-the-payload-out-of-the-log/">
+    <div class="update-stripe"></div>
+    <div class="update-main">
+      <div class="update-meta">
+        <span>Reported</span>
+        <span class="source-plus">+4</span>
+        <span>Sep 18, 2026</span>
+      </div>
+      <h3>Builder Work: Keep the Failure Useful and the Payload Out of the Log</h3>
+      <div class="update-receipt">
+        <span>langchain-ai/langchain</span>
+        <span class="branch-pill">evidence</span>
+      </div>
+      <div class="update-foot">
+        <span>4 sources</span>
+        <span>1 repo</span>
+        <span>4 source signals</span>
+      </div>
+    </div>
+    <span class="update-arrow" aria-hidden="true">&rsaquo;</span>
+  </a>
+        </div>
+      </section>
+    </main>
+    <footer class="wrap site-footer">
+      <span>&copy; 2026 The Git Reporter</span>
+      <a href="/about/">About</a>
+      <a href="/battles/">Diff Derby</a>
+      <a href="/agent-pulse/">Agent Pulse</a>
+      <a href="/feed.xml">RSS</a>
+      <a href="https://x.com/TheGitReporter">Follow on X</a>
+      <a href="/articles.json">Manifest JSON</a>
+      <a href="/repos/">Sources</a>
+    </footer>
+  </div>
+</body>
+</html>

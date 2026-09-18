@@ -1,0 +1,294 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Unsloth Rolled Back the Sandbox Its Review Had Just Cleared | The Git Reporter</title>
+  <meta name="description" content="A live review reported working Linux and macOS isolation. The next day, the implementation was reverted. Studio’s remaining protections make the consequence more specific than “the sandbox is gone.”">
+  <meta name="robots" content="index,follow">
+  <link rel="canonical" href="https://thegitreporter.com/articles/2026-09-18-daily-unsloth-rolled-back-the-sandbox-its-review-had-just-cleared/">
+  <link rel="alternate" type="application/rss+xml" title="The Git Reporter" href="https://thegitreporter.com/feed.xml">
+  <meta property="og:site_name" content="The Git Reporter">
+  <meta property="og:locale" content="en_US">
+  <meta property="og:title" content="Unsloth Rolled Back the Sandbox Its Review Had Just Cleared | The Git Reporter">
+  <meta property="og:description" content="A live review reported working Linux and macOS isolation. The next day, the implementation was reverted. Studio’s remaining protections make the consequence more specific than “the sandbox is gone.”">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://thegitreporter.com/articles/2026-09-18-daily-unsloth-rolled-back-the-sandbox-its-review-had-just-cleared/">
+  <meta property="og:image" content="https://thegitreporter.com/assets/social/2026-09-18-daily-unsloth-rolled-back-the-sandbox-its-review-had-just-cleared-og.jpg">
+  <meta property="og:image:secure_url" content="https://thegitreporter.com/assets/social/2026-09-18-daily-unsloth-rolled-back-the-sandbox-its-review-had-just-cleared-og.jpg">
+  <meta property="og:image:type" content="image/jpeg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="A review and merge lead to a revert, with separate cards for owner safeguards and managed-account confinement.">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:site" content="@TheGitReporter">
+  <meta name="twitter:creator" content="@TheGitReporter">
+  <meta name="twitter:title" content="Unsloth Rolled Back the Sandbox Its Review Had Just Cleared | The Git Reporter">
+  <meta name="twitter:description" content="A live review reported working Linux and macOS isolation. The next day, the implementation was reverted. Studio’s remaining protections make the consequence more specific than “the sandbox is gone.”">
+  <meta name="twitter:url" content="https://thegitreporter.com/articles/2026-09-18-daily-unsloth-rolled-back-the-sandbox-its-review-had-just-cleared/">
+  <meta name="twitter:domain" content="thegitreporter.com">
+  <meta name="twitter:image" content="https://thegitreporter.com/assets/social/2026-09-18-daily-unsloth-rolled-back-the-sandbox-its-review-had-just-cleared-og.jpg">
+  <meta name="twitter:image:alt" content="A review and merge lead to a revert, with separate cards for owner safeguards and managed-account confinement.">
+  <meta property="article:published_time" content="2026-09-18T12:00:00Z">
+  <meta property="article:modified_time" content="2026-09-18T12:00:00Z">
+  <meta property="article:section" content="Daily Edition">
+  <meta property="article:tag" content="Local agents">
+  <meta property="article:tag" content="Sandboxing">
+  <meta property="article:tag" content="Source reversals">
+  <meta property="article:tag" content="unslothai/unsloth">
+  <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"https://thegitreporter.com/#organization","name":"The Git Reporter","url":"https://thegitreporter.com","logo":{"@type":"ImageObject","url":"https://thegitreporter.com/assets/mark.svg"},"sameAs":["https://x.com/TheGitReporter"]},{"@type":"WebSite","@id":"https://thegitreporter.com/#website","name":"The Git Reporter","url":"https://thegitreporter.com","publisher":{"@id":"https://thegitreporter.com/#organization"}},{"@type":"NewsArticle","mainEntityOfPage":{"@type":"WebPage","@id":"https://thegitreporter.com/articles/2026-09-18-daily-unsloth-rolled-back-the-sandbox-its-review-had-just-cleared/"},"headline":"Unsloth Rolled Back the Sandbox Its Review Had Just Cleared","description":"A live review reported working Linux and macOS isolation. The next day, the implementation was reverted. Studio’s remaining protections make the consequence more specific than “the sandbox is gone.”","image":["https://thegitreporter.com/assets/social/2026-09-18-daily-unsloth-rolled-back-the-sandbox-its-review-had-just-cleared-og.jpg"],"datePublished":"2026-09-18T12:00:00Z","dateModified":"2026-09-18T12:00:00Z","author":[{"@type":"Organization","name":"The Git Reporter","url":"https://thegitreporter.com"}],"publisher":{"@type":"Organization","@id":"https://thegitreporter.com/#organization","name":"The Git Reporter","url":"https://thegitreporter.com","logo":{"@type":"ImageObject","url":"https://thegitreporter.com/assets/mark.svg"},"sameAs":["https://x.com/TheGitReporter"]},"articleSection":"Daily Edition","keywords":"Local agents, Sandboxing, Source reversals, unslothai/unsloth"}]}</script>
+  <link rel="icon" href="/assets/mark.svg">
+  <link rel="stylesheet" href="/assets/site.css?v=2026-09-08-article-feed">
+  <script defer src="/assets/feedback.js?v=2026-09-08-article-feed"></script>
+  <script defer src="/assets/analytics.js?v=2026-09-08-article-feed"></script>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-CH19T7M0T1"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){window.dataLayer.push(arguments);}
+    gtag("js", new Date());
+    gtag("config", "G-CH19T7M0T1");
+  </script>
+</head>
+<body>
+  <div class="site">
+    <header class="site-header" id="top">
+      <div class="wrap utility-row">
+        <a class="icon-link menu-icon" href="/archive/" aria-label="Open edition history"><span></span><span></span><span></span></a>
+        <a class="icon-link archive-icon" href="/archive/" aria-label="Open edition history"></a>
+      </div>
+      <div class="wrap masthead-lockup">
+        <a class="masthead-title" href="/">THE GIT REPORTER</a>
+        <div class="masthead-ornament" aria-hidden="true"></div>
+      </div>
+      <div class="wrap nav-wrap">
+        <nav class="paper-nav" aria-label="Primary navigation">
+    <a class=""  href="/">Stories</a><a class=""  href="/today/">Today</a><a class="active" aria-current="page" href="/archive/">Editions</a><a class=""  href="/about/">About</a><a class=""  href="/battles/">Diff Derby</a><a class=""  href="/agent-pulse/">Agent Pulse</a><a class=""  href="/atlas/">Agent Atlas</a><a class=""  href="/repos/">Repos</a>
+  </nav>
+        <div class="nav-rule"></div>
+      </div>
+    </header>
+    <main class="wrap page-shell article-page">
+      <section class="page-hero story-front">
+        <div class="story-topline">
+          <span>Daily Edition</span>
+          <span>Sources <strong>+5</strong></span>
+        </div>
+        <h1>Unsloth Rolled Back the Sandbox Its Review Had Just Cleared</h1>
+        <p class="summary">A live review reported working Linux and macOS isolation. The next day, the implementation was reverted. Studio’s remaining protections make the consequence more specific than “the sandbox is gone.”</p>
+        <figure class="story-illustration article-illustration">
+    <img src="/assets/illustrations/2026-09-18-unsloth-rolled-back-the-sandbox-its-review-had-just-cleared-diagram-punk-v1.png" alt="A review and merge lead to a revert, with separate cards for owner safeguards and managed-account confinement." loading="lazy" decoding="async">
+    <figcaption><span>Diagram Punk</span>the reverted general isolation layer and the surviving account boundary are different paths.</figcaption>
+  </figure>
+        <div class="receipt">
+    <div class="receipt-line">
+      <span class="receipt-icon">repo</span>
+      <span class="receipt-main">unslothai/unsloth</span>
+      <span class="branch-pill">evidence</span>
+    </div>
+    <div class="receipt-line receipt-muted">
+      <span>5 source signals</span>
+      <span>1 repo</span>
+      <span>2 linked commits</span>
+    </div>
+    <div class="commit-line">Evidence: 2 linked commits / September 18, 2026 / Daily Edition</div>
+  </div>
+        <div class="article-route-row">
+          <a href="/editions/2026-09-18/">Open Edition</a>
+          <a href="#evidence">Evidence below</a>
+        </div>
+      </section>
+      <section class="story-reader">
+        <article class="story-shell story-body">
+          <p>The review sounded ready. On September 16, in UTC, oobabooga, a contributor to unslothai/unsloth, <a href="https://github.com/unslothai/unsloth/pull/10526#issuecomment-5705526669">reported testing Studio’s Python and terminal tools</a> on Linux and macOS: files survived refreshes, downloads worked, cancellation left conversations usable, and the recorded launches used operating-system isolation. Less than a day later, the same public contributor authored <a href="https://github.com/unslothai/unsloth/commit/be34438527e0f6e456e864228eea9ee315e68fd3">the commit reverting that implementation</a>.</p>
+<p>For people letting a local model run code, that reversal matters more than a successful review sitting in a closed pull request. The source now takes a different route when it starts those tools. But reading the deletion as the removal of every protection would miss the most important distinction in the remaining code: an owner’s tool call and a managed account’s tool call do not receive the same confinement.</p>
+<h2>The boundary that landed, then left</h2>
+<p>The <a href="https://github.com/unslothai/unsloth/commit/5a55b9b43f3242287e884a7b7517ac516ff51888">merged change</a> inserted an OS-sandbox planning step around Python and terminal launches. On supported Linux hosts it used bubblewrap; on macOS, Seatbelt. The purpose was to change what the launched process could see and reach, rather than rely only on examining the code or command before running it.</p>
+<p>That difference is concrete. A program can begin in a conversation’s working folder without being prevented from reading elsewhere. A filesystem boundary constrains the process after launch. A command check decides whether a proposed command may start. Both can be useful, but they answer different questions.</p>
+<p>The new layer also accommodated hosts that could not provide isolation. Its automatic mode could keep the existing software safeguards; a required mode could refuse an unisolated launch. This was never a promise that every computer running Studio had acquired the same operating-system boundary. The review also said the effective execution mode was recorded in backend logs, not exposed in the ordinary interface.</p>
+<p>The September 17 revert removes that planner, its platform backends and its launch wiring. In the inspected <a href="https://github.com/unslothai/unsloth/blob/be34438527e0f6e456e864228eea9ee315e68fd3/studio/backend/core/inference/tools.py">Python executor</a>, the path returns to constructing a subprocess with the working directory, an environment selected for the execution mode, and the existing pre-execution setup. The terminal path follows the same pattern. The new <code>tool_execution_mode</code> argument is removed.</p>
+<h2>What the deletion does not delete</h2>
+<p>Studio still checks Python code before ordinary execution and still applies command checks on its terminal path. The executor retains environment handling, credential-path guards, resource limits where supported, and cancellation and timeout machinery. These are meaningful safeguards. They are not evidence that the reverted OS-isolation layer remains active.</p>
+<p>There is another branch worth reading before making a blanket claim. Both executors still call <code>_account_confinement()</code> and apply its result before starting the process. In the separate <a href="https://github.com/unslothai/unsloth/blob/be34438527e0f6e456e864228eea9ee315e68fd3/studio/backend/core/inference/tool_confinement.py">account-confinement module</a>, an owner context returns no account confinement. A managed account can receive a Linux Landlock or macOS sandbox-exec boundary. If that boundary is unavailable, the code refuses execution unless an owner-controlled option permits unconfined tools.</p>
+<p>The practical consequence is therefore concentrated: the general isolation layer added for tool launches has been withdrawn, while the separately implemented managed-account boundary survives. A successful test under one account or on one host cannot settle the behavior of another.</p>
+<h2>A review is evidence about a particular version</h2>
+<p>The public review is useful evidence of the workflows its author exercised. It is not a guarantee that a later source tree preserves them. Nor does the revert establish that those tests were false. Its commit message names the reversal without explaining why it was made; the inspected record does not support assigning a motive or declaring an incident.</p>
+<p>We traced the reverted and remaining launch paths, but did not reproduce kernel confinement or establish which installed releases contain either version. Operators evaluating Studio should identify their build and account mode before relying on the earlier review. A disposable test with harmless canary files can then ask the relevant question: what can this particular tool process actually read?</p>
+<p>The next consequential signal is a replacement boundary—or a clear explanation of the intended owner-mode boundary—backed by tests that distinguish active isolation from software-only fallback. Until then, the receipt to follow is the process launch, not the reassuring conclusion at the end of yesterday’s review.</p>
+        </article>
+      </section>
+      <section class="evidence-section" id="evidence" aria-labelledby="evidence-title">
+    <div class="evidence-head">
+      <div>
+        <div class="eyebrow">Evidence Trail</div>
+        <h2 id="evidence-title">Receipts below the story</h2>
+        <p>The article above is the public narrative. This section keeps the source trail and limits on the same page.</p>
+      </div>
+      <a class="paper-button" href="/editions/2026-09-18/">Edition</a>
+    </div>
+    <div class="evidence-table evidence-summary">
+      <div class="evidence-line"><span>Date</span><span>September 18, 2026</span></div>
+      <div class="evidence-line"><span>Lane</span><span>Daily Edition</span></div>
+      <div class="evidence-line"><span>Confidence</span><span>78%</span></div>
+      <div class="evidence-line"><span>Sources</span><span>5</span></div>
+      <div class="evidence-line"><span>Repos</span><span>unslothai/unsloth</span></div>
+    </div>
+    <div class="markdown evidence-copy evidence-copy-block">
+      <h2>Primary Evidence</h2>
+<ul>
+<li>September 17 isolation revert: <a href="https://github.com/unslothai/unsloth/commit/be34438527e0f6e456e864228eea9ee315e68fd3">https://github.com/unslothai/unsloth/commit/be34438527e0f6e456e864228eea9ee315e68fd3</a>
+<ul>
+<li>Shows: removes the generic sandbox planner, Linux/macOS backends and Python/terminal wiring; its message does not explain the reason.
+</li>
+</ul>
+</li>
+<li>Original merge: <a href="https://github.com/unslothai/unsloth/commit/5a55b9b43f3242287e884a7b7517ac516ff51888">https://github.com/unslothai/unsloth/commit/5a55b9b43f3242287e884a7b7517ac516ff51888</a>
+<ul>
+<li>Shows: the OS-isolation implementation that entered the public source before the revert.
+</li>
+</ul>
+</li>
+<li>Final live review: <a href="https://github.com/unslothai/unsloth/pull/10526#issuecomment-5705526669">https://github.com/unslothai/unsloth/pull/10526#issuecomment-5705526669</a>
+<ul>
+<li>Shows: oobabooga reports Linux and macOS workflow checks, active isolation in tested launches and readiness to merge; the ordinary interface did not display the effective mode.
+</li>
+</ul>
+</li>
+<li>Executor after the revert: <a href="https://github.com/unslothai/unsloth/blob/be34438527e0f6e456e864228eea9ee315e68fd3/studio/backend/core/inference/tools.py">https://github.com/unslothai/unsloth/blob/be34438527e0f6e456e864228eea9ee315e68fd3/studio/backend/core/inference/tools.py</a>
+<ul>
+<li>Shows: Python and terminal code retains checks, environment handling, resource limits, cleanup and _apply_confinement before subprocess launch.
+</li>
+</ul>
+</li>
+<li>Separate managed-account confinement: <a href="https://github.com/unslothai/unsloth/blob/be34438527e0f6e456e864228eea9ee315e68fd3/studio/backend/core/inference/tool_confinement.py">https://github.com/unslothai/unsloth/blob/be34438527e0f6e456e864228eea9ee315e68fd3/studio/backend/core/inference/tool_confinement.py</a>
+<ul>
+<li>Shows: owner context returns None; managed accounts select Linux or macOS confinement, permit an explicit owner-controlled unconfined mode, or refuse when unavailable.
+</li>
+</ul>
+</li>
+</ul>
+<h2>Evidence Limits</h2>
+<ul>
+<li>Source inspection does not establish which installed or released versions contain the change.
+</li>
+<li>We did not rerun kernel enforcement or the contributor's live tests. Their report is attributed evidence.
+</li>
+<li>The revert supplies no reason. No incident, motive, universal bypass or removal of all safeguards is established.
+</li>
+<li>Account mode, host support and configuration change the effective boundary.
+</li>
+</ul>
+    </div>
+  </section>
+      <section class="related-edition-section atlas-context-section">
+    <div class="section-title-row">
+      <h2>Atlas Context</h2>
+      <a href="/atlas/">Open Atlas &rsaquo;</a>
+    </div>
+    <div class="updates-list">
+      <a class="article-card" href="/atlas/friction-safety-and-approval/">
+            <div class="article-meta"><span class="lane">Agent Atlas</span><span>Chapter 7</span></div>
+            <h3>The Approval Trap</h3>
+            <p>Approval is useful only when it catches a meaningful change in authority, explains that change, and keeps the decision attached to the work.</p>
+          </a>
+    </div>
+  </section>
+      <section class="reader-feedback"
+    data-tgr-feedback
+    data-article-slug="2026-09-18-daily-unsloth-rolled-back-the-sandbox-its-review-had-just-cleared"
+    data-article-title="Unsloth Rolled Back the Sandbox Its Review Had Just Cleared"
+    data-article-url="/articles/2026-09-18-daily-unsloth-rolled-back-the-sandbox-its-review-had-just-cleared/"
+    data-edition-date="2026-09-18"
+    data-lane="Daily Edition"
+    data-tags="Local agents,Sandboxing,Source reversals"
+    data-repos="unslothai/unsloth">
+    <div class="reader-feedback-head">
+      <div>
+        <div class="eyebrow">Letters &amp; Corrections</div>
+        <h2>Send a note to the desk</h2>
+      </div>
+      <p>Corrections, missing context, or a follow-up lead.</p>
+    </div>
+    <form class="feedback-form">
+      <div class="feedback-votes" role="group" aria-label="Choose signal type">
+        <button class="feedback-choice" type="button" data-vote="follow-up" aria-pressed="false">
+          <span aria-hidden="true">+</span>
+          <span>Follow-up</span>
+        </button>
+        <button class="feedback-choice" type="button" data-vote="correction" aria-pressed="false">
+          <span aria-hidden="true">!</span>
+          <span>Correction</span>
+        </button>
+      </div>
+      <label class="feedback-comment">
+        <span>Note for the editor</span>
+        <textarea name="comment" rows="3" maxlength="320" placeholder="What did we miss, or what should we follow next?"></textarea>
+      </label>
+      <div class="feedback-submit-row">
+        <p class="feedback-status" aria-live="polite"></p>
+        <button class="paper-button primary feedback-submit" type="submit">Send to desk</button>
+      </div>
+    </form>
+  </section>
+      <section class="related-edition-section">
+        <div class="section-title-row">
+          <h2>Same Edition</h2>
+          <a href="/editions/2026-09-18/">Open issue &rsaquo;</a>
+        </div>
+        <div class="updates-list">
+          <a class="update-card" href="/articles/2026-09-18-daily-api-discovery-build-a-reading-test-with-questions-that-have-no-answer/">
+    <div class="update-stripe"></div>
+    <div class="update-main">
+      <div class="update-meta">
+        <span>Reported</span>
+        <span class="source-plus">+4</span>
+        <span>Sep 18, 2026</span>
+      </div>
+      <h3>API Discovery: Build a Reading Test with Questions That Have No Answer</h3>
+      <div class="update-receipt">
+        <span>huggingface/dataset-viewer</span>
+        <span class="branch-pill">evidence</span>
+      </div>
+      <div class="update-foot">
+        <span>4 sources</span>
+        <span>1 repo</span>
+        <span>4 source signals</span>
+      </div>
+    </div>
+    <span class="update-arrow" aria-hidden="true">&rsaquo;</span>
+  </a><a class="update-card" href="/articles/2026-09-18-daily-builder-work-keep-the-failure-useful-and-the-payload-out-of-the-log/">
+    <div class="update-stripe"></div>
+    <div class="update-main">
+      <div class="update-meta">
+        <span>Reported</span>
+        <span class="source-plus">+4</span>
+        <span>Sep 18, 2026</span>
+      </div>
+      <h3>Builder Work: Keep the Failure Useful and the Payload Out of the Log</h3>
+      <div class="update-receipt">
+        <span>langchain-ai/langchain</span>
+        <span class="branch-pill">evidence</span>
+      </div>
+      <div class="update-foot">
+        <span>4 sources</span>
+        <span>1 repo</span>
+        <span>4 source signals</span>
+      </div>
+    </div>
+    <span class="update-arrow" aria-hidden="true">&rsaquo;</span>
+  </a>
+        </div>
+      </section>
+    </main>
+    <footer class="wrap site-footer">
+      <span>&copy; 2026 The Git Reporter</span>
+      <a href="/about/">About</a>
+      <a href="/battles/">Diff Derby</a>
+      <a href="/agent-pulse/">Agent Pulse</a>
+      <a href="/feed.xml">RSS</a>
+      <a href="https://x.com/TheGitReporter">Follow on X</a>
+      <a href="/articles.json">Manifest JSON</a>
+      <a href="/repos/">Sources</a>
+    </footer>
+  </div>
+</body>
+</html>
