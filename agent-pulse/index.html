@@ -62,9 +62,9 @@
     </header>
     <main class="wrap page-shell agent-pulse-page">
       <section class="page-hero">
-        <div class="eyebrow">Agent Pulse / Daily decision brief / 2026-09-19</div>
-        <h1>Test whether resume replays work or starts it again</h1>
-        <p class="summary">Qwen Code now refuses a stored workflow resume when its journal is missing and makes eligible interrupted runs visible on a later interactive or ACP start.</p>
+        <div class="eyebrow">Agent Pulse / Daily decision brief / 2026-09-20</div>
+        <h1>Check that Stop survives a Gateway restart</h1>
+        <p class="summary">OpenClaw now saves cancellation of a parent waiting for background children before answering Stop, so restart recovery can respect the user's decision.</p>
         <div class="pulse-method-strip">
           <span>One decision-worthy insight.</span>
           <span>Action, effort, and rollback.</span>
@@ -81,9 +81,9 @@
     <div class="pulse-decision-grid">
       <article class="pulse-decision-copy">
         <span class="pulse-disposition">action</span>
-        <h3>Test whether resume replays work or starts it again</h3>
-        <p class="pulse-mechanism"><strong>What changed.</strong> The journal loader distinguishes absence from an empty replay. A separate checkpoint records a registered attempt, and a later eligible process can turn it into failed history with an interruption explanation. Resumption remains explicit.</p>
-        <p><strong>Why it matters.</strong> A supervisor needs to distinguish saved results that can be replayed from agent calls that would execute again under a familiar run identifier.</p>
+        <h3>Check that Stop survives a Gateway restart</h3>
+        <p class="pulse-mechanism"><strong>What changed.</strong> A yielded parent has no active run controller. The session-abort handler captures its identity, cancels descendants and persists the parent's terminal state before responding, with guards against overwriting a newer turn or reset session.</p>
+        <p><strong>Why it matters.</strong> Stopping a child does not by itself tell recovery that its waiting parent must stay stopped. A restart can otherwise revive work the operator cancelled.</p>
       </article>
       <aside class="pulse-coverage-stamp is-complete">
         <span>Claim coverage / complete</span>
@@ -94,11 +94,11 @@
     <div class="pulse-reader-actions">
       <article class="pulse-reader-action">
     <div class="pulse-reader-action-topline">
-      <span>Builders evaluating Qwen Code workflows</span>
+      <span>Operators testing OpenClaw delegated tasks</span>
       <span>20–30 minutes with an existing test installation</span>
     </div>
-    <h3>Exercise a disposable two-step restart</h3>
-    <p>On a build containing both changes, interrupt a harmless two-step workflow after the first recorded result. Restart interactively and inspect interrupted history, then explicitly resume and count live steps. In a separate disposable case remove the journal and confirm refusal. Keep external side effects out of this test.</p>
+    <h3>Test the stop acknowledgment across restart</h3>
+    <p>On a disposable Gateway containing PR #153271, start a harmless parent that yields to a child. Stop it, wait for the response, restart the Gateway and inspect both states. Check any incomplete-cancellation error separately; do not infer every child stopped from the parent's terminal state.</p>
     <small>Reversible</small>
   </article>
     </div>
@@ -108,31 +108,31 @@
       <h2>Evidence Chain</h2>
       <span class="section-kicker">2 direct receipts</span>
     </div>
-    <div class="pulse-insight-receipts"><a class="pulse-insight-receipt" href="https://github.com/QwenLM/qwen-code/commit/e5969d67d4fb995dd0a882e2de53a670d27dd29c">
-    <span>Receipt 1 / QwenLM/qwen-code / commit / Sep 18, 05:19 AM GMT+2</span>
-    <strong>Refuse missing-journal resume</strong>
-    <p>The loader distinguishes missing and unreadable journals; the runner refuses them before dispatch with storage configured.</p>
-  </a><a class="pulse-insight-receipt" href="https://github.com/QwenLM/qwen-code/commit/0417f0d2c7451e1149638ff64b9a09583a445d7b">
-    <span>Receipt 2 / QwenLM/qwen-code / commit / Sep 18, 02:00 AM GMT+2</span>
-    <strong>Discover interrupted workflow runs</strong>
-    <p>Checkpoints let later interactive or ACP startup surface eligible interrupted attempts as failed history.</p>
+    <div class="pulse-insight-receipts"><a class="pulse-insight-receipt" href="https://github.com/openclaw/openclaw/commit/da5079dab210b284adca30826d7b9aa820030438">
+    <span>Receipt 1 / openclaw/openclaw / commit / Sep 20, 03:51 AM GMT+2</span>
+    <strong>Persist the yielded parent's cancellation before the Stop response</strong>
+    <p>The handler and regression cases cover durable parent cancellation, restart, newer-turn and reset races, and partial descendant cancellation.</p>
+  </a><a class="pulse-insight-receipt" href="https://github.com/openclaw/openclaw/pull/153271">
+    <span>Receipt 2 / openclaw/openclaw / pull-request / September 20, 2026</span>
+    <strong>Reported live Stop and restart reproduction</strong>
+    <p>The merged PR reports the original Control UI failure and a repaired model-backed parent/child test across an actual Gateway restart.</p>
   </a></div>
     <div class="pulse-trust-grid">
       <article>
         <span>Confidence / strong</span>
-        <p>The merged runner, journal and checkpoint implementation agree with the added regression cases and public PR descriptions.</p>
+        <p>Merged code and regression cases agree with the contributor's reported live restart reproduction; the call is limited to this source-level mechanism.</p>
       </article>
       <article>
         <span>Limit</span>
-        <p>No live process-kill reproduction or released-package mapping was performed. Best-effort persistence, legacy empty journals and headless discovery limits prevent a blanket recovery guarantee.</p>
+        <p>We did not independently run the live reproduction or map the fix to a released package. Parent cancellation can coexist with an incomplete descendant-cancellation error and does not undo completed external actions.</p>
       </article>
       <article>
         <span>What would change this</span>
-        <p>Revise the call if the installed implementation accepts a missing stored journal and dispatches agents, or a later patch changes the explicit-resume and ownership rules.</p>
+        <p>Revise the call if a build containing the repair acknowledges Stop for the captured yielded parent but restart recovery resumes that same cancelled run, or a later patch changes the persistence contract.</p>
       </article>
     </div>
-    <div class="pulse-watch-next"><strong>Watch next.</strong> A released version and reproducible restart test showing which results replay and which agent calls execute again.</div>
-    <nav class="pulse-related-reading" aria-label="Related Agent Pulse reading"><a href="/articles/2026-09-19-daily-qwen-code-stops-calling-a-rerun-a-resume/">Qwen Code Stops Calling a Rerun a Resume &rsaquo;</a></nav>
+    <div class="pulse-watch-next"><strong>Watch next.</strong> A released build and operator reproduction preserving both the parent's terminal state and honest child-cleanup errors across restart.</div>
+    <nav class="pulse-related-reading" aria-label="Related Agent Pulse reading"><a href="/articles/2026-09-20-daily-openclaw-had-stopped-the-child-restart-brought-back-the-parent/">OpenClaw Had Stopped the Child. Restart Brought Back the Parent. &rsaquo;</a></nav>
   </section>
       <section class="section pulse-secondary-section">
     <div class="section-title-row">
@@ -142,17 +142,17 @@
     <p class="pulse-attention-note">These source movements did not become today&apos;s decision brief. They remain visible so readers can inspect the receipts without mistaking activity for consequence.</p>
     <div class="pulse-secondary-list">
       <article>
-        <div><span>pydantic/pydantic-ai</span><a href="https://github.com/pydantic/pydantic-ai/commit/c93306e055f2f50d99f1b2afacceb562e41b3b6f">Open receipt &rsaquo;</a></div>
-        <h3>pydantic/pydantic-ai</h3>
-        <p>pydantic/pydantic-ai shows 83 public commits this week, up 50 from the prior week and 14.6 above its current 30-day pace, with tools as the strongest subject signal.</p>
-      </article><article>
-        <div><span>openclaw/openclaw</span><a href="https://github.com/openclaw/openclaw/commit/fd018c211d6ba522fdad9c24c965f8c7b5a1c2d2">Open receipt &rsaquo;</a></div>
+        <div><span>openclaw/openclaw</span><a href="https://github.com/openclaw/openclaw/commit/da5079dab210b284adca30826d7b9aa820030438">Open receipt &rsaquo;</a></div>
         <h3>openclaw/openclaw</h3>
-        <p>openclaw/openclaw shows 3,550 public commits this week, down 958 from the prior week and 42.2 below its current 30-day pace, with ux as the strongest subject signal.</p>
+        <p>openclaw/openclaw shows 3,393 public commits this week, down 972 from the prior week and 254 below its current 30-day pace, with ux as the strongest subject signal.</p>
       </article><article>
-        <div><span>Kilo-Org/kilocode</span><a href="https://github.com/Kilo-Org/kilocode/commit/a728fbf8f3d209ee8631d9fa8ea6d0afbe6f919d">Open receipt &rsaquo;</a></div>
-        <h3>Kilo-Org/kilocode</h3>
-        <p>Kilo-Org/kilocode shows 564 public commits this week, up 43 from the prior week and 44.1 above its current 30-day pace, with ux as the strongest subject signal.</p>
+        <div><span>NousResearch/hermes-agent</span><a href="https://github.com/NousResearch/hermes-agent/commit/75e155ab09b9e3fefd2856d199083b6dcbc270a9">Open receipt &rsaquo;</a></div>
+        <h3>NousResearch/hermes-agent</h3>
+        <p>NousResearch/hermes-agent shows 4,070 public commits this week, up 2,068 from the prior week and 827.1 above its current 30-day pace, with tools as the strongest subject signal.</p>
+      </article><article>
+        <div><span>pydantic/pydantic-ai</span><a href="https://github.com/pydantic/pydantic-ai/commit/245f718c628a373f755f0bc26c7b35213febbcf4">Open receipt &rsaquo;</a></div>
+        <h3>pydantic/pydantic-ai</h3>
+        <p>pydantic/pydantic-ai shows 88 public commits this week, up 55 from the prior week and 21.3 above its current 30-day pace, with tools as the strongest subject signal.</p>
       </article>
     </div>
   </section>
@@ -170,70 +170,70 @@
       <span>Tracked</span>
     </div>
     <p>Included in Agent Pulse with a readable, recently refreshed public-git source.</p>
-    <small>Sep 19, 04:30 AM GMT+2</small>
+    <small>Sep 20, 04:30 AM GMT+2</small>
   </div><div class="pulse-health-row is-tracked">
     <div>
       <a href="https://github.com/google-gemini/gemini-cli">google-gemini/gemini-cli</a>
       <span>Tracked</span>
     </div>
     <p>Included in Agent Pulse with a readable, recently refreshed public-git source.</p>
-    <small>Sep 19, 04:30 AM GMT+2</small>
+    <small>Sep 20, 04:30 AM GMT+2</small>
   </div><div class="pulse-health-row is-tracked">
     <div>
       <a href="https://github.com/google-antigravity/antigravity-cli">google-antigravity/antigravity-cli</a>
       <span>Tracked</span>
     </div>
     <p>Included in Agent Pulse with a readable, recently refreshed public-git source.</p>
-    <small>Sep 19, 04:30 AM GMT+2</small>
+    <small>Sep 20, 04:30 AM GMT+2</small>
   </div><div class="pulse-health-row is-tracked">
     <div>
       <a href="https://github.com/earendil-works/pi">earendil-works/pi</a>
       <span>Tracked</span>
     </div>
     <p>Included in Agent Pulse with a readable, recently refreshed public-git source.</p>
-    <small>Sep 19, 04:30 AM GMT+2</small>
+    <small>Sep 20, 04:30 AM GMT+2</small>
   </div><div class="pulse-health-row is-tracked">
     <div>
       <a href="https://github.com/charmbracelet/crush">charmbracelet/crush</a>
       <span>Tracked</span>
     </div>
     <p>Included in Agent Pulse with a readable, recently refreshed public-git source.</p>
-    <small>Sep 19, 04:30 AM GMT+2</small>
+    <small>Sep 20, 04:30 AM GMT+2</small>
   </div><div class="pulse-health-row is-tracked">
     <div>
       <a href="https://github.com/langchain-ai/langchain">langchain-ai/langchain</a>
       <span>Tracked</span>
     </div>
     <p>Included in Agent Pulse with a readable, recently refreshed public-git source.</p>
-    <small>Sep 19, 04:30 AM GMT+2</small>
+    <small>Sep 20, 04:30 AM GMT+2</small>
   </div><div class="pulse-health-row is-tracked">
     <div>
       <a href="https://github.com/NousResearch/hermes-agent">NousResearch/hermes-agent</a>
       <span>Tracked</span>
     </div>
     <p>Included in Agent Pulse with a readable, recently refreshed public-git source.</p>
-    <small>Sep 19, 04:31 AM GMT+2</small>
+    <small>Sep 20, 04:31 AM GMT+2</small>
   </div><div class="pulse-health-row is-tracked">
     <div>
       <a href="https://github.com/openclaw/openclaw">openclaw/openclaw</a>
       <span>Tracked</span>
     </div>
     <p>Included in Agent Pulse with a readable, recently refreshed public-git source.</p>
-    <small>Sep 19, 04:32 AM GMT+2</small>
+    <small>Sep 20, 04:32 AM GMT+2</small>
   </div><div class="pulse-health-row is-tracked">
     <div>
       <a href="https://github.com/anomalyco/opencode">anomalyco/opencode</a>
       <span>Tracked</span>
     </div>
     <p>Included in Agent Pulse with a readable, recently refreshed public-git source.</p>
-    <small>Sep 19, 04:42 AM GMT+2</small>
+    <small>Sep 20, 04:43 AM GMT+2</small>
   </div><div class="pulse-health-row is-tracked">
     <div>
       <a href="https://github.com/different-ai/openwork">different-ai/openwork</a>
       <span>Tracked</span>
     </div>
     <p>Included in Agent Pulse with a readable, recently refreshed public-git source.</p>
-    <small>Sep 19, 04:42 AM GMT+2</small>
+    <small>Sep 20, 04:43 AM GMT+2</small>
   </div><div class="pulse-health-row is-excluded-with-reason">
     <div>
       <a href="https://github.com/git/git">git/git</a>
@@ -247,14 +247,14 @@
       <span>Tracked</span>
     </div>
     <p>Included in Agent Pulse with a readable, recently refreshed public-git source.</p>
-    <small>Sep 19, 04:42 AM GMT+2</small>
+    <small>Sep 20, 04:43 AM GMT+2</small>
   </div><div class="pulse-health-row is-tracked">
     <div>
       <a href="https://github.com/alejandro-ao/tau">alejandro-ao/tau</a>
       <span>Tracked</span>
     </div>
     <p>Included in Agent Pulse with a readable, recently refreshed public-git source.</p>
-    <small>Sep 19, 04:42 AM GMT+2</small>
+    <small>Sep 20, 04:43 AM GMT+2</small>
   </div><div class="pulse-health-row is-excluded-with-reason">
     <div>
       <a href="https://github.com/betagouv/api.gouv.fr">betagouv/api.gouv.fr</a>
@@ -275,119 +275,119 @@
       <span>Tracked</span>
     </div>
     <p>Included in Agent Pulse with a readable, recently refreshed public-git source.</p>
-    <small>Sep 19, 04:43 AM GMT+2</small>
+    <small>Sep 20, 04:43 AM GMT+2</small>
   </div><div class="pulse-health-row is-tracked">
     <div>
       <a href="https://github.com/openinterpreter/openinterpreter">openinterpreter/openinterpreter</a>
       <span>Tracked</span>
     </div>
     <p>Included in Agent Pulse with a readable, recently refreshed public-git source.</p>
-    <small>Sep 19, 04:43 AM GMT+2</small>
+    <small>Sep 20, 04:43 AM GMT+2</small>
   </div><div class="pulse-health-row is-tracked">
     <div>
       <a href="https://github.com/Kilo-Org/kilocode">Kilo-Org/kilocode</a>
       <span>Tracked</span>
     </div>
     <p>Included in Agent Pulse with a readable, recently refreshed public-git source.</p>
-    <small>Sep 19, 04:43 AM GMT+2</small>
+    <small>Sep 20, 04:44 AM GMT+2</small>
   </div><div class="pulse-health-row is-tracked">
     <div>
       <a href="https://github.com/QwenLM/qwen-code">QwenLM/qwen-code</a>
       <span>Tracked</span>
     </div>
     <p>Included in Agent Pulse with a readable, recently refreshed public-git source.</p>
-    <small>Sep 19, 04:44 AM GMT+2</small>
+    <small>Sep 20, 04:44 AM GMT+2</small>
   </div><div class="pulse-health-row is-tracked">
     <div>
       <a href="https://github.com/mastra-ai/mastra">mastra-ai/mastra</a>
       <span>Tracked</span>
     </div>
     <p>Included in Agent Pulse with a readable, recently refreshed public-git source.</p>
-    <small>Sep 19, 04:44 AM GMT+2</small>
+    <small>Sep 20, 04:45 AM GMT+2</small>
   </div><div class="pulse-health-row is-tracked">
     <div>
       <a href="https://github.com/cline/cline">cline/cline</a>
       <span>Tracked</span>
     </div>
     <p>Included in Agent Pulse with a readable, recently refreshed public-git source.</p>
-    <small>Sep 19, 04:45 AM GMT+2</small>
+    <small>Sep 20, 04:45 AM GMT+2</small>
   </div><div class="pulse-health-row is-tracked">
     <div>
       <a href="https://github.com/aaif-goose/goose">aaif-goose/goose</a>
       <span>Tracked</span>
     </div>
     <p>Included in Agent Pulse with a readable, recently refreshed public-git source.</p>
-    <small>Sep 19, 04:45 AM GMT+2</small>
+    <small>Sep 20, 04:45 AM GMT+2</small>
   </div><div class="pulse-health-row is-tracked">
     <div>
       <a href="https://github.com/pydantic/pydantic-ai">pydantic/pydantic-ai</a>
       <span>Tracked</span>
     </div>
     <p>Included in Agent Pulse with a readable, recently refreshed public-git source.</p>
-    <small>Sep 19, 04:45 AM GMT+2</small>
+    <small>Sep 20, 04:45 AM GMT+2</small>
   </div><div class="pulse-health-row is-tracked">
     <div>
       <a href="https://github.com/microsoft/agent-framework">microsoft/agent-framework</a>
       <span>Tracked</span>
     </div>
     <p>Included in Agent Pulse with a readable, recently refreshed public-git source.</p>
-    <small>Sep 19, 04:46 AM GMT+2</small>
+    <small>Sep 20, 04:46 AM GMT+2</small>
   </div><div class="pulse-health-row is-tracked">
     <div>
       <a href="https://github.com/OpenHands/OpenHands">OpenHands/OpenHands</a>
       <span>Tracked</span>
     </div>
     <p>Included in Agent Pulse with a readable, recently refreshed public-git source.</p>
-    <small>Sep 19, 04:46 AM GMT+2</small>
+    <small>Sep 20, 04:46 AM GMT+2</small>
   </div><div class="pulse-health-row is-tracked">
     <div>
       <a href="https://github.com/browser-use/browser-use">browser-use/browser-use</a>
       <span>Tracked</span>
     </div>
     <p>Included in Agent Pulse with a readable, recently refreshed public-git source.</p>
-    <small>Sep 19, 04:46 AM GMT+2</small>
+    <small>Sep 20, 04:46 AM GMT+2</small>
   </div><div class="pulse-health-row is-tracked">
     <div>
       <a href="https://github.com/crewAIInc/crewAI">crewAIInc/crewAI</a>
       <span>Tracked</span>
     </div>
     <p>Included in Agent Pulse with a readable, recently refreshed public-git source.</p>
-    <small>Sep 19, 04:46 AM GMT+2</small>
+    <small>Sep 20, 04:46 AM GMT+2</small>
   </div><div class="pulse-health-row is-tracked">
     <div>
       <a href="https://github.com/yc-software/qm">yc-software/qm</a>
       <span>Tracked</span>
     </div>
     <p>Included in Agent Pulse with a readable, recently refreshed public-git source.</p>
-    <small>Sep 19, 04:47 AM GMT+2</small>
+    <small>Sep 20, 04:46 AM GMT+2</small>
   </div><div class="pulse-health-row is-tracked">
     <div>
       <a href="https://github.com/braintrustdata/agentbehavior">braintrustdata/agentbehavior</a>
       <span>Tracked</span>
     </div>
     <p>Included in Agent Pulse with a readable, recently refreshed public-git source.</p>
-    <small>Sep 19, 04:47 AM GMT+2</small>
+    <small>Sep 20, 04:46 AM GMT+2</small>
   </div><div class="pulse-health-row is-tracked">
     <div>
       <a href="https://github.com/unslothai/unsloth">unslothai/unsloth</a>
       <span>Tracked</span>
     </div>
     <p>Included in Agent Pulse with a readable, recently refreshed public-git source.</p>
-    <small>Sep 19, 04:47 AM GMT+2</small>
+    <small>Sep 20, 04:46 AM GMT+2</small>
   </div><div class="pulse-health-row is-tracked">
     <div>
       <a href="https://github.com/laude-institute/headlong">laude-institute/headlong</a>
       <span>Tracked</span>
     </div>
     <p>Included in Agent Pulse with a readable, recently refreshed public-git source.</p>
-    <small>Sep 19, 04:48 AM GMT+2</small>
+    <small>Sep 20, 04:47 AM GMT+2</small>
   </div><div class="pulse-health-row is-tracked">
     <div>
       <a href="https://github.com/andrewyng/openworker">andrewyng/openworker</a>
       <span>Tracked</span>
     </div>
     <p>Included in Agent Pulse with a readable, recently refreshed public-git source.</p>
-    <small>Sep 19, 04:48 AM GMT+2</small>
+    <small>Sep 20, 04:47 AM GMT+2</small>
   </div><div class="pulse-health-row is-excluded-with-reason">
     <div>
       <a href="https://github.com/huggingface/dataset-viewer">huggingface/dataset-viewer</a>
@@ -425,40 +425,19 @@
         <a class="pulse-project" href="https://github.com/NousResearch/hermes-agent">NousResearch/hermes-agent</a>
         <span>Agent framework / Tracked</span>
       </div>
-      <strong>3,554 <small>7d commits</small></strong>
+      <strong>4,070 <small>7d commits</small></strong>
     </div>
-    <p>NousResearch/hermes-agent shows 3,554 public commits this week, up 1,713 from the prior week and 482.9 above its current 30-day pace, with tools as the strongest subject signal.</p>
+    <p>NousResearch/hermes-agent shows 4,070 public commits this week, up 2,068 from the prior week and 827.1 above its current 30-day pace, with tools as the strongest subject signal.</p>
     <div class="pulse-ledger-facts">
-      <span>30d 13,162</span>
-      <span>vs prior 7d +1,713</span>
-      <span>contributors 987</span>
-      <span>coverage 42</span>
+      <span>30d 13,898</span>
+      <span>vs prior 7d +2,068</span>
+      <span>contributors 1,053</span>
+      <span>coverage 43</span>
       <span>confidence High</span>
     </div>
     <div class="pulse-ledger-links">
-      <span>Receipts <a href="https://github.com/NousResearch/hermes-agent/commit/1f3cb8bee1bb9d84cfe82e7a66cd94c37afed516">1f3cb8bee1</a> <a href="https://github.com/NousResearch/hermes-agent/commit/ffc514d862824776dce2e94978fb30309ebd759b">ffc514d862</a> <a href="https://github.com/NousResearch/hermes-agent/commit/da8f0e55753ff4eb6ca2a8011ac8dd4a47d29606">da8f0e5575</a></span>
-      <a href="/articles/2026-09-08-daily-a-child-agent-cant-promise-its-watcher-to-the-parent/">Latest coverage: A Child Agent Can't Promise Its Watcher to the Parent</a>
-    </div>
-    <p class="pulse-ledger-watch">Watch whether this burst becomes a sustained baseline or a one-week spike.</p>
-  </article><article class="pulse-ledger-row">
-    <div class="pulse-ledger-heading">
-      <div>
-        <a class="pulse-project" href="https://github.com/unslothai/unsloth">unslothai/unsloth</a>
-        <span>Local model infrastructure / Tracked</span>
-      </div>
-      <strong>378 <small>7d commits</small></strong>
-    </div>
-    <p>unslothai/unsloth shows 378 public commits this week, up 106 from the prior week and 95.2 above its current 30-day pace, with tools as the strongest subject signal.</p>
-    <div class="pulse-ledger-facts">
-      <span>30d 1,212</span>
-      <span>vs prior 7d +106</span>
-      <span>contributors 86</span>
-      <span>coverage 2</span>
-      <span>confidence High</span>
-    </div>
-    <div class="pulse-ledger-links">
-      <span>Receipts <a href="https://github.com/unslothai/unsloth/commit/aa9cdf0ff56408ab79362c155ccd21a15660b965">aa9cdf0ff</a> <a href="https://github.com/unslothai/unsloth/commit/992849427e930b505b7e1293e513b5448fb17fdb">992849427</a> <a href="https://github.com/unslothai/unsloth/commit/1be9dc0ad9dba23876dfbc1564cbe55efa20d27f">1be9dc0ad</a></span>
-      <a href="/articles/2026-09-18-daily-unsloth-rolled-back-the-sandbox-its-review-had-just-cleared/">Latest coverage: Unsloth Rolled Back the Sandbox Its Review Had Just Cleared</a>
+      <span>Receipts <a href="https://github.com/NousResearch/hermes-agent/commit/4d14aaf47788348aef47b459a4323c4f8644b9ed">4d14aaf477</a> <a href="https://github.com/NousResearch/hermes-agent/commit/0f2c27152d5f62bd9920cf2d20e0eba6b810ef6f">0f2c27152d</a> <a href="https://github.com/NousResearch/hermes-agent/commit/913d409832a82748efa438e31b6c96412511bd4c">913d409832</a></span>
+      <a href="/articles/2026-09-20-daily-openclaw-had-stopped-the-child-restart-brought-back-the-parent/">Latest coverage: OpenClaw Had Stopped the Child. Restart Brought Back the Parent.</a>
     </div>
     <p class="pulse-ledger-watch">Watch whether this burst becomes a sustained baseline or a one-week spike.</p>
   </article><article class="pulse-ledger-row">
@@ -467,19 +446,40 @@
         <a class="pulse-project" href="https://github.com/yc-software/qm">yc-software/qm</a>
         <span>Organization agent runtime / Tracked</span>
       </div>
-      <strong>189 <small>7d commits</small></strong>
+      <strong>194 <small>7d commits</small></strong>
     </div>
-    <p>yc-software/qm shows 189 public commits this week, up 100 from the prior week and 98.9 above its current 30-day pace, with ux as the strongest subject signal.</p>
+    <p>yc-software/qm shows 194 public commits this week, up 104 from the prior week and 103.9 above its current 30-day pace, with ux as the strongest subject signal.</p>
     <div class="pulse-ledger-facts">
       <span>30d 386</span>
-      <span>vs prior 7d +100</span>
-      <span>contributors 21</span>
+      <span>vs prior 7d +104</span>
+      <span>contributors 20</span>
       <span>coverage 2</span>
       <span>confidence High</span>
     </div>
     <div class="pulse-ledger-links">
-      <span>Receipts <a href="https://github.com/yc-software/qm/commit/acc57dd5ea9b1aca9817df0f521e2ec584cb4cf0">acc57dd5</a> <a href="https://github.com/yc-software/qm/commit/40949fc474007e5e23c8805b42671f5b80570ad9">40949fc4</a> <a href="https://github.com/yc-software/qm/commit/5a5cb51260b13000dda5d890d40c877c88d87555">5a5cb512</a></span>
+      <span>Receipts <a href="https://github.com/yc-software/qm/commit/8ac53f7a523337266f5628406d30a23b71c2a2ff">8ac53f7a</a> <a href="https://github.com/yc-software/qm/commit/62e07918a57260371fed62dc1f2bfb812bab9c11">62e07918</a> <a href="https://github.com/yc-software/qm/commit/ee37609c4f7ffe2e8a56423b35f96f4be20eceb5">ee37609c</a></span>
       <a href="/articles/2026-08-31-daily-the-company-can-host-the-agent-the-ai-account-can-still-be-yours/">Latest coverage: The Company Can Host the Agent. The AI Account Can Still Be Yours.</a>
+    </div>
+    <p class="pulse-ledger-watch">Watch whether this burst becomes a sustained baseline or a one-week spike.</p>
+  </article><article class="pulse-ledger-row">
+    <div class="pulse-ledger-heading">
+      <div>
+        <a class="pulse-project" href="https://github.com/unslothai/unsloth">unslothai/unsloth</a>
+        <span>Local model infrastructure / Tracked</span>
+      </div>
+      <strong>377 <small>7d commits</small></strong>
+    </div>
+    <p>unslothai/unsloth shows 377 public commits this week, up 102 from the prior week and 93.7 above its current 30-day pace, with tools as the strongest subject signal.</p>
+    <div class="pulse-ledger-facts">
+      <span>30d 1,214</span>
+      <span>vs prior 7d +102</span>
+      <span>contributors 84</span>
+      <span>coverage 2</span>
+      <span>confidence High</span>
+    </div>
+    <div class="pulse-ledger-links">
+      <span>Receipts <a href="https://github.com/unslothai/unsloth/commit/353e38d41f680e75efc09f91609ab6b9ca74966d">353e38d41</a> <a href="https://github.com/unslothai/unsloth/commit/04c9951b4d371860491a6a0b1098f57e90eff270">04c9951b4</a> <a href="https://github.com/unslothai/unsloth/commit/f43cc05ffc1d95cec92a29343a3e20e0a1654a4f">f43cc05ff</a></span>
+      <a href="/articles/2026-09-18-daily-unsloth-rolled-back-the-sandbox-its-review-had-just-cleared/">Latest coverage: Unsloth Rolled Back the Sandbox Its Review Had Just Cleared</a>
     </div>
     <p class="pulse-ledger-watch">Watch whether this burst becomes a sustained baseline or a one-week spike.</p>
   </article><article class="pulse-ledger-row">
@@ -488,19 +488,19 @@
         <a class="pulse-project" href="https://github.com/mastra-ai/mastra">mastra-ai/mastra</a>
         <span>Agent framework / Tracked</span>
       </div>
-      <strong>379 <small>7d commits</small></strong>
+      <strong>399 <small>7d commits</small></strong>
     </div>
-    <p>mastra-ai/mastra shows 379 public commits this week, up 52 from the prior week and 64.2 above its current 30-day pace, with ux as the strongest subject signal.</p>
+    <p>mastra-ai/mastra shows 399 public commits this week, up 78 from the prior week and 84.2 above its current 30-day pace, with ux as the strongest subject signal.</p>
     <div class="pulse-ledger-facts">
       <span>30d 1,349</span>
-      <span>vs prior 7d +52</span>
+      <span>vs prior 7d +78</span>
       <span>contributors 72</span>
-      <span>coverage 9</span>
+      <span>coverage 10</span>
       <span>confidence High</span>
     </div>
     <div class="pulse-ledger-links">
-      <span>Receipts <a href="https://github.com/mastra-ai/mastra/commit/8639bce6d032cabd65d402e870898c1f8279d0a2">8639bce6d0</a> <a href="https://github.com/mastra-ai/mastra/commit/3c867260be59d3cd8337bc0af9a76bac517fe16f">3c867260be</a> <a href="https://github.com/mastra-ai/mastra/commit/e741c53699fda4dec9ee12fc42837ceca75dbd2f">e741c53699</a></span>
-      <a href="/articles/2026-09-17-daily-api-discovery-keep-the-query-handle-not-the-connection/">Latest coverage: API Discovery: Keep the Query Handle, Not the Connection</a>
+      <span>Receipts <a href="https://github.com/mastra-ai/mastra/commit/a2d089b2d41ca2b46d02fe4da29a189fd2a68f00">a2d089b2d4</a> <a href="https://github.com/mastra-ai/mastra/commit/2cb5319fc72ef20e7feebfa1e786ff78956aae84">2cb5319fc7</a> <a href="https://github.com/mastra-ai/mastra/commit/febb4d0d47be0e53cb3cd1f1b8af447621dcd2f8">febb4d0d47</a></span>
+      <a href="/articles/2026-09-20-daily-builder-work-no-score-is-a-result-worth-preserving/">Latest coverage: Builder Work: No Score Is a Result Worth Preserving</a>
     </div>
     <p class="pulse-ledger-watch">Watch whether this burst becomes a sustained baseline or a one-week spike.</p>
   </article><article class="pulse-ledger-row">
@@ -509,19 +509,40 @@
         <a class="pulse-project" href="https://github.com/Kilo-Org/kilocode">Kilo-Org/kilocode</a>
         <span>Coding agent platform / Tracked</span>
       </div>
-      <strong>564 <small>7d commits</small></strong>
+      <strong>582 <small>7d commits</small></strong>
     </div>
-    <p>Kilo-Org/kilocode shows 564 public commits this week, up 43 from the prior week and 44.1 above its current 30-day pace, with ux as the strongest subject signal.</p>
+    <p>Kilo-Org/kilocode shows 582 public commits this week, up 77 from the prior week and 69.4 above its current 30-day pace, with ux as the strongest subject signal.</p>
     <div class="pulse-ledger-facts">
-      <span>30d 2,228</span>
-      <span>vs prior 7d +43</span>
-      <span>contributors 39</span>
+      <span>30d 2,197</span>
+      <span>vs prior 7d +77</span>
+      <span>contributors 37</span>
       <span>coverage 5</span>
       <span>confidence High</span>
     </div>
     <div class="pulse-ledger-links">
-      <span>Receipts <a href="https://github.com/Kilo-Org/kilocode/commit/a85ae672a318b7ce4a6c5b61fd3a542e7d61b9b4">a85ae672a3</a> <a href="https://github.com/Kilo-Org/kilocode/commit/02e8d34472941d8dda1fef2ac78dc68769337d80">02e8d34472</a> <a href="https://github.com/Kilo-Org/kilocode/commit/5857df9d0189f121748feaf87e2ee0cae4c7041c">5857df9d01</a></span>
+      <span>Receipts <a href="https://github.com/Kilo-Org/kilocode/commit/010f511d731df2649bb3f9b660e309ea7e869ac8">010f511d73</a> <a href="https://github.com/Kilo-Org/kilocode/commit/77ad027f056c919a780a9c7069e296ace656091d">77ad027f05</a> <a href="https://github.com/Kilo-Org/kilocode/commit/cfe8a593f0ebcd5b6a24a4d5175f1e11c3dc9ebf">cfe8a593f0</a></span>
       <a href="/articles/2026-09-15-daily-the-fine-print-behind-kilo-s-swarm-default/">Latest coverage: The Fine Print Behind Kilo’s Swarm Default</a>
+    </div>
+    <p class="pulse-ledger-watch">Watch whether this burst becomes a sustained baseline or a one-week spike.</p>
+  </article><article class="pulse-ledger-row">
+    <div class="pulse-ledger-heading">
+      <div>
+        <a class="pulse-project" href="https://github.com/openai/codex">openai/codex</a>
+        <span>Coding agent / Tracked</span>
+      </div>
+      <strong>347 <small>7d commits</small></strong>
+    </div>
+    <p>openai/codex shows 347 public commits this week, down 9 from the prior week and 29.9 above its current 30-day pace, with tools as the strongest subject signal.</p>
+    <div class="pulse-ledger-facts">
+      <span>30d 1,359</span>
+      <span>vs prior 7d -9</span>
+      <span>contributors 142</span>
+      <span>coverage 86</span>
+      <span>confidence High</span>
+    </div>
+    <div class="pulse-ledger-links">
+      <span>Receipts <a href="https://github.com/openai/codex/commit/551844b3efc426c563128b0e011e36dad95a865b">551844b3ef</a> <a href="https://github.com/openai/codex/commit/df7f717c856e0634b04a12f7d4fc9e8ecb3e65be">df7f717c85</a> <a href="https://github.com/openai/codex/commit/f1feda2299990ab3678e715fe9d39d75a02f0491">f1feda2299</a></span>
+      <a href="/articles/2026-09-03-daily-before-codex-trusts-a-workspace-it-stops-letting-the-workspace-choose-its-helpers/">Latest coverage: Before Codex Trusts a Workspace, It Stops Letting the Workspace Choose Its Helpers</a>
     </div>
     <p class="pulse-ledger-watch">Watch whether this burst becomes a sustained baseline or a one-week spike.</p>
   </article><article class="pulse-ledger-row">
@@ -530,40 +551,19 @@
         <a class="pulse-project" href="https://github.com/openclaw/openclaw">openclaw/openclaw</a>
         <span>Agent runtime / Tracked</span>
       </div>
-      <strong>3,550 <small>7d commits</small></strong>
+      <strong>3,393 <small>7d commits</small></strong>
     </div>
-    <p>openclaw/openclaw shows 3,550 public commits this week, down 958 from the prior week and 42.2 below its current 30-day pace, with ux as the strongest subject signal.</p>
+    <p>openclaw/openclaw shows 3,393 public commits this week, down 972 from the prior week and 254 below its current 30-day pace, with ux as the strongest subject signal.</p>
     <div class="pulse-ledger-facts">
-      <span>30d 15,395</span>
-      <span>vs prior 7d -958</span>
-      <span>contributors 471</span>
-      <span>coverage 43</span>
+      <span>30d 15,630</span>
+      <span>vs prior 7d -972</span>
+      <span>contributors 474</span>
+      <span>coverage 44</span>
       <span>confidence High</span>
     </div>
     <div class="pulse-ledger-links">
-      <span>Receipts <a href="https://github.com/openclaw/openclaw/commit/9ef5f7c9500b48a367011bf9de4af579fd88bc22">9ef5f7c9500</a> <a href="https://github.com/openclaw/openclaw/commit/48f3d97de95f9cde2765204b1ecd56bb727afce4">48f3d97de95</a> <a href="https://github.com/openclaw/openclaw/commit/bd398c9b9259adff9131332ebff7e2bd41450a43">bd398c9b925</a></span>
-      <a href="/articles/2026-08-26-daily-a-shared-terminal-is-not-shared-permission/">Latest coverage: A Shared Terminal Is Not Shared Permission</a>
-    </div>
-    <p class="pulse-ledger-watch">Watch whether the cooldown is a pause after heavy work or the start of a quieter cycle.</p>
-  </article><article class="pulse-ledger-row">
-    <div class="pulse-ledger-heading">
-      <div>
-        <a class="pulse-project" href="https://github.com/openai/codex">openai/codex</a>
-        <span>Coding agent / Tracked</span>
-      </div>
-      <strong>335 <small>7d commits</small></strong>
-    </div>
-    <p>openai/codex shows 335 public commits this week, down 27 from the prior week and 10.4 above its current 30-day pace, with tools as the strongest subject signal.</p>
-    <div class="pulse-ledger-facts">
-      <span>30d 1,391</span>
-      <span>vs prior 7d -27</span>
-      <span>contributors 145</span>
-      <span>coverage 86</span>
-      <span>confidence High</span>
-    </div>
-    <div class="pulse-ledger-links">
-      <span>Receipts <a href="https://github.com/openai/codex/commit/6b78e825aeac93fa361c976a718f5cf0595840ad">6b78e825ae</a> <a href="https://github.com/openai/codex/commit/29a57861e31aecb97c7d2d8420bc3ed234d58e8c">29a57861e3</a> <a href="https://github.com/openai/codex/commit/e24ac448b37bc6a29e6f2ce8dad61ddaaabf09dc">e24ac448b3</a></span>
-      <a href="/articles/2026-09-03-daily-before-codex-trusts-a-workspace-it-stops-letting-the-workspace-choose-its-helpers/">Latest coverage: Before Codex Trusts a Workspace, It Stops Letting the Workspace Choose Its Helpers</a>
+      <span>Receipts <a href="https://github.com/openclaw/openclaw/commit/42dcea5312ff126a7df19d94384ec8bc0d8a2b46">42dcea5312f</a> <a href="https://github.com/openclaw/openclaw/commit/f0663f5a584a008a417fe5da2214df36229c59f8">f0663f5a584</a> <a href="https://github.com/openclaw/openclaw/commit/d621e71693b15268e092727165dc7e203daa10e6">d621e71693b</a></span>
+      <a href="/articles/2026-09-20-daily-openclaw-had-stopped-the-child-restart-brought-back-the-parent/">Latest coverage: OpenClaw Had Stopped the Child. Restart Brought Back the Parent.</a>
     </div>
     <p class="pulse-ledger-watch">Watch whether the cooldown is a pause after heavy work or the start of a quieter cycle.</p>
   </article><article class="pulse-ledger-row">
@@ -574,11 +574,11 @@
       </div>
       <strong>99 <small>7d commits</small></strong>
     </div>
-    <p>OpenHands/OpenHands shows 99 public commits this week, up 68 from the prior week and 50.5 above its current 30-day pace, with tools as the strongest subject signal.</p>
+    <p>OpenHands/OpenHands shows 99 public commits this week, up 68 from the prior week and 52.1 above its current 30-day pace, with ux as the strongest subject signal.</p>
     <div class="pulse-ledger-facts">
-      <span>30d 208</span>
+      <span>30d 201</span>
       <span>vs prior 7d +68</span>
-      <span>contributors 43</span>
+      <span>contributors 42</span>
       <span>coverage 6</span>
       <span>confidence High</span>
     </div>
@@ -593,13 +593,13 @@
         <a class="pulse-project" href="https://github.com/microsoft/agent-framework">microsoft/agent-framework</a>
         <span>Agent framework / Tracked</span>
       </div>
-      <strong>132 <small>7d commits</small></strong>
+      <strong>130 <small>7d commits</small></strong>
     </div>
-    <p>microsoft/agent-framework shows 132 public commits this week, up 10 from the prior week and 41.2 above its current 30-day pace, with ux as the strongest subject signal.</p>
+    <p>microsoft/agent-framework shows 130 public commits this week, up 6 from the prior week and 43.9 above its current 30-day pace, with ux as the strongest subject signal.</p>
     <div class="pulse-ledger-facts">
-      <span>30d 389</span>
-      <span>vs prior 7d +10</span>
-      <span>contributors 78</span>
+      <span>30d 369</span>
+      <span>vs prior 7d +6</span>
+      <span>contributors 74</span>
       <span>coverage 8</span>
       <span>confidence High</span>
     </div>
@@ -611,24 +611,24 @@
   </article><article class="pulse-ledger-row">
     <div class="pulse-ledger-heading">
       <div>
-        <a class="pulse-project" href="https://github.com/QwenLM/qwen-code">QwenLM/qwen-code</a>
-        <span>Coding agent CLI / Tracked</span>
+        <a class="pulse-project" href="https://github.com/pydantic/pydantic-ai">pydantic/pydantic-ai</a>
+        <span>Agent framework / Tracked</span>
       </div>
-      <strong>213 <small>7d commits</small></strong>
+      <strong>88 <small>7d commits</small></strong>
     </div>
-    <p>QwenLM/qwen-code shows 213 public commits this week, down 87 from the prior week and 63 below its current 30-day pace, with tools as the strongest subject signal.</p>
+    <p>pydantic/pydantic-ai shows 88 public commits this week, up 55 from the prior week and 21.3 above its current 30-day pace, with tools as the strongest subject signal.</p>
     <div class="pulse-ledger-facts">
-      <span>30d 1,183</span>
-      <span>vs prior 7d -87</span>
-      <span>contributors 82</span>
-      <span>coverage 16</span>
+      <span>30d 286</span>
+      <span>vs prior 7d +55</span>
+      <span>contributors 37</span>
+      <span>coverage 10</span>
       <span>confidence High</span>
     </div>
     <div class="pulse-ledger-links">
-      <span>Receipts <a href="https://github.com/QwenLM/qwen-code/commit/b944f9943c2dd3607f9921cc005d4022f51d7422">b944f9943c</a> <a href="https://github.com/QwenLM/qwen-code/commit/537311b8a5d85fd12ab2cff84b418e3a908ca830">537311b8a5</a> <a href="https://github.com/QwenLM/qwen-code/commit/b12b1596091d6705b198b24a689368e438db4842">b12b159609</a></span>
-      <a href="/articles/2026-09-19-daily-qwen-code-stops-calling-a-rerun-a-resume/">Latest coverage: Qwen Code Stops Calling a Rerun a Resume</a>
+      <span>Receipts <a href="https://github.com/pydantic/pydantic-ai/commit/c4898abb54dc25ae6f6aef208a4c0661b30a455e">c4898abb5</a> <a href="https://github.com/pydantic/pydantic-ai/commit/77158cad7077a711b6761587be6e1c7c83f208f2">77158cad7</a> <a href="https://github.com/pydantic/pydantic-ai/commit/69426829a2f87888cfcb100d1f564fdc361227ab">69426829a</a></span>
+      <a href="/articles/2026-09-20-daily-api-discovery-let-the-agent-pick-a-record-you-already-have/">Latest coverage: API Discovery: Let the Agent Pick a Record You Already Have</a>
     </div>
-    <p class="pulse-ledger-watch">Watch whether the cooldown is a pause after heavy work or the start of a quieter cycle.</p>
+    <p class="pulse-ledger-watch">Watch whether the subject-proxy work turns into visible release or user-facing control changes.</p>
   </article><article class="pulse-ledger-row">
     <div class="pulse-ledger-heading">
       <div>
@@ -637,17 +637,59 @@
       </div>
       <strong>57 <small>7d commits</small></strong>
     </div>
-    <p>langchain-ai/langchain shows 57 public commits this week, up 33 from the prior week and 18.3 above its current 30-day pace, with security as the strongest subject signal.</p>
+    <p>langchain-ai/langchain shows 57 public commits this week, up 35 from the prior week and 19.2 above its current 30-day pace, with security as the strongest subject signal.</p>
     <div class="pulse-ledger-facts">
-      <span>30d 166</span>
-      <span>vs prior 7d +33</span>
-      <span>contributors 24</span>
+      <span>30d 162</span>
+      <span>vs prior 7d +35</span>
+      <span>contributors 23</span>
       <span>coverage 14</span>
       <span>confidence High</span>
     </div>
     <div class="pulse-ledger-links">
-      <span>Receipts <a href="https://github.com/langchain-ai/langchain/commit/eba445b7563d1709427bd8072892975a6ea59fdc">eba445b756</a> <a href="https://github.com/langchain-ai/langchain/commit/019eae0203eb665d1e469aeecc57552a5fe89047">019eae0203</a> <a href="https://github.com/langchain-ai/langchain/commit/221cd629fdde85f25eecbeae9d221aa09ac37f5e">221cd629fd</a></span>
+      <span>Receipts <a href="https://github.com/langchain-ai/langchain/commit/68754c23c956e16cdebec00dcfe076257b4278ed">68754c23c9</a> <a href="https://github.com/langchain-ai/langchain/commit/eba445b7563d1709427bd8072892975a6ea59fdc">eba445b756</a> <a href="https://github.com/langchain-ai/langchain/commit/019eae0203eb665d1e469aeecc57552a5fe89047">019eae0203</a></span>
       <a href="/articles/2026-09-18-daily-builder-work-keep-the-failure-useful-and-the-payload-out-of-the-log/">Latest coverage: Builder Work: Keep the Failure Useful and the Payload Out of the Log</a>
+    </div>
+    <p class="pulse-ledger-watch">Watch the next security commits for evidence that the theme is becoming product behavior.</p>
+  </article><article class="pulse-ledger-row">
+    <div class="pulse-ledger-heading">
+      <div>
+        <a class="pulse-project" href="https://github.com/QwenLM/qwen-code">QwenLM/qwen-code</a>
+        <span>Coding agent CLI / Tracked</span>
+      </div>
+      <strong>214 <small>7d commits</small></strong>
+    </div>
+    <p>QwenLM/qwen-code shows 214 public commits this week, down 74 from the prior week and 62.3 below its current 30-day pace, with tools as the strongest subject signal.</p>
+    <div class="pulse-ledger-facts">
+      <span>30d 1,184</span>
+      <span>vs prior 7d -74</span>
+      <span>contributors 81</span>
+      <span>coverage 16</span>
+      <span>confidence High</span>
+    </div>
+    <div class="pulse-ledger-links">
+      <span>Receipts <a href="https://github.com/QwenLM/qwen-code/commit/8589f713319808f19ed6dbdcfc62e26cd5e83b8d">8589f71331</a> <a href="https://github.com/QwenLM/qwen-code/commit/59629fb21e979b21e144cf29d31fb3bbd82be04d">59629fb21e</a> <a href="https://github.com/QwenLM/qwen-code/commit/64dd058c9c109eeb5f7122c430f84bdec860d186">64dd058c9c</a></span>
+      <a href="/articles/2026-09-19-daily-qwen-code-stops-calling-a-rerun-a-resume/">Latest coverage: Qwen Code Stops Calling a Rerun a Resume</a>
+    </div>
+    <p class="pulse-ledger-watch">Watch whether the cooldown is a pause after heavy work or the start of a quieter cycle.</p>
+  </article><article class="pulse-ledger-row">
+    <div class="pulse-ledger-heading">
+      <div>
+        <a class="pulse-project" href="https://github.com/cline/cline">cline/cline</a>
+        <span>Coding agent / Tracked</span>
+      </div>
+      <strong>83 <small>7d commits</small></strong>
+    </div>
+    <p>cline/cline shows 83 public commits this week, up 4 from the prior week and 14.4 above its current 30-day pace, with tools as the strongest subject signal.</p>
+    <div class="pulse-ledger-facts">
+      <span>30d 294</span>
+      <span>vs prior 7d +4</span>
+      <span>contributors 16</span>
+      <span>coverage 8</span>
+      <span>confidence High</span>
+    </div>
+    <div class="pulse-ledger-links">
+      <span>Receipts <a href="https://github.com/cline/cline/commit/9a2512bb9835869d74774da99708a7f9d80b0fe8">9a2512bb9</a> <a href="https://github.com/cline/cline/commit/93ceab9782e262e4af5b9271a393f29d26f45606">93ceab978</a> <a href="https://github.com/cline/cline/commit/3a7ef81291a1910966427b1d004f337db6aafe56">3a7ef8129</a></span>
+      <a href="/articles/2026-08-23-daily-before-cline-replaces-an-agent-hub-it-starts-saying-no/">Latest coverage: Before Cline Replaces an Agent Hub, It Starts Saying No</a>
     </div>
     <p class="pulse-ledger-watch">Watch whether the subject-proxy work turns into visible release or user-facing control changes.</p>
   </article><article class="pulse-ledger-row">
@@ -656,42 +698,21 @@
         <a class="pulse-project" href="https://github.com/different-ai/openwork">different-ai/openwork</a>
         <span>Agent workbench / Tracked</span>
       </div>
-      <strong>154 <small>7d commits</small></strong>
+      <strong>150 <small>7d commits</small></strong>
     </div>
-    <p>different-ai/openwork shows 154 public commits this week, down 172 from the prior week and 50.2 below its current 30-day pace, with runtime as the strongest subject signal.</p>
+    <p>different-ai/openwork shows 150 public commits this week, down 152 from the prior week and 55.1 below its current 30-day pace, with runtime as the strongest subject signal.</p>
     <div class="pulse-ledger-facts">
-      <span>30d 875</span>
-      <span>vs prior 7d -172</span>
+      <span>30d 879</span>
+      <span>vs prior 7d -152</span>
       <span>contributors 7</span>
       <span>coverage 21</span>
       <span>confidence High</span>
     </div>
     <div class="pulse-ledger-links">
-      <span>Receipts <a href="https://github.com/different-ai/openwork/commit/f69ca9c0e7728ea2e1ab1c0d556d6b9991b2b834">f69ca9c0e</a> <a href="https://github.com/different-ai/openwork/commit/c6349beaf9910e050a67845b5d47fdce9fc8ae6a">c6349beaf</a> <a href="https://github.com/different-ai/openwork/commit/6ac6b8a128e36c4508d17d05533088d304dcce32">6ac6b8a12</a></span>
+      <span>Receipts <a href="https://github.com/different-ai/openwork/commit/2739533f9a984f6517e52cd67ccc803dc3d25867">2739533f9</a> <a href="https://github.com/different-ai/openwork/commit/ce356b3e1541cf0c60f054262b5ca6af3b170f75">ce356b3e1</a> <a href="https://github.com/different-ai/openwork/commit/5298c5b1adad29a673be8454267db11409498109">5298c5b1a</a></span>
       <a href="/articles/2026-09-17-daily-the-allow-button-was-waiting-for-a-socket/">Latest coverage: The Allow Button Was Waiting for a Socket</a>
     </div>
     <p class="pulse-ledger-watch">Watch whether the cooldown is a pause after heavy work or the start of a quieter cycle.</p>
-  </article><article class="pulse-ledger-row">
-    <div class="pulse-ledger-heading">
-      <div>
-        <a class="pulse-project" href="https://github.com/pydantic/pydantic-ai">pydantic/pydantic-ai</a>
-        <span>Agent framework / Tracked</span>
-      </div>
-      <strong>83 <small>7d commits</small></strong>
-    </div>
-    <p>pydantic/pydantic-ai shows 83 public commits this week, up 50 from the prior week and 14.6 above its current 30-day pace, with tools as the strongest subject signal.</p>
-    <div class="pulse-ledger-facts">
-      <span>30d 293</span>
-      <span>vs prior 7d +50</span>
-      <span>contributors 42</span>
-      <span>coverage 9</span>
-      <span>confidence High</span>
-    </div>
-    <div class="pulse-ledger-links">
-      <span>Receipts <a href="https://github.com/pydantic/pydantic-ai/commit/9ff7fa0b6186326a0152504e1d73cb0da408dd5a">9ff7fa0b6</a> <a href="https://github.com/pydantic/pydantic-ai/commit/9f606960956d6d97c9b30ba9c4280b8610e3ed2b">9f6069609</a> <a href="https://github.com/pydantic/pydantic-ai/commit/3ce5b5aee2f0b2d4376d55e6a15ba58f2d08b3fa">3ce5b5aee</a></span>
-      <a href="/articles/2026-09-19-daily-api-discovery-let-the-speaker-finish-before-you-close/">Latest coverage: API Discovery: Let the Speaker Finish Before You Close</a>
-    </div>
-    <p class="pulse-ledger-watch">Watch whether the subject-proxy work turns into visible release or user-facing control changes.</p>
   </article><article class="pulse-ledger-row">
     <div class="pulse-ledger-heading">
       <div>
@@ -700,11 +721,11 @@
       </div>
       <strong>16 <small>7d commits</small></strong>
     </div>
-    <p>google-gemini/gemini-cli shows 16 public commits this week, up 7 from the prior week and 5.5 above its current 30-day pace, with tools as the strongest subject signal.</p>
+    <p>google-gemini/gemini-cli shows 16 public commits this week, up 7 from the prior week and 6 above its current 30-day pace, with tools as the strongest subject signal.</p>
     <div class="pulse-ledger-facts">
-      <span>30d 45</span>
+      <span>30d 43</span>
       <span>vs prior 7d +7</span>
-      <span>contributors 12</span>
+      <span>contributors 11</span>
       <span>coverage 59</span>
       <span>confidence High</span>
     </div>
@@ -716,42 +737,21 @@
   </article><article class="pulse-ledger-row">
     <div class="pulse-ledger-heading">
       <div>
-        <a class="pulse-project" href="https://github.com/cline/cline">cline/cline</a>
-        <span>Coding agent / Tracked</span>
-      </div>
-      <strong>78 <small>7d commits</small></strong>
-    </div>
-    <p>cline/cline shows 78 public commits this week, up 2 from the prior week and 7.3 above its current 30-day pace, with tools as the strongest subject signal.</p>
-    <div class="pulse-ledger-facts">
-      <span>30d 303</span>
-      <span>vs prior 7d +2</span>
-      <span>contributors 19</span>
-      <span>coverage 8</span>
-      <span>confidence High</span>
-    </div>
-    <div class="pulse-ledger-links">
-      <span>Receipts <a href="https://github.com/cline/cline/commit/d48afb3542b07cbb6d17b40d7c536aadc9cbf041">d48afb354</a> <a href="https://github.com/cline/cline/commit/bbf84d70b42961bd2f11561acd3e9d34c29c7480">bbf84d70b</a> <a href="https://github.com/cline/cline/commit/7daa4b183e66fdab7d4f4d5cd65c16442c6faf7e">7daa4b183</a></span>
-      <a href="/articles/2026-08-23-daily-before-cline-replaces-an-agent-hub-it-starts-saying-no/">Latest coverage: Before Cline Replaces an Agent Hub, It Starts Saying No</a>
-    </div>
-    <p class="pulse-ledger-watch">Watch whether the subject-proxy work turns into visible release or user-facing control changes.</p>
-  </article><article class="pulse-ledger-row">
-    <div class="pulse-ledger-heading">
-      <div>
         <a class="pulse-project" href="https://github.com/earendil-works/pi">earendil-works/pi</a>
         <span>Coding agent / Tracked</span>
       </div>
-      <strong>74 <small>7d commits</small></strong>
+      <strong>87 <small>7d commits</small></strong>
     </div>
-    <p>earendil-works/pi shows 74 public commits this week, up 12 from the prior week and 21.7 below its current 30-day pace, with runtime as the strongest subject signal.</p>
+    <p>earendil-works/pi shows 87 public commits this week, up 20 from the prior week and 12.2 below its current 30-day pace, with ux as the strongest subject signal.</p>
     <div class="pulse-ledger-facts">
-      <span>30d 410</span>
-      <span>vs prior 7d +12</span>
-      <span>contributors 31</span>
+      <span>30d 425</span>
+      <span>vs prior 7d +20</span>
+      <span>contributors 32</span>
       <span>coverage 20</span>
       <span>confidence High</span>
     </div>
     <div class="pulse-ledger-links">
-      <span>Receipts <a href="https://github.com/earendil-works/pi/commit/36b60d2e8985899743c4cf5bd5f8929832a3f05d">36b60d2e8</a> <a href="https://github.com/earendil-works/pi/commit/58541ee7216bc7d76f7f8f708a8edb7682084395">58541ee72</a> <a href="https://github.com/earendil-works/pi/commit/e80cf14011f12140e32517834f3b5bce5b7d46ed">e80cf1401</a></span>
+      <span>Receipts <a href="https://github.com/earendil-works/pi/commit/d1230ea2000d876b479a69b8b061f9d670f262f5">d1230ea20</a> <a href="https://github.com/earendil-works/pi/commit/50d766cba2f7fbe208188435bf74400776a88719">50d766cba</a> <a href="https://github.com/earendil-works/pi/commit/ecac0a9c4edad3dac5d9f8b40e0c7db7a56471fc">ecac0a9c4</a></span>
       <a href="/articles/2026-08-20-daily-pis-new-harness-writes-the-restart-point-before-it-acts/">Latest coverage: Pi's New Harness Writes the Restart Point Before It Acts</a>
     </div>
     <p class="pulse-ledger-watch">Watch whether the subject-proxy work turns into visible release or user-facing control changes.</p>
@@ -761,18 +761,18 @@
         <a class="pulse-project" href="https://github.com/anomalyco/opencode">anomalyco/opencode</a>
         <span>Coding agent / Tracked</span>
       </div>
-      <strong>28 <small>7d commits</small></strong>
+      <strong>38 <small>7d commits</small></strong>
     </div>
-    <p>anomalyco/opencode shows 28 public commits this week, down 9 from the prior week and 33.4 below its current 30-day pace, with ux as the strongest subject signal.</p>
+    <p>anomalyco/opencode shows 38 public commits this week, up 3 from the prior week and 20.1 below its current 30-day pace, with ux as the strongest subject signal.</p>
     <div class="pulse-ledger-facts">
-      <span>30d 263</span>
-      <span>vs prior 7d -9</span>
+      <span>30d 249</span>
+      <span>vs prior 7d +3</span>
       <span>contributors 37</span>
       <span>coverage 20</span>
       <span>confidence High</span>
     </div>
     <div class="pulse-ledger-links">
-      <span>Receipts <a href="https://github.com/anomalyco/opencode/commit/285cff53da18b1fc234fa709236ef1e6573b7f22">285cff53da</a> <a href="https://github.com/anomalyco/opencode/commit/5f9d9187c01708b4e700c9c81c1045ab482bf31d">5f9d9187c0</a> <a href="https://github.com/anomalyco/opencode/commit/1573a7b608eb13c45a2243201964c7784f2a8281">1573a7b608</a></span>
+      <span>Receipts <a href="https://github.com/anomalyco/opencode/commit/ebb7b76eca82342642c78645109e865614533827">ebb7b76eca</a> <a href="https://github.com/anomalyco/opencode/commit/11be5bc29cbb6572a042361c5d1ff642c99b0605">11be5bc29c</a> <a href="https://github.com/anomalyco/opencode/commit/83abc64a5c4e0e0a5157f2c4435d34131009a404">83abc64a5c</a></span>
       <a href="/articles/2026-08-18-daily-api-discovery-cloudflare-s-gateway-keeps-native-agent-apis-intact/">Latest coverage: API Discovery: Cloudflare’s Gateway Keeps Native Agent APIs Intact</a>
     </div>
     <p class="pulse-ledger-watch">Watch whether the subject-proxy work turns into visible release or user-facing control changes.</p>
@@ -782,18 +782,18 @@
         <a class="pulse-project" href="https://github.com/crewAIInc/crewAI">crewAIInc/crewAI</a>
         <span>Agent framework / Tracked</span>
       </div>
-      <strong>36 <small>7d commits</small></strong>
+      <strong>37 <small>7d commits</small></strong>
     </div>
-    <p>crewAIInc/crewAI shows 36 public commits this week, up 2 from the prior week and 5.9 above its current 30-day pace, with tools as the strongest subject signal.</p>
+    <p>crewAIInc/crewAI shows 37 public commits this week, up 3 from the prior week and 7.8 above its current 30-day pace, with tools as the strongest subject signal.</p>
     <div class="pulse-ledger-facts">
-      <span>30d 129</span>
-      <span>vs prior 7d +2</span>
+      <span>30d 125</span>
+      <span>vs prior 7d +3</span>
       <span>contributors 45</span>
       <span>coverage 4</span>
       <span>confidence High</span>
     </div>
     <div class="pulse-ledger-links">
-      <span>Receipts <a href="https://github.com/crewAIInc/crewAI/commit/3831e8b6c86f78cb3cde18ebf7be0d197b958f0e">3831e8b6c</a> <a href="https://github.com/crewAIInc/crewAI/commit/bbcebffbf904fadb561e96dc0c4a2543c78768ae">bbcebffbf</a> <a href="https://github.com/crewAIInc/crewAI/commit/17feaf48fb111d5d517364c201b6c5eb6fce3a72">17feaf48f</a></span>
+      <span>Receipts <a href="https://github.com/crewAIInc/crewAI/commit/0374c631297f219a3891945cfc81f82ea54dd776">0374c6312</a> <a href="https://github.com/crewAIInc/crewAI/commit/3831e8b6c86f78cb3cde18ebf7be0d197b958f0e">3831e8b6c</a> <a href="https://github.com/crewAIInc/crewAI/commit/bbcebffbf904fadb561e96dc0c4a2543c78768ae">bbcebffbf</a></span>
       <a href="/articles/2026-08-09-daily-crewai-teaches-telemetry-to-separate-the-agent-from-the-room/">Latest coverage: CrewAI teaches telemetry to separate the agent from the room</a>
     </div>
     <p class="pulse-ledger-watch">Watch whether the subject-proxy work turns into visible release or user-facing control changes.</p>
@@ -803,18 +803,18 @@
         <a class="pulse-project" href="https://github.com/aaif-goose/goose">aaif-goose/goose</a>
         <span>Coding agent / Tracked</span>
       </div>
-      <strong>39 <small>7d commits</small></strong>
+      <strong>41 <small>7d commits</small></strong>
     </div>
-    <p>aaif-goose/goose shows 39 public commits this week, down 11 from the prior week and 20 below its current 30-day pace, with tools as the strongest subject signal.</p>
+    <p>aaif-goose/goose shows 41 public commits this week, down 9 from the prior week and 12.4 below its current 30-day pace, with tools as the strongest subject signal.</p>
     <div class="pulse-ledger-facts">
-      <span>30d 253</span>
-      <span>vs prior 7d -11</span>
-      <span>contributors 55</span>
+      <span>30d 229</span>
+      <span>vs prior 7d -9</span>
+      <span>contributors 54</span>
       <span>coverage 7</span>
       <span>confidence High</span>
     </div>
     <div class="pulse-ledger-links">
-      <span>Receipts <a href="https://github.com/aaif-goose/goose/commit/d57c9a4d73289e86245d9df19201376fc0db03fe">d57c9a4d7</a> <a href="https://github.com/aaif-goose/goose/commit/86d6eb99f3d57e89f7c0ca7a1dbb55187d01e52a">86d6eb99f</a> <a href="https://github.com/aaif-goose/goose/commit/8fd84be23b2055b263ca67f92c19ed91f0c6e38f">8fd84be23</a></span>
+      <span>Receipts <a href="https://github.com/aaif-goose/goose/commit/2090ad1c65ddb39497601a936a9fe17d66254bfe">2090ad1c6</a> <a href="https://github.com/aaif-goose/goose/commit/ba8ba0cadbbbe4b86806b887e1ea54df67712e0c">ba8ba0cad</a> <a href="https://github.com/aaif-goose/goose/commit/d57c9a4d73289e86245d9df19201376fc0db03fe">d57c9a4d7</a></span>
       <a href="/articles/2026-09-02-daily-a-child-agent-s-approval-request-shouldn-t-hide-in-another-tab/">Latest coverage: A Child Agent’s Approval Request Shouldn’t Hide in Another Tab</a>
     </div>
     <p class="pulse-ledger-watch">Watch whether the subject-proxy work turns into visible release or user-facing control changes.</p>
@@ -824,18 +824,18 @@
         <a class="pulse-project" href="https://github.com/charmbracelet/crush">charmbracelet/crush</a>
         <span>Coding agent TUI / Tracked</span>
       </div>
-      <strong>33 <small>7d commits</small></strong>
+      <strong>34 <small>7d commits</small></strong>
     </div>
-    <p>charmbracelet/crush shows 33 public commits this week, down 27 from the prior week and 6.2 below its current 30-day pace, with ux as the strongest subject signal.</p>
+    <p>charmbracelet/crush shows 34 public commits this week, down 28 from the prior week and 5 below its current 30-day pace, with ux as the strongest subject signal.</p>
     <div class="pulse-ledger-facts">
-      <span>30d 168</span>
-      <span>vs prior 7d -27</span>
+      <span>30d 167</span>
+      <span>vs prior 7d -28</span>
       <span>contributors 22</span>
       <span>coverage 16</span>
       <span>confidence High</span>
     </div>
     <div class="pulse-ledger-links">
-      <span>Receipts <a href="https://github.com/charmbracelet/crush/commit/b14f686653a8a8a2e2613583cd8f96189c4dc3e2">b14f6866</a> <a href="https://github.com/charmbracelet/crush/commit/0b3b55cfa4c06f6afe210d378f909c2a4a1e935c">0b3b55cf</a> <a href="https://github.com/charmbracelet/crush/commit/242b4d3aaa024e26937f7579869d81e007c17c42">242b4d3a</a></span>
+      <span>Receipts <a href="https://github.com/charmbracelet/crush/commit/8c541ead9a431aae901b31ab5c5ab662f49caabe">8c541ead</a> <a href="https://github.com/charmbracelet/crush/commit/9636af6446be2274b9b5b048c1d122ebad9c7b41">9636af64</a> <a href="https://github.com/charmbracelet/crush/commit/bea24fb88099101705dd0c88e2d148933976832a">bea24fb8</a></span>
       <a href="/articles/2026-09-05-daily-builder-work-crush-records-the-model-that-actually-answered/">Latest coverage: Builder Work: Crush Records the Model That Actually Answered</a>
     </div>
     <p class="pulse-ledger-watch">Watch whether the cooldown is a pause after heavy work or the start of a quieter cycle.</p>
@@ -847,9 +847,9 @@
       </div>
       <strong>46 <small>7d commits</small></strong>
     </div>
-    <p>laude-institute/headlong shows 46 public commits this week, up 30 from the prior week and 33.6 below its current 30-day pace, with tools as the strongest subject signal.</p>
+    <p>laude-institute/headlong shows 46 public commits this week, up 30 from the prior week and 30.8 below its current 30-day pace, with ux as the strongest subject signal.</p>
     <div class="pulse-ledger-facts">
-      <span>30d 341</span>
+      <span>30d 329</span>
       <span>vs prior 7d +30</span>
       <span>contributors 26</span>
       <span>coverage 1</span>
@@ -863,57 +863,57 @@
   </article><article class="pulse-ledger-row">
     <div class="pulse-ledger-heading">
       <div>
-        <a class="pulse-project" href="https://github.com/openinterpreter/openinterpreter">openinterpreter/openinterpreter</a>
-        <span>Coding agent / Tracked</span>
-      </div>
-      <strong>23 <small>7d commits</small></strong>
-    </div>
-    <p>openinterpreter/openinterpreter shows 23 public commits this week, down 48 from the prior week and 169.3 below its current 30-day pace, with tools as the strongest subject signal.</p>
-    <div class="pulse-ledger-facts">
-      <span>30d 824</span>
-      <span>vs prior 7d -48</span>
-      <span>contributors 118</span>
-      <span>coverage 2</span>
-      <span>confidence High</span>
-    </div>
-    <div class="pulse-ledger-links">
-      <span>Receipts <a href="https://github.com/openinterpreter/openinterpreter/commit/5db50b2e93224dda720462f02fc2858cbd112eb5">5db50b2e9</a> <a href="https://github.com/openinterpreter/openinterpreter/commit/6e7c4bb78bb1c349b82f584f7e21a529ec39a74f">6e7c4bb78</a> <a href="https://github.com/openinterpreter/openinterpreter/commit/b5632716b18ab8fb4985adbd8d7a0bec222eeabe">b5632716b</a></span>
-      <a href="/articles/2026-07-23-daily-the-67-000-star-repo-that-changed-what-it-was/">Latest coverage: The 67,000-Star Repo That Changed What It Was</a>
-    </div>
-    <p class="pulse-ledger-watch">Watch whether the cooldown is a pause after heavy work or the start of a quieter cycle.</p>
-  </article><article class="pulse-ledger-row">
-    <div class="pulse-ledger-heading">
-      <div>
         <a class="pulse-project" href="https://github.com/andrewyng/openworker">andrewyng/openworker</a>
         <span>Desktop agent runtime / Tracked</span>
       </div>
-      <strong>24 <small>7d commits</small></strong>
+      <strong>28 <small>7d commits</small></strong>
     </div>
-    <p>andrewyng/openworker shows 24 public commits this week, up 9 from the prior week and 14.7 below its current 30-day pace, with ux as the strongest subject signal.</p>
+    <p>andrewyng/openworker shows 28 public commits this week, up 16 from the prior week and 4.9 below its current 30-day pace, with ux as the strongest subject signal.</p>
     <div class="pulse-ledger-facts">
-      <span>30d 166</span>
-      <span>vs prior 7d +9</span>
+      <span>30d 141</span>
+      <span>vs prior 7d +16</span>
       <span>contributors 8</span>
       <span>coverage 1</span>
       <span>confidence High</span>
     </div>
     <div class="pulse-ledger-links">
-      <span>Receipts <a href="https://github.com/andrewyng/openworker/commit/fc3417f8498a788827377ab295ce8d4ecafab3e6">fc3417f</a> <a href="https://github.com/andrewyng/openworker/commit/4b1dd4868b20ce0cf5168b74ebbef4edb014d0a2">4b1dd48</a> <a href="https://github.com/andrewyng/openworker/commit/2be346d7ddb6facbdb67e11a5fbace3ba9cd3a2c">2be346d</a></span>
+      <span>Receipts <a href="https://github.com/andrewyng/openworker/commit/c79fa9b778867a5a55d28f70c0f6aaa8f11fd7fe">c79fa9b</a> <a href="https://github.com/andrewyng/openworker/commit/e0c7b6eeb0de4eec0d38a52c29907c270c50fe2f">e0c7b6e</a> <a href="https://github.com/andrewyng/openworker/commit/a15fb38c931d831008307e3840547a6c367a43ed">a15fb38</a></span>
       <a href="/articles/2026-09-19-daily-builder-work-the-underscore-that-rewound-another-agent/">Latest coverage: Builder Work: The Underscore That Rewound Another Agent</a>
     </div>
     <p class="pulse-ledger-watch">Watch the next ux commits for evidence that the theme is becoming product behavior.</p>
   </article><article class="pulse-ledger-row">
     <div class="pulse-ledger-heading">
       <div>
+        <a class="pulse-project" href="https://github.com/openinterpreter/openinterpreter">openinterpreter/openinterpreter</a>
+        <span>Coding agent / Tracked</span>
+      </div>
+      <strong>5 <small>7d commits</small></strong>
+    </div>
+    <p>openinterpreter/openinterpreter shows 5 public commits this week, down 62 from the prior week and 173.7 below its current 30-day pace, with tools as the strongest subject signal.</p>
+    <div class="pulse-ledger-facts">
+      <span>30d 766</span>
+      <span>vs prior 7d -62</span>
+      <span>contributors 114</span>
+      <span>coverage 2</span>
+      <span>confidence High</span>
+    </div>
+    <div class="pulse-ledger-links">
+      <span>Receipts <a href="https://github.com/openinterpreter/openinterpreter/commit/d9b49c828bf61d820c30e343a22033e3e7999583">d9b49c828</a> <a href="https://github.com/openinterpreter/openinterpreter/commit/748811744f27147f12bc13b729dc07d552d70b78">748811744</a> <a href="https://github.com/openinterpreter/openinterpreter/commit/5db50b2e93224dda720462f02fc2858cbd112eb5">5db50b2e9</a></span>
+      <a href="/articles/2026-07-23-daily-the-67-000-star-repo-that-changed-what-it-was/">Latest coverage: The 67,000-Star Repo That Changed What It Was</a>
+    </div>
+    <p class="pulse-ledger-watch">Watch whether the cooldown is a pause after heavy work or the start of a quieter cycle.</p>
+  </article><article class="pulse-ledger-row">
+    <div class="pulse-ledger-heading">
+      <div>
         <a class="pulse-project" href="https://github.com/browser-use/browser-use">browser-use/browser-use</a>
         <span>Browser agent framework / Tracked</span>
       </div>
-      <strong>7 <small>7d commits</small></strong>
+      <strong>3 <small>7d commits</small></strong>
     </div>
-    <p>browser-use/browser-use shows 7 public commits this week, down 24 from the prior week and 43.6 below its current 30-day pace, with tools as the strongest subject signal.</p>
+    <p>browser-use/browser-use shows 3 public commits this week, down 30 from the prior week and 47.6 below its current 30-day pace, with tools as the strongest subject signal.</p>
     <div class="pulse-ledger-facts">
       <span>30d 217</span>
-      <span>vs prior 7d -24</span>
+      <span>vs prior 7d -30</span>
       <span>contributors 27</span>
       <span>coverage 1</span>
       <span>confidence High</span>
@@ -922,28 +922,7 @@
       <span>Receipts <a href="https://github.com/browser-use/browser-use/commit/d8110c5ff87ccba887aaa726cdb780f2f84bef8d">d8110c5f</a> <a href="https://github.com/browser-use/browser-use/commit/4b328e99c66ec19e17e87db2a6a14c4eb704c10f">4b328e99</a> <a href="https://github.com/browser-use/browser-use/commit/49f73c66dfcb782a6db4f0531bd7d6bfd87a6023">49f73c66</a></span>
       <a href="/articles/2026-07-31-daily-browser-use-the-control-boundary-between-an-agent-and-the-live-web/">Latest coverage: Browser Use: the control boundary between an agent and the live web</a>
     </div>
-    <p class="pulse-ledger-watch">Watch whether the subject-proxy work turns into visible release or user-facing control changes.</p>
-  </article><article class="pulse-ledger-row">
-    <div class="pulse-ledger-heading">
-      <div>
-        <a class="pulse-project" href="https://github.com/alejandro-ao/tau">alejandro-ao/tau</a>
-        <span>Coding agent / Tracked</span>
-      </div>
-      <strong>7 <small>7d commits</small></strong>
-    </div>
-    <p>alejandro-ao/tau shows 7 public commits this week, down 13 from the prior week and 4.2 below its current 30-day pace, with ux as the strongest subject signal.</p>
-    <div class="pulse-ledger-facts">
-      <span>30d 48</span>
-      <span>vs prior 7d -13</span>
-      <span>contributors 9</span>
-      <span>coverage 6</span>
-      <span>confidence High</span>
-    </div>
-    <div class="pulse-ledger-links">
-      <span>Receipts <a href="https://github.com/alejandro-ao/tau/commit/9fe6a719ac0bda3696e9fc8413643cfe9786c73c">9fe6a71</a> <a href="https://github.com/alejandro-ao/tau/commit/d80d7ef20a105f92cf7315972ea1af22119c79e1">d80d7ef</a> <a href="https://github.com/alejandro-ao/tau/commit/accda9a8edbb33a0a1f2849f2a91104e7a1de1d0">accda9a</a></span>
-      <a href="/articles/2026-08-05-daily-tau-will-ask-before-it-reads-a-project-s-agents-md/">Latest coverage: Tau Will Ask Before It Reads a Project’s AGENTS.md</a>
-    </div>
-    <p class="pulse-ledger-watch">Watch the next ux commits for evidence that the theme is becoming product behavior.</p>
+    <p class="pulse-ledger-watch">Watch whether the cooldown is a pause after heavy work or the start of a quieter cycle.</p>
   </article><article class="pulse-ledger-row">
     <div class="pulse-ledger-heading">
       <div>
@@ -952,9 +931,9 @@
       </div>
       <strong>5 <small>7d commits</small></strong>
     </div>
-    <p>google-antigravity/antigravity-cli shows 5 public commits this week, up 1 from the prior week and 0.3 above its current 30-day pace, with observability as the strongest subject signal.</p>
+    <p>google-antigravity/antigravity-cli shows 5 public commits this week, up 1 from the prior week and 0.6 above its current 30-day pace, with observability as the strongest subject signal.</p>
     <div class="pulse-ledger-facts">
-      <span>30d 20</span>
+      <span>30d 19</span>
       <span>vs prior 7d +1</span>
       <span>contributors 1</span>
       <span>coverage 3</span>
@@ -968,21 +947,42 @@
   </article><article class="pulse-ledger-row">
     <div class="pulse-ledger-heading">
       <div>
+        <a class="pulse-project" href="https://github.com/alejandro-ao/tau">alejandro-ao/tau</a>
+        <span>Coding agent / Tracked</span>
+      </div>
+      <strong>4 <small>7d commits</small></strong>
+    </div>
+    <p>alejandro-ao/tau shows 4 public commits this week, down 18 from the prior week and 6.7 below its current 30-day pace, with ux as the strongest subject signal.</p>
+    <div class="pulse-ledger-facts">
+      <span>30d 46</span>
+      <span>vs prior 7d -18</span>
+      <span>contributors 9</span>
+      <span>coverage 6</span>
+      <span>confidence High</span>
+    </div>
+    <div class="pulse-ledger-links">
+      <span>Receipts <a href="https://github.com/alejandro-ao/tau/commit/9fe6a719ac0bda3696e9fc8413643cfe9786c73c">9fe6a71</a> <a href="https://github.com/alejandro-ao/tau/commit/d80d7ef20a105f92cf7315972ea1af22119c79e1">d80d7ef</a> <a href="https://github.com/alejandro-ao/tau/commit/accda9a8edbb33a0a1f2849f2a91104e7a1de1d0">accda9a</a></span>
+      <a href="/articles/2026-08-05-daily-tau-will-ask-before-it-reads-a-project-s-agents-md/">Latest coverage: Tau Will Ask Before It Reads a Project’s AGENTS.md</a>
+    </div>
+    <p class="pulse-ledger-watch">Watch the next ux commits for evidence that the theme is becoming product behavior.</p>
+  </article><article class="pulse-ledger-row">
+    <div class="pulse-ledger-heading">
+      <div>
         <a class="pulse-project" href="https://github.com/mistralai/mistral-vibe">mistralai/mistral-vibe</a>
         <span>Coding agent CLI / Tracked</span>
       </div>
-      <strong>2 <small>7d commits</small></strong>
+      <strong>1 <small>7d commits</small></strong>
     </div>
-    <p>mistralai/mistral-vibe shows 2 public commits this week, down 2 from the prior week and 0.1 below its current 30-day pace, with permissions as the strongest subject signal.</p>
+    <p>mistralai/mistral-vibe shows 1 public commit this week, down 4 from the prior week and 1.1 below its current 30-day pace, with permissions as the strongest subject signal.</p>
     <div class="pulse-ledger-facts">
       <span>30d 9</span>
-      <span>vs prior 7d -2</span>
+      <span>vs prior 7d -4</span>
       <span>contributors 3</span>
       <span>coverage 5</span>
       <span>confidence Medium</span>
     </div>
     <div class="pulse-ledger-links">
-      <span>Receipts <a href="https://github.com/mistralai/mistral-vibe/commit/c069ffa1e12fb5f2487b489217c40ab97721d553">c069ffa1</a> <a href="https://github.com/mistralai/mistral-vibe/commit/d4b3223bbd74f83cbc08da4b9c3776c8ad196955">d4b3223b</a></span>
+      <span>Receipts <a href="https://github.com/mistralai/mistral-vibe/commit/c069ffa1e12fb5f2487b489217c40ab97721d553">c069ffa1</a></span>
       <a href="/articles/2026-08-11-daily-coding-agents-are-building-themselves-but-git-can-prove-only-part-of-it/">Latest coverage: Coding Agents Are Building Themselves—But Git Can Prove Only Part of It</a>
     </div>
     <p class="pulse-ledger-watch">Watch the next permissions commits for evidence that the theme is becoming product behavior.</p>

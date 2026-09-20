@@ -1,0 +1,309 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>API Discovery: Let the Agent Pick a Record You Already Have | The Git Reporter</title>
+  <meta name="description" content="Pydantic AI’s new Choices helper builds a menu from data available at run time. The model selects a validated key; the application gets back the record that key represents.">
+  <meta name="robots" content="index,follow">
+  <link rel="canonical" href="https://thegitreporter.com/articles/2026-09-20-daily-api-discovery-let-the-agent-pick-a-record-you-already-have/">
+  <link rel="alternate" type="application/rss+xml" title="The Git Reporter" href="https://thegitreporter.com/feed.xml">
+  <meta property="og:site_name" content="The Git Reporter">
+  <meta property="og:locale" content="en_US">
+  <meta property="og:title" content="API Discovery: Let the Agent Pick a Record You Already Have | The Git Reporter">
+  <meta property="og:description" content="Pydantic AI’s new Choices helper builds a menu from data available at run time. The model selects a validated key; the application gets back the record that key represents.">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://thegitreporter.com/articles/2026-09-20-daily-api-discovery-let-the-agent-pick-a-record-you-already-have/">
+  <meta property="og:image" content="https://thegitreporter.com/assets/social/2026-09-20-daily-api-discovery-let-the-agent-pick-a-record-you-already-have-og.jpg">
+  <meta property="og:image:secure_url" content="https://thegitreporter.com/assets/social/2026-09-20-daily-api-discovery-let-the-agent-pick-a-record-you-already-have-og.jpg">
+  <meta property="og:image:type" content="image/jpeg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Three cards connect retrieved records, a validated key and the original record; a red stamp says a valid pick is not necessarily correct.">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:site" content="@TheGitReporter">
+  <meta name="twitter:creator" content="@TheGitReporter">
+  <meta name="twitter:title" content="API Discovery: Let the Agent Pick a Record You Already Have | The Git Reporter">
+  <meta name="twitter:description" content="Pydantic AI’s new Choices helper builds a menu from data available at run time. The model selects a validated key; the application gets back the record that key represents.">
+  <meta name="twitter:url" content="https://thegitreporter.com/articles/2026-09-20-daily-api-discovery-let-the-agent-pick-a-record-you-already-have/">
+  <meta name="twitter:domain" content="thegitreporter.com">
+  <meta name="twitter:image" content="https://thegitreporter.com/assets/social/2026-09-20-daily-api-discovery-let-the-agent-pick-a-record-you-already-have-og.jpg">
+  <meta name="twitter:image:alt" content="Three cards connect retrieved records, a validated key and the original record; a red stamp says a valid pick is not necessarily correct.">
+  <meta property="article:published_time" content="2026-09-20T12:00:00Z">
+  <meta property="article:modified_time" content="2026-09-20T12:00:00Z">
+  <meta property="article:section" content="Daily Edition">
+  <meta property="article:tag" content="Runtime">
+  <meta property="article:tag" content="pydantic/pydantic-ai">
+  <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"https://thegitreporter.com/#organization","name":"The Git Reporter","url":"https://thegitreporter.com","logo":{"@type":"ImageObject","url":"https://thegitreporter.com/assets/mark.svg"},"sameAs":["https://x.com/TheGitReporter"]},{"@type":"WebSite","@id":"https://thegitreporter.com/#website","name":"The Git Reporter","url":"https://thegitreporter.com","publisher":{"@id":"https://thegitreporter.com/#organization"}},{"@type":"NewsArticle","mainEntityOfPage":{"@type":"WebPage","@id":"https://thegitreporter.com/articles/2026-09-20-daily-api-discovery-let-the-agent-pick-a-record-you-already-have/"},"headline":"API Discovery: Let the Agent Pick a Record You Already Have","description":"Pydantic AI’s new Choices helper builds a menu from data available at run time. The model selects a validated key; the application gets back the record that key represents.","image":["https://thegitreporter.com/assets/social/2026-09-20-daily-api-discovery-let-the-agent-pick-a-record-you-already-have-og.jpg"],"datePublished":"2026-09-20T12:00:00Z","dateModified":"2026-09-20T12:00:00Z","author":[{"@type":"Organization","name":"The Git Reporter","url":"https://thegitreporter.com"}],"publisher":{"@type":"Organization","@id":"https://thegitreporter.com/#organization","name":"The Git Reporter","url":"https://thegitreporter.com","logo":{"@type":"ImageObject","url":"https://thegitreporter.com/assets/mark.svg"},"sameAs":["https://x.com/TheGitReporter"]},"articleSection":"Daily Edition","keywords":"Runtime, pydantic/pydantic-ai"}]}</script>
+  <link rel="icon" href="/assets/mark.svg">
+  <link rel="stylesheet" href="/assets/site.css?v=2026-09-08-article-feed">
+  <script defer src="/assets/feedback.js?v=2026-09-08-article-feed"></script>
+  <script defer src="/assets/analytics.js?v=2026-09-08-article-feed"></script>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-CH19T7M0T1"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){window.dataLayer.push(arguments);}
+    gtag("js", new Date());
+    gtag("config", "G-CH19T7M0T1");
+  </script>
+</head>
+<body>
+  <div class="site">
+    <header class="site-header" id="top">
+      <div class="wrap utility-row">
+        <a class="icon-link menu-icon" href="/archive/" aria-label="Open edition history"><span></span><span></span><span></span></a>
+        <a class="icon-link archive-icon" href="/archive/" aria-label="Open edition history"></a>
+      </div>
+      <div class="wrap masthead-lockup">
+        <a class="masthead-title" href="/">THE GIT REPORTER</a>
+        <div class="masthead-ornament" aria-hidden="true"></div>
+      </div>
+      <div class="wrap nav-wrap">
+        <nav class="paper-nav" aria-label="Primary navigation">
+    <a class=""  href="/">Stories</a><a class=""  href="/today/">Today</a><a class="active" aria-current="page" href="/archive/">Editions</a><a class=""  href="/about/">About</a><a class=""  href="/battles/">Diff Derby</a><a class=""  href="/agent-pulse/">Agent Pulse</a><a class=""  href="/atlas/">Agent Atlas</a><a class=""  href="/repos/">Repos</a>
+  </nav>
+        <div class="nav-rule"></div>
+      </div>
+    </header>
+    <main class="wrap page-shell article-page">
+      <section class="page-hero story-front">
+        <div class="story-topline">
+          <span>Daily Edition</span>
+          <span>Sources <strong>+4</strong></span>
+        </div>
+        <h1>API Discovery: Let the Agent Pick a Record You Already Have</h1>
+        <p class="summary">Pydantic AI’s new Choices helper builds a menu from data available at run time. The model selects a validated key; the application gets back the record that key represents.</p>
+        <figure class="story-illustration article-illustration">
+    <img src="/assets/illustrations/2026-09-20-record-picker-diagram-punk-v1.png" alt="Three cards connect retrieved records, a validated key and the original record; a red stamp says a valid pick is not necessarily correct." loading="lazy" decoding="async">
+    <figcaption><span>Diagram Punk</span>constrain the record identifier, then check whether the selected source supports the claim.</figcaption>
+  </figure>
+        <div class="receipt">
+    <div class="receipt-line">
+      <span class="receipt-icon">repo</span>
+      <span class="receipt-main">pydantic/pydantic-ai</span>
+      <span class="branch-pill">evidence</span>
+    </div>
+    <div class="receipt-line receipt-muted">
+      <span>4 source signals</span>
+      <span>1 repo</span>
+      <span>4 source signals</span>
+    </div>
+    <div class="commit-line">Evidence: 4 source signals / September 20, 2026 / Daily Edition</div>
+  </div>
+        <div class="article-route-row">
+          <a href="/editions/2026-09-20/">Open Edition</a>
+          <a href="#evidence">Evidence below</a>
+        </div>
+      </section>
+      <section class="story-reader">
+        <article class="story-shell story-body">
+          <p>A search has returned five documents. You want an agent to choose one, not invent a sixth identifier or rewrite a record you already hold. Pydantic AI’s <a href="https://github.com/pydantic/pydantic-ai/pull/8530">new <code>Choices()</code> API</a>, merged September 19, gives that selection a finite, validated shape.</p>
+<p>The provider here is the Pydantic AI Python library. Its <a href="https://github.com/pydantic/pydantic-ai/blob/77158cad7077a711b6761587be6e1c7c83f208f2/pydantic_ai_slim/pydantic_ai/output.py">public definition</a> accepts keys with descriptions. Wrap an option in <code>Choice(description, value=record)</code> and a successful selection returns the application’s value instead of the key. The model sees the described options; it does not manufacture the returned object.</p>
+<h2>Try it: a citation tray for a reading assistant</h2>
+<p>Build the menu from the documents retrieved for the current question, using short titles and useful snippets as descriptions. Include a reserved “none” option when the set may contain no supporting evidence. This sketch uses two local records and returns a plain dictionary; <code>model</code> is the model already configured by your application.</p>
+<pre><code>from pydantic_ai import Agent, Choice, Choices
+
+records = [
+    {"id": "cookies", "title": "HTTP cookie storage rules"},
+    {"id": "methods", "title": "HTTP request methods"},
+]
+options = {
+    row["id"]: Choice(row["title"], value=row)
+    for row in records
+}
+options["none"] = Choice("No supplied record supports the answer", value=None)
+result = Agent(model, output_type=Choices(options)).run_sync(
+    "Which supplied record should I inspect for cookie storage rules?"
+)
+selected_record = result.output</code></pre>
+<p>The <a href="https://github.com/pydantic/pydantic-ai/blob/77158cad7077a711b6761587be6e1c7c83f208f2/tests/test_choices.py">added tests</a> reject an invented option and demonstrate returning a supplied document object. That is a useful boundary against invented record IDs. It is not a relevance test: a model can select a valid record for the wrong reason. Show the chosen source to the reader and verify its contents before citing it.</p>
+<h2>Copy-paste agent instruction</h2>
+<pre><code>Build a read-only citation picker with Pydantic AI Choices and Choice.
+Check that the installed version exports both names; report the version.
+Use a synthetic local document list with unique IDs, titles and snippets.
+Reserve a collision-free none key and map it to None.
+Map every other option to its original record with Choice(value=record).
+Use FunctionModel first to test a valid key, an invented key and none.
+Confirm that a valid pick returns the supplied record and an invented key fails.
+Do not attach callable values or trigger external actions.
+Then, only with configured provider access, try a live selection and
+report relevance errors separately from schema-validation errors.</code></pre>
+<h2>Access and test caveat</h2>
+<p>We inspected the source, examples and recorded provider tests; we did not run this sketch or make a live model request. Confirm package availability before trying it. A live provider test requires that provider’s configuration and may incur charges; the local <code>FunctionModel</code> checks can exercise the selection contract without one.</p>
+<p>The <a href="https://github.com/pydantic/pydantic-ai/blob/77158cad7077a711b6761587be6e1c7c83f208f2/docs/output.md#choices">documentation</a> also permits callable choice values: selecting one executes it as final output. This example deliberately uses data values. A selection menu becomes a different responsibility once its entries can act. First establish that the right source comes back; only then decide what, if anything, a selection should be allowed to do.</p>
+        </article>
+      </section>
+      <section class="evidence-section" id="evidence" aria-labelledby="evidence-title">
+    <div class="evidence-head">
+      <div>
+        <div class="eyebrow">Evidence Trail</div>
+        <h2 id="evidence-title">Receipts below the story</h2>
+        <p>The article above is the public narrative. This section keeps the source trail and limits on the same page.</p>
+      </div>
+      <a class="paper-button" href="/editions/2026-09-20/">Edition</a>
+    </div>
+    <div class="evidence-table evidence-summary">
+      <div class="evidence-line"><span>Date</span><span>September 20, 2026</span></div>
+      <div class="evidence-line"><span>Lane</span><span>Daily Edition</span></div>
+      <div class="evidence-line"><span>Confidence</span><span>78%</span></div>
+      <div class="evidence-line"><span>Sources</span><span>4</span></div>
+      <div class="evidence-line"><span>Repos</span><span>pydantic/pydantic-ai</span></div>
+    </div>
+    <div class="markdown evidence-copy evidence-copy-block">
+      <h2>Primary Evidence</h2>
+<ul>
+<li>Public API source: <a href="https://github.com/pydantic/pydantic-ai/blob/77158cad7077a711b6761587be6e1c7c83f208f2/pydantic_ai_slim/pydantic_ai/output.py">https://github.com/pydantic/pydantic-ai/blob/77158cad7077a711b6761587be6e1c7c83f208f2/pydantic_ai_slim/pydantic_ai/output.py</a>
+<ul>
+<li>Shows: Pydantic AI provides this public Python API through the pydantic_ai package. Choice and Choices define described runtime options, validated keys and optional mapped values. Callable values use a separate final-output execution path.
+</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li>Supporting definition or documentation: <a href="https://github.com/pydantic/pydantic-ai/blob/77158cad7077a711b6761587be6e1c7c83f208f2/docs/output.md#choices">https://github.com/pydantic/pydantic-ai/blob/77158cad7077a711b6761587be6e1c7c83f208f2/docs/output.md#choices</a>
+<ul>
+<li>Shows: The public documentation explains the option schema and response mapping: described runtime menus, keys mapped back to document values and callable actions restricted to output_type.
+</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li>Selection tests: <a href="https://github.com/pydantic/pydantic-ai/blob/77158cad7077a711b6761587be6e1c7c83f208f2/tests/test_choices.py">https://github.com/pydantic/pydantic-ai/blob/77158cad7077a711b6761587be6e1c7c83f208f2/tests/test_choices.py</a>
+<ul>
+<li>Shows: Tests reject an invented key, return a supplied document object, expose the option-key schema, and exercise recorded provider round trips. These do not prove semantic selection accuracy.
+</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li>Merged API and review: <a href="https://github.com/pydantic/pydantic-ai/pull/8530">https://github.com/pydantic/pydantic-ai/pull/8530</a>
+<ul>
+<li>Shows: Merged September 19. Review identified callable-option schema introspection failing; the response and regression test distinguish key schema from the eventual action result.
+</li>
+</ul>
+</li>
+</ul>
+<h2>Evidence Limits</h2>
+<ul>
+<li>The example is source-reviewed but not executed. No live provider request was made.
+</li>
+<li>Confirm installed package exports; live provider use needs configuration and may incur charges.
+</li>
+<li>Valid membership does not prove relevance or factual support. Callable values can execute actions; this example maps only data and None.
+</li>
+</ul>
+    </div>
+  </section>
+      <section class="related-edition-section atlas-context-section">
+    <div class="section-title-row">
+      <h2>Atlas Context</h2>
+      <a href="/atlas/">Open Atlas &rsaquo;</a>
+    </div>
+    <div class="updates-list">
+      <a class="article-card" href="/atlas/hands-in-the-world/">
+            <div class="article-meta"><span class="lane">Agent Atlas</span><span>Chapter 3</span></div>
+            <h3>Tool Calls: Contract, Authorization, Execution</h3>
+            <p>A tool call crosses independently governed boundaries: schema, registration, policy, approval, execution authority, result handling, and audit.</p>
+          </a>
+    </div>
+  </section>
+      <section class="reader-feedback"
+    data-tgr-feedback
+    data-article-slug="2026-09-20-daily-api-discovery-let-the-agent-pick-a-record-you-already-have"
+    data-article-title="API Discovery: Let the Agent Pick a Record You Already Have"
+    data-article-url="/articles/2026-09-20-daily-api-discovery-let-the-agent-pick-a-record-you-already-have/"
+    data-edition-date="2026-09-20"
+    data-lane="Daily Edition"
+    data-tags="Runtime"
+    data-repos="pydantic/pydantic-ai">
+    <div class="reader-feedback-head">
+      <div>
+        <div class="eyebrow">Letters &amp; Corrections</div>
+        <h2>Send a note to the desk</h2>
+      </div>
+      <p>Corrections, missing context, or a follow-up lead.</p>
+    </div>
+    <form class="feedback-form">
+      <div class="feedback-votes" role="group" aria-label="Choose signal type">
+        <button class="feedback-choice" type="button" data-vote="follow-up" aria-pressed="false">
+          <span aria-hidden="true">+</span>
+          <span>Follow-up</span>
+        </button>
+        <button class="feedback-choice" type="button" data-vote="correction" aria-pressed="false">
+          <span aria-hidden="true">!</span>
+          <span>Correction</span>
+        </button>
+      </div>
+      <label class="feedback-comment">
+        <span>Note for the editor</span>
+        <textarea name="comment" rows="3" maxlength="320" placeholder="What did we miss, or what should we follow next?"></textarea>
+      </label>
+      <div class="feedback-submit-row">
+        <p class="feedback-status" aria-live="polite"></p>
+        <button class="paper-button primary feedback-submit" type="submit">Send to desk</button>
+      </div>
+    </form>
+  </section>
+      <section class="related-edition-section">
+        <div class="section-title-row">
+          <h2>Same Edition</h2>
+          <a href="/editions/2026-09-20/">Open issue &rsaquo;</a>
+        </div>
+        <div class="updates-list">
+          <a class="update-card" href="/articles/2026-09-20-daily-openclaw-had-stopped-the-child-restart-brought-back-the-parent/">
+    <div class="update-stripe"></div>
+    <div class="update-main">
+      <div class="update-meta">
+        <span>Trust</span>
+        <span class="source-plus">+5</span>
+        <span>Sep 20, 2026</span>
+      </div>
+      <h3>OpenClaw Had Stopped the Child. Restart Brought Back the Parent.</h3>
+      <div class="update-receipt">
+        <span>openclaw/openclaw + NousResearch/hermes-agent</span>
+        <span class="branch-pill">evidence</span>
+      </div>
+      <div class="update-foot">
+        <span>5 sources</span>
+        <span>2 repos</span>
+        <span>2 linked commits</span>
+      </div>
+    </div>
+    <span class="update-arrow" aria-hidden="true">&rsaquo;</span>
+  </a><a class="update-card" href="/articles/2026-09-20-daily-builder-work-no-score-is-a-result-worth-preserving/">
+    <div class="update-stripe"></div>
+    <div class="update-main">
+      <div class="update-meta">
+        <span>Context</span>
+        <span class="source-plus">+5</span>
+        <span>Sep 20, 2026</span>
+      </div>
+      <h3>Builder Work: No Score Is a Result Worth Preserving</h3>
+      <div class="update-receipt">
+        <span>mastra-ai/mastra</span>
+        <span class="branch-pill">evidence</span>
+      </div>
+      <div class="update-foot">
+        <span>5 sources</span>
+        <span>1 repo</span>
+        <span>commit 15d3e76</span>
+      </div>
+    </div>
+    <span class="update-arrow" aria-hidden="true">&rsaquo;</span>
+  </a>
+        </div>
+      </section>
+    </main>
+    <footer class="wrap site-footer">
+      <span>&copy; 2026 The Git Reporter</span>
+      <a href="/about/">About</a>
+      <a href="/battles/">Diff Derby</a>
+      <a href="/agent-pulse/">Agent Pulse</a>
+      <a href="/feed.xml">RSS</a>
+      <a href="https://x.com/TheGitReporter">Follow on X</a>
+      <a href="/articles.json">Manifest JSON</a>
+      <a href="/repos/">Sources</a>
+    </footer>
+  </div>
+</body>
+</html>
