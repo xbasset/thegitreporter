@@ -1,0 +1,298 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Builder Work: The Last Writer Is Not the Last Run | The Git Reporter</title>
+  <meta name="description" content="CrewAI’s new evaluation shortcut needs a trustworthy pointer to completed work. The hard part is deciding which run deserves the file when exports and writers arrive out of order.">
+  <meta name="robots" content="index,follow">
+  <link rel="canonical" href="https://thegitreporter.com/articles/2026-09-22-daily-builder-work-the-last-writer-is-not-the-last-run/">
+  <link rel="alternate" type="application/rss+xml" title="The Git Reporter" href="https://thegitreporter.com/feed.xml">
+  <meta property="og:site_name" content="The Git Reporter">
+  <meta property="og:locale" content="en_US">
+  <meta property="og:title" content="Builder Work: The Last Writer Is Not the Last Run | The Git Reporter">
+  <meta property="og:description" content="CrewAI’s new evaluation shortcut needs a trustworthy pointer to completed work. The hard part is deciding which run deserves the file when exports and writers arrive out of order.">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://thegitreporter.com/articles/2026-09-22-daily-builder-work-the-last-writer-is-not-the-last-run/">
+  <meta property="og:image" content="https://thegitreporter.com/assets/social/2026-09-22-daily-builder-work-the-last-writer-is-not-the-last-run-og.jpg">
+  <meta property="og:image:secure_url" content="https://thegitreporter.com/assets/social/2026-09-22-daily-builder-work-the-last-writer-is-not-the-last-run-og.jpg">
+  <meta property="og:image:type" content="image/jpeg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Two runs finish and write in opposite orders; a comparison keeps the later-finished run, with a best-effort locking caveat.">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:site" content="@TheGitReporter">
+  <meta name="twitter:creator" content="@TheGitReporter">
+  <meta name="twitter:title" content="Builder Work: The Last Writer Is Not the Last Run | The Git Reporter">
+  <meta name="twitter:description" content="CrewAI’s new evaluation shortcut needs a trustworthy pointer to completed work. The hard part is deciding which run deserves the file when exports and writers arrive out of order.">
+  <meta name="twitter:url" content="https://thegitreporter.com/articles/2026-09-22-daily-builder-work-the-last-writer-is-not-the-last-run/">
+  <meta name="twitter:domain" content="thegitreporter.com">
+  <meta name="twitter:image" content="https://thegitreporter.com/assets/social/2026-09-22-daily-builder-work-the-last-writer-is-not-the-last-run-og.jpg">
+  <meta name="twitter:image:alt" content="Two runs finish and write in opposite orders; a comparison keeps the later-finished run, with a best-effort locking caveat.">
+  <meta property="article:published_time" content="2026-09-22T12:00:00Z">
+  <meta property="article:modified_time" content="2026-09-22T12:00:00Z">
+  <meta property="article:section" content="Daily Edition">
+  <meta property="article:tag" content="Tools">
+  <meta property="article:tag" content="Runtime">
+  <meta property="article:tag" content="crewAIInc/crewAI">
+  <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"https://thegitreporter.com/#organization","name":"The Git Reporter","url":"https://thegitreporter.com","logo":{"@type":"ImageObject","url":"https://thegitreporter.com/assets/mark.svg"},"sameAs":["https://x.com/TheGitReporter"]},{"@type":"WebSite","@id":"https://thegitreporter.com/#website","name":"The Git Reporter","url":"https://thegitreporter.com","publisher":{"@id":"https://thegitreporter.com/#organization"}},{"@type":"NewsArticle","mainEntityOfPage":{"@type":"WebPage","@id":"https://thegitreporter.com/articles/2026-09-22-daily-builder-work-the-last-writer-is-not-the-last-run/"},"headline":"Builder Work: The Last Writer Is Not the Last Run","description":"CrewAI’s new evaluation shortcut needs a trustworthy pointer to completed work. The hard part is deciding which run deserves the file when exports and writers arrive out of order.","image":["https://thegitreporter.com/assets/social/2026-09-22-daily-builder-work-the-last-writer-is-not-the-last-run-og.jpg"],"datePublished":"2026-09-22T12:00:00Z","dateModified":"2026-09-22T12:00:00Z","author":[{"@type":"Organization","name":"The Git Reporter","url":"https://thegitreporter.com"}],"publisher":{"@type":"Organization","@id":"https://thegitreporter.com/#organization","name":"The Git Reporter","url":"https://thegitreporter.com","logo":{"@type":"ImageObject","url":"https://thegitreporter.com/assets/mark.svg"},"sameAs":["https://x.com/TheGitReporter"]},"articleSection":"Daily Edition","keywords":"Tools, Runtime, crewAIInc/crewAI"}]}</script>
+  <link rel="icon" href="/assets/mark.svg">
+  <link rel="stylesheet" href="/assets/site.css?v=2026-09-08-article-feed">
+  <script defer src="/assets/feedback.js?v=2026-09-08-article-feed"></script>
+  <script defer src="/assets/analytics.js?v=2026-09-08-article-feed"></script>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-CH19T7M0T1"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){window.dataLayer.push(arguments);}
+    gtag("js", new Date());
+    gtag("config", "G-CH19T7M0T1");
+  </script>
+</head>
+<body>
+  <div class="site">
+    <header class="site-header" id="top">
+      <div class="wrap utility-row">
+        <a class="icon-link menu-icon" href="/archive/" aria-label="Open edition history"><span></span><span></span><span></span></a>
+        <a class="icon-link archive-icon" href="/archive/" aria-label="Open edition history"></a>
+      </div>
+      <div class="wrap masthead-lockup">
+        <a class="masthead-title" href="/">THE GIT REPORTER</a>
+        <div class="masthead-ornament" aria-hidden="true"></div>
+      </div>
+      <div class="wrap nav-wrap">
+        <nav class="paper-nav" aria-label="Primary navigation">
+    <a class=""  href="/">Stories</a><a class=""  href="/today/">Today</a><a class="active" aria-current="page" href="/archive/">Editions</a><a class=""  href="/about/">About</a><a class=""  href="/battles/">Diff Derby</a><a class=""  href="/agent-pulse/">Agent Pulse</a><a class=""  href="/atlas/">Agent Atlas</a><a class=""  href="/repos/">Repos</a>
+  </nav>
+        <div class="nav-rule"></div>
+      </div>
+    </header>
+    <main class="wrap page-shell article-page">
+      <section class="page-hero story-front">
+        <div class="story-topline">
+          <span>Daily Edition</span>
+          <span>Sources <strong>+6</strong></span>
+        </div>
+        <h1>Builder Work: The Last Writer Is Not the Last Run</h1>
+        <p class="summary">CrewAI’s new evaluation shortcut needs a trustworthy pointer to completed work. The hard part is deciding which run deserves the file when exports and writers arrive out of order.</p>
+        <figure class="story-illustration article-illustration">
+    <img src="/assets/illustrations/2026-09-22-builder-work-the-last-writer-is-not-the-last-run-diagram-punk-v1.png" alt="Two runs finish and write in opposite orders; a comparison keeps the later-finished run, with a best-effort locking caveat." loading="lazy" decoding="async">
+    <figcaption><span>Diagram Punk</span>atomic replacement and completion ordering answer different questions.</figcaption>
+  </figure>
+        <div class="receipt">
+    <div class="receipt-line">
+      <span class="receipt-icon">repo</span>
+      <span class="receipt-main">crewAIInc/crewAI</span>
+      <span class="branch-pill">evidence</span>
+    </div>
+    <div class="receipt-line receipt-muted">
+      <span>6 source signals</span>
+      <span>1 repo</span>
+      <span>commit 0a3b891</span>
+    </div>
+    <div class="commit-line">Evidence: commit 0a3b891 / September 22, 2026 / Daily Edition</div>
+  </div>
+        <div class="article-route-row">
+          <a href="/editions/2026-09-22/">Open Edition</a>
+          <a href="#evidence">Evidence below</a>
+        </div>
+      </section>
+      <section class="story-reader">
+        <article class="story-shell story-body">
+          <p>A command that evaluates “the last run” sounds like a small convenience. In <a href="https://github.com/crewAIInc/crewAI/pull/7648">CrewAI’s tracing change merged September 21</a>, making that convenience reliable required separate answers to three questions: did the whole trace arrive, which run finished later, and can another writer change the answer before it is saved?</p>
+<p>The work replaces an exposed execution identifier with a project-local <code>.crewai/last_run.json</code> record. The <a href="https://github.com/crewAIInc/crewAI/commit/0a3b8912b39fb72fac74758069fda523697ffabc">companion CLI change</a> reads that record for <code>crewai eval</code>. A wrong pointer can therefore send the evaluator to a different run from the one the developer meant to inspect.</p>
+<h2>One file, three promises</h2>
+<p>First, eligibility. The <a href="https://github.com/crewAIInc/crewAI/blob/6e1fa8cf2/lib/crewai/src/crewai/telemetry/tracing/grants.py">trace exporter</a> records a run only after export has succeeded, and refuses to record a partially failed export. The related ephemeral-buffer path also excludes truncated traces. A successful upload of whatever remained is insufficient if the grader cannot see the whole run.</p>
+<p>Second, ordering. Imagine run A finishes at 10:01 and run B at 10:02. B’s writer reaches the file first; A’s arrives later. Blindly replacing the file would label A the latest. The <a href="https://github.com/crewAIInc/crewAI/blob/6e1fa8cf2/lib/crewai/src/crewai/telemetry/tracing/last_run.py">new writer</a> compares completion times and preserves an existing record when it proves that a different run finished later.</p>
+<p>Third, publication of that decision. Each writer gets its own temporary file. Where file locking works, a lock covers the read, comparison and replacement together. Atomic replacement prevents a half-written JSON file; the larger locked region prevents a complete but stale decision from overwriting a newer one. Those are different guarantees.</p>
+<h2>The review changed what “last” could promise</h2>
+<p>The public PR identifies Claude Code use, and the commit history contains agent co-authorship. That establishes reported agent assistance, not autonomous authorship or a measured productivity gain. The interesting receipt is the revision trail: an initial atomic write gained ordering logic, an overstrict timestamp rule caused timing-dependent test failures, and the read–compare–replace sequence then gained a lock.</p>
+<p>The final rule is deliberately modest. The same run may refresh its record. Missing completion times and millisecond ties allow the incoming write. On platforms without <code>flock</code>, or filesystems that refuse a lock, the writer proceeds without serialization. A convenience record is not allowed to fail the agent run; it is also not a universal concurrency guarantee.</p>
+<p>The <a href="https://github.com/crewAIInc/crewAI/blob/6e1fa8cf2/lib/crewai/tests/telemetry/test_last_run.py">tests</a> expose another useful correction. A test for projects using platform credentials originally replaced the very recording guard it was supposed to exercise. The revised case uses the real guard. Otherwise a green test could have concealed a rule that wrongly disabled local recording for those projects.</p>
+<h2>A transferable skill: test the meaning before the write</h2>
+<p>When building a “latest” pointer, write the ordering rule before choosing the storage primitive. Test an older completion arriving after a newer one, ties, missing timestamps, simultaneous writers and a refused lock. Separately test whether the underlying artifact is complete enough to publish. A perfectly atomic pointer to an incomplete trace is still the wrong answer.</p>
+<p>We loaded the inspected writer in isolation and confirmed three cases: an older late writer preserved the newer run; equal completion times allowed replacement; disabling file locking still allowed a write. This was a local source probe, not CrewAI’s full test suite or a live AMP evaluation. We inspected exporter eligibility and upstream concurrency tests without independently exercising that whole path.</p>
+<p>The result is a small, explicit contract other builders can reuse. Keep the useful shortcut, state where its ordering guarantee ends, and make the failure cheap. The next test is whether evaluation reaches the intended complete run under real overlapping workloads—not merely whether the record remains valid JSON.</p>
+        </article>
+      </section>
+      <section class="evidence-section" id="evidence" aria-labelledby="evidence-title">
+    <div class="evidence-head">
+      <div>
+        <div class="eyebrow">Evidence Trail</div>
+        <h2 id="evidence-title">Receipts below the story</h2>
+        <p>The article above is the public narrative. This section keeps the source trail and limits on the same page.</p>
+      </div>
+      <a class="paper-button" href="/editions/2026-09-22/">Edition</a>
+    </div>
+    <div class="evidence-table evidence-summary">
+      <div class="evidence-line"><span>Date</span><span>September 22, 2026</span></div>
+      <div class="evidence-line"><span>Lane</span><span>Daily Edition</span></div>
+      <div class="evidence-line"><span>Confidence</span><span>87%</span></div>
+      <div class="evidence-line"><span>Sources</span><span>6</span></div>
+      <div class="evidence-line"><span>Repos</span><span>crewAIInc/crewAI</span></div>
+    </div>
+    <div class="markdown evidence-copy evidence-copy-block">
+      <h2>Primary Evidence</h2>
+<ul>
+<li>Public coding-agent use proof: <a href="https://github.com/crewAIInc/crewAI/pull/7648">https://github.com/crewAIInc/crewAI/pull/7648</a>
+<ul>
+<li>Shows: the author explicitly identifies Claude Code generation; the public change describes the local last-run record and its purpose. This is disclosed assistance, not proof of autonomous authorship or productivity gain.
+</li>
+</ul>
+</li>
+<li>Inspected GitHub repository: <a href="https://github.com/crewAIInc/crewAI/tree/6e1fa8cf2/lib/crewai">https://github.com/crewAIInc/crewAI/tree/6e1fa8cf2/lib/crewai</a>
+<ul>
+<li>Shows: inspected tracing/last_run.py implements temporary-file replacement and completion ordering; tracing/grants.py gates recording on successful exports; tests/telemetry/test_last_run.py exercises ordering and degraded locking.
+</li>
+</ul>
+</li>
+<li>Engineering receipt: <a href="https://github.com/crewAIInc/crewAI/blob/6e1fa8cf2/lib/crewai/src/crewai/telemetry/tracing/last_run.py">https://github.com/crewAIInc/crewAI/blob/6e1fa8cf2/lib/crewai/src/crewai/telemetry/tracing/last_run.py</a>
+<ul>
+<li>Shows: unique temporary files, locked read-compare-replace, later-completion preference for different runs, permissive ties/missing times and non-fatal lock failure.
+</li>
+</ul>
+</li>
+<li>Ordering and failure tests: <a href="https://github.com/crewAIInc/crewAI/blob/6e1fa8cf2/lib/crewai/tests/telemetry/test_last_run.py">https://github.com/crewAIInc/crewAI/blob/6e1fa8cf2/lib/crewai/tests/telemetry/test_last_run.py</a>
+<ul>
+<li>Shows: late older writers, equal completion times, three simultaneous writers, platform-credential guard coverage, and writes when file locking is absent or refused.
+</li>
+</ul>
+</li>
+<li>Export eligibility: <a href="https://github.com/crewAIInc/crewAI/blob/6e1fa8cf2/lib/crewai/src/crewai/telemetry/tracing/grants.py">https://github.com/crewAIInc/crewAI/blob/6e1fa8cf2/lib/crewai/src/crewai/telemetry/tracing/grants.py</a>
+<ul>
+<li>Shows: record_export refuses missing, failed or already-recorded exports before writing the evaluation pointer.
+</li>
+</ul>
+</li>
+<li>CLI consumer: <a href="https://github.com/crewAIInc/crewAI/commit/0a3b8912b39fb72fac74758069fda523697ffabc">https://github.com/crewAIInc/crewAI/commit/0a3b8912b39fb72fac74758069fda523697ffabc</a>
+<ul>
+<li>Shows: the subsequent crewai eval implementation reads the local record as its default run selection.
+</li>
+</ul>
+</li>
+</ul>
+<h2>Evidence Limits</h2>
+<ul>
+<li>A local isolated source probe tested late older writes, ties and absent locking. It did not run CrewAI's full suite, the concurrent-writer test or live AMP evaluation.
+</li>
+<li>File locking is best effort; this pointer is not a transactional guarantee across every platform or filesystem.
+</li>
+<li>Upstream public agent-use disclosure does not quantify authorship or engineering efficiency.
+</li>
+<li>Source changes were inspected without proving installed-release availability or production evaluation accuracy.
+</li>
+</ul>
+    </div>
+  </section>
+      <section class="related-edition-section atlas-context-section">
+    <div class="section-title-row">
+      <h2>Atlas Context</h2>
+      <a href="/atlas/">Open Atlas &rsaquo;</a>
+    </div>
+    <div class="updates-list">
+      <a class="article-card" href="/atlas/friction-safety-and-approval/">
+            <div class="article-meta"><span class="lane">Agent Atlas</span><span>Chapter 7</span></div>
+            <h3>The Approval Trap</h3>
+            <p>Approval is useful only when it catches a meaningful change in authority, explains that change, and keeps the decision attached to the work.</p>
+          </a>
+    </div>
+  </section>
+      <section class="reader-feedback"
+    data-tgr-feedback
+    data-article-slug="2026-09-22-daily-builder-work-the-last-writer-is-not-the-last-run"
+    data-article-title="Builder Work: The Last Writer Is Not the Last Run"
+    data-article-url="/articles/2026-09-22-daily-builder-work-the-last-writer-is-not-the-last-run/"
+    data-edition-date="2026-09-22"
+    data-lane="Daily Edition"
+    data-tags="Tools,Runtime"
+    data-repos="crewAIInc/crewAI">
+    <div class="reader-feedback-head">
+      <div>
+        <div class="eyebrow">Letters &amp; Corrections</div>
+        <h2>Send a note to the desk</h2>
+      </div>
+      <p>Corrections, missing context, or a follow-up lead.</p>
+    </div>
+    <form class="feedback-form">
+      <div class="feedback-votes" role="group" aria-label="Choose signal type">
+        <button class="feedback-choice" type="button" data-vote="follow-up" aria-pressed="false">
+          <span aria-hidden="true">+</span>
+          <span>Follow-up</span>
+        </button>
+        <button class="feedback-choice" type="button" data-vote="correction" aria-pressed="false">
+          <span aria-hidden="true">!</span>
+          <span>Correction</span>
+        </button>
+      </div>
+      <label class="feedback-comment">
+        <span>Note for the editor</span>
+        <textarea name="comment" rows="3" maxlength="320" placeholder="What did we miss, or what should we follow next?"></textarea>
+      </label>
+      <div class="feedback-submit-row">
+        <p class="feedback-status" aria-live="polite"></p>
+        <button class="paper-button primary feedback-submit" type="submit">Send to desk</button>
+      </div>
+    </form>
+  </section>
+      <section class="related-edition-section">
+        <div class="section-title-row">
+          <h2>Same Edition</h2>
+          <a href="/editions/2026-09-22/">Open issue &rsaquo;</a>
+        </div>
+        <div class="updates-list">
+          <a class="update-card" href="/articles/2026-09-22-daily-the-approval-arrived-the-subagent-could-not-continue/">
+    <div class="update-stripe"></div>
+    <div class="update-main">
+      <div class="update-meta">
+        <span>Trust</span>
+        <span class="source-plus">+5</span>
+        <span>Sep 22, 2026</span>
+      </div>
+      <h3>The Approval Arrived. The Subagent Could Not Continue.</h3>
+      <div class="update-receipt">
+        <span>microsoft/agent-framework</span>
+        <span class="branch-pill">evidence</span>
+      </div>
+      <div class="update-foot">
+        <span>5 sources</span>
+        <span>1 repo</span>
+        <span>5 source signals</span>
+      </div>
+    </div>
+    <span class="update-arrow" aria-hidden="true">&rsaquo;</span>
+  </a><a class="update-card" href="/articles/2026-09-22-daily-api-discovery-shorten-the-context-keep-the-history/">
+    <div class="update-stripe"></div>
+    <div class="update-main">
+      <div class="update-meta">
+        <span>Context</span>
+        <span class="source-plus">+5</span>
+        <span>Sep 22, 2026</span>
+      </div>
+      <h3>API Discovery: Shorten the Context, Keep the History</h3>
+      <div class="update-receipt">
+        <span>earendil-works/pi</span>
+        <span class="branch-pill">evidence</span>
+      </div>
+      <div class="update-foot">
+        <span>5 sources</span>
+        <span>1 repo</span>
+        <span>5 source signals</span>
+      </div>
+    </div>
+    <span class="update-arrow" aria-hidden="true">&rsaquo;</span>
+  </a>
+        </div>
+      </section>
+    </main>
+    <footer class="wrap site-footer">
+      <span>&copy; 2026 The Git Reporter</span>
+      <a href="/about/">About</a>
+      <a href="/battles/">Diff Derby</a>
+      <a href="/agent-pulse/">Agent Pulse</a>
+      <a href="/feed.xml">RSS</a>
+      <a href="https://x.com/TheGitReporter">Follow on X</a>
+      <a href="/articles.json">Manifest JSON</a>
+      <a href="/repos/">Sources</a>
+    </footer>
+  </div>
+</body>
+</html>
