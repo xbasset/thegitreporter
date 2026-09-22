@@ -1,0 +1,347 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Jev puts the odds in the answer. Local AI still has to make them trustworthy. | The Git Reporter</title>
+  <meta name="description" content="TypeSafe&#39;s new decision model makes probabilities part of the interface. Ollama&#39;s long-requested logprobs already shipped—but reading a token&#39;s likelihood and trusting an automated decision are different engineering problems.">
+  <meta name="robots" content="index,follow">
+  <link rel="canonical" href="https://thegitreporter.com/articles/2026-09-22-daily-jev-puts-the-odds-in-the-answer-local-ai-still-has-to-make-them-trustworthy/">
+  <link rel="alternate" type="application/rss+xml" title="The Git Reporter" href="https://thegitreporter.com/feed.xml">
+  <meta property="og:site_name" content="The Git Reporter">
+  <meta property="og:locale" content="en_US">
+  <meta property="og:title" content="Jev puts the odds in the answer. Local AI still has to make them trustworthy. | The Git Reporter">
+  <meta property="og:description" content="TypeSafe&#39;s new decision model makes probabilities part of the interface. Ollama&#39;s long-requested logprobs already shipped—but reading a token&#39;s likelihood and trusting an automated decision are different engineering problems.">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://thegitreporter.com/articles/2026-09-22-daily-jev-puts-the-odds-in-the-answer-local-ai-still-has-to-make-them-trustworthy/">
+  <meta property="og:image" content="https://thegitreporter.com/assets/social/2026-09-22-daily-jev-puts-the-odds-in-the-answer-local-ai-still-has-to-make-them-trustworthy-og.jpg">
+  <meta property="og:image:secure_url" content="https://thegitreporter.com/assets/social/2026-09-22-daily-jev-puts-the-odds-in-the-answer-local-ai-still-has-to-make-them-trustworthy-og.jpg">
+  <meta property="og:image:type" content="image/jpeg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Cream-paper marker poster comparing Jev typed choices through a hosted API, Ollama token logprobs since v0.12.11, and OptiLLM local entropy decoding. Arrows lead to Measure. Then act. A red stamp reads Probability is not correctness.">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:site" content="@TheGitReporter">
+  <meta name="twitter:creator" content="@TheGitReporter">
+  <meta name="twitter:title" content="Jev puts the odds in the answer. Local AI still has to make them trustworthy. | The Git Reporter">
+  <meta name="twitter:description" content="TypeSafe&#39;s new decision model makes probabilities part of the interface. Ollama&#39;s long-requested logprobs already shipped—but reading a token&#39;s likelihood and trusting an automated decision are different engineering problems.">
+  <meta name="twitter:url" content="https://thegitreporter.com/articles/2026-09-22-daily-jev-puts-the-odds-in-the-answer-local-ai-still-has-to-make-them-trustworthy/">
+  <meta name="twitter:domain" content="thegitreporter.com">
+  <meta name="twitter:image" content="https://thegitreporter.com/assets/social/2026-09-22-daily-jev-puts-the-odds-in-the-answer-local-ai-still-has-to-make-them-trustworthy-og.jpg">
+  <meta name="twitter:image:alt" content="Cream-paper marker poster comparing Jev typed choices through a hosted API, Ollama token logprobs since v0.12.11, and OptiLLM local entropy decoding. Arrows lead to Measure. Then act. A red stamp reads Probability is not correctness.">
+  <meta property="article:published_time" content="2026-09-22T12:00:00Z">
+  <meta property="article:modified_time" content="2026-09-22T12:00:00Z">
+  <meta property="article:section" content="Daily Edition">
+  <meta property="article:tag" content="Memory">
+  <meta property="article:tag" content="Delegation">
+  <meta property="article:tag" content="UX">
+  <meta property="article:tag" content="Runtime">
+  <meta property="article:tag" content="ollama/ollama algorithmicsuperintelligence/optillm typesafe-ai/system-one-adapter-python">
+  <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"https://thegitreporter.com/#organization","name":"The Git Reporter","url":"https://thegitreporter.com","logo":{"@type":"ImageObject","url":"https://thegitreporter.com/assets/mark.svg"},"sameAs":["https://x.com/TheGitReporter"]},{"@type":"WebSite","@id":"https://thegitreporter.com/#website","name":"The Git Reporter","url":"https://thegitreporter.com","publisher":{"@id":"https://thegitreporter.com/#organization"}},{"@type":"NewsArticle","mainEntityOfPage":{"@type":"WebPage","@id":"https://thegitreporter.com/articles/2026-09-22-daily-jev-puts-the-odds-in-the-answer-local-ai-still-has-to-make-them-trustworthy/"},"headline":"Jev puts the odds in the answer. Local AI still has to make them trustworthy.","description":"TypeSafe's new decision model makes probabilities part of the interface. Ollama's long-requested logprobs already shipped—but reading a token's likelihood and trusting an automated decision are different engineering problems.","image":["https://thegitreporter.com/assets/social/2026-09-22-daily-jev-puts-the-odds-in-the-answer-local-ai-still-has-to-make-them-trustworthy-og.jpg"],"datePublished":"2026-09-22T12:00:00Z","dateModified":"2026-09-22T12:00:00Z","author":[{"@type":"Organization","name":"The Git Reporter","url":"https://thegitreporter.com"}],"publisher":{"@type":"Organization","@id":"https://thegitreporter.com/#organization","name":"The Git Reporter","url":"https://thegitreporter.com","logo":{"@type":"ImageObject","url":"https://thegitreporter.com/assets/mark.svg"},"sameAs":["https://x.com/TheGitReporter"]},"articleSection":"Daily Edition","keywords":"Memory, Delegation, UX, Runtime, ollama/ollama algorithmicsuperintelligence/optillm typesafe-ai/system-one-adapter-python"}]}</script>
+  <link rel="icon" href="/assets/mark.svg">
+  <link rel="stylesheet" href="/assets/site.css?v=2026-09-08-article-feed">
+  <script defer src="/assets/feedback.js?v=2026-09-08-article-feed"></script>
+  <script defer src="/assets/analytics.js?v=2026-09-08-article-feed"></script>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-CH19T7M0T1"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){window.dataLayer.push(arguments);}
+    gtag("js", new Date());
+    gtag("config", "G-CH19T7M0T1");
+  </script>
+</head>
+<body>
+  <div class="site">
+    <header class="site-header" id="top">
+      <div class="wrap utility-row">
+        <a class="icon-link menu-icon" href="/archive/" aria-label="Open edition history"><span></span><span></span><span></span></a>
+        <a class="icon-link archive-icon" href="/archive/" aria-label="Open edition history"></a>
+      </div>
+      <div class="wrap masthead-lockup">
+        <a class="masthead-title" href="/">THE GIT REPORTER</a>
+        <div class="masthead-ornament" aria-hidden="true"></div>
+      </div>
+      <div class="wrap nav-wrap">
+        <nav class="paper-nav" aria-label="Primary navigation">
+    <a class=""  href="/">Stories</a><a class=""  href="/today/">Today</a><a class="active" aria-current="page" href="/archive/">Editions</a><a class=""  href="/about/">About</a><a class=""  href="/battles/">Diff Derby</a><a class=""  href="/agent-pulse/">Agent Pulse</a><a class=""  href="/atlas/">Agent Atlas</a><a class=""  href="/repos/">Repos</a>
+  </nav>
+        <div class="nav-rule"></div>
+      </div>
+    </header>
+    <main class="wrap page-shell article-page">
+      <section class="page-hero story-front">
+        <div class="story-topline">
+          <span>Daily Edition</span>
+          <span>Sources <strong>+9</strong></span>
+        </div>
+        <h1>Jev puts the odds in the answer. Local AI still has to make them trustworthy.</h1>
+        <p class="summary">TypeSafe's new decision model makes probabilities part of the interface. Ollama's long-requested logprobs already shipped—but reading a token's likelihood and trusting an automated decision are different engineering problems.</p>
+        <figure class="story-illustration article-illustration">
+    <img src="/assets/illustrations/2026-09-22-commission-24019510-21c0-4381-921e-2f63294e5314.png" alt="Cream-paper marker poster comparing Jev typed choices through a hosted API, Ollama token logprobs since v0.12.11, and OptiLLM local entropy decoding. Arrows lead to Measure. Then act. A red stamp reads Probability is not correctness." loading="lazy" decoding="async">
+    <figcaption><span>Diagram Punk</span>Three ways to use probabilities. Each still needs evidence that its numbers support the decision.</figcaption>
+  </figure>
+        <div class="receipt">
+    <div class="receipt-line">
+      <span class="receipt-icon">repo</span>
+      <span class="receipt-main">ollama/ollama algorithmicsuperintelligence/optillm typesafe-ai/system-one-adapter-python</span>
+      <span class="branch-pill">evidence</span>
+    </div>
+    <div class="receipt-line receipt-muted">
+      <span>9 source signals</span>
+      <span>1 repo</span>
+      <span>9 source signals</span>
+    </div>
+    <div class="commit-line">Evidence: 9 source signals / September 22, 2026 / Daily Edition</div>
+  </div>
+        <div class="article-route-row">
+          <a href="/editions/2026-09-22/">Open Edition</a>
+          <a href="#evidence">Evidence below</a>
+        </div>
+      </section>
+      <section class="story-reader">
+        <article class="story-shell story-body">
+          <header>
+
+
+<p>By TheGitReporter · September 22, 2026</p>
+</header>
+<p>A support message can belong to two departments. A model that returns only “billing” hides the runner-up. A model that returns a distribution gives the application another possibility: route the ticket, copy a second team, or ask someone to check. The difference is what the surrounding software gets to know before it acts.</p>
+<p>That is the useful proposition behind Jev. TypeSafe founder Diogo Almeida introduced it on September 15 as an early-access model for structured decisions, using parallel outputs and a training approach the company calls Reinforcement Learning for Calibrated Decisions. Those are TypeSafe's architectural claims, not independently reproduced findings. <a href="https://typesafe.ai/blog/introducing-system-one-models-and-jev">The launch announcement</a> frames probabilities as part of the product.</p>
+<p>For developers drawn to fast, small, local models, Jev raises a good question: how much useful intelligence can fit into a narrow decision? But the evidence changes two assumptions behind that question. Jev's documented access is a <a href="https://docs.typesafe.ai/introduction/quickstart">hosted API</a>; the reviewed materials do not establish downloadable weights, a parameter count or local inference. And Ollama has already delivered the token-probability feature users spent years requesting. The remaining problem is making the numbers mean what an application thinks they mean.</p>
+
+<section>
+<h2>The Ollama request has an answer</h2>
+<p>In February 2024, <a href="https://github.com/ollama/ollama/issues/2415">issue #2415</a> asked Ollama to expose logits or logprobs. The request captured a practical frustration: an application could receive generated text without the information needed to inspect alternatives. The thread eventually became a record of delivery. It closed as completed on November 13, 2025, with a link to the release.</p>
+<p>The decisive implementation was <a href="https://github.com/ollama/ollama/pull/12899">baptistejamin's PR #12899</a>, merged November 11. The following day's <a href="https://github.com/ollama/ollama/releases/tag/v0.12.11">v0.12.11 release</a> announced logprobs for both Ollama's native API and its OpenAI-compatible API. The earlier <a href="https://github.com/ollama/ollama/pull/9282">BruceMacD proposal, #9282</a>, described restructuring runner responses so they could carry metadata beyond text; it closed without merging. It is useful background, but it is not the shipping change.</p>
+<p>The implementation is more than a request flag. The merged diff adds probability fields to requests and responses and wires them through the compatibility layer. At the September 19 revision inspected for this article, <a href="https://github.com/ollama/ollama/blob/6383a0fa9cbf97494b847226e189f6e36b401a08/openai/openai.go#L732">request conversion</a> still forwards <code>logprobs</code> and <code>top_logprobs</code>; <a href="https://github.com/ollama/ollama/blob/6383a0fa9cbf97494b847226e189f6e36b401a08/openai/openai.go#L278">response conversion</a> carries the results back. Server handlers validate the requested number of alternatives and collect probabilities for non-streaming responses. This establishes an implemented path, not a fresh runtime test.</p>
+<p>Even a newer complaint can mislead. In May 2026, <a href="https://github.com/ollama/ollama/issues/16117">issue #16117</a> alleged that the compatibility endpoint dropped logprobs. A reply showed them being returned. The issue's author acknowledged that the failure was downstream in their own integration. Reading the opening report alone would reverse the finding.</p>
+<p>The related request, <a href="https://github.com/ollama/ollama/issues/3795">#3795</a>, remains open, but asks for <code>logit_bias</code>. That is a control for changing which tokens are favored, not a request to observe their likelihoods. An unresolved control feature does not mean the observation feature is absent. Nor should local support be silently extended to cloud service: in <a href="https://github.com/ollama/ollama/issues/13638#issuecomment-3734238510">a January 2026 reply</a>, Ollama said logprobs were supported only for local models. This investigation did not retest cloud behavior.</p>
+</section>
+
+<section>
+<h2>Odds over words, odds over decisions</h2>
+<p>A logit is a model score before conversion into a probability. A logprob is the logarithm of a probability. Exponentiating it recovers the probability; it does not turn that number into a guarantee that the answer is right. In a text model, the immediate event being scored is a token appearing after the preceding context. <a href="https://github.com/ollama/ollama/releases/tag/v0.12.11">Ollama's release notes</a> describe that conditional meaning.</p>
+<p>This distinction matters even in a tiny classifier. Imagine a local model instructed to emit one label for an incoming message: A for billing, B for delivery, C for a return. If the label is genuinely one token under that model's tokenizer and prompt, its probability can be a useful classification signal. But a system must still account for other possible output tokens, ambiguous messages and categories it forgot to include.</p>
+<p>Ollama's <a href="https://github.com/ollama/ollama/blob/6383a0fa9cbf97494b847226e189f6e36b401a08/api/types.go">API types</a> specify up to 20 top alternatives. Its <a href="https://github.com/ollama/ollama/blob/6383a0fa9cbf97494b847226e189f6e36b401a08/server/routes.go#L2489">request validation</a> enforces that range. A desired label outside that list is unobserved, not necessarily impossible. Renormalizing only the labels you received changes the question to a conditional comparison among those labels; it does not recover missing probability mass.</p>
+<p>Jev's <a href="https://docs.typesafe.ai/primitives/choice">Choice interface</a> starts from the declared options themselves. It returns the chosen option and a distribution across all options, with up to 255 choices. The developer supplies descriptions that distinguish the options. The documentation recommends including an escape option when the list may be incomplete. This is a different interface from a shortlist drawn from a text model's vocabulary.</p>
+<p>Its other primitives cover a rubric-based score and a truth-oriented value called Noul. TypeSafe recommends splitting complicated judgments into narrow questions, evaluating them against the same state and combining their results in ordinary code. That is the consequential design choice: the developer owns the rules connecting judgments. <a href="https://docs.typesafe.ai/introduction">TypeSafe's introduction</a> describes this decomposition.</p>
+<p>Calling Jev simply a “logprob model” therefore loses the distinction that makes it interesting. Its public interface supplies decision probabilities; it does not expose itself as a one-token language-model endpoint. Nothing inspected here establishes that Jev is a small local model in disguise.</p>
+</section>
+
+<section>
+<h2>The confidence number needs a job description</h2>
+<p>TypeSafe's <a href="https://docs.typesafe.ai/confidence">confidence documentation</a> separates two fields that are easy to conflate. The probabilities describe the options. For Choice and Score, the confidence value is computed from the distribution's shape: concentrated answers receive higher confidence than spread-out answers. Noul does not carry that additional field. A confidence value of 0.9 should not casually be read as an independently established 90 percent chance of success.</p>
+<p>Calibration is the harder promise. Among many comparable predictions assigned an 80 percent probability, roughly 80 percent should be correct. TypeSafe's <a href="https://docs.typesafe.ai/introduction/machine-learning-primer">training primer</a> explicitly describes this as a property of groups of predictions, not certainty about one answer. The broader problem predates Jev: <a href="https://proceedings.mlr.press/v70/guo17a.html">Guo and colleagues' 2017 calibration research</a> showed that modern neural networks could produce poorly calibrated confidence estimates.</p>
+<p>For the ticket router, the practical test is whether its declared probabilities track outcomes on representative tickets. A concentrated distribution can still pick the wrong department. A schema-valid answer can still misunderstand a customer. Restricting a model to legal actions removes one class of failure; it cannot prove that the selected action suits the situation.</p>
+<p>This is also the limit of TypeSafe's launch language about eliminating hallucinations. The announcement grounds its zero-error figure in guaranteed schema matching, rather than an empirical measurement of every kind of factual or decision error. It reports 70–500 millisecond end-to-end responses and notes favorable geography and workload choices in its demonstrations. These are vendor reports, not timings measured here. <a href="https://typesafe.ai/blog/introducing-system-one-models-and-jev">The company's own caveats</a> belong beside the promise.</p>
+<p>The published <a href="https://evals.typesafe.ai/">workflow evaluation</a> also has a specific target. It compares four structured workflows against reference answers derived from two large models, while assuming the workflow code is correct. Agreement with those references is informative, but it is not an audit against real-world outcomes. A correctly executed policy can still encode the wrong policy.</p>
+<p>There is another revealing receipt in TypeSafe's public comparison adapter. Its <a href="https://github.com/typesafe-ai/system-one-adapter-python/blob/adffc2eab300a4fa3c0e92252d4ffd6ceaa53700/src/system_one_adapter/_schema.py#L153">schema construction</a> can ask an LLM to generate a numerical probability for each label; its <a href="https://github.com/typesafe-ai/system-one-adapter-python/blob/adffc2eab300a4fa3c0e92252d4ffd6ceaa53700/README.md">configuration</a> supports probability and discrete-answer modes. Those generated numbers are not the model's next-token logprobs. The comparison supports examining whole decision interfaces. It does not establish that Jev beats every purpose-built local classifier using token scores.</p>
+</section>
+
+<section>
+<h2>OptiLLM shows why access below the answer matters</h2>
+<p>The local branch of this story is already concrete. The <code>codelion/optillm</code> repository now resolves to <code>algorithmicsuperintelligence/optillm</code>. In Ollama's original discussion, codelion <a href="https://github.com/ollama/ollama/issues/2415#issuecomment-3570817766">pointed readers toward OptiLLM</a>. <a href="https://github.com/ollama/ollama/issues/2415#issuecomment-3570870476">A reply clarified the relationship</a>: it is an alternative inference path, not a way to make Ollama reveal data its API does not return.</p>
+<p>Inspecting OptiLLM beyond its README makes that distinction useful. Its <a href="https://github.com/algorithmicsuperintelligence/optillm/blob/eaf171aa6da5682ba1014ef342556f40247f5b35/optillm/entropy_decoding.py#L22">entropy decoder</a> computes measures of the token distribution and uses them to switch among greedy selection and different sampling behaviors. Probabilities become inputs to an algorithm controlling the next step. They are doing work that cannot be recovered from the final paragraph alone.</p>
+<p>But access inside a runtime and access through an API are separate claims. The inspected <a href="https://github.com/algorithmicsuperintelligence/optillm/blob/eaf171aa6da5682ba1014ef342556f40247f5b35/optillm/inference.py#L1360">Transformers generation path</a> rejects <code>top_logprobs</code> above 20. When probabilities are requested, it performs a further model forward pass over the completed sequence to calculate them. Its MLX path, in the same file, returns no logprob results. These observations do not support describing OptiLLM as a universal, free, full-vocabulary probability endpoint. They expose the engineering choices hidden behind the feature name.</p>
+<p>The transferable lesson is to inspect where a probability is computed, which transformations precede it, what gets discarded and how much work obtaining it adds. A compatible request shape does not settle any of those questions.</p>
+</section>
+
+<section>
+<h2>A useful local experiment is smaller than the promise</h2>
+<p>For a developer exploring single-token decisions, a sensible first experiment is a reversible routing task with a compact label set and labeled examples. Ollama's <a href="https://docs.ollama.com/api/generate">native generation API</a> accepts top-level <code>logprobs: true</code> and <code>top_logprobs</code>. A request can limit output through <code>options.num_predict</code>. Limiting output to one token is not itself a classifier: the prompt must define the task, the tokenizer must represent the labels as intended, and the response must actually contain a usable decision.</p>
+<p>This is a proposed experiment, not a tested recipe. Record the exact local model and runtime version. Check label tokenization, whitespace and whether a model emits reasoning before its answer. Treat absent scores as missing data. Compare errors and abstentions on held-out examples, then measure latency with realistic input lengths and both warm and cold starts. One emitted token still requires processing the input. The <a href="https://huggingface.co/docs/transformers/main_classes/text_generation">Transformers generation reference</a> also distinguishes output-length controls from sampling controls that alter token selection.</p>
+<p>The important number is how many decisions the system can safely handle at an acceptable error rate and response time—not merely how often the winning label gets a large score. Code can reserve an uncertain case for review, request another fact or send it to a stronger model. Those routes should be judged by their observed outcomes, not by a confidence field's reassuring name.</p>
+<p>Jev makes that division of labor explicit in its product interface. Ollama and OptiLLM show that local builders already have material to experiment with. A wider era of fast, specialized decision models remains a proposition to test. The next convincing evidence would be independent calibration results, comparisons with lean local classifiers and reproducible end-to-end measurements. The probability is available; the application still has to earn the right to act on it.</p>
+</section>
+
+<section>
+<h2>Primary Evidence</h2>
+<ul>
+<li><a href="https://typesafe.ai/blog/introducing-system-one-models-and-jev">TypeSafe's September 15 Jev announcement</a>, <a href="https://docs.typesafe.ai/primitives/choice">Choice contract</a> and <a href="https://docs.typesafe.ai/confidence">confidence definition</a>.</li>
+<li><a href="https://github.com/ollama/ollama/pull/12899">Merged Ollama implementation</a>, <a href="https://github.com/ollama/ollama/releases/tag/v0.12.11">release notes</a> and <a href="https://github.com/ollama/ollama/blob/6383a0fa9cbf97494b847226e189f6e36b401a08/openai/openai.go">pinned compatibility-layer source</a>.</li>
+<li><a href="https://github.com/algorithmicsuperintelligence/optillm/blob/eaf171aa6da5682ba1014ef342556f40247f5b35/optillm/inference.py">Pinned OptiLLM inference code</a> and <a href="https://github.com/algorithmicsuperintelligence/optillm/blob/eaf171aa6da5682ba1014ef342556f40247f5b35/optillm/entropy_decoding.py">entropy decoder</a>.</li>
+<li><a href="https://evals.typesafe.ai/">Vendor evaluation methodology</a> and <a href="https://github.com/typesafe-ai/system-one-adapter-python/blob/adffc2eab300a4fa3c0e92252d4ffd6ceaa53700/src/system_one_adapter/_schema.py">comparison adapter's output schema</a>.</li>
+</ul>
+</section>
+<section>
+<h2>Evidence Limits</h2>
+<p>Public sources and repository code were inspected through September 22, 2026. No Jev API inference, local model benchmark, calibration experiment or cloud compatibility test was run for this article. Ollama's sampler tests were read, not executed. Source code establishes implemented behavior and intended checks, not universal support across every backend and model. Jev's training, performance and type-safety assertions remain attributed to TypeSafe. Its reviewed materials do not establish local weights or model size. The routing example is illustrative, and no user identity has been inferred from issue authorship.</p>
+</section>
+        </article>
+      </section>
+      <section class="evidence-section" id="evidence" aria-labelledby="evidence-title">
+    <div class="evidence-head">
+      <div>
+        <div class="eyebrow">Evidence Trail</div>
+        <h2 id="evidence-title">Receipts below the story</h2>
+        <p>The article above is the public narrative. This section keeps the source trail and limits on the same page.</p>
+      </div>
+      <a class="paper-button" href="/editions/2026-09-22/">Edition</a>
+    </div>
+    <div class="evidence-table evidence-summary">
+      <div class="evidence-line"><span>Date</span><span>September 22, 2026</span></div>
+      <div class="evidence-line"><span>Lane</span><span>Daily Edition</span></div>
+      <div class="evidence-line"><span>Confidence</span><span>91%</span></div>
+      <div class="evidence-line"><span>Sources</span><span>9</span></div>
+      <div class="evidence-line"><span>Repos</span><span>ollama/ollama algorithmicsuperintelligence/optillm typesafe-ai/system-one-adapter-python</span></div>
+    </div>
+    <div class="markdown evidence-copy evidence-copy-block">
+      <p>Research cutoff: September 22, 2026. Links below are public primary sources. Code references pin the inspected revisions.</p>
+<h2>Primary Evidence</h2>
+<ul>
+<li><a href="https://typesafe.ai/blog/introducing-system-one-models-and-jev">Jev announcement</a>: dated launch and explicitly attributed vendor claims.
+</li>
+<li><a href="https://docs.typesafe.ai/primitives/choice">Choice</a>, <a href="https://docs.typesafe.ai/confidence">confidence</a>, <a href="https://docs.typesafe.ai/introduction/machine-learning-primer">primer</a>, and <a href="https://docs.typesafe.ai/introduction/quickstart">quick start</a>: documented decision contract and hosted access.
+</li>
+<li><a href="https://github.com/ollama/ollama/issues/2415">Ollama #2415</a>, <a href="https://github.com/ollama/ollama/pull/12899">merged #12899</a>, and <a href="https://github.com/ollama/ollama/releases/tag/v0.12.11">v0.12.11</a>: request-to-release trail. PR merged November 11, 2025; release published November 12; issue closed November 13.
+</li>
+<li><a href="https://github.com/ollama/ollama/pull/9282">#9282</a>: unmerged precursor, not release evidence. <a href="https://github.com/ollama/ollama/issues/3795">#3795</a>: separate logit-bias request.
+</li>
+<li><a href="https://github.com/ollama/ollama/blob/6383a0fa9cbf97494b847226e189f6e36b401a08/openai/openai.go">Ollama compatibility code</a>, <a href="https://github.com/ollama/ollama/blob/6383a0fa9cbf97494b847226e189f6e36b401a08/api/types.go">API types</a>, and <a href="https://github.com/ollama/ollama/blob/6383a0fa9cbf97494b847226e189f6e36b401a08/server/routes.go">server handlers</a>: implemented fields, translation, collection and top-alternative limits.
+</li>
+<li><a href="https://github.com/ollama/ollama/issues/16117">#16117 conversation</a>: downstream integration explanation supersedes opening allegation. <a href="https://github.com/ollama/ollama/issues/13638#issuecomment-3734238510">Dated cloud reply</a>: deployment caveat.
+</li>
+<li><a href="https://github.com/algorithmicsuperintelligence/optillm/blob/eaf171aa6da5682ba1014ef342556f40247f5b35/optillm/inference.py">OptiLLM inference</a> and <a href="https://github.com/algorithmicsuperintelligence/optillm/blob/eaf171aa6da5682ba1014ef342556f40247f5b35/optillm/entropy_decoding.py">entropy decoder</a>: local mechanisms and backend/API limits.
+</li>
+<li><a href="https://evals.typesafe.ai/">Workflow evaluations</a> and <a href="https://github.com/typesafe-ai/system-one-adapter-python/blob/adffc2eab300a4fa3c0e92252d4ffd6ceaa53700/src/system_one_adapter/_schema.py">adapter schema</a>: evaluation target and generated probability fields.
+</li>
+<li><a href="https://proceedings.mlr.press/v70/guo17a.html">Calibration research</a>: probability estimates require empirical calibration; this paper does not evaluate Jev.
+</li>
+</ul>
+<h2>Evidence Limits</h2>
+<p>No inference API call, local model run, benchmark or calibration experiment was performed. Tests were inspected as source, not executed. Jev internals and vendor performance were not independently reproduced. Public interface documentation does not establish model size or local weights. Code inspection covers particular revisions and paths, not every backend. The cloud reply is historical, not a September service test. Routing and single-token examples are proposed designs, not measured results. Probabilities over tokens, probabilities over options, confidence statistics, schema validity and decision correctness are distinct. No relationship or identity is inferred from the editor's mention of issue participation.</p>
+    </div>
+  </section>
+      <section class="related-edition-section atlas-context-section">
+    <div class="section-title-row">
+      <h2>Atlas Context</h2>
+      <a href="/atlas/">Open Atlas &rsaquo;</a>
+    </div>
+    <div class="updates-list">
+      <a class="article-card" href="/atlas/friction-safety-and-approval/">
+            <div class="article-meta"><span class="lane">Agent Atlas</span><span>Chapter 7</span></div>
+            <h3>The Approval Trap</h3>
+            <p>Approval is useful only when it catches a meaningful change in authority, explains that change, and keeps the decision attached to the work.</p>
+          </a>
+    </div>
+  </section>
+      <section class="reader-feedback"
+    data-tgr-feedback
+    data-article-slug="2026-09-22-daily-jev-puts-the-odds-in-the-answer-local-ai-still-has-to-make-them-trustworthy"
+    data-article-title="Jev puts the odds in the answer. Local AI still has to make them trustworthy."
+    data-article-url="/articles/2026-09-22-daily-jev-puts-the-odds-in-the-answer-local-ai-still-has-to-make-them-trustworthy/"
+    data-edition-date="2026-09-22"
+    data-lane="Daily Edition"
+    data-tags="Memory,Delegation,UX,Runtime"
+    data-repos="ollama/ollama algorithmicsuperintelligence/optillm typesafe-ai/system-one-adapter-python">
+    <div class="reader-feedback-head">
+      <div>
+        <div class="eyebrow">Letters &amp; Corrections</div>
+        <h2>Send a note to the desk</h2>
+      </div>
+      <p>Corrections, missing context, or a follow-up lead.</p>
+    </div>
+    <form class="feedback-form">
+      <div class="feedback-votes" role="group" aria-label="Choose signal type">
+        <button class="feedback-choice" type="button" data-vote="follow-up" aria-pressed="false">
+          <span aria-hidden="true">+</span>
+          <span>Follow-up</span>
+        </button>
+        <button class="feedback-choice" type="button" data-vote="correction" aria-pressed="false">
+          <span aria-hidden="true">!</span>
+          <span>Correction</span>
+        </button>
+      </div>
+      <label class="feedback-comment">
+        <span>Note for the editor</span>
+        <textarea name="comment" rows="3" maxlength="320" placeholder="What did we miss, or what should we follow next?"></textarea>
+      </label>
+      <div class="feedback-submit-row">
+        <p class="feedback-status" aria-live="polite"></p>
+        <button class="paper-button primary feedback-submit" type="submit">Send to desk</button>
+      </div>
+    </form>
+  </section>
+      <section class="related-edition-section">
+        <div class="section-title-row">
+          <h2>Same Edition</h2>
+          <a href="/editions/2026-09-22/">Open issue &rsaquo;</a>
+        </div>
+        <div class="updates-list">
+          <a class="update-card" href="/articles/2026-09-22-daily-the-approval-arrived-the-subagent-could-not-continue/">
+    <div class="update-stripe"></div>
+    <div class="update-main">
+      <div class="update-meta">
+        <span>Trust</span>
+        <span class="source-plus">+5</span>
+        <span>Sep 22, 2026</span>
+      </div>
+      <h3>The Approval Arrived. The Subagent Could Not Continue.</h3>
+      <div class="update-receipt">
+        <span>microsoft/agent-framework</span>
+        <span class="branch-pill">evidence</span>
+      </div>
+      <div class="update-foot">
+        <span>5 sources</span>
+        <span>1 repo</span>
+        <span>5 source signals</span>
+      </div>
+    </div>
+    <span class="update-arrow" aria-hidden="true">&rsaquo;</span>
+  </a><a class="update-card" href="/articles/2026-09-22-daily-builder-work-the-last-writer-is-not-the-last-run/">
+    <div class="update-stripe"></div>
+    <div class="update-main">
+      <div class="update-meta">
+        <span>Reported</span>
+        <span class="source-plus">+6</span>
+        <span>Sep 22, 2026</span>
+      </div>
+      <h3>Builder Work: The Last Writer Is Not the Last Run</h3>
+      <div class="update-receipt">
+        <span>crewAIInc/crewAI</span>
+        <span class="branch-pill">evidence</span>
+      </div>
+      <div class="update-foot">
+        <span>6 sources</span>
+        <span>1 repo</span>
+        <span>commit 0a3b891</span>
+      </div>
+    </div>
+    <span class="update-arrow" aria-hidden="true">&rsaquo;</span>
+  </a><a class="update-card" href="/articles/2026-09-22-daily-api-discovery-shorten-the-context-keep-the-history/">
+    <div class="update-stripe"></div>
+    <div class="update-main">
+      <div class="update-meta">
+        <span>Context</span>
+        <span class="source-plus">+5</span>
+        <span>Sep 22, 2026</span>
+      </div>
+      <h3>API Discovery: Shorten the Context, Keep the History</h3>
+      <div class="update-receipt">
+        <span>earendil-works/pi</span>
+        <span class="branch-pill">evidence</span>
+      </div>
+      <div class="update-foot">
+        <span>5 sources</span>
+        <span>1 repo</span>
+        <span>5 source signals</span>
+      </div>
+    </div>
+    <span class="update-arrow" aria-hidden="true">&rsaquo;</span>
+  </a>
+        </div>
+      </section>
+    </main>
+    <footer class="wrap site-footer">
+      <span>&copy; 2026 The Git Reporter</span>
+      <a href="/about/">About</a>
+      <a href="/battles/">Diff Derby</a>
+      <a href="/agent-pulse/">Agent Pulse</a>
+      <a href="/feed.xml">RSS</a>
+      <a href="https://x.com/TheGitReporter">Follow on X</a>
+      <a href="/articles.json">Manifest JSON</a>
+      <a href="/repos/">Sources</a>
+    </footer>
+  </div>
+</body>
+</html>
