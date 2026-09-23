@@ -1,0 +1,319 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Qwen Code Draws a New Sandbox Boundary. Saving the Policy Still Has a Gap. | The Git Reporter</title>
+  <meta name="description" content="Linux tool confinement now leaves the agent’s model connection on the host. The public review shows why the settings file that selects that boundary deserves just as much scrutiny.">
+  <meta name="robots" content="index,follow">
+  <link rel="canonical" href="https://thegitreporter.com/articles/2026-09-23-daily-qwen-code-draws-a-new-sandbox-boundary-saving-the-policy-still-has-a-gap/">
+  <link rel="alternate" type="application/rss+xml" title="The Git Reporter" href="https://thegitreporter.com/feed.xml">
+  <meta property="og:site_name" content="The Git Reporter">
+  <meta property="og:locale" content="en_US">
+  <meta property="og:title" content="Qwen Code Draws a New Sandbox Boundary. Saving the Policy Still Has a Gap. | The Git Reporter">
+  <meta property="og:description" content="Linux tool confinement now leaves the agent’s model connection on the host. The public review shows why the settings file that selects that boundary deserves just as much scrutiny.">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://thegitreporter.com/articles/2026-09-23-daily-qwen-code-draws-a-new-sandbox-boundary-saving-the-policy-still-has-a-gap/">
+  <meta property="og:image" content="https://thegitreporter.com/assets/social/2026-09-23-daily-qwen-code-draws-a-new-sandbox-boundary-saving-the-policy-still-has-a-gap-og.jpg">
+  <meta property="og:image:secure_url" content="https://thegitreporter.com/assets/social/2026-09-23-daily-qwen-code-draws-a-new-sandbox-boundary-saving-the-policy-still-has-a-gap-og.jpg">
+  <meta property="og:image:type" content="image/jpeg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Three paper cards connect Qwen tool confinement, a settings-file replacement gap and a startup read that sees no policy.">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:site" content="@TheGitReporter">
+  <meta name="twitter:creator" content="@TheGitReporter">
+  <meta name="twitter:title" content="Qwen Code Draws a New Sandbox Boundary. Saving the Policy Still Has a Gap. | The Git Reporter">
+  <meta name="twitter:description" content="Linux tool confinement now leaves the agent’s model connection on the host. The public review shows why the settings file that selects that boundary deserves just as much scrutiny.">
+  <meta name="twitter:url" content="https://thegitreporter.com/articles/2026-09-23-daily-qwen-code-draws-a-new-sandbox-boundary-saving-the-policy-still-has-a-gap/">
+  <meta name="twitter:domain" content="thegitreporter.com">
+  <meta name="twitter:image" content="https://thegitreporter.com/assets/social/2026-09-23-daily-qwen-code-draws-a-new-sandbox-boundary-saving-the-policy-still-has-a-gap-og.jpg">
+  <meta name="twitter:image:alt" content="Three paper cards connect Qwen tool confinement, a settings-file replacement gap and a startup read that sees no policy.">
+  <meta property="article:published_time" content="2026-09-23T12:00:00Z">
+  <meta property="article:modified_time" content="2026-09-23T12:00:00Z">
+  <meta property="article:section" content="Daily Edition">
+  <meta property="article:tag" content="Permissions">
+  <meta property="article:tag" content="Tools">
+  <meta property="article:tag" content="UX">
+  <meta property="article:tag" content="Runtime">
+  <meta property="article:tag" content="QwenLM/qwen-code">
+  <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"https://thegitreporter.com/#organization","name":"The Git Reporter","url":"https://thegitreporter.com","logo":{"@type":"ImageObject","url":"https://thegitreporter.com/assets/mark.svg"},"sameAs":["https://x.com/TheGitReporter"]},{"@type":"WebSite","@id":"https://thegitreporter.com/#website","name":"The Git Reporter","url":"https://thegitreporter.com","publisher":{"@id":"https://thegitreporter.com/#organization"}},{"@type":"NewsArticle","mainEntityOfPage":{"@type":"WebPage","@id":"https://thegitreporter.com/articles/2026-09-23-daily-qwen-code-draws-a-new-sandbox-boundary-saving-the-policy-still-has-a-gap/"},"headline":"Qwen Code Draws a New Sandbox Boundary. Saving the Policy Still Has a Gap.","description":"Linux tool confinement now leaves the agent’s model connection on the host. The public review shows why the settings file that selects that boundary deserves just as much scrutiny.","image":["https://thegitreporter.com/assets/social/2026-09-23-daily-qwen-code-draws-a-new-sandbox-boundary-saving-the-policy-still-has-a-gap-og.jpg"],"datePublished":"2026-09-23T12:00:00Z","dateModified":"2026-09-23T12:00:00Z","author":[{"@type":"Organization","name":"The Git Reporter","url":"https://thegitreporter.com"}],"publisher":{"@type":"Organization","@id":"https://thegitreporter.com/#organization","name":"The Git Reporter","url":"https://thegitreporter.com","logo":{"@type":"ImageObject","url":"https://thegitreporter.com/assets/mark.svg"},"sameAs":["https://x.com/TheGitReporter"]},"articleSection":"Daily Edition","keywords":"Permissions, Tools, UX, Runtime, QwenLM/qwen-code"}]}</script>
+  <link rel="icon" href="/assets/mark.svg">
+  <link rel="stylesheet" href="/assets/site.css?v=2026-09-08-article-feed">
+  <script defer src="/assets/feedback.js?v=2026-09-08-article-feed"></script>
+  <script defer src="/assets/analytics.js?v=2026-09-08-article-feed"></script>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-CH19T7M0T1"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){window.dataLayer.push(arguments);}
+    gtag("js", new Date());
+    gtag("config", "G-CH19T7M0T1");
+  </script>
+</head>
+<body>
+  <div class="site">
+    <header class="site-header" id="top">
+      <div class="wrap utility-row">
+        <a class="icon-link menu-icon" href="/archive/" aria-label="Open edition history"><span></span><span></span><span></span></a>
+        <a class="icon-link archive-icon" href="/archive/" aria-label="Open edition history"></a>
+      </div>
+      <div class="wrap masthead-lockup">
+        <a class="masthead-title" href="/">THE GIT REPORTER</a>
+        <div class="masthead-ornament" aria-hidden="true"></div>
+      </div>
+      <div class="wrap nav-wrap">
+        <nav class="paper-nav" aria-label="Primary navigation">
+    <a class=""  href="/">Stories</a><a class=""  href="/today/">Today</a><a class="active" aria-current="page" href="/archive/">Editions</a><a class=""  href="/about/">About</a><a class=""  href="/battles/">Diff Derby</a><a class=""  href="/agent-pulse/">Agent Pulse</a><a class=""  href="/atlas/">Agent Atlas</a><a class=""  href="/repos/">Repos</a>
+  </nav>
+        <div class="nav-rule"></div>
+      </div>
+    </header>
+    <main class="wrap page-shell article-page">
+      <section class="page-hero story-front">
+        <div class="story-topline">
+          <span>Daily Edition</span>
+          <span>Sources <strong>+7</strong></span>
+        </div>
+        <h1>Qwen Code Draws a New Sandbox Boundary. Saving the Policy Still Has a Gap.</h1>
+        <p class="summary">Linux tool confinement now leaves the agent’s model connection on the host. The public review shows why the settings file that selects that boundary deserves just as much scrutiny.</p>
+        <figure class="story-illustration article-illustration">
+    <img src="/assets/illustrations/2026-09-23-qwen-code-draws-a-new-sandbox-boundary-saving-the-policy-still-has-a-gap-diagram-punk-v1.png" alt="Three paper cards connect Qwen tool confinement, a settings-file replacement gap and a startup read that sees no policy." loading="lazy" decoding="async">
+    <figcaption><span>Diagram Punk</span>the tool boundary depends on policy surviving startup. The settings race is publicly reported, not independently reproduced here.</figcaption>
+  </figure>
+        <div class="receipt">
+    <div class="receipt-line">
+      <span class="receipt-icon">repo</span>
+      <span class="receipt-main">QwenLM/qwen-code</span>
+      <span class="branch-pill">evidence</span>
+    </div>
+    <div class="receipt-line receipt-muted">
+      <span>7 source signals</span>
+      <span>1 repo</span>
+      <span>7 source signals</span>
+    </div>
+    <div class="commit-line">Evidence: 7 source signals / September 23, 2026 / Daily Edition</div>
+  </div>
+        <div class="article-route-row">
+          <a href="/editions/2026-09-23/">Open Edition</a>
+          <a href="#evidence">Evidence below</a>
+        </div>
+      </section>
+      <section class="story-reader">
+        <article class="story-shell story-body">
+          <p>Qwen Code has moved its Linux Bubblewrap sandbox from around the whole application to around supported tool execution. The <a href="https://github.com/QwenLM/qwen-code/pull/12267">change merged September 22 in QwenLM/qwen-code</a> lets the trusted application keep its model connection, authentication and session storage on the host while commands run under a separate policy.</p>
+<p>But the consequential detail is in the follow-up. An <a href="https://github.com/QwenLM/qwen-code/issues/12417">open hardening issue</a> records a brief settings-save window in which a new session can mistake an existing confinement policy for no policy. The sandbox can enforce the rules it receives; startup must first receive them.</p>
+<h2>Two different meanings of “closed”</h2>
+<p>The new <code>tools.executionSandbox</code> object separates filesystem permission from command networking. An operator can allow workspace writes while closing ordinary IP networking for commands. That does not disconnect the model: the host application’s traffic sits outside the command boundary.</p>
+<p>The <a href="https://github.com/QwenLM/qwen-code/blob/1afbcffe21c98046670e8e4837a640f5d50465b1/docs/users/features/sandbox.md">user documentation</a> makes another important limit explicit. Reads remain broad; this mode does not promise to hide host secrets or isolate pathname Unix sockets. A closed command network is therefore a specific control, not a general claim that project data cannot leave the machine.</p>
+<p>Policy belongs to user or administrator settings, not the project being worked on. A workspace cannot replace it, even if the project is trusted. Approval and YOLO mode do not widen it. Changes require a new runtime, so the policy is meant to stay fixed for the lifetime of that runtime.</p>
+<p>That consistency has a visible price. This first public integration supports ordinary headless use and both terminal interfaces, but rejects ACP and <code>qwen serve</code>. MCP, executable extensions, worktree management and other unported paths are disabled or rejected. Keeping those features available would require carrying the same boundary through their effects. Silently letting them run on the host would defeat the design.</p>
+<h2>The race that was fixed—and the one left open</h2>
+<p>The review initially found a settings loader that could read valid policy, read the file again during an in-place rewrite, then recover from the damaged second read by continuing with empty settings. The <a href="https://github.com/QwenLM/qwen-code/pull/12267#issuecomment-5762158161">fourth review round</a> reports that this torn-read failure was fixed: damaged operator settings now stop startup. It also reports successful boundary probes. Those results are meaningful counterevidence to any claim that the new sandbox simply does not work.</p>
+<p>The remaining race is different. The <a href="https://github.com/QwenLM/qwen-code/blob/4836b5e3109632aa352ddbac4400599f41ba9ddf/packages/cli/src/utils/writeWithBackup.ts">settings writer</a> first writes a temporary file, then renames the existing settings file to a backup, then renames the replacement into place. Between those last two operations, the expected settings pathname is absent.</p>
+<p>The <a href="https://github.com/QwenLM/qwen-code/blob/1afbcffe21c98046670e8e4837a640f5d50465b1/packages/cli/src/config/execution-sandbox-settings.ts">policy reader</a> treats an absent settings file as an empty scope. If startup observes the gap and no other scope supplies the policy, it can proceed without the intended boundary. A missing file does not trigger the malformed-JSON refusal.</p>
+<p>In the <a href="https://github.com/QwenLM/qwen-code/pull/12267#issuecomment-5761217293">third-round report</a>, a reviewer repeatedly exercised the real writer while starting sessions and reported two unconfined starts out of 100. A copy-based backup avoided the observed gap in that experiment. These are the reviewer’s stress-test results, not an estimate of everyday failure rates, and we did not independently reproduce the race.</p>
+<p>The author’s follow-up issue preserves it as pre-existing work still to fix. It also calls for checking crash safety and Windows replacement behavior before choosing the write sequence. The public record supports a concrete unresolved mechanism; it does not establish exploitation, affected deployment counts or a universally correct one-line repair.</p>
+<h2>The useful question before migration</h2>
+<p>For a team adopting this mode, the review changes the acceptance question. Testing that a command cannot write outside its workspace is only half the job. A disposable test should also establish that saving operator settings while another session starts cannot make the policy disappear.</p>
+<p>The change removes the old whole-CLI Bubblewrap selection and gives it migration errors; Docker, Podman and Seatbelt retain their separate paths. We inspected the merged code, documentation and review, rather than mapping this behavior to an installed release or running a full Linux isolation test. Treat the new boundary as a source-level contract to verify in the version you use.</p>
+<p>The next decisive signal is a settings writer that keeps policy continuously visible, backed by a concurrent reader-and-writer regression. Until then, the most interesting boundary in this sandbox story is the brief space between two file renames.</p>
+        </article>
+      </section>
+      <section class="evidence-section" id="evidence" aria-labelledby="evidence-title">
+    <div class="evidence-head">
+      <div>
+        <div class="eyebrow">Evidence Trail</div>
+        <h2 id="evidence-title">Receipts below the story</h2>
+        <p>The article above is the public narrative. This section keeps the source trail and limits on the same page.</p>
+      </div>
+      <a class="paper-button" href="/editions/2026-09-23/">Edition</a>
+    </div>
+    <div class="evidence-table evidence-summary">
+      <div class="evidence-line"><span>Date</span><span>September 23, 2026</span></div>
+      <div class="evidence-line"><span>Lane</span><span>Daily Edition</span></div>
+      <div class="evidence-line"><span>Confidence</span><span>87%</span></div>
+      <div class="evidence-line"><span>Sources</span><span>7</span></div>
+      <div class="evidence-line"><span>Repos</span><span>QwenLM/qwen-code</span></div>
+    </div>
+    <div class="markdown evidence-copy evidence-copy-block">
+      <h2>Primary Evidence</h2>
+<ul>
+<li>Merged public integration: <a href="https://github.com/QwenLM/qwen-code/pull/12267">https://github.com/QwenLM/qwen-code/pull/12267</a>
+<ul>
+<li>Shows: Merged September 22; moves supported tool execution behind an operator-owned policy while retaining trusted host functions.
+</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li>Documented boundary and compatibility: <a href="https://github.com/QwenLM/qwen-code/blob/1afbcffe21c98046670e8e4837a640f5d50465b1/docs/users/features/sandbox.md">https://github.com/QwenLM/qwen-code/blob/1afbcffe21c98046670e8e4837a640f5d50465b1/docs/users/features/sandbox.md</a>
+<ul>
+<li>Shows: Distinguishes command networking from model transport, broad reads, operator-only configuration and unsupported integrations.
+</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li>Open hardening follow-up: <a href="https://github.com/QwenLM/qwen-code/issues/12417">https://github.com/QwenLM/qwen-code/issues/12417</a>
+<ul>
+<li>Shows: Records the remaining settings-save gap and required concurrent regression; the author explicitly retains it as follow-up work.
+</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li>Attributed settings-race experiment: <a href="https://github.com/QwenLM/qwen-code/pull/12267#issuecomment-5761217293">https://github.com/QwenLM/qwen-code/pull/12267#issuecomment-5761217293</a>
+<ul>
+<li>Shows: Reviewer describes the rename gap and reports two unconfined starts in 100 stress-test sessions; not an everyday rate.
+</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li>Fixed torn-read case and counterevidence: <a href="https://github.com/QwenLM/qwen-code/pull/12267#issuecomment-5762158161">https://github.com/QwenLM/qwen-code/pull/12267#issuecomment-5762158161</a>
+<ul>
+<li>Shows: Reports the second-read fix and successful boundary probes while listing the writer race as deferred.
+</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li>Prepared settings writer: <a href="https://github.com/QwenLM/qwen-code/blob/4836b5e3109632aa352ddbac4400599f41ba9ddf/packages/cli/src/utils/writeWithBackup.ts">https://github.com/QwenLM/qwen-code/blob/4836b5e3109632aa352ddbac4400599f41ba9ddf/packages/cli/src/utils/writeWithBackup.ts</a>
+<ul>
+<li>Shows: writeWithBackupSync renames the old file to backup before installing the temporary replacement.
+</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li>Policy reader: <a href="https://github.com/QwenLM/qwen-code/blob/1afbcffe21c98046670e8e4837a640f5d50465b1/packages/cli/src/config/execution-sandbox-settings.ts">https://github.com/QwenLM/qwen-code/blob/1afbcffe21c98046670e8e4837a640f5d50465b1/packages/cli/src/config/execution-sandbox-settings.ts</a>
+<ul>
+<li>Shows: Missing operator files become empty scopes; malformed existing files reject startup.
+</li>
+</ul>
+</li>
+</ul>
+<h2>Evidence Limits</h2>
+<ul>
+<li>No independent race reproduction, release mapping or deployment survey.
+</li>
+<li>Successful upstream probes support bounded enforcement, not complete confidentiality; reads remain broad.
+</li>
+<li>The open issue is a public report of a timing-dependent gap, not evidence of exploitation.
+</li>
+</ul>
+    </div>
+  </section>
+      <section class="related-edition-section atlas-context-section">
+    <div class="section-title-row">
+      <h2>Atlas Context</h2>
+      <a href="/atlas/">Open Atlas &rsaquo;</a>
+    </div>
+    <div class="updates-list">
+      <a class="article-card" href="/atlas/friction-safety-and-approval/">
+            <div class="article-meta"><span class="lane">Agent Atlas</span><span>Chapter 7</span></div>
+            <h3>The Approval Trap</h3>
+            <p>Approval is useful only when it catches a meaningful change in authority, explains that change, and keeps the decision attached to the work.</p>
+          </a>
+    </div>
+  </section>
+      <section class="reader-feedback"
+    data-tgr-feedback
+    data-article-slug="2026-09-23-daily-qwen-code-draws-a-new-sandbox-boundary-saving-the-policy-still-has-a-gap"
+    data-article-title="Qwen Code Draws a New Sandbox Boundary. Saving the Policy Still Has a Gap."
+    data-article-url="/articles/2026-09-23-daily-qwen-code-draws-a-new-sandbox-boundary-saving-the-policy-still-has-a-gap/"
+    data-edition-date="2026-09-23"
+    data-lane="Daily Edition"
+    data-tags="Permissions,Tools,UX,Runtime"
+    data-repos="QwenLM/qwen-code">
+    <div class="reader-feedback-head">
+      <div>
+        <div class="eyebrow">Letters &amp; Corrections</div>
+        <h2>Send a note to the desk</h2>
+      </div>
+      <p>Corrections, missing context, or a follow-up lead.</p>
+    </div>
+    <form class="feedback-form">
+      <div class="feedback-votes" role="group" aria-label="Choose signal type">
+        <button class="feedback-choice" type="button" data-vote="follow-up" aria-pressed="false">
+          <span aria-hidden="true">+</span>
+          <span>Follow-up</span>
+        </button>
+        <button class="feedback-choice" type="button" data-vote="correction" aria-pressed="false">
+          <span aria-hidden="true">!</span>
+          <span>Correction</span>
+        </button>
+      </div>
+      <label class="feedback-comment">
+        <span>Note for the editor</span>
+        <textarea name="comment" rows="3" maxlength="320" placeholder="What did we miss, or what should we follow next?"></textarea>
+      </label>
+      <div class="feedback-submit-row">
+        <p class="feedback-status" aria-live="polite"></p>
+        <button class="paper-button primary feedback-submit" type="submit">Send to desk</button>
+      </div>
+    </form>
+  </section>
+      <section class="related-edition-section">
+        <div class="section-title-row">
+          <h2>Same Edition</h2>
+          <a href="/editions/2026-09-23/">Open issue &rsaquo;</a>
+        </div>
+        <div class="updates-list">
+          <a class="update-card" href="/articles/2026-09-23-daily-builder-work-a-redaction-test-that-had-never-written-a-note/">
+    <div class="update-stripe"></div>
+    <div class="update-main">
+      <div class="update-meta">
+        <span>Context</span>
+        <span class="source-plus">+7</span>
+        <span>Sep 23, 2026</span>
+      </div>
+      <h3>Builder Work: A Redaction Test That Had Never Written a Note</h3>
+      <div class="update-receipt">
+        <span>laude-institute/headlong</span>
+        <span class="branch-pill">evidence</span>
+      </div>
+      <div class="update-foot">
+        <span>7 sources</span>
+        <span>1 repo</span>
+        <span>7 source signals</span>
+      </div>
+    </div>
+    <span class="update-arrow" aria-hidden="true">&rsaquo;</span>
+  </a><a class="update-card" href="/articles/2026-09-23-daily-api-discovery-ask-which-skills-exist-before-guessing-their-names/">
+    <div class="update-stripe"></div>
+    <div class="update-main">
+      <div class="update-meta">
+        <span>Trust</span>
+        <span class="source-plus">+4</span>
+        <span>Sep 23, 2026</span>
+      </div>
+      <h3>API Discovery: Ask Which Skills Exist Before Guessing Their Names</h3>
+      <div class="update-receipt">
+        <span>different-ai/openwork</span>
+        <span class="branch-pill">evidence</span>
+      </div>
+      <div class="update-foot">
+        <span>4 sources</span>
+        <span>1 repo</span>
+        <span>4 source signals</span>
+      </div>
+    </div>
+    <span class="update-arrow" aria-hidden="true">&rsaquo;</span>
+  </a>
+        </div>
+      </section>
+    </main>
+    <footer class="wrap site-footer">
+      <span>&copy; 2026 The Git Reporter</span>
+      <a href="/about/">About</a>
+      <a href="/battles/">Diff Derby</a>
+      <a href="/agent-pulse/">Agent Pulse</a>
+      <a href="/feed.xml">RSS</a>
+      <a href="https://x.com/TheGitReporter">Follow on X</a>
+      <a href="/articles.json">Manifest JSON</a>
+      <a href="/repos/">Sources</a>
+    </footer>
+  </div>
+</body>
+</html>

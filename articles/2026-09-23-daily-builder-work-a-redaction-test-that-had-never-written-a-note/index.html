@@ -1,0 +1,315 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Builder Work: A Redaction Test That Had Never Written a Note | The Git Reporter</title>
+  <meta name="description" content="Headlong’s privacy fix gained a stronger test only after review noticed that the supposedly protected memory file never existed.">
+  <meta name="robots" content="index,follow">
+  <link rel="canonical" href="https://thegitreporter.com/articles/2026-09-23-daily-builder-work-a-redaction-test-that-had-never-written-a-note/">
+  <link rel="alternate" type="application/rss+xml" title="The Git Reporter" href="https://thegitreporter.com/feed.xml">
+  <meta property="og:site_name" content="The Git Reporter">
+  <meta property="og:locale" content="en_US">
+  <meta property="og:title" content="Builder Work: A Redaction Test That Had Never Written a Note | The Git Reporter">
+  <meta property="og:description" content="Headlong’s privacy fix gained a stronger test only after review noticed that the supposedly protected memory file never existed.">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://thegitreporter.com/articles/2026-09-23-daily-builder-work-a-redaction-test-that-had-never-written-a-note/">
+  <meta property="og:image" content="https://thegitreporter.com/assets/social/2026-09-23-daily-builder-work-a-redaction-test-that-had-never-written-a-note-og.jpg">
+  <meta property="og:image:secure_url" content="https://thegitreporter.com/assets/social/2026-09-23-daily-builder-work-a-redaction-test-that-had-never-written-a-note-og.jpg">
+  <meta property="og:image:type" content="image/jpeg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Empty history leads to no note and false confidence; a second diagram calls for a real write and a filter-removed test control.">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:site" content="@TheGitReporter">
+  <meta name="twitter:creator" content="@TheGitReporter">
+  <meta name="twitter:title" content="Builder Work: A Redaction Test That Had Never Written a Note | The Git Reporter">
+  <meta name="twitter:description" content="Headlong’s privacy fix gained a stronger test only after review noticed that the supposedly protected memory file never existed.">
+  <meta name="twitter:url" content="https://thegitreporter.com/articles/2026-09-23-daily-builder-work-a-redaction-test-that-had-never-written-a-note/">
+  <meta name="twitter:domain" content="thegitreporter.com">
+  <meta name="twitter:image" content="https://thegitreporter.com/assets/social/2026-09-23-daily-builder-work-a-redaction-test-that-had-never-written-a-note-og.jpg">
+  <meta name="twitter:image:alt" content="Empty history leads to no note and false confidence; a second diagram calls for a real write and a filter-removed test control.">
+  <meta property="article:published_time" content="2026-09-23T12:00:00Z">
+  <meta property="article:modified_time" content="2026-09-23T12:00:00Z">
+  <meta property="article:section" content="Daily Edition">
+  <meta property="article:tag" content="Memory">
+  <meta property="article:tag" content="Tools">
+  <meta property="article:tag" content="laude-institute/headlong">
+  <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"https://thegitreporter.com/#organization","name":"The Git Reporter","url":"https://thegitreporter.com","logo":{"@type":"ImageObject","url":"https://thegitreporter.com/assets/mark.svg"},"sameAs":["https://x.com/TheGitReporter"]},{"@type":"WebSite","@id":"https://thegitreporter.com/#website","name":"The Git Reporter","url":"https://thegitreporter.com","publisher":{"@id":"https://thegitreporter.com/#organization"}},{"@type":"NewsArticle","mainEntityOfPage":{"@type":"WebPage","@id":"https://thegitreporter.com/articles/2026-09-23-daily-builder-work-a-redaction-test-that-had-never-written-a-note/"},"headline":"Builder Work: A Redaction Test That Had Never Written a Note","description":"Headlong’s privacy fix gained a stronger test only after review noticed that the supposedly protected memory file never existed.","image":["https://thegitreporter.com/assets/social/2026-09-23-daily-builder-work-a-redaction-test-that-had-never-written-a-note-og.jpg"],"datePublished":"2026-09-23T12:00:00Z","dateModified":"2026-09-23T12:00:00Z","author":[{"@type":"Organization","name":"The Git Reporter","url":"https://thegitreporter.com"}],"publisher":{"@type":"Organization","@id":"https://thegitreporter.com/#organization","name":"The Git Reporter","url":"https://thegitreporter.com","logo":{"@type":"ImageObject","url":"https://thegitreporter.com/assets/mark.svg"},"sameAs":["https://x.com/TheGitReporter"]},"articleSection":"Daily Edition","keywords":"Memory, Tools, laude-institute/headlong"}]}</script>
+  <link rel="icon" href="/assets/mark.svg">
+  <link rel="stylesheet" href="/assets/site.css?v=2026-09-08-article-feed">
+  <script defer src="/assets/feedback.js?v=2026-09-08-article-feed"></script>
+  <script defer src="/assets/analytics.js?v=2026-09-08-article-feed"></script>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-CH19T7M0T1"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){window.dataLayer.push(arguments);}
+    gtag("js", new Date());
+    gtag("config", "G-CH19T7M0T1");
+  </script>
+</head>
+<body>
+  <div class="site">
+    <header class="site-header" id="top">
+      <div class="wrap utility-row">
+        <a class="icon-link menu-icon" href="/archive/" aria-label="Open edition history"><span></span><span></span><span></span></a>
+        <a class="icon-link archive-icon" href="/archive/" aria-label="Open edition history"></a>
+      </div>
+      <div class="wrap masthead-lockup">
+        <a class="masthead-title" href="/">THE GIT REPORTER</a>
+        <div class="masthead-ornament" aria-hidden="true"></div>
+      </div>
+      <div class="wrap nav-wrap">
+        <nav class="paper-nav" aria-label="Primary navigation">
+    <a class=""  href="/">Stories</a><a class=""  href="/today/">Today</a><a class="active" aria-current="page" href="/archive/">Editions</a><a class=""  href="/about/">About</a><a class=""  href="/battles/">Diff Derby</a><a class=""  href="/agent-pulse/">Agent Pulse</a><a class=""  href="/atlas/">Agent Atlas</a><a class=""  href="/repos/">Repos</a>
+  </nav>
+        <div class="nav-rule"></div>
+      </div>
+    </header>
+    <main class="wrap page-shell article-page">
+      <section class="page-hero story-front">
+        <div class="story-topline">
+          <span>Daily Edition</span>
+          <span>Sources <strong>+7</strong></span>
+        </div>
+        <h1>Builder Work: A Redaction Test That Had Never Written a Note</h1>
+        <p class="summary">Headlong’s privacy fix gained a stronger test only after review noticed that the supposedly protected memory file never existed.</p>
+        <figure class="story-illustration article-illustration">
+    <img src="/assets/illustrations/2026-09-23-builder-work-a-redaction-test-that-had-never-written-a-note-diagram-punk-v1.png" alt="Empty history leads to no note and false confidence; a second diagram calls for a real write and a filter-removed test control." loading="lazy" decoding="async">
+    <figcaption><span>Diagram Punk</span>prove that the protected write happened, then verify that removing the filter changes the result. Original input remains.</figcaption>
+  </figure>
+        <div class="receipt">
+    <div class="receipt-line">
+      <span class="receipt-icon">repo</span>
+      <span class="receipt-main">laude-institute/headlong</span>
+      <span class="branch-pill">evidence</span>
+    </div>
+    <div class="receipt-line receipt-muted">
+      <span>7 source signals</span>
+      <span>1 repo</span>
+      <span>7 source signals</span>
+    </div>
+    <div class="commit-line">Evidence: 7 source signals / September 23, 2026 / Daily Edition</div>
+  </div>
+        <div class="article-route-row">
+          <a href="/editions/2026-09-23/">Open Edition</a>
+          <a href="#evidence">Evidence below</a>
+        </div>
+      </section>
+      <section class="story-reader">
+        <article class="story-shell story-body">
+          <p>A test that finds no sensitive digits in stored notes sounds reassuring. In <a href="https://github.com/laude-institute/headlong/pull/133#issuecomment-5774666170">Headlong’s public review</a>, it was reassuring for the wrong reason: the test supplied empty conversation history, so the notes writer exited before it wrote a note.</p>
+<p>The assertion would have passed even if the redaction filter had been removed. The repair, merged September 22 in <a href="https://github.com/laude-institute/headlong/pull/133">PR #133</a>, is a useful example of agent-assisted engineering judged by what the test can catch, rather than by its green result.</p>
+<h2>The copies were the problem</h2>
+<p>Headlong is an experimental persistent-agent harness whose thought stream continues between messages. Its public patch description reports that card details supplied in chat had been repeated by the responder, then carried into summary blocks. The problem was not confined to the outgoing answer: observations, deferred-work requests and person notes created additional copies.</p>
+<p>The <a href="https://github.com/laude-institute/headlong/blob/d64c6cb6f1b1153b9016625437da2fe23aeb0b2f/thinkers/responder/step">responder implementation</a> applies a shared filter to those restatements. It deliberately retains the original inbound record, and the model still receives the raw input. This reduces repeated sensitive text; it is not an erasure system or proof that the model never sees it.</p>
+<p>Review found four failure exits still quoting the original message: timeout, exhausted output budget, broken JSON and a raw action-object response. It also found an ordering problem. Cutting a message to an excerpt before filtering could cut through a card-shaped number. The revised code filters once, then shortens the safe excerpt, and uses it across the observation paths.</p>
+<h2>A test needs something real to protect</h2>
+<p>The <a href="https://github.com/laude-institute/headlong/blob/d64c6cb6f1b1153b9016625437da2fe23aeb0b2f/tests/test_responder_card_redaction.sh">repaired shell suite</a> supplies nonempty history and runs the notes writer in the foreground. It checks that a memory file exists, that useful ordinary text survived, that a redaction marker appears and that the synthetic sensitive digits do not.</p>
+<p>Then comes the control: the suite runs a copy with the notes redaction pipe removed. This time the same write stores the digits. The pair establishes that the protected operation ran and that the filter changed its outcome. A test that merely sees no bad output cannot establish either fact.</p>
+<p>Portability mattered too. An earlier expression used a word-boundary escape that did not behave as intended under stock macOS sed. The final filter uses explicit POSIX character boundaries, and a further revision replaced a GNU-style in-place edit in the test’s control setup. A broken test mutation can produce false confidence just as easily as a broken production filter.</p>
+<h2>A transferable skill: prove the write, then break the guard</h2>
+<p>For a redaction or authorization test, first assert that the intended operation occurred. Give it useful content that must survive. Assert the protected result. Finally, remove or bypass the guard in an isolated control and require the forbidden outcome to become observable. Exercise failure exits as well as the normal return: error explanations often repeat the input they are explaining.</p>
+<p>We ran Headlong’s focused suite on the inspected checkout: 29 checks passed, including the real notes write, the filter-removed control and four failure paths. The suite stubs model and chat calls; this was not a live service test, a macOS rerun or an audit of every data path. Pattern-based redaction also leaves both misses and overmatching to test.</p>
+<p>The project’s <a href="https://github.com/laude-institute/headlong/blob/d64c6cb6f1b1153b9016625437da2fe23aeb0b2f/design/collegial-coding-agents.md">public coding-agent design</a> explicitly says Codex has already been used; its <a href="https://github.com/laude-institute/headlong/blob/d64c6cb6f1b1153b9016625437da2fe23aeb0b2f/design/monolith_backoff.md">backoff design</a> credits independent Claude and Codex drafts. That establishes agent use in the project, not which model wrote this patch or how much time it saved.</p>
+<p>The lesson is smaller and more durable than an authorship claim: before celebrating that a system stored no forbidden data, establish that it stored anything at all.</p>
+        </article>
+      </section>
+      <section class="evidence-section" id="evidence" aria-labelledby="evidence-title">
+    <div class="evidence-head">
+      <div>
+        <div class="eyebrow">Evidence Trail</div>
+        <h2 id="evidence-title">Receipts below the story</h2>
+        <p>The article above is the public narrative. This section keeps the source trail and limits on the same page.</p>
+      </div>
+      <a class="paper-button" href="/editions/2026-09-23/">Edition</a>
+    </div>
+    <div class="evidence-table evidence-summary">
+      <div class="evidence-line"><span>Date</span><span>September 23, 2026</span></div>
+      <div class="evidence-line"><span>Lane</span><span>Daily Edition</span></div>
+      <div class="evidence-line"><span>Confidence</span><span>87%</span></div>
+      <div class="evidence-line"><span>Sources</span><span>7</span></div>
+      <div class="evidence-line"><span>Repos</span><span>laude-institute/headlong</span></div>
+    </div>
+    <div class="markdown evidence-copy evidence-copy-block">
+      <h2>Primary Evidence</h2>
+<ul>
+<li>Public coding-agent use proof: <a href="https://github.com/laude-institute/headlong/blob/d64c6cb6f1b1153b9016625437da2fe23aeb0b2f/design/collegial-coding-agents.md">https://github.com/laude-institute/headlong/blob/d64c6cb6f1b1153b9016625437da2fe23aeb0b2f/design/collegial-coding-agents.md</a>
+<ul>
+<li>Shows: The project explicitly says Codex has already been used; this establishes agent use in project development without assigning the current patch to a particular model.
+</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li>Inspected GitHub repository: <a href="https://github.com/laude-institute/headlong/tree/d64c6cb6f1b1153b9016625437da2fe23aeb0b2f">https://github.com/laude-institute/headlong/tree/d64c6cb6f1b1153b9016625437da2fe23aeb0b2f</a>
+<ul>
+<li>Shows: Inspected implementation file thinkers/responder/step and the card-redaction shell test: shared filtering, redaction before excerpt truncation, deferred requests, person-memory writes and four failure exits.
+</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li>Engineering receipt: <a href="https://github.com/laude-institute/headlong/blob/d64c6cb6f1b1153b9016625437da2fe23aeb0b2f/tests/test_responder_card_redaction.sh">https://github.com/laude-institute/headlong/blob/d64c6cb6f1b1153b9016625437da2fe23aeb0b2f/tests/test_responder_card_redaction.sh</a>
+<ul>
+<li>Shows: The shell test suite drives a real person-note write with nonempty history, checks surviving useful text and redaction, and removes the filter in a control that stores synthetic digits. We ran it locally: 29 checks passed.
+</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li>Review finding: <a href="https://github.com/laude-institute/headlong/pull/133#issuecomment-5774666170">https://github.com/laude-institute/headlong/pull/133#issuecomment-5774666170</a>
+<ul>
+<li>Shows: Identifies the vacuous notes test, unfiltered failure paths and truncate-before-redact seam.
+</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li>Resolution review: <a href="https://github.com/laude-institute/headlong/pull/133#issuecomment-5775145686">https://github.com/laude-institute/headlong/pull/133#issuecomment-5775145686</a>
+<ul>
+<li>Shows: Confirms failure-path, excerpt-order and portable control fixes at c4a0767.
+</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li>Final responder mechanism: <a href="https://github.com/laude-institute/headlong/blob/d64c6cb6f1b1153b9016625437da2fe23aeb0b2f/thinkers/responder/step">https://github.com/laude-institute/headlong/blob/d64c6cb6f1b1153b9016625437da2fe23aeb0b2f/thinkers/responder/step</a>
+<ul>
+<li>Shows: Applies filtering to derived text while intentionally retaining original input and providing raw input to the model.
+</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li>Additional public agent-use context: <a href="https://github.com/laude-institute/headlong/blob/d64c6cb6f1b1153b9016625437da2fe23aeb0b2f/design/monolith_backoff.md">https://github.com/laude-institute/headlong/blob/d64c6cb6f1b1153b9016625437da2fe23aeb0b2f/design/monolith_backoff.md</a>
+<ul>
+<li>Shows: Credits independent Claude and Codex drafts for a project design; not proof of authorship for the redaction patch.
+</li>
+</ul>
+</li>
+</ul>
+<h2>Evidence Limits</h2>
+<ul>
+<li>Focused tests stub model and chat calls; no live service or macOS rerun.
+</li>
+<li>Pattern-based redaction does not prove removal of every sensitive value. Original inbound records and model input remain.
+</li>
+<li>Agent-use proof is project-level; exact-patch model authorship and productivity are not established.
+</li>
+</ul>
+    </div>
+  </section>
+      <section class="related-edition-section atlas-context-section">
+    <div class="section-title-row">
+      <h2>Atlas Context</h2>
+      <a href="/atlas/">Open Atlas &rsaquo;</a>
+    </div>
+    <div class="updates-list">
+      <a class="article-card" href="/atlas/memory-is-not-one-thing/">
+            <div class="article-meta"><span class="lane">Agent Atlas</span><span>Chapter 6</span></div>
+            <h3>Memory Is a Typed Storage Contract</h3>
+            <p>Calling every retained fact memory obscures incompatible stores and guarantees. Thread history, notes, retrieval indexes, summaries, caches, and archives have different owners, lifetimes, and deletion behavior.</p>
+          </a>
+    </div>
+  </section>
+      <section class="reader-feedback"
+    data-tgr-feedback
+    data-article-slug="2026-09-23-daily-builder-work-a-redaction-test-that-had-never-written-a-note"
+    data-article-title="Builder Work: A Redaction Test That Had Never Written a Note"
+    data-article-url="/articles/2026-09-23-daily-builder-work-a-redaction-test-that-had-never-written-a-note/"
+    data-edition-date="2026-09-23"
+    data-lane="Daily Edition"
+    data-tags="Memory,Tools"
+    data-repos="laude-institute/headlong">
+    <div class="reader-feedback-head">
+      <div>
+        <div class="eyebrow">Letters &amp; Corrections</div>
+        <h2>Send a note to the desk</h2>
+      </div>
+      <p>Corrections, missing context, or a follow-up lead.</p>
+    </div>
+    <form class="feedback-form">
+      <div class="feedback-votes" role="group" aria-label="Choose signal type">
+        <button class="feedback-choice" type="button" data-vote="follow-up" aria-pressed="false">
+          <span aria-hidden="true">+</span>
+          <span>Follow-up</span>
+        </button>
+        <button class="feedback-choice" type="button" data-vote="correction" aria-pressed="false">
+          <span aria-hidden="true">!</span>
+          <span>Correction</span>
+        </button>
+      </div>
+      <label class="feedback-comment">
+        <span>Note for the editor</span>
+        <textarea name="comment" rows="3" maxlength="320" placeholder="What did we miss, or what should we follow next?"></textarea>
+      </label>
+      <div class="feedback-submit-row">
+        <p class="feedback-status" aria-live="polite"></p>
+        <button class="paper-button primary feedback-submit" type="submit">Send to desk</button>
+      </div>
+    </form>
+  </section>
+      <section class="related-edition-section">
+        <div class="section-title-row">
+          <h2>Same Edition</h2>
+          <a href="/editions/2026-09-23/">Open issue &rsaquo;</a>
+        </div>
+        <div class="updates-list">
+          <a class="update-card" href="/articles/2026-09-23-daily-qwen-code-draws-a-new-sandbox-boundary-saving-the-policy-still-has-a-gap/">
+    <div class="update-stripe"></div>
+    <div class="update-main">
+      <div class="update-meta">
+        <span>Trust</span>
+        <span class="source-plus">+7</span>
+        <span>Sep 23, 2026</span>
+      </div>
+      <h3>Qwen Code Draws a New Sandbox Boundary. Saving the Policy Still Has a Gap.</h3>
+      <div class="update-receipt">
+        <span>QwenLM/qwen-code</span>
+        <span class="branch-pill">evidence</span>
+      </div>
+      <div class="update-foot">
+        <span>7 sources</span>
+        <span>1 repo</span>
+        <span>7 source signals</span>
+      </div>
+    </div>
+    <span class="update-arrow" aria-hidden="true">&rsaquo;</span>
+  </a><a class="update-card" href="/articles/2026-09-23-daily-api-discovery-ask-which-skills-exist-before-guessing-their-names/">
+    <div class="update-stripe"></div>
+    <div class="update-main">
+      <div class="update-meta">
+        <span>Trust</span>
+        <span class="source-plus">+4</span>
+        <span>Sep 23, 2026</span>
+      </div>
+      <h3>API Discovery: Ask Which Skills Exist Before Guessing Their Names</h3>
+      <div class="update-receipt">
+        <span>different-ai/openwork</span>
+        <span class="branch-pill">evidence</span>
+      </div>
+      <div class="update-foot">
+        <span>4 sources</span>
+        <span>1 repo</span>
+        <span>4 source signals</span>
+      </div>
+    </div>
+    <span class="update-arrow" aria-hidden="true">&rsaquo;</span>
+  </a>
+        </div>
+      </section>
+    </main>
+    <footer class="wrap site-footer">
+      <span>&copy; 2026 The Git Reporter</span>
+      <a href="/about/">About</a>
+      <a href="/battles/">Diff Derby</a>
+      <a href="/agent-pulse/">Agent Pulse</a>
+      <a href="/feed.xml">RSS</a>
+      <a href="https://x.com/TheGitReporter">Follow on X</a>
+      <a href="/articles.json">Manifest JSON</a>
+      <a href="/repos/">Sources</a>
+    </footer>
+  </div>
+</body>
+</html>
