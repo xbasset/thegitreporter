@@ -1,0 +1,296 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Builder Work: Do Not Return a Tab Nobody Owns | The Git Reporter</title>
+  <meta name="description" content="Tangle’s move from a large React context to a shared store contains a sharper lesson than a library preference: an agent-facing creation method must not report an object that its owner never accepted.">
+  <meta name="robots" content="index,follow">
+  <link rel="canonical" href="https://thegitreporter.com/articles/2026-09-26-daily-builder-work-do-not-return-a-tab-nobody-owns/">
+  <link rel="alternate" type="application/rss+xml" title="The Git Reporter" href="https://thegitreporter.com/feed.xml">
+  <meta property="og:site_name" content="The Git Reporter">
+  <meta property="og:locale" content="en_US">
+  <meta property="og:title" content="Builder Work: Do Not Return a Tab Nobody Owns | The Git Reporter">
+  <meta property="og:description" content="Tangle’s move from a large React context to a shared store contains a sharper lesson than a library preference: an agent-facing creation method must not report an object that its owner never accepted.">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://thegitreporter.com/articles/2026-09-26-daily-builder-work-do-not-return-a-tab-nobody-owns/">
+  <meta property="og:image" content="https://thegitreporter.com/assets/social/2026-09-26-daily-builder-work-do-not-return-a-tab-nobody-owns-og.jpg">
+  <meta property="og:image:secure_url" content="https://thegitreporter.com/assets/social/2026-09-26-daily-builder-work-do-not-return-a-tab-nobody-owns-og.jpg">
+  <meta property="og:image:type" content="image/jpeg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Three cards connect an active session, storing a tab and returning a handle; a tab without a session is crossed out.">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:site" content="@TheGitReporter">
+  <meta name="twitter:creator" content="@TheGitReporter">
+  <meta name="twitter:title" content="Builder Work: Do Not Return a Tab Nobody Owns | The Git Reporter">
+  <meta name="twitter:description" content="Tangle’s move from a large React context to a shared store contains a sharper lesson than a library preference: an agent-facing creation method must not report an object that its owner never accepted.">
+  <meta name="twitter:url" content="https://thegitreporter.com/articles/2026-09-26-daily-builder-work-do-not-return-a-tab-nobody-owns/">
+  <meta name="twitter:domain" content="thegitreporter.com">
+  <meta name="twitter:image" content="https://thegitreporter.com/assets/social/2026-09-26-daily-builder-work-do-not-return-a-tab-nobody-owns-og.jpg">
+  <meta name="twitter:image:alt" content="Three cards connect an active session, storing a tab and returning a handle; a tab without a session is crossed out.">
+  <meta property="article:published_time" content="2026-09-26T12:00:00Z">
+  <meta property="article:modified_time" content="2026-09-26T12:00:00Z">
+  <meta property="article:section" content="Daily Edition">
+  <meta property="article:tag" content="Builder Work">
+  <meta property="article:tag" content="State ownership">
+  <meta property="article:tag" content="Agent tools">
+  <meta property="article:tag" content="TangleML/tangle-ui">
+  <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"https://thegitreporter.com/#organization","name":"The Git Reporter","url":"https://thegitreporter.com","logo":{"@type":"ImageObject","url":"https://thegitreporter.com/assets/mark.svg"},"sameAs":["https://x.com/TheGitReporter"]},{"@type":"WebSite","@id":"https://thegitreporter.com/#website","name":"The Git Reporter","url":"https://thegitreporter.com","publisher":{"@id":"https://thegitreporter.com/#organization"}},{"@type":"NewsArticle","mainEntityOfPage":{"@type":"WebPage","@id":"https://thegitreporter.com/articles/2026-09-26-daily-builder-work-do-not-return-a-tab-nobody-owns/"},"headline":"Builder Work: Do Not Return a Tab Nobody Owns","description":"Tangle’s move from a large React context to a shared store contains a sharper lesson than a library preference: an agent-facing creation method must not report an object that its owner never accepted.","image":["https://thegitreporter.com/assets/social/2026-09-26-daily-builder-work-do-not-return-a-tab-nobody-owns-og.jpg"],"datePublished":"2026-09-26T12:00:00Z","dateModified":"2026-09-26T12:00:00Z","author":[{"@type":"Organization","name":"The Git Reporter","url":"https://thegitreporter.com"}],"publisher":{"@type":"Organization","@id":"https://thegitreporter.com/#organization","name":"The Git Reporter","url":"https://thegitreporter.com","logo":{"@type":"ImageObject","url":"https://thegitreporter.com/assets/mark.svg"},"sameAs":["https://x.com/TheGitReporter"]},"articleSection":"Daily Edition","keywords":"Builder Work, State ownership, Agent tools, TangleML/tangle-ui"}]}</script>
+  <link rel="icon" href="/assets/mark.svg">
+  <link rel="stylesheet" href="/assets/site.css?v=2026-09-08-article-feed">
+  <script defer src="/assets/feedback.js?v=2026-09-08-article-feed"></script>
+  <script defer src="/assets/analytics.js?v=2026-09-08-article-feed"></script>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-CH19T7M0T1"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){window.dataLayer.push(arguments);}
+    gtag("js", new Date());
+    gtag("config", "G-CH19T7M0T1");
+  </script>
+</head>
+<body>
+  <div class="site">
+    <header class="site-header" id="top">
+      <div class="wrap utility-row">
+        <a class="icon-link menu-icon" href="/archive/" aria-label="Open edition history"><span></span><span></span><span></span></a>
+        <a class="icon-link archive-icon" href="/archive/" aria-label="Open edition history"></a>
+      </div>
+      <div class="wrap masthead-lockup">
+        <a class="masthead-title" href="/">THE GIT REPORTER</a>
+        <div class="masthead-ornament" aria-hidden="true"></div>
+      </div>
+      <div class="wrap nav-wrap">
+        <nav class="paper-nav" aria-label="Primary navigation">
+    <a class=""  href="/">Stories</a><a class=""  href="/today/">Today</a><a class="active" aria-current="page" href="/archive/">Editions</a><a class=""  href="/about/">About</a><a class=""  href="/battles/">Diff Derby</a><a class=""  href="/agent-pulse/">Agent Pulse</a><a class=""  href="/atlas/">Agent Atlas</a><a class=""  href="/repos/">Repos</a>
+  </nav>
+        <div class="nav-rule"></div>
+      </div>
+    </header>
+    <main class="wrap page-shell article-page">
+      <section class="page-hero story-front">
+        <div class="story-topline">
+          <span>Daily Edition</span>
+          <span>Sources <strong>+5</strong></span>
+        </div>
+        <h1>Builder Work: Do Not Return a Tab Nobody Owns</h1>
+        <p class="summary">Tangle’s move from a large React context to a shared store contains a sharper lesson than a library preference: an agent-facing creation method must not report an object that its owner never accepted.</p>
+        <figure class="story-illustration article-illustration">
+    <img src="/assets/illustrations/2026-09-26-builder-work-do-not-return-a-tab-nobody-owns-diagram-punk-v1.png" alt="Three cards connect an active session, storing a tab and returning a handle; a tab without a session is crossed out." loading="lazy" decoding="async">
+    <figcaption><span>Diagram Punk</span>return a tab only after a session owns it. This is in-memory state, not durable storage.</figcaption>
+  </figure>
+        <div class="receipt">
+    <div class="receipt-line">
+      <span class="receipt-icon">repo</span>
+      <span class="receipt-main">TangleML/tangle-ui</span>
+      <span class="branch-pill">evidence</span>
+    </div>
+    <div class="receipt-line receipt-muted">
+      <span>5 source signals</span>
+      <span>1 repo</span>
+      <span>commit 6d0e231</span>
+    </div>
+    <div class="commit-line">Evidence: commit 6d0e231 / September 26, 2026 / Daily Edition</div>
+  </div>
+        <div class="article-route-row">
+          <a href="/editions/2026-09-26/">Open Edition</a>
+          <a href="#evidence">Evidence below</a>
+        </div>
+      </section>
+      <section class="story-reader">
+        <article class="story-shell story-body">
+          <p>A tab can have an identifier and still exist nowhere useful. In Tangle’s Tangent workspace, the method that opened a view could manufacture a tab while no session was active. The storage step then had nowhere to put it. A caller received something that looked like success, while the user saw no new workarea.</p>
+<p>The <a href="https://github.com/TangleML/tangle-ui/commit/6d0e2310fc8de5171224227370330771838ea541">September 25 contribution</a> describes the consequence for both humans and agents: a resource click could silently do nothing; an agent could report an artifact opened or wait for an environment attached to a tab that was never stored. The commit publicly attributes part of the work to Claude Opus 5. That establishes declared coding-agent participation, not how much of the implementation a model produced.</p>
+<h2>The refactor made the owner explicit</h2>
+<p>The wider <a href="https://github.com/TangleML/tangle-ui/pull/2730">change</a> extracts shared interface state into <code>TangentProjectStore</code>. It owns the selected session and maps of each session’s workarea and chat tabs. React components observe that store, and the agent provider reads the same instance outside rendering. Server-fetched project and resource data remain in TanStack Query.</p>
+<p>This division matters more than a choice between React and MobX. A tool operating outside a render needs current state too. The <a href="https://github.com/TangleML/tangle-ui/blob/6d0e2310fc8de5171224227370330771838ea541/src/routes/v2/pages/Tangent/components/TangentProjectAgentProvider.tsx">provider wiring</a> supplies the store’s open-target method to the agent tools. The new owner is shared by the screen and the program acting on it.</p>
+<p>Inside <a href="https://github.com/TangleML/tangle-ui/blob/6d0e2310fc8de5171224227370330771838ea541/src/routes/v2/pages/Tangent/store/TangentProjectStore.ts">the store</a>, <code>openResolvedView</code> now checks for an active session before creating a tab. With none, it throws. With one, it either focuses an existing target or stores the new tab and then returns it. Closing or selecting an absent tab can remain harmless; creating a tab and returning a handle makes a stronger promise.</p>
+<h2>A builder lesson: test the returned promise</h2>
+<p>When an agent tool returns a handle, treat it as a claim about shared state. Identify the owner, check its prerequisite before allocating, and test the state the next caller will actually read. A UUID or an object with the right fields is not enough.</p>
+<p>The <a href="https://github.com/TangleML/tangle-ui/blob/6d0e2310fc8de5171224227370330771838ea541/src/routes/v2/pages/Tangent/store/TangentProjectStore.test.ts">added store tests</a> express that contract from several directions. Opening without a session must throw and leave the tab list empty. Opening the same target again must return the existing identity. Switching sessions must reveal each session’s own tabs and restore the earlier set on return. Those checks distinguish ownership, deduplication and session separation, rather than merely asserting that a creation function returned something.</p>
+<p>We traced the store, its tests and agent-provider integration beyond the repository description. We did not run the frontend suite or reproduce the behavior in a deployed Tangle instance. The store is in-memory interface state; this is not a claim of durable recovery after a browser restart. Nor does a stored tab establish that its embedded environment is ready.</p>
+<p>That remaining distinction is the next contract to preserve: first prove the tab belongs to a session, then prove the environment behind it is usable. An agent should not have to discover either failure after telling its user that the work is open.</p>
+        </article>
+      </section>
+      <section class="evidence-section" id="evidence" aria-labelledby="evidence-title">
+    <div class="evidence-head">
+      <div>
+        <div class="eyebrow">Evidence Trail</div>
+        <h2 id="evidence-title">Receipts below the story</h2>
+        <p>The article above is the public narrative. This section keeps the source trail and limits on the same page.</p>
+      </div>
+      <a class="paper-button" href="/editions/2026-09-26/">Edition</a>
+    </div>
+    <div class="evidence-table evidence-summary">
+      <div class="evidence-line"><span>Date</span><span>September 26, 2026</span></div>
+      <div class="evidence-line"><span>Lane</span><span>Daily Edition</span></div>
+      <div class="evidence-line"><span>Confidence</span><span>78%</span></div>
+      <div class="evidence-line"><span>Sources</span><span>5</span></div>
+      <div class="evidence-line"><span>Repos</span><span>TangleML/tangle-ui</span></div>
+    </div>
+    <div class="markdown evidence-copy evidence-copy-block">
+      <h2>Primary Evidence</h2>
+<ul>
+<li>Public coding-agent use proof: <a href="https://github.com/TangleML/tangle-ui/commit/6d0e2310fc8de5171224227370330771838ea541">https://github.com/TangleML/tangle-ui/commit/6d0e2310fc8de5171224227370330771838ea541</a>
+<ul>
+<li>Shows: The merged commit explicitly includes a Claude Opus 5 co-author trailer and describes the no-active-session phantom-tab correction; this proves public attribution of coding-agent participation, not a measured code share.
+</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li>Inspected GitHub repository: <a href="https://github.com/TangleML/tangle-ui/blob/6d0e2310fc8de5171224227370330771838ea541/src/routes/v2/pages/Tangent/store/TangentProjectStore.ts">https://github.com/TangleML/tangle-ui/blob/6d0e2310fc8de5171224227370330771838ea541/src/routes/v2/pages/Tangent/store/TangentProjectStore.ts</a>
+<ul>
+<li>Shows: Inspected the TangentProjectStore implementation: activeSessionId, workareaBySession, openResolvedView, deduplication and session-owned writes, together with provider integration and remote tool readiness.
+</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li>Engineering receipt: <a href="https://github.com/TangleML/tangle-ui/blob/6d0e2310fc8de5171224227370330771838ea541/src/routes/v2/pages/Tangent/store/TangentProjectStore.test.ts">https://github.com/TangleML/tangle-ui/blob/6d0e2310fc8de5171224227370330771838ea541/src/routes/v2/pages/Tangent/store/TangentProjectStore.test.ts</a>
+<ul>
+<li>Shows: State tests assert refusal and an empty tab list without an active session, existing-target identity reuse and independent workareas restored on session switches.
+</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li>Agent integration: <a href="https://github.com/TangleML/tangle-ui/blob/6d0e2310fc8de5171224227370330771838ea541/src/routes/v2/pages/Tangent/components/TangentProjectAgentProvider.tsx">https://github.com/TangleML/tangle-ui/blob/6d0e2310fc8de5171224227370330771838ea541/src/routes/v2/pages/Tangent/components/TangentProjectAgentProvider.tsx</a>
+<ul>
+<li>Shows: The provider routes openTarget and live shared state through the store for tools operating outside React renders.
+</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li>Refactor scope: <a href="https://github.com/TangleML/tangle-ui/pull/2730">https://github.com/TangleML/tangle-ui/pull/2730</a>
+<ul>
+<li>Shows: Explains why shared UI state moves to the observable store while server-fetched data stays in TanStack Query.
+</li>
+</ul>
+</li>
+</ul>
+<h2>Evidence Limits</h2>
+<ul>
+<li>The frontend suite and deployed application were not independently run.
+</li>
+<li>The agent-use evidence is a public co-author declaration, not a session transcript or a measure of contribution.
+</li>
+<li>The store owns in-memory UI state; the article does not claim browser-restart persistence or that storing a tab proves its environment is ready.
+</li>
+</ul>
+    </div>
+  </section>
+      <section class="related-edition-section atlas-context-section">
+    <div class="section-title-row">
+      <h2>Atlas Context</h2>
+      <a href="/atlas/">Open Atlas &rsaquo;</a>
+    </div>
+    <div class="updates-list">
+      <a class="article-card" href="/atlas/what-an-agent-can-see/">
+            <div class="article-meta"><span class="lane">Agent Atlas</span><span>Chapter 2</span></div>
+            <h3>The Invisible Prompt</h3>
+            <p>The model acts on an assembled viewport containing visible messages, hidden turn context, path-triggered instructions, memory records, tool schemas, permissions, and inherited state.</p>
+          </a>
+    </div>
+  </section>
+      <section class="reader-feedback"
+    data-tgr-feedback
+    data-article-slug="2026-09-26-daily-builder-work-do-not-return-a-tab-nobody-owns"
+    data-article-title="Builder Work: Do Not Return a Tab Nobody Owns"
+    data-article-url="/articles/2026-09-26-daily-builder-work-do-not-return-a-tab-nobody-owns/"
+    data-edition-date="2026-09-26"
+    data-lane="Daily Edition"
+    data-tags="Builder Work,State ownership,Agent tools"
+    data-repos="TangleML/tangle-ui">
+    <div class="reader-feedback-head">
+      <div>
+        <div class="eyebrow">Letters &amp; Corrections</div>
+        <h2>Send a note to the desk</h2>
+      </div>
+      <p>Corrections, missing context, or a follow-up lead.</p>
+    </div>
+    <form class="feedback-form">
+      <div class="feedback-votes" role="group" aria-label="Choose signal type">
+        <button class="feedback-choice" type="button" data-vote="follow-up" aria-pressed="false">
+          <span aria-hidden="true">+</span>
+          <span>Follow-up</span>
+        </button>
+        <button class="feedback-choice" type="button" data-vote="correction" aria-pressed="false">
+          <span aria-hidden="true">!</span>
+          <span>Correction</span>
+        </button>
+      </div>
+      <label class="feedback-comment">
+        <span>Note for the editor</span>
+        <textarea name="comment" rows="3" maxlength="320" placeholder="What did we miss, or what should we follow next?"></textarea>
+      </label>
+      <div class="feedback-submit-row">
+        <p class="feedback-status" aria-live="polite"></p>
+        <button class="paper-button primary feedback-submit" type="submit">Send to desk</button>
+      </div>
+    </form>
+  </section>
+      <section class="related-edition-section">
+        <div class="section-title-row">
+          <h2>Same Edition</h2>
+          <a href="/editions/2026-09-26/">Open issue &rsaquo;</a>
+        </div>
+        <div class="updates-list">
+          <a class="update-card" href="/articles/2026-09-26-daily-unsloth-s-sandbox-is-back-a-working-tool-still-does-not-prove-isolation/">
+    <div class="update-stripe"></div>
+    <div class="update-main">
+      <div class="update-meta">
+        <span>Reported</span>
+        <span class="source-plus">+8</span>
+        <span>Sep 26, 2026</span>
+      </div>
+      <h3>Unsloth’s Sandbox Is Back. A Working Tool Still Does Not Prove Isolation.</h3>
+      <div class="update-receipt">
+        <span>unslothai/unsloth</span>
+        <span class="branch-pill">evidence</span>
+      </div>
+      <div class="update-foot">
+        <span>8 sources</span>
+        <span>1 repo</span>
+        <span>2 linked commits</span>
+      </div>
+    </div>
+    <span class="update-arrow" aria-hidden="true">&rsaquo;</span>
+  </a><a class="update-card" href="/articles/2026-09-26-daily-api-discovery-find-the-approval-in-the-right-ledger/">
+    <div class="update-stripe"></div>
+    <div class="update-main">
+      <div class="update-meta">
+        <span>Reported</span>
+        <span class="source-plus">+5</span>
+        <span>Sep 26, 2026</span>
+      </div>
+      <h3>API Discovery: Find the Approval in the Right Ledger</h3>
+      <div class="update-receipt">
+        <span>mastra-ai/mastra</span>
+        <span class="branch-pill">evidence</span>
+      </div>
+      <div class="update-foot">
+        <span>5 sources</span>
+        <span>1 repo</span>
+        <span>commit 444debd</span>
+      </div>
+    </div>
+    <span class="update-arrow" aria-hidden="true">&rsaquo;</span>
+  </a>
+        </div>
+      </section>
+    </main>
+    <footer class="wrap site-footer">
+      <span>&copy; 2026 The Git Reporter</span>
+      <a href="/about/">About</a>
+      <a href="/battles/">Diff Derby</a>
+      <a href="/agent-pulse/">Agent Pulse</a>
+      <a href="/feed.xml">RSS</a>
+      <a href="https://x.com/TheGitReporter">Follow on X</a>
+      <a href="/articles.json">Manifest JSON</a>
+      <a href="/repos/">Sources</a>
+    </footer>
+  </div>
+</body>
+</html>

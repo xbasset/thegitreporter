@@ -1,0 +1,327 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Unsloth’s Sandbox Is Back. A Working Tool Still Does Not Prove Isolation. | The Git Reporter</title>
+  <meta name="description" content="The replacement for Studio’s reverted sandbox has landed, followed by a Windows Preview. Its promise is conditional: establish what boundary actually ran, and distinguish an unavailable host from a launch that must be refused.">
+  <meta name="robots" content="index,follow">
+  <link rel="canonical" href="https://thegitreporter.com/articles/2026-09-26-daily-unsloth-s-sandbox-is-back-a-working-tool-still-does-not-prove-isolation/">
+  <link rel="alternate" type="application/rss+xml" title="The Git Reporter" href="https://thegitreporter.com/feed.xml">
+  <meta property="og:site_name" content="The Git Reporter">
+  <meta property="og:locale" content="en_US">
+  <meta property="og:title" content="Unsloth’s Sandbox Is Back. A Working Tool Still Does Not Prove Isolation. | The Git Reporter">
+  <meta property="og:description" content="The replacement for Studio’s reverted sandbox has landed, followed by a Windows Preview. Its promise is conditional: establish what boundary actually ran, and distinguish an unavailable host from a launch that must be refused.">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://thegitreporter.com/articles/2026-09-26-daily-unsloth-s-sandbox-is-back-a-working-tool-still-does-not-prove-isolation/">
+  <meta property="og:image" content="https://thegitreporter.com/assets/social/2026-09-26-daily-unsloth-s-sandbox-is-back-a-working-tool-still-does-not-prove-isolation-og.jpg">
+  <meta property="og:image:secure_url" content="https://thegitreporter.com/assets/social/2026-09-26-daily-unsloth-s-sandbox-is-back-a-working-tool-still-does-not-prove-isolation-og.jpg">
+  <meta property="og:image:type" content="image/jpeg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="A host probe branches from automatic mode to OS isolation or software safeguards, with an open-network caveat.">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:site" content="@TheGitReporter">
+  <meta name="twitter:creator" content="@TheGitReporter">
+  <meta name="twitter:title" content="Unsloth’s Sandbox Is Back. A Working Tool Still Does Not Prove Isolation. | The Git Reporter">
+  <meta name="twitter:description" content="The replacement for Studio’s reverted sandbox has landed, followed by a Windows Preview. Its promise is conditional: establish what boundary actually ran, and distinguish an unavailable host from a launch that must be refused.">
+  <meta name="twitter:url" content="https://thegitreporter.com/articles/2026-09-26-daily-unsloth-s-sandbox-is-back-a-working-tool-still-does-not-prove-isolation/">
+  <meta name="twitter:domain" content="thegitreporter.com">
+  <meta name="twitter:image" content="https://thegitreporter.com/assets/social/2026-09-26-daily-unsloth-s-sandbox-is-back-a-working-tool-still-does-not-prove-isolation-og.jpg">
+  <meta name="twitter:image:alt" content="A host probe branches from automatic mode to OS isolation or software safeguards, with an open-network caveat.">
+  <meta property="article:published_time" content="2026-09-26T12:00:00Z">
+  <meta property="article:modified_time" content="2026-09-26T12:00:00Z">
+  <meta property="article:section" content="Daily Edition">
+  <meta property="article:tag" content="Local agents">
+  <meta property="article:tag" content="Sandboxing">
+  <meta property="article:tag" content="Source reversals">
+  <meta property="article:tag" content="unslothai/unsloth">
+  <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"https://thegitreporter.com/#organization","name":"The Git Reporter","url":"https://thegitreporter.com","logo":{"@type":"ImageObject","url":"https://thegitreporter.com/assets/mark.svg"},"sameAs":["https://x.com/TheGitReporter"]},{"@type":"WebSite","@id":"https://thegitreporter.com/#website","name":"The Git Reporter","url":"https://thegitreporter.com","publisher":{"@id":"https://thegitreporter.com/#organization"}},{"@type":"NewsArticle","mainEntityOfPage":{"@type":"WebPage","@id":"https://thegitreporter.com/articles/2026-09-26-daily-unsloth-s-sandbox-is-back-a-working-tool-still-does-not-prove-isolation/"},"headline":"Unsloth’s Sandbox Is Back. A Working Tool Still Does Not Prove Isolation.","description":"The replacement for Studio’s reverted sandbox has landed, followed by a Windows Preview. Its promise is conditional: establish what boundary actually ran, and distinguish an unavailable host from a launch that must be refused.","image":["https://thegitreporter.com/assets/social/2026-09-26-daily-unsloth-s-sandbox-is-back-a-working-tool-still-does-not-prove-isolation-og.jpg"],"datePublished":"2026-09-26T12:00:00Z","dateModified":"2026-09-26T12:00:00Z","author":[{"@type":"Organization","name":"The Git Reporter","url":"https://thegitreporter.com"}],"publisher":{"@type":"Organization","@id":"https://thegitreporter.com/#organization","name":"The Git Reporter","url":"https://thegitreporter.com","logo":{"@type":"ImageObject","url":"https://thegitreporter.com/assets/mark.svg"},"sameAs":["https://x.com/TheGitReporter"]},"articleSection":"Daily Edition","keywords":"Local agents, Sandboxing, Source reversals, unslothai/unsloth"}]}</script>
+  <link rel="icon" href="/assets/mark.svg">
+  <link rel="stylesheet" href="/assets/site.css?v=2026-09-08-article-feed">
+  <script defer src="/assets/feedback.js?v=2026-09-08-article-feed"></script>
+  <script defer src="/assets/analytics.js?v=2026-09-08-article-feed"></script>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-CH19T7M0T1"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){window.dataLayer.push(arguments);}
+    gtag("js", new Date());
+    gtag("config", "G-CH19T7M0T1");
+  </script>
+</head>
+<body>
+  <div class="site">
+    <header class="site-header" id="top">
+      <div class="wrap utility-row">
+        <a class="icon-link menu-icon" href="/archive/" aria-label="Open edition history"><span></span><span></span><span></span></a>
+        <a class="icon-link archive-icon" href="/archive/" aria-label="Open edition history"></a>
+      </div>
+      <div class="wrap masthead-lockup">
+        <a class="masthead-title" href="/">THE GIT REPORTER</a>
+        <div class="masthead-ornament" aria-hidden="true"></div>
+      </div>
+      <div class="wrap nav-wrap">
+        <nav class="paper-nav" aria-label="Primary navigation">
+    <a class=""  href="/">Stories</a><a class=""  href="/today/">Today</a><a class="active" aria-current="page" href="/archive/">Editions</a><a class=""  href="/about/">About</a><a class=""  href="/battles/">Diff Derby</a><a class=""  href="/agent-pulse/">Agent Pulse</a><a class=""  href="/atlas/">Agent Atlas</a><a class=""  href="/repos/">Repos</a>
+  </nav>
+        <div class="nav-rule"></div>
+      </div>
+    </header>
+    <main class="wrap page-shell article-page">
+      <section class="page-hero story-front">
+        <div class="story-topline">
+          <span>Daily Edition</span>
+          <span>Sources <strong>+8</strong></span>
+        </div>
+        <h1>Unsloth’s Sandbox Is Back. A Working Tool Still Does Not Prove Isolation.</h1>
+        <p class="summary">The replacement for Studio’s reverted sandbox has landed, followed by a Windows Preview. Its promise is conditional: establish what boundary actually ran, and distinguish an unavailable host from a launch that must be refused.</p>
+        <figure class="story-illustration article-illustration">
+    <img src="/assets/illustrations/2026-09-26-unsloth-s-sandbox-is-back-a-working-tool-still-does-not-prove-isolation-diagram-punk-v1.png" alt="A host probe branches from automatic mode to OS isolation or software safeguards, with an open-network caveat." loading="lazy" decoding="async">
+    <figcaption><span>Diagram Punk</span>the Linux/macOS capability branch in automatic mode. Unsafe launches can still refuse; this is not a complete policy diagram.</figcaption>
+  </figure>
+        <div class="receipt">
+    <div class="receipt-line">
+      <span class="receipt-icon">repo</span>
+      <span class="receipt-main">unslothai/unsloth</span>
+      <span class="branch-pill">evidence</span>
+    </div>
+    <div class="receipt-line receipt-muted">
+      <span>8 source signals</span>
+      <span>1 repo</span>
+      <span>2 linked commits</span>
+    </div>
+    <div class="commit-line">Evidence: 2 linked commits / September 26, 2026 / Daily Edition</div>
+  </div>
+        <div class="article-route-row">
+          <a href="/editions/2026-09-26/">Open Edition</a>
+          <a href="#evidence">Evidence below</a>
+        </div>
+      </section>
+      <section class="story-reader">
+        <article class="story-shell story-body">
+          <p>Unsloth has restored an operating-system sandbox around Studio’s Python and Terminal tools in <code>unslothai/unsloth</code>, eight days after reverting the earlier implementation. The <a href="https://github.com/unslothai/unsloth/commit/588c7df9498aa1cf92170ac6008c28c863a049a0">Linux and macOS replacement</a> merged on September 25 in UTC; a <a href="https://github.com/unslothai/unsloth/commit/095b0dee3c6f1d19e3e80db8cc7cf8ad579ea17c">Windows MXC backend</a> followed minutes later. For people allowing local models to execute code, that closes the source-level gap we <a href="/articles/2026-09-18-daily-unsloth-rolled-back-the-sandbox-its-review-had-just-cleared/">reported last week</a>. It does not make every successful tool call an isolated one.</p>
+<p>The new code preserves a way to work on computers where operating-system isolation is unavailable. In automatic mode, those machines retain software safeguards and continue executing. A stricter mode refuses. That puts the consequential question below the success message: which protection did this particular process receive?</p>
+<h2>The author found the cost of saying yes</h2>
+<p>In the reopened <a href="https://github.com/unslothai/unsloth/pull/11209#issuecomment-5723129809">public discussion</a>, contributor oobabooga measured the replacement against ordinary Studio work. The earlier revision isolated files, but repeatedly walked the model cache and could strand a conversation after package installations pushed its working folder over a scan limit. Once every tool call was refused, the model could not use a tool to clean up the folder.</p>
+<p>A boundary that blocks useful work invites users to disable it; a permissive recovery path can undermine the boundary. The review therefore had to examine ordinary installations, temporary files and accelerator access alongside attempts to read protected files.</p>
+<p>Reviewer danielhanchen <a href="https://github.com/unslothai/unsloth/pull/11209#issuecomment-5748924161">recorded fixes</a> for the permanently blocked conversation and repeated cache walks. Subsequent <a href="https://github.com/unslothai/unsloth/pull/11209#issuecomment-5750292631">macOS comparison work</a> found another failure: different spellings of the same filesystem path prevented a working-folder exception from matching the Studio-home restriction. A probe could pass while a real conversation still could not run. These are reports about named revisions, not evidence that every earlier failure survives in the merged code.</p>
+<h2>Fallback has a boundary too</h2>
+<p>The merged <a href="https://github.com/unslothai/unsloth/blob/095b0dee3c6f1d19e3e80db8cc7cf8ad579ea17c/studio/backend/core/inference/os_sandbox.py">launch planner</a> separates requested mode from effective result. When its capability check says isolation is unavailable, <code>auto</code> returns a software-safeguard launch with <code>os_isolation: false</code>. <code>required</code> raises an error instead. Installing bubblewrap alone is insufficient: the host must also permit the namespaces it needs.</p>
+<p>But automatic does not mean run despite every error. The <a href="https://github.com/unslothai/unsloth/blob/095b0dee3c6f1d19e3e80db8cc7cf8ad579ea17c/studio/backend/core/inference/tools.py">tool wrapper</a> rethrows unsafe-working-folder and sandbox-construction failures. Otherwise, model-written code could damage the conditions for isolation and earn a less restricted retry. The wrapper also has an explicit automatic-mode path for user-approved host access, recorded as such. A prior approval is another reason a completed command alone cannot establish confinement.</p>
+<p>The scan-budget case receives its own treatment. If a working-folder scan cannot finish, automatic mode records that limitation; required mode refuses the prepared launch. That distinguishes finding a hazard from failing to inspect everything. The execution record’s limitations matter alongside its isolation flag.</p>
+<p>For Linux and macOS, the new OS layer does not confine outbound network access. Its record says the network is unrestricted. Hiding a credential file from a process and preventing that process from sending information are separate protections; this change should not be read as supplying both.</p>
+<h2>Windows adds another conditional promise</h2>
+<p>The <a href="https://github.com/unslothai/unsloth/pull/11390">Windows change</a> adds Microsoft’s MXC runtime, pinned with integrity checks, and tests capability before using it. Its source describes a Preview boundary. On systems without the required BaseContainer support, the default configuration cannot assume that installing the executable supplies isolation.</p>
+<p>An optional AppContainer fallback modifies folder permissions temporarily and keeps a recovery journal. It is off by default. The authors report remaining costs and compatibility limits, including package installation trouble in that tier. WSL-backed Bash is outside the supported Windows boundary. “Windows support” is therefore a poor substitute for identifying the actual shell, host and backend.</p>
+<p>The backend distinction is ahead of the ordinary controls: the Linux/macOS pull request leaves request wiring and the per-call interface to follow-up work. We inspected the merged planner, wrapper, platform changes and public reviews; we did not run kernel-confinement tests or establish which downloadable Studio release contains these commits. Nor does the return explain the original revert’s motive.</p>
+<p>The useful next check is a disposable test of the pinned build with harmless canary files, comparing an allowed working-folder operation with a denied outside read and checking the recorded execution mode. No real credential is needed. The next product milestone is equally concrete: make the boundary of an actual call legible where the user sees its result. A restored sandbox earns trust when users can tell when it ran.</p>
+        </article>
+      </section>
+      <section class="evidence-section" id="evidence" aria-labelledby="evidence-title">
+    <div class="evidence-head">
+      <div>
+        <div class="eyebrow">Evidence Trail</div>
+        <h2 id="evidence-title">Receipts below the story</h2>
+        <p>The article above is the public narrative. This section keeps the source trail and limits on the same page.</p>
+      </div>
+      <a class="paper-button" href="/editions/2026-09-26/">Edition</a>
+    </div>
+    <div class="evidence-table evidence-summary">
+      <div class="evidence-line"><span>Date</span><span>September 26, 2026</span></div>
+      <div class="evidence-line"><span>Lane</span><span>Daily Edition</span></div>
+      <div class="evidence-line"><span>Confidence</span><span>87%</span></div>
+      <div class="evidence-line"><span>Sources</span><span>8</span></div>
+      <div class="evidence-line"><span>Repos</span><span>unslothai/unsloth</span></div>
+    </div>
+    <div class="markdown evidence-copy evidence-copy-block">
+      <h2>Primary Evidence</h2>
+<ul>
+<li>Linux and macOS replacement: <a href="https://github.com/unslothai/unsloth/commit/588c7df9498aa1cf92170ac6008c28c863a049a0">https://github.com/unslothai/unsloth/commit/588c7df9498aa1cf92170ac6008c28c863a049a0</a>
+<ul>
+<li>Shows: The September 25 merge reintroduces OS-sandbox planning and platform backends after the earlier revert.
+</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li>Merged launch planner: <a href="https://github.com/unslothai/unsloth/blob/095b0dee3c6f1d19e3e80db8cc7cf8ad579ea17c/studio/backend/core/inference/os_sandbox.py">https://github.com/unslothai/unsloth/blob/095b0dee3c6f1d19e3e80db8cc7cf8ad579ea17c/studio/backend/core/inference/os_sandbox.py</a>
+<ul>
+<li>Shows: prepare_tool_launch distinguishes unavailable capability, auto software safeguards, required refusal, workdir scan limitations, and execution records.
+</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li>Merged tool wrapper: <a href="https://github.com/unslothai/unsloth/blob/095b0dee3c6f1d19e3e80db8cc7cf8ad579ea17c/studio/backend/core/inference/tools.py">https://github.com/unslothai/unsloth/blob/095b0dee3c6f1d19e3e80db8cc7cf8ad579ea17c/studio/backend/core/inference/tools.py</a>
+<ul>
+<li>Shows: _prepare_tool_launch preserves refusals for unsafe workdirs and construction failures, and records user-approved host access separately.
+</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li>Author’s compatibility measurements: <a href="https://github.com/unslothai/unsloth/pull/11209#issuecomment-5723129809">https://github.com/unslothai/unsloth/pull/11209#issuecomment-5723129809</a>
+<ul>
+<li>Shows: The author reports a prior revision’s repeated cache walks and workdir-budget lockout. These observations motivated further revision, not a claim that merged code retains each defect.
+</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li>Review corrections: <a href="https://github.com/unslothai/unsloth/pull/11209#issuecomment-5748924161">https://github.com/unslothai/unsloth/pull/11209#issuecomment-5748924161</a>
+<ul>
+<li>Shows: The reviewer identifies fixes for workdir-budget refusal and cache memoization in named revisions.
+</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li>macOS differential: <a href="https://github.com/unslothai/unsloth/pull/11209#issuecomment-5750292631">https://github.com/unslothai/unsloth/pull/11209#issuecomment-5750292631</a>
+<ul>
+<li>Shows: The review explains a mismatch between resolved workdir paths and Studio-home spellings that required a fix.
+</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li>Windows Preview implementation: <a href="https://github.com/unslothai/unsloth/commit/095b0dee3c6f1d19e3e80db8cc7cf8ad579ea17c">https://github.com/unslothai/unsloth/commit/095b0dee3c6f1d19e3e80db8cc7cf8ad579ea17c</a>
+<ul>
+<li>Shows: Adds pinned MXC runtime integration, capability probing and Windows-specific launch and cleanup behavior.
+</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li>Windows supported scope and test limits: <a href="https://github.com/unslothai/unsloth/pull/11390">https://github.com/unslothai/unsloth/pull/11390</a>
+<ul>
+<li>Shows: Documents BaseContainer requirements, opt-in DACL changes and recovery, unsupported WSL-backed Bash, Preview status and remaining package-install limitations.
+</li>
+</ul>
+</li>
+</ul>
+<h2>Evidence Limits</h2>
+<ul>
+<li>Source inspection and attributed public reviews; no independently executed kernel-confinement tests.
+</li>
+<li>Merged source does not establish a downloadable release or behavior on every account, OS, shell or host.
+</li>
+<li>Linux/macOS OS isolation leaves network egress unrestricted. Windows network posture is explicitly unverified.
+</li>
+<li>The original revert’s motive is not established. Older review measurements apply to named revisions.
+</li>
+</ul>
+    </div>
+  </section>
+      <section class="related-edition-section atlas-context-section">
+    <div class="section-title-row">
+      <h2>Atlas Context</h2>
+      <a href="/atlas/">Open Atlas &rsaquo;</a>
+    </div>
+    <div class="updates-list">
+      <a class="article-card" href="/atlas/friction-safety-and-approval/">
+            <div class="article-meta"><span class="lane">Agent Atlas</span><span>Chapter 7</span></div>
+            <h3>The Approval Trap</h3>
+            <p>Approval is useful only when it catches a meaningful change in authority, explains that change, and keeps the decision attached to the work.</p>
+          </a>
+    </div>
+  </section>
+      <section class="reader-feedback"
+    data-tgr-feedback
+    data-article-slug="2026-09-26-daily-unsloth-s-sandbox-is-back-a-working-tool-still-does-not-prove-isolation"
+    data-article-title="Unsloth’s Sandbox Is Back. A Working Tool Still Does Not Prove Isolation."
+    data-article-url="/articles/2026-09-26-daily-unsloth-s-sandbox-is-back-a-working-tool-still-does-not-prove-isolation/"
+    data-edition-date="2026-09-26"
+    data-lane="Daily Edition"
+    data-tags="Local agents,Sandboxing,Source reversals"
+    data-repos="unslothai/unsloth">
+    <div class="reader-feedback-head">
+      <div>
+        <div class="eyebrow">Letters &amp; Corrections</div>
+        <h2>Send a note to the desk</h2>
+      </div>
+      <p>Corrections, missing context, or a follow-up lead.</p>
+    </div>
+    <form class="feedback-form">
+      <div class="feedback-votes" role="group" aria-label="Choose signal type">
+        <button class="feedback-choice" type="button" data-vote="follow-up" aria-pressed="false">
+          <span aria-hidden="true">+</span>
+          <span>Follow-up</span>
+        </button>
+        <button class="feedback-choice" type="button" data-vote="correction" aria-pressed="false">
+          <span aria-hidden="true">!</span>
+          <span>Correction</span>
+        </button>
+      </div>
+      <label class="feedback-comment">
+        <span>Note for the editor</span>
+        <textarea name="comment" rows="3" maxlength="320" placeholder="What did we miss, or what should we follow next?"></textarea>
+      </label>
+      <div class="feedback-submit-row">
+        <p class="feedback-status" aria-live="polite"></p>
+        <button class="paper-button primary feedback-submit" type="submit">Send to desk</button>
+      </div>
+    </form>
+  </section>
+      <section class="related-edition-section">
+        <div class="section-title-row">
+          <h2>Same Edition</h2>
+          <a href="/editions/2026-09-26/">Open issue &rsaquo;</a>
+        </div>
+        <div class="updates-list">
+          <a class="update-card" href="/articles/2026-09-26-daily-api-discovery-find-the-approval-in-the-right-ledger/">
+    <div class="update-stripe"></div>
+    <div class="update-main">
+      <div class="update-meta">
+        <span>Reported</span>
+        <span class="source-plus">+5</span>
+        <span>Sep 26, 2026</span>
+      </div>
+      <h3>API Discovery: Find the Approval in the Right Ledger</h3>
+      <div class="update-receipt">
+        <span>mastra-ai/mastra</span>
+        <span class="branch-pill">evidence</span>
+      </div>
+      <div class="update-foot">
+        <span>5 sources</span>
+        <span>1 repo</span>
+        <span>commit 444debd</span>
+      </div>
+    </div>
+    <span class="update-arrow" aria-hidden="true">&rsaquo;</span>
+  </a><a class="update-card" href="/articles/2026-09-26-daily-builder-work-do-not-return-a-tab-nobody-owns/">
+    <div class="update-stripe"></div>
+    <div class="update-main">
+      <div class="update-meta">
+        <span>Reported</span>
+        <span class="source-plus">+5</span>
+        <span>Sep 26, 2026</span>
+      </div>
+      <h3>Builder Work: Do Not Return a Tab Nobody Owns</h3>
+      <div class="update-receipt">
+        <span>TangleML/tangle-ui</span>
+        <span class="branch-pill">evidence</span>
+      </div>
+      <div class="update-foot">
+        <span>5 sources</span>
+        <span>1 repo</span>
+        <span>commit 6d0e231</span>
+      </div>
+    </div>
+    <span class="update-arrow" aria-hidden="true">&rsaquo;</span>
+  </a>
+        </div>
+      </section>
+    </main>
+    <footer class="wrap site-footer">
+      <span>&copy; 2026 The Git Reporter</span>
+      <a href="/about/">About</a>
+      <a href="/battles/">Diff Derby</a>
+      <a href="/agent-pulse/">Agent Pulse</a>
+      <a href="/feed.xml">RSS</a>
+      <a href="https://x.com/TheGitReporter">Follow on X</a>
+      <a href="/articles.json">Manifest JSON</a>
+      <a href="/repos/">Sources</a>
+    </footer>
+  </div>
+</body>
+</html>
