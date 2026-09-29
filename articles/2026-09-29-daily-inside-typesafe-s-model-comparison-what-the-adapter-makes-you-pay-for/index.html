@@ -1,0 +1,344 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Inside TypeSafe’s Model Comparison: What the Adapter Makes You Pay For | The Git Reporter</title>
+  <meta name="description" content="A probability-bearing answer buys more than a label. Local decision models and a public routing experiment now expose the next choice: how much accuracy must the cheaper route preserve?">
+  <meta name="robots" content="index,follow">
+  <link rel="canonical" href="https://thegitreporter.com/articles/2026-09-29-daily-inside-typesafe-s-model-comparison-what-the-adapter-makes-you-pay-for/">
+  <link rel="alternate" type="application/rss+xml" title="The Git Reporter" href="https://thegitreporter.com/feed.xml">
+  <meta property="og:site_name" content="The Git Reporter">
+  <meta property="og:locale" content="en_US">
+  <meta property="og:title" content="Inside TypeSafe’s Model Comparison: What the Adapter Makes You Pay For | The Git Reporter">
+  <meta property="og:description" content="A probability-bearing answer buys more than a label. Local decision models and a public routing experiment now expose the next choice: how much accuracy must the cheaper route preserve?">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://thegitreporter.com/articles/2026-09-29-daily-inside-typesafe-s-model-comparison-what-the-adapter-makes-you-pay-for/">
+  <meta property="og:image" content="https://thegitreporter.com/assets/social/2026-09-29-daily-inside-typesafe-s-model-comparison-what-the-adapter-makes-you-pay-for-og.jpg">
+  <meta property="og:image:secure_url" content="https://thegitreporter.com/assets/social/2026-09-29-daily-inside-typesafe-s-model-comparison-what-the-adapter-makes-you-pay-for-og.jpg">
+  <meta property="og:image:type" content="image/jpeg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="A task branches into one selected label or a probability for each option. Both lead to a checklist: answer shape, accuracy target and all attempts. A red stamp says no speed test here.">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:site" content="@TheGitReporter">
+  <meta name="twitter:creator" content="@TheGitReporter">
+  <meta name="twitter:title" content="Inside TypeSafe’s Model Comparison: What the Adapter Makes You Pay For | The Git Reporter">
+  <meta name="twitter:description" content="A probability-bearing answer buys more than a label. Local decision models and a public routing experiment now expose the next choice: how much accuracy must the cheaper route preserve?">
+  <meta name="twitter:url" content="https://thegitreporter.com/articles/2026-09-29-daily-inside-typesafe-s-model-comparison-what-the-adapter-makes-you-pay-for/">
+  <meta name="twitter:domain" content="thegitreporter.com">
+  <meta name="twitter:image" content="https://thegitreporter.com/assets/social/2026-09-29-daily-inside-typesafe-s-model-comparison-what-the-adapter-makes-you-pay-for-og.jpg">
+  <meta name="twitter:image:alt" content="A task branches into one selected label or a probability for each option. Both lead to a checklist: answer shape, accuracy target and all attempts. A red stamp says no speed test here.">
+  <meta property="article:published_time" content="2026-09-29T12:00:00Z">
+  <meta property="article:modified_time" content="2026-09-29T12:00:00Z">
+  <meta property="article:section" content="Daily Edition">
+  <meta property="article:tag" content="Model evaluation">
+  <meta property="article:tag" content="Inference economics">
+  <meta property="article:tag" content="Decision models">
+  <meta property="article:tag" content="typesafe-ai/system-one-adapter-python">
+  <meta property="article:tag" content="unslothai/unsloth">
+  <meta property="article:tag" content="earendil-works/pi">
+  <meta property="article:tag" content="ickma2311/jev-baselines-eval">
+  <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"https://thegitreporter.com/#organization","name":"The Git Reporter","url":"https://thegitreporter.com","logo":{"@type":"ImageObject","url":"https://thegitreporter.com/assets/mark.svg"},"sameAs":["https://x.com/TheGitReporter"]},{"@type":"WebSite","@id":"https://thegitreporter.com/#website","name":"The Git Reporter","url":"https://thegitreporter.com","publisher":{"@id":"https://thegitreporter.com/#organization"}},{"@type":"NewsArticle","mainEntityOfPage":{"@type":"WebPage","@id":"https://thegitreporter.com/articles/2026-09-29-daily-inside-typesafe-s-model-comparison-what-the-adapter-makes-you-pay-for/"},"headline":"Inside TypeSafe’s Model Comparison: What the Adapter Makes You Pay For","description":"A probability-bearing answer buys more than a label. Local decision models and a public routing experiment now expose the next choice: how much accuracy must the cheaper route preserve?","image":["https://thegitreporter.com/assets/social/2026-09-29-daily-inside-typesafe-s-model-comparison-what-the-adapter-makes-you-pay-for-og.jpg"],"datePublished":"2026-09-29T12:00:00Z","dateModified":"2026-09-29T12:00:00Z","author":[{"@type":"Organization","name":"The Git Reporter","url":"https://thegitreporter.com"}],"publisher":{"@type":"Organization","@id":"https://thegitreporter.com/#organization","name":"The Git Reporter","url":"https://thegitreporter.com","logo":{"@type":"ImageObject","url":"https://thegitreporter.com/assets/mark.svg"},"sameAs":["https://x.com/TheGitReporter"]},"articleSection":"Daily Edition","keywords":"Model evaluation, Inference economics, Decision models, typesafe-ai/system-one-adapter-python, unslothai/unsloth, earendil-works/pi, ickma2311/jev-baselines-eval"}]}</script>
+  <link rel="icon" href="/assets/mark.svg">
+  <link rel="stylesheet" href="/assets/site.css?v=2026-09-08-article-feed">
+  <script defer src="/assets/feedback.js?v=2026-09-08-article-feed"></script>
+  <script defer src="/assets/analytics.js?v=2026-09-08-article-feed"></script>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-CH19T7M0T1"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){window.dataLayer.push(arguments);}
+    gtag("js", new Date());
+    gtag("config", "G-CH19T7M0T1");
+  </script>
+</head>
+<body>
+  <div class="site">
+    <header class="site-header" id="top">
+      <div class="wrap utility-row">
+        <a class="icon-link menu-icon" href="/archive/" aria-label="Open edition history"><span></span><span></span><span></span></a>
+        <a class="icon-link archive-icon" href="/archive/" aria-label="Open edition history"></a>
+      </div>
+      <div class="wrap masthead-lockup">
+        <a class="masthead-title" href="/">THE GIT REPORTER</a>
+        <div class="masthead-ornament" aria-hidden="true"></div>
+      </div>
+      <div class="wrap nav-wrap">
+        <nav class="paper-nav" aria-label="Primary navigation">
+    <a class=""  href="/">Stories</a><a class=""  href="/today/">Today</a><a class="active" aria-current="page" href="/archive/">Editions</a><a class=""  href="/about/">About</a><a class=""  href="/battles/">Diff Derby</a><a class=""  href="/agent-pulse/">Agent Pulse</a><a class=""  href="/atlas/">Agent Atlas</a><a class=""  href="/repos/">Repos</a>
+  </nav>
+        <div class="nav-rule"></div>
+      </div>
+    </header>
+    <main class="wrap page-shell article-page">
+      <section class="page-hero story-front">
+        <div class="story-topline">
+          <span>Daily Edition</span>
+          <span>Sources <strong>+18</strong></span>
+        </div>
+        <h1>Inside TypeSafe’s Model Comparison: What the Adapter Makes You Pay For</h1>
+        <p class="summary">A probability-bearing answer buys more than a label. Local decision models and a public routing experiment now expose the next choice: how much accuracy must the cheaper route preserve?</p>
+        <figure class="story-illustration article-illustration">
+    <img src="/assets/illustrations/2026-09-29-inside-typesafe-s-model-comparison-what-the-adapter-makes-you-pay-for-diagram-punk-v2.png" alt="A task branches into one selected label or a probability for each option. Both lead to a checklist: answer shape, accuracy target and all attempts. A red stamp says no speed test here." loading="lazy" decoding="async">
+    <figcaption><span>Diagram Punk</span>define the answer and the acceptance target before comparing the cost. Unnumbered bars illustrate output shape, not measured probabilities.</figcaption>
+  </figure>
+        <div class="receipt">
+    <div class="receipt-line">
+      <span class="receipt-icon">repos</span>
+      <span class="receipt-main">typesafe-ai/system-one-adapter-python + 3 more</span>
+      <span class="branch-pill">evidence</span>
+    </div>
+    <div class="receipt-line receipt-muted">
+      <span>18 source signals</span>
+      <span>4 repos</span>
+      <span>3 linked commits</span>
+    </div>
+    <div class="commit-line">Evidence: 3 linked commits / September 29, 2026 / Daily Edition</div>
+  </div>
+        <div class="article-route-row">
+          <a href="/editions/2026-09-29/">Open Edition</a>
+          <a href="#evidence">Evidence below</a>
+        </div>
+      </section>
+      <section class="story-reader">
+        <article class="story-shell story-body">
+          <p>TypeSafe's public comparison adapter, <a href="https://github.com/typesafe-ai/system-one-adapter-python/tree/e1d4cc938204b22fc5a3c3aca7044072fe3f712d">typesafe-ai/system-one-adapter-python</a>, asks competing models to supply probabilities, not merely pick an answer. That difference is becoming a practical purchasing question. Unsloth has added a local implementation of the decision interface, while a published independent experiment shows that tightening the required accuracy reverses which of two model-routing setups sends fewer requests to an expensive model.</p>
+<p>The new choices change how to read a speed chart. A buyer needs to define both the information an answer must contain and the standard a completed task must meet. Matching the interface and matching the outcome are related experiments, but they are not interchangeable.</p>
+<p>TypeSafe's <a href="https://typesafe.ai/blog/introducing-system-one-models-and-jev">September 15 launch announcement</a> claims large speed and cost advantages for Jev's structured decisions. It also explicitly acknowledges that its LLM comparison wrapper requests probability-bearing answers, which tend to take longer and cost more than discrete decisions. That is a disclosed design choice, not evidence of a hidden handicap.</p>
+<h2>What the application actually consumes</h2>
+<p>Our <a href="https://thegitreporter.com/articles/2026-09-22-daily-jev-puts-the-odds-in-the-answer-local-ai-still-has-to-make-them-trustworthy/">September 22 report</a> examined the probability interface. The adapter's <a href="https://github.com/typesafe-ai/system-one-adapter-python/blob/e1d4cc938204b22fc5a3c3aca7044072fe3f712d/src/system_one_adapter/_schema.py">schema generator</a> supports two jobs: return one allowed label, or return a number for every option. These modes predate the latest release. A distribution can help a workflow distinguish uncertainty from a decisive choice; an application that only consumes the winning label may have less to buy.</p>
+<p>A fresh example makes the distinction concrete. Pi's <a href="https://github.com/earendil-works/pi/blob/540e174c72cd793170b73db8160c6d5f6c5a2236/packages/coding-agent/examples/extensions/jev-router.ts">September 28 Jev router</a> asks whether programming work is standard or complex, chooses a planning model, and switches to its implementation model after the first successful edit. It reads whether the complex option reaches 0.5. With only two options, that can amount to choosing a label; the example does not prove that an entire probability distribution earns its keep. Nor do its scripted tests establish savings on completed work.</p>
+<p>TypeSafe's <a href="https://evals.typesafe.ai/">workflow evaluation</a> asks a richer question: keep the workflow fixed, combine model judgments with code, and compare against reference answers generated by two large models at high reasoning settings. Evaluated models use provider defaults. That is a defined comparison target. It is not the only useful target for a team choosing a classifier or router.</p>
+<h2>One percentage point can change the cheaper route</h2>
+<p>An independent <a href="https://github.com/ickma2311/jev-baselines-eval/tree/3b828cb68992c00835b3f126a3d13534da875277">September 18 intent-classification study</a> asks what happens when a first model passes uncertain cases to a stronger one. Its 200-item CLINC150 sample compares Jev and a small LLM as the first stage, with GPT-5.6 Terra as the destination for escalated requests. The author publishes the predictions and analysis, including corrections to initially overstated conclusions.</p>
+<p>We recalculated the threshold results from the <a href="https://github.com/ickma2311/jev-baselines-eval/blob/3b828cb68992c00835b3f126a3d13534da875277/results/results_b1.jsonl">published rows</a>. If the cascade may finish one percentage point below Terra's 91.5% accuracy on that sample, the minimum escalation rates are 22% for Jev and 48.5% for the small LLM. Require exact parity with Terra, and those rates become 100% and 73%. The apparent routing advantage changes direction when the acceptance criterion changes.</p>
+<p>The mechanism is a threshold jump. Many Jev answers share the highest confidence value, so the routing rule cannot separate them by confidence. Achieving parity on this sample requires sending every case onward. This is not a general victory for the small LLM: the rates are retrospective minima chosen on the same finite sample, the preregistered finding was ambiguous, and thresholds tested on held-out halves missed the intended accuracy target for both setups.</p>
+<p>These are request-routing fractions, not a measured total bill or a reproduction of TypeSafe's workflow charts. Their value is more practical: “almost the same accuracy” and “the same accuracy” can buy very different systems. Set that requirement before shopping for the cheapest first call.</p>
+<h2>The probability interface now has a local path</h2>
+<p>The choice is also broader than Jev versus a language model writing probability-shaped JSON. Unsloth's <a href="https://github.com/unslothai/unsloth/commit/a838acf95ffb819e2b7506e538204239de55d17d">September 25 integration</a> implements <code>/v1/systemone</code> locally using Laya, an encoder-based decision model. Its <a href="https://github.com/unslothai/unsloth/commit/06911b705caea8faff08b78c398bde5a2832e3b1">September 28 follow-up</a> tightens request validation and supplies the request identifier expected by TypeSafe clients.</p>
+<p>That makes a local alternative inspectable, rather than merely imaginable. It also makes naming important: the <a href="https://github.com/unslothai/unsloth/blob/4e8503e437796bfa4ca9854f886e60edfc1e05dc/studio/backend/core/systemone/catalog.py">catalog</a> accepts aliases such as <code>jev-latest</code> and resolves them to the configured Laya checkpoint. It is serving Laya, not Jev's weights. The feature must be enabled; available checkpoints have short, differing context limits, and the route rejects overflow. Shared request shape does not establish equivalent decisions.</p>
+<p>For a team with short classification inputs and a reason to operate locally, that is a concrete candidate to test. We inspected the merged implementation, not an installed release or a live model run. Its reported zero output tokens describe a non-text-generation interface; they do not make local inference free. Hardware, latency, errors and escalation still belong in the comparison.</p>
+<h2>Count the work behind the answer</h2>
+<p>The TypeSafe adapter remains useful here as an accounting instrument. Its <a href="https://github.com/typesafe-ai/system-one-adapter-python/blob/e1d4cc938204b22fc5a3c3aca7044072fe3f712d/src/system_one_adapter/_client.py">evaluation loop</a> separates final-response tokens from cumulative returned-attempt totals. It can send malformed output back with a correction request. Corrective and transient retries are separate settings; both default to zero. Retries are a configured part of an experiment, not an unavoidable tax on rivals.</p>
+<p>The <a href="https://github.com/typesafe-ai/system-one-adapter-python/commit/e1d4cc938204b22fc5a3c3aca7044072fe3f712d">September 22 v0.2.1 release</a>, still the repository’s latest revision when checked on September 29, stops particular provider refusal and incomplete-response signals from consuming corrective retries. It also preserves missing usage as unknown, rather than zero. The <a href="https://github.com/typesafe-ai/system-one-adapter-python/blob/e1d4cc938204b22fc5a3c3aca7044072fe3f712d/tests/test_client_with_fake_model.py#L308">regression cases</a> show that a later response cannot repair an earlier missing count. Returned-response totals still cannot price a failed request that supplies no usable accounting.</p>
+<p>None of this pins the vendor's historical charts to the reviewed adapter revision, or quantifies how much its output requirements contributed to the advertised advantage. It gives a buyer a better experiment: choose the necessary answer shape, fix a held-out error target, and compare hosted Jev, an LLM and a suitable local decision model with every attempt and escalation included. The useful winner is the implementation that meets the application's requirement at the cost the whole workflow actually incurs.</p>
+        </article>
+      </section>
+      <section class="evidence-section" id="evidence" aria-labelledby="evidence-title">
+    <div class="evidence-head">
+      <div>
+        <div class="eyebrow">Evidence Trail</div>
+        <h2 id="evidence-title">Receipts below the story</h2>
+        <p>The article above is the public narrative. This section keeps the source trail and limits on the same page.</p>
+      </div>
+      <a class="paper-button" href="/editions/2026-09-29/">Edition</a>
+    </div>
+    <div class="evidence-table evidence-summary">
+      <div class="evidence-line"><span>Date</span><span>September 29, 2026</span></div>
+      <div class="evidence-line"><span>Lane</span><span>Daily Edition</span></div>
+      <div class="evidence-line"><span>Confidence</span><span>91%</span></div>
+      <div class="evidence-line"><span>Sources</span><span>18</span></div>
+      <div class="evidence-line"><span>Repos</span><span>typesafe-ai/system-one-adapter-python, unslothai/unsloth, earendil-works/pi, ickma2311/jev-baselines-eval</span></div>
+    </div>
+    <div class="markdown evidence-copy evidence-copy-block">
+      <h2>Primary Evidence</h2>
+<ul>
+<li>Original vendor performance claim and comparison qualification: <a href="https://typesafe.ai/blog/introducing-system-one-models-and-jev">https://typesafe.ai/blog/introducing-system-one-models-and-jev</a>
+<ul>
+<li>Shows: The September 15 launch's performance claims and explicit statement that generating probability-bearing answers through the LLM wrapper tends to be slower and costlier than discrete answers.
+</li>
+</ul>
+</li>
+<li>Evaluation methodology: <a href="https://evals.typesafe.ai/">https://evals.typesafe.ai/</a>
+<ul>
+<li>Shows: Model-consensus references, the reasoning-setting distinction and the assumption that the workflow code is correct.
+</li>
+</ul>
+</li>
+<li>Concrete composed workflow: <a href="https://evals.typesafe.ai/invoice_processing">https://evals.typesafe.ai/invoice_processing</a>
+<ul>
+<li>Shows: Model judgments composed with deterministic rules; an example of why intermediate answers can matter.
+</li>
+</ul>
+</li>
+<li>Inspected release: <a href="https://github.com/typesafe-ai/system-one-adapter-python/commit/e1d4cc938204b22fc5a3c3aca7044072fe3f712d">https://github.com/typesafe-ai/system-one-adapter-python/commit/e1d4cc938204b22fc5a3c3aca7044072fe3f712d</a>
+<ul>
+<li>Shows: September 22 v0.2.1 changes relative to the September 18 revision used in our prior reporting.
+</li>
+</ul>
+</li>
+<li>Output schema: <a href="https://github.com/typesafe-ai/system-one-adapter-python/blob/e1d4cc938204b22fc5a3c3aca7044072fe3f712d/src/system_one_adapter/_schema.py">https://github.com/typesafe-ai/system-one-adapter-python/blob/e1d4cc938204b22fc5a3c3aca7044072fe3f712d/src/system_one_adapter/_schema.py</a>
+<ul>
+<li>Shows: Discrete Choice/Score values versus per-option or per-level probability fields. These modes predate v0.2.1.
+</li>
+</ul>
+</li>
+<li>Evaluation and accounting: <a href="https://github.com/typesafe-ai/system-one-adapter-python/blob/e1d4cc938204b22fc5a3c3aca7044072fe3f712d/src/system_one_adapter/_client.py">https://github.com/typesafe-ai/system-one-adapter-python/blob/e1d4cc938204b22fc5a3c3aca7044072fe3f712d/src/system_one_adapter/_client.py</a>
+<ul>
+<li>Shows: Corrective messages, returned-result token totals, separate retry accounting, missing-usage propagation and zero retries by default.
+</li>
+</ul>
+</li>
+<li>Provider boundary: <a href="https://github.com/typesafe-ai/system-one-adapter-python/blob/e1d4cc938204b22fc5a3c3aca7044072fe3f712d/src/system_one_adapter/providers/openai.py">https://github.com/typesafe-ai/system-one-adapter-python/blob/e1d4cc938204b22fc5a3c3aca7044072fe3f712d/src/system_one_adapter/providers/openai.py</a>
+<ul>
+<li>Shows: Specific refusal/incomplete-response handling and nullable usage fields, without establishing universal refusal handling across compatible endpoints.
+</li>
+</ul>
+</li>
+<li>Provider regression definitions: <a href="https://github.com/typesafe-ai/system-one-adapter-python/blob/e1d4cc938204b22fc5a3c3aca7044072fe3f712d/tests/test_provider_nonanswers.py">https://github.com/typesafe-ai/system-one-adapter-python/blob/e1d4cc938204b22fc5a3c3aca7044072fe3f712d/tests/test_provider_nonanswers.py</a>
+<ul>
+<li>Shows: Intended one-request treatment of supported refusal/incomplete-response signals and preservation of unknown usage.
+</li>
+</ul>
+</li>
+<li>Cumulative-usage regression definitions: <a href="https://github.com/typesafe-ai/system-one-adapter-python/blob/e1d4cc938204b22fc5a3c3aca7044072fe3f712d/tests/test_client_with_fake_model.py#L308">https://github.com/typesafe-ai/system-one-adapter-python/blob/e1d4cc938204b22fc5a3c3aca7044072fe3f712d/tests/test_client_with_fake_model.py#L308</a>
+<ul>
+<li>Shows: Unknown totals across corrections and final-attempt versus cumulative returned-result accounting.
+</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li>Independent intent-classification evaluation and corrections: <a href="https://github.com/ickma2311/jev-baselines-eval/tree/3b828cb68992c00835b3f126a3d13534da875277">https://github.com/ickma2311/jev-baselines-eval/tree/3b828cb68992c00835b3f126a3d13534da875277</a>
+<ul>
+<li>Shows: September 18 study, retrospective escalation sensitivity, ambiguous preregistered result and held-out checks missing the intended target; later tree includes a separate study.
+</li>
+</ul>
+</li>
+<li>Published prediction rows: <a href="https://github.com/ickma2311/jev-baselines-eval/blob/3b828cb68992c00835b3f126a3d13534da875277/results/results_b1.jsonl">https://github.com/ickma2311/jev-baselines-eval/blob/3b828cb68992c00835b3f126a3d13534da875277/results/results_b1.jsonl</a>
+<ul>
+<li>Shows: 600 model rows covering 200 matched items. Recalculation gives Jev/nano escalation of 22%/48.5% at 90.5% accuracy, versus 100%/73% at 91.5%.
+</li>
+</ul>
+</li>
+<li>Analysis definition: <a href="https://github.com/ickma2311/jev-baselines-eval/blob/3b828cb68992c00835b3f126a3d13534da875277/code/analyze_b1.py">https://github.com/ickma2311/jev-baselines-eval/blob/3b828cb68992c00835b3f126a3d13534da875277/code/analyze_b1.py</a>
+<ul>
+<li>Shows: Confidence thresholds, failure handling, margin sensitivity, bootstrap procedure and cross-fit check. The figures used are retrospective minima, not prospective savings.
+</li>
+</ul>
+</li>
+<li>Local decision API implementation: <a href="https://github.com/unslothai/unsloth/commit/a838acf95ffb819e2b7506e538204239de55d17d">https://github.com/unslothai/unsloth/commit/a838acf95ffb819e2b7506e538204239de55d17d</a>
+<ul>
+<li>Shows: September 25 source implementation serving Laya through the System One route, with enablement and bounded context.
+</li>
+</ul>
+</li>
+<li>Validation and SDK metadata follow-up: <a href="https://github.com/unslothai/unsloth/commit/06911b705caea8faff08b78c398bde5a2832e3b1">https://github.com/unslothai/unsloth/commit/06911b705caea8faff08b78c398bde5a2832e3b1</a>
+<ul>
+<li>Shows: September 28 criteria validation, 422 errors and TypeSafe request identifiers; useful interface compatibility, not measured model equivalence.
+</li>
+</ul>
+</li>
+<li>Local checkpoint catalog: <a href="https://github.com/unslothai/unsloth/blob/4e8503e437796bfa4ca9854f886e60edfc1e05dc/studio/backend/core/systemone/catalog.py">https://github.com/unslothai/unsloth/blob/4e8503e437796bfa4ca9854f886e60edfc1e05dc/studio/backend/core/systemone/catalog.py</a>
+<ul>
+<li>Shows: Jev-named aliases resolve to configured Laya checkpoints with differing context limits, not Jev weights.
+</li>
+</ul>
+</li>
+<li>Local response accounting: <a href="https://github.com/unslothai/unsloth/blob/4e8503e437796bfa4ca9854f886e60edfc1e05dc/studio/backend/core/systemone/laya_runtime.py">https://github.com/unslothai/unsloth/blob/4e8503e437796bfa4ca9854f886e60edfc1e05dc/studio/backend/core/systemone/laya_runtime.py</a>
+<ul>
+<li>Shows: Locally computed decision distributions and zero output-token reporting, which does not price computation.
+</li>
+</ul>
+</li>
+<li>Pi routing example: <a href="https://github.com/earendil-works/pi/blob/540e174c72cd793170b73db8160c6d5f6c5a2236/packages/coding-agent/examples/extensions/jev-router.ts">https://github.com/earendil-works/pi/blob/540e174c72cd793170b73db8160c6d5f6c5a2236/packages/coding-agent/examples/extensions/jev-router.ts</a>
+<ul>
+<li>Shows: September 28 virtual-model example uses a binary complexity threshold and changes models after the first successful edit.
+</li>
+</ul>
+</li>
+<li>Pi scripted routing tests: <a href="https://github.com/earendil-works/pi/blob/540e174c72cd793170b73db8160c6d5f6c5a2236/packages/coding-agent/test/jev-router-example.test.ts">https://github.com/earendil-works/pi/blob/540e174c72cd793170b73db8160c6d5f6c5a2236/packages/coding-agent/test/jev-router-example.test.ts</a>
+<ul>
+<li>Shows: Scripted classifier values and fake-provider routing checks; no demonstrated cost or task-quality advantage.
+</li>
+</ul>
+</li>
+</ul>
+<h2>Evidence Limits</h2>
+<ul>
+<li>Source, release history, public evaluations and test definitions were inspected on September 29, 2026. We recalculated point estimates from published prediction rows; we did not rerun inference, execute the projects’ regression suites or call Jev, Laya or rival model APIs.
+</li>
+<li>The reviewed chart material does not establish which adapter revision or configuration produced each result. The adapter's current behavior cannot retroactively establish historical benchmark settings.
+</li>
+<li>The output contract changes required information, but source inspection does not quantify its share of a vendor-reported cost or speed advantage.
+</li>
+<li>Returned-result token totals are not a complete invoice for provider calls that fail without usable accounting. Unknown usage is distinct from a reported zero.
+</li>
+<li>Refusal handling is specific to the signals named in the article; the code does not establish universal refusal detection across every compatible endpoint.
+</li>
+<li>This reporting establishes no corrected speed ratio, adoption trend, model-performance winner, or fact about Jev's private implementation. Vendor claims remain attributed.
+</li>
+</ul>
+<ul>
+<li>The independent result is a finite-sample, retrospective threshold search on author-reported outcomes, not a measured bill, calibration result or verified deployment saving. Its held-out thresholds miss the intended target for both systems.
+</li>
+<li>Local Laya implementation and Pi routing are merged source observations, not proof of installed release availability, adoption, universal SDK compatibility or Jev-equivalent quality. Binary thresholding in Pi does not prove that a full distribution is necessary.
+</li>
+</ul>
+    </div>
+  </section>
+      <section class="related-edition-section atlas-context-section">
+    <div class="section-title-row">
+      <h2>Atlas Context</h2>
+      <a href="/atlas/">Open Atlas &rsaquo;</a>
+    </div>
+    <div class="updates-list">
+      <a class="article-card" href="/atlas/friction-safety-and-approval/">
+            <div class="article-meta"><span class="lane">Agent Atlas</span><span>Chapter 7</span></div>
+            <h3>The Approval Trap</h3>
+            <p>Approval is useful only when it catches a meaningful change in authority, explains that change, and keeps the decision attached to the work.</p>
+          </a>
+    </div>
+  </section>
+      <section class="reader-feedback"
+    data-tgr-feedback
+    data-article-slug="2026-09-29-daily-inside-typesafe-s-model-comparison-what-the-adapter-makes-you-pay-for"
+    data-article-title="Inside TypeSafe’s Model Comparison: What the Adapter Makes You Pay For"
+    data-article-url="/articles/2026-09-29-daily-inside-typesafe-s-model-comparison-what-the-adapter-makes-you-pay-for/"
+    data-edition-date="2026-09-29"
+    data-lane="Daily Edition"
+    data-tags="Model evaluation,Inference economics,Decision models"
+    data-repos="typesafe-ai/system-one-adapter-python,unslothai/unsloth,earendil-works/pi,ickma2311/jev-baselines-eval">
+    <div class="reader-feedback-head">
+      <div>
+        <div class="eyebrow">Letters &amp; Corrections</div>
+        <h2>Send a note to the desk</h2>
+      </div>
+      <p>Corrections, missing context, or a follow-up lead.</p>
+    </div>
+    <form class="feedback-form">
+      <div class="feedback-votes" role="group" aria-label="Choose signal type">
+        <button class="feedback-choice" type="button" data-vote="follow-up" aria-pressed="false">
+          <span aria-hidden="true">+</span>
+          <span>Follow-up</span>
+        </button>
+        <button class="feedback-choice" type="button" data-vote="correction" aria-pressed="false">
+          <span aria-hidden="true">!</span>
+          <span>Correction</span>
+        </button>
+      </div>
+      <label class="feedback-comment">
+        <span>Note for the editor</span>
+        <textarea name="comment" rows="3" maxlength="320" placeholder="What did we miss, or what should we follow next?"></textarea>
+      </label>
+      <div class="feedback-submit-row">
+        <p class="feedback-status" aria-live="polite"></p>
+        <button class="paper-button primary feedback-submit" type="submit">Send to desk</button>
+      </div>
+    </form>
+  </section>
+      
+    </main>
+    <footer class="wrap site-footer">
+      <span>&copy; 2026 The Git Reporter</span>
+      <a href="/about/">About</a>
+      <a href="/battles/">Diff Derby</a>
+      <a href="/agent-pulse/">Agent Pulse</a>
+      <a href="/feed.xml">RSS</a>
+      <a href="https://x.com/TheGitReporter">Follow on X</a>
+      <a href="/articles.json">Manifest JSON</a>
+      <a href="/repos/">Sources</a>
+    </footer>
+  </div>
+</body>
+</html>
