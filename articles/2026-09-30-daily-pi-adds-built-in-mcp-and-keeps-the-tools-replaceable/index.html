@@ -1,0 +1,294 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Pi Adds Built-In MCP—and Keeps the Tools Replaceable | The Git Reporter</title>
+  <meta name="description" content="The coding agent once left MCP to outside extensions. Its new release supplies an implementation, while giving extension authors a shared way to call tools and the ability to replace the defaults.">
+  <meta name="robots" content="index,follow">
+  <link rel="canonical" href="https://thegitreporter.com/articles/2026-09-30-daily-pi-adds-built-in-mcp-and-keeps-the-tools-replaceable/">
+  <link rel="alternate" type="application/rss+xml" title="The Git Reporter" href="https://thegitreporter.com/feed.xml">
+  <meta property="og:site_name" content="The Git Reporter">
+  <meta property="og:locale" content="en_US">
+  <meta property="og:title" content="Pi Adds Built-In MCP—and Keeps the Tools Replaceable | The Git Reporter">
+  <meta property="og:description" content="The coding agent once left MCP to outside extensions. Its new release supplies an implementation, while giving extension authors a shared way to call tools and the ability to replace the defaults.">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://thegitreporter.com/articles/2026-09-30-daily-pi-adds-built-in-mcp-and-keeps-the-tools-replaceable/">
+  <meta property="og:image" content="https://thegitreporter.com/assets/social/2026-09-30-daily-pi-adds-built-in-mcp-and-keeps-the-tools-replaceable-og.jpg">
+  <meta property="og:image:secure_url" content="https://thegitreporter.com/assets/social/2026-09-30-daily-pi-adds-built-in-mcp-and-keeps-the-tools-replaceable-og.jpg">
+  <meta property="og:image:type" content="image/jpeg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Pi defaults and a user extension feed a shared tool pipeline with validation, call hooks, tool execution and result hooks. A note says SDK users opt in.">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:site" content="@TheGitReporter">
+  <meta name="twitter:creator" content="@TheGitReporter">
+  <meta name="twitter:title" content="Pi Adds Built-In MCP—and Keeps the Tools Replaceable | The Git Reporter">
+  <meta name="twitter:description" content="The coding agent once left MCP to outside extensions. Its new release supplies an implementation, while giving extension authors a shared way to call tools and the ability to replace the defaults.">
+  <meta name="twitter:url" content="https://thegitreporter.com/articles/2026-09-30-daily-pi-adds-built-in-mcp-and-keeps-the-tools-replaceable/">
+  <meta name="twitter:domain" content="thegitreporter.com">
+  <meta name="twitter:image" content="https://thegitreporter.com/assets/social/2026-09-30-daily-pi-adds-built-in-mcp-and-keeps-the-tools-replaceable-og.jpg">
+  <meta name="twitter:image:alt" content="Pi defaults and a user extension feed a shared tool pipeline with validation, call hooks, tool execution and result hooks. A note says SDK users opt in.">
+  <meta property="article:published_time" content="2026-09-30T12:00:00Z">
+  <meta property="article:modified_time" content="2026-09-30T12:00:00Z">
+  <meta property="article:section" content="Daily Edition">
+  <meta property="article:tag" content="Memory">
+  <meta property="article:tag" content="Delegation">
+  <meta property="article:tag" content="Tools">
+  <meta property="article:tag" content="UX">
+  <meta property="article:tag" content="earendil-works/pi">
+  <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"https://thegitreporter.com/#organization","name":"The Git Reporter","url":"https://thegitreporter.com","logo":{"@type":"ImageObject","url":"https://thegitreporter.com/assets/mark.svg"},"sameAs":["https://x.com/TheGitReporter"]},{"@type":"WebSite","@id":"https://thegitreporter.com/#website","name":"The Git Reporter","url":"https://thegitreporter.com","publisher":{"@id":"https://thegitreporter.com/#organization"}},{"@type":"NewsArticle","mainEntityOfPage":{"@type":"WebPage","@id":"https://thegitreporter.com/articles/2026-09-30-daily-pi-adds-built-in-mcp-and-keeps-the-tools-replaceable/"},"headline":"Pi Adds Built-In MCP—and Keeps the Tools Replaceable","description":"The coding agent once left MCP to outside extensions. Its new release supplies an implementation, while giving extension authors a shared way to call tools and the ability to replace the defaults.","image":["https://thegitreporter.com/assets/social/2026-09-30-daily-pi-adds-built-in-mcp-and-keeps-the-tools-replaceable-og.jpg"],"datePublished":"2026-09-30T12:00:00Z","dateModified":"2026-09-30T12:00:00Z","author":[{"@type":"Organization","name":"The Git Reporter","url":"https://thegitreporter.com"}],"publisher":{"@type":"Organization","@id":"https://thegitreporter.com/#organization","name":"The Git Reporter","url":"https://thegitreporter.com","logo":{"@type":"ImageObject","url":"https://thegitreporter.com/assets/mark.svg"},"sameAs":["https://x.com/TheGitReporter"]},"articleSection":"Daily Edition","keywords":"Memory, Delegation, Tools, UX, earendil-works/pi"}]}</script>
+  <link rel="icon" href="/assets/mark.svg">
+  <link rel="stylesheet" href="/assets/site.css?v=2026-09-08-article-feed">
+  <script defer src="/assets/feedback.js?v=2026-09-08-article-feed"></script>
+  <script defer src="/assets/analytics.js?v=2026-09-08-article-feed"></script>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-CH19T7M0T1"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){window.dataLayer.push(arguments);}
+    gtag("js", new Date());
+    gtag("config", "G-CH19T7M0T1");
+  </script>
+</head>
+<body>
+  <div class="site">
+    <header class="site-header" id="top">
+      <div class="wrap utility-row">
+        <a class="icon-link menu-icon" href="/archive/" aria-label="Open edition history"><span></span><span></span><span></span></a>
+        <a class="icon-link archive-icon" href="/archive/" aria-label="Open edition history"></a>
+      </div>
+      <div class="wrap masthead-lockup">
+        <a class="masthead-title" href="/">THE GIT REPORTER</a>
+        <div class="masthead-ornament" aria-hidden="true"></div>
+      </div>
+      <div class="wrap nav-wrap">
+        <nav class="paper-nav" aria-label="Primary navigation">
+    <a class=""  href="/">Stories</a><a class=""  href="/today/">Today</a><a class="active" aria-current="page" href="/archive/">Editions</a><a class=""  href="/about/">About</a><a class=""  href="/battles/">Diff Derby</a><a class=""  href="/agent-pulse/">Agent Pulse</a><a class=""  href="/atlas/">Agent Atlas</a><a class=""  href="/repos/">Repos</a>
+  </nav>
+        <div class="nav-rule"></div>
+      </div>
+    </header>
+    <main class="wrap page-shell article-page">
+      <section class="page-hero story-front">
+        <div class="story-topline">
+          <span>Daily Edition</span>
+          <span>Sources <strong>+10</strong></span>
+        </div>
+        <h1>Pi Adds Built-In MCP—and Keeps the Tools Replaceable</h1>
+        <p class="summary">The coding agent once left MCP to outside extensions. Its new release supplies an implementation, while giving extension authors a shared way to call tools and the ability to replace the defaults.</p>
+        <figure class="story-illustration article-illustration">
+    <img src="/assets/illustrations/2026-09-30-pi-adds-built-in-mcp-and-keeps-the-tools-replaceable-diagram-punk-v1.png" alt="Pi defaults and a user extension feed a shared tool pipeline with validation, call hooks, tool execution and result hooks. A note says SDK users opt in." loading="lazy" decoding="async">
+    <figcaption><span>Diagram Punk</span>Pi supplies the integrations while opening the execution path to replacements.</figcaption>
+  </figure>
+        <div class="receipt">
+    <div class="receipt-line">
+      <span class="receipt-icon">repo</span>
+      <span class="receipt-main">earendil-works/pi</span>
+      <span class="branch-pill">evidence</span>
+    </div>
+    <div class="receipt-line receipt-muted">
+      <span>10 source signals</span>
+      <span>1 repo</span>
+      <span>commit 8562bcf</span>
+    </div>
+    <div class="commit-line">Evidence: commit 8562bcf / September 30, 2026 / Daily Edition</div>
+  </div>
+        <div class="article-route-row">
+          <a href="/editions/2026-09-30/">Open Edition</a>
+          <a href="#evidence">Evidence below</a>
+        </div>
+      </section>
+      <section class="story-reader">
+        <article class="story-shell story-body">
+          <p>Pi now ships the integration it once deliberately omitted. The <a href="https://github.com/earendil-works/pi/releases/tag/v0.99.0">September 29 v0.99.0 release</a> of <code>earendil-works/pi</code> adds built-in Model Context Protocol support, letting its terminal agent connect to external tool servers. It also adds Code Mode: model-written JavaScript that can combine tool calls and return selected results.</p>
+
+  <p>That updates a specific claim in <a href="/articles/2026-06-09-daily-pi-coding-agent-you-can-keep-rewriting/">our June account of Pi</a>: there was no built-in MCP. But the larger promise in that article—that users could inspect and replace the surrounding machinery—has a more interesting continuation. Pi has added shared execution machinery beneath the integrations, while making the supplied implementations replaceable.</p>
+
+  <h2>What users wanted to keep</h2>
+  <p>The <a href="https://github.com/earendil-works/pi/pull/10040">public proposal</a> did not meet a uniformly grateful audience. One user, writing as spence-s, <a href="https://github.com/earendil-works/pi/pull/10040#issuecomment-5857322997">worried that bundled MCP and Code Mode would change a harness they valued for shaping themselves</a>. That is a practical concern: an extension-based workflow becomes harder to maintain if the host suddenly claims the same commands or changes how tools run.</p>
+
+  <p>Armin Ronacher, the change's author, described composing tools for models such as Jev as the main motivation. Other extension authors made a useful distinction. <a href="https://github.com/earendil-works/pi/pull/10040#issuecomment-5860433683">Noctuid wanted the common execution interfaces</a> even if the particular Code Mode implementation changed. <a href="https://github.com/earendil-works/pi/pull/10040#issuecomment-5868649661">Cv likewise asked that those interfaces remain public</a> if MCP or Code Mode were later split out.</p>
+
+  <p>The resulting design gives those requests a concrete answer. An extension can call another registered tool through <code>ctx.executeTool()</code>. The runtime validates the input and sends the nested call through the same extension hooks that can block a call or change its result. The <a href="https://github.com/earendil-works/pi/blob/v0.99.1/packages/coding-agent/test/suite/agent-session-codemode.test.ts">regression cases</a> exercise parallel calls, blocking and result replacement. Extension authors gain a common route through the host instead of needing to invent their own route around it.</p>
+
+  <h2>A smaller introduction to a large tool catalog</h2>
+  <p>For a user connecting a document service or issue tracker, the visible gain is simpler setup. Pi supplies local-process and HTTP MCP connections, browser sign-in for supported OAuth servers, and a server manager. Project configuration is read only after the project is trusted, because local servers can execute commands.</p>
+
+  <p>Code Mode changes how the agent can use those tools. A script can fetch several results, filter them, and pass only the useful portion back to the model. This is useful plumbing, but putting every tool's instructions inside one large Code Mode description would still consume context. A <a href="https://github.com/earendil-works/pi/pull/10040#issuecomment-5855489042">September 27 review comment</a> identified exactly that weakness in the proposal's earlier state.</p>
+
+  <p>The <a href="https://github.com/earendil-works/pi/blob/v0.99.1/packages/coding-agent/docs/mcp.md#exposure">released contract</a> includes discovery and deferred exposure. Selected declarations share a configurable budget; a script can search for the rest, or the model can use tool search to load tools for direct calls. The default budget estimates 3,000 tokens for those declarations, not for the entire prompt. It is a way to choose what the model sees, not evidence of a measured saving on completed work.</p>
+
+  <h2>Bundled does not mean exclusive</h2>
+  <p>The replacement rule is unusually specific. If an installed extension registers <code>/mcp</code>, Pi leaves the built-in MCP session extension out. An extension supplying <code>codemode</code> or <code>tool_search</code> can replace that built-in tool too. Users can also disable individual built-ins. <a href="https://github.com/earendil-works/pi/blob/v0.99.1/packages/coding-agent/test/resource-loader.test.ts">A loader regression</a> checks the competing-command case.</p>
+
+  <p>There are boundaries to that choice. The standalone <code>pi mcp</code> shell commands still use Pi's own implementation. SDK sessions do not load the built-in extensions automatically. And compatibility depends on the adapter version: the separate <a href="https://github.com/nicobailon/pi-mcp-adapter/releases/tag/v3.0.0">pi-mcp-adapter v3 release</a> moved its main command and configuration to <code>/mcp-adapter</code> and <code>mcp-adapter.json</code>, leaving Pi's names available. Replacing the default and coexisting with it are different arrangements; the configuration migration alone does not establish compatibility between the released versions.</p>
+
+  <p>We inspected the release, implementation and test definitions; we did not run a live MCP session or benchmark. The JavaScript VM also does not confine the host tools it invokes. Those limits leave the useful finding intact: Pi now provides more functionality out of the box and more common machinery for people who want a different implementation.</p>
+
+  <p>Our June question was whether Pi could grow without losing its replaceability. This release answers part of it in code. The next test is in extension upgrades: can an existing workflow adopt the shared execution path while preserving its commands, policy hooks and results? For users choosing a harness, the consequential feature is now both the integration that ships and the supported route for replacing it.</p>
+        </article>
+      </section>
+      <section class="evidence-section" id="evidence" aria-labelledby="evidence-title">
+    <div class="evidence-head">
+      <div>
+        <div class="eyebrow">Evidence Trail</div>
+        <h2 id="evidence-title">Receipts below the story</h2>
+        <p>The article above is the public narrative. This section keeps the source trail and limits on the same page.</p>
+      </div>
+      <a class="paper-button" href="/editions/2026-09-30/">Edition</a>
+    </div>
+    <div class="evidence-table evidence-summary">
+      <div class="evidence-line"><span>Date</span><span>September 30, 2026</span></div>
+      <div class="evidence-line"><span>Lane</span><span>Daily Edition</span></div>
+      <div class="evidence-line"><span>Confidence</span><span>91%</span></div>
+      <div class="evidence-line"><span>Sources</span><span>10</span></div>
+      <div class="evidence-line"><span>Repos</span><span>earendil-works/pi</span></div>
+    </div>
+    <div class="markdown evidence-copy evidence-copy-block">
+      <h2>Primary Evidence</h2>
+<ul>
+<li>Pi v0.99.0 release, September 29: <a href="https://github.com/earendil-works/pi/releases/tag/v0.99.0">https://github.com/earendil-works/pi/releases/tag/v0.99.0</a>
+<ul>
+<li>Shows: released built-in MCP, Code Mode and tool search, plus extension orchestration APIs and switches for built-ins.
+</li>
+</ul>
+</li>
+<li>Landed implementation, September 29: <a href="https://github.com/earendil-works/pi/commit/8562bcf66a8eeefdf75ddd231ca9d7aa7d64f86e">https://github.com/earendil-works/pi/commit/8562bcf66a8eeefdf75ddd231ca9d7aa7d64f86e</a>
+<ul>
+<li>Shows: generic nested execution mechanisms in the core and separate MCP, Code Mode and tool-search extensions.
+</li>
+</ul>
+</li>
+<li>Public design discussion: <a href="https://github.com/earendil-works/pi/pull/10040">https://github.com/earendil-works/pi/pull/10040</a>
+<ul>
+<li>Shows: the author's stated motivation, concerns about changing a user-shaped harness, requests for public orchestration primitives, and the maintainer's manual squash-merge receipt.
+</li>
+</ul>
+</li>
+<li>Versioned MCP contract: <a href="https://github.com/earendil-works/pi/blob/v0.99.1/packages/coding-agent/docs/mcp.md">https://github.com/earendil-works/pi/blob/v0.99.1/packages/coding-agent/docs/mcp.md</a>
+<ul>
+<li>Shows: configuration, transport support, deferred discovery, replacement by a session extension registering /mcp, standalone shell-command exception and SDK opt-in.
+</li>
+</ul>
+</li>
+<li>Extension registrations: <a href="https://github.com/earendil-works/pi/blob/v0.99.1/packages/coding-agent/src/extensions/index.ts">https://github.com/earendil-works/pi/blob/v0.99.1/packages/coding-agent/src/extensions/index.ts</a>
+<ul>
+<li>Shows: the supplied implementations are marked replaceable.
+</li>
+</ul>
+</li>
+<li>Loader regression: <a href="https://github.com/earendil-works/pi/blob/v0.99.1/packages/coding-agent/test/resource-loader.test.ts">https://github.com/earendil-works/pi/blob/v0.99.1/packages/coding-agent/test/resource-loader.test.ts</a>
+<ul>
+<li>Shows: a conflicting extension command causes the replaceable built-in to be left out.
+</li>
+</ul>
+</li>
+<li>Nested-call regressions: <a href="https://github.com/earendil-works/pi/blob/v0.99.1/packages/coding-agent/test/suite/agent-session-codemode.test.ts">https://github.com/earendil-works/pi/blob/v0.99.1/packages/coding-agent/test/suite/agent-session-codemode.test.ts</a>
+<ul>
+<li>Shows: parallel calls, selective model-facing output, call blocking and result modification through extension hooks.
+</li>
+</ul>
+</li>
+<li>Code Mode declaration budget: <a href="https://github.com/earendil-works/pi/blob/v0.99.1/packages/coding-agent/src/extensions/codemode/tool.ts">https://github.com/earendil-works/pi/blob/v0.99.1/packages/coding-agent/src/extensions/codemode/tool.ts</a>
+<ul>
+<li>Shows: selected tool declarations share a default 3,000 estimated-token budget; this is not the whole prompt's size.
+</li>
+</ul>
+</li>
+<li>Adapter v3 configuration migration: <a href="https://github.com/nicobailon/pi-mcp-adapter/releases/tag/v3.0.0">https://github.com/nicobailon/pi-mcp-adapter/releases/tag/v3.0.0</a>
+<ul>
+<li>Shows: the separate adapter changes its primary command and configuration names, giving Pi's built-in implementation separate names to own.
+</li>
+</ul>
+</li>
+<li>Earlier Pi philosophy: <a href="https://github.com/earendil-works/pi/blob/25cc5c7bf4cbc76b2e134c729eb8d57d521ed749%5E/packages/coding-agent/README.md">https://github.com/earendil-works/pi/blob/25cc5c7bf4cbc76b2e134c729eb8d57d521ed749%5E/packages/coding-agent/README.md</a>
+<ul>
+<li>Shows: the earlier documented preference for CLI tools or extensions instead of built-in MCP; the section was removed in the September 22 documentation refresh.
+</li>
+</ul>
+</li>
+</ul>
+<h2>Evidence Limits</h2>
+<ul>
+<li>Source and test definitions were inspected; upstream tests and live MCP integrations were not independently executed.
+</li>
+<li>Release evidence establishes distributed functionality, not adoption, measured task quality, speed or cost savings.
+</li>
+<li>The declaration budget uses token estimates and excludes other prompt material. Reduced intermediate output does not prove lower completed-task cost.
+</li>
+<li>The JavaScript VM does not supply operating-system confinement for invoked host tools.
+</li>
+<li>Replacement of the session integration does not replace standalone pi mcp shell commands. SDK sessions require explicit extension loading.
+</li>
+<li>The adapter's configuration migration does not establish compatibility between the released Pi and adapter versions. Its released built-in identifier detection and current main differ.
+</li>
+<li>Public discussion records specific participants' requests and stated motives, not a representative community verdict or private decision history.
+</li>
+</ul>
+    </div>
+  </section>
+      <section class="related-edition-section atlas-context-section">
+    <div class="section-title-row">
+      <h2>Atlas Context</h2>
+      <a href="/atlas/">Open Atlas &rsaquo;</a>
+    </div>
+    <div class="updates-list">
+      <a class="article-card" href="/atlas/hands-in-the-world/">
+            <div class="article-meta"><span class="lane">Agent Atlas</span><span>Chapter 3</span></div>
+            <h3>Tool Calls: Contract, Authorization, Execution</h3>
+            <p>A tool call crosses independently governed boundaries: schema, registration, policy, approval, execution authority, result handling, and audit.</p>
+          </a>
+    </div>
+  </section>
+      <section class="reader-feedback"
+    data-tgr-feedback
+    data-article-slug="2026-09-30-daily-pi-adds-built-in-mcp-and-keeps-the-tools-replaceable"
+    data-article-title="Pi Adds Built-In MCP—and Keeps the Tools Replaceable"
+    data-article-url="/articles/2026-09-30-daily-pi-adds-built-in-mcp-and-keeps-the-tools-replaceable/"
+    data-edition-date="2026-09-30"
+    data-lane="Daily Edition"
+    data-tags="Memory,Delegation,Tools,UX"
+    data-repos="earendil-works/pi">
+    <div class="reader-feedback-head">
+      <div>
+        <div class="eyebrow">Letters &amp; Corrections</div>
+        <h2>Send a note to the desk</h2>
+      </div>
+      <p>Corrections, missing context, or a follow-up lead.</p>
+    </div>
+    <form class="feedback-form">
+      <div class="feedback-votes" role="group" aria-label="Choose signal type">
+        <button class="feedback-choice" type="button" data-vote="follow-up" aria-pressed="false">
+          <span aria-hidden="true">+</span>
+          <span>Follow-up</span>
+        </button>
+        <button class="feedback-choice" type="button" data-vote="correction" aria-pressed="false">
+          <span aria-hidden="true">!</span>
+          <span>Correction</span>
+        </button>
+      </div>
+      <label class="feedback-comment">
+        <span>Note for the editor</span>
+        <textarea name="comment" rows="3" maxlength="320" placeholder="What did we miss, or what should we follow next?"></textarea>
+      </label>
+      <div class="feedback-submit-row">
+        <p class="feedback-status" aria-live="polite"></p>
+        <button class="paper-button primary feedback-submit" type="submit">Send to desk</button>
+      </div>
+    </form>
+  </section>
+      
+    </main>
+    <footer class="wrap site-footer">
+      <span>&copy; 2026 The Git Reporter</span>
+      <a href="/about/">About</a>
+      <a href="/battles/">Diff Derby</a>
+      <a href="/agent-pulse/">Agent Pulse</a>
+      <a href="/feed.xml">RSS</a>
+      <a href="https://x.com/TheGitReporter">Follow on X</a>
+      <a href="/articles.json">Manifest JSON</a>
+      <a href="/repos/">Sources</a>
+    </footer>
+  </div>
+</body>
+</html>
