@@ -1,0 +1,276 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>ChatGPT Plugins Can Now Start Work from App Events | The Git Reporter</title>
+  <meta name="description" content="OpenAI’s new event subscriptions give plugin builders a way to describe what should start a job. The useful change is an explicit integration contract for ongoing work, with the app still responsible for getting its events delivered.">
+  <meta name="robots" content="index,follow">
+  <link rel="canonical" href="https://thegitreporter.com/articles/2026-10-01-daily-chatgpt-plugins-can-now-start-work-from-app-events/">
+  <link rel="alternate" type="application/rss+xml" title="The Git Reporter" href="https://thegitreporter.com/feed.xml">
+  <meta property="og:site_name" content="The Git Reporter">
+  <meta property="og:locale" content="en_US">
+  <meta property="og:title" content="ChatGPT Plugins Can Now Start Work from App Events | The Git Reporter">
+  <meta property="og:description" content="OpenAI’s new event subscriptions give plugin builders a way to describe what should start a job. The useful change is an explicit integration contract for ongoing work, with the app still responsible for getting its events delivered.">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://thegitreporter.com/articles/2026-10-01-daily-chatgpt-plugins-can-now-start-work-from-app-events/">
+  <meta property="og:image" content="https://thegitreporter.com/assets/social/2026-10-01-daily-chatgpt-plugins-can-now-start-work-from-app-events-og.jpg">
+  <meta property="og:image:secure_url" content="https://thegitreporter.com/assets/social/2026-10-01-daily-chatgpt-plugins-can-now-start-work-from-app-events-og.jpg">
+  <meta property="og:image:type" content="image/jpeg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="A user instruction filters app events into a signed webhook to ChatGPT, followed by an asynchronous task; delivery is distinguished from completion.">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:site" content="@TheGitReporter">
+  <meta name="twitter:creator" content="@TheGitReporter">
+  <meta name="twitter:title" content="ChatGPT Plugins Can Now Start Work from App Events | The Git Reporter">
+  <meta name="twitter:description" content="OpenAI’s new event subscriptions give plugin builders a way to describe what should start a job. The useful change is an explicit integration contract for ongoing work, with the app still responsible for getting its events delivered.">
+  <meta name="twitter:url" content="https://thegitreporter.com/articles/2026-10-01-daily-chatgpt-plugins-can-now-start-work-from-app-events/">
+  <meta name="twitter:domain" content="thegitreporter.com">
+  <meta name="twitter:image" content="https://thegitreporter.com/assets/social/2026-10-01-daily-chatgpt-plugins-can-now-start-work-from-app-events-og.jpg">
+  <meta name="twitter:image:alt" content="A user instruction filters app events into a signed webhook to ChatGPT, followed by an asynchronous task; delivery is distinguished from completion.">
+  <meta property="article:published_time" content="2026-10-01T12:00:00Z">
+  <meta property="article:modified_time" content="2026-10-01T12:00:00Z">
+  <meta property="article:section" content="Daily Edition">
+  <meta property="article:tag" content="Memory">
+  <meta property="article:tag" content="Tools">
+  <meta property="article:tag" content="UX">
+  <meta property="article:tag" content="modelcontextprotocol/experimental-ext-triggers-events">
+  <meta property="article:tag" content="standard-webhooks/standard-webhooks">
+  <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"https://thegitreporter.com/#organization","name":"The Git Reporter","url":"https://thegitreporter.com","logo":{"@type":"ImageObject","url":"https://thegitreporter.com/assets/mark.svg"},"sameAs":["https://x.com/TheGitReporter"]},{"@type":"WebSite","@id":"https://thegitreporter.com/#website","name":"The Git Reporter","url":"https://thegitreporter.com","publisher":{"@id":"https://thegitreporter.com/#organization"}},{"@type":"NewsArticle","mainEntityOfPage":{"@type":"WebPage","@id":"https://thegitreporter.com/articles/2026-10-01-daily-chatgpt-plugins-can-now-start-work-from-app-events/"},"headline":"ChatGPT Plugins Can Now Start Work from App Events","description":"OpenAI’s new event subscriptions give plugin builders a way to describe what should start a job. The useful change is an explicit integration contract for ongoing work, with the app still responsible for getting its events delivered.","image":["https://thegitreporter.com/assets/social/2026-10-01-daily-chatgpt-plugins-can-now-start-work-from-app-events-og.jpg"],"datePublished":"2026-10-01T12:00:00Z","dateModified":"2026-10-01T12:00:00Z","author":[{"@type":"Organization","name":"The Git Reporter","url":"https://thegitreporter.com"}],"publisher":{"@type":"Organization","@id":"https://thegitreporter.com/#organization","name":"The Git Reporter","url":"https://thegitreporter.com","logo":{"@type":"ImageObject","url":"https://thegitreporter.com/assets/mark.svg"},"sameAs":["https://x.com/TheGitReporter"]},"articleSection":"Daily Edition","keywords":"Memory, Tools, UX, modelcontextprotocol/experimental-ext-triggers-events, standard-webhooks/standard-webhooks"}]}</script>
+  <link rel="icon" href="/assets/mark.svg">
+  <link rel="stylesheet" href="/assets/site.css?v=2026-09-08-article-feed">
+  <script defer src="/assets/feedback.js?v=2026-09-08-article-feed"></script>
+  <script defer src="/assets/analytics.js?v=2026-09-08-article-feed"></script>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-CH19T7M0T1"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){window.dataLayer.push(arguments);}
+    gtag("js", new Date());
+    gtag("config", "G-CH19T7M0T1");
+  </script>
+</head>
+<body>
+  <div class="site">
+    <header class="site-header" id="top">
+      <div class="wrap utility-row">
+        <a class="icon-link menu-icon" href="/archive/" aria-label="Open edition history"><span></span><span></span><span></span></a>
+        <a class="icon-link archive-icon" href="/archive/" aria-label="Open edition history"></a>
+      </div>
+      <div class="wrap masthead-lockup">
+        <a class="masthead-title" href="/">THE GIT REPORTER</a>
+        <div class="masthead-ornament" aria-hidden="true"></div>
+      </div>
+      <div class="wrap nav-wrap">
+        <nav class="paper-nav" aria-label="Primary navigation">
+    <a class=""  href="/">Stories</a><a class=""  href="/today/">Today</a><a class="active" aria-current="page" href="/archive/">Editions</a><a class=""  href="/about/">About</a><a class=""  href="/battles/">Diff Derby</a><a class=""  href="/agent-pulse/">Agent Pulse</a><a class=""  href="/atlas/">Agent Atlas</a><a class=""  href="/repos/">Repos</a>
+  </nav>
+        <div class="nav-rule"></div>
+      </div>
+    </header>
+    <main class="wrap page-shell article-page">
+      <section class="page-hero story-front">
+        <div class="story-topline">
+          <span>Daily Edition</span>
+          <span>Sources <strong>+8</strong></span>
+        </div>
+        <h1>ChatGPT Plugins Can Now Start Work from App Events</h1>
+        <p class="summary">OpenAI’s new event subscriptions give plugin builders a way to describe what should start a job. The useful change is an explicit integration contract for ongoing work, with the app still responsible for getting its events delivered.</p>
+        <figure class="story-illustration article-illustration">
+    <img src="/assets/illustrations/2026-10-01-chatgpt-plugins-can-now-start-work-from-app-events-diagram-punk-v1.png" alt="A user instruction filters app events into a signed webhook to ChatGPT, followed by an asynchronous task; delivery is distinguished from completion." loading="lazy" decoding="async">
+    <figcaption><span>Diagram Punk</span>the user chooses the watch; the app delivers matching events; ChatGPT processes the instructed work asynchronously.</figcaption>
+  </figure>
+        <div class="receipt">
+    <div class="receipt-line">
+      <span class="receipt-icon">repos</span>
+      <span class="receipt-main">modelcontextprotocol/experimental-ext-triggers-events + standard-webhooks/standard-webhooks</span>
+      <span class="branch-pill">evidence</span>
+    </div>
+    <div class="receipt-line receipt-muted">
+      <span>8 source signals</span>
+      <span>2 repos</span>
+      <span>8 source signals</span>
+    </div>
+    <div class="commit-line">Evidence: 8 source signals / October 1, 2026 / Daily Edition</div>
+  </div>
+        <div class="article-route-row">
+          <a href="/editions/2026-10-01/">Open Edition</a>
+          <a href="#evidence">Evidence below</a>
+        </div>
+      </section>
+      <section class="story-reader">
+        <article class="story-shell story-body">
+          <p>OpenAI has <a href="https://openai.com/index/devday-2026-recap/">announced MCP Events for ChatGPT plugins</a>: a connected app can start instructed work when something happens, without the user returning to send another prompt. The announcement, published September 29, gives a project-board example—watch for new tasks, then read their documents and draft a plan—and lists the capability as available to all plans.</p>
+
+  <p>For someone building a review tool or project tracker, the interesting addition is an event catalog. A plugin can describe the changes it offers to monitor, rather than merely the actions an agent can call. The user supplies the standing instruction. That gives software builders another way into the workday: through the moment a job becomes relevant. The public design in <a href="https://github.com/modelcontextprotocol/experimental-ext-triggers-events/tree/6682596d65eec778fe0b8b1f43b4e89d2fe2c546">modelcontextprotocol/experimental-ext-triggers-events</a> helps explain the proposed contract.</p>
+
+  <h2>The subscription is the new interface</h2>
+  <p>The <a href="https://developers.openai.com/plugins/build/mcp-events">published integration contract</a> has the server list event types, accept subscriptions with filters, and send matching updates to a signed HTTPS callback. ChatGPT receives them in the subscribed chat. Builders need MCP 2.0, persistent subscription storage and outbound delivery; existing tools do not acquire this behavior automatically.</p>
+
+  <p>Consider a document-review plugin. Its useful promise could be modest: when a comment appears on one selected document, collect the relevant passage and prepare an edit for review. The product question becomes which event deserves attention, which document it belongs to, and what response the user actually wants. An event integration can be valuable without being allowed to publish the edit itself.</p>
+
+  <p>There is a separate contract underneath the message. OpenAI’s example uses the public <a href="https://github.com/standard-webhooks/standard-webhooks/blob/7537d2a2d3d52d8f2e0ecd12527af4a9307fd81b/libraries/javascript/src/index.ts">Standard Webhooks signing library</a>, whose implementation binds the identifier, timestamp and exact payload bytes into a signature. Its verifier checks time and signatures. That supplies inspectable delivery machinery; it does not tell us what ChatGPT’s private task runner does after accepting a message.</p>
+
+  <h2>Notifications were already here</h2>
+  <p>The strongest objection to a sweeping “agents become proactive” reading is the earlier record. The <a href="https://modelcontextprotocol.io/specification/2025-11-25/server/resources">November 2025 MCP specification</a> already let clients subscribe to a resource and receive a notification when it changed. A server sending news to a client is not the invention at this launch.</p>
+
+  <p>Nor is working while a user is away new to ChatGPT. OpenAI’s <a href="https://openai.com/index/introducing-workspace-agents-in-chatgpt/">April 22 workspace-agent announcement</a> described scheduled work and agents picking up Slack requests. It put further automatic triggers on the roadmap. The page now carries a newer availability banner, but the earlier product account is enough to rule out a first-ever claim.</p>
+
+  <p>What changes for plugin authors is the explicit description of a trigger: its name, allowed filters and delivered data. That is a different interface from telling a client that a particular resource changed. Our reading is that this is chiefly an integration and distribution development. It makes an existing automation pattern available through a conversational product and a discoverable plugin contract.</p>
+
+  <h2>A product implementation, an unfinished common contract</h2>
+  <p>The distinction matters because the <a href="https://github.com/modelcontextprotocol/experimental-ext-triggers-events/tree/6682596d65eec778fe0b8b1f43b4e89d2fe2c546">MCP incubation repository</a> explicitly remains exploratory. At the inspected September 8 revision, it contains a design sketch and supporting documents, not an executable reference implementation or conformance tests. The <a href="https://modelcontextprotocol.io/community/working-groups/triggers-events">working-group charter</a> identifies standardized callbacks and reference SDK implementations as its work. A vendor announcing support does not itself complete that process.</p>
+
+  <p>The <a href="https://github.com/modelcontextprotocol/experimental-ext-triggers-events/blob/6682596d65eec778fe0b8b1f43b4e89d2fe2c546/docs/design-sketch-proposal.md">draft design</a> allows polling, streaming and webhooks, without making one delivery mode mandatory. It also ties replay to the upstream source’s ability to retain events. A common event description therefore does not, by itself, establish that two clients can consume the same subscription or recover the same missed work.</p>
+
+  <p>ChatGPT documents a webhook subset, excluding polling, streaming and the draft’s gap and termination notifications. A successful delivery response acknowledges receipt; processing happens asynchronously, and batching can combine events. This is not a promise of one immediate, completed task per event. We inspected public contracts and supporting source, not an authenticated subscription or ChatGPT’s server implementation.</p>
+
+  <p>For a builder, the next useful demonstration is a small end-to-end subscription: one chosen event produces the intended draft, a burst produces sensible work, and a restart preserves the watch. Then try the same event definition in another client. That would test both halves of the promise now on offer: work that starts at the right moment, and an integration the builder can carry beyond one host.</p>
+        </article>
+      </section>
+      <section class="evidence-section" id="evidence" aria-labelledby="evidence-title">
+    <div class="evidence-head">
+      <div>
+        <div class="eyebrow">Evidence Trail</div>
+        <h2 id="evidence-title">Receipts below the story</h2>
+        <p>The article above is the public narrative. This section keeps the source trail and limits on the same page.</p>
+      </div>
+      <a class="paper-button" href="/editions/2026-10-01/">Edition</a>
+    </div>
+    <div class="evidence-table evidence-summary">
+      <div class="evidence-line"><span>Date</span><span>October 1, 2026</span></div>
+      <div class="evidence-line"><span>Lane</span><span>Daily Edition</span></div>
+      <div class="evidence-line"><span>Confidence</span><span>87%</span></div>
+      <div class="evidence-line"><span>Sources</span><span>8</span></div>
+      <div class="evidence-line"><span>Repos</span><span>modelcontextprotocol/experimental-ext-triggers-events, standard-webhooks/standard-webhooks</span></div>
+    </div>
+    <div class="markdown evidence-copy evidence-copy-block">
+      <h2>Primary Evidence</h2>
+<ul>
+<li>OpenAI DevDay announcement, September 29, 2026: <a href="https://openai.com/index/devday-2026-recap/">https://openai.com/index/devday-2026-recap/</a>
+<ul>
+<li>Shows: OpenAI announces MCP Events for plugin automations and lists it as available to all plans; the project-board example describes new tasks prompting document reading and a draft plan.
+</li>
+</ul>
+</li>
+<li>ChatGPT MCP Events integration documentation, inspected October 1: <a href="https://developers.openai.com/plugins/build/mcp-events">https://developers.openai.com/plugins/build/mcp-events</a>
+<ul>
+<li>Shows: The event catalog, subscription filters, signed webhook delivery, MCP 2.0 prerequisite, asynchronous acknowledgement and supported subset.
+</li>
+</ul>
+</li>
+<li>MCP resource subscriptions, November 25, 2025 specification: <a href="https://modelcontextprotocol.io/specification/2025-11-25/server/resources">https://modelcontextprotocol.io/specification/2025-11-25/server/resources</a>
+<ul>
+<li>Shows: Resource subscriptions and update notifications predate the new plugin integration.
+</li>
+</ul>
+</li>
+<li>OpenAI workspace-agent announcement, dated April 22, 2026: <a href="https://openai.com/index/introducing-workspace-agents-in-chatgpt/">https://openai.com/index/introducing-workspace-agents-in-chatgpt/</a>
+<ul>
+<li>Shows: Its original product account describes schedules and incoming Slack requests; automatic work is an earlier capability. The page also contains an updated availability banner.
+</li>
+</ul>
+</li>
+<li>Pinned exploratory MCP Events repository, September 8 revision: <a href="https://github.com/modelcontextprotocol/experimental-ext-triggers-events/tree/6682596d65eec778fe0b8b1f43b4e89d2fe2c546">https://github.com/modelcontextprotocol/experimental-ext-triggers-events/tree/6682596d65eec778fe0b8b1f43b4e89d2fe2c546</a>
+<ul>
+<li>Shows: Exploratory status and a document-only repository tree, without an executable reference implementation or test suite at this revision.
+</li>
+</ul>
+</li>
+<li>Pinned event delivery design: <a href="https://github.com/modelcontextprotocol/experimental-ext-triggers-events/blob/6682596d65eec778fe0b8b1f43b4e89d2fe2c546/docs/design-sketch-proposal.md">https://github.com/modelcontextprotocol/experimental-ext-triggers-events/blob/6682596d65eec778fe0b8b1f43b4e89d2fe2c546/docs/design-sketch-proposal.md</a>
+<ul>
+<li>Shows: Three optional delivery modes and replay dependent on source history; the common description alone does not establish client interoperability.
+</li>
+</ul>
+</li>
+<li>Triggers and Events working-group charter: <a href="https://modelcontextprotocol.io/community/working-groups/triggers-events">https://modelcontextprotocol.io/community/working-groups/triggers-events</a>
+<ul>
+<li>Shows: Standardized callbacks and reference implementations are the group's remit; its dated milestone table is not evidence of current completion.
+</li>
+</ul>
+</li>
+<li>Standard Webhooks JavaScript implementation: <a href="https://github.com/standard-webhooks/standard-webhooks/blob/7537d2a2d3d52d8f2e0ecd12527af4a9307fd81b/libraries/javascript/src/index.ts">https://github.com/standard-webhooks/standard-webhooks/blob/7537d2a2d3d52d8f2e0ecd12527af4a9307fd81b/libraries/javascript/src/index.ts</a>
+<ul>
+<li>Shows: Public signing machinery binds identifier, time and payload; its verifier checks signature and timestamp. It is the library used by the OpenAI documentation example.
+</li>
+</ul>
+</li>
+</ul>
+<h2>Evidence Limits</h2>
+<ul>
+<li>OpenAI's availability statement is attributed, not independently tested on each plan or plugin. Existing tools require event support to participate.
+</li>
+<li>No authenticated end-to-end subscription or completed task was tested. Public interfaces cannot establish private server implementation, uptime, downstream success or model behavior.
+</li>
+<li>The protocol repository is exploratory; no cross-client conformance, finalized standard, adoption or productivity claim follows.
+</li>
+<li>Standard Webhooks source establishes available signing machinery, not the exact code deployed by ChatGPT. Delivery acknowledgement and completed work remain distinct.
+</li>
+</ul>
+    </div>
+  </section>
+      <section class="related-edition-section atlas-context-section">
+    <div class="section-title-row">
+      <h2>Atlas Context</h2>
+      <a href="/atlas/">Open Atlas &rsaquo;</a>
+    </div>
+    <div class="updates-list">
+      <a class="article-card" href="/atlas/hands-in-the-world/">
+            <div class="article-meta"><span class="lane">Agent Atlas</span><span>Chapter 3</span></div>
+            <h3>Tool Calls: Contract, Authorization, Execution</h3>
+            <p>A tool call crosses independently governed boundaries: schema, registration, policy, approval, execution authority, result handling, and audit.</p>
+          </a>
+    </div>
+  </section>
+      <section class="reader-feedback"
+    data-tgr-feedback
+    data-article-slug="2026-10-01-daily-chatgpt-plugins-can-now-start-work-from-app-events"
+    data-article-title="ChatGPT Plugins Can Now Start Work from App Events"
+    data-article-url="/articles/2026-10-01-daily-chatgpt-plugins-can-now-start-work-from-app-events/"
+    data-edition-date="2026-10-01"
+    data-lane="Daily Edition"
+    data-tags="Memory,Tools,UX"
+    data-repos="modelcontextprotocol/experimental-ext-triggers-events,standard-webhooks/standard-webhooks">
+    <div class="reader-feedback-head">
+      <div>
+        <div class="eyebrow">Letters &amp; Corrections</div>
+        <h2>Send a note to the desk</h2>
+      </div>
+      <p>Corrections, missing context, or a follow-up lead.</p>
+    </div>
+    <form class="feedback-form">
+      <div class="feedback-votes" role="group" aria-label="Choose signal type">
+        <button class="feedback-choice" type="button" data-vote="follow-up" aria-pressed="false">
+          <span aria-hidden="true">+</span>
+          <span>Follow-up</span>
+        </button>
+        <button class="feedback-choice" type="button" data-vote="correction" aria-pressed="false">
+          <span aria-hidden="true">!</span>
+          <span>Correction</span>
+        </button>
+      </div>
+      <label class="feedback-comment">
+        <span>Note for the editor</span>
+        <textarea name="comment" rows="3" maxlength="320" placeholder="What did we miss, or what should we follow next?"></textarea>
+      </label>
+      <div class="feedback-submit-row">
+        <p class="feedback-status" aria-live="polite"></p>
+        <button class="paper-button primary feedback-submit" type="submit">Send to desk</button>
+      </div>
+    </form>
+  </section>
+      
+    </main>
+    <footer class="wrap site-footer">
+      <span>&copy; 2026 The Git Reporter</span>
+      <a href="/about/">About</a>
+      <a href="/battles/">Diff Derby</a>
+      <a href="/agent-pulse/">Agent Pulse</a>
+      <a href="/feed.xml">RSS</a>
+      <a href="https://x.com/TheGitReporter">Follow on X</a>
+      <a href="/articles.json">Manifest JSON</a>
+      <a href="/repos/">Sources</a>
+    </footer>
+  </div>
+</body>
+</html>
