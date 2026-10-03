@@ -17,6 +17,79 @@
   --mono: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace;
 }
 
+/* Article questions: a reading companion, with a mobile bottom sheet. */
+[data-ask-entry][hidden] { display: none; }
+.ask-inline {
+  background: none;
+  border: 0;
+  padding: 10px 0;
+  min-height: 44px;
+  color: inherit;
+  font: inherit;
+  text-align: left;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  cursor: pointer;
+}
+.article-questions-invitation {
+  border-block: 1px solid var(--rule-soft);
+  padding: 1.5rem 0;
+  margin: 1.5rem 0;
+}
+.article-questions-invitation h2 { font: bold 1.6rem var(--serif); margin: 0; }
+.article-questions-invitation p { color: var(--muted); line-height: 1.5; }
+.article-questions {
+  position: fixed;
+  inset: var(--ask-viewport-top, 0px) 0 auto;
+  top: calc(var(--ask-viewport-top, 0px) + var(--ask-viewport-height, 100dvh) / 2);
+  transform: translateY(-50%);
+  width: min(36rem, calc(100% - 2rem));
+  max-width: 100%;
+  max-height: calc(var(--ask-viewport-height, 100dvh) - 2rem);
+  margin: 0 auto;
+  padding: 0;
+  background: var(--paper);
+  color: var(--ink);
+  border: 1px solid var(--rule);
+  overflow: hidden;
+}
+.article-questions[open] { display: flex; flex-direction: column; }
+.article-questions::backdrop { background: rgb(16 16 13 / 45%); }
+.ask-heading { display: flex; align-items: center; gap: 1rem; padding: .8rem 1.2rem; border-bottom: 1px solid var(--rule-soft); }
+.ask-heading h2 { font: bold 1.4rem var(--serif); margin: 0; flex: 1; }
+.ask-close { width: 44px; height: 44px; flex-shrink: 0; border: 0; background: none; color: inherit; font-size: 1.8rem; cursor: pointer; }
+.ask-form { display: flex; flex-direction: column; min-height: 0; }
+.ask-content { padding: 0 1.2rem; overflow-y: auto; overscroll-behavior: contain; }
+.ask-article-title { font: 1rem/1.4 var(--serif); color: var(--muted); }
+.ask-suggestions { display: flex; flex-wrap: wrap; gap: .5rem; margin: 1rem 0; }
+.ask-suggestions button { border: 1px solid var(--rule-soft); background: transparent; padding: .6rem .7rem; color: var(--ink); font: .85rem var(--sans); min-height: 44px; cursor: pointer; }
+.ask-content label { display: block; font-weight: 600; margin-bottom: .5rem; }
+.article-questions textarea { display: block; width: 100%; padding: .7rem; border: 1px solid var(--rule-soft); border-radius: 0; background: #fffdf7; color: var(--ink); font: 16px/1.5 var(--sans); resize: vertical; }
+.ask-note { font: .8rem/1.45 var(--sans); color: var(--muted); margin: .65rem 0; }
+.ask-actions { border-top: 1px solid var(--rule-soft); padding: .7rem 1.2rem; padding-bottom: max(.7rem, env(safe-area-inset-bottom)); flex-shrink: 0; }
+.ask-actions > .paper-button { width: 100%; min-height: 48px; justify-content: center; cursor: pointer; }
+.ask-copy-actions { display: flex; flex-wrap: wrap; gap: 0 1rem; }
+.ask-copy-actions button { min-height: 44px; background: none; border: 0; padding: .4rem 0; text-decoration: underline; text-underline-offset: 3px; color: var(--ink-soft); font: .8rem var(--sans); cursor: pointer; }
+.ask-status { font: .8rem/1.4 var(--sans); margin: 0 0 .5rem; }
+.ask-status:empty { display: none; }
+.ask-status a { text-decoration: underline; }
+.ask-manual { margin-bottom: 1rem; }
+.ask-manual summary { padding: .6rem 0; min-height: 44px; cursor: pointer; }
+.article-questions :focus-visible, [data-ask-open]:focus-visible { outline: 2px solid var(--green-dark); outline-offset: 3px; }
+@media (max-width: 600px) {
+  .article-questions {
+    top: calc(var(--ask-viewport-top, 0px) + var(--ask-viewport-height, 100dvh));
+    transform: translateY(-100%);
+    width: 100%;
+    max-height: var(--ask-viewport-height, 100dvh);
+    border-bottom: 0;
+  }
+}
+.ask-compact .ask-heading { padding-block: .25rem; }
+.ask-compact .ask-actions { padding-top: .4rem; }
+.ask-compact .ask-actions > .ask-note, .ask-compact #ask-context { display: none; }
+.ask-compact #ask-question { height: 76px; }
+
 * {
   box-sizing: border-box;
 }
