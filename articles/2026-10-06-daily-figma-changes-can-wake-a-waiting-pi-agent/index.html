@@ -1,0 +1,350 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Figma Changes Can Wake a Waiting Pi Agent | The Git Reporter</title>
+  <meta name="description" content="A new extension brings design feedback into a running agent without another terminal prompt. Its public code exposes the handoff; an author-reported live test carries it through to a canvas revision.">
+  <meta name="robots" content="index,follow">
+  <link rel="canonical" href="https://thegitreporter.com/articles/2026-10-06-daily-figma-changes-can-wake-a-waiting-pi-agent/">
+  <link rel="alternate" type="application/rss+xml" title="The Git Reporter" href="https://thegitreporter.com/feed.xml">
+  <meta property="og:site_name" content="The Git Reporter">
+  <meta property="og:locale" content="en_US">
+  <meta property="og:title" content="Figma Changes Can Wake a Waiting Pi Agent | The Git Reporter">
+  <meta property="og:description" content="A new extension brings design feedback into a running agent without another terminal prompt. Its public code exposes the handoff; an author-reported live test carries it through to a canvas revision.">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://thegitreporter.com/articles/2026-10-06-daily-figma-changes-can-wake-a-waiting-pi-agent/">
+  <meta property="og:image" content="https://thegitreporter.com/assets/social/2026-10-06-daily-figma-changes-can-wake-a-waiting-pi-agent-og.jpg">
+  <meta property="og:image:secure_url" content="https://thegitreporter.com/assets/social/2026-10-06-daily-figma-changes-can-wake-a-waiting-pi-agent-og.jpg">
+  <meta property="og:image:type" content="image/jpeg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="A marker diagram links a Figma file to a polling listener, an idle Pi agent&#39;s next turn and a return arrow for edits. Labels say to keep Pi running and attribute the live loop to its author.">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:site" content="@TheGitReporter">
+  <meta name="twitter:creator" content="@TheGitReporter">
+  <meta name="twitter:title" content="Figma Changes Can Wake a Waiting Pi Agent | The Git Reporter">
+  <meta name="twitter:description" content="A new extension brings design feedback into a running agent without another terminal prompt. Its public code exposes the handoff; an author-reported live test carries it through to a canvas revision.">
+  <meta name="twitter:url" content="https://thegitreporter.com/articles/2026-10-06-daily-figma-changes-can-wake-a-waiting-pi-agent/">
+  <meta name="twitter:domain" content="thegitreporter.com">
+  <meta name="twitter:image" content="https://thegitreporter.com/assets/social/2026-10-06-daily-figma-changes-can-wake-a-waiting-pi-agent-og.jpg">
+  <meta name="twitter:image:alt" content="A marker diagram links a Figma file to a polling listener, an idle Pi agent&#39;s next turn and a return arrow for edits. Labels say to keep Pi running and attribute the live loop to its author.">
+  <meta property="article:published_time" content="2026-10-06T12:00:00Z">
+  <meta property="article:modified_time" content="2026-10-06T12:00:00Z">
+  <meta property="article:section" content="Daily Edition">
+  <meta property="article:tag" content="Permissions">
+  <meta property="article:tag" content="Memory">
+  <meta property="article:tag" content="Tools">
+  <meta property="article:tag" content="UX">
+  <meta property="article:tag" content="mikekelly/pi-mcp-events">
+  <meta property="article:tag" content="mikekelly/figma-listen">
+  <meta property="article:tag" content="nicobailon/pi-mcp-adapter">
+  <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"https://thegitreporter.com/#organization","name":"The Git Reporter","url":"https://thegitreporter.com","logo":{"@type":"ImageObject","url":"https://thegitreporter.com/assets/mark.svg"},"sameAs":["https://x.com/TheGitReporter"]},{"@type":"WebSite","@id":"https://thegitreporter.com/#website","name":"The Git Reporter","url":"https://thegitreporter.com","publisher":{"@id":"https://thegitreporter.com/#organization"}},{"@type":"NewsArticle","mainEntityOfPage":{"@type":"WebPage","@id":"https://thegitreporter.com/articles/2026-10-06-daily-figma-changes-can-wake-a-waiting-pi-agent/"},"headline":"Figma Changes Can Wake a Waiting Pi Agent","description":"A new extension brings design feedback into a running agent without another terminal prompt. Its public code exposes the handoff; an author-reported live test carries it through to a canvas revision.","image":["https://thegitreporter.com/assets/social/2026-10-06-daily-figma-changes-can-wake-a-waiting-pi-agent-og.jpg"],"datePublished":"2026-10-06T12:00:00Z","dateModified":"2026-10-06T12:00:00Z","author":[{"@type":"Organization","name":"The Git Reporter","url":"https://thegitreporter.com"}],"publisher":{"@type":"Organization","@id":"https://thegitreporter.com/#organization","name":"The Git Reporter","url":"https://thegitreporter.com","logo":{"@type":"ImageObject","url":"https://thegitreporter.com/assets/mark.svg"},"sameAs":["https://x.com/TheGitReporter"]},"articleSection":"Daily Edition","keywords":"Permissions, Memory, Tools, UX, mikekelly/pi-mcp-events, mikekelly/figma-listen, nicobailon/pi-mcp-adapter"}]}</script>
+  <link rel="icon" href="/assets/mark.svg">
+  <link rel="stylesheet" href="/assets/site.css?v=2026-10-03-article-questions">
+  <script defer src="/assets/feedback.js?v=2026-10-03-article-questions"></script>
+  <script defer src="/assets/article-questions.js?v=2026-10-03-article-questions"></script>
+  <script defer src="/assets/analytics.js?v=2026-10-03-article-questions"></script>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-CH19T7M0T1"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){window.dataLayer.push(arguments);}
+    gtag("js", new Date());
+    gtag("config", "G-CH19T7M0T1");
+  </script>
+</head>
+<body>
+  <div class="site">
+    <header class="site-header" id="top">
+      <div class="wrap utility-row">
+        <a class="icon-link menu-icon" href="/archive/" aria-label="Open edition history"><span></span><span></span><span></span></a>
+        <a class="icon-link archive-icon" href="/archive/" aria-label="Open edition history"></a>
+      </div>
+      <div class="wrap masthead-lockup">
+        <a class="masthead-title" href="/">THE GIT REPORTER</a>
+        <div class="masthead-ornament" aria-hidden="true"></div>
+      </div>
+      <div class="wrap nav-wrap">
+        <nav class="paper-nav" aria-label="Primary navigation">
+    <a class=""  href="/">Stories</a><a class=""  href="/today/">Today</a><a class="active" aria-current="page" href="/archive/">Editions</a><a class=""  href="/about/">About</a><a class=""  href="/battles/">Diff Derby</a><a class=""  href="/agent-pulse/">Agent Pulse</a><a class=""  href="/atlas/">Agent Atlas</a><a class=""  href="/repos/">Repos</a>
+  </nav>
+        <div class="nav-rule"></div>
+      </div>
+    </header>
+    <main class="wrap page-shell article-page">
+      <section class="page-hero story-front">
+        <div class="story-topline">
+          <span>Daily Edition</span>
+          <span>Sources <strong>+11</strong></span>
+        </div>
+        <h1>Figma Changes Can Wake a Waiting Pi Agent</h1>
+        <p class="summary">A new extension brings design feedback into a running agent without another terminal prompt. Its public code exposes the handoff; an author-reported live test carries it through to a canvas revision.</p>
+        <figure class="story-illustration article-illustration">
+    <img src="/assets/illustrations/2026-10-06-figma-changes-can-wake-a-waiting-pi-agent-diagram-punk-v1.png" alt="A marker diagram links a Figma file to a polling listener, an idle Pi agent's next turn and a return arrow for edits. Labels say to keep Pi running and attribute the live loop to its author." loading="lazy" decoding="async">
+    <figcaption><span>Diagram Punk</span>observation wakes the agent; a separate editing service closes the author-reported loop. Pi must remain running.</figcaption>
+  </figure>
+        <div class="receipt">
+    <div class="receipt-line">
+      <span class="receipt-icon">repos</span>
+      <span class="receipt-main">mikekelly/pi-mcp-events + 2 more</span>
+      <span class="branch-pill">evidence</span>
+    </div>
+    <div class="receipt-line receipt-muted">
+      <span>11 source signals</span>
+      <span>3 repos</span>
+      <span>commit d0fa269</span>
+    </div>
+    <div class="commit-line">Evidence: commit d0fa269 / October 6, 2026 / Daily Edition</div>
+  </div>
+        <div class="article-route-row">
+          <a href="/editions/2026-10-06/">Open Edition</a>
+          <a href="#evidence">Evidence below</a>
+          <button type="button" class="ask-inline" data-ask-entry data-ask-open aria-haspopup="dialog" aria-controls="article-questions" hidden>Ask about this article ↗</button>
+        </div>
+      </section>
+      <section class="story-reader">
+        <article class="story-shell story-body">
+          <p>Mike Kelly has published <a href="https://github.com/mikekelly/pi-mcp-events/tree/7df8386b838b710bc194e4331e236db811224461">mikekelly/pi-mcp-events</a>, a Pi extension that feeds external activity into an existing agent session and starts another turn when it is idle. Paired with Figma listen, it can bring design comments and edits back to Pi without another terminal prompt. That removes a familiar review chore: copying what changed in the design into the agent's chat.</p>
+
+<p>Kelly's <a href="https://github.com/mikekelly/pi-mcp-events/blob/7df8386b838b710bc194e4331e236db811224461/docs/verification.md#remote-figma-writes-and-live-idle-wakeup--2026-10-05">October 5 verification account</a> describes the full loop with Figma: Pi creates a rectangle, an external controller changes it, and the event wakes Pi to revise it again. The account reports one user prompt and two completed agent turns. We inspected the implementation and ran its unauthenticated checks; the detailed live transcript is not public, and we have not independently repeated that authenticated experiment.</p>
+
+<p>The useful development is nevertheless concrete. Feedback left where people already work can become input to an existing assignment. It need not be copied into a chat, and the software deciding when to wake the agent is available to inspect.</p>
+
+<h2>Listening and editing are different jobs</h2>
+<p>The setup divides the work. <a href="https://github.com/mikekelly/figma-listen/blob/6b61127644b073eaee7b3e8b4c8954c113707443/README.md#notification-support">Figma listen</a> polls Figma's REST API for comments and design changes. It then sends matching activity through an experimental event stream using the Model Context Protocol, or MCP. Pi MCP Events receives that stream; Figma's separate official remote MCP supplies the tools for reading and editing the canvas.</p>
+
+<p>This is not an instantaneous native notification from Figma. The listener targets a three-second polling interval, subject to pacing and rate limits. For design edits it waits until the selected scope has been quiet for 120 seconds, grouping changes before delivery. That can turn several adjustments into one piece of feedback rather than a turn for every movement.</p>
+
+<p>The companion's <a href="https://github.com/mikekelly/pi-mcp-events/blob/7df8386b838b710bc194e4331e236db811224461/src/index.ts">delivery code</a> batches incoming events over another half-second and submits a follow-up with Pi's turn-triggering option. An idle session starts working; a busy one receives queued input. The message tells the model to treat comments and names as external data and respond within the user's existing request. That instruction expresses the intended boundary; it is not proof that every model response respects it.</p>
+
+<p>In the reported live test, the external change renamed a rectangle and changed its fill from blue to red. Pi unsubscribed, read the design through the editing service, then renamed the rectangle again and made it green. The author reports checking the final state separately. The event identified changed properties, not the new color values: receiving the notification was a reason to inspect the design, not a substitute for reading it.</p>
+
+<h2>The extension interface has reached upstream</h2>
+<p>This also advances a question from <a href="/articles/2026-09-30-daily-pi-adds-built-in-mcp-and-keeps-the-tools-replaceable/">our September 30 report on Pi's replaceable MCP machinery</a>. The separate adapter is acquiring its own extension surface. Kelly's <a href="https://github.com/nicobailon/pi-mcp-adapter/commit/d0fa26953f282edcde7fa88308f8f34ff791b606">October 5 contribution</a> lets companion packages register additional protocol methods while reusing the adapter's connections and authentication. It is included in upstream <a href="https://github.com/nicobailon/pi-mcp-adapter/releases/tag/v5.1.0">v5.1.0, released early October 6 UTC</a>.</p>
+
+<p>The <a href="https://github.com/nicobailon/pi-mcp-adapter/blob/v5.1.0/docs/protocol-extensions.md">interface</a> gives the companion declared requests and streams, rather than a raw connection it can repurpose. Ordinary tool calls retain their separate route and approval handling. The adapter manages connection ownership and cancellation; the companion supplies event interpretation, recovery and wakeup behavior. Other integrations can build on that division without each launching a second connection manager.</p>
+
+<p>The live test used Kelly's adapter fork 5.1.0 with Events 0.2.0 and Pi 1.0.3. The companion's pinned setup still recommends that fork. The upstream release establishes that the generic interface has landed; it does not establish that the reported Figma workflow was retested with the upstream package.</p>
+
+<p>Our isolated check of the pinned companion passed type checking, compilation and 23 of 27 tests. The extension-delivery and HTTP streaming checks passed, but four <a href="https://github.com/mikekelly/pi-mcp-events/blob/7df8386b838b710bc194e4331e236db811224461/test/routing.test.mjs">routing tests</a> failed in both the normal run and a serialized retry. Missing stream identifiers and activation timeouts leave a question about test scheduling or runtime behavior unresolved. These synthetic checks used no model or Figma account; they do not reproduce the live editing claim.</p>
+
+<h2>A local loop is a different offer from a hosted watch</h2>
+<p>Our <a href="/articles/2026-10-01-daily-chatgpt-plugins-can-now-start-work-from-app-events/">October 1 analysis</a> asked whether MCP event subscriptions could travel beyond one host and survive restarts. Pi now provides a concrete second implementation to examine. It does not yet answer those questions with compatibility.</p>
+
+<p><a href="https://developers.openai.com/plugins/build/mcp-events">ChatGPT's integration contract</a> uses signed webhooks and asks the server to persist subscriptions. Pi's <a href="https://github.com/mikekelly/pi-mcp-events/blob/7df8386b838b710bc194e4331e236db811224461/src/stream.ts">companion implementation</a> accepts streaming delivery and rejects event offerings limited to webhooks or polling. The same broad event idea can therefore require different delivery machinery for each client.</p>
+
+<p>Pi must also stay running. Its subscriptions and replay positions live in memory. The companion can reconnect after an interrupted stream, with bounded retries and replay where the server supports it; restarting Pi requires subscribing again. That fits an active review session more naturally than a watch expected to remain on duty after the laptop closes.</p>
+
+<p>Figma access is a separate constraint. The project's <a href="https://github.com/mikekelly/pi-mcp-events/blob/7df8386b838b710bc194e4331e236db811224461/README.md#3-authenticate-the-official-remote-mcp">documented write setup</a> uses a third-party OAuth helper that registers the client name as Codex. Pi is not on Figma's <a href="https://developers.figma.com/docs/figma-mcp-server/remote-server-installation/">approved-client list</a>. Calling the official editing server does not make this official Pi support, and the reported access path may not remain available.</p>
+
+<p>For builders, the transferable gain is the separation of observation, agent wakeup and authorized action. For someone reviewing the work, it means less message carrying during a live session. The next convincing demonstration would use supported access, publish a reproducible task trace, and carry the same event definition into another client with a restart in between. Can the watch keep its meaning when the client changes or the terminal closes?</p>
+        </article>
+      </section>
+      <section class="article-questions-invitation" data-ask-entry hidden>
+    <h2>Keep asking questions.</h2>
+    <p>Explore the story and its evidence in your own ChatGPT conversation.</p>
+    <button class="paper-button" type="button" data-ask-open aria-haspopup="dialog" aria-controls="article-questions">Ask about this article <span aria-hidden="true">↗</span></button>
+  </section>
+  <dialog class="article-questions" id="article-questions" aria-labelledby="ask-title"
+    data-title="Figma Changes Can Wake a Waiting Pi Agent" data-date="2026-10-06"
+    data-url="https://thegitreporter.com/articles/2026-10-06-daily-figma-changes-can-wake-a-waiting-pi-agent/"
+    data-summary="A new extension brings design feedback into a running agent without another terminal prompt. Its public code exposes the handoff; an author-reported live test carries it through to a canvas revision.">
+    <div class="ask-heading">
+      <h2 id="ask-title" tabindex="-1" autofocus>Ask about this article</h2>
+      <button type="button" class="ask-close" aria-label="Close question box">×</button>
+    </div>
+    <form class="ask-form">
+      <div class="ask-content">
+        <p class="ask-article-title">Figma Changes Can Wake a Waiting Pi Agent</p>
+        <div class="ask-suggestions" role="group" aria-label="Suggested questions">
+          <button type="button" data-question="Explain this article in plain language. What changed?">Explain simply</button>
+          <button type="button" data-question="Why does this change matter, and who is affected?">Why does this matter?</button>
+          <button type="button" data-question="What is the strongest counterargument to this article, and what evidence would change its conclusion?">Challenge the argument</button>
+        </div>
+        <label for="ask-question">Your question</label>
+        <textarea id="ask-question" rows="3" maxlength="2000" required placeholder="What would you like to understand?" aria-describedby="ask-context"></textarea>
+        <p id="ask-context" class="ask-note">Article link and summary included. Continue using your ChatGPT account; you may need to sign in.</p>
+        <details class="ask-manual" hidden>
+          <summary>Prepared text for copying</summary>
+          <textarea class="ask-copy-text" rows="5" readonly aria-label="Prepared question and article context"></textarea>
+        </details>
+      </div>
+      <div class="ask-actions">
+        <p class="ask-status" role="status" aria-live="polite"></p>
+        <button class="paper-button primary" type="submit">Continue in ChatGPT ↗</button>
+        <div class="ask-copy-actions">
+          <button type="button" data-ask-copy="summary">Copy question + context</button>
+          <button type="button" data-ask-copy="article">Copy article + question</button>
+        </div>
+        <p class="ask-note">If your question doesn’t appear in ChatGPT, copy it here and paste it there.</p>
+      </div>
+    </form>
+  </dialog>
+      <section class="evidence-section" id="evidence" aria-labelledby="evidence-title">
+    <div class="evidence-head">
+      <div>
+        <div class="eyebrow">Evidence Trail</div>
+        <h2 id="evidence-title">Receipts below the story</h2>
+        <p>The article above is the public narrative. This section keeps the source trail and limits on the same page.</p>
+      </div>
+      <a class="paper-button" href="/editions/2026-10-06/">Edition</a>
+    </div>
+    <div class="evidence-table evidence-summary">
+      <div class="evidence-line"><span>Date</span><span>October 6, 2026</span></div>
+      <div class="evidence-line"><span>Lane</span><span>Daily Edition</span></div>
+      <div class="evidence-line"><span>Confidence</span><span>91%</span></div>
+      <div class="evidence-line"><span>Sources</span><span>11</span></div>
+      <div class="evidence-line"><span>Repos</span><span>mikekelly/pi-mcp-events, mikekelly/figma-listen, nicobailon/pi-mcp-adapter</span></div>
+    </div>
+    <div class="markdown evidence-copy evidence-copy-block">
+      <h2>Primary Evidence</h2>
+<ul>
+<li>Pi MCP Events wakeup implementation, October 5: <a href="https://github.com/mikekelly/pi-mcp-events/blob/7df8386b838b710bc194e4331e236db811224461/src/index.ts">https://github.com/mikekelly/pi-mcp-events/blob/7df8386b838b710bc194e4331e236db811224461/src/index.ts</a>
+<ul>
+<li>Shows: event batches enter Pi as follow-up input with turn triggering enabled; session shutdown clears state. This proves implementation, not a successful real task.
+</li>
+</ul>
+</li>
+<li>Stream lifecycle: <a href="https://github.com/mikekelly/pi-mcp-events/blob/7df8386b838b710bc194e4331e236db811224461/src/stream.ts">https://github.com/mikekelly/pi-mcp-events/blob/7df8386b838b710bc194e4331e236db811224461/src/stream.ts</a>
+<ul>
+<li>Shows: streaming-only delivery selection, in-memory cursors, bounded reconnection and termination handling.
+</li>
+</ul>
+</li>
+<li>Author's October 5 verification account: <a href="https://github.com/mikekelly/pi-mcp-events/blob/7df8386b838b710bc194e4331e236db811224461/docs/verification.md">https://github.com/mikekelly/pi-mcp-events/blob/7df8386b838b710bc194e4331e236db811224461/docs/verification.md</a>
+<ul>
+<li>Shows: the author's report of Figma creation, subscription, external edit, wakeup and write-back with published packages. Detailed live transcripts are not public.
+</li>
+</ul>
+</li>
+<li>Figma listen observation contract: <a href="https://github.com/mikekelly/figma-listen/blob/6b61127644b073eaee7b3e8b4c8954c113707443/README.md">https://github.com/mikekelly/figma-listen/blob/6b61127644b073eaee7b3e8b4c8954c113707443/README.md</a>
+<ul>
+<li>Shows: REST polling, scoped feedback and a default design quiet period; observing is separate from editing.
+</li>
+</ul>
+</li>
+<li>Adapter protocol extension merge: <a href="https://github.com/nicobailon/pi-mcp-adapter/commit/d0fa26953f282edcde7fa88308f8f34ff791b606">https://github.com/nicobailon/pi-mcp-adapter/commit/d0fa26953f282edcde7fa88308f8f34ff791b606</a>
+<ul>
+<li>Shows: the generic interface landed upstream October 5, preserving adapter connection ownership and separate ordinary tool calls.
+</li>
+</ul>
+</li>
+<li>Upstream adapter v5.1.0: <a href="https://github.com/nicobailon/pi-mcp-adapter/releases/tag/v5.1.0">https://github.com/nicobailon/pi-mcp-adapter/releases/tag/v5.1.0</a>
+<ul>
+<li>Shows: a containing release exists on October 6. This was not the adapter used in the reported live test or our companion checks.
+</li>
+</ul>
+</li>
+<li>Protocol extension contract: <a href="https://github.com/nicobailon/pi-mcp-adapter/blob/v5.1.0/docs/protocol-extensions.md">https://github.com/nicobailon/pi-mcp-adapter/blob/v5.1.0/docs/protocol-extensions.md</a>
+<ul>
+<li>Shows: declared methods, correlated streams, cancellation and connection ownership; wakeups and replay policy belong to companions.
+</li>
+</ul>
+</li>
+<li>Companion routing tests: <a href="https://github.com/mikekelly/pi-mcp-events/blob/7df8386b838b710bc194e4331e236db811224461/test/routing.test.mjs">https://github.com/mikekelly/pi-mcp-events/blob/7df8386b838b710bc194e4331e236db811224461/test/routing.test.mjs</a>
+<ul>
+<li>Shows: public routing and activation cases. Our check passed typecheck/build and 23 of 27 tests; four routing cases failed in each of two runs, unresolved.
+</li>
+</ul>
+</li>
+<li>Companion setup: <a href="https://github.com/mikekelly/pi-mcp-events/blob/7df8386b838b710bc194e4331e236db811224461/README.md">https://github.com/mikekelly/pi-mcp-events/blob/7df8386b838b710bc194e4331e236db811224461/README.md</a>
+<ul>
+<li>Shows: fork configuration, session-lifetime subscriptions and an unofficial Figma OAuth helper. It does not establish approved Pi access.
+</li>
+</ul>
+</li>
+<li>Figma remote MCP policy: <a href="https://developers.figma.com/docs/figma-mcp-server/remote-server-installation/">https://developers.figma.com/docs/figma-mcp-server/remote-server-installation/</a>
+<ul>
+<li>Shows: the approved-client access boundary.
+</li>
+</ul>
+</li>
+<li>ChatGPT MCP Events contract: <a href="https://developers.openai.com/plugins/build/mcp-events">https://developers.openai.com/plugins/build/mcp-events</a>
+<ul>
+<li>Shows: webhook delivery and persistent server-side subscription requirements, distinct from Pi's streaming companion.
+</li>
+</ul>
+</li>
+</ul>
+<h2>Evidence Limits</h2>
+<ul>
+<li>The live design loop is author-reported. We did not inspect the private transcript, authenticate a model or Figma account, or reproduce canvas editing.
+</li>
+<li>Four routing failures remain unresolved. Passing synthetic extension tests exercise delivery wiring, not model judgment or design quality.
+</li>
+<li>The test dependency pins Kelly's adapter fork; upstream compatibility was not independently established.
+</li>
+<li>Figma observation is polled and design delivery waits for a quiet period. No measured latency or instantaneous notification claim is made.
+</li>
+<li>Pi subscriptions and cursors do not survive a Pi restart. Reconnection while running is different from durable delivery.
+</li>
+<li>The write setup uses unofficial access. A shared MCP Events name establishes neither portable subscriptions nor adoption or production reliability.
+</li>
+</ul>
+    </div>
+  </section>
+      <section class="related-edition-section atlas-context-section">
+    <div class="section-title-row">
+      <h2>Atlas Context</h2>
+      <a href="/atlas/">Open Atlas &rsaquo;</a>
+    </div>
+    <div class="updates-list">
+      <a class="article-card" href="/atlas/what-an-agent-can-see/">
+            <div class="article-meta"><span class="lane">Agent Atlas</span><span>Chapter 2</span></div>
+            <h3>The Invisible Prompt</h3>
+            <p>The model acts on an assembled viewport containing visible messages, hidden turn context, path-triggered instructions, memory records, tool schemas, permissions, and inherited state.</p>
+          </a>
+    </div>
+  </section>
+      <section class="reader-feedback"
+    data-tgr-feedback
+    data-article-slug="2026-10-06-daily-figma-changes-can-wake-a-waiting-pi-agent"
+    data-article-title="Figma Changes Can Wake a Waiting Pi Agent"
+    data-article-url="/articles/2026-10-06-daily-figma-changes-can-wake-a-waiting-pi-agent/"
+    data-edition-date="2026-10-06"
+    data-lane="Daily Edition"
+    data-tags="Permissions,Memory,Tools,UX"
+    data-repos="mikekelly/pi-mcp-events,mikekelly/figma-listen,nicobailon/pi-mcp-adapter">
+    <div class="reader-feedback-head">
+      <div>
+        <div class="eyebrow">Letters &amp; Corrections</div>
+        <h2>Send a note to the desk</h2>
+      </div>
+      <p>Corrections, missing context, or a follow-up lead.</p>
+    </div>
+    <form class="feedback-form">
+      <div class="feedback-votes" role="group" aria-label="Choose signal type">
+        <button class="feedback-choice" type="button" data-vote="follow-up" aria-pressed="false">
+          <span aria-hidden="true">+</span>
+          <span>Follow-up</span>
+        </button>
+        <button class="feedback-choice" type="button" data-vote="correction" aria-pressed="false">
+          <span aria-hidden="true">!</span>
+          <span>Correction</span>
+        </button>
+      </div>
+      <label class="feedback-comment">
+        <span>Note for the editor</span>
+        <textarea name="comment" rows="3" maxlength="320" placeholder="What did we miss, or what should we follow next?"></textarea>
+      </label>
+      <div class="feedback-submit-row">
+        <p class="feedback-status" aria-live="polite"></p>
+        <button class="paper-button primary feedback-submit" type="submit">Send to desk</button>
+      </div>
+    </form>
+  </section>
+      
+    </main>
+    <footer class="wrap site-footer">
+      <span>&copy; 2026 The Git Reporter</span>
+      <a href="/about/">About</a>
+      <a href="/battles/">Diff Derby</a>
+      <a href="/agent-pulse/">Agent Pulse</a>
+      <a href="/feed.xml">RSS</a>
+      <a href="https://x.com/TheGitReporter">Follow on X</a>
+      <a href="/articles.json">Manifest JSON</a>
+      <a href="/repos/">Sources</a>
+    </footer>
+  </div>
+</body>
+</html>
