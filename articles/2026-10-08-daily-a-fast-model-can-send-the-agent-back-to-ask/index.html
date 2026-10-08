@@ -1,0 +1,413 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>A Fast Model Can Send the Agent Back to Ask | The Git Reporter</title>
+  <meta name="description" content="Strands puts a small decision model between an agent&#39;s proposed action and its tool. Browser and document experiments reveal a wider division of labor: models judge, software defines the choices, and escalation can mean another model—or a person.">
+  <meta name="robots" content="index,follow">
+  <link rel="canonical" href="https://thegitreporter.com/articles/2026-10-08-daily-a-fast-model-can-send-the-agent-back-to-ask/">
+  <link rel="alternate" type="application/rss+xml" title="The Git Reporter" href="https://thegitreporter.com/feed.xml">
+  <meta property="og:site_name" content="The Git Reporter">
+  <meta property="og:locale" content="en_US">
+  <meta property="og:title" content="A Fast Model Can Send the Agent Back to Ask | The Git Reporter">
+  <meta property="og:description" content="Strands puts a small decision model between an agent&#39;s proposed action and its tool. Browser and document experiments reveal a wider division of labor: models judge, software defines the choices, and escalation can mean another model—or a person.">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://thegitreporter.com/articles/2026-10-08-daily-a-fast-model-can-send-the-agent-back-to-ask/">
+  <meta property="og:image" content="https://thegitreporter.com/assets/social/2026-10-08-daily-a-fast-model-can-send-the-agent-back-to-ask-og.jpg">
+  <meta property="og:image:secure_url" content="https://thegitreporter.com/assets/social/2026-10-08-daily-a-fast-model-can-send-the-agent-back-to-ask-og.jpg">
+  <meta property="og:image:type" content="image/jpeg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="A weather request leads to a guessed city, a Decider review and code sending the agent back to ask which city, before a weather tool runs.">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:site" content="@TheGitReporter">
+  <meta name="twitter:creator" content="@TheGitReporter">
+  <meta name="twitter:title" content="A Fast Model Can Send the Agent Back to Ask | The Git Reporter">
+  <meta name="twitter:description" content="Strands puts a small decision model between an agent&#39;s proposed action and its tool. Browser and document experiments reveal a wider division of labor: models judge, software defines the choices, and escalation can mean another model—or a person.">
+  <meta name="twitter:url" content="https://thegitreporter.com/articles/2026-10-08-daily-a-fast-model-can-send-the-agent-back-to-ask/">
+  <meta name="twitter:domain" content="thegitreporter.com">
+  <meta name="twitter:image" content="https://thegitreporter.com/assets/social/2026-10-08-daily-a-fast-model-can-send-the-agent-back-to-ask-og.jpg">
+  <meta name="twitter:image:alt" content="A weather request leads to a guessed city, a Decider review and code sending the agent back to ask which city, before a weather tool runs.">
+  <meta property="article:published_time" content="2026-10-08T12:00:00Z">
+  <meta property="article:modified_time" content="2026-10-08T12:00:00Z">
+  <meta property="article:section" content="Daily Edition">
+  <meta property="article:tag" content="Tools">
+  <meta property="article:tag" content="UX">
+  <meta property="article:tag" content="Runtime">
+  <meta property="article:tag" content="strands-labs/strands-decider">
+  <meta property="article:tag" content="browserbase/stagehand">
+  <meta property="article:tag" content="NandhaKishorM/laya">
+  <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"https://thegitreporter.com/#organization","name":"The Git Reporter","url":"https://thegitreporter.com","logo":{"@type":"ImageObject","url":"https://thegitreporter.com/assets/mark.svg"},"sameAs":["https://x.com/TheGitReporter"]},{"@type":"WebSite","@id":"https://thegitreporter.com/#website","name":"The Git Reporter","url":"https://thegitreporter.com","publisher":{"@id":"https://thegitreporter.com/#organization"}},{"@type":"NewsArticle","mainEntityOfPage":{"@type":"WebPage","@id":"https://thegitreporter.com/articles/2026-10-08-daily-a-fast-model-can-send-the-agent-back-to-ask/"},"headline":"A Fast Model Can Send the Agent Back to Ask","description":"Strands puts a small decision model between an agent's proposed action and its tool. Browser and document experiments reveal a wider division of labor: models judge, software defines the choices, and escalation can mean another model—or a person.","image":["https://thegitreporter.com/assets/social/2026-10-08-daily-a-fast-model-can-send-the-agent-back-to-ask-og.jpg"],"datePublished":"2026-10-08T12:00:00Z","dateModified":"2026-10-08T12:00:00Z","author":[{"@type":"Organization","name":"The Git Reporter","url":"https://thegitreporter.com"}],"publisher":{"@type":"Organization","@id":"https://thegitreporter.com/#organization","name":"The Git Reporter","url":"https://thegitreporter.com","logo":{"@type":"ImageObject","url":"https://thegitreporter.com/assets/mark.svg"},"sameAs":["https://x.com/TheGitReporter"]},"articleSection":"Daily Edition","keywords":"Tools, UX, Runtime, strands-labs/strands-decider, browserbase/stagehand, NandhaKishorM/laya"}]}</script>
+  <link rel="icon" href="/assets/mark.svg">
+  <link rel="stylesheet" href="/assets/site.css?v=2026-10-03-article-questions">
+  <script defer src="/assets/feedback.js?v=2026-10-03-article-questions"></script>
+  <script defer src="/assets/article-questions.js?v=2026-10-03-article-questions"></script>
+  <script defer src="/assets/analytics.js?v=2026-10-03-article-questions"></script>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-CH19T7M0T1"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){window.dataLayer.push(arguments);}
+    gtag("js", new Date());
+    gtag("config", "G-CH19T7M0T1");
+  </script>
+</head>
+<body>
+  <div class="site">
+    <header class="site-header" id="top">
+      <div class="wrap utility-row">
+        <a class="icon-link menu-icon" href="/archive/" aria-label="Open edition history"><span></span><span></span><span></span></a>
+        <a class="icon-link archive-icon" href="/archive/" aria-label="Open edition history"></a>
+      </div>
+      <div class="wrap masthead-lockup">
+        <a class="masthead-title" href="/">THE GIT REPORTER</a>
+        <div class="masthead-ornament" aria-hidden="true"></div>
+      </div>
+      <div class="wrap nav-wrap">
+        <nav class="paper-nav" aria-label="Primary navigation">
+    <a class=""  href="/">Stories</a><a class=""  href="/today/">Today</a><a class="active" aria-current="page" href="/archive/">Editions</a><a class=""  href="/about/">About</a><a class=""  href="/battles/">Diff Derby</a><a class=""  href="/agent-pulse/">Agent Pulse</a><a class=""  href="/atlas/">Agent Atlas</a><a class=""  href="/repos/">Repos</a>
+  </nav>
+        <div class="nav-rule"></div>
+      </div>
+    </header>
+    <main class="wrap page-shell article-page">
+      <section class="page-hero story-front">
+        <div class="story-topline">
+          <span>Daily Edition</span>
+          <span>Sources <strong>+15</strong></span>
+        </div>
+        <h1>A Fast Model Can Send the Agent Back to Ask</h1>
+        <p class="summary">Strands puts a small decision model between an agent's proposed action and its tool. Browser and document experiments reveal a wider division of labor: models judge, software defines the choices, and escalation can mean another model—or a person.</p>
+        <figure class="story-illustration article-illustration">
+    <img src="/assets/illustrations/2026-10-08-who-decides-when-an-agent-needs-to-think-diagram-punk-v1.png" alt="A weather request leads to a guessed city, a Decider review and code sending the agent back to ask which city, before a weather tool runs." loading="lazy" decoding="async">
+    <figcaption><span>Diagram Punk</span>the Strands demonstration separates a model judgment from the code that sends the agent back to ask.</figcaption>
+  </figure>
+        <div class="receipt">
+    <div class="receipt-line">
+      <span class="receipt-icon">repos</span>
+      <span class="receipt-main">strands-labs/strands-decider + 2 more</span>
+      <span class="branch-pill">evidence</span>
+    </div>
+    <div class="receipt-line receipt-muted">
+      <span>15 source signals</span>
+      <span>3 repos</span>
+      <span>commit de3ded2</span>
+    </div>
+    <div class="commit-line">Evidence: commit de3ded2 / October 8, 2026 / Daily Edition</div>
+  </div>
+        <div class="article-route-row">
+          <a href="/editions/2026-10-08/">Open Edition</a>
+          <a href="#evidence">Evidence below</a>
+          <button type="button" class="ask-inline" data-ask-entry data-ask-open aria-haspopup="dialog" aria-controls="article-questions" hidden>Ask about this article ↗</button>
+        </div>
+      </section>
+      <section class="story-reader">
+        <article class="story-shell story-body">
+          <p>The weather assistant has a problem before it calls the weather tool: nobody has told it a city. In <a href="https://strandsagents.com/blog/introducing-strands-decider/">Strands' October 1 demonstration</a>, a small reviewer can send it back to ask. The reviewer does not write a better forecast. It judges whether the proposed action is grounded in the conversation; a few lines of Python decide what to do with that judgment.</p>
+
+<p>This is a useful place to look at the promise behind “System 1” decision models and “System 2” reasoning models. The interesting question is where each does work. A fast model can review a larger agent's proposed action, select among browser controls or classify a document before any rewriting begins. The surrounding software constructs those jobs and decides what warrants another turn.</p>
+
+<p>The distinction extends <a href="/articles/2026-09-22-daily-jev-puts-the-odds-in-the-answer-local-ai-still-has-to-make-them-trustworthy/">our September 22 examination of decision probabilities</a> and <a href="/articles/2026-09-29-daily-inside-typesafe-s-model-comparison-what-the-adapter-makes-you-pay-for/">September 29 comparison of their costs</a>. Those reports asked what a returned number means and what it costs to obtain. The integrations now make another question inspectable: who turns that number into an action?</p>
+
+<h2>The reviewer comes after the proposal</h2>
+<p>The <a href="https://github.com/strands-labs/strands-decider/blob/63d24ae286e50105fba0bd1db15b0e243aea4650/examples/strands/tool_call_intervention.py">Strands example</a> deliberately tells its agent to assume Seattle when the user omits a location. Before the resulting tool call executes, Decider receives the conversation and proposed arguments. It answers two narrow questions: whether the arguments are grounded in what the user supplied, and whether the call is premature.</p>
+
+<p>Python compares those outputs with an illustrative threshold of 0.45. If the arguments look ungrounded or the call premature, it returns <code>Guide</code>, giving the generative agent another turn with corrective feedback. Otherwise it returns <code>Proceed</code>. The small model supplies judgments; the program owns both the threshold and the consequence.</p>
+
+<p>The example uses fake weather and an intentionally bad prompt. It is an experimental demonstration, not a measured reduction in naturally occurring errors. Its agent uses Claude Haiku 4.5 through Bedrock, without an explicit reasoning configuration. Calling this a demonstrated partnership between a System-1 model and a System-2 reasoner would overstate the source.</p>
+
+<p>Its placement nevertheless matters. The generative agent has already proposed an action. Review happens at the execution boundary, where feedback can change the next turn. That offers a reusable design choice for builders: inspect a concrete proposal when its arguments are available, rather than asking a router to predict everything about the task at the start.</p>
+
+<p>The <a href="https://github.com/strands-labs/strands-decider/blob/63d24ae286e50105fba0bd1db15b0e243aea4650/examples/strands/_client.py">review client</a> talks to a separate local endpoint. That can keep this review computation local; it does not make the Bedrock-backed agent's entire conversation local. The deployment boundary belongs in the design alongside the decision boundary.</p>
+
+<h2>“Decision model” describes a job, not a size</h2>
+<p>Strands' <a href="https://github.com/strands-labs/strands-decider/blob/63d24ae286e50105fba0bd1db15b0e243aea4650/docs/architecture.md">architecture</a> starts with a pretrained language-model backbone. It removes the text-generating head and uses a pointer head to score the options supplied in the request. The same mechanism can answer a yes/no question, choose a label or assign a score on an ordered rubric. It does not generate a deliberation transcript.</p>
+
+<p>Fresh source broadens the hardware and model choices. An <a href="https://github.com/strands-labs/strands-decider/commit/de3ded2904b246312d78dad981253337149c2390">October 8 change</a> adds support for several Gemma 4 backbones, including larger variants. That is implementation support, not evidence that each variant improves a complete agent task. It does show why “decision” should not be treated as a synonym for “tiny.”</p>
+
+<p>System 1 and System 2 are useful metaphors for bounded judgment and more extensive deliberation. They are not two settled species of software. A generative model can also return a classification; a reasoning-capable model may help design the workflow without answering every runtime decision.</p>
+
+<h2>The browser's escape hatch earns its place</h2>
+<p>Browserbase's <a href="https://www.browserbase.com/blog/what-is-jev">September 21 account</a> offers a different arrangement: use Jev to select a browser action and target, then fall back to an LLM when needed. Here the fast path comes before the general-purpose one.</p>
+
+<p>The corresponding <a href="https://github.com/browserbase/stagehand/pull/2953">Stagehand pull request</a> remains open and experimental as of October 8. Its author reports median action latency falling from 1.97 seconds to 0.46 seconds, with 39 of 40 tasks completed by the baseline and 118 of 120 across three hybrid trials. Disabling the LLM entirely reduced completion to 27 of 40. The fallback is part of the reported capability.</p>
+
+<p>The same report says thresholds were tuned on those evaluation suites, and some tasks and reporting scripts are omitted. These are author-run, in-sample results, not our reproduction or a shipped-product guarantee. They justify investigating the combination, not assigning its speedup to a decision model alone.</p>
+
+<p>The <a href="https://github.com/browserbase/stagehand/blob/d06be1695c68bc02098eccf51550b11ec4db24a0/packages/extension/services/decisions/pipeline.ts">implementation</a> also divides work more finely than “easy versus hard.” Code parses supported arguments and constructs candidate elements. A separate, small LLM request can extract an unquoted argument, constrained to text from the instruction. After an action, deterministic checks can read back a field's value. Selection, argument preparation and verification have different owners.</p>
+
+<p>For a builder, that is the useful lesson: improve the state and available actions before assuming a more powerful model is the only way to improve the decision. The selector can only choose among the possibilities the application presents.</p>
+
+<h2>Sometimes escalation means a person</h2>
+<p><a href="https://www.langchain.com/blog/building-prod-with-jev-and-langgraph">LangChain's September 25 document-review example</a> separates classification, rewriting and human review. A decision model judges a page; an LLM handles redaction; potentially privileged material goes to a person. Escalation reflects the kind and consequence of the work, not simply model size.</p>
+
+<p>The <a href="https://gist.github.com/sydney-runkle/a632ba4ea0b2b72501dfa4b6ab2a7d8a/9bd06dc63f0408c980b3a5aa37d06cc1d97a813b">pinned implementation</a> makes that policy visible. Suspected privilege goes to human review first. Low responsiveness is withheld. Production requires sufficiently high responsiveness and confidence, with a redaction step when personal information is detected. Its six-page corpus is synthetic, so this is an architecture example, not evidence of successful legal deployment.</p>
+
+<p>The same package includes a chat-model adapter that satisfies the classifier contract. That is strong counterevidence to a rigid two-model story: the workflow can preserve its division of labor while changing the machinery behind one step. Its notes also report that changing the confidence formula changed routing agreement. Identical-looking fields do not make thresholds interchangeable.</p>
+
+<p>A different relationship appears in <a href="https://jev-plays-pokemon.standardagents.ai/">Andrew Boyd's Pokémon experiment</a>. The project credits Jev with gameplay and Opus 5 with monitoring logs and building the surrounding harness in real time. The site reports completion on September 23. That is an author account, not an independently replayed result, but it illustrates another role for the more capable model: improving the player's representation of the problem during the run. It should not be confused with a documented fallback call for every difficult move.</p>
+
+<h2>The next test belongs to the whole workflow</h2>
+<p>Conditional model use predates these names. <a href="https://www.lmsys.org/blog/2024-07-01-routellm/">RouteLLM's July 2024 report</a> studied choosing between stronger and weaker models using preference data. It also found that routing learned on one distribution could perform poorly on another without task-relevant training data. Today's inspectable examples expand where bounded judgments can sit; they do not establish that conditional computation has just been invented.</p>
+
+<p>There is fresh progress toward testing the choice. Laya's <a href="https://github.com/NandhaKishorM/laya/pull/967">October 7 training change</a> distinguishes evaluation inputs that overlap training or calibration from a separate held-out set. Its <a href="https://github.com/NandhaKishorM/laya/blob/e08843b6255e7ef97aa408a67ca5e6b26920415e/laya/train.py">training code</a> saves fitted abstention thresholds as metadata. Applications must still decide how to apply them at runtime. Better measurement machinery is a capability gain; it is not yet the missing comparison of completed workflows.</p>
+
+<p>That comparison should hold the accepted task quality fixed and count preparation, classifier calls, fallback, retries, tools and human handling. It should also include a simple rule or task-specific classifier where one could do the job. A faster intermediate answer is valuable when the completed work retains the quality its reader or operator needs.</p>
+
+<p>No paid inference or live integration experiment was performed for this article. We inspected implementation, test definitions and dated author reports. The concrete opportunity is to give each kind of judgment a deliberate place: proposing an action, reviewing it, selecting an option, rewriting content or asking a person. The model can supply the number. The workflow designer decides what that number is allowed to change.</p>
+        </article>
+      </section>
+      <section class="article-questions-invitation" data-ask-entry hidden>
+    <h2>Keep asking questions.</h2>
+    <p>Explore the story and its evidence in your own ChatGPT conversation.</p>
+    <button class="paper-button" type="button" data-ask-open aria-haspopup="dialog" aria-controls="article-questions">Ask about this article <span aria-hidden="true">↗</span></button>
+  </section>
+  <dialog class="article-questions" id="article-questions" aria-labelledby="ask-title"
+    data-title="A Fast Model Can Send the Agent Back to Ask" data-date="2026-10-08"
+    data-url="https://thegitreporter.com/articles/2026-10-08-daily-a-fast-model-can-send-the-agent-back-to-ask/"
+    data-summary="Strands puts a small decision model between an agent&#39;s proposed action and its tool. Browser and document experiments reveal a wider division of labor: models judge, software defines the choices, and escalation can mean another model—or a person.">
+    <div class="ask-heading">
+      <h2 id="ask-title" tabindex="-1" autofocus>Ask about this article</h2>
+      <button type="button" class="ask-close" aria-label="Close question box">×</button>
+    </div>
+    <form class="ask-form">
+      <div class="ask-content">
+        <p class="ask-article-title">A Fast Model Can Send the Agent Back to Ask</p>
+        <div class="ask-suggestions" role="group" aria-label="Suggested questions">
+          <button type="button" data-question="Explain this article in plain language. What changed?">Explain simply</button>
+          <button type="button" data-question="Why does this change matter, and who is affected?">Why does this matter?</button>
+          <button type="button" data-question="What is the strongest counterargument to this article, and what evidence would change its conclusion?">Challenge the argument</button>
+        </div>
+        <label for="ask-question">Your question</label>
+        <textarea id="ask-question" rows="3" maxlength="2000" required placeholder="What would you like to understand?" aria-describedby="ask-context"></textarea>
+        <p id="ask-context" class="ask-note">Article link and summary included. Continue using your ChatGPT account; you may need to sign in.</p>
+        <details class="ask-manual" hidden>
+          <summary>Prepared text for copying</summary>
+          <textarea class="ask-copy-text" rows="5" readonly aria-label="Prepared question and article context"></textarea>
+        </details>
+      </div>
+      <div class="ask-actions">
+        <p class="ask-status" role="status" aria-live="polite"></p>
+        <button class="paper-button primary" type="submit">Continue in ChatGPT ↗</button>
+        <div class="ask-copy-actions">
+          <button type="button" data-ask-copy="summary">Copy question + context</button>
+          <button type="button" data-ask-copy="article">Copy article + question</button>
+        </div>
+        <p class="ask-note">If your question doesn’t appear in ChatGPT, copy it here and paste it there.</p>
+      </div>
+    </form>
+  </dialog>
+      <section class="evidence-section" id="evidence" aria-labelledby="evidence-title">
+    <div class="evidence-head">
+      <div>
+        <div class="eyebrow">Evidence Trail</div>
+        <h2 id="evidence-title">Receipts below the story</h2>
+        <p>The article above is the public narrative. This section keeps the source trail and limits on the same page.</p>
+      </div>
+      <a class="paper-button" href="/editions/2026-10-08/">Edition</a>
+    </div>
+    <div class="evidence-table evidence-summary">
+      <div class="evidence-line"><span>Date</span><span>October 8, 2026</span></div>
+      <div class="evidence-line"><span>Lane</span><span>Daily Edition</span></div>
+      <div class="evidence-line"><span>Confidence</span><span>91%</span></div>
+      <div class="evidence-line"><span>Sources</span><span>15</span></div>
+      <div class="evidence-line"><span>Repos</span><span>strands-labs/strands-decider, browserbase/stagehand, NandhaKishorM/laya</span></div>
+    </div>
+    <div class="markdown evidence-copy evidence-copy-block">
+      <h2>Primary Evidence</h2>
+<ul>
+<li>Strands October 1 announcement: <a href="https://strandsagents.com/blog/introducing-strands-decider/">https://strandsagents.com/blog/introducing-strands-decider/</a>
+<ul>
+<li>Shows: original local decision-model offer and illustrative intervention scenario.
+</li>
+</ul>
+</li>
+<li>Current tool-call reviewer: <a href="https://github.com/strands-labs/strands-decider/blob/63d24ae286e50105fba0bd1db15b0e243aea4650/examples/strands/tool_call_intervention.py">https://github.com/strands-labs/strands-decider/blob/63d24ae286e50105fba0bd1db15b0e243aea4650/examples/strands/tool_call_intervention.py</a>
+<ul>
+<li>Shows: an induced weather error, two bounded questions, illustrative 0.45 threshold and Guide/Proceed policy before execution; agent uses Haiku 4.5.
+</li>
+</ul>
+</li>
+<li>Reviewer client: <a href="https://github.com/strands-labs/strands-decider/blob/63d24ae286e50105fba0bd1db15b0e243aea4650/examples/strands/_client.py">https://github.com/strands-labs/strands-decider/blob/63d24ae286e50105fba0bd1db15b0e243aea4650/examples/strands/_client.py</a>
+<ul>
+<li>Shows: separate local decision endpoint; not a wholly local agent workflow.
+</li>
+</ul>
+</li>
+<li>Decision architecture: <a href="https://github.com/strands-labs/strands-decider/blob/63d24ae286e50105fba0bd1db15b0e243aea4650/docs/architecture.md">https://github.com/strands-labs/strands-decider/blob/63d24ae286e50105fba0bd1db15b0e243aea4650/docs/architecture.md</a>
+<ul>
+<li>Shows: pretrained backbone with pointer readout and request-defined options instead of text generation.
+</li>
+</ul>
+</li>
+<li>Gemma backbone support, October 8 in Paris: <a href="https://github.com/strands-labs/strands-decider/commit/de3ded2904b246312d78dad981253337149c2390">https://github.com/strands-labs/strands-decider/commit/de3ded2904b246312d78dad981253337149c2390</a>
+<ul>
+<li>Shows: support for additional backbone sizes, not measured workflow superiority.
+</li>
+</ul>
+</li>
+<li>Browserbase September 21 account: <a href="https://www.browserbase.com/blog/what-is-jev">https://www.browserbase.com/blog/what-is-jev</a>
+<ul>
+<li>Shows: vendor's proposed hybrid browser workflow and performance interpretation.
+</li>
+</ul>
+</li>
+<li>Stagehand experimental change: <a href="https://github.com/browserbase/stagehand/pull/2953">https://github.com/browserbase/stagehand/pull/2953</a>
+<ul>
+<li>Shows: open/off-by-default experiment, author-reported completion and latency results, in-sample thresholds and omitted evaluation materials. Rechecked October 8: not merged.
+</li>
+</ul>
+</li>
+<li>Stagehand pipeline at inspected head: <a href="https://github.com/browserbase/stagehand/blob/d06be1695c68bc02098eccf51550b11ec4db24a0/packages/extension/services/decisions/pipeline.ts">https://github.com/browserbase/stagehand/blob/d06be1695c68bc02098eccf51550b11ec4db24a0/packages/extension/services/decisions/pipeline.ts</a>
+<ul>
+<li>Shows: argument preparation, decision path, LLM support, action execution and checks.
+</li>
+</ul>
+</li>
+<li>LangChain September 25 account: <a href="https://www.langchain.com/blog/building-prod-with-jev-and-langgraph">https://www.langchain.com/blog/building-prod-with-jev-and-langgraph</a>
+<ul>
+<li>Shows: proposed classification, redaction and human-review division.
+</li>
+</ul>
+</li>
+<li>Pinned document example: <a href="https://gist.github.com/sydney-runkle/a632ba4ea0b2b72501dfa4b6ab2a7d8a/9bd06dc63f0408c980b3a5aa37d06cc1d97a813b">https://gist.github.com/sydney-runkle/a632ba4ea0b2b72501dfa4b6ab2a7d8a/9bd06dc63f0408c980b3a5aa37d06cc1d97a813b</a>
+<ul>
+<li>Shows: actual route function, six synthetic pages, interchangeable LLM classifier and confidence-formula caveats. The article follows code where README prose disagrees.
+</li>
+</ul>
+</li>
+<li>Jev Pokémon project: <a href="https://jev-plays-pokemon.standardagents.ai/">https://jev-plays-pokemon.standardagents.ai/</a>
+<ul>
+<li>Shows: author's September 23 completion claim and attribution of gameplay to Jev, log monitoring and real-time harness building to Opus 5.
+</li>
+</ul>
+</li>
+<li>RouteLLM July 1, 2024 report: <a href="https://www.lmsys.org/blog/2024-07-01-routellm/">https://www.lmsys.org/blog/2024-07-01-routellm/</a>
+<ul>
+<li>Shows: prior learned strong/weak routing and sensitivity to task distribution.
+</li>
+</ul>
+</li>
+<li>Laya evaluation change, October 7: <a href="https://github.com/NandhaKishorM/laya/pull/967">https://github.com/NandhaKishorM/laya/pull/967</a>
+<ul>
+<li>Shows: merged separate-evaluation and abstention-report work.
+</li>
+</ul>
+</li>
+<li>Laya training code at 0.3.29 revision: <a href="https://github.com/NandhaKishorM/laya/blob/e08843b6255e7ef97aa408a67ca5e6b26920415e/laya/train.py">https://github.com/NandhaKishorM/laya/blob/e08843b6255e7ef97aa408a67ca5e6b26920415e/laya/train.py</a>
+<ul>
+<li>Shows: input overlap checks, explicit evaluation mode and stored abstention training metadata.
+</li>
+</ul>
+</li>
+</ul>
+<h2>Evidence Limits</h2>
+<ul>
+<li>No paid inference, integration run, source test execution or independent benchmark reproduction occurred. Numerical results are attributed author reports.
+</li>
+<li>The Strands scenario deliberately induces an error and uses an illustrative policy; it is not a production reliability evaluation or explicit reasoning-model experiment.
+</li>
+<li>Stagehand PR 2953 is open, its thresholds in-sample and some evaluation materials unavailable. Its hybrid result cannot establish general savings or shipped adoption.
+</li>
+<li>LangGraph uses synthetic pages; it does not establish real legal-review quality. Model confidence definitions do not automatically transfer.
+</li>
+<li>Pokémon completion is an author account; no claim of unaided play or measured total engineering cost is made.
+</li>
+<li>System 1/2 are explanatory metaphors here. The inspected implementations do not establish new cognitive species, universal superiority to simpler classifiers or whole-workflow economics.
+</li>
+</ul>
+    </div>
+  </section>
+      <section class="related-edition-section atlas-context-section">
+    <div class="section-title-row">
+      <h2>Atlas Context</h2>
+      <a href="/atlas/">Open Atlas &rsaquo;</a>
+    </div>
+    <div class="updates-list">
+      <a class="article-card" href="/atlas/hands-in-the-world/">
+            <div class="article-meta"><span class="lane">Agent Atlas</span><span>Chapter 3</span></div>
+            <h3>Tool Calls: Contract, Authorization, Execution</h3>
+            <p>A tool call crosses independently governed boundaries: schema, registration, policy, approval, execution authority, result handling, and audit.</p>
+          </a>
+    </div>
+  </section>
+      <section class="reader-feedback"
+    data-tgr-feedback
+    data-article-slug="2026-10-08-daily-a-fast-model-can-send-the-agent-back-to-ask"
+    data-article-title="A Fast Model Can Send the Agent Back to Ask"
+    data-article-url="/articles/2026-10-08-daily-a-fast-model-can-send-the-agent-back-to-ask/"
+    data-edition-date="2026-10-08"
+    data-lane="Daily Edition"
+    data-tags="Tools,UX,Runtime"
+    data-repos="strands-labs/strands-decider,browserbase/stagehand,NandhaKishorM/laya">
+    <div class="reader-feedback-head">
+      <div>
+        <div class="eyebrow">Letters &amp; Corrections</div>
+        <h2>Send a note to the desk</h2>
+      </div>
+      <p>Corrections, missing context, or a follow-up lead.</p>
+    </div>
+    <form class="feedback-form">
+      <div class="feedback-votes" role="group" aria-label="Choose signal type">
+        <button class="feedback-choice" type="button" data-vote="follow-up" aria-pressed="false">
+          <span aria-hidden="true">+</span>
+          <span>Follow-up</span>
+        </button>
+        <button class="feedback-choice" type="button" data-vote="correction" aria-pressed="false">
+          <span aria-hidden="true">!</span>
+          <span>Correction</span>
+        </button>
+      </div>
+      <label class="feedback-comment">
+        <span>Note for the editor</span>
+        <textarea name="comment" rows="3" maxlength="320" placeholder="What did we miss, or what should we follow next?"></textarea>
+      </label>
+      <div class="feedback-submit-row">
+        <p class="feedback-status" aria-live="polite"></p>
+        <button class="paper-button primary feedback-submit" type="submit">Send to desk</button>
+      </div>
+    </form>
+  </section>
+      <section class="related-edition-section">
+        <div class="section-title-row">
+          <h2>Same Edition</h2>
+          <a href="/editions/2026-10-08/">Open issue &rsaquo;</a>
+        </div>
+        <div class="updates-list">
+          <a class="update-card" href="/articles/2026-10-08-daily-pi-adds-screenshot-questions-to-its-classifier-interface/">
+    <div class="update-stripe"></div>
+    <div class="update-main">
+      <div class="update-meta">
+        <span>Context</span>
+        <span class="source-plus">+11</span>
+        <span>Oct 8, 2026</span>
+      </div>
+      <h3>Pi Adds Screenshot Questions to Its Classifier Interface</h3>
+      <div class="update-receipt">
+        <span>earendil-works/pi</span>
+        <span class="branch-pill">evidence</span>
+      </div>
+      <div class="update-foot">
+        <span>11 sources</span>
+        <span>1 repo</span>
+        <span>2 linked commits</span>
+      </div>
+    </div>
+    <span class="update-arrow" aria-hidden="true">&rsaquo;</span>
+  </a>
+        </div>
+      </section>
+    </main>
+    <footer class="wrap site-footer">
+      <span>&copy; 2026 The Git Reporter</span>
+      <a href="/about/">About</a>
+      <a href="/battles/">Diff Derby</a>
+      <a href="/agent-pulse/">Agent Pulse</a>
+      <a href="/feed.xml">RSS</a>
+      <a href="https://x.com/TheGitReporter">Follow on X</a>
+      <a href="/articles.json">Manifest JSON</a>
+      <a href="/repos/">Sources</a>
+    </footer>
+  </div>
+</body>
+</html>

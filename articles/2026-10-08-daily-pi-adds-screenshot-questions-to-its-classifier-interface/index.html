@@ -1,0 +1,367 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Pi Adds Screenshot Questions to Its Classifier Interface | The Git Reporter</title>
+  <meta name="description" content="Pi 1.1.0 lets an agent script send images to OpenAI Decisions and receive answers it can use in code. The release expands a practical division of labor: the main model writes the task, a separate call judges a bounded question, and the script chooses what happens next.">
+  <meta name="robots" content="index,follow">
+  <link rel="canonical" href="https://thegitreporter.com/articles/2026-10-08-daily-pi-adds-screenshot-questions-to-its-classifier-interface/">
+  <link rel="alternate" type="application/rss+xml" title="The Git Reporter" href="https://thegitreporter.com/feed.xml">
+  <meta property="og:site_name" content="The Git Reporter">
+  <meta property="og:locale" content="en_US">
+  <meta property="og:title" content="Pi Adds Screenshot Questions to Its Classifier Interface | The Git Reporter">
+  <meta property="og:description" content="Pi 1.1.0 lets an agent script send images to OpenAI Decisions and receive answers it can use in code. The release expands a practical division of labor: the main model writes the task, a separate call judges a bounded question, and the script chooses what happens next.">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://thegitreporter.com/articles/2026-10-08-daily-pi-adds-screenshot-questions-to-its-classifier-interface/">
+  <meta property="og:image" content="https://thegitreporter.com/assets/social/2026-10-08-daily-pi-adds-screenshot-questions-to-its-classifier-interface-og.jpg">
+  <meta property="og:image:secure_url" content="https://thegitreporter.com/assets/social/2026-10-08-daily-pi-adds-screenshot-questions-to-its-classifier-interface-og.jpg">
+  <meta property="og:image:type" content="image/jpeg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="A screenshot and task feed a layout question through OpenAI Decisions; a probability result leads to a script choosing its next step.">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:site" content="@TheGitReporter">
+  <meta name="twitter:creator" content="@TheGitReporter">
+  <meta name="twitter:title" content="Pi Adds Screenshot Questions to Its Classifier Interface | The Git Reporter">
+  <meta name="twitter:description" content="Pi 1.1.0 lets an agent script send images to OpenAI Decisions and receive answers it can use in code. The release expands a practical division of labor: the main model writes the task, a separate call judges a bounded question, and the script chooses what happens next.">
+  <meta name="twitter:url" content="https://thegitreporter.com/articles/2026-10-08-daily-pi-adds-screenshot-questions-to-its-classifier-interface/">
+  <meta name="twitter:domain" content="thegitreporter.com">
+  <meta name="twitter:image" content="https://thegitreporter.com/assets/social/2026-10-08-daily-pi-adds-screenshot-questions-to-its-classifier-interface-og.jpg">
+  <meta name="twitter:image:alt" content="A screenshot and task feed a layout question through OpenAI Decisions; a probability result leads to a script choosing its next step.">
+  <meta property="article:published_time" content="2026-10-08T12:00:00Z">
+  <meta property="article:modified_time" content="2026-10-08T12:00:00Z">
+  <meta property="article:section" content="Daily Edition">
+  <meta property="article:tag" content="Memory">
+  <meta property="article:tag" content="Tools">
+  <meta property="article:tag" content="UX">
+  <meta property="article:tag" content="earendil-works/pi">
+  <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"https://thegitreporter.com/#organization","name":"The Git Reporter","url":"https://thegitreporter.com","logo":{"@type":"ImageObject","url":"https://thegitreporter.com/assets/mark.svg"},"sameAs":["https://x.com/TheGitReporter"]},{"@type":"WebSite","@id":"https://thegitreporter.com/#website","name":"The Git Reporter","url":"https://thegitreporter.com","publisher":{"@id":"https://thegitreporter.com/#organization"}},{"@type":"NewsArticle","mainEntityOfPage":{"@type":"WebPage","@id":"https://thegitreporter.com/articles/2026-10-08-daily-pi-adds-screenshot-questions-to-its-classifier-interface/"},"headline":"Pi Adds Screenshot Questions to Its Classifier Interface","description":"Pi 1.1.0 lets an agent script send images to OpenAI Decisions and receive answers it can use in code. The release expands a practical division of labor: the main model writes the task, a separate call judges a bounded question, and the script chooses what happens next.","image":["https://thegitreporter.com/assets/social/2026-10-08-daily-pi-adds-screenshot-questions-to-its-classifier-interface-og.jpg"],"datePublished":"2026-10-08T12:00:00Z","dateModified":"2026-10-08T12:00:00Z","author":[{"@type":"Organization","name":"The Git Reporter","url":"https://thegitreporter.com"}],"publisher":{"@type":"Organization","@id":"https://thegitreporter.com/#organization","name":"The Git Reporter","url":"https://thegitreporter.com","logo":{"@type":"ImageObject","url":"https://thegitreporter.com/assets/mark.svg"},"sameAs":["https://x.com/TheGitReporter"]},"articleSection":"Daily Edition","keywords":"Memory, Tools, UX, earendil-works/pi"}]}</script>
+  <link rel="icon" href="/assets/mark.svg">
+  <link rel="stylesheet" href="/assets/site.css?v=2026-10-03-article-questions">
+  <script defer src="/assets/feedback.js?v=2026-10-03-article-questions"></script>
+  <script defer src="/assets/article-questions.js?v=2026-10-03-article-questions"></script>
+  <script defer src="/assets/analytics.js?v=2026-10-03-article-questions"></script>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-CH19T7M0T1"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){window.dataLayer.push(arguments);}
+    gtag("js", new Date());
+    gtag("config", "G-CH19T7M0T1");
+  </script>
+</head>
+<body>
+  <div class="site">
+    <header class="site-header" id="top">
+      <div class="wrap utility-row">
+        <a class="icon-link menu-icon" href="/archive/" aria-label="Open edition history"><span></span><span></span><span></span></a>
+        <a class="icon-link archive-icon" href="/archive/" aria-label="Open edition history"></a>
+      </div>
+      <div class="wrap masthead-lockup">
+        <a class="masthead-title" href="/">THE GIT REPORTER</a>
+        <div class="masthead-ornament" aria-hidden="true"></div>
+      </div>
+      <div class="wrap nav-wrap">
+        <nav class="paper-nav" aria-label="Primary navigation">
+    <a class=""  href="/">Stories</a><a class=""  href="/today/">Today</a><a class="active" aria-current="page" href="/archive/">Editions</a><a class=""  href="/about/">About</a><a class=""  href="/battles/">Diff Derby</a><a class=""  href="/agent-pulse/">Agent Pulse</a><a class=""  href="/atlas/">Agent Atlas</a><a class=""  href="/repos/">Repos</a>
+  </nav>
+        <div class="nav-rule"></div>
+      </div>
+    </header>
+    <main class="wrap page-shell article-page">
+      <section class="page-hero story-front">
+        <div class="story-topline">
+          <span>Daily Edition</span>
+          <span>Sources <strong>+11</strong></span>
+        </div>
+        <h1>Pi Adds Screenshot Questions to Its Classifier Interface</h1>
+        <p class="summary">Pi 1.1.0 lets an agent script send images to OpenAI Decisions and receive answers it can use in code. The release expands a practical division of labor: the main model writes the task, a separate call judges a bounded question, and the script chooses what happens next.</p>
+        <figure class="story-illustration article-illustration">
+    <img src="/assets/illustrations/2026-10-08-pi-adds-screenshot-questions-to-its-classifier-interface-diagram-punk-v1.png" alt="A screenshot and task feed a layout question through OpenAI Decisions; a probability result leads to a script choosing its next step." loading="lazy" decoding="async">
+    <figcaption><span>Diagram Punk</span>Pi supplies a typed image-question interface; the script owns the next step.</figcaption>
+  </figure>
+        <div class="receipt">
+    <div class="receipt-line">
+      <span class="receipt-icon">repo</span>
+      <span class="receipt-main">earendil-works/pi</span>
+      <span class="branch-pill">evidence</span>
+    </div>
+    <div class="receipt-line receipt-muted">
+      <span>11 source signals</span>
+      <span>1 repo</span>
+      <span>2 linked commits</span>
+    </div>
+    <div class="commit-line">Evidence: 2 linked commits / October 8, 2026 / Daily Edition</div>
+  </div>
+        <div class="article-route-row">
+          <a href="/editions/2026-10-08/">Open Edition</a>
+          <a href="#evidence">Evidence below</a>
+          <button type="button" class="ask-inline" data-ask-entry data-ask-open aria-haspopup="dialog" aria-controls="article-questions" hidden>Ask about this article ↗</button>
+        </div>
+      </section>
+      <section class="story-reader">
+        <article class="story-shell story-body">
+          <p>Pi, the open-source coding agent in <code>earendil-works/pi</code>, has released an interface for asking narrow questions about screenshots from inside its agent-written scripts. Its <a href="https://github.com/earendil-works/pi/releases/tag/v1.1.0">1.1.0 release</a>, published shortly after midnight October 8 in Paris, adds image input and OpenAI Decisions to the classifier machinery that those scripts can call.</p>
+
+<p>The project's <a href="https://github.com/earendil-works/pi/blob/ce8972a0e99cab79f2620a594a1c17baef436c67/packages/coding-agent/docs/codemode.md">example</a> makes the purpose concrete: read a screenshot of a redesigned settings page, attach the task description, and ask whether overlapping, cut-off or misaligned elements make the layout broken. The answer arrives as a probability for that Boolean question. A script can use it to select its next step without first extracting a verdict from a paragraph.</p>
+
+<p>That opens a useful experiment for builders who already ask agents to inspect interfaces: give a recurring visual check its own question and result. The published example demonstrates how to make the request. It does not demonstrate that the model reliably catches layout defects.</p>
+
+<h2>A new input for an existing job</h2>
+<p>Pi introduced its typed classifier interface on <a href="https://github.com/earendil-works/pi/commit/a328aa89ad6e6dc5c5628ff896769532ed3d29df">September 23</a>. The interface already accepted structured state and questions requesting choices, scores or Boolean judgments. Our <a href="/articles/2026-09-29-daily-inside-typesafe-s-model-comparison-what-the-adapter-makes-you-pay-for/">September 29 reporting</a> followed a related question: whether using a separate decision model actually improves the economics of a completed workflow.</p>
+
+<p>The <a href="https://github.com/earendil-works/pi/commit/ce8972a0e99cab79f2620a594a1c17baef436c67">October 7 change</a> adds something more specific than another model name. Classifier requests can now include images alongside that state, and a new adapter sends them to OpenAI's Decisions endpoint. A classifier that cannot accept images returns an error instead of silently discarding them.</p>
+
+<p>In Pi's codemode, the main agent writes a JavaScript script that can call tools and classifier models. The script might obtain a screenshot, ask a question and return only the useful result to the main conversation. It remains responsible for interpreting that result. This change does not automatically install a visual reviewer, choose a confidence threshold or route difficult tasks to a stronger model.</p>
+
+<h2>The beta now has a released client path</h2>
+<p>OpenAI's <a href="https://developers.openai.com/api/docs/changelog">October 6 changelog</a> records the Decisions API's beta release, following its limited preview. OpenAI describes the service as a faster route to bounded answers. Its <a href="https://developers.openai.com/api/docs/guides/decisions">current guide</a> lists GPT-6 Luna and predicate, choice and score questions, with text and image input. We have not measured the vendor's speed claim or made an authenticated request.</p>
+
+<p>Pi's integration is available beyond a merged development change. We downloaded the published <a href="https://registry.npmjs.org/@earendil-works/pi-ai/-/pi-ai-1.1.0.tgz">pi-ai 1.1.0</a> and <a href="https://registry.npmjs.org/@earendil-works/pi-coding-agent/-/pi-coding-agent-1.1.0.tgz">coding-agent 1.1.0</a> packages, checked their hashes against registry metadata, and found the compiled adapter and script support. We did not install or execute those packages.</p>
+
+<p>Access has a separate boundary. Pi's <a href="https://github.com/earendil-works/pi/blob/ce8972a0e99cab79f2620a594a1c17baef436c67/packages/ai/src/providers/openai.ts">provider code</a> hides classifier entries when the OpenAI credential is a ChatGPT sign-in token. This path requires an API key. Being signed into Pi with a ChatGPT account is therefore insufficient, and the existence of a catalog entry does not establish access for every account.</p>
+
+<h2>What a typed answer carries</h2>
+<p>The <a href="https://github.com/earendil-works/pi/blob/ce8972a0e99cab79f2620a594a1c17baef436c67/packages/ai/src/api/openai-decisions.ts">adapter</a> puts the structured state into text and attaches images as inline data in the same user message. It translates Pi's Boolean questions into OpenAI predicates, preserving the caller's descriptions of what true and false mean in the instructions.</p>
+
+<p>The returned shape depends on the question. A choice includes a selected label, option probabilities and confidence. A score returns a number and confidence. A Boolean returns a probability. These are useful values for code, but their presence does not establish that confidence matches real-world correctness.</p>
+
+<p>A refusal also needs its own branch. If one requested answer is refused or malformed, this adapter clears the answer map and returns an error while retaining any reported usage. The script must inspect the result before acting; the adapter does not substitute another model automatically.</p>
+
+<p>The <a href="https://github.com/earendil-works/pi/blob/ce8972a0e99cab79f2620a594a1c17baef436c67/packages/ai/test/openai-decisions.test.ts">upstream tests</a> exercise image serialization, answer matching, refusals and error handling with mocked responses. We inspected them but did not run them. They establish the intended client contract, not an evaluation of visual judgment or an audit of OpenAI's closed model.</p>
+
+<p>The next useful comparison is a small set of fixed screenshots with known defects and identical criteria, run through both the classifier and chat paths. Count missed defects, false alarms, latency and the work needed to handle uncertain answers. Pi has supplied the interface that makes such a comparison practical. Whether a separate visual judgment earns a place in the workflow depends on what happens after the number comes back.</p>
+        </article>
+      </section>
+      <section class="article-questions-invitation" data-ask-entry hidden>
+    <h2>Keep asking questions.</h2>
+    <p>Explore the story and its evidence in your own ChatGPT conversation.</p>
+    <button class="paper-button" type="button" data-ask-open aria-haspopup="dialog" aria-controls="article-questions">Ask about this article <span aria-hidden="true">↗</span></button>
+  </section>
+  <dialog class="article-questions" id="article-questions" aria-labelledby="ask-title"
+    data-title="Pi Adds Screenshot Questions to Its Classifier Interface" data-date="2026-10-08"
+    data-url="https://thegitreporter.com/articles/2026-10-08-daily-pi-adds-screenshot-questions-to-its-classifier-interface/"
+    data-summary="Pi 1.1.0 lets an agent script send images to OpenAI Decisions and receive answers it can use in code. The release expands a practical division of labor: the main model writes the task, a separate call judges a bounded question, and the script chooses what happens next.">
+    <div class="ask-heading">
+      <h2 id="ask-title" tabindex="-1" autofocus>Ask about this article</h2>
+      <button type="button" class="ask-close" aria-label="Close question box">×</button>
+    </div>
+    <form class="ask-form">
+      <div class="ask-content">
+        <p class="ask-article-title">Pi Adds Screenshot Questions to Its Classifier Interface</p>
+        <div class="ask-suggestions" role="group" aria-label="Suggested questions">
+          <button type="button" data-question="Explain this article in plain language. What changed?">Explain simply</button>
+          <button type="button" data-question="Why does this change matter, and who is affected?">Why does this matter?</button>
+          <button type="button" data-question="What is the strongest counterargument to this article, and what evidence would change its conclusion?">Challenge the argument</button>
+        </div>
+        <label for="ask-question">Your question</label>
+        <textarea id="ask-question" rows="3" maxlength="2000" required placeholder="What would you like to understand?" aria-describedby="ask-context"></textarea>
+        <p id="ask-context" class="ask-note">Article link and summary included. Continue using your ChatGPT account; you may need to sign in.</p>
+        <details class="ask-manual" hidden>
+          <summary>Prepared text for copying</summary>
+          <textarea class="ask-copy-text" rows="5" readonly aria-label="Prepared question and article context"></textarea>
+        </details>
+      </div>
+      <div class="ask-actions">
+        <p class="ask-status" role="status" aria-live="polite"></p>
+        <button class="paper-button primary" type="submit">Continue in ChatGPT ↗</button>
+        <div class="ask-copy-actions">
+          <button type="button" data-ask-copy="summary">Copy question + context</button>
+          <button type="button" data-ask-copy="article">Copy article + question</button>
+        </div>
+        <p class="ask-note">If your question doesn’t appear in ChatGPT, copy it here and paste it there.</p>
+      </div>
+    </form>
+  </dialog>
+      <section class="evidence-section" id="evidence" aria-labelledby="evidence-title">
+    <div class="evidence-head">
+      <div>
+        <div class="eyebrow">Evidence Trail</div>
+        <h2 id="evidence-title">Receipts below the story</h2>
+        <p>The article above is the public narrative. This section keeps the source trail and limits on the same page.</p>
+      </div>
+      <a class="paper-button" href="/editions/2026-10-08/">Edition</a>
+    </div>
+    <div class="evidence-table evidence-summary">
+      <div class="evidence-line"><span>Date</span><span>October 8, 2026</span></div>
+      <div class="evidence-line"><span>Lane</span><span>Daily Edition</span></div>
+      <div class="evidence-line"><span>Confidence</span><span>91%</span></div>
+      <div class="evidence-line"><span>Sources</span><span>11</span></div>
+      <div class="evidence-line"><span>Repos</span><span>earendil-works/pi</span></div>
+    </div>
+    <div class="markdown evidence-copy evidence-copy-block">
+      <h2>Primary Evidence</h2>
+<ul>
+<li>September 23 classifier baseline: <a href="https://github.com/earendil-works/pi/commit/a328aa89ad6e6dc5c5628ff896769532ed3d29df">https://github.com/earendil-works/pi/commit/a328aa89ad6e6dc5c5628ff896769532ed3d29df</a>
+<ul>
+<li>Shows: typed classifier requests for JSON state predate the October image addition.
+</li>
+</ul>
+</li>
+<li>October 7 image-input and Decisions change: <a href="https://github.com/earendil-works/pi/commit/ce8972a0e99cab79f2620a594a1c17baef436c67">https://github.com/earendil-works/pi/commit/ce8972a0e99cab79f2620a594a1c17baef436c67</a>
+<ul>
+<li>Shows: optional images, OpenAI adapter, provider availability handling and associated tests.
+</li>
+</ul>
+</li>
+<li>Pi 1.1.0 release: <a href="https://github.com/earendil-works/pi/releases/tag/v1.1.0">https://github.com/earendil-works/pi/releases/tag/v1.1.0</a>
+<ul>
+<li>Shows: containing release, published October 7 at 22:26:31 UTC, October 8 in Paris.
+</li>
+</ul>
+</li>
+<li>Codemode screenshot example: <a href="https://github.com/earendil-works/pi/blob/ce8972a0e99cab79f2620a594a1c17baef436c67/packages/coding-agent/docs/codemode.md">https://github.com/earendil-works/pi/blob/ce8972a0e99cab79f2620a594a1c17baef436c67/packages/coding-agent/docs/codemode.md</a>
+<ul>
+<li>Shows: screenshot input, task context and a Boolean layout question in models.classify.
+</li>
+</ul>
+</li>
+<li>Decisions request and response adapter: <a href="https://github.com/earendil-works/pi/blob/ce8972a0e99cab79f2620a594a1c17baef436c67/packages/ai/src/api/openai-decisions.ts">https://github.com/earendil-works/pi/blob/ce8972a0e99cab79f2620a594a1c17baef436c67/packages/ai/src/api/openai-decisions.ts</a>
+<ul>
+<li>Shows: image serialization, question conversion, answer shapes, error result and usage retention.
+</li>
+</ul>
+</li>
+<li>Provider authentication handling: <a href="https://github.com/earendil-works/pi/blob/ce8972a0e99cab79f2620a594a1c17baef436c67/packages/ai/src/providers/openai.ts">https://github.com/earendil-works/pi/blob/ce8972a0e99cab79f2620a594a1c17baef436c67/packages/ai/src/providers/openai.ts</a>
+<ul>
+<li>Shows: classifier entries are hidden for ChatGPT OAuth credentials.
+</li>
+</ul>
+</li>
+<li>Mocked adapter tests: <a href="https://github.com/earendil-works/pi/blob/ce8972a0e99cab79f2620a594a1c17baef436c67/packages/ai/test/openai-decisions.test.ts">https://github.com/earendil-works/pi/blob/ce8972a0e99cab79f2620a594a1c17baef436c67/packages/ai/test/openai-decisions.test.ts</a>
+<ul>
+<li>Shows: intended request, refusal and error behavior with simulated responses.
+</li>
+</ul>
+</li>
+<li>Downloadable AI package: <a href="https://registry.npmjs.org/@earendil-works/pi-ai/-/pi-ai-1.1.0.tgz">https://registry.npmjs.org/@earendil-works/pi-ai/-/pi-ai-1.1.0.tgz</a>
+<ul>
+<li>Shows: compiled adapter present in published package; downloaded hash matches registry metadata.
+</li>
+</ul>
+</li>
+<li>Downloadable coding-agent package: <a href="https://registry.npmjs.org/@earendil-works/pi-coding-agent/-/pi-coding-agent-1.1.0.tgz">https://registry.npmjs.org/@earendil-works/pi-coding-agent/-/pi-coding-agent-1.1.0.tgz</a>
+<ul>
+<li>Shows: released codemode implementation and image example; downloaded hash matches registry metadata.
+</li>
+</ul>
+</li>
+<li>OpenAI API changelog: <a href="https://developers.openai.com/api/docs/changelog">https://developers.openai.com/api/docs/changelog</a>
+<ul>
+<li>Shows: October 6 Decisions beta announcement.
+</li>
+</ul>
+</li>
+<li>OpenAI Decisions guide: <a href="https://developers.openai.com/api/docs/guides/decisions">https://developers.openai.com/api/docs/guides/decisions</a>
+<ul>
+<li>Shows: advertised model and input/question contract, distinct from independently measured service behavior.
+</li>
+</ul>
+</li>
+</ul>
+<h2>Evidence Limits</h2>
+<ul>
+<li>Source and mocked test definitions were inspected; packages were downloaded but not installed or executed. No live API call or visual-quality evaluation was performed.
+</li>
+<li>A release and client contract do not prove account access, calibrated probabilities, model internals, speed or successful screenshot review.
+</li>
+<li>Pi already had classifiers. The new claim is images and an additional provider through that interface, not invention of classification or vision.
+</li>
+<li>OpenAI's performance claims remain vendor claims; this article supplies no matched benchmark or adoption estimate.
+</li>
+</ul>
+    </div>
+  </section>
+      <section class="related-edition-section atlas-context-section">
+    <div class="section-title-row">
+      <h2>Atlas Context</h2>
+      <a href="/atlas/">Open Atlas &rsaquo;</a>
+    </div>
+    <div class="updates-list">
+      <a class="article-card" href="/atlas/the-human-interface/">
+            <div class="article-meta"><span class="lane">Agent Atlas</span><span>Chapter 8</span></div>
+            <h3>The Human Control Loop</h3>
+            <p>A useful interface exposes active work, gives intervention a defined runtime effect, preserves evidence during correction, and resumes the intended session.</p>
+          </a>
+    </div>
+  </section>
+      <section class="reader-feedback"
+    data-tgr-feedback
+    data-article-slug="2026-10-08-daily-pi-adds-screenshot-questions-to-its-classifier-interface"
+    data-article-title="Pi Adds Screenshot Questions to Its Classifier Interface"
+    data-article-url="/articles/2026-10-08-daily-pi-adds-screenshot-questions-to-its-classifier-interface/"
+    data-edition-date="2026-10-08"
+    data-lane="Daily Edition"
+    data-tags="Memory,Tools,UX"
+    data-repos="earendil-works/pi">
+    <div class="reader-feedback-head">
+      <div>
+        <div class="eyebrow">Letters &amp; Corrections</div>
+        <h2>Send a note to the desk</h2>
+      </div>
+      <p>Corrections, missing context, or a follow-up lead.</p>
+    </div>
+    <form class="feedback-form">
+      <div class="feedback-votes" role="group" aria-label="Choose signal type">
+        <button class="feedback-choice" type="button" data-vote="follow-up" aria-pressed="false">
+          <span aria-hidden="true">+</span>
+          <span>Follow-up</span>
+        </button>
+        <button class="feedback-choice" type="button" data-vote="correction" aria-pressed="false">
+          <span aria-hidden="true">!</span>
+          <span>Correction</span>
+        </button>
+      </div>
+      <label class="feedback-comment">
+        <span>Note for the editor</span>
+        <textarea name="comment" rows="3" maxlength="320" placeholder="What did we miss, or what should we follow next?"></textarea>
+      </label>
+      <div class="feedback-submit-row">
+        <p class="feedback-status" aria-live="polite"></p>
+        <button class="paper-button primary feedback-submit" type="submit">Send to desk</button>
+      </div>
+    </form>
+  </section>
+      <section class="related-edition-section">
+        <div class="section-title-row">
+          <h2>Same Edition</h2>
+          <a href="/editions/2026-10-08/">Open issue &rsaquo;</a>
+        </div>
+        <div class="updates-list">
+          <a class="update-card" href="/articles/2026-10-08-daily-a-fast-model-can-send-the-agent-back-to-ask/">
+    <div class="update-stripe"></div>
+    <div class="update-main">
+      <div class="update-meta">
+        <span>Reported</span>
+        <span class="source-plus">+15</span>
+        <span>Oct 8, 2026</span>
+      </div>
+      <h3>A Fast Model Can Send the Agent Back to Ask</h3>
+      <div class="update-receipt">
+        <span>strands-labs/strands-decider + 2 more</span>
+        <span class="branch-pill">evidence</span>
+      </div>
+      <div class="update-foot">
+        <span>15 sources</span>
+        <span>3 repos</span>
+        <span>commit de3ded2</span>
+      </div>
+    </div>
+    <span class="update-arrow" aria-hidden="true">&rsaquo;</span>
+  </a>
+        </div>
+      </section>
+    </main>
+    <footer class="wrap site-footer">
+      <span>&copy; 2026 The Git Reporter</span>
+      <a href="/about/">About</a>
+      <a href="/battles/">Diff Derby</a>
+      <a href="/agent-pulse/">Agent Pulse</a>
+      <a href="/feed.xml">RSS</a>
+      <a href="https://x.com/TheGitReporter">Follow on X</a>
+      <a href="/articles.json">Manifest JSON</a>
+      <a href="/repos/">Sources</a>
+    </footer>
+  </div>
+</body>
+</html>
