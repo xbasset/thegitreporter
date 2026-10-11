@@ -1,0 +1,383 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Unsloth Adds Shared Fine-Tuning for Seven Text-Diffusion Families | The Git Reporter</title>
+  <meta name="description" content="A new trainer connects familiar datasets to distinct learning recipes for models that refine text instead of only predicting the next token. The gain is less custom integration—and a clearer view of the differences that still matter.">
+  <meta name="robots" content="index,follow">
+  <link rel="canonical" href="https://thegitreporter.com/articles/2026-10-11-daily-unsloth-adds-shared-fine-tuning-for-seven-text-diffusion-families/">
+  <link rel="alternate" type="application/rss+xml" title="The Git Reporter" href="https://thegitreporter.com/feed.xml">
+  <meta property="og:site_name" content="The Git Reporter">
+  <meta property="og:locale" content="en_US">
+  <meta property="og:title" content="Unsloth Adds Shared Fine-Tuning for Seven Text-Diffusion Families | The Git Reporter">
+  <meta property="og:description" content="A new trainer connects familiar datasets to distinct learning recipes for models that refine text instead of only predicting the next token. The gain is less custom integration—and a clearer view of the differences that still matter.">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://thegitreporter.com/articles/2026-10-11-daily-unsloth-adds-shared-fine-tuning-for-seven-text-diffusion-families/">
+  <meta property="og:image" content="https://thegitreporter.com/assets/social/2026-10-11-daily-unsloth-adds-shared-fine-tuning-for-seven-text-diffusion-families-og.jpg">
+  <meta property="og:image:secure_url" content="https://thegitreporter.com/assets/social/2026-10-11-daily-unsloth-adds-shared-fine-tuning-for-seven-text-diffusion-families-og.jpg">
+  <meta property="og:image:type" content="image/jpeg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Training examples enter DiffusionTrainer and branch into masked-token, noisy-block and Gemma-canvas recipe groups, representing seven model families.">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:site" content="@TheGitReporter">
+  <meta name="twitter:creator" content="@TheGitReporter">
+  <meta name="twitter:title" content="Unsloth Adds Shared Fine-Tuning for Seven Text-Diffusion Families | The Git Reporter">
+  <meta name="twitter:description" content="A new trainer connects familiar datasets to distinct learning recipes for models that refine text instead of only predicting the next token. The gain is less custom integration—and a clearer view of the differences that still matter.">
+  <meta name="twitter:url" content="https://thegitreporter.com/articles/2026-10-11-daily-unsloth-adds-shared-fine-tuning-for-seven-text-diffusion-families/">
+  <meta name="twitter:domain" content="thegitreporter.com">
+  <meta name="twitter:image" content="https://thegitreporter.com/assets/social/2026-10-11-daily-unsloth-adds-shared-fine-tuning-for-seven-text-diffusion-families-og.jpg">
+  <meta name="twitter:image:alt" content="Training examples enter DiffusionTrainer and branch into masked-token, noisy-block and Gemma-canvas recipe groups, representing seven model families.">
+  <meta property="article:published_time" content="2026-10-11T12:00:00Z">
+  <meta property="article:modified_time" content="2026-10-11T12:00:00Z">
+  <meta property="article:section" content="Daily Edition">
+  <meta property="article:tag" content="Memory">
+  <meta property="article:tag" content="Delegation">
+  <meta property="article:tag" content="Tools">
+  <meta property="article:tag" content="UX">
+  <meta property="article:tag" content="unslothai/unsloth">
+  <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"https://thegitreporter.com/#organization","name":"The Git Reporter","url":"https://thegitreporter.com","logo":{"@type":"ImageObject","url":"https://thegitreporter.com/assets/mark.svg"},"sameAs":["https://x.com/TheGitReporter"]},{"@type":"WebSite","@id":"https://thegitreporter.com/#website","name":"The Git Reporter","url":"https://thegitreporter.com","publisher":{"@id":"https://thegitreporter.com/#organization"}},{"@type":"NewsArticle","mainEntityOfPage":{"@type":"WebPage","@id":"https://thegitreporter.com/articles/2026-10-11-daily-unsloth-adds-shared-fine-tuning-for-seven-text-diffusion-families/"},"headline":"Unsloth Adds Shared Fine-Tuning for Seven Text-Diffusion Families","description":"A new trainer connects familiar datasets to distinct learning recipes for models that refine text instead of only predicting the next token. The gain is less custom integration—and a clearer view of the differences that still matter.","image":["https://thegitreporter.com/assets/social/2026-10-11-daily-unsloth-adds-shared-fine-tuning-for-seven-text-diffusion-families-og.jpg"],"datePublished":"2026-10-11T12:00:00Z","dateModified":"2026-10-11T12:00:00Z","author":[{"@type":"Organization","name":"The Git Reporter","url":"https://thegitreporter.com"}],"publisher":{"@type":"Organization","@id":"https://thegitreporter.com/#organization","name":"The Git Reporter","url":"https://thegitreporter.com","logo":{"@type":"ImageObject","url":"https://thegitreporter.com/assets/mark.svg"},"sameAs":["https://x.com/TheGitReporter"]},"articleSection":"Daily Edition","keywords":"Memory, Delegation, Tools, UX, unslothai/unsloth"}]}</script>
+  <link rel="icon" href="/assets/mark.svg">
+  <link rel="stylesheet" href="/assets/site.css?v=2026-10-03-article-questions">
+  <script defer src="/assets/feedback.js?v=2026-10-03-article-questions"></script>
+  <script defer src="/assets/article-questions.js?v=2026-10-03-article-questions"></script>
+  <script defer src="/assets/analytics.js?v=2026-10-03-article-questions"></script>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-CH19T7M0T1"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){window.dataLayer.push(arguments);}
+    gtag("js", new Date());
+    gtag("config", "G-CH19T7M0T1");
+  </script>
+</head>
+<body>
+  <div class="site">
+    <header class="site-header" id="top">
+      <div class="wrap utility-row">
+        <a class="icon-link menu-icon" href="/archive/" aria-label="Open edition history"><span></span><span></span><span></span></a>
+        <a class="icon-link archive-icon" href="/archive/" aria-label="Open edition history"></a>
+      </div>
+      <div class="wrap masthead-lockup">
+        <a class="masthead-title" href="/">THE GIT REPORTER</a>
+        <div class="masthead-ornament" aria-hidden="true"></div>
+      </div>
+      <div class="wrap nav-wrap">
+        <nav class="paper-nav" aria-label="Primary navigation">
+    <a class=""  href="/">Stories</a><a class=""  href="/today/">Today</a><a class="active" aria-current="page" href="/archive/">Editions</a><a class=""  href="/about/">About</a><a class=""  href="/battles/">Diff Derby</a><a class=""  href="/agent-pulse/">Agent Pulse</a><a class=""  href="/atlas/">Agent Atlas</a><a class=""  href="/repos/">Repos</a>
+  </nav>
+        <div class="nav-rule"></div>
+      </div>
+    </header>
+    <main class="wrap page-shell article-page">
+      <section class="page-hero story-front">
+        <div class="story-topline">
+          <span>Daily Edition</span>
+          <span>Sources <strong>+13</strong></span>
+        </div>
+        <h1>Unsloth Adds Shared Fine-Tuning for Seven Text-Diffusion Families</h1>
+        <p class="summary">A new trainer connects familiar datasets to distinct learning recipes for models that refine text instead of only predicting the next token. The gain is less custom integration—and a clearer view of the differences that still matter.</p>
+        <figure class="story-illustration article-illustration">
+    <img src="/assets/illustrations/2026-10-11-unsloth-adds-shared-fine-tuning-for-seven-text-diffusion-families-diagram-punk-v1.png" alt="Training examples enter DiffusionTrainer and branch into masked-token, noisy-block and Gemma-canvas recipe groups, representing seven model families." loading="lazy" decoding="async">
+    <figcaption><span>Diagram Punk</span>a shared training interface keeps the model families’ different learning recipes visible. Merged source does not establish a quality gain.</figcaption>
+  </figure>
+        <div class="receipt">
+    <div class="receipt-line">
+      <span class="receipt-icon">repo</span>
+      <span class="receipt-main">unslothai/unsloth</span>
+      <span class="branch-pill">evidence</span>
+    </div>
+    <div class="receipt-line receipt-muted">
+      <span>13 source signals</span>
+      <span>1 repo</span>
+      <span>2 linked commits</span>
+    </div>
+    <div class="commit-line">Evidence: 2 linked commits / October 11, 2026 / Daily Edition</div>
+  </div>
+        <div class="article-route-row">
+          <a href="/editions/2026-10-11/">Open Edition</a>
+          <a href="#evidence">Evidence below</a>
+          <button type="button" class="ask-inline" data-ask-entry data-ask-open aria-haspopup="dialog" aria-controls="article-questions" hidden>Ask about this article ↗</button>
+        </div>
+      </section>
+      <section class="story-reader">
+        <article class="story-shell story-body">
+          <p>Unsloth has merged a common fine-tuning interface for seven families of text-diffusion models in <code>unslothai/unsloth</code>. The <a href="https://github.com/unslothai/unsloth/commit/cd14635e2cc661373a4dbf2c05179a3ef7c47d00">October 10 change</a> adds <code>DiffusionTrainer</code>, which accepts familiar training examples but selects a learning recipe appropriate to the model. Its profiles cover DiffusionGemma, LLaDA, LLaDA-MoE, Dream, Nemotron-Labs-Diffusion, LLaDA2 and SDAR.</p>
+
+<p>That gives researchers trying to customize these alternatives a shared place to begin. Instead of rebuilding the dataset and training plumbing around each project's example, they can use a common interface for prompt-and-answer or chat data. Underneath it, the models still learn in different ways. Making those differences explicit is the useful part of the integration.</p>
+
+<p>The boundary is merged source. The latest inspected <a href="https://github.com/unslothai/unsloth/releases/tag/v0.1.905-beta">Desktop beta, published October 8</a>, predates the change; we have not verified inclusion in a published Python package. This is a development to evaluate, not a claim that every existing installation now offers the trainer.</p>
+
+<h2>A familiar dataset, a different lesson</h2>
+
+<p>A conventional language model is usually trained to predict the next token from preceding text. Text-diffusion models instead learn to recover text from a corrupted version, with important variations in what is hidden, what remains visible and how the error is calculated. That is why changing the model name in an ordinary training script is insufficient.</p>
+
+<p>Unsloth's <a href="https://github.com/unslothai/unsloth/blob/cd14635e2cc661373a4dbf2c05179a3ef7c47d00/unsloth/models/diffusion_trainer.py">new trainer</a> reuses the dataset handling of Hugging Face TRL's supervised fine-tuning machinery. It delegates the actual learning objective to a model profile. The shared interface standardizes how an experiment is assembled; it does not flatten the models into one algorithm.</p>
+
+<p>For the <a href="https://github.com/unslothai/unsloth/blob/cd14635e2cc661373a4dbf2c05179a3ef7c47d00/unsloth/models/diffusion_masked.py">masked-token families</a>, the recipe hides selected answer tokens and trains the model to recover them. Dream needs a different alignment of predictions. The <a href="https://github.com/unslothai/unsloth/blob/cd14635e2cc661373a4dbf2c05179a3ef7c47d00/unsloth/models/diffusion_block.py">block-based recipes</a> also control which clean blocks a noisy block can see, so later answers do not leak into an earlier training step.</p>
+
+<p>DiffusionGemma has another arrangement: a context-reading encoder and a response canvas containing randomly replaced tokens. Its <a href="https://github.com/unslothai/unsloth/blob/cd14635e2cc661373a4dbf2c05179a3ef7c47d00/unsloth/models/diffusion_gemma_objective.py">objective</a> combines canvas reconstruction with an encoder learning term and optional self-conditioning, where an earlier prediction helps a subsequent pass.</p>
+
+<p>The data consequences are concrete. The trainer disables packing unrelated examples into one sequence, because bidirectional attention could let them see one another. Gemma's canvas objective selects the last contiguous supervised response span. A chat dataset can therefore fit the input format without every assistant turn becoming an equivalent training target across all families. Researchers need to inspect which answer their chosen recipe actually teaches.</p>
+
+<h2>The canvas that never arrived</h2>
+
+<p>A small integration error explains why this work is more useful than a longer supported-model list. In a <a href="https://github.com/unslothai/unsloth/issues/7515">July 27 report</a>, a user traced Unsloth's DiffusionGemma Sudoku notebook and asked where its corrupted training canvas went. The notebook supplied an argument named <code>canvas_ids</code>; the model expected <code>decoder_input_ids</code>. The intended partially corrupted solution was being discarded.</p>
+
+<p>The new objective passes the canvas through the expected argument. A <a href="https://github.com/unslothai/unsloth/blob/cd14635e2cc661373a4dbf2c05179a3ef7c47d00/tests/diffusion/test_diffusion_gemma.py">regression test</a> checks that changing this input changes the model's output. A <a href="https://github.com/unslothai/notebooks/pull/393">companion notebook correction</a>, also merged October 10, replaces the custom training loop with the shared trainer and aligns other parts of its recipe.</p>
+
+<p>The author reports a small held-out Sudoku comparison favoring the replacement over the old loop. It changed several training details together and used one seed, so it does not isolate the effect of the argument fix or establish a general quality improvement. The stronger source-visible finding is that the intended training input now reaches the right part of the model.</p>
+
+<h2>Customization existed; the common machinery is new</h2>
+
+<p>Google's <a href="https://developers.googleblog.com/en/diffusiongemma-the-developer-guide/">June 10 developer guide</a> already offered a JAX fine-tuning recipe for DiffusionGemma. Unsloth added its own <a href="https://github.com/unslothai/unsloth/commit/fbaf5277870d79651c7787d3a25099d5cb0ff39d">loading and LoRA support on June 11</a>. LoRA trains small adapter weights rather than updating every model parameter. October's change consolidates and broadens that work; it does not make diffusion customization possible for the first time.</p>
+
+<p>Nor does it establish a new speed advantage. Google's <a href="https://blog.google/innovation-and-ai/technology/developers-tools/diffusion-gemma-faster-text-generation/">launch claim</a> concerned faster generation on dedicated GPUs, especially at low concurrency. Training is a different workload. Unsloth's inspected <a href="https://github.com/unslothai/unsloth/blob/cd14635e2cc661373a4dbf2c05179a3ef7c47d00/unsloth/models/diffusion.py">loader</a> explicitly keeps this path separate from its usual autoregressive kernel and compilation optimizations.</p>
+
+<p>We inspected the implementation, earlier loader, notebook correction and test definitions. We did not train the models or execute the suite. Some comparisons require an external reference file or supplied tiny checkpoints; their presence in the repository is not an independently reproduced result.</p>
+
+<p>The practical gain is a less bespoke starting point for asking which diffusion model can learn a particular task. The next useful demonstration is a pinned, released setup that preserves the intended training targets and improves a genuinely held-out task, with memory and training cost recorded. A common interface makes that comparison easier to construct. The result still has to be earned separately by each recipe.</p>
+        </article>
+      </section>
+      <section class="article-questions-invitation" data-ask-entry hidden>
+    <h2>Keep asking questions.</h2>
+    <p>Explore the story and its evidence in your own ChatGPT conversation.</p>
+    <button class="paper-button" type="button" data-ask-open aria-haspopup="dialog" aria-controls="article-questions">Ask about this article <span aria-hidden="true">↗</span></button>
+  </section>
+  <dialog class="article-questions" id="article-questions" aria-labelledby="ask-title"
+    data-title="Unsloth Adds Shared Fine-Tuning for Seven Text-Diffusion Families" data-date="2026-10-11"
+    data-url="https://thegitreporter.com/articles/2026-10-11-daily-unsloth-adds-shared-fine-tuning-for-seven-text-diffusion-families/"
+    data-summary="A new trainer connects familiar datasets to distinct learning recipes for models that refine text instead of only predicting the next token. The gain is less custom integration—and a clearer view of the differences that still matter.">
+    <div class="ask-heading">
+      <h2 id="ask-title" tabindex="-1" autofocus>Ask about this article</h2>
+      <button type="button" class="ask-close" aria-label="Close question box">×</button>
+    </div>
+    <form class="ask-form">
+      <div class="ask-content">
+        <p class="ask-article-title">Unsloth Adds Shared Fine-Tuning for Seven Text-Diffusion Families</p>
+        <div class="ask-suggestions" role="group" aria-label="Suggested questions">
+          <button type="button" data-question="Explain this article in plain language. What changed?">Explain simply</button>
+          <button type="button" data-question="Why does this change matter, and who is affected?">Why does this matter?</button>
+          <button type="button" data-question="What is the strongest counterargument to this article, and what evidence would change its conclusion?">Challenge the argument</button>
+        </div>
+        <label for="ask-question">Your question</label>
+        <textarea id="ask-question" rows="3" maxlength="2000" required placeholder="What would you like to understand?" aria-describedby="ask-context"></textarea>
+        <p id="ask-context" class="ask-note">Article link and summary included. Continue using your ChatGPT account; you may need to sign in.</p>
+        <details class="ask-manual" hidden>
+          <summary>Prepared text for copying</summary>
+          <textarea class="ask-copy-text" rows="5" readonly aria-label="Prepared question and article context"></textarea>
+        </details>
+      </div>
+      <div class="ask-actions">
+        <p class="ask-status" role="status" aria-live="polite"></p>
+        <button class="paper-button primary" type="submit">Continue in ChatGPT ↗</button>
+        <div class="ask-copy-actions">
+          <button type="button" data-ask-copy="summary">Copy question + context</button>
+          <button type="button" data-ask-copy="article">Copy article + question</button>
+        </div>
+        <p class="ask-note">If your question doesn’t appear in ChatGPT, copy it here and paste it there.</p>
+      </div>
+    </form>
+  </dialog>
+      <section class="evidence-section" id="evidence" aria-labelledby="evidence-title">
+    <div class="evidence-head">
+      <div>
+        <div class="eyebrow">Evidence Trail</div>
+        <h2 id="evidence-title">Receipts below the story</h2>
+        <p>The article above is the public narrative. This section keeps the source trail and limits on the same page.</p>
+      </div>
+      <a class="paper-button" href="/editions/2026-10-11/">Edition</a>
+    </div>
+    <div class="evidence-table evidence-summary">
+      <div class="evidence-line"><span>Date</span><span>October 11, 2026</span></div>
+      <div class="evidence-line"><span>Lane</span><span>Daily Edition</span></div>
+      <div class="evidence-line"><span>Confidence</span><span>91%</span></div>
+      <div class="evidence-line"><span>Sources</span><span>13</span></div>
+      <div class="evidence-line"><span>Repos</span><span>unslothai/unsloth</span></div>
+    </div>
+    <div class="markdown evidence-copy evidence-copy-block">
+      <h2>Primary Evidence</h2>
+<ul>
+<li>October 10 trainer merge: <a href="https://github.com/unslothai/unsloth/commit/cd14635e2cc661373a4dbf2c05179a3ef7c47d00">https://github.com/unslothai/unsloth/commit/cd14635e2cc661373a4dbf2c05179a3ef7c47d00</a>
+<ul>
+<li>Shows: Adds the training interface and seven family profiles; merged 2026-10-10 13:07:18 UTC.
+</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li>Shared trainer: <a href="https://github.com/unslothai/unsloth/blob/cd14635e2cc661373a4dbf2c05179a3ef7c47d00/unsloth/models/diffusion_trainer.py">https://github.com/unslothai/unsloth/blob/cd14635e2cc661373a4dbf2c05179a3ef7c47d00/unsloth/models/diffusion_trainer.py</a>
+<ul>
+<li>Shows: Reuses SFTTrainer data handling, delegates compute_loss to the selected profile, disables packing and padding-free mode.
+</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li>Masked recipes: <a href="https://github.com/unslothai/unsloth/blob/cd14635e2cc661373a4dbf2c05179a3ef7c47d00/unsloth/models/diffusion_masked.py">https://github.com/unslothai/unsloth/blob/cd14635e2cc661373a4dbf2c05179a3ef7c47d00/unsloth/models/diffusion_masked.py</a>
+<ul>
+<li>Shows: Masking and loss weighting vary by family; Dream shifts logits.
+</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li>Block recipes: <a href="https://github.com/unslothai/unsloth/blob/cd14635e2cc661373a4dbf2c05179a3ef7c47d00/unsloth/models/diffusion_block.py">https://github.com/unslothai/unsloth/blob/cd14635e2cc661373a4dbf2c05179a3ef7c47d00/unsloth/models/diffusion_block.py</a>
+<ul>
+<li>Shows: Separates noisy and clean blocks, constraining visibility of later clean blocks.
+</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li>Gemma training objective: <a href="https://github.com/unslothai/unsloth/blob/cd14635e2cc661373a4dbf2c05179a3ef7c47d00/unsloth/models/diffusion_gemma_objective.py">https://github.com/unslothai/unsloth/blob/cd14635e2cc661373a4dbf2c05179a3ef7c47d00/unsloth/models/diffusion_gemma_objective.py</a>
+<ul>
+<li>Shows: Uniform token corruption, decoder_input_ids, optional self-conditioning, encoder co-loss and last contiguous supervised response span.
+</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li>July 27 canvas report: <a href="https://github.com/unslothai/unsloth/issues/7515">https://github.com/unslothai/unsloth/issues/7515</a>
+<ul>
+<li>Shows: User traces notebook argument mismatch and asks where canvas_ids is mapped.
+</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li>October 10 notebook correction: <a href="https://github.com/unslothai/notebooks/pull/393">https://github.com/unslothai/notebooks/pull/393</a>
+<ul>
+<li>Shows: Replaces custom Sudoku loop with DiffusionTrainer; author reports a one-seed experiment changing several recipe details. Merged 13:07:22 UTC.
+</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li>Gemma regression definitions: <a href="https://github.com/unslothai/unsloth/blob/cd14635e2cc661373a4dbf2c05179a3ef7c47d00/tests/diffusion/test_diffusion_gemma.py">https://github.com/unslothai/unsloth/blob/cd14635e2cc661373a4dbf2c05179a3ef7c47d00/tests/diffusion/test_diffusion_gemma.py</a>
+<ul>
+<li>Shows: Checks canvas sensitivity and objective behavior. TRL-reference parity requires an additional file.
+</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li>June 11 Unsloth baseline: <a href="https://github.com/unslothai/unsloth/commit/fbaf5277870d79651c7787d3a25099d5cb0ff39d">https://github.com/unslothai/unsloth/commit/fbaf5277870d79651c7787d3a25099d5cb0ff39d</a>
+<ul>
+<li>Shows: Already provided DiffusionGemma loading and LoRA support.
+</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li>June 10 Google developer guide: <a href="https://developers.googleblog.com/en/diffusiongemma-the-developer-guide/">https://developers.googleblog.com/en/diffusiongemma-the-developer-guide/</a>
+<ul>
+<li>Shows: Already offered a JAX Hackable Diffusion fine-tuning route.
+</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li>June 10 Google announcement: <a href="https://blog.google/innovation-and-ai/technology/developers-tools/diffusion-gemma-faster-text-generation/">https://blog.google/innovation-and-ai/technology/developers-tools/diffusion-gemma-faster-text-generation/</a>
+<ul>
+<li>Shows: Attributes generation-speed claims to Google in low-concurrency dedicated-hardware context, not a training benchmark.
+</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li>October loader: <a href="https://github.com/unslothai/unsloth/blob/cd14635e2cc661373a4dbf2c05179a3ef7c47d00/unsloth/models/diffusion.py">https://github.com/unslothai/unsloth/blob/cd14635e2cc661373a4dbf2c05179a3ef7c47d00/unsloth/models/diffusion.py</a>
+<ul>
+<li>Shows: Retains Transformers-only diffusion path without usual autoregressive kernel/compile patching.
+</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li>October 8 Desktop beta: <a href="https://github.com/unslothai/unsloth/releases/tag/v0.1.905-beta">https://github.com/unslothai/unsloth/releases/tag/v0.1.905-beta</a>
+<ul>
+<li>Shows: Latest inspected GitHub Desktop release predates trainer merge; Python package inclusion remains separately unverified.
+</li>
+</ul>
+</li>
+</ul>
+<h2>Evidence Limits</h2>
+<ul>
+<li>Merged implementation and notebook correction are established; inclusion in a released Python package was not verified. The inspected Desktop beta predates the merge.
+</li>
+<li>We inspected code and tests without executing training or the test suite. External-reference and tiny-checkpoint checks require additional resources.
+</li>
+<li>Upstream's small single-seed Sudoku experiment changes several recipe details; it cannot isolate one fix or establish general quality gains.
+</li>
+<li>Shared formats do not mean identical supervision across families. Gemma uses the last contiguous supervised response span.
+</li>
+<li>No independent speed, cost, hardware-fit, adoption or comparative quality claim is made. Earlier diffusion fine-tuning existed.
+</li>
+</ul>
+    </div>
+  </section>
+      <section class="related-edition-section atlas-context-section">
+    <div class="section-title-row">
+      <h2>Atlas Context</h2>
+      <a href="/atlas/">Open Atlas &rsaquo;</a>
+    </div>
+    <div class="updates-list">
+      <a class="article-card" href="/atlas/the-human-interface/">
+            <div class="article-meta"><span class="lane">Agent Atlas</span><span>Chapter 8</span></div>
+            <h3>The Human Control Loop</h3>
+            <p>A useful interface exposes active work, gives intervention a defined runtime effect, preserves evidence during correction, and resumes the intended session.</p>
+          </a>
+    </div>
+  </section>
+      <section class="reader-feedback"
+    data-tgr-feedback
+    data-article-slug="2026-10-11-daily-unsloth-adds-shared-fine-tuning-for-seven-text-diffusion-families"
+    data-article-title="Unsloth Adds Shared Fine-Tuning for Seven Text-Diffusion Families"
+    data-article-url="/articles/2026-10-11-daily-unsloth-adds-shared-fine-tuning-for-seven-text-diffusion-families/"
+    data-edition-date="2026-10-11"
+    data-lane="Daily Edition"
+    data-tags="Memory,Delegation,Tools,UX"
+    data-repos="unslothai/unsloth">
+    <div class="reader-feedback-head">
+      <div>
+        <div class="eyebrow">Letters &amp; Corrections</div>
+        <h2>Send a note to the desk</h2>
+      </div>
+      <p>Corrections, missing context, or a follow-up lead.</p>
+    </div>
+    <form class="feedback-form">
+      <div class="feedback-votes" role="group" aria-label="Choose signal type">
+        <button class="feedback-choice" type="button" data-vote="follow-up" aria-pressed="false">
+          <span aria-hidden="true">+</span>
+          <span>Follow-up</span>
+        </button>
+        <button class="feedback-choice" type="button" data-vote="correction" aria-pressed="false">
+          <span aria-hidden="true">!</span>
+          <span>Correction</span>
+        </button>
+      </div>
+      <label class="feedback-comment">
+        <span>Note for the editor</span>
+        <textarea name="comment" rows="3" maxlength="320" placeholder="What did we miss, or what should we follow next?"></textarea>
+      </label>
+      <div class="feedback-submit-row">
+        <p class="feedback-status" aria-live="polite"></p>
+        <button class="paper-button primary feedback-submit" type="submit">Send to desk</button>
+      </div>
+    </form>
+  </section>
+      
+    </main>
+    <footer class="wrap site-footer">
+      <span>&copy; 2026 The Git Reporter</span>
+      <a href="/about/">About</a>
+      <a href="/battles/">Diff Derby</a>
+      <a href="/agent-pulse/">Agent Pulse</a>
+      <a href="/feed.xml">RSS</a>
+      <a href="https://x.com/TheGitReporter">Follow on X</a>
+      <a href="/articles.json">Manifest JSON</a>
+      <a href="/repos/">Sources</a>
+    </footer>
+  </div>
+</body>
+</html>
