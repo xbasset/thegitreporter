@@ -1,0 +1,365 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Hermes Puts Assembled Agent Instructions into Code Review | The Git Reporter</title>
+  <meta name="description" content="A new snapshot shows reviewers the system prompt and tool definitions produced by the code. Nine controlled configurations turn changes in the agent’s instructions into something maintainers can compare directly.">
+  <meta name="robots" content="index,follow">
+  <link rel="canonical" href="https://thegitreporter.com/articles/2026-10-12-daily-hermes-puts-assembled-agent-instructions-into-code-review/">
+  <link rel="alternate" type="application/rss+xml" title="The Git Reporter" href="https://thegitreporter.com/feed.xml">
+  <meta property="og:site_name" content="The Git Reporter">
+  <meta property="og:locale" content="en_US">
+  <meta property="og:title" content="Hermes Puts Assembled Agent Instructions into Code Review | The Git Reporter">
+  <meta property="og:description" content="A new snapshot shows reviewers the system prompt and tool definitions produced by the code. Nine controlled configurations turn changes in the agent’s instructions into something maintainers can compare directly.">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://thegitreporter.com/articles/2026-10-12-daily-hermes-puts-assembled-agent-instructions-into-code-review/">
+  <meta property="og:image" content="https://thegitreporter.com/assets/social/2026-10-12-daily-hermes-puts-assembled-agent-instructions-into-code-review-og.jpg">
+  <meta property="og:image:secure_url" content="https://thegitreporter.com/assets/social/2026-10-12-daily-hermes-puts-assembled-agent-instructions-into-code-review-og.jpg">
+  <meta property="og:image:type" content="image/jpeg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="A code-change sheet points to assembled system instructions and tool schemas under a magnifying glass, with a nine-fixed-configurations stamp.">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:site" content="@TheGitReporter">
+  <meta name="twitter:creator" content="@TheGitReporter">
+  <meta name="twitter:title" content="Hermes Puts Assembled Agent Instructions into Code Review | The Git Reporter">
+  <meta name="twitter:description" content="A new snapshot shows reviewers the system prompt and tool definitions produced by the code. Nine controlled configurations turn changes in the agent’s instructions into something maintainers can compare directly.">
+  <meta name="twitter:url" content="https://thegitreporter.com/articles/2026-10-12-daily-hermes-puts-assembled-agent-instructions-into-code-review/">
+  <meta name="twitter:domain" content="thegitreporter.com">
+  <meta name="twitter:image" content="https://thegitreporter.com/assets/social/2026-10-12-daily-hermes-puts-assembled-agent-instructions-into-code-review-og.jpg">
+  <meta name="twitter:image:alt" content="A code-change sheet points to assembled system instructions and tool schemas under a magnifying glass, with a nine-fixed-configurations stamp.">
+  <meta property="article:published_time" content="2026-10-12T12:00:00Z">
+  <meta property="article:modified_time" content="2026-10-12T12:00:00Z">
+  <meta property="article:section" content="Daily Edition">
+  <meta property="article:tag" content="Permissions">
+  <meta property="article:tag" content="Memory">
+  <meta property="article:tag" content="Tools">
+  <meta property="article:tag" content="UX">
+  <meta property="article:tag" content="NousResearch/hermes-agent">
+  <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"https://thegitreporter.com/#organization","name":"The Git Reporter","url":"https://thegitreporter.com","logo":{"@type":"ImageObject","url":"https://thegitreporter.com/assets/mark.svg"},"sameAs":["https://x.com/TheGitReporter"]},{"@type":"WebSite","@id":"https://thegitreporter.com/#website","name":"The Git Reporter","url":"https://thegitreporter.com","publisher":{"@id":"https://thegitreporter.com/#organization"}},{"@type":"NewsArticle","mainEntityOfPage":{"@type":"WebPage","@id":"https://thegitreporter.com/articles/2026-10-12-daily-hermes-puts-assembled-agent-instructions-into-code-review/"},"headline":"Hermes Puts Assembled Agent Instructions into Code Review","description":"A new snapshot shows reviewers the system prompt and tool definitions produced by the code. Nine controlled configurations turn changes in the agent’s instructions into something maintainers can compare directly.","image":["https://thegitreporter.com/assets/social/2026-10-12-daily-hermes-puts-assembled-agent-instructions-into-code-review-og.jpg"],"datePublished":"2026-10-12T12:00:00Z","dateModified":"2026-10-12T12:00:00Z","author":[{"@type":"Organization","name":"The Git Reporter","url":"https://thegitreporter.com"}],"publisher":{"@type":"Organization","@id":"https://thegitreporter.com/#organization","name":"The Git Reporter","url":"https://thegitreporter.com","logo":{"@type":"ImageObject","url":"https://thegitreporter.com/assets/mark.svg"},"sameAs":["https://x.com/TheGitReporter"]},"articleSection":"Daily Edition","keywords":"Permissions, Memory, Tools, UX, NousResearch/hermes-agent"}]}</script>
+  <link rel="icon" href="/assets/mark.svg">
+  <link rel="stylesheet" href="/assets/site.css?v=2026-10-03-article-questions">
+  <script defer src="/assets/feedback.js?v=2026-10-03-article-questions"></script>
+  <script defer src="/assets/article-questions.js?v=2026-10-03-article-questions"></script>
+  <script defer src="/assets/analytics.js?v=2026-10-03-article-questions"></script>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-CH19T7M0T1"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){window.dataLayer.push(arguments);}
+    gtag("js", new Date());
+    gtag("config", "G-CH19T7M0T1");
+  </script>
+</head>
+<body>
+  <div class="site">
+    <header class="site-header" id="top">
+      <div class="wrap utility-row">
+        <a class="icon-link menu-icon" href="/archive/" aria-label="Open edition history"><span></span><span></span><span></span></a>
+        <a class="icon-link archive-icon" href="/archive/" aria-label="Open edition history"></a>
+      </div>
+      <div class="wrap masthead-lockup">
+        <a class="masthead-title" href="/">THE GIT REPORTER</a>
+        <div class="masthead-ornament" aria-hidden="true"></div>
+      </div>
+      <div class="wrap nav-wrap">
+        <nav class="paper-nav" aria-label="Primary navigation">
+    <a class=""  href="/">Stories</a><a class=""  href="/today/">Today</a><a class="active" aria-current="page" href="/archive/">Editions</a><a class=""  href="/about/">About</a><a class=""  href="/battles/">Diff Derby</a><a class=""  href="/agent-pulse/">Agent Pulse</a><a class=""  href="/atlas/">Agent Atlas</a><a class=""  href="/repos/">Repos</a>
+  </nav>
+        <div class="nav-rule"></div>
+      </div>
+    </header>
+    <main class="wrap page-shell article-page">
+      <section class="page-hero story-front">
+        <div class="story-topline">
+          <span>Daily Edition</span>
+          <span>Sources <strong>+11</strong></span>
+        </div>
+        <h1>Hermes Puts Assembled Agent Instructions into Code Review</h1>
+        <p class="summary">A new snapshot shows reviewers the system prompt and tool definitions produced by the code. Nine controlled configurations turn changes in the agent’s instructions into something maintainers can compare directly.</p>
+        <figure class="story-illustration article-illustration">
+    <img src="/assets/illustrations/2026-10-12-hermes-puts-assembled-agent-instructions-into-code-review-diagram-punk-v1.png" alt="A code-change sheet points to assembled system instructions and tool schemas under a magnifying glass, with a nine-fixed-configurations stamp." loading="lazy" decoding="async">
+    <figcaption><span>Diagram Punk</span>a second diff shows the assembled instructions for nine controlled configurations.</figcaption>
+  </figure>
+        <div class="receipt">
+    <div class="receipt-line">
+      <span class="receipt-icon">repo</span>
+      <span class="receipt-main">NousResearch/hermes-agent</span>
+      <span class="branch-pill">evidence</span>
+    </div>
+    <div class="receipt-line receipt-muted">
+      <span>11 source signals</span>
+      <span>1 repo</span>
+      <span>3 linked commits</span>
+    </div>
+    <div class="commit-line">Evidence: 3 linked commits / October 12, 2026 / Daily Edition</div>
+  </div>
+        <div class="article-route-row">
+          <a href="/editions/2026-10-12/">Open Edition</a>
+          <a href="#evidence">Evidence below</a>
+          <button type="button" class="ask-inline" data-ask-entry data-ask-open aria-haspopup="dialog" aria-controls="article-questions" hidden>Ask about this article ↗</button>
+        </div>
+      </section>
+      <section class="story-reader">
+        <article class="story-shell story-body">
+          <p>Hermes has added a second object to code review: the instructions its software assembles for a model. An <a href="https://github.com/NousResearch/hermes-agent/commit/ae3598c7cdf3a2e4a6f60d0d869602813dded97a">October 11 change</a> in <code>NousResearch/hermes-agent</code> saves rendered system prompts and tool definitions in the repository, then checks that those snapshots stay aligned with the code that produces them.</p>
+
+<p>The benefit is concrete. A reviewer can read a Python change and still have to reconstruct what the agent will be told after configuration, model-specific guidance and tool descriptions have been combined. Hermes now supplies a repeatable version of that assembled result. It gives maintainers another way to see whether a seemingly modest edit changes the instructions they intend to ship.</p>
+
+<h2>An account name becomes an instruction</h2>
+
+<p>A <a href="https://github.com/NousResearch/hermes-agent/commit/08c049a0c019f3cbf9afc37e03307a6d4014d513">later snapshot update on October 11</a> shows the mechanism doing useful work. Hermes’s connection-management tool gained named accounts and a rename operation. The saved definition exposes both the new input fields and the accompanying prose: when adding a second account, derive a short name from the user’s words and ask if the choice is uncertain.</p>
+
+<p>That is more informative than a feature label saying “multiple accounts.” The interface now tells the model how to distinguish accounts and when to involve the person. The same artifact lets a reviewer examine whether the parameters and the instructions describe the same operation.</p>
+
+<p>This update demonstrates the review object, not a successful account-selection task. It does not show that a model chose the right account or that a reviewer prevented a mistake. Its immediate value is making the intended contract easier to inspect.</p>
+
+<h2>Render the consequence, then compare it</h2>
+
+<p>The <a href="https://github.com/NousResearch/hermes-agent/blob/ae3598c7cdf3a2e4a6f60d0d869602813dded97a/scripts/ci/prompt_surface.py">renderer</a> uses Hermes’s production prompt-assembly code and the agent’s own tool definitions. It covers nine selected configurations: the command-line interface with four model families, a coding workspace, the desktop application, Telegram, Discord and scheduled jobs.</p>
+
+<p>The variants matter. In the saved fixtures, the <a href="https://github.com/NousResearch/hermes-agent/blob/ae3598c7cdf3a2e4a6f60d0d869602813dded97a/tests/fixtures/prompt_surface/tools/patch.cli.gpt.json">GPT-family patch tool</a> includes a multi-file patch mode that the <a href="https://github.com/NousResearch/hermes-agent/blob/ae3598c7cdf3a2e4a6f60d0d869602813dded97a/tests/fixtures/prompt_surface/tools/patch.json">common tool definition</a> does not. A single generic prompt file would hide that distinction.</p>
+
+<p>To make comparisons useful, the renderer holds the environment steady. It starts with a fresh home directory, fixes the clock and other host-dependent inputs, blocks network access, and treats registered tools as available so missing credentials do not silently remove their schemas. These are controlled development examples, rather than recordings of someone’s conversation.</p>
+
+<p>The <a href="https://github.com/NousResearch/hermes-agent/blob/c152ba5a82d7d39554489e8e8df47c3542a43c14/tests/ci/test_prompt_surface.py">staleness test</a> renders again and compares the resulting files with the committed snapshots. When the assembled output changes, the contributor must update the snapshot too. A separate <a href="https://github.com/NousResearch/hermes-agent/blob/c152ba5a82d7d39554489e8e8df47c3542a43c14/.github/workflows/prompt-surface-diff.yml">review-summary job</a> reports affected configurations, prompt differences and tool-schema changes. Its token figures are rough character-based estimates, not a measurement of billed usage.</p>
+
+<h2>A baseline that people must still judge</h2>
+
+<p>There is a human review requirement as well. The initial commit described two core-team approvals; a <a href="https://github.com/NousResearch/hermes-agent/commit/c152ba5a82d7d39554489e8e8df47c3542a43c14">same-day correction</a> changed that to one. The <a href="https://api.github.com/repos/NousResearch/hermes-agent/rulesets/24868715">public ruleset inspected on October 12</a> is active and requires one designated-team approval for changes under the snapshot directory. The summary itself is advisory. Detecting stale files and deciding whether new instructions are acceptable remain separate jobs.</p>
+
+<p>Hermes already exposed and <a href="https://github.com/NousResearch/hermes-agent/blob/0aa764feddf00aed631019763ef777d38faf4335/website/docs/developer-guide/prompt-assembly.md">documented prompt assembly before this change</a>. The new contribution is a maintained comparison of its output. Familiar snapshot testing becomes particularly useful here because the generated artifact contains instructions that can shape an agent’s choices.</p>
+
+<p>The baseline is deliberately narrower than a live session. Its fixed model identifiers exercise selected branches; local project instructions and a user’s custom identity are excluded. Personal memory, installed skills, overrides and later conversation additions can also change what a real agent receives. This review cannot stand in for inspecting a deployment’s actual inputs or testing its behavior.</p>
+
+<p>We inspected the implementation, fixtures, earlier documentation and public review rule. The upstream’s isolated summary test passed locally: it detected a changed prompt heading and tool description, and returned no change for identical snapshots. We did not run the full renderer or a model. This is merged development-workflow code; the latest inspected <a href="https://github.com/NousResearch/hermes-agent/releases/tag/v0.21.6">stable release, v0.21.6 from October 8</a>, predates it.</p>
+
+<p>For maintainers, the gain is a more answerable review question: what instruction change does this code produce? The next revealing receipt would be a public review where that second diff prompts a correction, followed by a task test showing the intended effect. Hermes has made the instruction change easier to locate. People can now argue about the text the machinery actually assembles.</p>
+        </article>
+      </section>
+      <section class="article-questions-invitation" data-ask-entry hidden>
+    <h2>Keep asking questions.</h2>
+    <p>Explore the story and its evidence in your own ChatGPT conversation.</p>
+    <button class="paper-button" type="button" data-ask-open aria-haspopup="dialog" aria-controls="article-questions">Ask about this article <span aria-hidden="true">↗</span></button>
+  </section>
+  <dialog class="article-questions" id="article-questions" aria-labelledby="ask-title"
+    data-title="Hermes Puts Assembled Agent Instructions into Code Review" data-date="2026-10-12"
+    data-url="https://thegitreporter.com/articles/2026-10-12-daily-hermes-puts-assembled-agent-instructions-into-code-review/"
+    data-summary="A new snapshot shows reviewers the system prompt and tool definitions produced by the code. Nine controlled configurations turn changes in the agent’s instructions into something maintainers can compare directly.">
+    <div class="ask-heading">
+      <h2 id="ask-title" tabindex="-1" autofocus>Ask about this article</h2>
+      <button type="button" class="ask-close" aria-label="Close question box">×</button>
+    </div>
+    <form class="ask-form">
+      <div class="ask-content">
+        <p class="ask-article-title">Hermes Puts Assembled Agent Instructions into Code Review</p>
+        <div class="ask-suggestions" role="group" aria-label="Suggested questions">
+          <button type="button" data-question="Explain this article in plain language. What changed?">Explain simply</button>
+          <button type="button" data-question="Why does this change matter, and who is affected?">Why does this matter?</button>
+          <button type="button" data-question="What is the strongest counterargument to this article, and what evidence would change its conclusion?">Challenge the argument</button>
+        </div>
+        <label for="ask-question">Your question</label>
+        <textarea id="ask-question" rows="3" maxlength="2000" required placeholder="What would you like to understand?" aria-describedby="ask-context"></textarea>
+        <p id="ask-context" class="ask-note">Article link and summary included. Continue using your ChatGPT account; you may need to sign in.</p>
+        <details class="ask-manual" hidden>
+          <summary>Prepared text for copying</summary>
+          <textarea class="ask-copy-text" rows="5" readonly aria-label="Prepared question and article context"></textarea>
+        </details>
+      </div>
+      <div class="ask-actions">
+        <p class="ask-status" role="status" aria-live="polite"></p>
+        <button class="paper-button primary" type="submit">Continue in ChatGPT ↗</button>
+        <div class="ask-copy-actions">
+          <button type="button" data-ask-copy="summary">Copy question + context</button>
+          <button type="button" data-ask-copy="article">Copy article + question</button>
+        </div>
+        <p class="ask-note">If your question doesn’t appear in ChatGPT, copy it here and paste it there.</p>
+      </div>
+    </form>
+  </dialog>
+      <section class="evidence-section" id="evidence" aria-labelledby="evidence-title">
+    <div class="evidence-head">
+      <div>
+        <div class="eyebrow">Evidence Trail</div>
+        <h2 id="evidence-title">Receipts below the story</h2>
+        <p>The article above is the public narrative. This section keeps the source trail and limits on the same page.</p>
+      </div>
+      <a class="paper-button" href="/editions/2026-10-12/">Edition</a>
+    </div>
+    <div class="evidence-table evidence-summary">
+      <div class="evidence-line"><span>Date</span><span>October 12, 2026</span></div>
+      <div class="evidence-line"><span>Lane</span><span>Daily Edition</span></div>
+      <div class="evidence-line"><span>Confidence</span><span>91%</span></div>
+      <div class="evidence-line"><span>Sources</span><span>11</span></div>
+      <div class="evidence-line"><span>Repos</span><span>NousResearch/hermes-agent</span></div>
+    </div>
+    <div class="markdown evidence-copy evidence-copy-block">
+      <h2>Primary Evidence</h2>
+<ul>
+<li>October 11 implementation: <a href="https://github.com/NousResearch/hermes-agent/commit/ae3598c7cdf3a2e4a6f60d0d869602813dded97a">https://github.com/NousResearch/hermes-agent/commit/ae3598c7cdf3a2e4a6f60d0d869602813dded97a</a>
+<ul>
+<li>Shows: Adds committed rendered prompts and tool definitions, staleness checking and review-summary integration.
+</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li>Renderer and nine selected configurations: <a href="https://github.com/NousResearch/hermes-agent/blob/ae3598c7cdf3a2e4a6f60d0d869602813dded97a/scripts/ci/prompt_surface.py">https://github.com/NousResearch/hermes-agent/blob/ae3598c7cdf3a2e4a6f60d0d869602813dded97a/scripts/ci/prompt_surface.py</a>
+<ul>
+<li>Shows: Production assembler, fixed matrix and environment, forced tool availability, context exclusion, schema variants and character-based token estimates.
+</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li>Named-account snapshot update: <a href="https://github.com/NousResearch/hermes-agent/commit/08c049a0c019f3cbf9afc37e03307a6d4014d513">https://github.com/NousResearch/hermes-agent/commit/08c049a0c019f3cbf9afc37e03307a6d4014d513</a>
+<ul>
+<li>Shows: New alias and rename parameters and instructions for deriving an account name or asking the user; an actual later change to the review artifact.
+</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li>Staleness and summary tests: <a href="https://github.com/NousResearch/hermes-agent/blob/c152ba5a82d7d39554489e8e8df47c3542a43c14/tests/ci/test_prompt_surface.py">https://github.com/NousResearch/hermes-agent/blob/c152ba5a82d7d39554489e8e8df47c3542a43c14/tests/ci/test_prompt_surface.py</a>
+<ul>
+<li>Shows: Fresh render is compared with committed files. Isolated summary test mutates prompt and tool text and checks identical snapshots.
+</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li>Advisory review-summary workflow: <a href="https://github.com/NousResearch/hermes-agent/blob/c152ba5a82d7d39554489e8e8df47c3542a43c14/.github/workflows/prompt-surface-diff.yml">https://github.com/NousResearch/hermes-agent/blob/c152ba5a82d7d39554489e8e8df47c3542a43c14/.github/workflows/prompt-surface-diff.yml</a>
+<ul>
+<li>Shows: Separate summary job over committed snapshots, with review status and affected configurations.
+</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li>One-approval correction: <a href="https://github.com/NousResearch/hermes-agent/commit/c152ba5a82d7d39554489e8e8df47c3542a43c14">https://github.com/NousResearch/hermes-agent/commit/c152ba5a82d7d39554489e8e8df47c3542a43c14</a>
+<ul>
+<li>Shows: Corrects initial two-approval description to one core-team approval.
+</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li>Active public review ruleset: <a href="https://api.github.com/repos/NousResearch/hermes-agent/rulesets/24868715">https://api.github.com/repos/NousResearch/hermes-agent/rulesets/24868715</a>
+<ul>
+<li>Shows: On October 12, active default-branch rule requires minimum one designated-team approval for tests/fixtures/prompt_surface/**.
+</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li>Earlier prompt-assembly baseline: <a href="https://github.com/NousResearch/hermes-agent/blob/0aa764feddf00aed631019763ef777d38faf4335/website/docs/developer-guide/prompt-assembly.md">https://github.com/NousResearch/hermes-agent/blob/0aa764feddf00aed631019763ef777d38faf4335/website/docs/developer-guide/prompt-assembly.md</a>
+<ul>
+<li>Shows: Before this patch, assembly was already documented, with custom instructions and later runtime additions distinct from cached prompt layers.
+</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li>Model-specific patch fixture: <a href="https://github.com/NousResearch/hermes-agent/blob/ae3598c7cdf3a2e4a6f60d0d869602813dded97a/tests/fixtures/prompt_surface/tools/patch.cli.gpt.json">https://github.com/NousResearch/hermes-agent/blob/ae3598c7cdf3a2e4a6f60d0d869602813dded97a/tests/fixtures/prompt_surface/tools/patch.cli.gpt.json</a>
+<ul>
+<li>Shows: GPT-family fixture has multi-file patch mode in addition to replacement mode.
+</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li>Common patch fixture: <a href="https://github.com/NousResearch/hermes-agent/blob/ae3598c7cdf3a2e4a6f60d0d869602813dded97a/tests/fixtures/prompt_surface/tools/patch.json">https://github.com/NousResearch/hermes-agent/blob/ae3598c7cdf3a2e4a6f60d0d869602813dded97a/tests/fixtures/prompt_surface/tools/patch.json</a>
+<ul>
+<li>Shows: Common fixture exposes replacement fields without the GPT-family patch mode.
+</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li>Latest inspected stable release: <a href="https://github.com/NousResearch/hermes-agent/releases/tag/v0.21.6">https://github.com/NousResearch/hermes-agent/releases/tag/v0.21.6</a>
+<ul>
+<li>Shows: Published October 8, before the October 11 development-workflow change; no consumer release claim is made.
+</li>
+</ul>
+</li>
+</ul>
+<h2>Evidence Limits</h2>
+<ul>
+<li>Nine controlled configurations are a development baseline, not every model, deployment or live session. The render excludes local context files and user identity customization; runtime additions remain outside the comparison.
+</li>
+<li>Snapshot consistency does not evaluate instruction quality, model obedience or task success. The named-account update does not establish that review prevented an error.
+</li>
+<li>The independent isolated upstream summary test passed. The full renderer, dependency environment and live model behavior were not executed.
+</li>
+<li>The summary is advisory; staleness checking and the active reviewer rule are distinct mechanisms. The live public ruleset was inspected October 12 and may change later.
+</li>
+<li>The latest inspected stable release predates this work. No adoption, performance, billing reduction or released end-user capability is inferred.
+</li>
+</ul>
+    </div>
+  </section>
+      <section class="related-edition-section atlas-context-section">
+    <div class="section-title-row">
+      <h2>Atlas Context</h2>
+      <a href="/atlas/">Open Atlas &rsaquo;</a>
+    </div>
+    <div class="updates-list">
+      <a class="article-card" href="/atlas/what-an-agent-can-see/">
+            <div class="article-meta"><span class="lane">Agent Atlas</span><span>Chapter 2</span></div>
+            <h3>The Invisible Prompt</h3>
+            <p>The model acts on an assembled viewport containing visible messages, hidden turn context, path-triggered instructions, memory records, tool schemas, permissions, and inherited state.</p>
+          </a>
+    </div>
+  </section>
+      <section class="reader-feedback"
+    data-tgr-feedback
+    data-article-slug="2026-10-12-daily-hermes-puts-assembled-agent-instructions-into-code-review"
+    data-article-title="Hermes Puts Assembled Agent Instructions into Code Review"
+    data-article-url="/articles/2026-10-12-daily-hermes-puts-assembled-agent-instructions-into-code-review/"
+    data-edition-date="2026-10-12"
+    data-lane="Daily Edition"
+    data-tags="Permissions,Memory,Tools,UX"
+    data-repos="NousResearch/hermes-agent">
+    <div class="reader-feedback-head">
+      <div>
+        <div class="eyebrow">Letters &amp; Corrections</div>
+        <h2>Send a note to the desk</h2>
+      </div>
+      <p>Corrections, missing context, or a follow-up lead.</p>
+    </div>
+    <form class="feedback-form">
+      <div class="feedback-votes" role="group" aria-label="Choose signal type">
+        <button class="feedback-choice" type="button" data-vote="follow-up" aria-pressed="false">
+          <span aria-hidden="true">+</span>
+          <span>Follow-up</span>
+        </button>
+        <button class="feedback-choice" type="button" data-vote="correction" aria-pressed="false">
+          <span aria-hidden="true">!</span>
+          <span>Correction</span>
+        </button>
+      </div>
+      <label class="feedback-comment">
+        <span>Note for the editor</span>
+        <textarea name="comment" rows="3" maxlength="320" placeholder="What did we miss, or what should we follow next?"></textarea>
+      </label>
+      <div class="feedback-submit-row">
+        <p class="feedback-status" aria-live="polite"></p>
+        <button class="paper-button primary feedback-submit" type="submit">Send to desk</button>
+      </div>
+    </form>
+  </section>
+      
+    </main>
+    <footer class="wrap site-footer">
+      <span>&copy; 2026 The Git Reporter</span>
+      <a href="/about/">About</a>
+      <a href="/battles/">Diff Derby</a>
+      <a href="/agent-pulse/">Agent Pulse</a>
+      <a href="/feed.xml">RSS</a>
+      <a href="https://x.com/TheGitReporter">Follow on X</a>
+      <a href="/articles.json">Manifest JSON</a>
+      <a href="/repos/">Sources</a>
+    </footer>
+  </div>
+</body>
+</html>
