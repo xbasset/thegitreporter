@@ -1,0 +1,391 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>How Grep AgentRun turns repeated agent work into decision workflows | The Git Reporter</title>
+  <meta name="description" content="Its open workflow engine can keep the procedure, ask a model for bounded judgments and call an agent only when investigation is needed. The useful comparison separates the value of reusable code from the value of the decision model.">
+  <meta name="robots" content="index,follow">
+  <link rel="canonical" href="https://thegitreporter.com/articles/2026-10-13-daily-how-grep-agentrun-turns-repeated-agent-work-into-decision-workflows/">
+  <link rel="alternate" type="application/rss+xml" title="The Git Reporter" href="https://thegitreporter.com/feed.xml">
+  <meta property="og:site_name" content="The Git Reporter">
+  <meta property="og:locale" content="en_US">
+  <meta property="og:title" content="How Grep AgentRun turns repeated agent work into decision workflows | The Git Reporter">
+  <meta property="og:description" content="Its open workflow engine can keep the procedure, ask a model for bounded judgments and call an agent only when investigation is needed. The useful comparison separates the value of reusable code from the value of the decision model.">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://thegitreporter.com/articles/2026-10-13-daily-how-grep-agentrun-turns-repeated-agent-work-into-decision-workflows/">
+  <meta property="og:image" content="https://thegitreporter.com/assets/social/2026-10-13-daily-how-grep-agentrun-turns-repeated-agent-work-into-decision-workflows-og.jpg">
+  <meta property="og:image:secure_url" content="https://thegitreporter.com/assets/social/2026-10-13-daily-how-grep-agentrun-turns-repeated-agent-work-into-decision-workflows-og.jpg">
+  <meta property="og:image:type" content="image/jpeg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="A saved AgentRun support workflow searches help, judges the answer, then returns it or sends the request through agent investigation and another check.">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:site" content="@TheGitReporter">
+  <meta name="twitter:creator" content="@TheGitReporter">
+  <meta name="twitter:title" content="How Grep AgentRun turns repeated agent work into decision workflows | The Git Reporter">
+  <meta name="twitter:description" content="Its open workflow engine can keep the procedure, ask a model for bounded judgments and call an agent only when investigation is needed. The useful comparison separates the value of reusable code from the value of the decision model.">
+  <meta name="twitter:url" content="https://thegitreporter.com/articles/2026-10-13-daily-how-grep-agentrun-turns-repeated-agent-work-into-decision-workflows/">
+  <meta name="twitter:domain" content="thegitreporter.com">
+  <meta name="twitter:image" content="https://thegitreporter.com/assets/social/2026-10-13-daily-how-grep-agentrun-turns-repeated-agent-work-into-decision-workflows-og.jpg">
+  <meta name="twitter:image:alt" content="A saved AgentRun support workflow searches help, judges the answer, then returns it or sends the request through agent investigation and another check.">
+  <meta property="article:published_time" content="2026-10-13T12:00:00Z">
+  <meta property="article:modified_time" content="2026-10-13T12:00:00Z">
+  <meta property="article:section" content="Daily Edition">
+  <meta property="article:tag" content="Workflows">
+  <meta property="article:tag" content="Decision models">
+  <meta property="article:tag" content="Parcha-ai/agentrun">
+  <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"https://thegitreporter.com/#organization","name":"The Git Reporter","url":"https://thegitreporter.com","logo":{"@type":"ImageObject","url":"https://thegitreporter.com/assets/mark.svg"},"sameAs":["https://x.com/TheGitReporter"]},{"@type":"WebSite","@id":"https://thegitreporter.com/#website","name":"The Git Reporter","url":"https://thegitreporter.com","publisher":{"@id":"https://thegitreporter.com/#organization"}},{"@type":"NewsArticle","mainEntityOfPage":{"@type":"WebPage","@id":"https://thegitreporter.com/articles/2026-10-13-daily-how-grep-agentrun-turns-repeated-agent-work-into-decision-workflows/"},"headline":"How Grep AgentRun turns repeated agent work into decision workflows","description":"Its open workflow engine can keep the procedure, ask a model for bounded judgments and call an agent only when investigation is needed. The useful comparison separates the value of reusable code from the value of the decision model.","image":["https://thegitreporter.com/assets/social/2026-10-13-daily-how-grep-agentrun-turns-repeated-agent-work-into-decision-workflows-og.jpg"],"datePublished":"2026-10-13T12:00:00Z","dateModified":"2026-10-13T12:00:00Z","author":[{"@type":"Organization","name":"The Git Reporter","url":"https://thegitreporter.com"}],"publisher":{"@type":"Organization","@id":"https://thegitreporter.com/#organization","name":"The Git Reporter","url":"https://thegitreporter.com","logo":{"@type":"ImageObject","url":"https://thegitreporter.com/assets/mark.svg"},"sameAs":["https://x.com/TheGitReporter"]},"articleSection":"Daily Edition","keywords":"Workflows, Decision models, Parcha-ai/agentrun"}]}</script>
+  <link rel="icon" href="/assets/mark.svg">
+  <link rel="stylesheet" href="/assets/site.css?v=2026-10-03-article-questions">
+  <script defer src="/assets/feedback.js?v=2026-10-03-article-questions"></script>
+  <script defer src="/assets/article-questions.js?v=2026-10-03-article-questions"></script>
+  <script defer src="/assets/analytics.js?v=2026-10-03-article-questions"></script>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-CH19T7M0T1"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){window.dataLayer.push(arguments);}
+    gtag("js", new Date());
+    gtag("config", "G-CH19T7M0T1");
+  </script>
+</head>
+<body>
+  <div class="site">
+    <header class="site-header" id="top">
+      <div class="wrap utility-row">
+        <a class="icon-link menu-icon" href="/archive/" aria-label="Open edition history"><span></span><span></span><span></span></a>
+        <a class="icon-link archive-icon" href="/archive/" aria-label="Open edition history"></a>
+      </div>
+      <div class="wrap masthead-lockup">
+        <a class="masthead-title" href="/">THE GIT REPORTER</a>
+        <div class="masthead-ornament" aria-hidden="true"></div>
+      </div>
+      <div class="wrap nav-wrap">
+        <nav class="paper-nav" aria-label="Primary navigation">
+    <a class=""  href="/">Stories</a><a class=""  href="/today/">Today</a><a class="active" aria-current="page" href="/archive/">Editions</a><a class=""  href="/about/">About</a><a class=""  href="/battles/">Diff Derby</a><a class=""  href="/agent-pulse/">Agent Pulse</a><a class=""  href="/atlas/">Agent Atlas</a><a class=""  href="/repos/">Repos</a>
+  </nav>
+        <div class="nav-rule"></div>
+      </div>
+    </header>
+    <main class="wrap page-shell article-page">
+      <section class="page-hero story-front">
+        <div class="story-topline">
+          <span>Daily Edition</span>
+          <span>Sources <strong>+11</strong></span>
+        </div>
+        <h1>How Grep AgentRun turns repeated agent work into decision workflows</h1>
+        <p class="summary">Its open workflow engine can keep the procedure, ask a model for bounded judgments and call an agent only when investigation is needed. The useful comparison separates the value of reusable code from the value of the decision model.</p>
+        <figure class="story-illustration article-illustration">
+    <img src="/assets/illustrations/2026-10-13-how-grep-agentrun-turns-repeated-agent-work-into-decision-workflows-diagram-punk-v1.png" alt="A saved AgentRun support workflow searches help, judges the answer, then returns it or sends the request through agent investigation and another check." loading="lazy" decoding="async">
+    <figcaption><span>Diagram Punk</span>the support procedure keeps its route while models judge the evidence. Scripted fixtures demonstrate the branches, not live performance.</figcaption>
+  </figure>
+        <div class="receipt">
+    <div class="receipt-line">
+      <span class="receipt-icon">repo</span>
+      <span class="receipt-main">Parcha-ai/agentrun</span>
+      <span class="branch-pill">evidence</span>
+    </div>
+    <div class="receipt-line receipt-muted">
+      <span>11 source signals</span>
+      <span>1 repo</span>
+      <span>commit 7b26660</span>
+    </div>
+    <div class="commit-line">Evidence: commit 7b26660 / October 13, 2026 / Daily Edition</div>
+  </div>
+        <div class="article-route-row">
+          <a href="/editions/2026-10-13/">Open Edition</a>
+          <a href="#evidence">Evidence below</a>
+          <button type="button" class="ask-inline" data-ask-entry data-ask-open aria-haspopup="dialog" aria-controls="article-questions" hidden>Ask about this article ↗</button>
+        </div>
+      </section>
+      <section class="story-reader">
+        <article class="story-shell story-body">
+          <p>A password-reset question does not necessarily need an agent to work out a plan. In <a href="https://github.com/Parcha-ai/agentrun/blob/1b98cc27fad21449f26ad39a218b9603db3f8b05/examples/support-answer.mjs">AgentRun’s support example</a>, code searches the help system first. A model judges whether the answer fits the request. If the answer has text, a source and a sufficiently confident yes, the workflow returns it. Only a request that fails that gate reaches the investigating agent.</p>
+  <p>That is the concrete idea inside Grep’s pitch for turning recurring agent work into reusable workflows. The retained object is an executable procedure: which evidence to fetch, what to ask a model, which rule accepts the result, and where unresolved cases go. A new request supplies new input to that procedure. The agent need not reconstruct every step.</p>
+  <p><a href="https://grep.ai">Grep’s public site</a>, inspected October 13, presents a larger self-improving platform. Its public <a href="https://github.com/Parcha-ai/agentrun/tree/1b98cc27fad21449f26ad39a218b9603db3f8b05">AgentRun repository</a> lets us inspect the workflow layer and its Pi and Jev integrations. Those are a useful window into the design; they are not an audit of the hosted platform’s complete optimization system.</p>
+
+  <h2>Three jobs that need not belong to one model</h2>
+  <p>An AgentRun workflow is a JSON document with input and output contracts and a tree of steps. A TypeScript builder can produce the same document. The interpreter supports sequences, branches, parallel work, loops and nested workflows. At the application boundary, <a href="https://github.com/Parcha-ai/agentrun/blob/1b98cc27fad21449f26ad39a218b9603db3f8b05/packages/dsl/src/workflow.ts">three separate interfaces</a> do different jobs: <code>runEffect</code> executes tools, <code>runJudge</code> answers bounded questions, and <code>runNode</code> performs generative work such as investigation or writing.</p>
+  <p>The <a href="https://github.com/Parcha-ai/agentrun/blob/1b98cc27fad21449f26ad39a218b9603db3f8b05/packages/dsl/src/system-one.ts">question compiler</a> turns suitable schema fields into named choices, Boolean probabilities or scores on a rubric. It can ask whether an answer resolves a request or how well a proposal fits a brief. Producing a new explanation belongs in a generative step.</p>
+  <p>The <a href="https://github.com/Parcha-ai/agentrun/blob/1b98cc27fad21449f26ad39a218b9603db3f8b05/packages/jev/src/index.ts">Jev adapter</a> sends those questions and their evidence to TypeSafe, validates the response and handles bounded retries. <a href="https://typesafe.ai/blog/introducing-system-one-models-and-jev">TypeSafe describes its model</a> as trained for calibrated decisions rather than sequential prose. The adapter establishes the calling contract, not the closed service’s training or accuracy. Its default <code>jev-latest</code> alias also means an evaluation should record which model actually answered.</p>
+  <p>This arrangement makes the division of labor explicit. Software owns exact bookkeeping and permitted routes. The decision model supplies judgments. An agent remains available when the procedure calls for investigation.</p>
+
+  <h2>Follow one support request</h2>
+  <p>The first support gate requires nonempty answer text, at least one source, a yes judgment and choice confidence of at least 0.8. If any part fails, the agent gets one investigation attempt with the declared support tool. Another judgment checks its answer. An insufficient or uncertain result escalates for review. The example returns a result; it does not send a customer reply or alter an account.</p>
+  <p>We ran the interpreter with the repository’s scripted adapters on October 12. Password-reset and invoice-download fixtures each returned the existing help answer after one judgment and no agent invocation. A failed-payment fixture invoked the agent once and the judge twice. A second payment fixture without enough account information took the same route but ended in review.</p>
+  <p>Those responses were fictional and prewritten. They demonstrate branching, not Jev’s accuracy, live latency or customer-resolution rate. One agent invocation may contain several internal model and tool calls. The observed count is not a billable-request count.</p>
+  <p>The <a href="https://github.com/Parcha-ai/agentrun/blob/1b98cc27fad21449f26ad39a218b9603db3f8b05/examples/support-answer.test.mjs">support tests</a> also make the policy visible: a low-confidence yes still investigates, as does an apparently confident answer with missing text or sources. The 0.8 threshold is authored policy. It does not establish an 80% chance of correctness on an unfamiliar task.</p>
+
+  <h2>Let the model judge similarity. Let code count.</h2>
+  <p>A second example <a href="https://github.com/Parcha-ai/agentrun/blob/1b98cc27fad21449f26ad39a218b9603db3f8b05/examples/rank-candidates.mjs">ranks proposals</a>. The judge supplies semantic fit and duplicate judgments. JavaScript sorts, breaks ties, applies category quotas and records why an item was cut.</p>
+  <p>The scripted run scored twelve proposals, shortlisted ten and asked 45 pairwise duplicate questions before returning five. Those 57 questions traveled in two scripted requests. This is a useful engineering distinction: a model can judge whether two proposals cover the same ground while code enforces an exact category limit.</p>
+  <p>The comparison set still needs a budget. Pairwise checks grow as <code>k × (k − 1) / 2</code>: ten proposals mean 45 pairs; a hundred mean 4,950. A smaller shortlist reduces work but can discard a good proposal before comparison. Faster judgment does not eliminate that design choice.</p>
+
+  <h2>The fair comparison has three designs</h2>
+  <p>The tempting comparison is “agent loop versus decision workflow.” It leaves out a substantial middle ground. <a href="https://docs.langchain.com/oss/python/langgraph/workflows-agents">LangGraph’s official guide</a> already shows both an agent choosing tools dynamically and a fixed workflow that routes a structured LLM answer through code.</p>
+  <ul>
+    <li><strong>A dynamic agent loop</strong> lets a model choose the next tool after reading the evolving conversation. That flexibility is useful when the procedure is not known in advance.</li>
+    <li><strong>A fixed workflow with an LLM judge</strong> can perform the same search, check and return sequence as the support example. Code can own the branches and acceptance rules.</li>
+    <li><strong>A fixed workflow with Jev</strong> substitutes a typed decision call at that judgment boundary while retaining generative investigation where needed.</li>
+  </ul>
+  <p>To measure the value of keeping a procedure, compare either fixed workflow with dynamic planning. To measure Jev’s contribution, hold the procedure, inputs and acceptance rules constant and change the judge. A rules-only baseline is also appropriate for exact matches. AgentRun’s replaceable judge interface supports that distinction; it does not establish that all these adapters ship in the inspected package.</p>
+
+  <h2>What survives the next run—and an interruption</h2>
+  <p>In the <a href="https://github.com/Parcha-ai/agentrun/blob/1b98cc27fad21449f26ad39a218b9603db3f8b05/packages/pi/README.md">Pi integration</a>, an agent can author a workflow and a person can inspect and save an immutable definition revision. Loading a saved definition supplies neither the old input nor permission to execute. Reuse means retaining the procedure for a new case; it is not model retraining.</p>
+  <p>An <a href="https://github.com/Parcha-ai/agentrun/commit/7b266602c12896dda445149c67d14e138a2a3454">October 12 addition</a> supplies something different: a journal for live runs. Returning to an interrupted or failed run in the same Pi session, with the same workflow, input, tool names and procedure text, can recover completed steps. A tool whose outcome is unknown stops for reconciliation instead of being repeated. An unanswered judgment is asked again; an interrupted agent step starts over; a completed run starts afresh.</p>
+  <p>The <a href="https://github.com/Parcha-ai/agentrun/blob/1b98cc27fad21449f26ad39a218b9603db3f8b05/packages/pi/test/resume.test.mjs">subprocess tests</a> describe kills after a completed tool and during an in-flight tool. We inspected those tests without executing them. Some tool-description text still says every run restarts, despite the shared implementation’s recovery path. This is a source-level capability with a documentation inconsistency, not a demonstrated exactly-once delivery guarantee.</p>
+  <p><a href="https://github.com/Parcha-ai/agentrun/blob/1b98cc27fad21449f26ad39a218b9603db3f8b05/docs/host-integration.md">Decision receipts</a> provide another kind of continuity. When the interpreter has an awaited recorder, a judgment is recorded before it affects execution. But a receipt for that judgment does not automatically describe every later arbitrary code rule. In the support example, the 0.8 acceptance gate is a separate code step. Keeping the answer and keeping the full policy consequence are different jobs.</p>
+
+  <h2>Measure the work that disappeared</h2>
+  <p><a href="https://grep.ai">Grep reports</a> average model cost falling from $2.89 to $0.25 per alert in a 100-alert AML comparison with a Claude agent. Its separate illustration of one 24-record alert shows about three minutes instead of 51, about 30 tool calls instead of 826, and two records researched instead of 24. Those time and tool figures are not averages for the full evaluation.</p>
+  <p>They are vendor-reported results, not results reproduced here. The linked methodology post was unavailable during our check. Crucially, the workflow investigated fewer records: assessing the result requires checking whether the skipped work changed the outcome, as well as what each model call cost. The public support and ranking examples do not reproduce the AML comparison.</p>
+  <p>Our offline support and ranking test files passed 15 and seven cases respectively. Three broader CLI-runner checks remained unresolved, so the full integration suite did not pass. No live Jev inference, production Grep account or customer data was used. The refreshed source was inspected through October 13; package distribution and hosted behavior were not verified.</p>
+  <p>The practical opportunity is clear enough to test: keep a recurring procedure, then spend generative work on the cases it cannot settle. The decisive comparison now needs held-out cases, identical evidence and explicit correctness criteria. Count wrong automatic answers, successful resolutions, human escalations, complete-task cost and latency—including retries, tools and maintaining the workflow. The question is how much work can disappear while the required answer stays right.</p>
+        </article>
+      </section>
+      <section class="article-questions-invitation" data-ask-entry hidden>
+    <h2>Keep asking questions.</h2>
+    <p>Explore the story and its evidence in your own ChatGPT conversation.</p>
+    <button class="paper-button" type="button" data-ask-open aria-haspopup="dialog" aria-controls="article-questions">Ask about this article <span aria-hidden="true">↗</span></button>
+  </section>
+  <dialog class="article-questions" id="article-questions" aria-labelledby="ask-title"
+    data-title="How Grep AgentRun turns repeated agent work into decision workflows" data-date="2026-10-13"
+    data-url="https://thegitreporter.com/articles/2026-10-13-daily-how-grep-agentrun-turns-repeated-agent-work-into-decision-workflows/"
+    data-summary="Its open workflow engine can keep the procedure, ask a model for bounded judgments and call an agent only when investigation is needed. The useful comparison separates the value of reusable code from the value of the decision model.">
+    <div class="ask-heading">
+      <h2 id="ask-title" tabindex="-1" autofocus>Ask about this article</h2>
+      <button type="button" class="ask-close" aria-label="Close question box">×</button>
+    </div>
+    <form class="ask-form">
+      <div class="ask-content">
+        <p class="ask-article-title">How Grep AgentRun turns repeated agent work into decision workflows</p>
+        <div class="ask-suggestions" role="group" aria-label="Suggested questions">
+          <button type="button" data-question="Explain this article in plain language. What changed?">Explain simply</button>
+          <button type="button" data-question="Why does this change matter, and who is affected?">Why does this matter?</button>
+          <button type="button" data-question="What is the strongest counterargument to this article, and what evidence would change its conclusion?">Challenge the argument</button>
+        </div>
+        <label for="ask-question">Your question</label>
+        <textarea id="ask-question" rows="3" maxlength="2000" required placeholder="What would you like to understand?" aria-describedby="ask-context"></textarea>
+        <p id="ask-context" class="ask-note">Article link and summary included. Continue using your ChatGPT account; you may need to sign in.</p>
+        <details class="ask-manual" hidden>
+          <summary>Prepared text for copying</summary>
+          <textarea class="ask-copy-text" rows="5" readonly aria-label="Prepared question and article context"></textarea>
+        </details>
+      </div>
+      <div class="ask-actions">
+        <p class="ask-status" role="status" aria-live="polite"></p>
+        <button class="paper-button primary" type="submit">Continue in ChatGPT ↗</button>
+        <div class="ask-copy-actions">
+          <button type="button" data-ask-copy="summary">Copy question + context</button>
+          <button type="button" data-ask-copy="article">Copy article + question</button>
+        </div>
+        <p class="ask-note">If your question doesn’t appear in ChatGPT, copy it here and paste it there.</p>
+      </div>
+    </form>
+  </dialog>
+      <section class="evidence-section" id="evidence" aria-labelledby="evidence-title">
+    <div class="evidence-head">
+      <div>
+        <div class="eyebrow">Evidence Trail</div>
+        <h2 id="evidence-title">Receipts below the story</h2>
+        <p>The article above is the public narrative. This section keeps the source trail and limits on the same page.</p>
+      </div>
+      <a class="paper-button" href="/editions/2026-10-13/">Edition</a>
+    </div>
+    <div class="evidence-table evidence-summary">
+      <div class="evidence-line"><span>Date</span><span>October 13, 2026</span></div>
+      <div class="evidence-line"><span>Lane</span><span>Daily Edition</span></div>
+      <div class="evidence-line"><span>Confidence</span><span>91%</span></div>
+      <div class="evidence-line"><span>Sources</span><span>11</span></div>
+      <div class="evidence-line"><span>Repos</span><span>Parcha-ai/agentrun</span></div>
+    </div>
+    <div class="markdown evidence-copy evidence-copy-block">
+      <h2>Primary Evidence</h2>
+<ul>
+<li>Support workflow: <a href="https://github.com/Parcha-ai/agentrun/blob/1b98cc27fad21449f26ad39a218b9603db3f8b05/examples/support-answer.mjs">https://github.com/Parcha-ai/agentrun/blob/1b98cc27fad21449f26ad39a218b9603db3f8b05/examples/support-answer.mjs</a>
+<ul>
+<li>Shows: Search-first flow, explicit acceptance rule, one investigation and possible review; nothing sends a customer reply.
+</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li>Support boundary tests: <a href="https://github.com/Parcha-ai/agentrun/blob/1b98cc27fad21449f26ad39a218b9603db3f8b05/examples/support-answer.test.mjs">https://github.com/Parcha-ai/agentrun/blob/1b98cc27fad21449f26ad39a218b9603db3f8b05/examples/support-answer.test.mjs</a>
+<ul>
+<li>Shows: Low-confidence, missing-text and missing-source cases do not take the reuse branch.
+</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li>Ranking workflow: <a href="https://github.com/Parcha-ai/agentrun/blob/1b98cc27fad21449f26ad39a218b9603db3f8b05/examples/rank-candidates.mjs">https://github.com/Parcha-ai/agentrun/blob/1b98cc27fad21449f26ad39a218b9603db3f8b05/examples/rank-candidates.mjs</a>
+<ul>
+<li>Shows: Semantic scoring and duplicate judgments are separated from sorting, category quotas and bounded pairwise work.
+</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li>Runtime contracts: <a href="https://github.com/Parcha-ai/agentrun/blob/1b98cc27fad21449f26ad39a218b9603db3f8b05/packages/dsl/src/workflow.ts">https://github.com/Parcha-ai/agentrun/blob/1b98cc27fad21449f26ad39a218b9603db3f8b05/packages/dsl/src/workflow.ts</a>
+<ul>
+<li>Shows: Separate effect, judge and generative-node interfaces; awaited decision recorder and host responsibilities.
+</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li>Jev adapter: <a href="https://github.com/Parcha-ai/agentrun/blob/1b98cc27fad21449f26ad39a218b9603db3f8b05/packages/jev/src/index.ts">https://github.com/Parcha-ai/agentrun/blob/1b98cc27fad21449f26ad39a218b9603db3f8b05/packages/jev/src/index.ts</a>
+<ul>
+<li>Shows: Hosted decision call, validated answer shapes, model alias and bounded retries; no inspectable model training.
+</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li>Pi recovery addition: <a href="https://github.com/Parcha-ai/agentrun/commit/7b266602c12896dda445149c67d14e138a2a3454">https://github.com/Parcha-ai/agentrun/commit/7b266602c12896dda445149c67d14e138a2a3454</a>
+<ul>
+<li>Shows: Live-run journal and SOP support added October 12, distinct from saving definitions for new inputs.
+</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li>Recovery test definitions: <a href="https://github.com/Parcha-ai/agentrun/blob/1b98cc27fad21449f26ad39a218b9603db3f8b05/packages/pi/test/resume.test.mjs">https://github.com/Parcha-ai/agentrun/blob/1b98cc27fad21449f26ad39a218b9603db3f8b05/packages/pi/test/resume.test.mjs</a>
+<ul>
+<li>Shows: Subprocess-kill cases for reusing completed effects and stopping on unknown outcomes; inspected tests, not a live reliability result.
+</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li>Pi definition reuse: <a href="https://github.com/Parcha-ai/agentrun/blob/1b98cc27fad21449f26ad39a218b9603db3f8b05/packages/pi/README.md">https://github.com/Parcha-ai/agentrun/blob/1b98cc27fad21449f26ad39a218b9603db3f8b05/packages/pi/README.md</a>
+<ul>
+<li>Shows: Save/load boundaries, empty input on load and current live-run recovery documentation.
+</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li>Ordinary LLM workflow comparison: <a href="https://docs.langchain.com/oss/python/langgraph/workflows-agents">https://docs.langchain.com/oss/python/langgraph/workflows-agents</a>
+<ul>
+<li>Shows: Both dynamic tool loops and fixed graphs with structured LLM routing already exist.
+</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li>Grep public claims: <a href="https://grep.ai">https://grep.ai</a>
+<ul>
+<li>Shows: Vendor-reported AML cost averages and distinct one-alert time/tool illustration, retrieved October 13.
+</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li>TypeSafe model description: <a href="https://typesafe.ai/blog/introducing-system-one-models-and-jev">https://typesafe.ai/blog/introducing-system-one-models-and-jev</a>
+<ul>
+<li>Shows: Original provider description of Jev; does not establish independently measured outcomes.
+</li>
+</ul>
+</li>
+</ul>
+<h2>Evidence Limits</h2>
+<ul>
+<li>October 12 offline fixtures use scripted fictional adapters; they test control flow, not model quality or production savings. Support and ranking files passed 15 and seven tests; three CLI-runner checks remained unresolved. New recovery tests were inspected, not executed. No live Jev call, npm artifact verification, customer task or hosted optimization audit. Recovery is not exactly-once external delivery. Vendor AML figures are unreproduced.
+</li>
+</ul>
+    </div>
+  </section>
+      <section class="related-edition-section atlas-context-section">
+    <div class="section-title-row">
+      <h2>Atlas Context</h2>
+      <a href="/atlas/">Open Atlas &rsaquo;</a>
+    </div>
+    <div class="updates-list">
+      <a class="article-card" href="/atlas/the-architecture-of-trust/">
+            <div class="article-meta"><span class="lane">Agent Atlas</span><span>Chapter 9</span></div>
+            <h3>Trust Must Make Its Case</h3>
+            <p>Trustworthy behavior is not a personality trait or product promise. It is an assurance case built from inspectable policy provenance, durable control state, bounded execution, traceable lineage, recoverable records, and explicit residual risk.</p>
+          </a>
+    </div>
+  </section>
+      <section class="reader-feedback"
+    data-tgr-feedback
+    data-article-slug="2026-10-13-daily-how-grep-agentrun-turns-repeated-agent-work-into-decision-workflows"
+    data-article-title="How Grep AgentRun turns repeated agent work into decision workflows"
+    data-article-url="/articles/2026-10-13-daily-how-grep-agentrun-turns-repeated-agent-work-into-decision-workflows/"
+    data-edition-date="2026-10-13"
+    data-lane="Daily Edition"
+    data-tags="Workflows,Decision models"
+    data-repos="Parcha-ai/agentrun">
+    <div class="reader-feedback-head">
+      <div>
+        <div class="eyebrow">Letters &amp; Corrections</div>
+        <h2>Send a note to the desk</h2>
+      </div>
+      <p>Corrections, missing context, or a follow-up lead.</p>
+    </div>
+    <form class="feedback-form">
+      <div class="feedback-votes" role="group" aria-label="Choose signal type">
+        <button class="feedback-choice" type="button" data-vote="follow-up" aria-pressed="false">
+          <span aria-hidden="true">+</span>
+          <span>Follow-up</span>
+        </button>
+        <button class="feedback-choice" type="button" data-vote="correction" aria-pressed="false">
+          <span aria-hidden="true">!</span>
+          <span>Correction</span>
+        </button>
+      </div>
+      <label class="feedback-comment">
+        <span>Note for the editor</span>
+        <textarea name="comment" rows="3" maxlength="320" placeholder="What did we miss, or what should we follow next?"></textarea>
+      </label>
+      <div class="feedback-submit-row">
+        <p class="feedback-status" aria-live="polite"></p>
+        <button class="paper-button primary feedback-submit" type="submit">Send to desk</button>
+      </div>
+    </form>
+  </section>
+      <section class="related-edition-section">
+        <div class="section-title-row">
+          <h2>Same Edition</h2>
+          <a href="/editions/2026-10-13/">Open issue &rsaquo;</a>
+        </div>
+        <div class="updates-list">
+          <a class="update-card" href="/articles/2026-10-13-daily-ollama-opens-another-local-path-for-image-and-audio-search/">
+    <div class="update-stripe"></div>
+    <div class="update-main">
+      <div class="update-meta">
+        <span>Reported</span>
+        <span class="source-plus">+10</span>
+        <span>Oct 13, 2026</span>
+      </div>
+      <h3>Ollama Opens Another Local Path for Image and Audio Search</h3>
+      <div class="update-receipt">
+        <span>ollama/ollama</span>
+        <span class="branch-pill">evidence</span>
+      </div>
+      <div class="update-foot">
+        <span>10 sources</span>
+        <span>1 repo</span>
+        <span>3 linked commits</span>
+      </div>
+    </div>
+    <span class="update-arrow" aria-hidden="true">&rsaquo;</span>
+  </a>
+        </div>
+      </section>
+    </main>
+    <footer class="wrap site-footer">
+      <span>&copy; 2026 The Git Reporter</span>
+      <a href="/about/">About</a>
+      <a href="/battles/">Diff Derby</a>
+      <a href="/agent-pulse/">Agent Pulse</a>
+      <a href="/feed.xml">RSS</a>
+      <a href="https://x.com/TheGitReporter">Follow on X</a>
+      <a href="/articles.json">Manifest JSON</a>
+      <a href="/repos/">Sources</a>
+    </footer>
+  </div>
+</body>
+</html>
