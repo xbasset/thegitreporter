@@ -1,0 +1,337 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Gemini’s Longer Answers Now Span Multiple Requests | The Git Reporter</title>
+  <meta name="description" content="Google’s Argon can continue a response beyond one request’s output limit. Pydantic AI’s released integration shows what that means for an agent: one answer, several network calls, and two different ways of counting tokens.">
+  <meta name="robots" content="index,follow">
+  <link rel="canonical" href="https://thegitreporter.com/articles/2026-10-14-daily-gemini-s-longer-answers-now-span-multiple-requests/">
+  <link rel="alternate" type="application/rss+xml" title="The Git Reporter" href="https://thegitreporter.com/feed.xml">
+  <meta property="og:site_name" content="The Git Reporter">
+  <meta property="og:locale" content="en_US">
+  <meta property="og:title" content="Gemini’s Longer Answers Now Span Multiple Requests | The Git Reporter">
+  <meta property="og:description" content="Google’s Argon can continue a response beyond one request’s output limit. Pydantic AI’s released integration shows what that means for an agent: one answer, several network calls, and two different ways of counting tokens.">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://thegitreporter.com/articles/2026-10-14-daily-gemini-s-longer-answers-now-span-multiple-requests/">
+  <meta property="og:image" content="https://thegitreporter.com/assets/social/2026-10-14-daily-gemini-s-longer-answers-now-span-multiple-requests-og.jpg">
+  <meta property="og:image:secure_url" content="https://thegitreporter.com/assets/social/2026-10-14-daily-gemini-s-longer-answers-now-span-multiple-requests-og.jpg">
+  <meta property="og:image:type" content="image/jpeg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Three request cards pass continuation tokens and join their output into one answer, with a note that input, thinking and output share one token budget.">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:site" content="@TheGitReporter">
+  <meta name="twitter:creator" content="@TheGitReporter">
+  <meta name="twitter:title" content="Gemini’s Longer Answers Now Span Multiple Requests | The Git Reporter">
+  <meta name="twitter:description" content="Google’s Argon can continue a response beyond one request’s output limit. Pydantic AI’s released integration shows what that means for an agent: one answer, several network calls, and two different ways of counting tokens.">
+  <meta name="twitter:url" content="https://thegitreporter.com/articles/2026-10-14-daily-gemini-s-longer-answers-now-span-multiple-requests/">
+  <meta name="twitter:domain" content="thegitreporter.com">
+  <meta name="twitter:image" content="https://thegitreporter.com/assets/social/2026-10-14-daily-gemini-s-longer-answers-now-span-multiple-requests-og.jpg">
+  <meta name="twitter:image:alt" content="Three request cards pass continuation tokens and join their output into one answer, with a note that input, thinking and output share one token budget.">
+  <meta property="article:published_time" content="2026-10-14T12:00:00Z">
+  <meta property="article:modified_time" content="2026-10-14T12:00:00Z">
+  <meta property="article:section" content="Daily Edition">
+  <meta property="article:tag" content="Models">
+  <meta property="article:tag" content="Long generation">
+  <meta property="article:tag" content="pydantic/pydantic-ai">
+  <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"https://thegitreporter.com/#organization","name":"The Git Reporter","url":"https://thegitreporter.com","logo":{"@type":"ImageObject","url":"https://thegitreporter.com/assets/mark.svg"},"sameAs":["https://x.com/TheGitReporter"]},{"@type":"WebSite","@id":"https://thegitreporter.com/#website","name":"The Git Reporter","url":"https://thegitreporter.com","publisher":{"@id":"https://thegitreporter.com/#organization"}},{"@type":"NewsArticle","mainEntityOfPage":{"@type":"WebPage","@id":"https://thegitreporter.com/articles/2026-10-14-daily-gemini-s-longer-answers-now-span-multiple-requests/"},"headline":"Gemini’s Longer Answers Now Span Multiple Requests","description":"Google’s Argon can continue a response beyond one request’s output limit. Pydantic AI’s released integration shows what that means for an agent: one answer, several network calls, and two different ways of counting tokens.","image":["https://thegitreporter.com/assets/social/2026-10-14-daily-gemini-s-longer-answers-now-span-multiple-requests-og.jpg"],"datePublished":"2026-10-14T12:00:00Z","dateModified":"2026-10-14T12:00:00Z","author":[{"@type":"Organization","name":"The Git Reporter","url":"https://thegitreporter.com"}],"publisher":{"@type":"Organization","@id":"https://thegitreporter.com/#organization","name":"The Git Reporter","url":"https://thegitreporter.com","logo":{"@type":"ImageObject","url":"https://thegitreporter.com/assets/mark.svg"},"sameAs":["https://x.com/TheGitReporter"]},"articleSection":"Daily Edition","keywords":"Models, Long generation, pydantic/pydantic-ai"}]}</script>
+  <link rel="icon" href="/assets/mark.svg">
+  <link rel="stylesheet" href="/assets/site.css?v=2026-10-03-article-questions">
+  <script defer src="/assets/feedback.js?v=2026-10-03-article-questions"></script>
+  <script defer src="/assets/article-questions.js?v=2026-10-03-article-questions"></script>
+  <script defer src="/assets/analytics.js?v=2026-10-03-article-questions"></script>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-CH19T7M0T1"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){window.dataLayer.push(arguments);}
+    gtag("js", new Date());
+    gtag("config", "G-CH19T7M0T1");
+  </script>
+</head>
+<body>
+  <div class="site">
+    <header class="site-header" id="top">
+      <div class="wrap utility-row">
+        <a class="icon-link menu-icon" href="/archive/" aria-label="Open edition history"><span></span><span></span><span></span></a>
+        <a class="icon-link archive-icon" href="/archive/" aria-label="Open edition history"></a>
+      </div>
+      <div class="wrap masthead-lockup">
+        <a class="masthead-title" href="/">THE GIT REPORTER</a>
+        <div class="masthead-ornament" aria-hidden="true"></div>
+      </div>
+      <div class="wrap nav-wrap">
+        <nav class="paper-nav" aria-label="Primary navigation">
+    <a class=""  href="/">Stories</a><a class=""  href="/today/">Today</a><a class="active" aria-current="page" href="/archive/">Editions</a><a class=""  href="/about/">About</a><a class=""  href="/battles/">Diff Derby</a><a class=""  href="/agent-pulse/">Agent Pulse</a><a class=""  href="/atlas/">Agent Atlas</a><a class=""  href="/repos/">Repos</a>
+  </nav>
+        <div class="nav-rule"></div>
+      </div>
+    </header>
+    <main class="wrap page-shell article-page">
+      <section class="page-hero story-front">
+        <div class="story-topline">
+          <span>Daily Edition</span>
+          <span>Sources <strong>+12</strong></span>
+        </div>
+        <h1>Gemini’s Longer Answers Now Span Multiple Requests</h1>
+        <p class="summary">Google’s Argon can continue a response beyond one request’s output limit. Pydantic AI’s released integration shows what that means for an agent: one answer, several network calls, and two different ways of counting tokens.</p>
+        <figure class="story-illustration article-illustration">
+    <img src="/assets/illustrations/2026-10-14-gemini-s-longer-answers-now-span-multiple-requests-diagram-punk-v1.png" alt="Three request cards pass continuation tokens and join their output into one answer, with a note that input, thinking and output share one token budget." loading="lazy" decoding="async">
+    <figcaption><span>Diagram Punk</span>Google’s SDK continues and merges the requests; Pydantic preserves the response parts and counts usage separately from context. Three requests are schematic.</figcaption>
+  </figure>
+        <div class="receipt">
+    <div class="receipt-line">
+      <span class="receipt-icon">repo</span>
+      <span class="receipt-main">pydantic/pydantic-ai</span>
+      <span class="branch-pill">evidence</span>
+    </div>
+    <div class="receipt-line receipt-muted">
+      <span>12 source signals</span>
+      <span>1 repo</span>
+      <span>12 source signals</span>
+    </div>
+    <div class="commit-line">Evidence: 12 source signals / October 14, 2026 / Daily Edition</div>
+  </div>
+        <div class="article-route-row">
+          <a href="/editions/2026-10-14/">Open Edition</a>
+          <a href="#evidence">Evidence below</a>
+          <button type="button" class="ask-inline" data-ask-entry data-ask-open aria-haspopup="dialog" aria-controls="article-questions" hidden>Ask about this article ↗</button>
+        </div>
+      </section>
+      <section class="story-reader">
+        <article class="story-shell story-body">
+          <p>A long answer from Gemini 4 Argon can now cross several network requests while appearing to an agent application as one response. The <a href="https://github.com/pydantic/pydantic-ai/releases/tag/v2.56.0">Pydantic AI 2.56.0 release</a>, published early October 14 in Paris, adapts the framework in <a href="https://github.com/pydantic/pydantic-ai">pydantic/pydantic-ai</a> to Google’s continuation mechanism. It preserves the pieces of the answer and distinguishes how much work was billed from how much context the model occupies.</p>
+  <p>The timing matters. Google <a href="https://blog.google/intl/en-in/products/introducing-gemini-4-argon/">announced broad Argon availability on October 13</a>, including its paid API, after the <a href="https://blog.google/innovation-and-ai/models-and-research/gemini-models/gemini-4-argon/">September 30 introduction</a> began with selected cyber defenders. Its promise of longer, more demanding work now has a released integration that ordinary framework users can inspect.</p>
+  <p>For someone building an evaluator or an agent that tackles a difficult specification, the useful change is room to continue one response past a transport limit. It is not a reason to make every answer longer. The public code explains how the response travels; it cannot establish that extra generation makes a difficult answer correct.</p>
+
+  <h2>A larger allowance still needs a handoff</h2>
+  <p>Google’s initial announcement described an expansion from 64K to one million output tokens. The <a href="https://ai.google.dev/gemini-api/docs/generate-content/long-decode">current operational guide</a> gives the precise boundary: 1,048,576 tokens shared by input, thinking and output. A large prompt consumes room that would otherwise be available for generation. This clarifies the usable budget; it does not establish that an earlier implemented entitlement was withdrawn.</p>
+  <p>The guide distinguishes the limits along the route. Streaming calls and current SDK calls default to 65,536 output tokens; direct non-streaming REST requests have a 32,768-token limit per request. Continuing beyond those boundaries requires the appropriate client support and a larger overall output setting. Merely changing the model name leaves the ordinary limit in place.</p>
+  <p>Google’s <a href="https://github.com/googleapis/python-genai/blob/8540d12f676aca015145a597e1be69aa07cdf988/google/genai/models.py">Python SDK implementation</a> does the handoff. When the service returns a continuation token, the SDK repeats the original request with that token. It continues until the response finishes or cannot continue, then combines the pieces. The application does not have to send a conversational “please continue” prompt for each segment.</p>
+  <p>That ownership is important: Pydantic did not invent long decoding. It is making Google’s existing mechanism fit the contract its own users already rely on. The <a href="https://github.com/pydantic/pydantic-ai/blob/4cd82817fcb2db80c6e1221d5b2ba33ec1d4c12c/pydantic_ai_slim/pydantic_ai/models/google.py">adapter</a> keeps the boundaries between response parts as requests change, including during streaming, rather than flattening away the metadata attached to an earlier part.</p>
+
+  <h2>One response needs two token counts</h2>
+  <p>A subtler change appears in the counters. Each continuation includes work generated so far in the model’s input. Adding the input usage from every request therefore counts some material repeatedly. That is meaningful for usage accounting, but it is a poor measure of the space occupied by the conversation.</p>
+  <p>The distinction is visible in a small <a href="https://github.com/pydantic/pydantic-ai/blob/4cd82817fcb2db80c6e1221d5b2ba33ec1d4c12c/tests/harness/compaction/test_compaction.py#L300">compaction test</a>. It models a first request with 50,000 input tokens, a continuation with 50,500, and 1,000 output tokens overall. The accumulated input usage is 100,500, but the context estimate is 51,000: the original input plus the generated output.</p>
+  <p>Pydantic’s <a href="https://github.com/pydantic/pydantic-ai/blob/4cd82817fcb2db80c6e1221d5b2ba33ec1d4c12c/pydantic_ai_slim/pydantic_ai/_context_size.py">new context-size helper</a> preserves that distinction for context checks and compaction, which shortens a conversation when it approaches its space limit. Without it, repeated input accounting could make a conversation appear fuller than it is and cause the framework to shorten it prematurely. Usage totals remain available for accounting; the context estimate answers a different question.</p>
+  <p>The <a href="https://github.com/pydantic/pydantic-ai/blob/4cd82817fcb2db80c6e1221d5b2ba33ec1d4c12c/tests/models/google/test_long_decode.py">long-decode suite</a> also includes upstream recordings of counting tasks that cross a request boundary, alongside scripted continuation and failure cases. The streamed recording reports 72,897 output tokens from an initial prompt of 110 tokens. That is concrete evidence of the integration’s intended shape, not a benchmark of scientific or coding judgment. We inspected the code, fixtures and release ancestry; we did not execute the suite or make an authenticated Argon request.</p>
+
+  <h2>Choose who carries the unfinished response</h2>
+  <p>The framework still sees one logical model request. Its <a href="https://github.com/pydantic/pydantic-ai/blob/4cd82817fcb2db80c6e1221d5b2ba33ec1d4c12c/docs/models/google.md">release documentation</a> explains the practical consequences: request-count limits count one, and non-streaming token-limit checks happen after the combined request completes. The explicit <code>max_tokens</code> setting bounds the generation. Google providers now create clients with a twenty-minute read timeout for each request; an outer job deadline must still allow for the complete sequence.</p>
+  <p>There is also a choice of execution model. Google’s <a href="https://ai.google.dev/gemini-api/docs/long-decode">Interactions API</a> offers background execution in which its servers manage the continuation steps. The client polls or streams the interaction and joins its output steps. Google recommends that route for new projects. Pydantic’s integration serves applications using the GenerateContent path; developers need not adopt a framework solely to obtain long decoding.</p>
+  <p>Interruption remains part of that choice. In Pydantic’s non-streaming path, a later request failure can leave the caller without earlier output that has already incurred usage. Streaming can preserve emitted output and the completed requests’ usage as an interrupted response. These are different recovery contracts for the same longer generation.</p>
+  <p>The next useful comparison is a fixed difficult task run with and without continuation, using the same acceptance criteria and recording total usage and elapsed time. The released plumbing now makes that experiment practical inside Pydantic. Its value will be established by completed work that the shorter run could not deliver—not by the size of the allowance alone.</p>
+        </article>
+      </section>
+      <section class="article-questions-invitation" data-ask-entry hidden>
+    <h2>Keep asking questions.</h2>
+    <p>Explore the story and its evidence in your own ChatGPT conversation.</p>
+    <button class="paper-button" type="button" data-ask-open aria-haspopup="dialog" aria-controls="article-questions">Ask about this article <span aria-hidden="true">↗</span></button>
+  </section>
+  <dialog class="article-questions" id="article-questions" aria-labelledby="ask-title"
+    data-title="Gemini’s Longer Answers Now Span Multiple Requests" data-date="2026-10-14"
+    data-url="https://thegitreporter.com/articles/2026-10-14-daily-gemini-s-longer-answers-now-span-multiple-requests/"
+    data-summary="Google’s Argon can continue a response beyond one request’s output limit. Pydantic AI’s released integration shows what that means for an agent: one answer, several network calls, and two different ways of counting tokens.">
+    <div class="ask-heading">
+      <h2 id="ask-title" tabindex="-1" autofocus>Ask about this article</h2>
+      <button type="button" class="ask-close" aria-label="Close question box">×</button>
+    </div>
+    <form class="ask-form">
+      <div class="ask-content">
+        <p class="ask-article-title">Gemini’s Longer Answers Now Span Multiple Requests</p>
+        <div class="ask-suggestions" role="group" aria-label="Suggested questions">
+          <button type="button" data-question="Explain this article in plain language. What changed?">Explain simply</button>
+          <button type="button" data-question="Why does this change matter, and who is affected?">Why does this matter?</button>
+          <button type="button" data-question="What is the strongest counterargument to this article, and what evidence would change its conclusion?">Challenge the argument</button>
+        </div>
+        <label for="ask-question">Your question</label>
+        <textarea id="ask-question" rows="3" maxlength="2000" required placeholder="What would you like to understand?" aria-describedby="ask-context"></textarea>
+        <p id="ask-context" class="ask-note">Article link and summary included. Continue using your ChatGPT account; you may need to sign in.</p>
+        <details class="ask-manual" hidden>
+          <summary>Prepared text for copying</summary>
+          <textarea class="ask-copy-text" rows="5" readonly aria-label="Prepared question and article context"></textarea>
+        </details>
+      </div>
+      <div class="ask-actions">
+        <p class="ask-status" role="status" aria-live="polite"></p>
+        <button class="paper-button primary" type="submit">Continue in ChatGPT ↗</button>
+        <div class="ask-copy-actions">
+          <button type="button" data-ask-copy="summary">Copy question + context</button>
+          <button type="button" data-ask-copy="article">Copy article + question</button>
+        </div>
+        <p class="ask-note">If your question doesn’t appear in ChatGPT, copy it here and paste it there.</p>
+      </div>
+    </form>
+  </dialog>
+      <section class="evidence-section" id="evidence" aria-labelledby="evidence-title">
+    <div class="evidence-head">
+      <div>
+        <div class="eyebrow">Evidence Trail</div>
+        <h2 id="evidence-title">Receipts below the story</h2>
+        <p>The article above is the public narrative. This section keeps the source trail and limits on the same page.</p>
+      </div>
+      <a class="paper-button" href="/editions/2026-10-14/">Edition</a>
+    </div>
+    <div class="evidence-table evidence-summary">
+      <div class="evidence-line"><span>Date</span><span>October 14, 2026</span></div>
+      <div class="evidence-line"><span>Lane</span><span>Daily Edition</span></div>
+      <div class="evidence-line"><span>Confidence</span><span>91%</span></div>
+      <div class="evidence-line"><span>Sources</span><span>12</span></div>
+      <div class="evidence-line"><span>Repos</span><span>pydantic/pydantic-ai</span></div>
+    </div>
+    <div class="markdown evidence-copy evidence-copy-block">
+      <h2>Primary Evidence</h2>
+<ul>
+<li>Google’s initial Argon announcement, September 30: <a href="https://blog.google/innovation-and-ai/models-and-research/gemini-models/gemini-4-argon/">https://blog.google/innovation-and-ai/models-and-research/gemini-models/gemini-4-argon/</a>
+<ul>
+<li>Shows: restricted initial rollout and the original long-output claim; establishes the dated public baseline.
+</li>
+</ul>
+</li>
+<li>Google’s broad availability announcement, October 13: <a href="https://blog.google/intl/en-in/products/introducing-gemini-4-argon/">https://blog.google/intl/en-in/products/introducing-gemini-4-argon/</a>
+<ul>
+<li>Shows: announced paid API availability and a unified input-output allowance. Availability is attributed to Google, not independently tested account access.
+</li>
+</ul>
+</li>
+<li>GenerateContent long-decode guide, inspected October 14: <a href="https://ai.google.dev/gemini-api/docs/generate-content/long-decode">https://ai.google.dev/gemini-api/docs/generate-content/long-decode</a>
+<ul>
+<li>Shows: shared input/thinking/output budget, current SDK/streaming versus direct non-streaming REST limits, continuation setup and suitable workloads.
+</li>
+</ul>
+</li>
+<li>Pydantic AI 2.56.0 release: <a href="https://github.com/pydantic/pydantic-ai/releases/tag/v2.56.0">https://github.com/pydantic/pydantic-ai/releases/tag/v2.56.0</a>
+<ul>
+<li>Shows: a published release containing Argon support and the long-decode integration; published October 13 UTC, October 14 in Paris.
+</li>
+</ul>
+</li>
+<li>Google Python SDK continuation implementation: <a href="https://github.com/googleapis/python-genai/blob/8540d12f676aca015145a597e1be69aa07cdf988/google/genai/models.py">https://github.com/googleapis/python-genai/blob/8540d12f676aca015145a597e1be69aa07cdf988/google/genai/models.py</a>
+<ul>
+<li>Shows: continuation loops repeat original request contents with a token and combine the returned responses; this work is owned by the SDK.
+</li>
+</ul>
+</li>
+<li>Google SDK response merge helper: <a href="https://github.com/googleapis/python-genai/blob/8540d12f676aca015145a597e1be69aa07cdf988/google/genai/_extra_utils.py">https://github.com/googleapis/python-genai/blob/8540d12f676aca015145a597e1be69aa07cdf988/google/genai/_extra_utils.py</a>
+<ul>
+<li>Shows: cumulative usage and concatenated parts, with initial prompt size retained separately.
+</li>
+</ul>
+</li>
+<li>Pydantic’s Google adapter: <a href="https://github.com/pydantic/pydantic-ai/blob/4cd82817fcb2db80c6e1221d5b2ba33ec1d4c12c/pydantic_ai_slim/pydantic_ai/models/google.py">https://github.com/pydantic/pydantic-ai/blob/4cd82817fcb2db80c6e1221d5b2ba33ec1d4c12c/pydantic_ai_slim/pydantic_ai/models/google.py</a>
+<ul>
+<li>Shows: continued response parts, initial-input metadata and handling of a resumed stream that would duplicate output.
+</li>
+</ul>
+</li>
+<li>Context accounting helper: <a href="https://github.com/pydantic/pydantic-ai/blob/4cd82817fcb2db80c6e1221d5b2ba33ec1d4c12c/pydantic_ai_slim/pydantic_ai/_context_size.py">https://github.com/pydantic/pydantic-ai/blob/4cd82817fcb2db80c6e1221d5b2ba33ec1d4c12c/pydantic_ai_slim/pydantic_ai/_context_size.py</a>
+<ul>
+<li>Shows: context calculations use initial input plus total output, while summed request usage remains available for accounting.
+</li>
+</ul>
+</li>
+<li>Compaction regression fixture: <a href="https://github.com/pydantic/pydantic-ai/blob/4cd82817fcb2db80c6e1221d5b2ba33ec1d4c12c/tests/harness/compaction/test_compaction.py#L300">https://github.com/pydantic/pydantic-ai/blob/4cd82817fcb2db80c6e1221d5b2ba33ec1d4c12c/tests/harness/compaction/test_compaction.py#L300</a>
+<ul>
+<li>Shows: a scripted 100,500 cumulative-input total corresponds to 51,000 context tokens after 1,000 output tokens, from a 50,000-token initial prompt.
+</li>
+</ul>
+</li>
+<li>Long-decode test definitions: <a href="https://github.com/pydantic/pydantic-ai/blob/4cd82817fcb2db80c6e1221d5b2ba33ec1d4c12c/tests/models/google/test_long_decode.py">https://github.com/pydantic/pydantic-ai/blob/4cd82817fcb2db80c6e1221d5b2ba33ec1d4c12c/tests/models/google/test_long_decode.py</a>
+<ul>
+<li>Shows: upstream recorded counting runs crossing a cap, and mock cases for continuation, stream parts and failures. The streamed recording reports 72,897 output tokens and 110 initial input tokens.
+</li>
+</ul>
+</li>
+<li>Pinned integration documentation: <a href="https://github.com/pydantic/pydantic-ai/blob/4cd82817fcb2db80c6e1221d5b2ba33ec1d4c12c/docs/models/google.md">https://github.com/pydantic/pydantic-ai/blob/4cd82817fcb2db80c6e1221d5b2ba33ec1d4c12c/docs/models/google.md</a>
+<ul>
+<li>Shows: one logical request, max_tokens bounds, per-request timeout and different streaming/non-streaming failure contracts.
+</li>
+</ul>
+</li>
+<li>Server-managed alternative: <a href="https://ai.google.dev/gemini-api/docs/long-decode">https://ai.google.dev/gemini-api/docs/long-decode</a>
+<ul>
+<li>Shows: Interactions background execution manages continuation on Google’s servers and exposes output steps under one interaction.
+</li>
+</ul>
+</li>
+</ul>
+<h2>Evidence Limits</h2>
+<ul>
+<li>Source, release ancestry, documentation and test definitions were inspected; the upstream suite and authenticated model service were not run independently.
+</li>
+<li>Counting fixtures establish a narrow transport example, not improvement in coding, scientific reasoning, task completion or cost effectiveness.
+</li>
+<li>The shared million-token limit is a ceiling for input, thinking and output together, not a promise of a million visible output tokens or an instruction to lengthen every answer.
+</li>
+<li>Current documentation gives operational precision to the September announcement; these sources do not establish withdrawal of an earlier implemented entitlement.
+</li>
+<li>Client source cannot audit the closed model’s reasoning, internal state, training or general reliability. Broad availability is a vendor announcement, not a test of every account or region.
+</li>
+</ul>
+    </div>
+  </section>
+      <section class="related-edition-section atlas-context-section">
+    <div class="section-title-row">
+      <h2>Atlas Context</h2>
+      <a href="/atlas/">Open Atlas &rsaquo;</a>
+    </div>
+    <div class="updates-list">
+      <a class="article-card" href="/atlas/friction-safety-and-approval/">
+            <div class="article-meta"><span class="lane">Agent Atlas</span><span>Chapter 7</span></div>
+            <h3>The Approval Trap</h3>
+            <p>Approval is useful only when it catches a meaningful change in authority, explains that change, and keeps the decision attached to the work.</p>
+          </a>
+    </div>
+  </section>
+      <section class="reader-feedback"
+    data-tgr-feedback
+    data-article-slug="2026-10-14-daily-gemini-s-longer-answers-now-span-multiple-requests"
+    data-article-title="Gemini’s Longer Answers Now Span Multiple Requests"
+    data-article-url="/articles/2026-10-14-daily-gemini-s-longer-answers-now-span-multiple-requests/"
+    data-edition-date="2026-10-14"
+    data-lane="Daily Edition"
+    data-tags="Models,Long generation"
+    data-repos="pydantic/pydantic-ai">
+    <div class="reader-feedback-head">
+      <div>
+        <div class="eyebrow">Letters &amp; Corrections</div>
+        <h2>Send a note to the desk</h2>
+      </div>
+      <p>Corrections, missing context, or a follow-up lead.</p>
+    </div>
+    <form class="feedback-form">
+      <div class="feedback-votes" role="group" aria-label="Choose signal type">
+        <button class="feedback-choice" type="button" data-vote="follow-up" aria-pressed="false">
+          <span aria-hidden="true">+</span>
+          <span>Follow-up</span>
+        </button>
+        <button class="feedback-choice" type="button" data-vote="correction" aria-pressed="false">
+          <span aria-hidden="true">!</span>
+          <span>Correction</span>
+        </button>
+      </div>
+      <label class="feedback-comment">
+        <span>Note for the editor</span>
+        <textarea name="comment" rows="3" maxlength="320" placeholder="What did we miss, or what should we follow next?"></textarea>
+      </label>
+      <div class="feedback-submit-row">
+        <p class="feedback-status" aria-live="polite"></p>
+        <button class="paper-button primary feedback-submit" type="submit">Send to desk</button>
+      </div>
+    </form>
+  </section>
+      
+    </main>
+    <footer class="wrap site-footer">
+      <span>&copy; 2026 The Git Reporter</span>
+      <a href="/about/">About</a>
+      <a href="/battles/">Diff Derby</a>
+      <a href="/agent-pulse/">Agent Pulse</a>
+      <a href="/feed.xml">RSS</a>
+      <a href="https://x.com/TheGitReporter">Follow on X</a>
+      <a href="/articles.json">Manifest JSON</a>
+      <a href="/repos/">Sources</a>
+    </footer>
+  </div>
+</body>
+</html>
