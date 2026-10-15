@@ -1,0 +1,381 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>QM Drops Two Agent Loops but Keeps ChatGPT Access | The Git Reporter</title>
+  <meta name="description" content="The shared workplace agent is narrowing its runtime choices to Pi and Claude. Its October 14 code change shows why keeping a model connection does not require keeping the agent software that shares its name.">
+  <meta name="robots" content="index,follow">
+  <link rel="canonical" href="https://thegitreporter.com/articles/2026-10-15-daily-qm-drops-two-agent-loops-but-keeps-chatgpt-access/">
+  <link rel="alternate" type="application/rss+xml" title="The Git Reporter" href="https://thegitreporter.com/feed.xml">
+  <meta property="og:site_name" content="The Git Reporter">
+  <meta property="og:locale" content="en_US">
+  <meta property="og:title" content="QM Drops Two Agent Loops but Keeps ChatGPT Access | The Git Reporter">
+  <meta property="og:description" content="The shared workplace agent is narrowing its runtime choices to Pi and Claude. Its October 14 code change shows why keeping a model connection does not require keeping the agent software that shares its name.">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://thegitreporter.com/articles/2026-10-15-daily-qm-drops-two-agent-loops-but-keeps-chatgpt-access/">
+  <meta property="og:image" content="https://thegitreporter.com/assets/social/2026-10-15-daily-qm-drops-two-agent-loops-but-keeps-chatgpt-access-og.jpg">
+  <meta property="og:image:secure_url" content="https://thegitreporter.com/assets/social/2026-10-15-daily-qm-drops-two-agent-loops-but-keeps-chatgpt-access-og.jpg">
+  <meta property="og:image:type" content="image/jpeg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="QM retains Pi and Claude sockets while Codex and OpenCode loop sockets are crossed out; Pi remains connected to ChatGPT access.">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:site" content="@TheGitReporter">
+  <meta name="twitter:creator" content="@TheGitReporter">
+  <meta name="twitter:title" content="QM Drops Two Agent Loops but Keeps ChatGPT Access | The Git Reporter">
+  <meta name="twitter:description" content="The shared workplace agent is narrowing its runtime choices to Pi and Claude. Its October 14 code change shows why keeping a model connection does not require keeping the agent software that shares its name.">
+  <meta name="twitter:url" content="https://thegitreporter.com/articles/2026-10-15-daily-qm-drops-two-agent-loops-but-keeps-chatgpt-access/">
+  <meta name="twitter:domain" content="thegitreporter.com">
+  <meta name="twitter:image" content="https://thegitreporter.com/assets/social/2026-10-15-daily-qm-drops-two-agent-loops-but-keeps-chatgpt-access-og.jpg">
+  <meta name="twitter:image:alt" content="QM retains Pi and Claude sockets while Codex and OpenCode loop sockets are crossed out; Pi remains connected to ChatGPT access.">
+  <meta property="article:published_time" content="2026-10-15T12:00:00Z">
+  <meta property="article:modified_time" content="2026-10-15T12:00:00Z">
+  <meta property="article:section" content="Daily Edition">
+  <meta property="article:tag" content="Permissions">
+  <meta property="article:tag" content="Delegation">
+  <meta property="article:tag" content="Tools">
+  <meta property="article:tag" content="UX">
+  <meta property="article:tag" content="yc-software/qm">
+  <meta property="article:tag" content="different-ai/openwork">
+  <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"https://thegitreporter.com/#organization","name":"The Git Reporter","url":"https://thegitreporter.com","logo":{"@type":"ImageObject","url":"https://thegitreporter.com/assets/mark.svg"},"sameAs":["https://x.com/TheGitReporter"]},{"@type":"WebSite","@id":"https://thegitreporter.com/#website","name":"The Git Reporter","url":"https://thegitreporter.com","publisher":{"@id":"https://thegitreporter.com/#organization"}},{"@type":"NewsArticle","mainEntityOfPage":{"@type":"WebPage","@id":"https://thegitreporter.com/articles/2026-10-15-daily-qm-drops-two-agent-loops-but-keeps-chatgpt-access/"},"headline":"QM Drops Two Agent Loops but Keeps ChatGPT Access","description":"The shared workplace agent is narrowing its runtime choices to Pi and Claude. Its October 14 code change shows why keeping a model connection does not require keeping the agent software that shares its name.","image":["https://thegitreporter.com/assets/social/2026-10-15-daily-qm-drops-two-agent-loops-but-keeps-chatgpt-access-og.jpg"],"datePublished":"2026-10-15T12:00:00Z","dateModified":"2026-10-15T12:00:00Z","author":[{"@type":"Organization","name":"The Git Reporter","url":"https://thegitreporter.com"}],"publisher":{"@type":"Organization","@id":"https://thegitreporter.com/#organization","name":"The Git Reporter","url":"https://thegitreporter.com","logo":{"@type":"ImageObject","url":"https://thegitreporter.com/assets/mark.svg"},"sameAs":["https://x.com/TheGitReporter"]},"articleSection":"Daily Edition","keywords":"Permissions, Delegation, Tools, UX, yc-software/qm, different-ai/openwork"}]}</script>
+  <link rel="icon" href="/assets/mark.svg">
+  <link rel="stylesheet" href="/assets/site.css?v=2026-10-03-article-questions">
+  <script defer src="/assets/feedback.js?v=2026-10-03-article-questions"></script>
+  <script defer src="/assets/article-questions.js?v=2026-10-03-article-questions"></script>
+  <script defer src="/assets/analytics.js?v=2026-10-03-article-questions"></script>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-CH19T7M0T1"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){window.dataLayer.push(arguments);}
+    gtag("js", new Date());
+    gtag("config", "G-CH19T7M0T1");
+  </script>
+</head>
+<body>
+  <div class="site">
+    <header class="site-header" id="top">
+      <div class="wrap utility-row">
+        <a class="icon-link menu-icon" href="/archive/" aria-label="Open edition history"><span></span><span></span><span></span></a>
+        <a class="icon-link archive-icon" href="/archive/" aria-label="Open edition history"></a>
+      </div>
+      <div class="wrap masthead-lockup">
+        <a class="masthead-title" href="/">THE GIT REPORTER</a>
+        <div class="masthead-ornament" aria-hidden="true"></div>
+      </div>
+      <div class="wrap nav-wrap">
+        <nav class="paper-nav" aria-label="Primary navigation">
+    <a class=""  href="/">Stories</a><a class=""  href="/today/">Today</a><a class="active" aria-current="page" href="/archive/">Editions</a><a class=""  href="/about/">About</a><a class=""  href="/battles/">Diff Derby</a><a class=""  href="/agent-pulse/">Agent Pulse</a><a class=""  href="/atlas/">Agent Atlas</a><a class=""  href="/repos/">Repos</a>
+  </nav>
+        <div class="nav-rule"></div>
+      </div>
+    </header>
+    <main class="wrap page-shell article-page">
+      <section class="page-hero story-front">
+        <div class="story-topline">
+          <span>Daily Edition</span>
+          <span>Sources <strong>+14</strong></span>
+        </div>
+        <h1>QM Drops Two Agent Loops but Keeps ChatGPT Access</h1>
+        <p class="summary">The shared workplace agent is narrowing its runtime choices to Pi and Claude. Its October 14 code change shows why keeping a model connection does not require keeping the agent software that shares its name.</p>
+        <figure class="story-illustration article-illustration">
+    <img src="/assets/illustrations/2026-10-15-qm-drops-two-agent-loops-but-keeps-chatgpt-access-diagram-punk-v1.png" alt="QM retains Pi and Claude sockets while Codex and OpenCode loop sockets are crossed out; Pi remains connected to ChatGPT access." loading="lazy" decoding="async">
+    <figcaption><span>Diagram Punk</span>QM reduces its agent-loop integrations while retaining the existing Pi route to ChatGPT. Merged code is not a performance verdict.</figcaption>
+  </figure>
+        <div class="receipt">
+    <div class="receipt-line">
+      <span class="receipt-icon">repos</span>
+      <span class="receipt-main">yc-software/qm + different-ai/openwork</span>
+      <span class="branch-pill">evidence</span>
+    </div>
+    <div class="receipt-line receipt-muted">
+      <span>14 source signals</span>
+      <span>2 repos</span>
+      <span>3 linked commits</span>
+    </div>
+    <div class="commit-line">Evidence: 3 linked commits / October 15, 2026 / Daily Edition</div>
+  </div>
+        <div class="article-route-row">
+          <a href="/editions/2026-10-15/">Open Edition</a>
+          <a href="#evidence">Evidence below</a>
+          <button type="button" class="ask-inline" data-ask-entry data-ask-open aria-haspopup="dialog" aria-controls="article-questions" hidden>Ask about this article ↗</button>
+        </div>
+      </section>
+      <section class="story-reader">
+        <article class="story-shell story-body">
+          <p>QM has removed its Codex and OpenCode agent-loop integrations while keeping ChatGPT access through Pi. The <a href="https://github.com/yc-software/qm/commit/5903e77562e2ca2766f5b6f5fda6feb4734fa7e7">October 14 change in yc-software/qm</a> leaves Pi and Claude as its working runtime choices. It is a concrete example of an application reducing the machinery it maintains without dropping the model connection its users may care about.</p>
+
+  <p>QM is a <a href="https://github.com/yc-software/qm/blob/5903e77562e2ca2766f5b6f5fda6feb4734fa7e7/README.md">shared agent for work in Slack and the web</a>, with personal and group workspaces, scheduled tasks and durable sandboxes. The distinction matters because its interface sits above two separate choices: which model supplies a response, and which agent loop manages the conversation, tools and continuing work around that response.</p>
+
+  <h2>Four adapters become two</h2>
+  <p>When we <a href="/articles/2026-09-27-daily-you-sent-the-correction-has-the-agent-read-it/">covered QM on September 27</a>, its four runtimes exposed different signals for receiving a mid-run correction. The common interface had to account for each one. The <a href="https://github.com/yc-software/qm/blob/192873100fa455610a482e9d74c1e64c57d1bead/README.md">README immediately before this removal</a> still offered Pi, OpenCode, Codex and Claude Code behind the same core.</p>
+  <p>The new patch deletes two of those implementations and their integration code. That is a reduction in executable choices, even though the remaining Pi route supports models from multiple providers. A model name in the picker does not tell a user which software owns tool execution or how a running task receives a correction.</p>
+  <p>The change reaches stored settings as well. A <a href="https://github.com/yc-software/qm/blob/5903e77562e2ca2766f5b6f5fda6feb4734fa7e7/src/model/legacy-harness-migration.ts">database migration</a> replaces old Codex and OpenCode runtime selections with Pi across configuration, scheduled work, swarms and active-run handoffs. It changes the runtime identifier while leaving model identifiers in place. The <a href="https://github.com/yc-software/qm/blob/5903e77562e2ca2766f5b6f5fda6feb4734fa7e7/test/postgres-legacy-harness-migration.test.ts">migration tests</a> check repeat application, preservation of Claude choices, and retention of completed run records.</p>
+  <p>Preserving a model identifier does not preserve every behavior of the removed runtime. It preserves a selection in the data. Whether the same job finishes with the same permissions, tool behavior and recovery still depends on the replacement loop.</p>
+
+  <h2>The connection was already there</h2>
+  <p>Pi did not gain ChatGPT access for the first time this week. A <a href="https://github.com/yc-software/qm/commit/fe3cda05358653fcecfc04d5e8aa1b898530eb52">September 17 correction</a> already repaired QM’s Pi subscription path: it supplied the credential in the form Pi expected and translated QM’s internal model names into the names accepted by the service.</p>
+  <p>October’s change removes an extra dependency from signing in. Previously, QM <a href="https://github.com/yc-software/qm/blob/192873100fa455610a482e9d74c1e64c57d1bead/src/model/codex-device-login.ts">started a Codex app-server process</a> to conduct device login, read the resulting authentication file and shut the process down. The <a href="https://github.com/yc-software/qm/blob/5903e77562e2ca2766f5b6f5fda6feb4734fa7e7/src/model/codex-device-login.ts">replacement</a> asks Pi’s provider library to conduct that login directly. The account connection remains; the process carrying the sign-in changes.</p>
+  <p>The implementation also retains a distinction between subscription access and metered API access. QM’s <a href="https://github.com/yc-software/qm/blob/5903e77562e2ca2766f5b6f5fda6feb4734fa7e7/src/model/pi-models.ts">model registry</a> uses a separate <code>codex/</code> namespace for the subscription route. Its <a href="https://github.com/yc-software/qm/blob/5903e77562e2ca2766f5b6f5fda6feb4734fa7e7/test/pi-company-subscription.test.ts">company-routing tests</a> check that supported configured paths fail when subscription credentials are unavailable instead of silently using a metered key. Those are mocked tests of selected paths, not a guarantee about every model configuration or a measured bill.</p>
+
+  <h2>A cleanup, not a popularity contest</h2>
+  <p>The strongest counterweight comes from the maintainer’s <a href="https://github.com/yc-software/qm/pull/2277">public explanation</a>: the deployed fleet was already using Pi and Claude, and an audit found no legacy runtime references. That account makes this look like code catching up with operation, rather than customers suddenly abandoning two agents. The underlying fleet audit is not independently inspectable from the repository.</p>
+  <p>The same account reports a successful two-turn ChatGPT test on a development instance. It says the company-level subscription configuration was not enabled in production. We did not reproduce either the live test or the fleet audit. Removing the integration also does not remove every Codex dependency: the CLI remains in sandbox images, and a developer using its local authentication file still relies on that CLI to refresh it.</p>
+  <p>Another project is making a different choice. OpenWork’s <a href="https://github.com/different-ai/openwork/commit/115599faa35709d7904631f6c1f853098e284de1">October 14 desktop change</a> selects OpenCode v2 for fresh installations while preserving existing users’ saved engine choice. That is a product-specific default, not evidence that either engine is winning the field. These changes describe two applications choosing how to assemble their own systems.</p>
+
+  <p>Both findings concern merged source. The inspected <a href="https://github.com/yc-software/qm/releases/tag/desktop-v0.1.2">QM desktop release</a> and <a href="https://github.com/different-ai/openwork/releases/tag/v0.18.58">OpenWork release</a> predate their respective changes; we did not establish a containing release or hosted rollout. We inspected code and upstream test definitions without running the suites, a database migration or an authenticated model session.</p>
+  <p>For someone evaluating a workplace agent, the useful question is now more precise than “which models does it support?” Ask which loop will run the task, and what happens to an existing workflow when that loop changes. QM shows that model access can survive consolidation. A pinned comparison of the same task, model, permissions and interruption would show how much of the working behavior survives with it.</p>
+        </article>
+      </section>
+      <section class="article-questions-invitation" data-ask-entry hidden>
+    <h2>Keep asking questions.</h2>
+    <p>Explore the story and its evidence in your own ChatGPT conversation.</p>
+    <button class="paper-button" type="button" data-ask-open aria-haspopup="dialog" aria-controls="article-questions">Ask about this article <span aria-hidden="true">↗</span></button>
+  </section>
+  <dialog class="article-questions" id="article-questions" aria-labelledby="ask-title"
+    data-title="QM Drops Two Agent Loops but Keeps ChatGPT Access" data-date="2026-10-15"
+    data-url="https://thegitreporter.com/articles/2026-10-15-daily-qm-drops-two-agent-loops-but-keeps-chatgpt-access/"
+    data-summary="The shared workplace agent is narrowing its runtime choices to Pi and Claude. Its October 14 code change shows why keeping a model connection does not require keeping the agent software that shares its name.">
+    <div class="ask-heading">
+      <h2 id="ask-title" tabindex="-1" autofocus>Ask about this article</h2>
+      <button type="button" class="ask-close" aria-label="Close question box">×</button>
+    </div>
+    <form class="ask-form">
+      <div class="ask-content">
+        <p class="ask-article-title">QM Drops Two Agent Loops but Keeps ChatGPT Access</p>
+        <div class="ask-suggestions" role="group" aria-label="Suggested questions">
+          <button type="button" data-question="Explain this article in plain language. What changed?">Explain simply</button>
+          <button type="button" data-question="Why does this change matter, and who is affected?">Why does this matter?</button>
+          <button type="button" data-question="What is the strongest counterargument to this article, and what evidence would change its conclusion?">Challenge the argument</button>
+        </div>
+        <label for="ask-question">Your question</label>
+        <textarea id="ask-question" rows="3" maxlength="2000" required placeholder="What would you like to understand?" aria-describedby="ask-context"></textarea>
+        <p id="ask-context" class="ask-note">Article link and summary included. Continue using your ChatGPT account; you may need to sign in.</p>
+        <details class="ask-manual" hidden>
+          <summary>Prepared text for copying</summary>
+          <textarea class="ask-copy-text" rows="5" readonly aria-label="Prepared question and article context"></textarea>
+        </details>
+      </div>
+      <div class="ask-actions">
+        <p class="ask-status" role="status" aria-live="polite"></p>
+        <button class="paper-button primary" type="submit">Continue in ChatGPT ↗</button>
+        <div class="ask-copy-actions">
+          <button type="button" data-ask-copy="summary">Copy question + context</button>
+          <button type="button" data-ask-copy="article">Copy article + question</button>
+        </div>
+        <p class="ask-note">If your question doesn’t appear in ChatGPT, copy it here and paste it there.</p>
+      </div>
+    </form>
+  </dialog>
+      <section class="evidence-section" id="evidence" aria-labelledby="evidence-title">
+    <div class="evidence-head">
+      <div>
+        <div class="eyebrow">Evidence Trail</div>
+        <h2 id="evidence-title">Receipts below the story</h2>
+        <p>The article above is the public narrative. This section keeps the source trail and limits on the same page.</p>
+      </div>
+      <a class="paper-button" href="/editions/2026-10-15/">Edition</a>
+    </div>
+    <div class="evidence-table evidence-summary">
+      <div class="evidence-line"><span>Date</span><span>October 15, 2026</span></div>
+      <div class="evidence-line"><span>Lane</span><span>Daily Edition</span></div>
+      <div class="evidence-line"><span>Confidence</span><span>91%</span></div>
+      <div class="evidence-line"><span>Sources</span><span>14</span></div>
+      <div class="evidence-line"><span>Repos</span><span>yc-software/qm, different-ai/openwork</span></div>
+    </div>
+    <div class="markdown evidence-copy evidence-copy-block">
+      <h2>Primary Evidence</h2>
+<ul>
+<li>QM removes two runtime integrations: <a href="https://github.com/yc-software/qm/commit/5903e77562e2ca2766f5b6f5fda6feb4734fa7e7">https://github.com/yc-software/qm/commit/5903e77562e2ca2766f5b6f5fda6feb4734fa7e7</a>
+<ul>
+<li>Shows: October 14 merged change deletes Codex and OpenCode harness implementations and leaves Pi and Claude; it does not establish a deployed release.
+</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li>The previous four-runtime contract: <a href="https://github.com/yc-software/qm/blob/192873100fa455610a482e9d74c1e64c57d1bead/README.md">https://github.com/yc-software/qm/blob/192873100fa455610a482e9d74c1e64c57d1bead/README.md</a>
+<ul>
+<li>Shows: The parent README describes four interchangeable harnesses behind the shared core.
+</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li>Persistent runtime migration: <a href="https://github.com/yc-software/qm/blob/5903e77562e2ca2766f5b6f5fda6feb4734fa7e7/src/model/legacy-harness-migration.ts">https://github.com/yc-software/qm/blob/5903e77562e2ca2766f5b6f5fda6feb4734fa7e7/src/model/legacy-harness-migration.ts</a>
+<ul>
+<li>Shows: Replaces legacy runtime identifiers in configuration, schedules, swarms and active work while leaving model identifiers unchanged.
+</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li>Migration test definitions: <a href="https://github.com/yc-software/qm/blob/5903e77562e2ca2766f5b6f5fda6feb4734fa7e7/test/postgres-legacy-harness-migration.test.ts">https://github.com/yc-software/qm/blob/5903e77562e2ca2766f5b6f5fda6feb4734fa7e7/test/postgres-legacy-harness-migration.test.ts</a>
+<ul>
+<li>Shows: Specifies repeatability, preserved Claude/model selections, changed active handoffs and retained completed run records. Requires a Postgres fixture; inspected, not executed.
+</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li>Pi subscription path before consolidation: <a href="https://github.com/yc-software/qm/commit/fe3cda05358653fcecfc04d5e8aa1b898530eb52">https://github.com/yc-software/qm/commit/fe3cda05358653fcecfc04d5e8aa1b898530eb52</a>
+<ul>
+<li>Shows: September 17 correction handles OAuth credentials and provider model names on the already existing Pi-to-ChatGPT path.
+</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li>Earlier CLI-backed device login: <a href="https://github.com/yc-software/qm/blob/192873100fa455610a482e9d74c1e64c57d1bead/src/model/codex-device-login.ts">https://github.com/yc-software/qm/blob/192873100fa455610a482e9d74c1e64c57d1bead/src/model/codex-device-login.ts</a>
+<ul>
+<li>Shows: Starts a Codex app-server, obtains authentication through its device-login flow and cleans up the process.
+</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li>Replacement provider-library login: <a href="https://github.com/yc-software/qm/blob/5903e77562e2ca2766f5b6f5fda6feb4734fa7e7/src/model/codex-device-login.ts">https://github.com/yc-software/qm/blob/5903e77562e2ca2766f5b6f5fda6feb4734fa7e7/src/model/codex-device-login.ts</a>
+<ul>
+<li>Shows: Delegates device login directly to Pi provider OAuth instead of starting the Codex app-server.
+</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li>Subscription model names and routing: <a href="https://github.com/yc-software/qm/blob/5903e77562e2ca2766f5b6f5fda6feb4734fa7e7/src/model/pi-models.ts">https://github.com/yc-software/qm/blob/5903e77562e2ca2766f5b6f5fda6feb4734fa7e7/src/model/pi-models.ts</a>
+<ul>
+<li>Shows: Separates subscription model names from ordinary metered names; lists Pi, Claude and the test mock as remaining harness identifiers.
+</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li>Company-routing implementation: <a href="https://github.com/yc-software/qm/blob/5903e77562e2ca2766f5b6f5fda6feb4734fa7e7/src/wiring.ts#L1397">https://github.com/yc-software/qm/blob/5903e77562e2ca2766f5b6f5fda6feb4734fa7e7/src/wiring.ts#L1397</a>
+<ul>
+<li>Shows: Conditionally supplies company subscription credentials and maps compatible ordinary OpenAI model IDs to a registered subscription counterpart, with override exceptions.
+</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li>Company-routing test definitions: <a href="https://github.com/yc-software/qm/blob/5903e77562e2ca2766f5b6f5fda6feb4734fa7e7/test/pi-company-subscription.test.ts">https://github.com/yc-software/qm/blob/5903e77562e2ca2766f5b6f5fda6feb4734fa7e7/test/pi-company-subscription.test.ts</a>
+<ul>
+<li>Shows: Uses mocked requests to check supported subscription routing and failure rather than silent metered fallback. Does not measure live bills.
+</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li>Maintainer explanation and reported checks: <a href="https://github.com/yc-software/qm/pull/2277">https://github.com/yc-software/qm/pull/2277</a>
+<ul>
+<li>Shows: Attributes the removal to unused integrations; reports a private fleet audit and two-turn development trial. Also states that company subscription credentials were not configured in production and that the Codex CLI remains in sandbox images.
+</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li>OpenWork selects a different default: <a href="https://github.com/different-ai/openwork/commit/115599faa35709d7904631f6c1f853098e284de1">https://github.com/different-ai/openwork/commit/115599faa35709d7904631f6c1f853098e284de1</a>
+<ul>
+<li>Shows: October 14 merged change selects OpenCode v2 for fresh desktop profiles, preserving saved choices, old history and explicit settings.
+</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li>QM inspected desktop release: <a href="https://github.com/yc-software/qm/releases/tag/desktop-v0.1.2">https://github.com/yc-software/qm/releases/tag/desktop-v0.1.2</a>
+<ul>
+<li>Shows: Release published October 14 before the runtime-removal merge; does not establish that the change is distributed.
+</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li>OpenWork inspected release: <a href="https://github.com/different-ai/openwork/releases/tag/v0.18.58">https://github.com/different-ai/openwork/releases/tag/v0.18.58</a>
+<ul>
+<li>Shows: October 13 release predates the fresh-install default change.
+</li>
+</ul>
+</li>
+</ul>
+<h2>Evidence Limits</h2>
+<ul>
+<li>Source inspection establishes merged implementation, not a containing release or hosted rollout.
+</li>
+<li>The test definitions were inspected, not executed. No authenticated model session, database migration or live billing comparison was performed.
+</li>
+<li>The maintainer's fleet audit and live development trial are attributed reports; their private underlying data were not independently checked.
+</li>
+<li>Pi already supported ChatGPT access before the removal. This is not evidence of first access, model improvement, customer migration or a market winner.
+</li>
+<li>Preserving a model choice does not establish identical tools, permissions, recovery or completed-task outcomes across runtimes.
+</li>
+<li>Company subscription routing is conditional and has configuration exceptions. Code cannot establish universal billing behavior or the closed service's internals.
+</li>
+</ul>
+    </div>
+  </section>
+      <section class="related-edition-section atlas-context-section">
+    <div class="section-title-row">
+      <h2>Atlas Context</h2>
+      <a href="/atlas/">Open Atlas &rsaquo;</a>
+    </div>
+    <div class="updates-list">
+      <a class="article-card" href="/atlas/the-loop/">
+            <div class="article-meta"><span class="lane">Agent Atlas</span><span>Chapter 4</span></div>
+            <h3>Loops, Workflows, and Recovery</h3>
+            <p>Repeated model-tool interaction is only one control structure. Production runtimes combine probabilistic loops with host-defined workflows, queues, interrupts, terminal states, and recovery operations.</p>
+          </a>
+    </div>
+  </section>
+      <section class="reader-feedback"
+    data-tgr-feedback
+    data-article-slug="2026-10-15-daily-qm-drops-two-agent-loops-but-keeps-chatgpt-access"
+    data-article-title="QM Drops Two Agent Loops but Keeps ChatGPT Access"
+    data-article-url="/articles/2026-10-15-daily-qm-drops-two-agent-loops-but-keeps-chatgpt-access/"
+    data-edition-date="2026-10-15"
+    data-lane="Daily Edition"
+    data-tags="Permissions,Delegation,Tools,UX"
+    data-repos="yc-software/qm,different-ai/openwork">
+    <div class="reader-feedback-head">
+      <div>
+        <div class="eyebrow">Letters &amp; Corrections</div>
+        <h2>Send a note to the desk</h2>
+      </div>
+      <p>Corrections, missing context, or a follow-up lead.</p>
+    </div>
+    <form class="feedback-form">
+      <div class="feedback-votes" role="group" aria-label="Choose signal type">
+        <button class="feedback-choice" type="button" data-vote="follow-up" aria-pressed="false">
+          <span aria-hidden="true">+</span>
+          <span>Follow-up</span>
+        </button>
+        <button class="feedback-choice" type="button" data-vote="correction" aria-pressed="false">
+          <span aria-hidden="true">!</span>
+          <span>Correction</span>
+        </button>
+      </div>
+      <label class="feedback-comment">
+        <span>Note for the editor</span>
+        <textarea name="comment" rows="3" maxlength="320" placeholder="What did we miss, or what should we follow next?"></textarea>
+      </label>
+      <div class="feedback-submit-row">
+        <p class="feedback-status" aria-live="polite"></p>
+        <button class="paper-button primary feedback-submit" type="submit">Send to desk</button>
+      </div>
+    </form>
+  </section>
+      
+    </main>
+    <footer class="wrap site-footer">
+      <span>&copy; 2026 The Git Reporter</span>
+      <a href="/about/">About</a>
+      <a href="/battles/">Diff Derby</a>
+      <a href="/agent-pulse/">Agent Pulse</a>
+      <a href="/feed.xml">RSS</a>
+      <a href="https://x.com/TheGitReporter">Follow on X</a>
+      <a href="/articles.json">Manifest JSON</a>
+      <a href="/repos/">Sources</a>
+    </footer>
+  </div>
+</body>
+</html>
