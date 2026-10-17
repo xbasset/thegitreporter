@@ -1,0 +1,327 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Goose Replaces V8 Without Giving Up Tool Batching | The Git Reporter</title>
+  <meta name="description" content="The agent’s development branch swaps PCTX’s Deno-based runtime for Boa. It keeps the ability to discover tools and compose their results, while removing generated TypeScript and a chain of build workarounds.">
+  <meta name="robots" content="index,follow">
+  <link rel="canonical" href="https://thegitreporter.com/articles/2026-10-17-daily-goose-replaces-v8-without-giving-up-tool-batching/">
+  <link rel="alternate" type="application/rss+xml" title="The Git Reporter" href="https://thegitreporter.com/feed.xml">
+  <meta property="og:site_name" content="The Git Reporter">
+  <meta property="og:locale" content="en_US">
+  <meta property="og:title" content="Goose Replaces V8 Without Giving Up Tool Batching | The Git Reporter">
+  <meta property="og:description" content="The agent’s development branch swaps PCTX’s Deno-based runtime for Boa. It keeps the ability to discover tools and compose their results, while removing generated TypeScript and a chain of build workarounds.">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://thegitreporter.com/articles/2026-10-17-daily-goose-replaces-v8-without-giving-up-tool-batching/">
+  <meta property="og:image" content="https://thegitreporter.com/assets/social/2026-10-17-daily-goose-replaces-v8-without-giving-up-tool-batching-og.jpg">
+  <meta property="og:image:secure_url" content="https://thegitreporter.com/assets/social/2026-10-17-daily-goose-replaces-v8-without-giving-up-tool-batching-og.jpg">
+  <meta property="og:image:type" content="image/jpeg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="A discover, batch and result diagram above a workbench, with the removed PCTX, Deno and V8 stack beside a Boa engine connected to tools. A stamp says the change is merged but not in v1.55.0.">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:site" content="@TheGitReporter">
+  <meta name="twitter:creator" content="@TheGitReporter">
+  <meta name="twitter:title" content="Goose Replaces V8 Without Giving Up Tool Batching | The Git Reporter">
+  <meta name="twitter:description" content="The agent’s development branch swaps PCTX’s Deno-based runtime for Boa. It keeps the ability to discover tools and compose their results, while removing generated TypeScript and a chain of build workarounds.">
+  <meta name="twitter:url" content="https://thegitreporter.com/articles/2026-10-17-daily-goose-replaces-v8-without-giving-up-tool-batching/">
+  <meta name="twitter:domain" content="thegitreporter.com">
+  <meta name="twitter:image" content="https://thegitreporter.com/assets/social/2026-10-17-daily-goose-replaces-v8-without-giving-up-tool-batching-og.jpg">
+  <meta name="twitter:image:alt" content="A discover, batch and result diagram above a workbench, with the removed PCTX, Deno and V8 stack beside a Boa engine connected to tools. A stamp says the change is merged but not in v1.55.0.">
+  <meta property="article:published_time" content="2026-10-17T12:00:00Z">
+  <meta property="article:modified_time" content="2026-10-17T12:00:00Z">
+  <meta property="article:section" content="Daily Edition">
+  <meta property="article:tag" content="Permissions">
+  <meta property="article:tag" content="Memory">
+  <meta property="article:tag" content="Delegation">
+  <meta property="article:tag" content="Tools">
+  <meta property="article:tag" content="aaif-goose/goose">
+  <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"https://thegitreporter.com/#organization","name":"The Git Reporter","url":"https://thegitreporter.com","logo":{"@type":"ImageObject","url":"https://thegitreporter.com/assets/mark.svg"},"sameAs":["https://x.com/TheGitReporter"]},{"@type":"WebSite","@id":"https://thegitreporter.com/#website","name":"The Git Reporter","url":"https://thegitreporter.com","publisher":{"@id":"https://thegitreporter.com/#organization"}},{"@type":"NewsArticle","mainEntityOfPage":{"@type":"WebPage","@id":"https://thegitreporter.com/articles/2026-10-17-daily-goose-replaces-v8-without-giving-up-tool-batching/"},"headline":"Goose Replaces V8 Without Giving Up Tool Batching","description":"The agent’s development branch swaps PCTX’s Deno-based runtime for Boa. It keeps the ability to discover tools and compose their results, while removing generated TypeScript and a chain of build workarounds.","image":["https://thegitreporter.com/assets/social/2026-10-17-daily-goose-replaces-v8-without-giving-up-tool-batching-og.jpg"],"datePublished":"2026-10-17T12:00:00Z","dateModified":"2026-10-17T12:00:00Z","author":[{"@type":"Organization","name":"The Git Reporter","url":"https://thegitreporter.com"}],"publisher":{"@type":"Organization","@id":"https://thegitreporter.com/#organization","name":"The Git Reporter","url":"https://thegitreporter.com","logo":{"@type":"ImageObject","url":"https://thegitreporter.com/assets/mark.svg"},"sameAs":["https://x.com/TheGitReporter"]},"articleSection":"Daily Edition","keywords":"Permissions, Memory, Delegation, Tools, aaif-goose/goose"}]}</script>
+  <link rel="icon" href="/assets/mark.svg">
+  <link rel="stylesheet" href="/assets/site.css?v=2026-10-03-article-questions">
+  <script defer src="/assets/feedback.js?v=2026-10-03-article-questions"></script>
+  <script defer src="/assets/article-questions.js?v=2026-10-03-article-questions"></script>
+  <script defer src="/assets/analytics.js?v=2026-10-03-article-questions"></script>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-CH19T7M0T1"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){window.dataLayer.push(arguments);}
+    gtag("js", new Date());
+    gtag("config", "G-CH19T7M0T1");
+  </script>
+</head>
+<body>
+  <div class="site">
+    <header class="site-header" id="top">
+      <div class="wrap utility-row">
+        <a class="icon-link menu-icon" href="/archive/" aria-label="Open edition history"><span></span><span></span><span></span></a>
+        <a class="icon-link archive-icon" href="/archive/" aria-label="Open edition history"></a>
+      </div>
+      <div class="wrap masthead-lockup">
+        <a class="masthead-title" href="/">THE GIT REPORTER</a>
+        <div class="masthead-ornament" aria-hidden="true"></div>
+      </div>
+      <div class="wrap nav-wrap">
+        <nav class="paper-nav" aria-label="Primary navigation">
+    <a class=""  href="/">Stories</a><a class=""  href="/today/">Today</a><a class="active" aria-current="page" href="/archive/">Editions</a><a class=""  href="/about/">About</a><a class=""  href="/battles/">Diff Derby</a><a class=""  href="/agent-pulse/">Agent Pulse</a><a class=""  href="/atlas/">Agent Atlas</a><a class=""  href="/repos/">Repos</a>
+  </nav>
+        <div class="nav-rule"></div>
+      </div>
+    </header>
+    <main class="wrap page-shell article-page">
+      <section class="page-hero story-front">
+        <div class="story-topline">
+          <span>Daily Edition</span>
+          <span>Sources <strong>+9</strong></span>
+        </div>
+        <h1>Goose Replaces V8 Without Giving Up Tool Batching</h1>
+        <p class="summary">The agent’s development branch swaps PCTX’s Deno-based runtime for Boa. It keeps the ability to discover tools and compose their results, while removing generated TypeScript and a chain of build workarounds.</p>
+        <figure class="story-illustration article-illustration">
+    <img src="/assets/illustrations/2026-10-17-goose-replaces-v8-without-giving-up-tool-batching-diagram-punk-v1.png" alt="A discover, batch and result diagram above a workbench, with the removed PCTX, Deno and V8 stack beside a Boa engine connected to tools. A stamp says the change is merged but not in v1.55.0." loading="lazy" decoding="async">
+    <figcaption><span>Diagram Punk</span>Goose keeps the tool-composition pattern while replacing its execution engine. The new interface is merged, but v1.55.0 still uses PCTX.</figcaption>
+  </figure>
+        <div class="receipt">
+    <div class="receipt-line">
+      <span class="receipt-icon">repo</span>
+      <span class="receipt-main">aaif-goose/goose</span>
+      <span class="branch-pill">evidence</span>
+    </div>
+    <div class="receipt-line receipt-muted">
+      <span>9 source signals</span>
+      <span>1 repo</span>
+      <span>2 linked commits</span>
+    </div>
+    <div class="commit-line">Evidence: 2 linked commits / October 17, 2026 / Daily Edition</div>
+  </div>
+        <div class="article-route-row">
+          <a href="/editions/2026-10-17/">Open Edition</a>
+          <a href="#evidence">Evidence below</a>
+          <button type="button" class="ask-inline" data-ask-entry data-ask-open aria-haspopup="dialog" aria-controls="article-questions" hidden>Ask about this article ↗</button>
+        </div>
+      </section>
+      <section class="story-reader">
+        <article class="story-shell story-body">
+          <p>Goose has changed the engine behind a useful agent trick: writing a short program that calls several tools, works through their results and returns only what the model needs next. An <a href="https://github.com/aaif-goose/goose/commit/1de2f75742457e3cf6350426e20ab8d3a579d4a8">October 16 change</a> in <code>aaif-goose/goose</code> replaces PCTX and its Deno/V8 dependencies with a Goose-owned integration of the Boa JavaScript engine. Tool discovery and batching remain.</p>
+
+<p>That separates a capability from the machinery previously used to deliver it. An agent can look up several records, compare them and prepare a result without bringing each intermediate answer back through the model. Goose is keeping that pattern while shrinking the execution environment around it.</p>
+
+<p>The change is merged development work. The latest stable release checked for this article, <a href="https://github.com/aaif-goose/goose/releases/tag/v1.55.0">v1.55.0</a>, was published later on October 16, but its <a href="https://github.com/aaif-goose/goose/blob/v1.55.0/crates/goose/Cargo.toml">dependency file still uses PCTX</a>. A release timestamp after a merge does not mean the release contains it.</p>
+
+<h2>A smaller job for the interpreter</h2>
+<p>In <a href="/articles/2026-09-24-daily-goose-gets-small-enough-to-bundle-its-old-recipes-may-not-fit/">September, we reported a lean Goose build</a> that left optional features—including code mode—out. This change takes a different route: it retains code mode’s tool-composition pattern and replaces the machinery underneath. Its interface changes too, from generated TypeScript functions to JavaScript calling tools by their exact names.</p>
+<p>Goose <a href="https://github.com/aaif-goose/goose/commit/8631caa890a94bc7df84d9d15dbd971cc63c86bd">adopted PCTX on February 3</a>. Its code mode already discovered tools on demand and chained their outputs. October’s change is therefore a replacement of the implementation, not the invention of batched tool use.</p>
+
+<p>The new <a href="https://github.com/aaif-goose/goose/blob/1de2f75742457e3cf6350426e20ab8d3a579d4a8/documentation/docs/guides/managing-tools/code-mode.md">interface</a> has three steps: list the available tools, inspect the unfamiliar ones, then execute JavaScript. Discovery returns the tools’ original JSON schemas—the structured descriptions of their inputs and outputs—instead of turning those descriptions into TypeScript definitions. The script calls a tool by its exact name through <code>tools.call</code>.</p>
+
+<p>Imagine checking stock for several orders. A script can request independent records together, compare the replies locally and return a short list of shortages. The model need not read every unfiltered record to decide what to do next. That is an example of the retained pattern, not a task we ran. In the new implementation, independent calls can overlap through <code>Promise.all</code>; an <a href="https://github.com/aaif-goose/goose/blob/1de2f75742457e3cf6350426e20ab8d3a579d4a8/crates/goose/src/agents/platform_extensions/javascript.rs">upstream test</a> requires two callbacks to start before either can complete.</p>
+
+<p>The interpreter itself has no direct filesystem, shell, network or package access. External work goes through discovered tools and Goose’s <a href="https://github.com/aaif-goose/goose/blob/1de2f75742457e3cf6350426e20ab8d3a579d4a8/crates/goose/src/agents/platform_extensions/code_execution.rs">existing dispatch path</a>, including its permission handling. A new context is created for each execution, so JavaScript variables do not persist into the next call. This is a deliberately limited tool-composition environment, not a general Node.js workspace.</p>
+
+<h2>The removed machinery is the clearest gain</h2>
+<p>The dependency change reaches beyond the interpreter. The patch deletes a V8 cache-repair script and its CI callers, removes V8-specific Nix fetching, and replaces RISC-V vendoring and patching instructions with a much shorter build guide. Those are concrete maintenance obligations removed from this path. They do not establish that every remaining platform build works: the author explicitly says Nix and RISC-V builds were not run.</p>
+
+<p>The <a href="https://github.com/aaif-goose/goose/pull/12952">pull request</a> also reports a smaller matched debug binary and better token and elapsed-time figures in a small comparison: three synthetic workflows, repeated twice per runtime. The author observed no quality regression. But the schema presentation and calling instructions changed along with the engine, so those observations cannot isolate a Boa speed advantage. The old runtime’s one failed trial had reached the correct fulfillment state but ran out of turns before delivering its final answer.</p>
+
+<p>Nor does a smaller runtime automatically mean stronger containment. The merged code bounds instructions, output and concurrent workers, but a <a href="https://github.com/aaif-goose/goose/pull/12952#discussion_r4295214512">review raised the absence of a heap-allocation limit</a>. The author left that issue for later work. Synchronous engine operations can also continue after the caller’s cancellation wait ends. We inspected the implementation and test definitions; we did not execute Goose, reproduce the comparison or audit the engine’s security.</p>
+
+<h2>What an upgrade will change</h2>
+<p>Recipe authors will need to distinguish saved history from executable instructions. The new entry point is <code>execute_javascript</code>, replacing <code>execute_typescript</code>. Instructions that rely on generated namespaces or PCTX-specific facilities need revision. Goose can still display saved TypeScript calls, but display compatibility does not preserve the old execution interface. PCTX’s own Bash tool is removed; the ordinary developer shell remains available through Goose.</p>
+
+<p>For builders, the larger lesson is a practical design choice: the language engine can do a narrow job while the surrounding agent owns tools, permissions and external effects. Goose has made that separation more explicit. The next useful receipt is a containing release completing a real workflow across the migration, with the same acceptance criteria and an interruption along the way. That would show how much of the promised simplification reaches the person using it.</p>
+        </article>
+      </section>
+      <section class="article-questions-invitation" data-ask-entry hidden>
+    <h2>Keep asking questions.</h2>
+    <p>Explore the story and its evidence in your own ChatGPT conversation.</p>
+    <button class="paper-button" type="button" data-ask-open aria-haspopup="dialog" aria-controls="article-questions">Ask about this article <span aria-hidden="true">↗</span></button>
+  </section>
+  <dialog class="article-questions" id="article-questions" aria-labelledby="ask-title"
+    data-title="Goose Replaces V8 Without Giving Up Tool Batching" data-date="2026-10-17"
+    data-url="https://thegitreporter.com/articles/2026-10-17-daily-goose-replaces-v8-without-giving-up-tool-batching/"
+    data-summary="The agent’s development branch swaps PCTX’s Deno-based runtime for Boa. It keeps the ability to discover tools and compose their results, while removing generated TypeScript and a chain of build workarounds.">
+    <div class="ask-heading">
+      <h2 id="ask-title" tabindex="-1" autofocus>Ask about this article</h2>
+      <button type="button" class="ask-close" aria-label="Close question box">×</button>
+    </div>
+    <form class="ask-form">
+      <div class="ask-content">
+        <p class="ask-article-title">Goose Replaces V8 Without Giving Up Tool Batching</p>
+        <div class="ask-suggestions" role="group" aria-label="Suggested questions">
+          <button type="button" data-question="Explain this article in plain language. What changed?">Explain simply</button>
+          <button type="button" data-question="Why does this change matter, and who is affected?">Why does this matter?</button>
+          <button type="button" data-question="What is the strongest counterargument to this article, and what evidence would change its conclusion?">Challenge the argument</button>
+        </div>
+        <label for="ask-question">Your question</label>
+        <textarea id="ask-question" rows="3" maxlength="2000" required placeholder="What would you like to understand?" aria-describedby="ask-context"></textarea>
+        <p id="ask-context" class="ask-note">Article link and summary included. Continue using your ChatGPT account; you may need to sign in.</p>
+        <details class="ask-manual" hidden>
+          <summary>Prepared text for copying</summary>
+          <textarea class="ask-copy-text" rows="5" readonly aria-label="Prepared question and article context"></textarea>
+        </details>
+      </div>
+      <div class="ask-actions">
+        <p class="ask-status" role="status" aria-live="polite"></p>
+        <button class="paper-button primary" type="submit">Continue in ChatGPT ↗</button>
+        <div class="ask-copy-actions">
+          <button type="button" data-ask-copy="summary">Copy question + context</button>
+          <button type="button" data-ask-copy="article">Copy article + question</button>
+        </div>
+        <p class="ask-note">If your question doesn’t appear in ChatGPT, copy it here and paste it there.</p>
+      </div>
+    </form>
+  </dialog>
+      <section class="evidence-section" id="evidence" aria-labelledby="evidence-title">
+    <div class="evidence-head">
+      <div>
+        <div class="eyebrow">Evidence Trail</div>
+        <h2 id="evidence-title">Receipts below the story</h2>
+        <p>The article above is the public narrative. This section keeps the source trail and limits on the same page.</p>
+      </div>
+      <a class="paper-button" href="/editions/2026-10-17/">Edition</a>
+    </div>
+    <div class="evidence-table evidence-summary">
+      <div class="evidence-line"><span>Date</span><span>October 17, 2026</span></div>
+      <div class="evidence-line"><span>Lane</span><span>Daily Edition</span></div>
+      <div class="evidence-line"><span>Confidence</span><span>91%</span></div>
+      <div class="evidence-line"><span>Sources</span><span>9</span></div>
+      <div class="evidence-line"><span>Repos</span><span>aaif-goose/goose</span></div>
+    </div>
+    <div class="markdown evidence-copy evidence-copy-block">
+      <h2>Primary Evidence</h2>
+<ul>
+<li>October 16 merged replacement: <a href="https://github.com/aaif-goose/goose/commit/1de2f75742457e3cf6350426e20ab8d3a579d4a8">https://github.com/aaif-goose/goose/commit/1de2f75742457e3cf6350426e20ab8d3a579d4a8</a>
+<ul>
+<li>Shows: Boa replaces PCTX in the code-mode dependency; V8 CI repair, Nix fetching and RISC-V vendoring machinery are removed. The normal developer shell is retained.
+</li>
+</ul>
+</li>
+<li>February 3 PCTX adoption: <a href="https://github.com/aaif-goose/goose/commit/8631caa890a94bc7df84d9d15dbd971cc63c86bd">https://github.com/aaif-goose/goose/commit/8631caa890a94bc7df84d9d15dbd971cc63c86bd</a>
+<ul>
+<li>Shows: progressive tool discovery and composition existed before this runtime replacement.
+</li>
+</ul>
+</li>
+<li>Tool bridge implementation: <a href="https://github.com/aaif-goose/goose/blob/1de2f75742457e3cf6350426e20ab8d3a579d4a8/crates/goose/src/agents/platform_extensions/code_execution.rs">https://github.com/aaif-goose/goose/blob/1de2f75742457e3cf6350426e20ab8d3a579d4a8/crates/goose/src/agents/platform_extensions/code_execution.rs</a>
+<ul>
+<li>Shows: original input/output schema discovery, exact-name tool dispatch, existing lease and mutation handling, and assistant-visible text filtering.
+</li>
+</ul>
+</li>
+<li>JavaScript engine integration and tests: <a href="https://github.com/aaif-goose/goose/blob/1de2f75742457e3cf6350426e20ab8d3a579d4a8/crates/goose/src/agents/platform_extensions/javascript.rs">https://github.com/aaif-goose/goose/blob/1de2f75742457e3cf6350426e20ab8d3a579d4a8/crates/goose/src/agents/platform_extensions/javascript.rs</a>
+<ul>
+<li>Shows: fresh contexts, parallel callbacks, runtime/output limits, four worker slots and cancellation handling. Tests define the intended behavior; they were not executed for this report.
+</li>
+</ul>
+</li>
+<li>Revised interface guide: <a href="https://github.com/aaif-goose/goose/blob/1de2f75742457e3cf6350426e20ab8d3a579d4a8/documentation/docs/guides/managing-tools/code-mode.md">https://github.com/aaif-goose/goose/blob/1de2f75742457e3cf6350426e20ab8d3a579d4a8/documentation/docs/guides/managing-tools/code-mode.md</a>
+<ul>
+<li>Shows: execute_javascript, exact tool names and tools.call, absent direct host facilities, text-only tool results and nonpersistent JavaScript state.
+</li>
+</ul>
+</li>
+<li>Author's comparison and test report: <a href="https://github.com/aaif-goose/goose/pull/12952">https://github.com/aaif-goose/goose/pull/12952</a>
+<ul>
+<li>Shows: three synthetic workflows repeated twice per runtime, debug-build comparison, changed calling contract and explicit Nix/RISC-V test omissions.
+</li>
+</ul>
+</li>
+<li>Unbounded-heap review: <a href="https://github.com/aaif-goose/goose/pull/12952#discussion_r4295214512">https://github.com/aaif-goose/goose/pull/12952#discussion_r4295214512</a>
+<ul>
+<li>Shows: the runtime's instruction/output limits do not bound heap allocations; the author defers that work in the discussion.
+</li>
+</ul>
+</li>
+<li>Latest checked stable release: <a href="https://github.com/aaif-goose/goose/releases/tag/v1.55.0">https://github.com/aaif-goose/goose/releases/tag/v1.55.0</a>
+<ul>
+<li>Shows: October 16 release publication. The tag's dependency source below, rather than publication time, determines containment.
+</li>
+</ul>
+</li>
+<li>v1.55.0 dependency source: <a href="https://github.com/aaif-goose/goose/blob/v1.55.0/crates/goose/Cargo.toml">https://github.com/aaif-goose/goose/blob/v1.55.0/crates/goose/Cargo.toml</a>
+<ul>
+<li>Shows: code-mode still selects pctx_code_mode; the Boa replacement is not in this stable release.
+</li>
+</ul>
+</li>
+</ul>
+<h2>Evidence Limits</h2>
+<ul>
+<li>Source and upstream test definitions were inspected; Goose, the model-driven comparison and cross-platform builds were not executed for this article.
+</li>
+<li>Benchmark observations are author-reported, tiny and confounded by changed schemas and instructions. They do not establish general speed, quality or cost superiority for Boa.
+</li>
+<li>No containing stable release was found at reporting time. v1.55.0 still uses PCTX despite its later publication time.
+</li>
+<li>Execution and output limits do not establish heap containment; synchronous built-ins can continue after the caller stops waiting for cleanup.
+</li>
+<li>The stock-check example illustrates the interface; it is not a measured trial. No adoption, production reliability or closed-model internals are inferred.
+</li>
+</ul>
+    </div>
+  </section>
+      <section class="related-edition-section atlas-context-section">
+    <div class="section-title-row">
+      <h2>Atlas Context</h2>
+      <a href="/atlas/">Open Atlas &rsaquo;</a>
+    </div>
+    <div class="updates-list">
+      <a class="article-card" href="/atlas/hands-in-the-world/">
+            <div class="article-meta"><span class="lane">Agent Atlas</span><span>Chapter 3</span></div>
+            <h3>Tool Calls: Contract, Authorization, Execution</h3>
+            <p>A tool call crosses independently governed boundaries: schema, registration, policy, approval, execution authority, result handling, and audit.</p>
+          </a>
+    </div>
+  </section>
+      <section class="reader-feedback"
+    data-tgr-feedback
+    data-article-slug="2026-10-17-daily-goose-replaces-v8-without-giving-up-tool-batching"
+    data-article-title="Goose Replaces V8 Without Giving Up Tool Batching"
+    data-article-url="/articles/2026-10-17-daily-goose-replaces-v8-without-giving-up-tool-batching/"
+    data-edition-date="2026-10-17"
+    data-lane="Daily Edition"
+    data-tags="Permissions,Memory,Delegation,Tools"
+    data-repos="aaif-goose/goose">
+    <div class="reader-feedback-head">
+      <div>
+        <div class="eyebrow">Letters &amp; Corrections</div>
+        <h2>Send a note to the desk</h2>
+      </div>
+      <p>Corrections, missing context, or a follow-up lead.</p>
+    </div>
+    <form class="feedback-form">
+      <div class="feedback-votes" role="group" aria-label="Choose signal type">
+        <button class="feedback-choice" type="button" data-vote="follow-up" aria-pressed="false">
+          <span aria-hidden="true">+</span>
+          <span>Follow-up</span>
+        </button>
+        <button class="feedback-choice" type="button" data-vote="correction" aria-pressed="false">
+          <span aria-hidden="true">!</span>
+          <span>Correction</span>
+        </button>
+      </div>
+      <label class="feedback-comment">
+        <span>Note for the editor</span>
+        <textarea name="comment" rows="3" maxlength="320" placeholder="What did we miss, or what should we follow next?"></textarea>
+      </label>
+      <div class="feedback-submit-row">
+        <p class="feedback-status" aria-live="polite"></p>
+        <button class="paper-button primary feedback-submit" type="submit">Send to desk</button>
+      </div>
+    </form>
+  </section>
+      
+    </main>
+    <footer class="wrap site-footer">
+      <span>&copy; 2026 The Git Reporter</span>
+      <a href="/about/">About</a>
+      <a href="/battles/">Diff Derby</a>
+      <a href="/agent-pulse/">Agent Pulse</a>
+      <a href="/feed.xml">RSS</a>
+      <a href="https://x.com/TheGitReporter">Follow on X</a>
+      <a href="/articles.json">Manifest JSON</a>
+      <a href="/repos/">Sources</a>
+    </footer>
+  </div>
+</body>
+</html>
