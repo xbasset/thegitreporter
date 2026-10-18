@@ -1,0 +1,345 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Pi Can Park Agent Tasks Until the Host Wakes Them | The Git Reporter</title>
+  <meta name="description" content="Pi’s experimental durable harness now stores a sleeping task’s deadline and next step, letting a host alarm bring execution back later. The change separates continuing work from a continuously running process.">
+  <meta name="robots" content="index,follow">
+  <link rel="canonical" href="https://thegitreporter.com/articles/2026-10-18-daily-pi-can-park-agent-tasks-until-the-host-wakes-them/">
+  <link rel="alternate" type="application/rss+xml" title="The Git Reporter" href="https://thegitreporter.com/feed.xml">
+  <meta property="og:site_name" content="The Git Reporter">
+  <meta property="og:locale" content="en_US">
+  <meta property="og:title" content="Pi Can Park Agent Tasks Until the Host Wakes Them | The Git Reporter">
+  <meta property="og:description" content="Pi’s experimental durable harness now stores a sleeping task’s deadline and next step, letting a host alarm bring execution back later. The change separates continuing work from a continuously running process.">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://thegitreporter.com/articles/2026-10-18-daily-pi-can-park-agent-tasks-until-the-host-wakes-them/">
+  <meta property="og:image" content="https://thegitreporter.com/assets/social/2026-10-18-daily-pi-can-park-agent-tasks-until-the-host-wakes-them-og.jpg">
+  <meta property="og:image:secure_url" content="https://thegitreporter.com/assets/social/2026-10-18-daily-pi-can-park-agent-tasks-until-the-host-wakes-them-og.jpg">
+  <meta property="og:image:type" content="image/jpeg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="A process stores a deadline and next step, disappears, then a host alarm wakes a new process that reads the persistent record.">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:site" content="@TheGitReporter">
+  <meta name="twitter:creator" content="@TheGitReporter">
+  <meta name="twitter:title" content="Pi Can Park Agent Tasks Until the Host Wakes Them | The Git Reporter">
+  <meta name="twitter:description" content="Pi’s experimental durable harness now stores a sleeping task’s deadline and next step, letting a host alarm bring execution back later. The change separates continuing work from a continuously running process.">
+  <meta name="twitter:url" content="https://thegitreporter.com/articles/2026-10-18-daily-pi-can-park-agent-tasks-until-the-host-wakes-them/">
+  <meta name="twitter:domain" content="thegitreporter.com">
+  <meta name="twitter:image" content="https://thegitreporter.com/assets/social/2026-10-18-daily-pi-can-park-agent-tasks-until-the-host-wakes-them-og.jpg">
+  <meta name="twitter:image:alt" content="A process stores a deadline and next step, disappears, then a host alarm wakes a new process that reads the persistent record.">
+  <meta property="article:published_time" content="2026-10-18T12:00:00Z">
+  <meta property="article:modified_time" content="2026-10-18T12:00:00Z">
+  <meta property="article:section" content="Daily Edition">
+  <meta property="article:tag" content="Memory">
+  <meta property="article:tag" content="Tools">
+  <meta property="article:tag" content="UX">
+  <meta property="article:tag" content="Runtime">
+  <meta property="article:tag" content="earendil-works/pi">
+  <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"https://thegitreporter.com/#organization","name":"The Git Reporter","url":"https://thegitreporter.com","logo":{"@type":"ImageObject","url":"https://thegitreporter.com/assets/mark.svg"},"sameAs":["https://x.com/TheGitReporter"]},{"@type":"WebSite","@id":"https://thegitreporter.com/#website","name":"The Git Reporter","url":"https://thegitreporter.com","publisher":{"@id":"https://thegitreporter.com/#organization"}},{"@type":"NewsArticle","mainEntityOfPage":{"@type":"WebPage","@id":"https://thegitreporter.com/articles/2026-10-18-daily-pi-can-park-agent-tasks-until-the-host-wakes-them/"},"headline":"Pi Can Park Agent Tasks Until the Host Wakes Them","description":"Pi’s experimental durable harness now stores a sleeping task’s deadline and next step, letting a host alarm bring execution back later. The change separates continuing work from a continuously running process.","image":["https://thegitreporter.com/assets/social/2026-10-18-daily-pi-can-park-agent-tasks-until-the-host-wakes-them-og.jpg"],"datePublished":"2026-10-18T12:00:00Z","dateModified":"2026-10-18T12:00:00Z","author":[{"@type":"Organization","name":"The Git Reporter","url":"https://thegitreporter.com"}],"publisher":{"@type":"Organization","@id":"https://thegitreporter.com/#organization","name":"The Git Reporter","url":"https://thegitreporter.com","logo":{"@type":"ImageObject","url":"https://thegitreporter.com/assets/mark.svg"},"sameAs":["https://x.com/TheGitReporter"]},"articleSection":"Daily Edition","keywords":"Memory, Tools, UX, Runtime, earendil-works/pi"}]}</script>
+  <link rel="icon" href="/assets/mark.svg">
+  <link rel="stylesheet" href="/assets/site.css?v=2026-10-03-article-questions">
+  <script defer src="/assets/feedback.js?v=2026-10-03-article-questions"></script>
+  <script defer src="/assets/article-questions.js?v=2026-10-03-article-questions"></script>
+  <script defer src="/assets/analytics.js?v=2026-10-03-article-questions"></script>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-CH19T7M0T1"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){window.dataLayer.push(arguments);}
+    gtag("js", new Date());
+    gtag("config", "G-CH19T7M0T1");
+  </script>
+</head>
+<body>
+  <div class="site">
+    <header class="site-header" id="top">
+      <div class="wrap utility-row">
+        <a class="icon-link menu-icon" href="/archive/" aria-label="Open edition history"><span></span><span></span><span></span></a>
+        <a class="icon-link archive-icon" href="/archive/" aria-label="Open edition history"></a>
+      </div>
+      <div class="wrap masthead-lockup">
+        <a class="masthead-title" href="/">THE GIT REPORTER</a>
+        <div class="masthead-ornament" aria-hidden="true"></div>
+      </div>
+      <div class="wrap nav-wrap">
+        <nav class="paper-nav" aria-label="Primary navigation">
+    <a class=""  href="/">Stories</a><a class=""  href="/today/">Today</a><a class="active" aria-current="page" href="/archive/">Editions</a><a class=""  href="/about/">About</a><a class=""  href="/battles/">Diff Derby</a><a class=""  href="/agent-pulse/">Agent Pulse</a><a class=""  href="/atlas/">Agent Atlas</a><a class=""  href="/repos/">Repos</a>
+  </nav>
+        <div class="nav-rule"></div>
+      </div>
+    </header>
+    <main class="wrap page-shell article-page">
+      <section class="page-hero story-front">
+        <div class="story-topline">
+          <span>Daily Edition</span>
+          <span>Sources <strong>+12</strong></span>
+        </div>
+        <h1>Pi Can Park Agent Tasks Until the Host Wakes Them</h1>
+        <p class="summary">Pi’s experimental durable harness now stores a sleeping task’s deadline and next step, letting a host alarm bring execution back later. The change separates continuing work from a continuously running process.</p>
+        <figure class="story-illustration article-illustration">
+    <img src="/assets/illustrations/2026-10-18-pi-can-park-agent-tasks-until-the-host-wakes-them-diagram-punk-v1.png" alt="A process stores a deadline and next step, disappears, then a host alarm wakes a new process that reads the persistent record." loading="lazy" decoding="async">
+    <figcaption><span>Diagram Punk</span>Pi stores the wait; an integrated host supplies the wakeup. Experimental, unreleased source.</figcaption>
+  </figure>
+        <div class="receipt">
+    <div class="receipt-line">
+      <span class="receipt-icon">repo</span>
+      <span class="receipt-main">earendil-works/pi</span>
+      <span class="branch-pill">evidence</span>
+    </div>
+    <div class="receipt-line receipt-muted">
+      <span>12 source signals</span>
+      <span>1 repo</span>
+      <span>3 linked commits</span>
+    </div>
+    <div class="commit-line">Evidence: 3 linked commits / October 18, 2026 / Daily Edition</div>
+  </div>
+        <div class="article-route-row">
+          <a href="/editions/2026-10-18/">Open Edition</a>
+          <a href="#evidence">Evidence below</a>
+          <button type="button" class="ask-inline" data-ask-entry data-ask-open aria-haspopup="dialog" aria-controls="article-questions" hidden>Ask about this article ↗</button>
+        </div>
+      </section>
+      <section class="story-reader">
+        <article class="story-shell story-body">
+          <p>Pi has added a way for a waiting agent task to outlive the process that started it. A <a href="https://github.com/earendil-works/pi/commit/f75b3240abc354bd1a666748e9101220554f5be2">change committed to earendil-works/pi late October 17 UTC</a>—early October 18 in Paris—gives its durable harness a stored <code>sleeping</code> state. The task saves when to return and which step to run next, then ends its current invocation. A host such as a Cloudflare Durable Object can supply the alarm that brings it back.</p>
+
+<p>That matters for applications whose agents spend time between actions: waiting before another model request, polling a deferred response, or delaying a reminder. The work can remain unfinished while the process that was doing it disappears. Pi supplies the saved task state; the application and its host supply the wakeup.</p>
+
+<p>This is an implementation on the development branch, not a newly released Pi CLI feature. The <a href="https://github.com/earendil-works/pi/blob/482c1381a00d8d00bc81697e4a980c593db6803e/packages/durable/CHANGELOG.md">inspected changelog places it under Unreleased</a>, after the <a href="https://github.com/earendil-works/pi/releases/tag/v1.3.0">October 15 v1.3.0 release</a>. The durable library explicitly labels its API experimental.</p>
+
+<h2>The wait becomes a record</h2>
+<p>Before this change, a task could call <code>runtime.sleep()</code> and wait inside a running step. The new <a href="https://github.com/earendil-works/pi/blob/482c1381a00d8d00bc81697e4a980c593db6803e/packages/durable/docs/spec.md#56-sleeping-timers-and-wakeups">contract</a> asks the author to divide the work at the pause. Save a deadline and a checkpoint describing the next step; return; let the scheduler run that step when it is due.</p>
+<p>A reminder makes the distinction concrete. Its first step records “deliver this message at this time.” Once that record is stored, the step is finished. A later invocation reads the saved task and performs delivery. The original invocation is no longer the container holding the wait together.</p>
+<p>Pi’s built-in generation retries, deferred-response polls and compaction retries use the same new state. But their deadlines were not all previously lost on restart. The <a href="https://github.com/earendil-works/pi/blob/71023aec1546d6d677a65669c5665c0927ce0dd0/packages/durable/src/harness/generation.ts">earlier generation code already saved retry and polling times in checkpoints</a>. The advance is ending the live invocation during that interval and exposing when the host needs to run again. It makes waiting explicit in the task’s lifecycle.</p>
+<p>The distinction also keeps the claim honest. An external action performed before the sleep record is committed can run again if the process crashes in between. Saving a wait does not make every surrounding action happen exactly once.</p>
+
+<h2>Storage remembers; the host wakes</h2>
+<p>Cloudflare’s part already existed. Its <a href="https://developers.cloudflare.com/durable-objects/api/alarms/">Durable Object alarms</a> schedule a future invocation, with at-least-once execution. Pi had added a <a href="https://github.com/earendil-works/pi/blob/abe508e1b89912adde45528136c3221eb69acdd7/packages/durable/CHANGELOG.md">Durable Object SQLite adapter in v1.1.0 on October 7</a>. October 18’s finding is how Pi now hands sleeping agent work to that established hosting machinery.</p>
+<p>The harness reports two useful facts through <code>wake()</code> and <code>onWake</code>: whether work can run now, and the earliest sleeping deadline. With that callback configured, Pi does not keep its own sleep timer. The host arms an alarm and calls <code>resume()</code> when it fires. Without this integration, the default Node.js timer deliberately keeps the process alive while a task sleeps.</p>
+<p>The host’s responsibility is more than setting a clock after the fact. The <a href="https://github.com/earendil-works/pi/commit/00bf7193d6ba0f13c01bbb5666a6e72505683f87">completed example arms recovery before resuming work</a>, as well as before admitting new input. Otherwise a process could commit work and disappear before arranging any way to return. While work is active, the example uses a recovery heartbeat; while it sleeps, the saved deadline determines the next wakeup.</p>
+<p>This is a useful division of labor for an application builder. The task describes what remains to do, and the host decides how execution returns. It does not mean all Pi sessions now hibernate automatically.</p>
+
+<h2>A test that removes the process</h2>
+<p>The <a href="https://github.com/earendil-works/pi/commit/ea7c648430d2000bc41db9e73586efe22801294c">accompanying workerd tests</a> go beyond checking the shape of a saved record. One stores a sleeping task, explicitly evicts its Durable Object, reopens it and checks that the deadline and alarm remain. It then advances the test clock, evicts the object again and invokes the alarm. The expected outcome is a completed task and no remaining alarm.</p>
+<p>A <a href="https://github.com/earendil-works/pi/blob/482c1381a00d8d00bc81697e4a980c593db6803e/packages/durable/test-workers/wake.test.ts">second case</a> interrupts a scripted model stream and checks recovery through the heartbeat. The integration work also exposed an awkward host detail: compatibility-mode timers had an <code>unref()</code> method, yet pending idle-memory timers still prevented eviction. Pi now declines those housekeeping timers in Workers.</p>
+<p>These are inspectable tests of the mechanism. We read their implementation but did not execute the suites. They use a scripted model and a manually advanced clock; they do not establish production Cloudflare timing, real-model task completion or a lower bill.</p>
+
+<h2>The upgrade includes the stored task</h2>
+<p>Moving the wait into storage changes what an upgrade must preserve. Pi’s <a href="https://github.com/earendil-works/pi/blob/482c1381a00d8d00bc81697e4a980c593db6803e/packages/durable/src/storage/sqlite/migrations.ts">SQLite migration</a> rebuilds the task table to admit the new state. Once opened by this code, that database cannot be reopened by v1.3.0 or earlier. JSONL storage needs no structural migration, but the older runtime does not resume an unfamiliar sleeping task, leaving its conversation busy.</p>
+<p>For integrators, this is a host-and-storage change to rehearse on a copy, rather than a timer name to replace in isolation. A containing release and a pinned deployment should be tested with one real delayed task: preserve its original deadline across eviction, observe the resumed result, and make its external action safe to retry.</p>
+<p>The useful gain is already visible in the source. Continuing an agent’s work no longer has to mean keeping its current invocation alive through every pause. The next demonstration should show that handoff working outside the test clock, with the host, saved state and external action all keeping the same promise.</p>
+        </article>
+      </section>
+      <section class="article-questions-invitation" data-ask-entry hidden>
+    <h2>Keep asking questions.</h2>
+    <p>Explore the story and its evidence in your own ChatGPT conversation.</p>
+    <button class="paper-button" type="button" data-ask-open aria-haspopup="dialog" aria-controls="article-questions">Ask about this article <span aria-hidden="true">↗</span></button>
+  </section>
+  <dialog class="article-questions" id="article-questions" aria-labelledby="ask-title"
+    data-title="Pi Can Park Agent Tasks Until the Host Wakes Them" data-date="2026-10-18"
+    data-url="https://thegitreporter.com/articles/2026-10-18-daily-pi-can-park-agent-tasks-until-the-host-wakes-them/"
+    data-summary="Pi’s experimental durable harness now stores a sleeping task’s deadline and next step, letting a host alarm bring execution back later. The change separates continuing work from a continuously running process.">
+    <div class="ask-heading">
+      <h2 id="ask-title" tabindex="-1" autofocus>Ask about this article</h2>
+      <button type="button" class="ask-close" aria-label="Close question box">×</button>
+    </div>
+    <form class="ask-form">
+      <div class="ask-content">
+        <p class="ask-article-title">Pi Can Park Agent Tasks Until the Host Wakes Them</p>
+        <div class="ask-suggestions" role="group" aria-label="Suggested questions">
+          <button type="button" data-question="Explain this article in plain language. What changed?">Explain simply</button>
+          <button type="button" data-question="Why does this change matter, and who is affected?">Why does this matter?</button>
+          <button type="button" data-question="What is the strongest counterargument to this article, and what evidence would change its conclusion?">Challenge the argument</button>
+        </div>
+        <label for="ask-question">Your question</label>
+        <textarea id="ask-question" rows="3" maxlength="2000" required placeholder="What would you like to understand?" aria-describedby="ask-context"></textarea>
+        <p id="ask-context" class="ask-note">Article link and summary included. Continue using your ChatGPT account; you may need to sign in.</p>
+        <details class="ask-manual" hidden>
+          <summary>Prepared text for copying</summary>
+          <textarea class="ask-copy-text" rows="5" readonly aria-label="Prepared question and article context"></textarea>
+        </details>
+      </div>
+      <div class="ask-actions">
+        <p class="ask-status" role="status" aria-live="polite"></p>
+        <button class="paper-button primary" type="submit">Continue in ChatGPT ↗</button>
+        <div class="ask-copy-actions">
+          <button type="button" data-ask-copy="summary">Copy question + context</button>
+          <button type="button" data-ask-copy="article">Copy article + question</button>
+        </div>
+        <p class="ask-note">If your question doesn’t appear in ChatGPT, copy it here and paste it there.</p>
+      </div>
+    </form>
+  </dialog>
+      <section class="evidence-section" id="evidence" aria-labelledby="evidence-title">
+    <div class="evidence-head">
+      <div>
+        <div class="eyebrow">Evidence Trail</div>
+        <h2 id="evidence-title">Receipts below the story</h2>
+        <p>The article above is the public narrative. This section keeps the source trail and limits on the same page.</p>
+      </div>
+      <a class="paper-button" href="/editions/2026-10-18/">Edition</a>
+    </div>
+    <div class="evidence-table evidence-summary">
+      <div class="evidence-line"><span>Date</span><span>October 18, 2026</span></div>
+      <div class="evidence-line"><span>Lane</span><span>Daily Edition</span></div>
+      <div class="evidence-line"><span>Confidence</span><span>91%</span></div>
+      <div class="evidence-line"><span>Sources</span><span>12</span></div>
+      <div class="evidence-line"><span>Repos</span><span>earendil-works/pi</span></div>
+    </div>
+    <div class="markdown evidence-copy evidence-copy-block">
+      <h2>Primary Evidence</h2>
+<ul>
+<li>Stored sleep implementation, October 17 UTC: <a href="https://github.com/earendil-works/pi/commit/f75b3240abc354bd1a666748e9101220554f5be2">https://github.com/earendil-works/pi/commit/f75b3240abc354bd1a666748e9101220554f5be2</a>
+<ul>
+<li>Shows: sleeping state commits a deadline and checkpoint, ends the invocation, and is used by generation retry/poll and compaction retry paths; wake/onWake exposes host scheduling needs.
+</li>
+</ul>
+</li>
+<li>Earlier generation implementation, October 15 release: <a href="https://github.com/earendil-works/pi/blob/71023aec1546d6d677a65669c5665c0927ce0dd0/packages/durable/src/harness/generation.ts">https://github.com/earendil-works/pi/blob/71023aec1546d6d677a65669c5665c0927ce0dd0/packages/durable/src/harness/generation.ts</a>
+<ul>
+<li>Shows: retry and polling deadlines already existed in checkpoints before the new sleeping state. The old scheduler waited inside a running invocation.
+</li>
+</ul>
+</li>
+<li>October 7 baseline changelog: <a href="https://github.com/earendil-works/pi/blob/abe508e1b89912adde45528136c3221eb69acdd7/packages/durable/CHANGELOG.md">https://github.com/earendil-works/pi/blob/abe508e1b89912adde45528136c3221eb69acdd7/packages/durable/CHANGELOG.md</a>
+<ul>
+<li>Shows: Durable Object SQLite storage support predates the new sleeping state.
+</li>
+</ul>
+</li>
+<li>Current waiting and wakeup specification: <a href="https://github.com/earendil-works/pi/blob/482c1381a00d8d00bc81697e4a980c593db6803e/packages/durable/docs/spec.md#56-sleeping-timers-and-wakeups">https://github.com/earendil-works/pi/blob/482c1381a00d8d00bc81697e4a980c593db6803e/packages/durable/docs/spec.md#56-sleeping-timers-and-wakeups</a>
+<ul>
+<li>Shows: host responsibilities, foreground timer behavior, checkpoint resumption and possible replay of external work before a sleep commit.
+</li>
+</ul>
+</li>
+<li>Workerd integration and timer changes: <a href="https://github.com/earendil-works/pi/commit/ea7c648430d2000bc41db9e73586efe22801294c">https://github.com/earendil-works/pi/commit/ea7c648430d2000bc41db9e73586efe22801294c</a>
+<ul>
+<li>Shows: tests run against the Workers runtime and the implementation declines background retention timers in Workers.
+</li>
+</ul>
+</li>
+<li>Eviction and alarm test definitions: <a href="https://github.com/earendil-works/pi/blob/482c1381a00d8d00bc81697e4a980c593db6803e/packages/durable/test-workers/wake.test.ts">https://github.com/earendil-works/pi/blob/482c1381a00d8d00bc81697e4a980c593db6803e/packages/durable/test-workers/wake.test.ts</a>
+<ul>
+<li>Shows: stored sleep is inspected after eviction, a test clock advances, an alarm is explicitly invoked and completion is checked. A second test recovers an interrupted faux-model stream.
+</li>
+</ul>
+</li>
+<li>Alarm-before-resume correction: <a href="https://github.com/earendil-works/pi/commit/00bf7193d6ba0f13c01bbb5666a6e72505683f87">https://github.com/earendil-works/pi/commit/00bf7193d6ba0f13c01bbb5666a6e72505683f87</a>
+<ul>
+<li>Shows: the host example arms recovery before starting resumed work; alarm ownership is substantive integration work.
+</li>
+</ul>
+</li>
+<li>Cloudflare alarm contract: <a href="https://developers.cloudflare.com/durable-objects/api/alarms/">https://developers.cloudflare.com/durable-objects/api/alarms/</a>
+<ul>
+<li>Shows: the existing host service supplies persistent scheduling and at-least-once alarm execution, distinct from Pi's task state.
+</li>
+</ul>
+</li>
+<li>Latest inspected release: <a href="https://github.com/earendil-works/pi/releases/tag/v1.3.0">https://github.com/earendil-works/pi/releases/tag/v1.3.0</a>
+<ul>
+<li>Shows: October 15 release baseline preceding the new sleeping implementation.
+</li>
+</ul>
+</li>
+<li>Current changelog and experimental interface: <a href="https://github.com/earendil-works/pi/blob/482c1381a00d8d00bc81697e4a980c593db6803e/packages/durable/CHANGELOG.md">https://github.com/earendil-works/pi/blob/482c1381a00d8d00bc81697e4a980c593db6803e/packages/durable/CHANGELOG.md</a>
+<ul>
+<li>Shows: the change is Unreleased; SQLite schema v2 prevents older-version reopen, while older JSONL readers do not resume sleeping tasks.
+</li>
+</ul>
+</li>
+<li>Experimental library README: <a href="https://github.com/earendil-works/pi/blob/482c1381a00d8d00bc81697e4a980c593db6803e/packages/durable/README.md">https://github.com/earendil-works/pi/blob/482c1381a00d8d00bc81697e4a980c593db6803e/packages/durable/README.md</a>
+<ul>
+<li>Shows: the API's experimental status and the application-owned host alarm example.
+</li>
+</ul>
+</li>
+<li>SQLite migration implementation: <a href="https://github.com/earendil-works/pi/blob/482c1381a00d8d00bc81697e4a980c593db6803e/packages/durable/src/storage/sqlite/migrations.ts">https://github.com/earendil-works/pi/blob/482c1381a00d8d00bc81697e4a980c593db6803e/packages/durable/src/storage/sqlite/migrations.ts</a>
+<ul>
+<li>Shows: the task table is rebuilt to accommodate sleeping state.
+</li>
+</ul>
+</li>
+</ul>
+<h2>Evidence Limits</h2>
+<ul>
+<li>This is unreleased source in an experimental library, not verified npm availability or an automatic change to every Pi CLI session.
+</li>
+<li>Test definitions were inspected but not executed by TheGitReporter. Workerd scenarios use a scripted model and advanced clock, not a live Cloudflare deployment or billing measurement.
+</li>
+<li>Host alarm integration is required to dispense with Pi's own sleeping timer. The default Node timer keeps the process alive.
+</li>
+<li>Stored waiting does not ensure exactly-once external effects. Work before its commit may repeat after a crash.
+</li>
+<li>No adoption, cost saving, comparative performance or general autonomous-work outcome is established.
+</li>
+</ul>
+    </div>
+  </section>
+      <section class="related-edition-section atlas-context-section">
+    <div class="section-title-row">
+      <h2>Atlas Context</h2>
+      <a href="/atlas/">Open Atlas &rsaquo;</a>
+    </div>
+    <div class="updates-list">
+      <a class="article-card" href="/atlas/the-human-interface/">
+            <div class="article-meta"><span class="lane">Agent Atlas</span><span>Chapter 8</span></div>
+            <h3>The Human Control Loop</h3>
+            <p>A useful interface exposes active work, gives intervention a defined runtime effect, preserves evidence during correction, and resumes the intended session.</p>
+          </a>
+    </div>
+  </section>
+      <section class="reader-feedback"
+    data-tgr-feedback
+    data-article-slug="2026-10-18-daily-pi-can-park-agent-tasks-until-the-host-wakes-them"
+    data-article-title="Pi Can Park Agent Tasks Until the Host Wakes Them"
+    data-article-url="/articles/2026-10-18-daily-pi-can-park-agent-tasks-until-the-host-wakes-them/"
+    data-edition-date="2026-10-18"
+    data-lane="Daily Edition"
+    data-tags="Memory,Tools,UX,Runtime"
+    data-repos="earendil-works/pi">
+    <div class="reader-feedback-head">
+      <div>
+        <div class="eyebrow">Letters &amp; Corrections</div>
+        <h2>Send a note to the desk</h2>
+      </div>
+      <p>Corrections, missing context, or a follow-up lead.</p>
+    </div>
+    <form class="feedback-form">
+      <div class="feedback-votes" role="group" aria-label="Choose signal type">
+        <button class="feedback-choice" type="button" data-vote="follow-up" aria-pressed="false">
+          <span aria-hidden="true">+</span>
+          <span>Follow-up</span>
+        </button>
+        <button class="feedback-choice" type="button" data-vote="correction" aria-pressed="false">
+          <span aria-hidden="true">!</span>
+          <span>Correction</span>
+        </button>
+      </div>
+      <label class="feedback-comment">
+        <span>Note for the editor</span>
+        <textarea name="comment" rows="3" maxlength="320" placeholder="What did we miss, or what should we follow next?"></textarea>
+      </label>
+      <div class="feedback-submit-row">
+        <p class="feedback-status" aria-live="polite"></p>
+        <button class="paper-button primary feedback-submit" type="submit">Send to desk</button>
+      </div>
+    </form>
+  </section>
+      
+    </main>
+    <footer class="wrap site-footer">
+      <span>&copy; 2026 The Git Reporter</span>
+      <a href="/about/">About</a>
+      <a href="/battles/">Diff Derby</a>
+      <a href="/agent-pulse/">Agent Pulse</a>
+      <a href="/feed.xml">RSS</a>
+      <a href="https://x.com/TheGitReporter">Follow on X</a>
+      <a href="/articles.json">Manifest JSON</a>
+      <a href="/repos/">Sources</a>
+    </footer>
+  </div>
+</body>
+</html>
