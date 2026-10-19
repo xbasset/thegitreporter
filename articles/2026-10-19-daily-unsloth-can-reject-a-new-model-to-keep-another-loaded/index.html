@@ -1,0 +1,338 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Unsloth Can Reject a New Model to Keep Another Loaded | The Git Reporter</title>
+  <meta name="description" content="New Studio code gives chat, image and video models a choice: share GPU memory when possible, make room, or refuse a disruptive load. When media does displace chat, it can also save the primary GGUF model’s cached work.">
+  <meta name="robots" content="index,follow">
+  <link rel="canonical" href="https://thegitreporter.com/articles/2026-10-19-daily-unsloth-can-reject-a-new-model-to-keep-another-loaded/">
+  <link rel="alternate" type="application/rss+xml" title="The Git Reporter" href="https://thegitreporter.com/feed.xml">
+  <meta property="og:site_name" content="The Git Reporter">
+  <meta property="og:locale" content="en_US">
+  <meta property="og:title" content="Unsloth Can Reject a New Model to Keep Another Loaded | The Git Reporter">
+  <meta property="og:description" content="New Studio code gives chat, image and video models a choice: share GPU memory when possible, make room, or refuse a disruptive load. When media does displace chat, it can also save the primary GGUF model’s cached work.">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://thegitreporter.com/articles/2026-10-19-daily-unsloth-can-reject-a-new-model-to-keep-another-loaded/">
+  <meta property="og:image" content="https://thegitreporter.com/assets/social/2026-10-19-daily-unsloth-can-reject-a-new-model-to-keep-another-loaded-og.jpg">
+  <meta property="og:image:secure_url" content="https://thegitreporter.com/assets/social/2026-10-19-daily-unsloth-can-reject-a-new-model-to-keep-another-loaded-og.jpg">
+  <meta property="og:image:type" content="image/jpeg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="A chat model remains in a GPU memory tray while an Always policy gate stops an incoming image model.">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:site" content="@TheGitReporter">
+  <meta name="twitter:creator" content="@TheGitReporter">
+  <meta name="twitter:title" content="Unsloth Can Reject a New Model to Keep Another Loaded | The Git Reporter">
+  <meta name="twitter:description" content="New Studio code gives chat, image and video models a choice: share GPU memory when possible, make room, or refuse a disruptive load. When media does displace chat, it can also save the primary GGUF model’s cached work.">
+  <meta name="twitter:url" content="https://thegitreporter.com/articles/2026-10-19-daily-unsloth-can-reject-a-new-model-to-keep-another-loaded/">
+  <meta name="twitter:domain" content="thegitreporter.com">
+  <meta name="twitter:image" content="https://thegitreporter.com/assets/social/2026-10-19-daily-unsloth-can-reject-a-new-model-to-keep-another-loaded-og.jpg">
+  <meta name="twitter:image:alt" content="A chat model remains in a GPU memory tray while an Always policy gate stops an incoming image model.">
+  <meta property="article:published_time" content="2026-10-19T12:00:00Z">
+  <meta property="article:modified_time" content="2026-10-19T12:00:00Z">
+  <meta property="article:section" content="Daily Edition">
+  <meta property="article:tag" content="Memory">
+  <meta property="article:tag" content="UX">
+  <meta property="article:tag" content="unslothai/unsloth">
+  <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"https://thegitreporter.com/#organization","name":"The Git Reporter","url":"https://thegitreporter.com","logo":{"@type":"ImageObject","url":"https://thegitreporter.com/assets/mark.svg"},"sameAs":["https://x.com/TheGitReporter"]},{"@type":"WebSite","@id":"https://thegitreporter.com/#website","name":"The Git Reporter","url":"https://thegitreporter.com","publisher":{"@id":"https://thegitreporter.com/#organization"}},{"@type":"NewsArticle","mainEntityOfPage":{"@type":"WebPage","@id":"https://thegitreporter.com/articles/2026-10-19-daily-unsloth-can-reject-a-new-model-to-keep-another-loaded/"},"headline":"Unsloth Can Reject a New Model to Keep Another Loaded","description":"New Studio code gives chat, image and video models a choice: share GPU memory when possible, make room, or refuse a disruptive load. When media does displace chat, it can also save the primary GGUF model’s cached work.","image":["https://thegitreporter.com/assets/social/2026-10-19-daily-unsloth-can-reject-a-new-model-to-keep-another-loaded-og.jpg"],"datePublished":"2026-10-19T12:00:00Z","dateModified":"2026-10-19T12:00:00Z","author":[{"@type":"Organization","name":"The Git Reporter","url":"https://thegitreporter.com"}],"publisher":{"@type":"Organization","@id":"https://thegitreporter.com/#organization","name":"The Git Reporter","url":"https://thegitreporter.com","logo":{"@type":"ImageObject","url":"https://thegitreporter.com/assets/mark.svg"},"sameAs":["https://x.com/TheGitReporter"]},"articleSection":"Daily Edition","keywords":"Memory, UX, unslothai/unsloth"}]}</script>
+  <link rel="icon" href="/assets/mark.svg">
+  <link rel="stylesheet" href="/assets/site.css?v=2026-10-03-article-questions">
+  <script defer src="/assets/feedback.js?v=2026-10-03-article-questions"></script>
+  <script defer src="/assets/article-questions.js?v=2026-10-03-article-questions"></script>
+  <script defer src="/assets/analytics.js?v=2026-10-03-article-questions"></script>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-CH19T7M0T1"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){window.dataLayer.push(arguments);}
+    gtag("js", new Date());
+    gtag("config", "G-CH19T7M0T1");
+  </script>
+</head>
+<body>
+  <div class="site">
+    <header class="site-header" id="top">
+      <div class="wrap utility-row">
+        <a class="icon-link menu-icon" href="/archive/" aria-label="Open edition history"><span></span><span></span><span></span></a>
+        <a class="icon-link archive-icon" href="/archive/" aria-label="Open edition history"></a>
+      </div>
+      <div class="wrap masthead-lockup">
+        <a class="masthead-title" href="/">THE GIT REPORTER</a>
+        <div class="masthead-ornament" aria-hidden="true"></div>
+      </div>
+      <div class="wrap nav-wrap">
+        <nav class="paper-nav" aria-label="Primary navigation">
+    <a class=""  href="/">Stories</a><a class=""  href="/today/">Today</a><a class="active" aria-current="page" href="/archive/">Editions</a><a class=""  href="/about/">About</a><a class=""  href="/battles/">Diff Derby</a><a class=""  href="/agent-pulse/">Agent Pulse</a><a class=""  href="/atlas/">Agent Atlas</a><a class=""  href="/repos/">Repos</a>
+  </nav>
+        <div class="nav-rule"></div>
+      </div>
+    </header>
+    <main class="wrap page-shell article-page">
+      <section class="page-hero story-front">
+        <div class="story-topline">
+          <span>Daily Edition</span>
+          <span>Sources <strong>+10</strong></span>
+        </div>
+        <h1>Unsloth Can Reject a New Model to Keep Another Loaded</h1>
+        <p class="summary">New Studio code gives chat, image and video models a choice: share GPU memory when possible, make room, or refuse a disruptive load. When media does displace chat, it can also save the primary GGUF model’s cached work.</p>
+        <figure class="story-illustration article-illustration">
+    <img src="/assets/illustrations/2026-10-19-unsloth-can-reject-a-new-model-to-keep-another-loaded-diagram-punk-v1.png" alt="A chat model remains in a GPU memory tray while an Always policy gate stops an incoming image model." loading="lazy" decoding="async">
+    <figcaption><span>Diagram Punk</span>Always can refuse a new load that would displace a protected model. Schematic; training and idle expiry remain separate.</figcaption>
+  </figure>
+        <div class="receipt">
+    <div class="receipt-line">
+      <span class="receipt-icon">repo</span>
+      <span class="receipt-main">unslothai/unsloth</span>
+      <span class="branch-pill">evidence</span>
+    </div>
+    <div class="receipt-line receipt-muted">
+      <span>10 source signals</span>
+      <span>1 repo</span>
+      <span>2 linked commits</span>
+    </div>
+    <div class="commit-line">Evidence: 2 linked commits / October 19, 2026 / Daily Edition</div>
+  </div>
+        <div class="article-route-row">
+          <a href="/editions/2026-10-19/">Open Edition</a>
+          <a href="#evidence">Evidence below</a>
+          <button type="button" class="ask-inline" data-ask-entry data-ask-open aria-haspopup="dialog" aria-controls="article-questions" hidden>Ask about this article ↗</button>
+        </div>
+      </section>
+      <section class="story-reader">
+        <article class="story-shell story-body">
+          <p>Unsloth has added a useful kind of refusal to local AI. An <a href="https://github.com/unslothai/unsloth/commit/9edc7318c9fb41ba3248a2070e9f871ac07004e3">October 19 change</a> in <a href="https://github.com/unslothai/unsloth">unslothai/unsloth</a> lets its Studio workbench reject a request to load a different model when doing so would unload one already there. The setting is called “Always,” under “Keep multiple models loaded.” Its promise is about protecting existing residents, not finding room for everything.</p>
+
+  <p>That is a practical choice for a machine doing several jobs. A chat model may serve an agent through an API while someone starts an image or video task. Supporting both models does not establish that both can stay ready on the same GPU. Unsloth now exposes more of that decision to the person running the machine.</p>
+
+  <p>The change fits the company’s <a href="https://unsloth.ai/">public pitch for a local workspace</a> that combines chat, media generation and connections to coding agents. The inspected work is merged source, however: the <a href="https://github.com/unslothai/unsloth/releases/tag/v0.1.908-beta">latest GitHub beta release checked, from October 15</a>, does not contain these October 19 changes. This is a look at the implementation entering that workspace, not a claim that every downloaded app already has it.</p>
+
+  <h2>Three choices for the same finite memory</h2>
+  <p>Keeping several models loaded is not new to Unsloth. An <a href="https://github.com/unslothai/unsloth/commit/8fbd5b6cb2b02134f1668e6a0c95eea5699fcf71">October 3 change</a> already let multiple chat models remain available. When space ran short, it could unload idle kept models in least-recently-used order, then replace the active model. But the <a href="https://github.com/unslothai/unsloth/blob/c16236b288948761b29d749eefc194d82cfc57c8/studio/backend/core/inference/gpu_arbiter.py">October 12 source snapshot</a> still handed the GPU between chat, image and video owners by evicting the previous one.</p>
+
+  <p>The new <a href="https://github.com/unslothai/unsloth/pull/14106">cross-modality residency implementation</a> and <a href="https://github.com/unslothai/unsloth/pull/14108">settings interface</a> offer three policies. <strong>Off</strong> retains the swapping behavior and remains the default for fresh installations. <strong>When they fit</strong> keeps models together where the memory check permits, freeing models when necessary. <strong>Always</strong> refuses a load that would require displacing a protected model. Existing users who had enabled multiple-model loading migrate to “When they fit.”</p>
+
+  <p>The <a href="https://github.com/unslothai/unsloth/blob/9bac1786d3f8b4dccbb8b16d205ecc1187083113/studio/backend/core/inference/gpu_residency.py">memory check</a> considers model weights, room needed for generation and live free memory on the GPU being used. It leaves an additional 1,024 MiB margin. If it cannot price the load or measure suitable memory, it treats the load as not fitting. That is why “Always” can mean receiving a refusal rather than getting another model.</p>
+
+  <p>This coexistence path has a hardware and engine boundary. Unified-memory systems, including Macs, and some media engines or GPU configurations cannot use its current estimates. On those paths, “When they fit” can still unload a model; “Always” can refuse instead. The setting also does not disable training’s memory reclamation or idle expiry. Decision API servers remain outside its protection, and changing the quantization, context size or engine of the same model repository is still allowed.</p>
+
+  <p>For an unattended service, that narrower promise can be valuable. An unexpected model request can fail visibly instead of silently replacing the model another workflow expects to find. The API returns a recognizable refusal; the interface explains why the model was not loaded. A refusal is now one supported outcome of the resource policy.</p>
+
+  <h2>When a swap is useful, save the work already done</h2>
+  <p>Sometimes making room is exactly what the user wants. A second part of the change addresses the return trip: chat, then an image or video, then chat again.</p>
+
+  <p>A language model keeps a cache of calculations for tokens it has already processed. Reloading the model without that cache may require processing the conversation again. This is different from losing the saved conversation text. Unsloth’s new <a href="https://github.com/unslothai/unsloth/blob/22531d3cbd5a8c29680a804e26116bb528e641fc/studio/backend/core/inference/chat_swap_kv.py">media-swap code</a> can save the primary GGUF chat backend’s cache to disk before media takes its place, then make that cache available to a compatible reload.</p>
+
+  <p>The save belongs to the model actually unloaded. If the load never evicts chat, the unused save is discarded. Preservation must be enabled, the account must match and chat must be idle. Saving has a 45-second budget; a failure or timeout lets the media load proceed without the saved cache. Extra chat models kept alongside the primary one do not receive this preservation.</p>
+
+  <p>The contributor’s <a href="https://github.com/unslothai/unsloth/pull/14108">reported GPU trial</a> illustrates the intended gain. After a Qwen chat model gave way to an image model and returned, its next 5,052-token turn evaluated 37 tokens with cache preservation enabled, versus all 5,052 without it. That is an author-reported example on an earlier branch head, not our benchmark or a general speed claim.</p>
+
+  <p>We inspected the source and <a href="https://github.com/unslothai/unsloth/blob/22531d3cbd5a8c29680a804e26116bb528e641fc/studio/backend/tests/test_swap_kv_resume.py">test definitions</a>, including identity checks, cancellation and slow-save cleanup. The tests use fake backends; we did not execute them or run a GPU workload. They make the intended contract inspectable without establishing results across hardware.</p>
+
+  <h2>A better question than “does it support this model?”</h2>
+  <p>The consequential change is a choice about continuity. A local workbench can protect a resident model, let several coexist where memory permits, or swap them while trying to retain expensive chat processing. Those are different operating preferences, even when the model list stays the same.</p>
+
+  <p>The next useful receipt is a containing release completing a fixed chat–media–chat sequence on a specified GPU: which models remain loaded, which request is refused, and how much conversation processing is repeated on return. That will show how the new policy behaves in ordinary work. The source already makes the decision clearer: loading another model need not automatically take precedence over keeping the current one ready.</p>
+        </article>
+      </section>
+      <section class="article-questions-invitation" data-ask-entry hidden>
+    <h2>Keep asking questions.</h2>
+    <p>Explore the story and its evidence in your own ChatGPT conversation.</p>
+    <button class="paper-button" type="button" data-ask-open aria-haspopup="dialog" aria-controls="article-questions">Ask about this article <span aria-hidden="true">↗</span></button>
+  </section>
+  <dialog class="article-questions" id="article-questions" aria-labelledby="ask-title"
+    data-title="Unsloth Can Reject a New Model to Keep Another Loaded" data-date="2026-10-19"
+    data-url="https://thegitreporter.com/articles/2026-10-19-daily-unsloth-can-reject-a-new-model-to-keep-another-loaded/"
+    data-summary="New Studio code gives chat, image and video models a choice: share GPU memory when possible, make room, or refuse a disruptive load. When media does displace chat, it can also save the primary GGUF model’s cached work.">
+    <div class="ask-heading">
+      <h2 id="ask-title" tabindex="-1" autofocus>Ask about this article</h2>
+      <button type="button" class="ask-close" aria-label="Close question box">×</button>
+    </div>
+    <form class="ask-form">
+      <div class="ask-content">
+        <p class="ask-article-title">Unsloth Can Reject a New Model to Keep Another Loaded</p>
+        <div class="ask-suggestions" role="group" aria-label="Suggested questions">
+          <button type="button" data-question="Explain this article in plain language. What changed?">Explain simply</button>
+          <button type="button" data-question="Why does this change matter, and who is affected?">Why does this matter?</button>
+          <button type="button" data-question="What is the strongest counterargument to this article, and what evidence would change its conclusion?">Challenge the argument</button>
+        </div>
+        <label for="ask-question">Your question</label>
+        <textarea id="ask-question" rows="3" maxlength="2000" required placeholder="What would you like to understand?" aria-describedby="ask-context"></textarea>
+        <p id="ask-context" class="ask-note">Article link and summary included. Continue using your ChatGPT account; you may need to sign in.</p>
+        <details class="ask-manual" hidden>
+          <summary>Prepared text for copying</summary>
+          <textarea class="ask-copy-text" rows="5" readonly aria-label="Prepared question and article context"></textarea>
+        </details>
+      </div>
+      <div class="ask-actions">
+        <p class="ask-status" role="status" aria-live="polite"></p>
+        <button class="paper-button primary" type="submit">Continue in ChatGPT ↗</button>
+        <div class="ask-copy-actions">
+          <button type="button" data-ask-copy="summary">Copy question + context</button>
+          <button type="button" data-ask-copy="article">Copy article + question</button>
+        </div>
+        <p class="ask-note">If your question doesn’t appear in ChatGPT, copy it here and paste it there.</p>
+      </div>
+    </form>
+  </dialog>
+      <section class="evidence-section" id="evidence" aria-labelledby="evidence-title">
+    <div class="evidence-head">
+      <div>
+        <div class="eyebrow">Evidence Trail</div>
+        <h2 id="evidence-title">Receipts below the story</h2>
+        <p>The article above is the public narrative. This section keeps the source trail and limits on the same page.</p>
+      </div>
+      <a class="paper-button" href="/editions/2026-10-19/">Edition</a>
+    </div>
+    <div class="evidence-table evidence-summary">
+      <div class="evidence-line"><span>Date</span><span>October 19, 2026</span></div>
+      <div class="evidence-line"><span>Lane</span><span>Daily Edition</span></div>
+      <div class="evidence-line"><span>Confidence</span><span>91%</span></div>
+      <div class="evidence-line"><span>Sources</span><span>10</span></div>
+      <div class="evidence-line"><span>Repos</span><span>unslothai/unsloth</span></div>
+    </div>
+    <div class="markdown evidence-copy evidence-copy-block">
+      <h2>Primary Evidence</h2>
+<ul>
+<li>Residency policy and load refusal, merged October 19: <a href="https://github.com/unslothai/unsloth/commit/9edc7318c9fb41ba3248a2070e9f871ac07004e3">https://github.com/unslothai/unsloth/commit/9edc7318c9fb41ba3248a2070e9f871ac07004e3</a>
+<ul>
+<li>Shows: off/fit/always settings, protection against cross-repository displacement, structured refusal and eviction reporting, with training, idle expiry and Decision API exceptions.
+</li>
+</ul>
+</li>
+<li>Cross-modality residency change: <a href="https://github.com/unslothai/unsloth/pull/14106">https://github.com/unslothai/unsloth/pull/14106</a>
+<ul>
+<li>Shows: extends co-residency across chat, image and video, subject to estimates and physical GPU memory. GitHub API confirms merge October 19; a cached browser view lagged that state.
+</li>
+</ul>
+</li>
+<li>Pinned memory admission implementation: <a href="https://github.com/unslothai/unsloth/blob/9bac1786d3f8b4dccbb8b16d205ecc1187083113/studio/backend/core/inference/gpu_residency.py">https://github.com/unslothai/unsloth/blob/9bac1786d3f8b4dccbb8b16d205ecc1187083113/studio/backend/core/inference/gpu_residency.py</a>
+<ul>
+<li>Shows: weights and generation headroom priced per GPU, 1,024 MiB margin, unknown and unified-memory cases treated as not fitting, and refusal rather than forced oversubscription.
+</li>
+</ul>
+</li>
+<li>October 3 multi-chat baseline: <a href="https://github.com/unslothai/unsloth/commit/8fbd5b6cb2b02134f1668e6a0c95eea5699fcf71">https://github.com/unslothai/unsloth/commit/8fbd5b6cb2b02134f1668e6a0c95eea5699fcf71</a>
+<ul>
+<li>Shows: multiple chat models already existed, with least-recently-used eviction and eventual primary replacement under pressure.
+</li>
+</ul>
+</li>
+<li>October 12 baseline file: <a href="https://github.com/unslothai/unsloth/blob/c16236b288948761b29d749eefc194d82cfc57c8/studio/backend/core/inference/gpu_arbiter.py">https://github.com/unslothai/unsloth/blob/c16236b288948761b29d749eefc194d82cfc57c8/studio/backend/core/inference/gpu_arbiter.py</a>
+<ul>
+<li>Shows: previous single-owner cross-modality eviction in that dated tree. The containing commit is an unrelated trainer correction, not the introduction of the mechanism.
+</li>
+</ul>
+</li>
+<li>Settings and media swap change: <a href="https://github.com/unslothai/unsloth/pull/14108">https://github.com/unslothai/unsloth/pull/14108</a>
+<ul>
+<li>Shows: Off/When they fit/Always interface, eviction notices and contributor-reported GPU comparison. The trial used an earlier branch head and is not an independent benchmark.
+</li>
+</ul>
+</li>
+<li>Pinned primary GGUF cache preservation: <a href="https://github.com/unslothai/unsloth/blob/22531d3cbd5a8c29680a804e26116bb528e641fc/studio/backend/core/inference/chat_swap_kv.py">https://github.com/unslothai/unsloth/blob/22531d3cbd5a8c29680a804e26116bb528e641fc/studio/backend/core/inference/chat_swap_kv.py</a>
+<ul>
+<li>Shows: save before displacement, promote only the identity actually unloaded, account and idle checks, 45-second budget and continuing without cache if saving fails.
+</li>
+</ul>
+</li>
+<li>Pinned cache test definitions: <a href="https://github.com/unslothai/unsloth/blob/22531d3cbd5a8c29680a804e26116bb528e641fc/studio/backend/tests/test_swap_kv_resume.py">https://github.com/unslothai/unsloth/blob/22531d3cbd5a8c29680a804e26116bb528e641fc/studio/backend/tests/test_swap_kv_resume.py</a>
+<ul>
+<li>Shows: fake-backend cases for actual eviction, compatible restore, cancellation, disabled settings and slow-save cleanup. Tests were inspected, not executed.
+</li>
+</ul>
+</li>
+<li>Latest GitHub beta inspected: <a href="https://github.com/unslothai/unsloth/releases/tag/v0.1.908-beta">https://github.com/unslothai/unsloth/releases/tag/v0.1.908-beta</a>
+<ul>
+<li>Shows: October 15 release predates and does not contain the October 19 merges; no downloaded-app availability is claimed.
+</li>
+</ul>
+</li>
+<li>Unsloth public product description, retrieved October 19: <a href="https://unsloth.ai/">https://unsloth.ai/</a>
+<ul>
+<li>Shows: the company's local-workspace proposition combines media, model serving and coding-agent connections. Promotional performance figures are not adopted as this article's findings.
+</li>
+</ul>
+</li>
+</ul>
+<h2>Evidence Limits</h2>
+<ul>
+<li>This is merged source, not verification of a packaged desktop release or hosted deployment.
+</li>
+<li>No GPU trial or upstream test suite was executed independently. Contributor token figures are a bounded example, not a general speed or memory benchmark.
+</li>
+<li>Co-residency depends on supported hardware, estimable engine needs and available memory; unsupported or unknown cases may evict under fit or refuse under Always.
+</li>
+<li>Always has training, idle expiry, Decision API and same-repository reconfiguration exceptions. It is not a permanent residency guarantee.
+</li>
+<li>Cache preservation concerns previously computed primary GGUF chat state, not saved conversation text, all kept models or universal recovery. Saving can fail or time out.
+</li>
+<li>No adoption, frontier-model equivalence, user growth or comparative quality claim is established.
+</li>
+</ul>
+    </div>
+  </section>
+      <section class="related-edition-section atlas-context-section">
+    <div class="section-title-row">
+      <h2>Atlas Context</h2>
+      <a href="/atlas/">Open Atlas &rsaquo;</a>
+    </div>
+    <div class="updates-list">
+      <a class="article-card" href="/atlas/memory-is-not-one-thing/">
+            <div class="article-meta"><span class="lane">Agent Atlas</span><span>Chapter 6</span></div>
+            <h3>Memory Is a Typed Storage Contract</h3>
+            <p>Calling every retained fact memory obscures incompatible stores and guarantees. Thread history, notes, retrieval indexes, summaries, caches, and archives have different owners, lifetimes, and deletion behavior.</p>
+          </a>
+    </div>
+  </section>
+      <section class="reader-feedback"
+    data-tgr-feedback
+    data-article-slug="2026-10-19-daily-unsloth-can-reject-a-new-model-to-keep-another-loaded"
+    data-article-title="Unsloth Can Reject a New Model to Keep Another Loaded"
+    data-article-url="/articles/2026-10-19-daily-unsloth-can-reject-a-new-model-to-keep-another-loaded/"
+    data-edition-date="2026-10-19"
+    data-lane="Daily Edition"
+    data-tags="Memory,UX"
+    data-repos="unslothai/unsloth">
+    <div class="reader-feedback-head">
+      <div>
+        <div class="eyebrow">Letters &amp; Corrections</div>
+        <h2>Send a note to the desk</h2>
+      </div>
+      <p>Corrections, missing context, or a follow-up lead.</p>
+    </div>
+    <form class="feedback-form">
+      <div class="feedback-votes" role="group" aria-label="Choose signal type">
+        <button class="feedback-choice" type="button" data-vote="follow-up" aria-pressed="false">
+          <span aria-hidden="true">+</span>
+          <span>Follow-up</span>
+        </button>
+        <button class="feedback-choice" type="button" data-vote="correction" aria-pressed="false">
+          <span aria-hidden="true">!</span>
+          <span>Correction</span>
+        </button>
+      </div>
+      <label class="feedback-comment">
+        <span>Note for the editor</span>
+        <textarea name="comment" rows="3" maxlength="320" placeholder="What did we miss, or what should we follow next?"></textarea>
+      </label>
+      <div class="feedback-submit-row">
+        <p class="feedback-status" aria-live="polite"></p>
+        <button class="paper-button primary feedback-submit" type="submit">Send to desk</button>
+      </div>
+    </form>
+  </section>
+      
+    </main>
+    <footer class="wrap site-footer">
+      <span>&copy; 2026 The Git Reporter</span>
+      <a href="/about/">About</a>
+      <a href="/battles/">Diff Derby</a>
+      <a href="/agent-pulse/">Agent Pulse</a>
+      <a href="/feed.xml">RSS</a>
+      <a href="https://x.com/TheGitReporter">Follow on X</a>
+      <a href="/articles.json">Manifest JSON</a>
+      <a href="/repos/">Sources</a>
+    </footer>
+  </div>
+</body>
+</html>
