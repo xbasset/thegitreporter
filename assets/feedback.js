@@ -1,104 +1,71 @@
 (function () {
-  const EVENT_NAME = "TGR Article Feedback";
-  const LOG_KEY = "tgr.readerFeedback";
-
-  function cleanComment(value) {
-    return String(value || "")
-      .replace(/[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}/gi, "[email]")
-      .replace(/https?:\/\/\S+/gi, "[link]")
-      .replace(/\s+/g, " ")
-      .trim()
-      .slice(0, 300);
-  }
-
-  function readLocalLog() {
-    try {
-      const value = window.localStorage.getItem(LOG_KEY);
-      return value ? JSON.parse(value) : [];
-    } catch {
-      return [];
-    }
-  }
-
-  function writeLocalLog(record) {
-    try {
-      const next = readLocalLog().concat(record).slice(-100);
-      window.localStorage.setItem(LOG_KEY, JSON.stringify(next));
-    } catch {
-      // Local storage is a convenience cache; Plausible is the primary signal.
-    }
-  }
-
-  function eventProps(root, vote, comment) {
-    const tags = root.dataset.tags || "";
-    const repos = root.dataset.repos || "";
-    return {
-      article_slug: root.dataset.articleSlug || "",
-      article_title: root.dataset.articleTitle || "",
-      article_url: root.dataset.articleUrl || "",
-      edition_date: root.dataset.editionDate || "",
-      lane: root.dataset.lane || "",
-      vote,
-      tags,
-      repos,
-      primary_tag: tags.split(",").filter(Boolean)[0] || "",
-      primary_repo: repos.split(",").filter(Boolean)[0] || "",
-      has_comment: comment ? "true" : "false",
-      comment_length: String(comment.length),
-      comment,
-    };
-  }
-
-  function setStatus(root, text) {
-    const status = root.querySelector(".feedback-status");
-    if (status) status.textContent = text;
-  }
-
-  function bindFeedback(root) {
-    const form = root.querySelector(".feedback-form");
-    const textarea = root.querySelector("textarea[name='comment']");
-    const choices = Array.from(root.querySelectorAll("[data-vote]"));
-    let vote = "";
-
-    choices.forEach((button) => {
-      button.addEventListener("click", () => {
-        vote = button.dataset.vote || "";
-        choices.forEach((item) => {
-          const selected = item === button;
-          item.classList.toggle("selected", selected);
-          item.setAttribute("aria-pressed", selected ? "true" : "false");
-        });
+  const API = 'https://api.thegitreporter.com/api/v1/feedback';
+  const PREFIX = 'tgr.reaction.v1:';
+  function read(key) { try { return JSON.parse(localStorage.getItem(key) || 'null'); } catch { return null; } }
+  function write(key, value) { try { localStorage.setItem(key, JSON.stringify(value)); } catch { /* A server receipt still confirms delivery. */ } }
+  function bind(root) {
+    const key = PREFIX + root.dataset.articleUrl;
+    const cached = read(key);
+    const token = () => Array.from(crypto.getRandomValues(new Uint8Array(32)), n => n.toString(16).padStart(2, '0')).join('');
+    let record = cached && cached.articleUrl === root.dataset.articleUrl && cached.id && cached.editToken
+      ? cached : { id: crypto.randomUUID(), editToken: token(), articleUrl: root.dataset.articleUrl, version: 0, vote: '', comment: '' };
+    let vote = record.vote;
+    let queue = Promise.resolve();
+    const textarea = root.querySelector('textarea');
+    const details = root.querySelector('details');
+    const statuses = root.querySelectorAll('.feedback-status');
+    const choices = [...root.querySelectorAll('[data-vote]')];
+    textarea.value = record.comment || '';
+    function status(message) { statuses.forEach(el => { el.textContent = message; }); }
+    function select() { choices.forEach(button => {
+      const selected = button.dataset.vote === vote;
+      button.classList.toggle('selected', selected);
+      button.setAttribute('aria-pressed', String(selected));
+    }); }
+    function save() {
+      if (!vote) { status('Choose a thumb first.'); return; }
+      const desired = { vote, comment: textarea.value.trim().slice(0, 2000) };
+      status('Saving…');
+      queue = queue.then(async () => {
+        const payload = { ...record, ...desired, version: record.version + 1 };
+        const pendingKey = key + ':pending';
+        const pending = read(pendingKey);
+        const send = async input => {
+          const response = await fetch(API, { method: 'POST', mode: 'cors', credentials: 'omit',
+            headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(input), signal: AbortSignal.timeout(15000) });
+          if (!response.ok) throw new Error(response.status === 409 ? 'Reload this page before changing your saved reaction.' : 'Not sent. Your note is still here—try again.');
+          const result = await response.json();
+          if (result.data?.id !== input.id || result.data?.version !== input.version) throw new Error('No save receipt. Please try again.');
+          record = input; write(key, record);
+          try { localStorage.removeItem(pendingKey); } catch { /* Optional browser cache. */ }
+        };
+        try {
+          if (pending && pending.id === record.id && pending.version === record.version + 1) await send(pending);
+          if (record.vote !== desired.vote || record.comment !== desired.comment || !record.version) {
+            const next = { ...payload, version: record.version + 1 };
+            write(key, record); write(pendingKey, next);
+            await send(next);
+          }
+          status('Saved privately. Awaiting editor discussion.');
+        } catch (error) { status(error.message || 'Not sent. Please try again.'); }
       });
+    }
+    choices.forEach(button => button.addEventListener('click', () => { vote = button.dataset.vote; select(); save(); }));
+    root.querySelector('form').addEventListener('submit', event => { event.preventDefault(); save(); });
+    root.querySelector('[data-feedback-note]').addEventListener('click', () => {
+      details.open = true; root.scrollIntoView({ behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'instant' : 'smooth', block: 'center' });
+      textarea.focus({ preventScroll: true });
     });
-
-    if (!form) return;
-    form.addEventListener("submit", (event) => {
-      event.preventDefault();
-      const comment = cleanComment(textarea ? textarea.value : "");
-      if (!vote && !comment) {
-        setStatus(root, "Choose a signal type or leave a note.");
-        return;
-      }
-
-      const props = eventProps(root, vote || "comment", comment);
-      const record = {
-        ...props,
-        created_at: new Date().toISOString(),
-        source: "site",
-      };
-
-      writeLocalLog(record);
-
-      if (typeof window.plausible === "function") {
-        window.plausible(EVENT_NAME, { props });
-        setStatus(root, "Sent to the desk.");
-      } else {
-        setStatus(root, "Signal saved locally.");
-      }
-    });
+    select();
+    if (record.version) status('Your reaction is saved. You can update it.');
+    const pending = read(key + ':pending');
+    if (pending && pending.id === record.id) { vote = pending.vote; textarea.value = pending.comment; select(); status('A reaction has not been confirmed. Tap a thumb or Save note to retry.'); }
+    const dock = root.querySelector('[data-feedback-dock]');
+    if ('IntersectionObserver' in window) {
+      const observer = new IntersectionObserver(entries => { dock.hidden = entries[0].isIntersecting; });
+      observer.observe(root);
+    }
+    root.dataset.feedbackReady = 'true';
   }
-
-  window.addEventListener("DOMContentLoaded", () => {
-    document.querySelectorAll("[data-tgr-feedback]").forEach(bindFeedback);
-  });
+  document.querySelectorAll('[data-tgr-feedback]').forEach(root => { try { bind(root); } catch { root.querySelector('.feedback-status').textContent = 'Feedback could not load. Please reload to try again.'; } });
 })();
