@@ -1,0 +1,354 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>OpenAI Gives 20 Languages the Same Database Exam | The Git Reporter</title>
+  <meta name="description" content="MultiLangBench asks a model to build a database engine in a chosen language. The revealing part is the examiner: reference SQLite reads the file that implementation leaves behind.">
+  <meta name="robots" content="index,follow">
+  <link rel="canonical" href="https://thegitreporter.com/articles/2026-10-20-daily-openai-gives-20-languages-the-same-database-exam/">
+  <link rel="alternate" type="application/rss+xml" title="The Git Reporter" href="https://thegitreporter.com/feed.xml">
+  <meta property="og:site_name" content="The Git Reporter">
+  <meta property="og:locale" content="en_US">
+  <meta property="og:title" content="OpenAI Gives 20 Languages the Same Database Exam | The Git Reporter">
+  <meta property="og:description" content="MultiLangBench asks a model to build a database engine in a chosen language. The revealing part is the examiner: reference SQLite reads the file that implementation leaves behind.">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://thegitreporter.com/articles/2026-10-20-daily-openai-gives-20-languages-the-same-database-exam/">
+  <meta property="og:image" content="https://thegitreporter.com/assets/social/2026-10-20-daily-openai-gives-20-languages-the-same-database-exam-og.jpg">
+  <meta property="og:image:secure_url" content="https://thegitreporter.com/assets/social/2026-10-20-daily-openai-gives-20-languages-the-same-database-exam-og.jpg">
+  <meta property="og:image:type" content="image/jpeg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="A paper grid marks x=2 at y=2,4,5 beside an output slip ordered (2,5), (2,4), (2,2), which SQLite checks.">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:site" content="@TheGitReporter">
+  <meta name="twitter:creator" content="@TheGitReporter">
+  <meta name="twitter:title" content="OpenAI Gives 20 Languages the Same Database Exam | The Git Reporter">
+  <meta name="twitter:description" content="MultiLangBench asks a model to build a database engine in a chosen language. The revealing part is the examiner: reference SQLite reads the file that implementation leaves behind.">
+  <meta name="twitter:url" content="https://thegitreporter.com/articles/2026-10-20-daily-openai-gives-20-languages-the-same-database-exam/">
+  <meta name="twitter:domain" content="thegitreporter.com">
+  <meta name="twitter:image" content="https://thegitreporter.com/assets/social/2026-10-20-daily-openai-gives-20-languages-the-same-database-exam-og.jpg">
+  <meta name="twitter:image:alt" content="A paper grid marks x=2 at y=2,4,5 beside an output slip ordered (2,5), (2,4), (2,2), which SQLite checks.">
+  <meta property="article:published_time" content="2026-10-20T12:00:00Z">
+  <meta property="article:modified_time" content="2026-10-20T12:00:00Z">
+  <meta property="article:section" content="Daily Edition">
+  <meta property="article:tag" content="Evaluation">
+  <meta property="article:tag" content="Languages">
+  <meta property="article:tag" content="openai/MultiLangBench">
+  <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"https://thegitreporter.com/#organization","name":"The Git Reporter","url":"https://thegitreporter.com","logo":{"@type":"ImageObject","url":"https://thegitreporter.com/assets/mark.svg"},"sameAs":["https://x.com/TheGitReporter"]},{"@type":"WebSite","@id":"https://thegitreporter.com/#website","name":"The Git Reporter","url":"https://thegitreporter.com","publisher":{"@id":"https://thegitreporter.com/#organization"}},{"@type":"NewsArticle","mainEntityOfPage":{"@type":"WebPage","@id":"https://thegitreporter.com/articles/2026-10-20-daily-openai-gives-20-languages-the-same-database-exam/"},"headline":"OpenAI Gives 20 Languages the Same Database Exam","description":"MultiLangBench asks a model to build a database engine in a chosen language. The revealing part is the examiner: reference SQLite reads the file that implementation leaves behind.","image":["https://thegitreporter.com/assets/social/2026-10-20-daily-openai-gives-20-languages-the-same-database-exam-og.jpg"],"datePublished":"2026-10-20T12:00:00Z","dateModified":"2026-10-20T12:00:00Z","author":[{"@type":"Organization","name":"The Git Reporter","url":"https://thegitreporter.com"}],"publisher":{"@type":"Organization","@id":"https://thegitreporter.com/#organization","name":"The Git Reporter","url":"https://thegitreporter.com","logo":{"@type":"ImageObject","url":"https://thegitreporter.com/assets/mark.svg"},"sameAs":["https://x.com/TheGitReporter"]},"articleSection":"Daily Edition","keywords":"Evaluation, Languages, openai/MultiLangBench"}]}</script>
+  <link rel="icon" href="/assets/mark.svg">
+  <link rel="stylesheet" href="/assets/site.css?v=2026-10-19-visual-feedback-v1">
+  <link rel="stylesheet" href="/assets/visual-essay.css?v=2026-10-19-visual-feedback-v1"><script type="module" src="/assets/visual-essays/multilang-exam.js?v=2026-10-19-visual-feedback-v1"></script>
+  <script defer src="/assets/feedback.js?v=2026-10-19-visual-feedback-v1"></script>
+  <script defer src="/assets/article-questions.js?v=2026-10-19-visual-feedback-v1"></script>
+  <script defer src="/assets/analytics.js?v=2026-10-19-visual-feedback-v1"></script>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-CH19T7M0T1"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){window.dataLayer.push(arguments);}
+    gtag("js", new Date());
+    gtag("config", "G-CH19T7M0T1");
+  </script>
+</head>
+<body>
+  <div class="site">
+    <header class="site-header" id="top">
+      <div class="wrap utility-row">
+        <a class="icon-link menu-icon" href="/archive/" aria-label="Open edition history"><span></span><span></span><span></span></a>
+        <a class="icon-link archive-icon" href="/archive/" aria-label="Open edition history"></a>
+      </div>
+      <div class="wrap masthead-lockup">
+        <a class="masthead-title" href="/">THE GIT REPORTER</a>
+        <div class="masthead-ornament" aria-hidden="true"></div>
+      </div>
+      <div class="wrap nav-wrap">
+        <nav class="paper-nav" aria-label="Primary navigation">
+    <a class=""  href="/">Stories</a><a class=""  href="/today/">Today</a><a class="active" aria-current="page" href="/archive/">Editions</a><a class=""  href="/about/">About</a><a class=""  href="/battles/">Diff Derby</a><a class=""  href="/agent-pulse/">Agent Pulse</a><a class=""  href="/atlas/">Agent Atlas</a><a class=""  href="/repos/">Repos</a>
+  </nav>
+        <div class="nav-rule"></div>
+      </div>
+    </header>
+    <main class="wrap page-shell article-page visual-article">
+      <section class="page-hero story-front">
+        <div class="story-topline">
+          <span>Daily Edition</span>
+          <span>Sources <strong>+9</strong></span>
+        </div>
+        <h1>OpenAI Gives 20 Languages the Same Database Exam</h1>
+        <p class="summary">MultiLangBench asks a model to build a database engine in a chosen language. The revealing part is the examiner: reference SQLite reads the file that implementation leaves behind.</p>
+        <div class="visual-byline">Diagram Punk · A visual essay · October 20, 2026</div>
+        <div class="receipt">
+    <div class="receipt-line">
+      <span class="receipt-icon">repo</span>
+      <span class="receipt-main">openai/MultiLangBench</span>
+      <span class="branch-pill">evidence</span>
+    </div>
+    <div class="receipt-line receipt-muted">
+      <span>9 source signals</span>
+      <span>1 repo</span>
+      <span>2 linked commits</span>
+    </div>
+    <div class="commit-line">Evidence: 2 linked commits / October 20, 2026 / Daily Edition</div>
+  </div>
+        <div class="article-route-row">
+          <a href="/editions/2026-10-20/">Open Edition</a>
+          <a href="#evidence">Evidence below</a>
+          <button type="button" class="ask-inline" data-ask-entry data-ask-open aria-haspopup="dialog" aria-controls="article-questions" hidden>Ask about this article ↗</button>
+        </div>
+      </section>
+      <section class="story-reader">
+        <article class="story-shell story-body">
+          <div class="visual-essay">
+<p class="visual-intro">In a <a href="https://openai.com/index/low-resource-programming-languages/">report published October 19</a>, OpenAI presents the public <a href="https://github.com/openai/MultiLangBench">openai/MultiLangBench</a> suite alongside its claim of stronger coding in less common languages. It reports an average test pass rate of 87.4% for GPT-6 Astra across 20 languages, compared with GPT-5.6 Sol's 26.8%. The accompanying public suite lets readers inspect what those percentages are trying to measure.</p>
+<section class="visual-beat handoff-takeaway">
+<span class="lab-kicker">The shared contract</span>
+<h2>The language changes.<br>The examiner stays outside.</h2>
+<p>A candidate program receives an existing database and a SQL request. It must leave a modified database that the real SQLite implementation can read. The test checks a specified query against that file. Printing a convincing answer is insufficient.</p>
+<p>This is a useful way to compare implementations written in languages with very different tools and conventions. The interface is a common artifact, rather than language-specific unit tests. The <a href="https://github.com/openai/MultiLangBench/blob/995755bffdba3da60ca367448a1606ba0e50573a/README.md">published contract</a> requires the chosen implementation language and an offline environment stripped of existing SQLite implementations.</p>
+</section>
+<section class="visual-beat" data-multilang-exam aria-labelledby="exam-heading">
+  <h2 id="exam-heading">One small exam, outside the implementation</h2>
+  <p>One published fixture starts with every pair of numbers from 1 to 6. Follow the query to the rows the reference reader expects.</p>
+  <div class="exam-controls" data-exam-controls aria-label="Inspect the fixture" hidden>
+    <button type="button" data-exam-stage="0" aria-pressed="true">1. Input</button>
+    <button type="button" data-exam-stage="1" aria-pressed="false">2. Choose</button>
+    <button type="button" data-exam-stage="2" aria-pressed="false">3. Order</button>
+    <button type="button" data-exam-stage="3" aria-pressed="false">4. Read</button>
+  </div>
+  <div class="exam-caption" data-exam-live aria-live="polite" aria-atomic="true" hidden>
+    <strong data-exam-title>Start with all 36 pairs.</strong>
+    <p data-exam-caption>The fixture supplies every combination of x and y from 1 to 6.</p>
+  </div>
+  <div class="exam-scene" data-exam-scene hidden aria-hidden="true"><canvas></canvas></div>
+  <details class="exam-static" data-exam-static open>
+    <summary>The complete example in text and tables</summary>
+    <p><strong>Input.</strong> Table <code>t2</code> holds 36 rows. Each cell below represents one <code>(x,y)</code> row. Coordinates are arranged for reading; this grid does not reproduce insertion order or database storage.</p>
+    <table class="exam-matrix">
+      <caption>t2: every pair from 1 to 6</caption>
+      <thead><tr><th scope="col">y / x</th><th scope="col">x=1</th><th scope="col">x=2</th><th scope="col">x=3</th><th scope="col">x=4</th><th scope="col">x=5</th><th scope="col">x=6</th></tr></thead>
+      <tbody><tr><th scope="row">y=1</th><td>1,1</td><td>2,1</td><td>3,1</td><td>4,1</td><td>5,1</td><td>6,1</td></tr>
+<tr><th scope="row">y=2</th><td>1,2</td><td data-match>2,2</td><td>3,2</td><td>4,2</td><td>5,2</td><td>6,2</td></tr>
+<tr><th scope="row">y=3</th><td>1,3</td><td>2,3</td><td>3,3</td><td>4,3</td><td>5,3</td><td>6,3</td></tr>
+<tr><th scope="row">y=4</th><td>1,4</td><td data-match>2,4</td><td>3,4</td><td>4,4</td><td>5,4</td><td>6,4</td></tr>
+<tr><th scope="row">y=5</th><td>1,5</td><td data-match>2,5</td><td>3,5</td><td>4,5</td><td>5,5</td><td>6,5</td></tr>
+<tr><th scope="row">y=6</th><td>1,6</td><td>2,6</td><td>3,6</td><td>4,6</td><td>5,6</td><td>6,6</td></tr></tbody>
+    </table>
+    <p><strong>Choose.</strong> Keep <code>x=2</code> and <code>y IN(2,4,5)</code>. The matching rows are <code>(2,2)</code>, <code>(2,4)</code> and <code>(2,5)</code>.</p>
+    <p><strong>Order and write.</strong> The query creates table <code>r</code> from those rows with <code>ORDER BY x ASC,y DESC</code>. Since every selected x is 2, descending y determines their order.</p>
+    <p><strong>Read.</strong> Reference SQLite runs <code>SELECT x,y FROM r ORDER BY rowid</code>. The fixture’s expected output is:</p>
+    <table class="exam-output"><caption>Expected rows, in order</caption><thead><tr><th scope="col">Row</th><th scope="col">x</th><th scope="col">y</th></tr></thead><tbody><tr><th scope="row">1</th><td>2</td><td>5</td></tr><tr><th scope="row">2</th><td>2</td><td>4</td></tr><tr><th scope="row">3</th><td>2</td><td>2</td></tr></tbody></table>
+  </details>
+  <p class="exam-note">A schematic of a published test, not a generated model run. The fixture also creates <code>t3</code> and indexes, omitted from this drawing. Reading the expected rows checks this observable result; it does not establish that every database behavior is correct.</p>
+  <p class="exam-note">Inspect the <a href="https://github.com/openai/MultiLangBench/blob/995755bffdba3da60ca367448a1606ba0e50573a/tests/00006518c9893eecacf4083ac2de3bcebb3d51d6a56c678fe87e113ba09c2054/initial_database.sql">input</a>, <a href="https://github.com/openai/MultiLangBench/blob/995755bffdba3da60ca367448a1606ba0e50573a/tests/00006518c9893eecacf4083ac2de3bcebb3d51d6a56c678fe87e113ba09c2054/user_query.sql">query</a>, <a href="https://github.com/openai/MultiLangBench/blob/995755bffdba3da60ca367448a1606ba0e50573a/tests/00006518c9893eecacf4083ac2de3bcebb3d51d6a56c678fe87e113ba09c2054/validation_query.sql">reference read</a> and <a href="https://github.com/openai/MultiLangBench/blob/995755bffdba3da60ca367448a1606ba0e50573a/tests/00006518c9893eecacf4083ac2de3bcebb3d51d6a56c678fe87e113ba09c2054/expected_output.txt">expected output</a>.</p>
+</section>
+
+<section class="visual-beat">
+<span class="lab-kicker">What passes through the file</span>
+<h2>Selection is only half the answer.<br>The rows have to survive.</h2>
+<p>In this example, the implementation needs to understand a request, find three matching pairs, put them in the requested order and write a table the reference reader can recover. The check crosses the boundary between the candidate's internal representation and a persistent database file.</p>
+<p>The <a href="https://github.com/openai/MultiLangBench/blob/995755bffdba3da60ca367448a1606ba0e50573a/scripts/generate_goldens.py">golden-output generator</a> makes that boundary inspectable. It pins SQLite 3.40.1, builds the starting database and produces the reference result. It then opens the output read-only and serializes the validation query's rows. That script establishes expected answers; it does not run a coding model.</p>
+</section>
+<section class="visual-beat">
+<span class="lab-kicker">Read the denominator</span>
+<h2>A common exam.<br>A bounded slice of behavior.</h2>
+<p>The repository describes roughly 24,000 converted SQLite tests and recommends a 272-test subset for routine evaluation. A passing case establishes the answer to its validation query. It cannot establish every database behavior, execution plan or performance property.</p>
+<p>The gain reported by OpenAI is substantial, including in COBOL, its hardest language in this comparison. But these are the provider's measurements. We inspected the contract, fixture, scripts and history; we did not reproduce model scores. The repository contains no candidate implementations or complete agent-run records that would independently establish them.</p>
+<p>The strongest competing reading is therefore specific: models may have become much better at this database-construction task without improving equally on every unfamiliar business system. The useful next experiment is to make that distinction observable.</p>
+</section>
+<aside class="visual-colophon">
+<h2>Building an engine and migrating a system are different exams</h2>
+<p>OpenAI separately reports COBOL migration results using GPT-6.1 Sol and hidden tests of output equivalence. Those results do not come from this public database suite. A team's existing rounding rules, record formats and dependencies require their own checks.</p>
+<details><summary>Source history and inspection limits</summary>
+<p>The methodology is present in the <a href="https://github.com/openai/MultiLangBench/commit/93598e64f23f431e04a554158df9fb0c747d290b">September 29 initial commit</a>. The <a href="https://github.com/openai/MultiLangBench/commit/995755bffdba3da60ca367448a1606ba0e50573a">October 19 change</a> renames the project. Commit dates do not establish when it first became public. Today's news is the announcement and public test offering, not newly changed test logic. No agent run, reference-suite execution or production migration was performed for this article.</p>
+</details>
+<p>For a team choosing a coding model, the release offers something practical: inspect the shared tests, then ask whether their demands resemble the work you need a model to do in your language. A reproducible run with published code, task budget and per-test outcomes would turn the reported score into a comparison others can examine. The database file gives them a common place to start.</p>
+</aside>
+</div>
+        </article>
+      </section>
+      <details class="visual-poster"><summary>Open the Diagram Punk poster</summary><figure class="story-illustration article-illustration">
+    <img src="/assets/illustrations/2026-10-20-openai-gives-20-languages-the-same-database-exam-diagram-punk-v1.png" alt="A paper grid marks x=2 at y=2,4,5 beside an output slip ordered (2,5), (2,4), (2,2), which SQLite checks." loading="lazy" decoding="async">
+    <figcaption><span>Diagram Punk</span>one published fixture, from selected pairs to the rows saved in a database file.</figcaption>
+  </figure></details>
+      <section class="article-questions-invitation" data-ask-entry hidden>
+    <h2>Keep asking questions.</h2>
+    <p>Explore the story and its evidence in your own ChatGPT conversation.</p>
+    <button class="paper-button" type="button" data-ask-open aria-haspopup="dialog" aria-controls="article-questions">Ask about this article <span aria-hidden="true">↗</span></button>
+  </section>
+  <dialog class="article-questions" id="article-questions" aria-labelledby="ask-title"
+    data-title="OpenAI Gives 20 Languages the Same Database Exam" data-date="2026-10-20"
+    data-url="https://thegitreporter.com/articles/2026-10-20-daily-openai-gives-20-languages-the-same-database-exam/"
+    data-summary="MultiLangBench asks a model to build a database engine in a chosen language. The revealing part is the examiner: reference SQLite reads the file that implementation leaves behind.">
+    <div class="ask-heading">
+      <h2 id="ask-title" tabindex="-1" autofocus>Ask about this article</h2>
+      <button type="button" class="ask-close" aria-label="Close question box">×</button>
+    </div>
+    <form class="ask-form">
+      <div class="ask-content">
+        <p class="ask-article-title">OpenAI Gives 20 Languages the Same Database Exam</p>
+        <div class="ask-suggestions" role="group" aria-label="Suggested questions">
+          <button type="button" data-question="Explain this article in plain language. What changed?">Explain simply</button>
+          <button type="button" data-question="Why does this change matter, and who is affected?">Why does this matter?</button>
+          <button type="button" data-question="What is the strongest counterargument to this article, and what evidence would change its conclusion?">Challenge the argument</button>
+        </div>
+        <label for="ask-question">Your question</label>
+        <textarea id="ask-question" rows="3" maxlength="2000" required placeholder="What would you like to understand?" aria-describedby="ask-context"></textarea>
+        <p id="ask-context" class="ask-note">Article link and summary included. Continue using your ChatGPT account; you may need to sign in.</p>
+        <details class="ask-manual" hidden>
+          <summary>Prepared text for copying</summary>
+          <textarea class="ask-copy-text" rows="5" readonly aria-label="Prepared question and article context"></textarea>
+        </details>
+      </div>
+      <div class="ask-actions">
+        <p class="ask-status" role="status" aria-live="polite"></p>
+        <button class="paper-button primary" type="submit">Continue in ChatGPT ↗</button>
+        <div class="ask-copy-actions">
+          <button type="button" data-ask-copy="summary">Copy question + context</button>
+          <button type="button" data-ask-copy="article">Copy article + question</button>
+        </div>
+        <p class="ask-note">If your question doesn’t appear in ChatGPT, copy it here and paste it there.</p>
+      </div>
+    </form>
+  </dialog>
+      <section class="reader-feedback" id="reader-feedback" data-tgr-feedback
+    data-article-url="/articles/2026-10-20-daily-openai-gives-20-languages-the-same-database-exam/">
+    <div class="reader-feedback-head">
+      <div><div class="eyebrow">Your immediate reaction</div><h2>How did this article land?</h2></div>
+      <p>A thumb saves immediately. Notes stay private and are discussed with the editor before shaping future articles.</p>
+    </div>
+    <form class="feedback-form">
+      <div class="feedback-votes" role="group" aria-label="Article reaction"><button class="feedback-choice" type="button" data-vote="up" aria-pressed="false" aria-label="Thumbs up"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M7 10v11H3V10h4Zm0 0 5-7h1a2 2 0 0 1 2 2v4h4a2 2 0 0 1 2 2l-2 8a2 2 0 0 1-2 2H7"/></svg><span>Up</span></button>
+    <button class="feedback-choice" type="button" data-vote="down" aria-pressed="false" aria-label="Thumbs down"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M7 10v11H3V10h4Zm0 0 5-7h1a2 2 0 0 1 2 2v4h4a2 2 0 0 1 2 2l-2 8a2 2 0 0 1-2 2H7"/></svg><span>Down</span></button></div>
+      <details class="feedback-note"><summary>Add a note (optional)</summary>
+        <label class="feedback-comment"><span>What caught you, lost you, or made you think?</span>
+          <textarea name="comment" rows="3" maxlength="2000" placeholder="Your first impression…"></textarea>
+        </label>
+        <button class="paper-button primary feedback-submit" type="submit">Save note</button>
+      </details>
+      <div class="feedback-submit-row"><p class="feedback-status" aria-live="polite"></p></div>
+      <noscript><p>Enable JavaScript to send a private reaction.</p></noscript>
+    </form>
+    <div class="feedback-dock" data-feedback-dock hidden>
+      <span>React</span><div role="group" aria-label="Quick article reaction"><button class="feedback-choice" type="button" data-vote="up" aria-pressed="false" aria-label="Thumbs up"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M7 10v11H3V10h4Zm0 0 5-7h1a2 2 0 0 1 2 2v4h4a2 2 0 0 1 2 2l-2 8a2 2 0 0 1-2 2H7"/></svg><span>Up</span></button>
+    <button class="feedback-choice" type="button" data-vote="down" aria-pressed="false" aria-label="Thumbs down"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M7 10v11H3V10h4Zm0 0 5-7h1a2 2 0 0 1 2 2v4h4a2 2 0 0 1 2 2l-2 8a2 2 0 0 1-2 2H7"/></svg><span>Down</span></button></div>
+      <button type="button" data-feedback-note>Note</button>
+      <p class="feedback-status" aria-live="polite"></p>
+    </div>
+  </section>
+      <section class="evidence-section" id="evidence" aria-labelledby="evidence-title">
+    <div class="evidence-head">
+      <div>
+        <div class="eyebrow">Evidence Trail</div>
+        <h2 id="evidence-title">Receipts below the story</h2>
+        <p>The article above is the public narrative. This section keeps the source trail and limits on the same page.</p>
+      </div>
+      <a class="paper-button" href="/editions/2026-10-20/">Edition</a>
+    </div>
+    <div class="evidence-table evidence-summary">
+      <div class="evidence-line"><span>Date</span><span>October 20, 2026</span></div>
+      <div class="evidence-line"><span>Lane</span><span>Daily Edition</span></div>
+      <div class="evidence-line"><span>Confidence</span><span>91%</span></div>
+      <div class="evidence-line"><span>Sources</span><span>9</span></div>
+      <div class="evidence-line"><span>Repos</span><span>openai/MultiLangBench</span></div>
+    </div>
+    <div class="markdown evidence-copy evidence-copy-block">
+      <h2>Primary Evidence</h2>
+<ul>
+<li>OpenAI's October 19 announcement: <a href="https://openai.com/index/low-resource-programming-languages/">https://openai.com/index/low-resource-programming-languages/</a>
+<ul>
+<li>Shows: provider-reported results across 20 languages, including Astra's 87.4% mean against GPT-5.6 Sol's 26.8%, and a separate hidden-test COBOL migration evaluation.
+</li>
+</ul>
+</li>
+<li>Pinned benchmark contract: <a href="https://github.com/openai/MultiLangBench/blob/995755bffdba3da60ca367448a1606ba0e50573a/README.md">https://github.com/openai/MultiLangBench/blob/995755bffdba3da60ca367448a1606ba0e50573a/README.md</a>
+<ul>
+<li>Shows: database-file interface, required implementation language, offline candidate environment without SQLite, converted test corpus and recommended 272-test subset.
+</li>
+</ul>
+</li>
+<li>Initial database: <a href="https://github.com/openai/MultiLangBench/blob/995755bffdba3da60ca367448a1606ba0e50573a/tests/00006518c9893eecacf4083ac2de3bcebb3d51d6a56c678fe87e113ba09c2054/initial_database.sql">https://github.com/openai/MultiLangBench/blob/995755bffdba3da60ca367448a1606ba0e50573a/tests/00006518c9893eecacf4083ac2de3bcebb3d51d6a56c678fe87e113ba09c2054/initial_database.sql</a>
+<ul>
+<li>Shows: t2 contains every pair of x and y from 1 through 6. Setup also creates t3 and indexes; our coordinate diagram does not depict physical storage.
+</li>
+</ul>
+</li>
+<li>Candidate request: <a href="https://github.com/openai/MultiLangBench/blob/995755bffdba3da60ca367448a1606ba0e50573a/tests/00006518c9893eecacf4083ac2de3bcebb3d51d6a56c678fe87e113ba09c2054/user_query.sql">https://github.com/openai/MultiLangBench/blob/995755bffdba3da60ca367448a1606ba0e50573a/tests/00006518c9893eecacf4083ac2de3bcebb3d51d6a56c678fe87e113ba09c2054/user_query.sql</a>
+<ul>
+<li>Shows: create r from x=2 and y in (2,4,5), ordered by x ascending and y descending.
+</li>
+</ul>
+</li>
+<li>External validation query: <a href="https://github.com/openai/MultiLangBench/blob/995755bffdba3da60ca367448a1606ba0e50573a/tests/00006518c9893eecacf4083ac2de3bcebb3d51d6a56c678fe87e113ba09c2054/validation_query.sql">https://github.com/openai/MultiLangBench/blob/995755bffdba3da60ca367448a1606ba0e50573a/tests/00006518c9893eecacf4083ac2de3bcebb3d51d6a56c678fe87e113ba09c2054/validation_query.sql</a>
+<ul>
+<li>Shows: reference SQLite reads x,y from r ordered by rowid. This is not a second request given to the candidate.
+</li>
+</ul>
+</li>
+<li>Expected output: <a href="https://github.com/openai/MultiLangBench/blob/995755bffdba3da60ca367448a1606ba0e50573a/tests/00006518c9893eecacf4083ac2de3bcebb3d51d6a56c678fe87e113ba09c2054/expected_output.txt">https://github.com/openai/MultiLangBench/blob/995755bffdba3da60ca367448a1606ba0e50573a/tests/00006518c9893eecacf4083ac2de3bcebb3d51d6a56c678fe87e113ba09c2054/expected_output.txt</a>
+<ul>
+<li>Shows: expected rows [[2,5],[2,4],[2,2]]. The visual is a fixture explanation, not observed model output.
+</li>
+</ul>
+</li>
+<li>Golden-output generator: <a href="https://github.com/openai/MultiLangBench/blob/995755bffdba3da60ca367448a1606ba0e50573a/scripts/generate_goldens.py">https://github.com/openai/MultiLangBench/blob/995755bffdba3da60ca367448a1606ba0e50573a/scripts/generate_goldens.py</a>
+<ul>
+<li>Shows: reference SQLite 3.40.1 creates input, applies the query, reads output read-only and serializes results for comparison. This is not a complete agent benchmark runner.
+</li>
+</ul>
+</li>
+<li>Initial source, September 29: <a href="https://github.com/openai/MultiLangBench/commit/93598e64f23f431e04a554158df9fb0c747d290b">https://github.com/openai/MultiLangBench/commit/93598e64f23f431e04a554158df9fb0c747d290b</a>
+<ul>
+<li>Shows: the methodology predates the announcement.
+</li>
+</ul>
+</li>
+<li>October 19 naming change: <a href="https://github.com/openai/MultiLangBench/commit/995755bffdba3da60ca367448a1606ba0e50573a">https://github.com/openai/MultiLangBench/commit/995755bffdba3da60ca367448a1606ba0e50573a</a>
+<ul>
+<li>Shows: the latest commit renames the project without introducing new test logic.
+</li>
+</ul>
+</li>
+</ul>
+<h2>Evidence Limits</h2>
+<ul>
+<li>No model run, score reproduction, timing measurement or production migration was performed.
+</li>
+<li>Scores are OpenAI-reported. The inspected repository contains no candidate implementations, complete execution records or result tables establishing them independently.
+</li>
+<li>A validation query observes selected behavior, not every SQLite feature, performance property or legacy business rule.
+</li>
+<li>The separate COBOL migration evaluation uses hidden tests and a different model; this database-construction suite does not reproduce it.
+</li>
+<li>Commit dates do not establish when the repository first became public.
+</li>
+</ul>
+    </div>
+  </section>
+      <section class="related-edition-section atlas-context-section">
+    <div class="section-title-row">
+      <h2>Atlas Context</h2>
+      <a href="/atlas/">Open Atlas &rsaquo;</a>
+    </div>
+    <div class="updates-list">
+      <a class="article-card" href="/atlas/the-architecture-of-trust/">
+            <div class="article-meta"><span class="lane">Agent Atlas</span><span>Chapter 9</span></div>
+            <h3>Trust Must Make Its Case</h3>
+            <p>Trustworthy behavior is not a personality trait or product promise. It is an assurance case built from inspectable policy provenance, durable control state, bounded execution, traceable lineage, recoverable records, and explicit residual risk.</p>
+          </a>
+    </div>
+  </section>
+      
+    </main>
+    <footer class="wrap site-footer">
+      <span>&copy; 2026 The Git Reporter</span>
+      <a href="/about/">About</a>
+      <a href="/battles/">Diff Derby</a>
+      <a href="/agent-pulse/">Agent Pulse</a>
+      <a href="/feed.xml">RSS</a>
+      <a href="https://x.com/TheGitReporter">Follow on X</a>
+      <a href="/articles.json">Manifest JSON</a>
+      <a href="/repos/">Sources</a>
+    </footer>
+  </div>
+</body>
+</html>
