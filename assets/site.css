@@ -17,6 +17,22 @@
   --mono: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace;
 }
 
+.skip-link {
+  position: fixed;
+  top: .5rem;
+  left: .5rem;
+  z-index: 100;
+  padding: .75rem 1rem;
+  background: var(--paper);
+  color: var(--ink);
+  border: 2px solid var(--ink);
+  transform: translateY(-200%);
+}
+.skip-link:focus { transform: translateY(0); }
+.reader-question { font: 700 clamp(1.1rem, 2.5vw, 1.4rem)/1.3 var(--serif); margin: 1rem 0 .5rem; }
+.article-dates { color: var(--muted); font: .8rem/1.6 var(--sans); }
+.atlas-track-tabs[hidden] { display: none; }
+
 /* Article questions: a reading companion, with a mobile bottom sheet. */
 [data-ask-entry][hidden] { display: none; }
 .ask-inline {
@@ -332,6 +348,7 @@ svg {
   font-size: 2.7rem;
   line-height: 0.97;
   margin: 1rem 0 0.65rem;
+  overflow-wrap: anywhere;
 }
 
 .lead-dek,
@@ -699,9 +716,20 @@ svg {
   max-width: 64rem;
 }
 
+.atlas-index-page,
+.atlas-chapter-page,
+.atlas-project-page,
+.atlas-comparison-page {
+  overflow-wrap: anywhere;
+}
+
 .atlas-hero h1,
 .atlas-chapter-hero h1 {
   max-width: 55rem;
+}
+
+.atlas-project-hero h1 {
+  font-size: clamp(2rem, 6vw, 3.7rem);
 }
 
 .atlas-season-note {
@@ -1018,6 +1046,7 @@ svg {
 .atlas-system-grid,
 .atlas-project-chip-grid {
   display: grid;
+  grid-template-columns: minmax(0, 1fr);
   gap: 0;
 }
 
@@ -1146,6 +1175,8 @@ svg {
 .atlas-project-card {
   border-bottom: 1px solid var(--rule-soft);
   display: block;
+  min-width: 0;
+  overflow-wrap: anywhere;
   padding: 1rem 0;
 }
 

@@ -1,0 +1,362 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Pydantic Updates Agent Instructions Without Rewriting the Opening | The Git Reporter</title>
+  <meta name="description" content="An agent’s task state can change without changing the start of its next model request. Pydantic AI’s new append mode puts the update at the end of the conversation, preserving the earlier prefix for possible cache reuse.">
+  <meta name="robots" content="index,follow">
+  <link rel="canonical" href="https://thegitreporter.com/articles/2026-10-21-daily-pydantic-updates-agent-instructions-without-rewriting-the-opening/">
+  <link rel="alternate" type="application/rss+xml" title="The Git Reporter" href="https://thegitreporter.com/feed.xml">
+  <meta property="og:site_name" content="The Git Reporter">
+  <meta property="og:locale" content="en_US">
+  <meta property="og:title" content="Pydantic Updates Agent Instructions Without Rewriting the Opening | The Git Reporter">
+  <meta property="og:description" content="An agent’s task state can change without changing the start of its next model request. Pydantic AI’s new append mode puts the update at the end of the conversation, preserving the earlier prefix for possible cache reuse.">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://thegitreporter.com/articles/2026-10-21-daily-pydantic-updates-agent-instructions-without-rewriting-the-opening/">
+  <meta property="og:image" content="https://thegitreporter.com/assets/social/2026-10-21-daily-pydantic-updates-agent-instructions-without-rewriting-the-opening-og.jpg">
+  <meta property="og:image:secure_url" content="https://thegitreporter.com/assets/social/2026-10-21-daily-pydantic-updates-agent-instructions-without-rewriting-the-opening-og.jpg">
+  <meta property="og:image:type" content="image/jpeg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Two paper strips compare rewriting Todo: done at the opening with retaining Todo: pending and appending Todo: done after history.">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:site" content="@TheGitReporter">
+  <meta name="twitter:creator" content="@TheGitReporter">
+  <meta name="twitter:title" content="Pydantic Updates Agent Instructions Without Rewriting the Opening | The Git Reporter">
+  <meta name="twitter:description" content="An agent’s task state can change without changing the start of its next model request. Pydantic AI’s new append mode puts the update at the end of the conversation, preserving the earlier prefix for possible cache reuse.">
+  <meta name="twitter:url" content="https://thegitreporter.com/articles/2026-10-21-daily-pydantic-updates-agent-instructions-without-rewriting-the-opening/">
+  <meta name="twitter:domain" content="thegitreporter.com">
+  <meta name="twitter:image" content="https://thegitreporter.com/assets/social/2026-10-21-daily-pydantic-updates-agent-instructions-without-rewriting-the-opening-og.jpg">
+  <meta name="twitter:image:alt" content="Two paper strips compare rewriting Todo: done at the opening with retaining Todo: pending and appending Todo: done after history.">
+  <meta property="article:published_time" content="2026-10-21">
+  <meta property="article:modified_time" content="2026-10-21">
+  <meta property="article:section" content="Daily Edition">
+  <meta property="article:tag" content="Context">
+  <meta property="article:tag" content="Instructions">
+  <meta property="article:tag" content="pydantic/pydantic-ai">
+  <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"https://thegitreporter.com/#organization","name":"The Git Reporter","url":"https://thegitreporter.com","logo":{"@type":"ImageObject","url":"https://thegitreporter.com/assets/mark.svg"},"sameAs":["https://x.com/TheGitReporter"]},{"@type":"WebSite","@id":"https://thegitreporter.com/#website","name":"The Git Reporter","url":"https://thegitreporter.com","publisher":{"@id":"https://thegitreporter.com/#organization"}},{"@type":"NewsArticle","mainEntityOfPage":{"@type":"WebPage","@id":"https://thegitreporter.com/articles/2026-10-21-daily-pydantic-updates-agent-instructions-without-rewriting-the-opening/"},"headline":"Pydantic Updates Agent Instructions Without Rewriting the Opening","description":"An agent’s task state can change without changing the start of its next model request. Pydantic AI’s new append mode puts the update at the end of the conversation, preserving the earlier prefix for possible cache reuse.","image":["https://thegitreporter.com/assets/social/2026-10-21-daily-pydantic-updates-agent-instructions-without-rewriting-the-opening-og.jpg"],"datePublished":"2026-10-21","dateModified":"2026-10-21","author":[{"@type":"Organization","name":"The Git Reporter","url":"https://thegitreporter.com"}],"publisher":{"@type":"Organization","@id":"https://thegitreporter.com/#organization","name":"The Git Reporter","url":"https://thegitreporter.com","logo":{"@type":"ImageObject","url":"https://thegitreporter.com/assets/mark.svg"},"sameAs":["https://x.com/TheGitReporter"]},"articleSection":"Daily Edition","keywords":"Context, Instructions, pydantic/pydantic-ai"}]}</script>
+  <link rel="icon" href="/assets/mark.svg">
+  <link rel="stylesheet" href="/assets/site.css?v=2026-10-20-readable-site-v1">
+  <link rel="stylesheet" href="/assets/visual-essay.css?v=2026-10-20-readable-site-v1"><script type="module" src="/assets/visual-essays/pydantic-prefix.js?v=2026-10-20-readable-site-v1"></script>
+  <script defer src="/assets/feedback.js?v=2026-10-20-readable-site-v1"></script>
+  <script defer src="/assets/article-questions.js?v=2026-10-20-readable-site-v1"></script>
+  <script defer src="/assets/analytics.js?v=2026-10-20-readable-site-v1"></script>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-CH19T7M0T1"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){window.dataLayer.push(arguments);}
+    gtag("js", new Date());
+    gtag("config", "G-CH19T7M0T1");
+  </script>
+</head>
+<body>
+  <a class="skip-link" href="#main-content">Skip to content</a>
+  <div class="site">
+    <header class="site-header" id="top">
+      <div class="wrap utility-row">
+        <a class="icon-link menu-icon" href="/archive/" aria-label="Open edition history"><span></span><span></span><span></span></a>
+        <a class="icon-link archive-icon" href="/archive/" aria-label="Open edition history"></a>
+      </div>
+      <div class="wrap masthead-lockup">
+        <a class="masthead-title" href="/">THE GIT REPORTER</a>
+        <div class="masthead-ornament" aria-hidden="true"></div>
+      </div>
+      <div class="wrap nav-wrap">
+        <nav class="paper-nav" aria-label="Primary navigation">
+    <a class=""  href="/">Stories</a><a class=""  href="/today/">Today</a><a class="active" aria-current="page" href="/archive/">Editions</a><a class=""  href="/about/">About</a><a class=""  href="/battles/">Diff Derby</a><a class=""  href="/agent-pulse/">Agent Pulse</a><a class=""  href="/atlas/">Agent Atlas</a><a class=""  href="/repos/">Repos</a>
+  </nav>
+        <div class="nav-rule"></div>
+      </div>
+    </header>
+    <main id="main-content" tabindex="-1" class="wrap page-shell article-page visual-article">
+      <section class="page-hero story-front">
+        <div class="story-topline">
+          <span>Daily Edition</span>
+          <span>Sources <strong>+9</strong></span>
+        </div>
+        <h1>Pydantic Updates Agent Instructions Without Rewriting the Opening</h1>
+        <p class="summary">An agent’s task state can change without changing the start of its next model request. Pydantic AI’s new append mode puts the update at the end of the conversation, preserving the earlier prefix for possible cache reuse.</p>
+        <p class="article-dates">By The Git Reporter · Published <time datetime="2026-10-21">October 21, 2026</time>. Reporting as of <time datetime="2026-10-21">October 21, 2026</time>.</p>
+        <div class="visual-byline">Diagram Punk · A visual essay · October 21, 2026</div>
+        <div class="receipt">
+    <div class="receipt-line">
+      <span class="receipt-icon">repo</span>
+      <span class="receipt-main">pydantic/pydantic-ai</span>
+      <span class="branch-pill">evidence</span>
+    </div>
+    <div class="receipt-line receipt-muted">
+      <span>9 source signals</span>
+      <span>1 repo</span>
+      <span>commit cd04b05</span>
+    </div>
+    <div class="commit-line">Evidence: commit cd04b05 / October 21, 2026 / Daily Edition</div>
+  </div>
+        <div class="article-route-row">
+          <a href="/editions/2026-10-21/">Open Edition</a>
+          <a href="#evidence">Evidence below</a>
+          <button type="button" class="ask-inline" data-ask-entry data-ask-open aria-haspopup="dialog" aria-controls="article-questions" hidden>Ask about this article ↗</button>
+        </div>
+      </section>
+      <section class="story-reader">
+        <article class="story-shell story-body">
+          <div class="visual-essay">
+<p class="visual-intro">Pydantic AI is the Python framework between an application’s tools and its model calls. A <a href="https://github.com/pydantic/pydantic-ai/pull/8188">change merged October 20 in pydantic/pydantic-ai</a> gives it a new way to assemble those calls: keep an instruction’s original text in the opening, then send changed state later. A todo can become “done” without rewriting the “pending” text the model first received.</p>
+<p>That matters because prompt caches recognize matching beginnings. Editing an early instruction can break reuse of the material after it. The new option moves the update; it does not freeze the task or erase the old state.</p>
+<section style="margin:2rem 0;color:#20261e" data-prefix-visual data-done="true" aria-labelledby="prefix-title">
+  <h2 id="prefix-title">The update moves. The opening stays.</h2>
+  <p>A tool has marked a task as done. Compare how Pydantic AI assembles the next request to the model. Read each strip from top to bottom.</p>
+  <div class="prefix-switch" data-prefix-controls hidden role="group" aria-label="Todo state">
+    <button type="button" data-prefix-state="pending" aria-pressed="false">Before: pending</button>
+    <button type="button" data-prefix-state="done" aria-pressed="true">After: done</button>
+  </div>
+  <p style="border-left:4px solid #174b38;padding:.6rem .8rem;font:1rem/1.5 system-ui" data-prefix-status role="status" aria-live="polite">The default rewrites the opening. Append mode keeps that opening and puts the new value after the conversation.</p>
+  <span data-status-done hidden>The default rewrites the opening. Append mode keeps that opening and puts the new value after the conversation.</span>
+  <span data-status-pending hidden>Before the change, both requests contain the pending value. Append mode already wraps its identified block for later replacement.</span>
+  <div class="prefix-pair" style="display:grid;grid-template-columns:1fr;gap:1.2rem">
+    <div class="prefix-card prefix-rewrite" style="min-width:0;border:2px solid #20261e;background:#f1e7d3;padding:.8rem;box-shadow:3px 4px 0 #b5ab94">
+      <h3 style="font:700 1.3rem/1.2 Georgia,serif;margin:0 0 .5rem">Rewrite the opening</h3>
+      <p class="prefix-rule" style="font:1rem/1.45 system-ui;margin:.5rem 0 1rem">The default for your instructions.</p>
+      <div class="prefix-strip" data-prefix-strip="rewrite">
+        <div class="prefix-slip" style="box-sizing:border-box;min-height:98px;margin:.6rem 0;padding:.7rem .8rem .7rem 1.2rem;border:1px solid #807963;border-left:6px solid #a33e27;background:#fff9ec" data-location="opening"><strong style="display:block;font:700 .9rem/1.3 system-ui;margin-bottom:.3rem">1 · Opening instructions</strong><span style="display:block;font:1.1rem/1.4 system-ui" data-rewrite-value>Todo: done</span><small style="display:block;font:.9rem/1.4 system-ui;margin-top:.25rem" data-rewrite-detail>Current value replaces the earlier one here.</small></div>
+        <div class="prefix-slip" style="box-sizing:border-box;min-height:98px;margin:.6rem 0;padding:.7rem .8rem .7rem 1.2rem;border:1px solid #807963;border-left:6px solid #20261e;background:#fff9ec" data-location="history"><strong style="display:block;font:700 .9rem/1.3 system-ui;margin-bottom:.3rem">2 · Conversation</strong><span style="display:block;font:1.1rem/1.4 system-ui">Messages and tool results</span><small style="display:block;font:.9rem/1.4 system-ui;margin-top:.25rem">The conversation follows the instructions.</small></div>
+        <div class="prefix-slip" style="box-sizing:border-box;min-height:98px;margin:.6rem 0;padding:.7rem .8rem .7rem 1.2rem;border:1px solid #807963;border-left:6px solid #20261e;background:#fff9ec" data-location="tail"><strong style="display:block;font:700 .9rem/1.3 system-ui;margin-bottom:.3rem">3 · End of history</strong><span style="display:block;font:1.1rem/1.4 system-ui">No appended replacement</span><small style="display:block;font:.9rem/1.4 system-ui;margin-top:.25rem" data-rewrite-tail-detail>The instruction changed at the opening.</small></div>
+      </div>
+    </div>
+    <div class="prefix-card prefix-append" style="min-width:0;border:2px solid #20261e;background:#f1e7d3;padding:.8rem;box-shadow:3px 4px 0 #b5ab94">
+      <div class="prefix-switch" data-prefix-controls hidden role="group" aria-label="Todo state, append comparison">
+        <button type="button" data-prefix-state="pending" aria-pressed="false">Before: pending</button>
+        <button type="button" data-prefix-state="done" aria-pressed="true">After: done</button>
+      </div>
+      <h3 style="font:700 1.3rem/1.2 Georgia,serif;margin:0 0 .5rem">Append the update</h3>
+      <p class="prefix-rule" style="font:1rem/1.45 system-ui;margin:.5rem 0 1rem">Opt in on an identified instruction.</p>
+      <div class="prefix-strip" data-prefix-strip="append">
+        <div class="prefix-slip" style="box-sizing:border-box;min-height:98px;margin:.6rem 0;padding:.7rem .8rem .7rem 1.2rem;border:1px solid #807963;border-left:6px solid #20261e;background:#fff9ec" data-location="opening"><strong style="display:block;font:700 .9rem/1.3 system-ui;margin-bottom:.3rem">1 · Opening instructions</strong><span style="display:block;font:1.1rem/1.4 system-ui">Todo: pending</span><small style="display:block;font:.9rem/1.4 system-ui;margin-top:.25rem" data-opening-detail>Later update says this value is superseded.</small></div>
+        <div class="prefix-slip" style="box-sizing:border-box;min-height:98px;margin:.6rem 0;padding:.7rem .8rem .7rem 1.2rem;border:1px solid #807963;border-left:6px solid #20261e;background:#fff9ec" data-location="history"><strong style="display:block;font:700 .9rem/1.3 system-ui;margin-bottom:.3rem">2 · Conversation</strong><span style="display:block;font:1.1rem/1.4 system-ui">Messages and tool results</span><small style="display:block;font:.9rem/1.4 system-ui;margin-top:.25rem">The same earlier history stays ahead of the update.</small></div>
+        <div class="prefix-slip" style="box-sizing:border-box;min-height:98px;margin:.6rem 0;padding:.7rem .8rem .7rem 1.2rem;border:1px solid #807963;border-left:6px solid #174b38;background:#fff9ec" data-location="tail"><strong style="display:block;font:700 .9rem/1.3 system-ui;margin-bottom:.3rem">3 · End of history</strong><span style="display:block;font:1.1rem/1.4 system-ui" data-tail-value>Todo: done</span><small style="display:block;font:.9rem/1.4 system-ui;margin-top:.25rem" data-tail-detail>Identifies the replacement value.</small></div>
+      </div>
+    </div>
+  </div>
+  <p class="prefix-note" style="font:.95rem/1.5 system-ui">Schematic of instruction placement, not a model run or a cache-hit measurement. “Pending” remains in the append-mode opening as historical text; the later replacement with the same identity tells the model to use the new value. Provider formatting is simplified here.</p>
+  <p class="prefix-note" style="font:.95rem/1.5 system-ui">Keeping this prefix stable can preserve a condition for cache reuse. Other request changes, provider rules and expiry still matter. Each update also stays in history; a new baseline or compaction changes the comparison.</p>
+  <p class="prefix-note" style="font:.95rem/1.5 system-ui">Inspect the <a href="https://github.com/pydantic/pydantic-ai/blob/cd04b05d30400d36cda15cc8fba49bfd2448b7f1/docs/agent.md#appending-instruction-changes">source example and its limits</a>.</p>
+</section>
+
+
+
+<section class="visual-beat">
+<span class="lab-kicker">The problem predates the patch</span>
+<h2>A small state change can disturb a long opening.</h2>
+<p>Developers had already encountered the tradeoff. An <a href="https://github.com/pydantic/pydantic-ai/issues/7237">issue opened August 6</a> asked for cache-friendly dynamic instructions. In <a href="https://github.com/pydantic/pydantic-ai/issues/7900">another report opened August 30</a>, an application author described a todo update invalidating a much larger prompt prefix—and a workaround that put changing state later in the conversation.</p>
+<p>The new contribution is a framework-owned contract for that technique. A named instruction can opt into <code>on_change='append'</code>. Its function still runs before each model request, including after a tool changes state. The <a href="https://github.com/pydantic/pydantic-ai/blob/cd04b05d30400d36cda15cc8fba49bfd2448b7f1/docs/agent.md#appending-instruction-changes">initial value stays in place</a>; a changed value becomes a typed history entry. An unchanged value adds nothing. Withdrawing the instruction produces a withdrawal rather than silently leaving the old value in force.</p>
+</section>
+<section class="visual-beat">
+<span class="lab-kicker">An update is not an eraser</span>
+<h2>The model sees the old state and its replacement.</h2>
+<p>Pydantic labels the instruction so later text can identify what it supersedes. Saved history retains the complete replacement; for a small edit to a long block, the request can carry a shorter diff. The framework also saves a baseline record so a fresh agent instance can reconstruct the earlier prefix. That bookkeeping record is not itself sent to the model.</p>
+<p>The <a href="https://github.com/pydantic/pydantic-ai/blob/cd04b05d30400d36cda15cc8fba49bfd2448b7f1/tests/test_instruction_updates.py">provider tests</a> check both sides of the promise: unchanged earlier request content and a delivered update after a tool changes a todo from pending to done. Other cases change a warehouse destination, withdraw it and continue through serialized history. We inspected the tests and recorded provider cases; we did not run a live model trial or measure a bill.</p>
+<p>Delivery also has a meaningful boundary. Models that support system messages within a conversation receive updates that way. Others receive system-tagged text inside a user message. The tags do not give that text identical instruction priority. Preserving the prefix and getting the model to follow the new state are separate things to verify.</p>
+</section>
+<section class="visual-beat">
+<span class="lab-kicker">The cache lasts longer. The prefix still has to match.</span>
+<h2>Retention and request construction solve different problems.</h2>
+<p>OpenAI’s <a href="https://developers.openai.com/api/docs/changelog">October 20 API announcement</a> adds a 12-hour prompt-cache option. Its <a href="https://developers.openai.com/api/docs/guides/prompt-caching">guide</a> prices those writes at 2.5 times ordinary input, compared with 1.25 times for 30 minutes; the read rate is the same for either lifetime. Longer retention can help a stable prefix reused hours later. It cannot make a changed prefix identical.</p>
+<p>Pydantic’s work began before that announcement. It does not implement OpenAI’s retention setting, and neither source establishes savings for a particular application. The useful connection is a design choice: separate frequently changing task state from material worth keeping stable, then measure the complete workload.</p>
+</section>
+<aside class="visual-colophon">
+<h2>Keep the history that makes the opening recoverable.</h2>
+<p>Application-written instructions retain the rewrite default unless their author opts in. Some framework-owned material, including repository context and subagent listings, adopts appended updates by default. Loaded deferred-capability instructions, realtime sessions and legacy dynamic system prompts keep their existing delivery behavior.</p>
+<p>Append mode also has a reset point. Compaction, losing the saved baseline or changing a rewrite-mode block can establish a new opening. Tool definitions, model changes and cache expiry can independently prevent reuse. Complete trusted server-side history matters: a browser’s submitted baseline or update is not accepted as authoritative.</p>
+<p>This is merged development work. The latest GitHub release inspected, <a href="https://github.com/pydantic/pydantic-ai/releases/tag/v2.58.0">v2.58.0</a>, was published earlier on October 20 and does not contain it. A containing release should be tried on a task whose state changes, with both correct answers and total usage recorded across the chosen providers.</p>
+<p>The gain is a cleaner division of responsibility. Applications describe what changed; the framework can preserve how the conversation began. The next question is whether that arrangement keeps the task correct while delivering useful cache reuse in a real workload.</p>
+</aside>
+</div>
+        </article>
+      </section>
+      <details class="visual-poster"><summary>Open the Diagram Punk poster</summary><figure class="story-illustration article-illustration">
+    <img src="/assets/illustrations/2026-10-21-pydantic-updates-agent-instructions-without-rewriting-the-opening-diagram-punk-v1.png" alt="Two paper strips compare rewriting Todo: done at the opening with retaining Todo: pending and appending Todo: done after history." loading="lazy" decoding="async">
+    <figcaption><span>Diagram Punk</span>the update changes position; the earlier state stays in the prompt. Cache reuse is not guaranteed.</figcaption>
+  </figure></details>
+      <section class="article-questions-invitation" data-ask-entry hidden>
+    <h2>Keep asking questions.</h2>
+    <p>Explore the story and its evidence in your own ChatGPT conversation.</p>
+    <button class="paper-button" type="button" data-ask-open aria-haspopup="dialog" aria-controls="article-questions">Ask about this article <span aria-hidden="true">↗</span></button>
+  </section>
+  <dialog class="article-questions" id="article-questions" aria-labelledby="ask-title"
+    data-title="Pydantic Updates Agent Instructions Without Rewriting the Opening" data-date="2026-10-21"
+    data-url="https://thegitreporter.com/articles/2026-10-21-daily-pydantic-updates-agent-instructions-without-rewriting-the-opening/"
+    data-summary="An agent’s task state can change without changing the start of its next model request. Pydantic AI’s new append mode puts the update at the end of the conversation, preserving the earlier prefix for possible cache reuse.">
+    <div class="ask-heading">
+      <h2 id="ask-title" tabindex="-1" autofocus>Ask about this article</h2>
+      <button type="button" class="ask-close" aria-label="Close question box">×</button>
+    </div>
+    <form class="ask-form">
+      <div class="ask-content">
+        <p class="ask-article-title">Pydantic Updates Agent Instructions Without Rewriting the Opening</p>
+        <div class="ask-suggestions" role="group" aria-label="Suggested questions">
+          <button type="button" data-question="Explain this article in plain language. What changed?">Explain simply</button>
+          <button type="button" data-question="Why does this change matter, and who is affected?">Why does this matter?</button>
+          <button type="button" data-question="What is the strongest counterargument to this article, and what evidence would change its conclusion?">Challenge the argument</button>
+        </div>
+        <label for="ask-question">Your question</label>
+        <textarea id="ask-question" rows="3" maxlength="2000" required placeholder="What would you like to understand?" aria-describedby="ask-context"></textarea>
+        <p id="ask-context" class="ask-note">Article link and summary included. Continue using your ChatGPT account; you may need to sign in.</p>
+        <details class="ask-manual" hidden>
+          <summary>Prepared text for copying</summary>
+          <label for="ask-copy-text">Prepared question and article context</label>
+          <textarea id="ask-copy-text" class="ask-copy-text" rows="5" readonly></textarea>
+        </details>
+      </div>
+      <div class="ask-actions">
+        <p class="ask-status" role="status" aria-live="polite"></p>
+        <button class="paper-button primary" type="submit">Continue in ChatGPT ↗</button>
+        <div class="ask-copy-actions">
+          <button type="button" data-ask-copy="summary">Copy question + context</button>
+          <button type="button" data-ask-copy="article">Copy article + question</button>
+        </div>
+        <p class="ask-note">If your question doesn’t appear in ChatGPT, copy it here and paste it there.</p>
+      </div>
+    </form>
+  </dialog>
+      <section class="reader-feedback" id="reader-feedback" data-tgr-feedback
+    data-article-url="/articles/2026-10-21-daily-pydantic-updates-agent-instructions-without-rewriting-the-opening/">
+    <div class="reader-feedback-head">
+      <div><div class="eyebrow">Your immediate reaction</div><h2>How did this article land?</h2></div>
+      <p>A thumb saves immediately. Notes stay private and are discussed with the editor before shaping future articles.</p>
+    </div>
+    <form class="feedback-form">
+      <div class="feedback-votes" role="group" aria-label="Article reaction"><button class="feedback-choice" type="button" data-vote="up" aria-pressed="false" aria-label="Thumbs up"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M7 10v11H3V10h4Zm0 0 5-7h1a2 2 0 0 1 2 2v4h4a2 2 0 0 1 2 2l-2 8a2 2 0 0 1-2 2H7"/></svg><span>Up</span></button>
+    <button class="feedback-choice" type="button" data-vote="down" aria-pressed="false" aria-label="Thumbs down"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M7 10v11H3V10h4Zm0 0 5-7h1a2 2 0 0 1 2 2v4h4a2 2 0 0 1 2 2l-2 8a2 2 0 0 1-2 2H7"/></svg><span>Down</span></button></div>
+      <details class="feedback-note"><summary>Add a note (optional)</summary>
+        <label class="feedback-comment"><span>What caught you, lost you, or made you think?</span>
+          <textarea name="comment" rows="3" maxlength="2000" placeholder="Your first impression…"></textarea>
+        </label>
+        <button class="paper-button primary feedback-submit" type="submit">Save note</button>
+      </details>
+      <div class="feedback-submit-row"><p class="feedback-status" aria-live="polite"></p></div>
+      <noscript><p>Enable JavaScript to send a private reaction.</p></noscript>
+    </form>
+    <div class="feedback-dock" data-feedback-dock hidden>
+      <span>React</span><div role="group" aria-label="Quick article reaction"><button class="feedback-choice" type="button" data-vote="up" aria-pressed="false" aria-label="Thumbs up"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M7 10v11H3V10h4Zm0 0 5-7h1a2 2 0 0 1 2 2v4h4a2 2 0 0 1 2 2l-2 8a2 2 0 0 1-2 2H7"/></svg><span>Up</span></button>
+    <button class="feedback-choice" type="button" data-vote="down" aria-pressed="false" aria-label="Thumbs down"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M7 10v11H3V10h4Zm0 0 5-7h1a2 2 0 0 1 2 2v4h4a2 2 0 0 1 2 2l-2 8a2 2 0 0 1-2 2H7"/></svg><span>Down</span></button></div>
+      <button type="button" data-feedback-note>Note</button>
+      <p class="feedback-status" aria-live="polite"></p>
+    </div>
+  </section>
+      <section class="evidence-section" id="evidence" aria-labelledby="evidence-title">
+    <div class="evidence-head">
+      <div>
+        <div class="eyebrow">Evidence Trail</div>
+        <h2 id="evidence-title">Receipts below the story</h2>
+        <p>The article above is the public narrative. This section keeps the source trail and limits on the same page.</p>
+      </div>
+      <a class="paper-button" href="/editions/2026-10-21/">Edition</a>
+    </div>
+    <div class="evidence-table evidence-summary">
+      <div class="evidence-line"><span>Date</span><span>October 21, 2026</span></div>
+      <div class="evidence-line"><span>Lane</span><span>Daily Edition</span></div>
+      <div class="evidence-line"><span>Confidence</span><span>91%</span></div>
+      <div class="evidence-line"><span>Sources</span><span>9</span></div>
+      <div class="evidence-line"><span>Repos</span><span>pydantic/pydantic-ai</span></div>
+    </div>
+    <div class="markdown evidence-copy evidence-copy-block">
+      <h2>Primary Evidence</h2>
+<ul>
+<li>Merged instruction update implementation, October 20: <a href="https://github.com/pydantic/pydantic-ai/commit/cd04b05d30400d36cda15cc8fba49bfd2448b7f1">https://github.com/pydantic/pydantic-ai/commit/cd04b05d30400d36cda15cc8fba49bfd2448b7f1</a>
+<ul>
+<li>Shows: named append mode, instruction baselines, typed replacement and withdrawal entries, request projection and provider integration.
+</li>
+</ul>
+</li>
+<li>Instruction delivery and reset contract: <a href="https://github.com/pydantic/pydantic-ai/blob/cd04b05d30400d36cda15cc8fba49bfd2448b7f1/docs/agent.md#appending-instruction-changes">https://github.com/pydantic/pydantic-ai/blob/cd04b05d30400d36cda15cc8fba49bfd2448b7f1/docs/agent.md#appending-instruction-changes</a>
+<ul>
+<li>Shows: initial prefix retention, repeated evaluation, identity requirements, full history, baseline resets, provider message-role differences and supported scope.
+</li>
+</ul>
+</li>
+<li>Provider and history test definitions: <a href="https://github.com/pydantic/pydantic-ai/blob/cd04b05d30400d36cda15cc8fba49bfd2448b7f1/tests/test_instruction_updates.py">https://github.com/pydantic/pydantic-ai/blob/cd04b05d30400d36cda15cc8fba49bfd2448b7f1/tests/test_instruction_updates.py</a>
+<ul>
+<li>Shows: request-prefix comparisons, pending-to-done tool mutation, warehouse replacement/withdrawal and serialization; provider cases are recorded tests, not an independently reproduced benchmark.
+</li>
+</ul>
+</li>
+<li>Historical request for cache-friendly instructions: <a href="https://github.com/pydantic/pydantic-ai/issues/7237">https://github.com/pydantic/pydantic-ai/issues/7237</a>
+<ul>
+<li>Shows: the issue opened August 6; its current body has later edits and is not treated as a verbatim August snapshot.
+</li>
+</ul>
+</li>
+<li>Application report and workaround: <a href="https://github.com/pydantic/pydantic-ai/issues/7900">https://github.com/pydantic/pydantic-ai/issues/7900</a>
+<ul>
+<li>Shows: an issue opened August 30 describes state changes disrupting prompt caching and tail-positioned state as a workaround. Performance figures remain the reporter's account and are not used as measured results here.
+</li>
+</ul>
+</li>
+<li>Merge discussion and timing: <a href="https://github.com/pydantic/pydantic-ai/pull/8188">https://github.com/pydantic/pydantic-ai/pull/8188</a>
+<ul>
+<li>Shows: work opened September 7 and merged October 20, predating the separate cache-retention announcement's context.
+</li>
+</ul>
+</li>
+<li>Latest release inspected: <a href="https://github.com/pydantic/pydantic-ai/releases/tag/v2.58.0">https://github.com/pydantic/pydantic-ai/releases/tag/v2.58.0</a>
+<ul>
+<li>Shows: release published October 20 at 04:58 UTC, before the 16:41 UTC merge; its source does not contain the change.
+</li>
+</ul>
+</li>
+<li>OpenAI API changelog: <a href="https://developers.openai.com/api/docs/changelog">https://developers.openai.com/api/docs/changelog</a>
+<ul>
+<li>Shows: October 20 announcement of a 12-hour prompt-cache option, separate from Pydantic's implementation.
+</li>
+</ul>
+</li>
+<li>OpenAI cache lifetime and pricing contract: <a href="https://developers.openai.com/api/docs/guides/prompt-caching">https://developers.openai.com/api/docs/guides/prompt-caching</a>
+<ul>
+<li>Shows: 12-hour and 30-minute write rates, equal read rates across lifetimes, matching-prefix and model/API-specific conditions.
+</li>
+</ul>
+</li>
+</ul>
+<h2>Evidence Limits</h2>
+<ul>
+<li>Source and recorded tests were inspected; no live model trial, application benchmark or independent cost measurement was performed.
+</li>
+<li>Latest inspected release v2.58.0 does not contain the merge. Development source does not establish installed-package availability.
+</li>
+<li>Prefix stability applies between baseline resets with other inputs unchanged. Cache hits, latency and savings depend on provider rules and workload.
+</li>
+<li>Appended text may have different message roles across providers. Model acceptance and state-following are not guaranteed by text placement.
+</li>
+<li>Superseded values stay in trusted history. Compaction, lost baseline, rewritten blocks and changed policies can reset the opening; tools, model and expiry can separately defeat reuse.
+</li>
+</ul>
+    </div>
+  </section>
+      <section class="related-edition-section atlas-context-section">
+    <div class="section-title-row">
+      <h2>Atlas Context</h2>
+      <a href="/atlas/">Open Atlas &rsaquo;</a>
+    </div>
+    <div class="updates-list">
+      <a class="article-card" href="/atlas/what-an-agent-can-see/">
+            <div class="article-meta"><span class="lane">Agent Atlas</span><span>Chapter 2</span></div>
+            <h3>The Invisible Prompt</h3>
+            <p>The model acts on an assembled viewport containing visible messages, hidden turn context, path-triggered instructions, memory records, tool schemas, permissions, and inherited state.</p>
+          </a>
+    </div>
+  </section>
+      
+    </main>
+    <footer class="wrap site-footer">
+      <span>&copy; 2026 The Git Reporter</span>
+      <a href="/about/">About</a>
+      <a href="/battles/">Diff Derby</a>
+      <a href="/agent-pulse/">Agent Pulse</a>
+      <a href="/feed.xml">RSS</a>
+      <a href="https://x.com/TheGitReporter">Follow on X</a>
+      <a href="/articles.json">Manifest JSON</a>
+      <a href="/repos/">Sources</a>
+    </footer>
+  </div>
+</body>
+</html>
