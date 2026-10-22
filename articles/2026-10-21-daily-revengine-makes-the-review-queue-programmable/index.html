@@ -1,0 +1,459 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>RevEngine makes the review queue programmable | The Git Reporter</title>
+  <meta name="description" content="Laude’s open-source reviewer leads ReviewBench. Its newest code tackles a different problem: an automated reviewer must remember what a maintainer already decided without overlooking the next defect.">
+  <meta name="robots" content="index,follow">
+  <link rel="canonical" href="https://thegitreporter.com/articles/2026-10-21-daily-revengine-makes-the-review-queue-programmable/">
+  <link rel="alternate" type="application/rss+xml" title="The Git Reporter" href="https://thegitreporter.com/feed.xml">
+  <meta property="og:site_name" content="The Git Reporter">
+  <meta property="og:locale" content="en_US">
+  <meta property="og:title" content="RevEngine makes the review queue programmable | The Git Reporter">
+  <meta property="og:description" content="Laude’s open-source reviewer leads ReviewBench. Its newest code tackles a different problem: an automated reviewer must remember what a maintainer already decided without overlooking the next defect.">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://thegitreporter.com/articles/2026-10-21-daily-revengine-makes-the-review-queue-programmable/">
+  <meta property="og:image" content="https://thegitreporter.com/assets/social/2026-10-21-daily-revengine-makes-the-review-queue-programmable-og.jpg">
+  <meta property="og:image:secure_url" content="https://thegitreporter.com/assets/social/2026-10-21-daily-revengine-makes-the-review-queue-programmable-og.jpg">
+  <meta property="og:image:type" content="image/jpeg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="A pull request reaches a model review desk with separate base-branch rules and maintainer decisions, then a recheck and human review. A stamp says model check is not proof.">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:site" content="@TheGitReporter">
+  <meta name="twitter:creator" content="@TheGitReporter">
+  <meta name="twitter:title" content="RevEngine makes the review queue programmable | The Git Reporter">
+  <meta name="twitter:description" content="Laude’s open-source reviewer leads ReviewBench. Its newest code tackles a different problem: an automated reviewer must remember what a maintainer already decided without overlooking the next defect.">
+  <meta name="twitter:url" content="https://thegitreporter.com/articles/2026-10-21-daily-revengine-makes-the-review-queue-programmable/">
+  <meta name="twitter:domain" content="thegitreporter.com">
+  <meta name="twitter:image" content="https://thegitreporter.com/assets/social/2026-10-21-daily-revengine-makes-the-review-queue-programmable-og.jpg">
+  <meta name="twitter:image:alt" content="A pull request reaches a model review desk with separate base-branch rules and maintainer decisions, then a recheck and human review. A stamp says model check is not proof.">
+  <meta property="article:published_time" content="2026-10-21">
+  <meta property="article:modified_time" content="2026-10-21">
+  <meta property="article:section" content="Daily Edition">
+  <meta property="article:tag" content="Code review">
+  <meta property="article:tag" content="Evaluation">
+  <meta property="article:tag" content="Maintainers">
+  <meta property="article:tag" content="laude-institute/rev-engine">
+  <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"https://thegitreporter.com/#organization","name":"The Git Reporter","url":"https://thegitreporter.com","logo":{"@type":"ImageObject","url":"https://thegitreporter.com/assets/mark.svg"},"sameAs":["https://x.com/TheGitReporter"]},{"@type":"WebSite","@id":"https://thegitreporter.com/#website","name":"The Git Reporter","url":"https://thegitreporter.com","publisher":{"@id":"https://thegitreporter.com/#organization"}},{"@type":"NewsArticle","mainEntityOfPage":{"@type":"WebPage","@id":"https://thegitreporter.com/articles/2026-10-21-daily-revengine-makes-the-review-queue-programmable/"},"headline":"RevEngine makes the review queue programmable","description":"Laude’s open-source reviewer leads ReviewBench. Its newest code tackles a different problem: an automated reviewer must remember what a maintainer already decided without overlooking the next defect.","image":["https://thegitreporter.com/assets/social/2026-10-21-daily-revengine-makes-the-review-queue-programmable-og.jpg"],"datePublished":"2026-10-21","dateModified":"2026-10-21","author":[{"@type":"Organization","name":"The Git Reporter","url":"https://thegitreporter.com"}],"publisher":{"@type":"Organization","@id":"https://thegitreporter.com/#organization","name":"The Git Reporter","url":"https://thegitreporter.com","logo":{"@type":"ImageObject","url":"https://thegitreporter.com/assets/mark.svg"},"sameAs":["https://x.com/TheGitReporter"]},"articleSection":"Daily Edition","keywords":"Code review, Evaluation, Maintainers, laude-institute/rev-engine"}]}</script>
+  <link rel="icon" href="/assets/mark.svg">
+  <link rel="stylesheet" href="/assets/site.css?v=2026-10-20-readable-site-v1">
+  <link rel="stylesheet" href="/assets/visual-essay.css?v=2026-10-20-readable-site-v1"><script type="module" src="/assets/visual-essays/revengine-review.js?v=2026-10-20-readable-site-v1"></script>
+  <script defer src="/assets/feedback.js?v=2026-10-20-readable-site-v1"></script>
+  <script defer src="/assets/article-questions.js?v=2026-10-20-readable-site-v1"></script>
+  <script defer src="/assets/analytics.js?v=2026-10-20-readable-site-v1"></script>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-CH19T7M0T1"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){window.dataLayer.push(arguments);}
+    gtag("js", new Date());
+    gtag("config", "G-CH19T7M0T1");
+  </script>
+</head>
+<body>
+  <a class="skip-link" href="#main-content">Skip to content</a>
+  <div class="site">
+    <header class="site-header" id="top">
+      <div class="wrap utility-row">
+        <a class="icon-link menu-icon" href="/archive/" aria-label="Open edition history"><span></span><span></span><span></span></a>
+        <a class="icon-link archive-icon" href="/archive/" aria-label="Open edition history"></a>
+      </div>
+      <div class="wrap masthead-lockup">
+        <a class="masthead-title" href="/">THE GIT REPORTER</a>
+        <div class="masthead-ornament" aria-hidden="true"></div>
+      </div>
+      <div class="wrap nav-wrap">
+        <nav class="paper-nav" aria-label="Primary navigation">
+    <a class=""  href="/">Stories</a><a class=""  href="/today/">Today</a><a class="active" aria-current="page" href="/archive/">Editions</a><a class=""  href="/about/">About</a><a class=""  href="/battles/">Diff Derby</a><a class=""  href="/agent-pulse/">Agent Pulse</a><a class=""  href="/atlas/">Agent Atlas</a><a class=""  href="/repos/">Repos</a>
+  </nav>
+        <div class="nav-rule"></div>
+      </div>
+    </header>
+    <main id="main-content" tabindex="-1" class="wrap page-shell article-page visual-article">
+      <section class="page-hero story-front">
+        <div class="story-topline">
+          <span>Daily Edition</span>
+          <span>Sources <strong>+16</strong></span>
+        </div>
+        <h1>RevEngine makes the review queue programmable</h1>
+        <p class="summary">Laude’s open-source reviewer leads ReviewBench. Its newest code tackles a different problem: an automated reviewer must remember what a maintainer already decided without overlooking the next defect.</p>
+        <p class="article-dates">By The Git Reporter · Published <time datetime="2026-10-21">October 21, 2026</time>. Reporting as of <time datetime="2026-10-21">October 21, 2026</time>.</p>
+        <div class="visual-byline">Diagram Punk · A visual essay · October 21, 2026</div>
+        <div class="receipt">
+    <div class="receipt-line">
+      <span class="receipt-icon">repo</span>
+      <span class="receipt-main">laude-institute/rev-engine</span>
+      <span class="branch-pill">evidence</span>
+    </div>
+    <div class="receipt-line receipt-muted">
+      <span>16 source signals</span>
+      <span>1 repo</span>
+      <span>3 linked commits</span>
+    </div>
+    <div class="commit-line">Evidence: 3 linked commits / October 21, 2026 / Daily Edition</div>
+  </div>
+        <div class="article-route-row">
+          <a href="/editions/2026-10-21/">Open Edition</a>
+          <a href="#evidence">Evidence below</a>
+          <button type="button" class="ask-inline" data-ask-entry data-ask-open aria-haspopup="dialog" aria-controls="article-questions" hidden>Ask about this article ↗</button>
+        </div>
+      </section>
+      <section class="story-reader">
+        <article class="story-shell story-body">
+          <div class="visual-essay">
+<p class="visual-intro">RevEngine sits between a proposed code change and the person deciding whether to merge it. It runs as a GitHub Action: a maintainer requests a review, a language model reads the repository, and the Action returns comments and advice. It does not merge the change. The surrounding software—the harness—chooses what the model can read, how findings are checked and which comments reach the contributor.</p>
+<p>That last part is becoming the interesting story. In an <a href="https://github.com/laude-institute/rev-engine/commit/4033720c769a7706c22ec6358554f245c677f100">October 20 change</a>, RevEngine’s developer described an awkward loop: the reviewer kept raising project-fit concerns after a maintainer had answered them. The advice still asked for a decision. Another patch documented the opposite failure: duplicate suppression hid a new problem because an older comment occupied overlapping lines.</p>
+<p>A reviewer can find more issues and still spend human attention badly. RevEngine’s public implementation makes that tradeoff inspectable—and increasingly configurable.</p>
+
+<section data-revengine-rounds aria-labelledby="review-rounds-title" style="margin:2rem 0;padding:1rem;border:2px solid #25342a;background:#f4eddd">
+<h2 id="review-rounds-title">A review has a memory problem.</h2>
+<p>Follow the same pull request through three situations. An earlier answer should survive another review; a different defect should still get through.</p>
+<div data-review-controls hidden role="group" aria-label="Review situation">
+<button type="button" data-review-state="initial" aria-pressed="true">1. First review</button>
+<button type="button" data-review-state="answered" aria-pressed="false">2. Answer recorded</button>
+<button type="button" data-review-state="changed" aria-pressed="false">3. New defect</button>
+</div>
+<p data-review-status role="status" aria-live="polite">First review: the model raises a project-fit question. A maintainer still needs to answer it.</p>
+<div data-review-graphics aria-hidden="true" hidden></div>
+<div data-review-cards style="display:grid;gap:.8rem">
+<div data-review-card="concern" style="padding:1rem;border-left:5px solid #254c39;background:#fffaf0"><span>What the reviewer sees</span><strong data-review-label style="display:block">Does this change belong?</strong><p data-review-text>The code may work, but accepting it would add a responsibility the project has not agreed to carry.</p></div>
+<div data-review-card="decision" style="padding:1rem;border-left:5px solid #254c39;background:#fffaf0"><span>What the maintainer has decided</span><strong data-review-label style="display:block">No maintainer answer yet</strong><p data-review-text>The question remains open. A model cannot supply the missing project decision.</p></div>
+<div data-review-card="result" style="padding:1rem;border-left:5px solid #a3492d;background:#fffaf0"><span>What the next report should do</span><strong data-review-label style="display:block">Ask for a decision</strong><p data-review-text>Keep the project-fit question separate from the list of technical defects.</p></div>
+</div>
+<p>When the maintainer answers, a later review should carry that answer forward unless the change has moved beyond it. When a different defect appears near an old comment, the new finding should remain reportable. Closing a thread alone does not establish that the code is fixed.</p>
+<p><small>Schematic based on the October 20 <a href="https://github.com/laude-institute/rev-engine/commit/4033720c769a7706c22ec6358554f245c677f100">fit-answer change</a> and <a href="https://github.com/laude-institute/rev-engine/commit/c21e12eed6c743b5771615040f2981370a6e5659">duplicate-comment correction</a>. These are explanatory situations, not a recorded review or measured time savings.</small></p>
+</section>
+
+<section class="visual-beat">
+<span class="lab-kicker">Why another reviewer?</span>
+<h2>Headlong brought the review problem home.</h2>
+<p>In the <a href="https://www.laude.org/updates/lab-notes/revengine">October 19 launch post</a>, Nick Jalbert traces RevEngine to outside contributions arriving after Laude released Headlong, its persistent-agent harness. For a small research team, checking whether each contribution worked, belonged and introduced risks competed with the research itself. That is Laude’s account of the pressure behind the tool.</p>
+<p>The resulting project is Apache-licensed and can run in a repository’s own GitHub workflow. Its useful distinction is control over review policy. A team can inspect the prompts, choose the model, set comment thresholds and encode its design expectations in versioned documents. The model service remains a separate dependency; open harness code does not make the model local.</p>
+<p>This is also a concrete reason to write down a project’s scope. A reviewer can search for a defect in code. Deciding whether a new capability belongs requires some account of what the project is trying to be.</p>
+</section>
+
+<section class="visual-beat">
+<span class="lab-kicker">Inside the harness</span>
+<h2>The model reads beyond the patch. The program controls the report.</h2>
+<p>The <a href="https://github.com/laude-institute/rev-engine/blob/88b722f5fc93d49c508bd7c2d068d5b4fb7a3189/src/prompts.ts">review instructions</a> tell the model to understand the system, trace callers and inspect tests before submitting findings. Separate lenses cover correctness, compatibility, security, completeness and maintenance. The software supplies file, search and diff-reading tools. It does not give the reviewer a general shell for executing the contribution.</p>
+<p>Project instructions come from the base revision—the code before the proposed change—so a contribution cannot replace the rules used to judge itself. The pull request’s title, description and code are explicitly treated as material to examine. Those instructions help define the trust boundary; they do not establish immunity to prompt injection.</p>
+<p>A second model pass assesses proposed findings. The implementation then handles verdicts, removes duplicates and ranks surviving findings by severity and model-reported confidence. That confidence is a model’s assessment, not a calibrated probability.</p>
+<p>The word “verify” needs care here. This is code reading, not a reproduced failure or executed test. <a href="https://github.com/laude-institute/rev-engine/blob/88b722f5fc93d49c508bd7c2d068d5b4fb7a3189/src/review.ts">The orchestration</a> can skip verification when time runs short and preserves unverified findings if that pass fails. Default lenient handling also keeps uncertain findings. A posted comment is therefore a claim for a maintainer to inspect.</p>
+<p>Finally, a separate <a href="https://github.com/laude-institute/rev-engine/blob/88b722f5fc93d49c508bd7c2d068d5b4fb7a3189/src/fit.ts">fit assessment</a> asks whether the contribution belongs within the project’s stated purpose and maintenance obligations. It runs after the findings and cannot rewrite their list. It can change the displayed merge advice. This assessment is on by default in the GitHub Action, but requires a configured model in a bare-container invocation; it can be skipped if its remaining budget is insufficient.</p>
+</section>
+
+<section class="visual-beat">
+<span class="lab-kicker">The change after the benchmark</span>
+<h2>Remember the answer without declaring the code innocent.</h2>
+<p>The October 20 work makes a review a continuing conversation. RevEngine collects decisions by people with write or administrator access on the same pull request and passes them into later reviews. It distinguishes a finding rejected as wrong from one deferred, marked fixed or partly fixed, or marked resolved. This is bounded history for one contribution, not a model learning a repository’s preferences permanently.</p>
+<p>The first implementation needed an almost immediate correction. A <a href="https://github.com/laude-institute/rev-engine/commit/12e78d233f6da067428e916ccf43239e2a279422">follow-up commit nine minutes later</a> says resolved threads had been treated like incorrect findings, potentially silencing problems that remained in the code. Under the revised rules, a fixed, partly fixed or resolved concern can return when inspection finds it still present. A concern declined or deferred needs a relevant change to justify raising it again.</p>
+<p>Fit answers received their own memory. The <a href="https://github.com/laude-institute/rev-engine/commit/4033720c769a7706c22ec6358554f245c677f100">later patch</a> carries forward up to three rounds of maintainer answers. It addresses a different failure from missing a bug: repeatedly asking someone to authorize a direction they already authorized.</p>
+<p>Meanwhile, <a href="https://github.com/laude-institute/rev-engine/commit/c21e12eed6c743b5771615040f2981370a6e5659">comment suppression became more selective</a>. Overlapping lines alone had hidden a different medium-severity defect behind an older, fixed issue. The patch compares content as well as location and exempts resolved or decided threads from that suppression.</p>
+<p>These corrections expose the actual engineering question. Silence can mean a respected decision, a repaired defect or a missed problem. Counting fewer comments cannot distinguish them. RevEngine’s history collection is also best-effort: a collection failure leaves the next review without those earlier decisions.</p>
+</section>
+
+<section class="visual-beat">
+<span class="lab-kicker">What the score says</span>
+<h2>A strong detection result has a specific denominator.</h2>
+<p>The <a href="https://review-bench.ai/api/leaderboard">public ReviewBench results checked October 21</a> put RevEngine first on the displayed grounded-F1 comparison. Its reported full run covered 219 pull requests over three rounds: <strong>59.6% grounded F1, 83.6% grounded precision and 46.3% grounded recall</strong>. Mean successful review invocation took about three minutes. The result belongs to <a href="https://github.com/laude-institute/rev-engine/blob/88b722f5fc93d49c508bd7c2d068d5b4fb7a3189/docs/REVIEWBENCH.md">the registered image built from commit b7d795c</a>, not all subsequent versions.</p>
+<p>“Grounded” is consequential. <a href="https://github.com/review-bench/ReviewBench/blob/d6f0f895830c5dddd9bafab06dedcd008da78920/docs/METHODOLOGY.md">The benchmark methodology</a> excludes unmatched findings from both sides of the grounded-precision calculation. The 83.6% figure does not mean that 83.6% of every comment the tool produces is correct. Recall concerns known issues in the benchmark’s reference set, which cannot contain every possible defect. Neither metric measures minutes of maintainer attention.</p>
+<p>Laude’s smaller experiment is useful for a different decision: how to spend on the model and harness together. On 25 pull requests, it reports these results:</p>
+<div style="overflow-x:auto"><table><caption>Laude’s October 19 report: grounded F1 and model-token cost per pull request on the 25-PR subset</caption><thead><tr><th scope="col">Model</th><th scope="col">Diff-only call</th><th scope="col">Full harness</th></tr></thead><tbody><tr><th scope="row">Opus 5.5</th><td>47.7% · $0.22</td><td>58.7% · $0.91</td></tr><tr><th scope="row">Sonnet 5.5</th><td>44.1% · $0.12</td><td>57.8% · $0.45</td></tr></tbody></table></div>
+<p>The <a href="https://www.laude.org/updates/lab-notes/revengine">comparison</a> makes Sonnet worth testing within this workflow. It does not establish full-benchmark parity. Those 25 PRs were also the <a href="https://github.com/laude-institute/rev-engine/blob/88b722f5fc93d49c508bd7c2d068d5b4fb7a3189/docs/REVIEWBENCH.md">documented tuning subset</a>, and the harness comparison adds repository access, rules, checking and more inference together. It cannot identify which component caused the gain. Token cost also excludes setup, infrastructure and the human work of evaluating the review.</p>
+<p>There are inspectable alternatives. <a href="https://github.com/block/review/blob/0c13293f6f2dff3ee859bca29dd9b815da4314bf/README.md">Block’s Apache-licensed review tool</a> uses parallel lenses, a coordinator that challenges findings and a different-model judge that can restore mistaken rejections. It runs through a shell-capable Goose workflow with a different execution boundary. RevEngine’s attraction is not exclusive ownership of second-pass checking; it is the particular combination of restricted reading, project-specific judgment and configurable reporting.</p>
+</section>
+
+<section class="visual-beat">
+<span class="lab-kicker">What a maintainer can try</span>
+<h2>Test whether the next round gets easier.</h2>
+<p>The <a href="https://github.com/laude-institute/rev-engine/blob/88b722f5fc93d49c508bd7c2d068d5b4fb7a3189/action.yml">current Action</a> requires an OpenRouter key and a GitHub token able to post reviews. A person with write or administrator access can request a review with <code>/review</code>; forks are skipped unless enabled. Its defaults select up to ten medium-or-higher findings for comments; findings outside the diff appear in the summary, and remaining findings go into a collapsed section. Those choices determine how much of the model’s thoroughness occupies the conversation.</p>
+<p>A useful trial would include more than the first pass. Pick a handful of already-understood pull requests, record which findings matter, record a fit answer in the <a href="https://github.com/laude-institute/rev-engine/blob/88b722f5fc93d49c508bd7c2d068d5b4fb7a3189/action/decisions.ts">supported review-evaluation format</a>, then ask for another review after a change. Ordinary conversational replies need not be collected as fit answers. Check whether the answer survives, the fixed concern disappears and a different problem remains visible. Track accepted fixes and review minutes alongside false alarms and missed defects. This is a proposed evaluation, not one we ran for this article.</p>
+<p>RevEngine’s own <a href="https://github.com/laude-institute/rev-engine/blob/88b722f5fc93d49c508bd7c2d068d5b4fb7a3189/evals/README.md">evaluation documentation</a> is moving in that direction. It separates who reported a finding from who judged it, and tests severity, fit, merge advice and known false positives. It explicitly asks for missed findings from human reviews, fix commits and other tools: a test set built only from the reviewer’s own discoveries cannot establish what it misses.</p>
+<p>The next result worth watching is whether this makes real review rounds shorter without letting defects escape. Laude says it is still collecting that evidence. The source already establishes something useful: review quality depends on how software carries human decisions forward, as well as how well a model reads a diff.</p>
+</section>
+<p><small>Source inspection is pinned to RevEngine commit 88b722f5, October 21, 2026. Scripted upstream tests for findings, review orchestration, comments, decisions, fit and prior history passed locally. We did not run a live model review, reproduce the benchmark or measure production review savings.</small></p>
+</div>
+        </article>
+      </section>
+      <details class="visual-poster"><summary>Open the Diagram Punk poster</summary><figure class="story-illustration article-illustration">
+    <img src="/assets/illustrations/2026-10-21-revengine-makes-the-review-queue-programmable-diagram-punk-v1.png" alt="A pull request reaches a model review desk with separate base-branch rules and maintainer decisions, then a recheck and human review. A stamp says model check is not proof." loading="lazy" decoding="async">
+    <figcaption><span>Diagram Punk</span>review the code and carry the decision forward. The diagram shows intended information flow, not proof that every finding is verified.</figcaption>
+  </figure></details>
+      <section class="article-questions-invitation" data-ask-entry hidden>
+    <h2>Keep asking questions.</h2>
+    <p>Explore the story and its evidence in your own ChatGPT conversation.</p>
+    <button class="paper-button" type="button" data-ask-open aria-haspopup="dialog" aria-controls="article-questions">Ask about this article <span aria-hidden="true">↗</span></button>
+  </section>
+  <dialog class="article-questions" id="article-questions" aria-labelledby="ask-title"
+    data-title="RevEngine makes the review queue programmable" data-date="2026-10-21"
+    data-url="https://thegitreporter.com/articles/2026-10-21-daily-revengine-makes-the-review-queue-programmable/"
+    data-summary="Laude’s open-source reviewer leads ReviewBench. Its newest code tackles a different problem: an automated reviewer must remember what a maintainer already decided without overlooking the next defect.">
+    <div class="ask-heading">
+      <h2 id="ask-title" tabindex="-1" autofocus>Ask about this article</h2>
+      <button type="button" class="ask-close" aria-label="Close question box">×</button>
+    </div>
+    <form class="ask-form">
+      <div class="ask-content">
+        <p class="ask-article-title">RevEngine makes the review queue programmable</p>
+        <div class="ask-suggestions" role="group" aria-label="Suggested questions">
+          <button type="button" data-question="Explain this article in plain language. What changed?">Explain simply</button>
+          <button type="button" data-question="Why does this change matter, and who is affected?">Why does this matter?</button>
+          <button type="button" data-question="What is the strongest counterargument to this article, and what evidence would change its conclusion?">Challenge the argument</button>
+        </div>
+        <label for="ask-question">Your question</label>
+        <textarea id="ask-question" rows="3" maxlength="2000" required placeholder="What would you like to understand?" aria-describedby="ask-context"></textarea>
+        <p id="ask-context" class="ask-note">Article link and summary included. Continue using your ChatGPT account; you may need to sign in.</p>
+        <details class="ask-manual" hidden>
+          <summary>Prepared text for copying</summary>
+          <label for="ask-copy-text">Prepared question and article context</label>
+          <textarea id="ask-copy-text" class="ask-copy-text" rows="5" readonly></textarea>
+        </details>
+      </div>
+      <div class="ask-actions">
+        <p class="ask-status" role="status" aria-live="polite"></p>
+        <button class="paper-button primary" type="submit">Continue in ChatGPT ↗</button>
+        <div class="ask-copy-actions">
+          <button type="button" data-ask-copy="summary">Copy question + context</button>
+          <button type="button" data-ask-copy="article">Copy article + question</button>
+        </div>
+        <p class="ask-note">If your question doesn’t appear in ChatGPT, copy it here and paste it there.</p>
+      </div>
+    </form>
+  </dialog>
+      <section class="reader-feedback" id="reader-feedback" data-tgr-feedback
+    data-article-url="/articles/2026-10-21-daily-revengine-makes-the-review-queue-programmable/">
+    <div class="reader-feedback-head">
+      <div><div class="eyebrow">Your immediate reaction</div><h2>How did this article land?</h2></div>
+      <p>A thumb saves immediately. Notes stay private and are discussed with the editor before shaping future articles.</p>
+    </div>
+    <form class="feedback-form">
+      <div class="feedback-votes" role="group" aria-label="Article reaction"><button class="feedback-choice" type="button" data-vote="up" aria-pressed="false" aria-label="Thumbs up"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M7 10v11H3V10h4Zm0 0 5-7h1a2 2 0 0 1 2 2v4h4a2 2 0 0 1 2 2l-2 8a2 2 0 0 1-2 2H7"/></svg><span>Up</span></button>
+    <button class="feedback-choice" type="button" data-vote="down" aria-pressed="false" aria-label="Thumbs down"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M7 10v11H3V10h4Zm0 0 5-7h1a2 2 0 0 1 2 2v4h4a2 2 0 0 1 2 2l-2 8a2 2 0 0 1-2 2H7"/></svg><span>Down</span></button></div>
+      <details class="feedback-note"><summary>Add a note (optional)</summary>
+        <label class="feedback-comment"><span>What caught you, lost you, or made you think?</span>
+          <textarea name="comment" rows="3" maxlength="2000" placeholder="Your first impression…"></textarea>
+        </label>
+        <button class="paper-button primary feedback-submit" type="submit">Save note</button>
+      </details>
+      <div class="feedback-submit-row"><p class="feedback-status" aria-live="polite"></p></div>
+      <noscript><p>Enable JavaScript to send a private reaction.</p></noscript>
+    </form>
+    <div class="feedback-dock" data-feedback-dock hidden>
+      <span>React</span><div role="group" aria-label="Quick article reaction"><button class="feedback-choice" type="button" data-vote="up" aria-pressed="false" aria-label="Thumbs up"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M7 10v11H3V10h4Zm0 0 5-7h1a2 2 0 0 1 2 2v4h4a2 2 0 0 1 2 2l-2 8a2 2 0 0 1-2 2H7"/></svg><span>Up</span></button>
+    <button class="feedback-choice" type="button" data-vote="down" aria-pressed="false" aria-label="Thumbs down"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M7 10v11H3V10h4Zm0 0 5-7h1a2 2 0 0 1 2 2v4h4a2 2 0 0 1 2 2l-2 8a2 2 0 0 1-2 2H7"/></svg><span>Down</span></button></div>
+      <button type="button" data-feedback-note>Note</button>
+      <p class="feedback-status" aria-live="polite"></p>
+    </div>
+  </section>
+      <section class="evidence-section" id="evidence" aria-labelledby="evidence-title">
+    <div class="evidence-head">
+      <div>
+        <div class="eyebrow">Evidence Trail</div>
+        <h2 id="evidence-title">Receipts below the story</h2>
+        <p>The article above is the public narrative. This section keeps the source trail and limits on the same page.</p>
+      </div>
+      <a class="paper-button" href="/editions/2026-10-21/">Edition</a>
+    </div>
+    <div class="evidence-table evidence-summary">
+      <div class="evidence-line"><span>Date</span><span>October 21, 2026</span></div>
+      <div class="evidence-line"><span>Lane</span><span>Daily Edition</span></div>
+      <div class="evidence-line"><span>Confidence</span><span>91%</span></div>
+      <div class="evidence-line"><span>Sources</span><span>16</span></div>
+      <div class="evidence-line"><span>Repos</span><span>laude-institute/rev-engine</span></div>
+    </div>
+    <div class="markdown evidence-copy evidence-copy-block">
+      <h2>Primary Evidence</h2>
+<ul>
+<li>Launch and reported small-set experiment, October 19: <a href="https://www.laude.org/updates/lab-notes/revengine">https://www.laude.org/updates/lab-notes/revengine</a>
+<ul>
+<li>Shows: Laude’s stated Headlong review pressure, harness comparison and explicit statement that review-time and stability outcomes are still being measured.
+</li>
+</ul>
+</li>
+<li>GitHub Action at the inspected October 21 revision: <a href="https://github.com/laude-institute/rev-engine/blob/88b722f5fc93d49c508bd7c2d068d5b4fb7a3189/action.yml">https://github.com/laude-institute/rev-engine/blob/88b722f5fc93d49c508bd7c2d068d5b4fb7a3189/action.yml</a>
+<ul>
+<li>Shows: Maintainer invocation, fork default, read-only source mount, model and comment defaults, earlier-decision collection and fit configuration.
+</li>
+</ul>
+</li>
+<li>Reviewer and verifier prompts: <a href="https://github.com/laude-institute/rev-engine/blob/88b722f5fc93d49c508bd7c2d068d5b4fb7a3189/src/prompts.ts">https://github.com/laude-institute/rev-engine/blob/88b722f5fc93d49c508bd7c2d068d5b4fb7a3189/src/prompts.ts</a>
+<ul>
+<li>Shows: Repository investigation, review lenses and model-based rechecking; instructions are not execution-based proof.
+</li>
+</ul>
+</li>
+<li>Review orchestration and failure behavior: <a href="https://github.com/laude-institute/rev-engine/blob/88b722f5fc93d49c508bd7c2d068d5b4fb7a3189/src/review.ts">https://github.com/laude-institute/rev-engine/blob/88b722f5fc93d49c508bd7c2d068d5b4fb7a3189/src/review.ts</a>
+<ul>
+<li>Shows: Budgeted verification, preservation of unverified findings on failure, ranking and separate fit assessment.
+</li>
+</ul>
+</li>
+<li>Finding verdict handling: <a href="https://github.com/laude-institute/rev-engine/blob/88b722f5fc93d49c508bd7c2d068d5b4fb7a3189/src/findings.ts">https://github.com/laude-institute/rev-engine/blob/88b722f5fc93d49c508bd7c2d068d5b4fb7a3189/src/findings.ts</a>
+<ul>
+<li>Shows: Lenient versus strict verdict handling and severity/confidence sorting.
+</li>
+</ul>
+</li>
+<li>Project-fit assessment: <a href="https://github.com/laude-institute/rev-engine/blob/88b722f5fc93d49c508bd7c2d068d5b4fb7a3189/src/fit.ts">https://github.com/laude-institute/rev-engine/blob/88b722f5fc93d49c508bd7c2d068d5b4fb7a3189/src/fit.ts</a>
+<ul>
+<li>Shows: Base-revision purpose and design documents inform a separate judgment which does not change findings.
+</li>
+</ul>
+</li>
+<li>Prior decision collection: <a href="https://github.com/laude-institute/rev-engine/blob/88b722f5fc93d49c508bd7c2d068d5b4fb7a3189/action/decisions.ts">https://github.com/laude-institute/rev-engine/blob/88b722f5fc93d49c508bd7c2d068d5b4fb7a3189/action/decisions.ts</a>
+<ul>
+<li>Shows: Maintainer authorization, bounded decision history and interpretation of earlier replies.
+</li>
+</ul>
+</li>
+<li>Resolved findings may still need repair, October 20: <a href="https://github.com/laude-institute/rev-engine/commit/12e78d233f6da067428e916ccf43239e2a279422">https://github.com/laude-institute/rev-engine/commit/12e78d233f6da067428e916ccf43239e2a279422</a>
+<ul>
+<li>Shows: Corrects treatment of resolved threads so inspection can report a problem still present in the code.
+</li>
+</ul>
+</li>
+<li>Carry earlier fit answers forward, October 20: <a href="https://github.com/laude-institute/rev-engine/commit/4033720c769a7706c22ec6358554f245c677f100">https://github.com/laude-institute/rev-engine/commit/4033720c769a7706c22ec6358554f245c677f100</a>
+<ul>
+<li>Shows: Records the repeated-decision problem and adds prior maintainer fit answers to later assessment.
+</li>
+</ul>
+</li>
+<li>Do not hide a new defect behind an old comment, October 20: <a href="https://github.com/laude-institute/rev-engine/commit/c21e12eed6c743b5771615040f2981370a6e5659">https://github.com/laude-institute/rev-engine/commit/c21e12eed6c743b5771615040f2981370a6e5659</a>
+<ul>
+<li>Shows: Changes duplicate-comment suppression from line overlap alone to content-aware treatment and handles resolved or decided threads.
+</li>
+</ul>
+</li>
+<li>Benchmark version and tuning disclosure: <a href="https://github.com/laude-institute/rev-engine/blob/88b722f5fc93d49c508bd7c2d068d5b4fb7a3189/docs/REVIEWBENCH.md">https://github.com/laude-institute/rev-engine/blob/88b722f5fc93d49c508bd7c2d068d5b4fb7a3189/docs/REVIEWBENCH.md</a>
+<ul>
+<li>Shows: Identifies the benchmark image b7d795c, 219-PR three-round result, 25-PR tuning subset and later-version limits.
+</li>
+</ul>
+</li>
+<li>ReviewBench public result snapshot, checked October 21: <a href="https://review-bench.ai/api/leaderboard">https://review-bench.ai/api/leaderboard</a>
+<ul>
+<li>Shows: RevEngine’s reported score, three rounds and mean invocation duration; this is a benchmark result, not a deployment outcome.
+</li>
+</ul>
+</li>
+<li>ReviewBench methodology: <a href="https://github.com/review-bench/ReviewBench/blob/d6f0f895830c5dddd9bafab06dedcd008da78920/docs/METHODOLOGY.md">https://github.com/review-bench/ReviewBench/blob/d6f0f895830c5dddd9bafab06dedcd008da78920/docs/METHODOLOGY.md</a>
+<ul>
+<li>Shows: Grounded precision excludes unmatched findings; known-reference recall and successful-invocation timing have specific denominators.
+</li>
+</ul>
+</li>
+<li>Open alternative: Block review: <a href="https://github.com/block/review/blob/0c13293f6f2dff3ee859bca29dd9b815da4314bf/README.md">https://github.com/block/review/blob/0c13293f6f2dff3ee859bca29dd9b815da4314bf/README.md</a>
+<ul>
+<li>Shows: An Apache-licensed alternative with parallel lenses, coordinator and different-model judge; its execution boundary differs.
+</li>
+</ul>
+</li>
+<li>Project-specific evaluation contract: <a href="https://github.com/laude-institute/rev-engine/blob/88b722f5fc93d49c508bd7c2d068d5b4fb7a3189/evals/README.md">https://github.com/laude-institute/rev-engine/blob/88b722f5fc93d49c508bd7c2d068d5b4fb7a3189/evals/README.md</a>
+<ul>
+<li>Shows: Separates finding provenance from human judgment, includes fit and false-positive tests, and requires outside findings to assess missed defects.
+</li>
+</ul>
+</li>
+<li>Decision and review regression tests: <a href="https://github.com/laude-institute/rev-engine/blob/88b722f5fc93d49c508bd7c2d068d5b4fb7a3189/tests/decisions.test.ts">https://github.com/laude-institute/rev-engine/blob/88b722f5fc93d49c508bd7c2d068d5b4fb7a3189/tests/decisions.test.ts</a>
+<ul>
+<li>Shows: Scripted authorization and previous-decision cases; related findings, review, comments, fit and prior tests were also inspected and run.
+</li>
+</ul>
+</li>
+</ul>
+<h2>Evidence Limits</h2>
+<ul>
+<li>Source inspected at 88b722f5, October 21, 2026. No live model review, independent benchmark reproduction or production attention-savings study was run.
+</li>
+<li>Six targeted upstream test files passed locally using Node’s type-stripping mode. These are scripted behavior tests, not evidence that model judgments are accurate. A separate tools fixture encountered a local subprocess permission restriction.
+</li>
+<li>The official score belongs to image b7d795c and cannot validate later decision-memory behavior. The 25-PR comparison uses the documented tuning subset and changes several harness components and inference expenditure together.
+</li>
+<li>Grounded precision excludes unmatched findings and is not overall comment correctness. Reference-set recall is not recall of every possible defect. Invocation timing and token costs do not measure total operating or human review cost.
+</li>
+<li>Verification is another model read pass; lenient handling, time limits and failure can leave uncertain or unverified findings. Confidence values are not calibrated probabilities.
+</li>
+<li>Prior decisions are bounded per-pull-request context, not permanent learning. Collection or fit assessment can be absent. Advisory merge text is not an automatic merge gate.
+</li>
+<li>The interactive situations are explanatory schematics derived from source changes, not production traces or measurements.
+</li>
+</ul>
+    </div>
+  </section>
+      <section class="related-edition-section atlas-context-section">
+    <div class="section-title-row">
+      <h2>Atlas Context</h2>
+      <a href="/atlas/">Open Atlas &rsaquo;</a>
+    </div>
+    <div class="updates-list">
+      <a class="article-card" href="/atlas/memory-is-not-one-thing/">
+            <div class="article-meta"><span class="lane">Agent Atlas</span><span>Chapter 6</span></div>
+            <h3>Memory Is a Typed Storage Contract</h3>
+            <p>Calling every retained fact memory obscures incompatible stores and guarantees. Thread history, notes, retrieval indexes, summaries, caches, and archives have different owners, lifetimes, and deletion behavior.</p>
+          </a>
+    </div>
+  </section>
+      <section class="related-edition-section">
+        <div class="section-title-row">
+          <h2>Same Edition</h2>
+          <a href="/editions/2026-10-21/">Open issue &rsaquo;</a>
+        </div>
+        <div class="updates-list">
+          <a class="update-card" href="/articles/2026-10-21-daily-pydantic-updates-agent-instructions-without-rewriting-the-opening/">
+    <div class="update-stripe"></div>
+    <div class="update-main">
+      <div class="update-meta">
+        <span>Reported</span>
+        <span class="source-plus">+9</span>
+        <span>Oct 21, 2026</span>
+      </div>
+      <h3>Pydantic Updates Agent Instructions Without Rewriting the Opening</h3>
+      <div class="update-receipt">
+        <span>pydantic/pydantic-ai</span>
+        <span class="branch-pill">evidence</span>
+      </div>
+      <div class="update-foot">
+        <span>9 sources</span>
+        <span>1 repo</span>
+        <span>commit cd04b05</span>
+      </div>
+    </div>
+    <span class="update-arrow" aria-hidden="true">&rsaquo;</span>
+  </a><a class="update-card" href="/articles/2026-10-21-daily-vercel-gives-coding-agents-a-life-beyond-one-process/">
+    <div class="update-stripe"></div>
+    <div class="update-main">
+      <div class="update-meta">
+        <span>Reported</span>
+        <span class="source-plus">+15</span>
+        <span>Oct 21, 2026</span>
+      </div>
+      <h3>Vercel gives coding agents a life beyond one process</h3>
+      <div class="update-receipt">
+        <span>vercel-labs/durable-harness + earendil-works/pi</span>
+        <span class="branch-pill">evidence</span>
+      </div>
+      <div class="update-foot">
+        <span>15 sources</span>
+        <span>2 repos</span>
+        <span>2 linked commits</span>
+      </div>
+    </div>
+    <span class="update-arrow" aria-hidden="true">&rsaquo;</span>
+  </a>
+        </div>
+      </section>
+    </main>
+    <footer class="wrap site-footer">
+      <span>&copy; 2026 The Git Reporter</span>
+      <a href="/about/">About</a>
+      <a href="/battles/">Diff Derby</a>
+      <a href="/agent-pulse/">Agent Pulse</a>
+      <a href="/feed.xml">RSS</a>
+      <a href="https://x.com/TheGitReporter">Follow on X</a>
+      <a href="/articles.json">Manifest JSON</a>
+      <a href="/repos/">Sources</a>
+    </footer>
+  </div>
+</body>
+</html>

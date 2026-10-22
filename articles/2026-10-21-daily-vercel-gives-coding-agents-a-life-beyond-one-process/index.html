@@ -1,0 +1,453 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Vercel gives coding agents a life beyond one process | The Git Reporter</title>
+  <meta name="description" content="The new durable-harness package lets existing agents recover from a saved work record. Its most useful distinction is between work that finished, work that never started and work whose outcome needs checking.">
+  <meta name="robots" content="index,follow">
+  <link rel="canonical" href="https://thegitreporter.com/articles/2026-10-21-daily-vercel-gives-coding-agents-a-life-beyond-one-process/">
+  <link rel="alternate" type="application/rss+xml" title="The Git Reporter" href="https://thegitreporter.com/feed.xml">
+  <meta property="og:site_name" content="The Git Reporter">
+  <meta property="og:locale" content="en_US">
+  <meta property="og:title" content="Vercel gives coding agents a life beyond one process | The Git Reporter">
+  <meta property="og:description" content="The new durable-harness package lets existing agents recover from a saved work record. Its most useful distinction is between work that finished, work that never started and work whose outcome needs checking.">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://thegitreporter.com/articles/2026-10-21-daily-vercel-gives-coding-agents-a-life-beyond-one-process/">
+  <meta property="og:image" content="https://thegitreporter.com/assets/social/2026-10-21-daily-vercel-gives-coding-agents-a-life-beyond-one-process-og.jpg">
+  <meta property="og:image:secure_url" content="https://thegitreporter.com/assets/social/2026-10-21-daily-vercel-gives-coding-agents-a-life-beyond-one-process-og.jpg">
+  <meta property="og:image:type" content="image/jpeg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="A durable log remains intact between a stopped process and a replacement process. Its entries distinguish a saved result, an unknown outcome and work not yet started.">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:site" content="@TheGitReporter">
+  <meta name="twitter:creator" content="@TheGitReporter">
+  <meta name="twitter:title" content="Vercel gives coding agents a life beyond one process | The Git Reporter">
+  <meta name="twitter:description" content="The new durable-harness package lets existing agents recover from a saved work record. Its most useful distinction is between work that finished, work that never started and work whose outcome needs checking.">
+  <meta name="twitter:url" content="https://thegitreporter.com/articles/2026-10-21-daily-vercel-gives-coding-agents-a-life-beyond-one-process/">
+  <meta name="twitter:domain" content="thegitreporter.com">
+  <meta name="twitter:image" content="https://thegitreporter.com/assets/social/2026-10-21-daily-vercel-gives-coding-agents-a-life-beyond-one-process-og.jpg">
+  <meta name="twitter:image:alt" content="A durable log remains intact between a stopped process and a replacement process. Its entries distinguish a saved result, an unknown outcome and work not yet started.">
+  <meta property="article:published_time" content="2026-10-21">
+  <meta property="article:modified_time" content="2026-10-21">
+  <meta property="article:section" content="Daily Edition">
+  <meta property="article:tag" content="Agent infrastructure">
+  <meta property="article:tag" content="Durable execution">
+  <meta property="article:tag" content="Open source">
+  <meta property="article:tag" content="vercel-labs/durable-harness">
+  <meta property="article:tag" content="earendil-works/pi">
+  <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"https://thegitreporter.com/#organization","name":"The Git Reporter","url":"https://thegitreporter.com","logo":{"@type":"ImageObject","url":"https://thegitreporter.com/assets/mark.svg"},"sameAs":["https://x.com/TheGitReporter"]},{"@type":"WebSite","@id":"https://thegitreporter.com/#website","name":"The Git Reporter","url":"https://thegitreporter.com","publisher":{"@id":"https://thegitreporter.com/#organization"}},{"@type":"NewsArticle","mainEntityOfPage":{"@type":"WebPage","@id":"https://thegitreporter.com/articles/2026-10-21-daily-vercel-gives-coding-agents-a-life-beyond-one-process/"},"headline":"Vercel gives coding agents a life beyond one process","description":"The new durable-harness package lets existing agents recover from a saved work record. Its most useful distinction is between work that finished, work that never started and work whose outcome needs checking.","image":["https://thegitreporter.com/assets/social/2026-10-21-daily-vercel-gives-coding-agents-a-life-beyond-one-process-og.jpg"],"datePublished":"2026-10-21","dateModified":"2026-10-21","author":[{"@type":"Organization","name":"The Git Reporter","url":"https://thegitreporter.com"}],"publisher":{"@type":"Organization","@id":"https://thegitreporter.com/#organization","name":"The Git Reporter","url":"https://thegitreporter.com","logo":{"@type":"ImageObject","url":"https://thegitreporter.com/assets/mark.svg"},"sameAs":["https://x.com/TheGitReporter"]},"articleSection":"Daily Edition","keywords":"Agent infrastructure, Durable execution, Open source, vercel-labs/durable-harness, earendil-works/pi"}]}</script>
+  <link rel="icon" href="/assets/mark.svg">
+  <link rel="stylesheet" href="/assets/site.css?v=2026-10-20-readable-site-v1">
+  <link rel="stylesheet" href="/assets/visual-essay.css?v=2026-10-20-readable-site-v1"><script type="module" src="/assets/visual-essays/durable-harness.js?v=2026-10-20-readable-site-v1"></script>
+  <script defer src="/assets/feedback.js?v=2026-10-20-readable-site-v1"></script>
+  <script defer src="/assets/article-questions.js?v=2026-10-20-readable-site-v1"></script>
+  <script defer src="/assets/analytics.js?v=2026-10-20-readable-site-v1"></script>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-CH19T7M0T1"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){window.dataLayer.push(arguments);}
+    gtag("js", new Date());
+    gtag("config", "G-CH19T7M0T1");
+  </script>
+</head>
+<body>
+  <a class="skip-link" href="#main-content">Skip to content</a>
+  <div class="site">
+    <header class="site-header" id="top">
+      <div class="wrap utility-row">
+        <a class="icon-link menu-icon" href="/archive/" aria-label="Open edition history"><span></span><span></span><span></span></a>
+        <a class="icon-link archive-icon" href="/archive/" aria-label="Open edition history"></a>
+      </div>
+      <div class="wrap masthead-lockup">
+        <a class="masthead-title" href="/">THE GIT REPORTER</a>
+        <div class="masthead-ornament" aria-hidden="true"></div>
+      </div>
+      <div class="wrap nav-wrap">
+        <nav class="paper-nav" aria-label="Primary navigation">
+    <a class=""  href="/">Stories</a><a class=""  href="/today/">Today</a><a class="active" aria-current="page" href="/archive/">Editions</a><a class=""  href="/about/">About</a><a class=""  href="/battles/">Diff Derby</a><a class=""  href="/agent-pulse/">Agent Pulse</a><a class=""  href="/atlas/">Agent Atlas</a><a class=""  href="/repos/">Repos</a>
+  </nav>
+        <div class="nav-rule"></div>
+      </div>
+    </header>
+    <main id="main-content" tabindex="-1" class="wrap page-shell article-page visual-article">
+      <section class="page-hero story-front">
+        <div class="story-topline">
+          <span>Daily Edition</span>
+          <span>Sources <strong>+15</strong></span>
+        </div>
+        <h1>Vercel gives coding agents a life beyond one process</h1>
+        <p class="summary">The new durable-harness package lets existing agents recover from a saved work record. Its most useful distinction is between work that finished, work that never started and work whose outcome needs checking.</p>
+        <p class="article-dates">By The Git Reporter · Published <time datetime="2026-10-21">October 21, 2026</time>. Reporting as of <time datetime="2026-10-21">October 21, 2026</time>.</p>
+        <div class="visual-byline">Diagram Punk · A visual essay · October 21, 2026</div>
+        <div class="receipt">
+    <div class="receipt-line">
+      <span class="receipt-icon">repos</span>
+      <span class="receipt-main">vercel-labs/durable-harness + earendil-works/pi</span>
+      <span class="branch-pill">evidence</span>
+    </div>
+    <div class="receipt-line receipt-muted">
+      <span>15 source signals</span>
+      <span>2 repos</span>
+      <span>2 linked commits</span>
+    </div>
+    <div class="commit-line">Evidence: 2 linked commits / October 21, 2026 / Daily Edition</div>
+  </div>
+        <div class="article-route-row">
+          <a href="/editions/2026-10-21/">Open Edition</a>
+          <a href="#evidence">Evidence below</a>
+          <button type="button" class="ask-inline" data-ask-entry data-ask-open aria-haspopup="dialog" aria-controls="article-questions" hidden>Ask about this article ↗</button>
+        </div>
+      </section>
+      <section class="story-reader">
+        <article class="story-shell story-body">
+          <div class="visual-essay">
+<p class="visual-intro">A coding agent has several parts. The model proposes what to do. Tools read files, run commands or contact other services. The harness manages the conversation and the loop between them. Vercel’s <strong>durable-harness</strong> adds a recovery layer around that machinery: storage remembers the session, and a queue arranges for another process to continue it.</p>
+<p>Introduced in <a href="https://vercel.com/blog/making-every-harness-durable">Vercel’s October 19 announcement</a>, the open-source package supplies integrations for Pi, OpenCode, Claude Code and Codex. The attraction is practical: an application builder can keep an existing harness while making its work survive a function timeout or process crash. The browser connection can disappear without becoming the end of the assignment.</p>
+<p>The underlying idea is larger than keeping a machine awake. Continuity becomes a record another machine can read. Inspecting the implementation also reveals two choices a builder still has to make: how uncertain actions are handled, and which parts of the system actually move when the storage backend changes.</p>
+
+<section class="visual-beat">
+<span class="lab-kicker">The work record</span>
+<h2>A stopped process leaves three kinds of work.</h2>
+<p>Consider an agent that has prepared a review and started posting a comment on a pull request. Its process stops before the tool reports back. The comment might exist already. Starting the whole job again would discard useful work; blindly repeating the last action could post it twice.</p>
+<p>The <a href="https://github.com/vercel-labs/durable-harness/blob/fb056a3c08549fdad9b87ed8358a27e2097ded11/packages/harness-world/src/kernel.test.ts">kernel’s recovery test</a> captures that distinction. It creates a completed model step and an unfinished tool call, then opens the same storage through a new runtime. The test expects the recorded model step to retain a single attempt and the interrupted tool to be reported as uncertain. It uses a scripted harness, not a live model.</p>
+
+<section data-durable-recovery aria-labelledby="durable-recovery-title" style="margin:2rem 0;padding:1rem;border:2px solid #25342a;background:#f4eddd">
+<h3 id="durable-recovery-title">Follow one interrupted comment.</h3>
+<p>The saved log stays in place while the process changes. Select a moment to see what the next process can know.</p>
+<div data-durable-controls hidden role="group" aria-label="Recovery moment">
+<button type="button" data-durable-state="recorded" aria-pressed="true">1. Before the crash</button>
+<button type="button" data-durable-state="crashed" aria-pressed="false">2. Process stops</button>
+<button type="button" data-durable-state="resumed" aria-pressed="false">3. Another process resumes</button>
+</div>
+<p data-durable-status role="status" aria-live="polite">The model result is saved. The comment tool has started, but its outcome has not reached the log.</p>
+<div data-durable-graphics hidden aria-hidden="true"></div>
+<div style="display:grid;gap:.8rem">
+<div data-durable-card="saved" style="padding:1rem;border-left:5px solid #254c39;background:#fffaf0"><span>Recorded result</span><strong data-durable-label style="display:block">The review is prepared.</strong><p data-durable-text>The completed model result is stored. Recovery can reuse that recorded work.</p></div>
+<div data-durable-card="uncertain" style="padding:1rem;border-left:5px solid #a3492d;background:#fffaf0"><span>Recorded intent</span><strong data-durable-label style="display:block">The comment may have been posted.</strong><p data-durable-text>The tool started, but no result is saved. With replay set to never, recovery reports uncertainty instead of automatically repeating this call.</p></div>
+<div data-durable-card="next" style="padding:1rem;border-left:5px solid #25342a;background:#fffaf0"><span>Remaining work</span><strong data-durable-label style="display:block">The final answer has not begun.</strong><p data-durable-text>The resumed model is instructed to check the pull request before repeating an action that may already have happened.</p></div>
+</div>
+<p><small>Schematic, not a recorded run. After recovery, the known result remains available, the comment’s outcome still needs checking, and the task can continue. Based on the <a href="https://github.com/vercel-labs/durable-harness/blob/fb056a3c08549fdad9b87ed8358a27e2097ded11/packages/harness-process/src/recovery.ts">recovery note</a> and <a href="https://github.com/vercel-labs/durable-harness/blob/fb056a3c08549fdad9b87ed8358a27e2097ded11/packages/harness-process/src/tools.ts">tool-call identity</a>. The illustration does not establish that a model will make the correct next decision.</small></p>
+</section>
+
+<p>For process-based harnesses, the <a href="https://github.com/vercel-labs/durable-harness/blob/fb056a3c08549fdad9b87ed8358a27e2097ded11/packages/harness-process/src/recovery.ts">recovery code</a> constructs a message from the log: which calls completed, which failed and which may have taken effect. It tells the model to inspect actual state before repeating uncertain actions. This is an explicit handoff of unfinished work.</p>
+<p>The tool author chooses a replay policy. Under <code>safe</code>, repetition is permitted; <a href="https://vercel.com/docs/agent-harnesses/tools">Pi retries automatically, while the other three integrations tell the model it may repeat the call</a>. Under <code>never</code>, the interrupted call is not automatically rerun. That protection belongs to the logged call’s identity. It does not prevent a later, newly requested call from attempting the same business operation.</p>
+<p>That is why a comment, payment or deployment still needs its own way to identify duplicates or check results. Recovery supplies the missing context for that decision. It cannot infer what an external service did merely because the local process stopped.</p>
+</section>
+
+<section class="visual-beat">
+<span class="lab-kicker">Where the files live</span>
+<h2>Two workspaces make different promises.</h2>
+<p>The <a href="https://github.com/vercel-labs/durable-harness/blob/fb056a3c08549fdad9b87ed8358a27e2097ded11/packages/durable-harness/src/workspace.ts">workspace implementation</a> makes the storage boundary concrete. By default, a small virtual workspace keeps its files in the session log. Its changes commit alongside the tool result. A Vercel Sandbox instead supplies a real execution environment with a persistent Drive; an interrupted command can leave partial changes there.</p>
+<dl>
+<dt><strong>Virtual workspace: files and result travel together.</strong></dt>
+<dd>Useful for small, bounded tasks. Its simulated shell cannot install packages, start real processes or reach the network. A crash before the commit leaves the durable file changes unapplied.</dd>
+<dt><strong>Sandbox Drive: the working directory persists.</strong></dt>
+<dd>Useful for real project commands. The next process inherits files that may reflect a partly completed action, so recovery must account for what the command already changed.</dd>
+</dl>
+<p>The repository includes a <a href="https://github.com/vercel-labs/durable-harness/blob/fb056a3c08549fdad9b87ed8358a27e2097ded11/packages/durable-harness/test/docs-sigkill.test.ts">particularly revealing test</a>: kill a child process after a document or virtual-file edit but before its outcome is recorded, then recover in a different process. The safe-write cases expect one committed revision. The never-replay case expects an interrupted result and no committed document edit. We inspected these tests without executing them; their atomic document behavior should not be extended to arbitrary external APIs or shell commands.</p>
+<p>There is a similar boundary for model work. Preserving a recorded answer can avoid recomputing it. A response cut off during generation may have to be generated—and billed—again, as the <a href="https://github.com/vercel-labs/durable-harness/blob/fb056a3c08549fdad9b87ed8358a27e2097ded11/packages/harness-process/src/model.ts">process-harness implementation explicitly notes</a>. Durability preserves committed progress; it does not make interruption free.</p>
+</section>
+
+<section class="visual-beat">
+<span class="lab-kicker">A choice of infrastructure</span>
+<h2>The log can move without the whole stack moving.</h2>
+<p>The backend abstraction is called a World. It supplies storage, queueing and streams. The <a href="https://github.com/vercel-labs/durable-harness/blob/fb056a3c08549fdad9b87ed8358a27e2097ded11/packages/durable-harness/src/world.ts">selection code</a> chooses Vercel’s backend on Vercel, local files elsewhere, or a configured alternative such as Postgres. For a local or custom backend, it registers the queue consumer, starts the backend and arranges recovery of sessions left unfinished.</p>
+<p>This lets builders separate the choice of agent from the choice of where its continuity lives. It is a useful opening for applications that want an existing agent’s behavior without inventing another session-recovery system.</p>
+<div style="overflow-x:auto">
+<table>
+<caption>What changes when the session backend changes? Source checked October 21, 2026.</caption>
+<thead><tr><th scope="col">Part</th><th scope="col">What the package separates</th></tr></thead>
+<tbody>
+<tr><th scope="row">Harness</th><td>Adapters integrate existing agent loops with the durable session machinery.</td></tr>
+<tr><th scope="row">Session backend</th><td>The World can use Vercel, local files or a configured backend such as Postgres.</td></tr>
+<tr><th scope="row">Execution workspace</th><td>The public Claude Code and Codex adapters still require Vercel Sandbox.</td></tr>
+<tr><th scope="row">Model access</th><td>Model credentials and service dependencies remain separate from the session database.</td></tr>
+</tbody>
+</table>
+</div>
+<p>The Sandbox restriction is enforced in the <a href="https://github.com/vercel-labs/durable-harness/blob/fb056a3c08549fdad9b87ed8358a27e2097ded11/packages/durable-harness/src/codex.ts">Codex adapter</a> and documented for <a href="https://vercel.com/docs/agent-harnesses/self-hosting">both Claude Code and Codex on self-hosted servers</a>. Moving the log to your own Postgres database does not bring those execution environments in-house. The Postgres World also remains a reference implementation: its documentation assigns route protection and other production responsibilities to the operator.</p>
+<p>For Vercel, this architecture makes its infrastructure useful to developers who choose several different harnesses. That is an inference from the integration design, not evidence that developers are migrating or that one hosting choice costs less.</p>
+</section>
+
+<section class="visual-beat">
+<span class="lab-kicker">The next useful trial</span>
+<h2>Test the handoff at the awkward moment.</h2>
+<p>This follows a concrete thread in our <a href="/articles/2026-10-18-daily-pi-can-park-agent-tasks-until-the-host-wakes-them/">October 18 reporting on Pi</a>: a task can save its next step and hand the wait to a host alarm. Vercel’s contribution here is an integration layer across existing harnesses. It does not establish that Vercel invented durable execution, or that all those harnesses now recover in identical ways.</p>
+<p>The <a href="https://github.com/vercel-labs/durable-harness/blob/fb056a3c08549fdad9b87ed8358a27e2097ded11/packages/durable-harness/package.json">inspected package is version 0.0.1-beta.6</a>, with an Apache-2.0 license and a Node.js 22 minimum. For an application builder evaluating it, a useful trial is one disposable task with a read, a write and an external action whose result can be queried. Stop execution once after a saved result and once while the external action is unresolved. Then inspect the resumed session and the external system separately.</p>
+<p>That trial should ask whether finished work survives, whether uncertain work is described accurately and whether the application reconciles the external action before trying again. It is a proposed evaluation, not a benchmark we ran. Production recovery time, operating cost and model behavior remain to be measured.</p>
+<p>The promising capability is visible already: a coding agent’s assignment can outlive its current process, carrying both completed work and a precise account of what is still unknown. That gives builders a better foundation for unattended work—and a concrete contract to test before depending on it.</p>
+</section>
+</div>
+        </article>
+      </section>
+      <details class="visual-poster"><summary>Open the Diagram Punk poster</summary><figure class="story-illustration article-illustration">
+    <img src="/assets/illustrations/2026-10-21-vercel-gives-coding-agents-a-life-beyond-one-process-diagram-punk-v1.png" alt="A durable log remains intact between a stopped process and a replacement process. Its entries distinguish a saved result, an unknown outcome and work not yet started." loading="lazy" decoding="async">
+    <figcaption><span>Diagram Punk</span>a saved work record lets another process continue while preserving uncertainty about unfinished actions.</figcaption>
+  </figure></details>
+      <section class="article-questions-invitation" data-ask-entry hidden>
+    <h2>Keep asking questions.</h2>
+    <p>Explore the story and its evidence in your own ChatGPT conversation.</p>
+    <button class="paper-button" type="button" data-ask-open aria-haspopup="dialog" aria-controls="article-questions">Ask about this article <span aria-hidden="true">↗</span></button>
+  </section>
+  <dialog class="article-questions" id="article-questions" aria-labelledby="ask-title"
+    data-title="Vercel gives coding agents a life beyond one process" data-date="2026-10-21"
+    data-url="https://thegitreporter.com/articles/2026-10-21-daily-vercel-gives-coding-agents-a-life-beyond-one-process/"
+    data-summary="The new durable-harness package lets existing agents recover from a saved work record. Its most useful distinction is between work that finished, work that never started and work whose outcome needs checking.">
+    <div class="ask-heading">
+      <h2 id="ask-title" tabindex="-1" autofocus>Ask about this article</h2>
+      <button type="button" class="ask-close" aria-label="Close question box">×</button>
+    </div>
+    <form class="ask-form">
+      <div class="ask-content">
+        <p class="ask-article-title">Vercel gives coding agents a life beyond one process</p>
+        <div class="ask-suggestions" role="group" aria-label="Suggested questions">
+          <button type="button" data-question="Explain this article in plain language. What changed?">Explain simply</button>
+          <button type="button" data-question="Why does this change matter, and who is affected?">Why does this matter?</button>
+          <button type="button" data-question="What is the strongest counterargument to this article, and what evidence would change its conclusion?">Challenge the argument</button>
+        </div>
+        <label for="ask-question">Your question</label>
+        <textarea id="ask-question" rows="3" maxlength="2000" required placeholder="What would you like to understand?" aria-describedby="ask-context"></textarea>
+        <p id="ask-context" class="ask-note">Article link and summary included. Continue using your ChatGPT account; you may need to sign in.</p>
+        <details class="ask-manual" hidden>
+          <summary>Prepared text for copying</summary>
+          <label for="ask-copy-text">Prepared question and article context</label>
+          <textarea id="ask-copy-text" class="ask-copy-text" rows="5" readonly></textarea>
+        </details>
+      </div>
+      <div class="ask-actions">
+        <p class="ask-status" role="status" aria-live="polite"></p>
+        <button class="paper-button primary" type="submit">Continue in ChatGPT ↗</button>
+        <div class="ask-copy-actions">
+          <button type="button" data-ask-copy="summary">Copy question + context</button>
+          <button type="button" data-ask-copy="article">Copy article + question</button>
+        </div>
+        <p class="ask-note">If your question doesn’t appear in ChatGPT, copy it here and paste it there.</p>
+      </div>
+    </form>
+  </dialog>
+      <section class="reader-feedback" id="reader-feedback" data-tgr-feedback
+    data-article-url="/articles/2026-10-21-daily-vercel-gives-coding-agents-a-life-beyond-one-process/">
+    <div class="reader-feedback-head">
+      <div><div class="eyebrow">Your immediate reaction</div><h2>How did this article land?</h2></div>
+      <p>A thumb saves immediately. Notes stay private and are discussed with the editor before shaping future articles.</p>
+    </div>
+    <form class="feedback-form">
+      <div class="feedback-votes" role="group" aria-label="Article reaction"><button class="feedback-choice" type="button" data-vote="up" aria-pressed="false" aria-label="Thumbs up"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M7 10v11H3V10h4Zm0 0 5-7h1a2 2 0 0 1 2 2v4h4a2 2 0 0 1 2 2l-2 8a2 2 0 0 1-2 2H7"/></svg><span>Up</span></button>
+    <button class="feedback-choice" type="button" data-vote="down" aria-pressed="false" aria-label="Thumbs down"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M7 10v11H3V10h4Zm0 0 5-7h1a2 2 0 0 1 2 2v4h4a2 2 0 0 1 2 2l-2 8a2 2 0 0 1-2 2H7"/></svg><span>Down</span></button></div>
+      <details class="feedback-note"><summary>Add a note (optional)</summary>
+        <label class="feedback-comment"><span>What caught you, lost you, or made you think?</span>
+          <textarea name="comment" rows="3" maxlength="2000" placeholder="Your first impression…"></textarea>
+        </label>
+        <button class="paper-button primary feedback-submit" type="submit">Save note</button>
+      </details>
+      <div class="feedback-submit-row"><p class="feedback-status" aria-live="polite"></p></div>
+      <noscript><p>Enable JavaScript to send a private reaction.</p></noscript>
+    </form>
+    <div class="feedback-dock" data-feedback-dock hidden>
+      <span>React</span><div role="group" aria-label="Quick article reaction"><button class="feedback-choice" type="button" data-vote="up" aria-pressed="false" aria-label="Thumbs up"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M7 10v11H3V10h4Zm0 0 5-7h1a2 2 0 0 1 2 2v4h4a2 2 0 0 1 2 2l-2 8a2 2 0 0 1-2 2H7"/></svg><span>Up</span></button>
+    <button class="feedback-choice" type="button" data-vote="down" aria-pressed="false" aria-label="Thumbs down"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M7 10v11H3V10h4Zm0 0 5-7h1a2 2 0 0 1 2 2v4h4a2 2 0 0 1 2 2l-2 8a2 2 0 0 1-2 2H7"/></svg><span>Down</span></button></div>
+      <button type="button" data-feedback-note>Note</button>
+      <p class="feedback-status" aria-live="polite"></p>
+    </div>
+  </section>
+      <section class="evidence-section" id="evidence" aria-labelledby="evidence-title">
+    <div class="evidence-head">
+      <div>
+        <div class="eyebrow">Evidence Trail</div>
+        <h2 id="evidence-title">Receipts below the story</h2>
+        <p>The article above is the public narrative. This section keeps the source trail and limits on the same page.</p>
+      </div>
+      <a class="paper-button" href="/editions/2026-10-21/">Edition</a>
+    </div>
+    <div class="evidence-table evidence-summary">
+      <div class="evidence-line"><span>Date</span><span>October 21, 2026</span></div>
+      <div class="evidence-line"><span>Lane</span><span>Daily Edition</span></div>
+      <div class="evidence-line"><span>Confidence</span><span>91%</span></div>
+      <div class="evidence-line"><span>Sources</span><span>15</span></div>
+      <div class="evidence-line"><span>Repos</span><span>vercel-labs/durable-harness, earendil-works/pi</span></div>
+    </div>
+    <div class="markdown evidence-copy evidence-copy-block">
+      <h2>Primary Evidence</h2>
+<ul>
+<li>Vercel announcement, October 19, 2026: <a href="https://vercel.com/blog/making-every-harness-durable">https://vercel.com/blog/making-every-harness-durable</a>
+<ul>
+<li>Shows: The launch claim and supported harness integrations.
+</li>
+</ul>
+</li>
+<li>Package version, license and engine requirement: <a href="https://github.com/vercel-labs/durable-harness/blob/fb056a3c08549fdad9b87ed8358a27e2097ded11/packages/durable-harness/package.json">https://github.com/vercel-labs/durable-harness/blob/fb056a3c08549fdad9b87ed8358a27e2097ded11/packages/durable-harness/package.json</a>
+<ul>
+<li>Shows: 0.0.1-beta.6, Apache-2.0 and Node.js &gt;=22 at the inspected revision.
+</li>
+</ul>
+</li>
+<li>World selection and restart recovery: <a href="https://github.com/vercel-labs/durable-harness/blob/fb056a3c08549fdad9b87ed8358a27e2097ded11/packages/durable-harness/src/world.ts">https://github.com/vercel-labs/durable-harness/blob/fb056a3c08549fdad9b87ed8358a27e2097ded11/packages/durable-harness/src/world.ts</a>
+<ul>
+<li>Shows: Backend selection, queue registration and recovery initialization.
+</li>
+</ul>
+</li>
+<li>Recovery behavior in a scripted kernel test: <a href="https://github.com/vercel-labs/durable-harness/blob/fb056a3c08549fdad9b87ed8358a27e2097ded11/packages/harness-world/src/kernel.test.ts">https://github.com/vercel-labs/durable-harness/blob/fb056a3c08549fdad9b87ed8358a27e2097ded11/packages/harness-world/src/kernel.test.ts</a>
+<ul>
+<li>Shows: Reuse of a committed model result and interruption status for an unfinished never-replay call.
+</li>
+</ul>
+</li>
+<li>Recovery message construction: <a href="https://github.com/vercel-labs/durable-harness/blob/fb056a3c08549fdad9b87ed8358a27e2097ded11/packages/harness-process/src/recovery.ts">https://github.com/vercel-labs/durable-harness/blob/fb056a3c08549fdad9b87ed8358a27e2097ded11/packages/harness-process/src/recovery.ts</a>
+<ul>
+<li>Shows: Completed, failed, interrupted and retryable call states and instructions to check actual external state.
+</li>
+</ul>
+</li>
+<li>Tool-call identity boundary: <a href="https://github.com/vercel-labs/durable-harness/blob/fb056a3c08549fdad9b87ed8358a27e2097ded11/packages/harness-process/src/tools.ts">https://github.com/vercel-labs/durable-harness/blob/fb056a3c08549fdad9b87ed8358a27e2097ded11/packages/harness-process/src/tools.ts</a>
+<ul>
+<li>Shows: The effect key uses the call ID. A new model-requested call is not the same logged call.
+</li>
+</ul>
+</li>
+<li>Interrupted model generation: <a href="https://github.com/vercel-labs/durable-harness/blob/fb056a3c08549fdad9b87ed8358a27e2097ded11/packages/harness-process/src/model.ts">https://github.com/vercel-labs/durable-harness/blob/fb056a3c08549fdad9b87ed8358a27e2097ded11/packages/harness-process/src/model.ts</a>
+<ul>
+<li>Shows: An interrupted process-harness response is regenerated and billed again; preserved completed work is a narrower claim.
+</li>
+</ul>
+</li>
+<li>Workspace contract: <a href="https://github.com/vercel-labs/durable-harness/blob/fb056a3c08549fdad9b87ed8358a27e2097ded11/packages/durable-harness/src/workspace.ts">https://github.com/vercel-labs/durable-harness/blob/fb056a3c08549fdad9b87ed8358a27e2097ded11/packages/durable-harness/src/workspace.ts</a>
+<ul>
+<li>Shows: Document-backed virtual files versus independently persistent Sandbox Drive files.
+</li>
+</ul>
+</li>
+<li>Virtual workspace constraints: <a href="https://github.com/vercel-labs/durable-harness/blob/fb056a3c08549fdad9b87ed8358a27e2097ded11/packages/durable-harness/src/tools.ts">https://github.com/vercel-labs/durable-harness/blob/fb056a3c08549fdad9b87ed8358a27e2097ded11/packages/durable-harness/src/tools.ts</a>
+<ul>
+<li>Shows: A simulated shell without network, package installs or real processes.
+</li>
+</ul>
+</li>
+<li>Process-kill document and file test definitions: <a href="https://github.com/vercel-labs/durable-harness/blob/fb056a3c08549fdad9b87ed8358a27e2097ded11/packages/durable-harness/test/docs-sigkill.test.ts">https://github.com/vercel-labs/durable-harness/blob/fb056a3c08549fdad9b87ed8358a27e2097ded11/packages/durable-harness/test/docs-sigkill.test.ts</a>
+<ul>
+<li>Shows: Separate-process recovery assertions for atomic document/file outcomes; inspected, not executed.
+</li>
+</ul>
+</li>
+<li>Public Codex adapter: <a href="https://github.com/vercel-labs/durable-harness/blob/fb056a3c08549fdad9b87ed8358a27e2097ded11/packages/durable-harness/src/codex.ts">https://github.com/vercel-labs/durable-harness/blob/fb056a3c08549fdad9b87ed8358a27e2097ded11/packages/durable-harness/src/codex.ts</a>
+<ul>
+<li>Shows: Enforces Vercel Sandbox and keeps model access distinct from workspace execution.
+</li>
+</ul>
+</li>
+<li>Tool replay documentation: <a href="https://vercel.com/docs/agent-harnesses/tools">https://vercel.com/docs/agent-harnesses/tools</a>
+<ul>
+<li>Shows: Different safe-call handling for Pi and the three process integrations.
+</li>
+</ul>
+</li>
+<li>Self-hosting guide: <a href="https://vercel.com/docs/agent-harnesses/self-hosting">https://vercel.com/docs/agent-harnesses/self-hosting</a>
+<ul>
+<li>Shows: Postgres setup, operator responsibilities and continuing Sandbox dependence.
+</li>
+</ul>
+</li>
+<li>Prior reporting baseline: <a href="https://github.com/earendil-works/pi/commit/f75b3240abc354bd1a666748e9101220554f5be2">https://github.com/earendil-works/pi/commit/f75b3240abc354bd1a666748e9101220554f5be2</a>
+<ul>
+<li>Shows: The Pi sleeping-task state examined in our October 18 edition; this is continuity, not evidence of a new cross-industry trend.
+</li>
+</ul>
+</li>
+</ul>
+<h2>Evidence Limits</h2>
+<ul>
+<li>Repository inspected at <a href="https://github.com/vercel-labs/durable-harness/commit/fb056a3c08549fdad9b87ed8358a27e2097ded11">fb056a3c</a>, dated October 19; reporting and documentation checked October 21, 2026.
+</li>
+<li>We inspected implementation and test definitions. We did not execute the upstream test suites, deploy a live agent, measure crash recovery, audit bills or reproduce production outcomes.
+</li>
+<li>The interactive comment scenario is explanatory, not a captured run. It does not claim that a model will correctly reconcile an uncertain action.
+</li>
+<li>Never-replay prevents automatic repetition of the logged call. It is not an exactly-once guarantee for an external operation or a restriction on all future calls.
+</li>
+<li>Atomic virtual-file/document behavior does not describe real shell commands or external APIs.
+</li>
+<li>A portable session backend does not establish full independence from Vercel services. The public Claude Code and Codex adapters require Vercel Sandbox.
+</li>
+<li>The business implication is explicitly an architectural inference. Sources establish no adoption, market share, cost saving or reliability improvement measured by this publication.
+</li>
+</ul>
+    </div>
+  </section>
+      <section class="related-edition-section atlas-context-section">
+    <div class="section-title-row">
+      <h2>Atlas Context</h2>
+      <a href="/atlas/">Open Atlas &rsaquo;</a>
+    </div>
+    <div class="updates-list">
+      <a class="article-card" href="/atlas/the-loop/">
+            <div class="article-meta"><span class="lane">Agent Atlas</span><span>Chapter 4</span></div>
+            <h3>Loops, Workflows, and Recovery</h3>
+            <p>Repeated model-tool interaction is only one control structure. Production runtimes combine probabilistic loops with host-defined workflows, queues, interrupts, terminal states, and recovery operations.</p>
+          </a>
+    </div>
+  </section>
+      <section class="related-edition-section">
+        <div class="section-title-row">
+          <h2>Same Edition</h2>
+          <a href="/editions/2026-10-21/">Open issue &rsaquo;</a>
+        </div>
+        <div class="updates-list">
+          <a class="update-card" href="/articles/2026-10-21-daily-pydantic-updates-agent-instructions-without-rewriting-the-opening/">
+    <div class="update-stripe"></div>
+    <div class="update-main">
+      <div class="update-meta">
+        <span>Reported</span>
+        <span class="source-plus">+9</span>
+        <span>Oct 21, 2026</span>
+      </div>
+      <h3>Pydantic Updates Agent Instructions Without Rewriting the Opening</h3>
+      <div class="update-receipt">
+        <span>pydantic/pydantic-ai</span>
+        <span class="branch-pill">evidence</span>
+      </div>
+      <div class="update-foot">
+        <span>9 sources</span>
+        <span>1 repo</span>
+        <span>commit cd04b05</span>
+      </div>
+    </div>
+    <span class="update-arrow" aria-hidden="true">&rsaquo;</span>
+  </a><a class="update-card" href="/articles/2026-10-21-daily-revengine-makes-the-review-queue-programmable/">
+    <div class="update-stripe"></div>
+    <div class="update-main">
+      <div class="update-meta">
+        <span>Reported</span>
+        <span class="source-plus">+16</span>
+        <span>Oct 21, 2026</span>
+      </div>
+      <h3>RevEngine makes the review queue programmable</h3>
+      <div class="update-receipt">
+        <span>laude-institute/rev-engine</span>
+        <span class="branch-pill">evidence</span>
+      </div>
+      <div class="update-foot">
+        <span>16 sources</span>
+        <span>1 repo</span>
+        <span>3 linked commits</span>
+      </div>
+    </div>
+    <span class="update-arrow" aria-hidden="true">&rsaquo;</span>
+  </a>
+        </div>
+      </section>
+    </main>
+    <footer class="wrap site-footer">
+      <span>&copy; 2026 The Git Reporter</span>
+      <a href="/about/">About</a>
+      <a href="/battles/">Diff Derby</a>
+      <a href="/agent-pulse/">Agent Pulse</a>
+      <a href="/feed.xml">RSS</a>
+      <a href="https://x.com/TheGitReporter">Follow on X</a>
+      <a href="/articles.json">Manifest JSON</a>
+      <a href="/repos/">Sources</a>
+    </footer>
+  </div>
+</body>
+</html>
