@@ -1,0 +1,370 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Ollama Adds D3 as OpenAI Expands Its Decisions API | The Git Reporter</title>
+  <meta name="description" content="Developers have another downloadable model for judging documents and images locally. Alongside OpenAI&#39;s now generally available Decisions API, it makes two choices clearer: where evidence is processed, and which work can be reused.">
+  <meta name="robots" content="index,follow">
+  <link rel="canonical" href="https://thegitreporter.com/articles/2026-10-23-daily-ollama-adds-d3-as-openai-expands-its-decisions-api/">
+  <link rel="alternate" type="application/rss+xml" title="The Git Reporter" href="https://thegitreporter.com/feed.xml">
+  <meta property="og:site_name" content="The Git Reporter">
+  <meta property="og:locale" content="en_US">
+  <meta property="og:title" content="Ollama Adds D3 as OpenAI Expands Its Decisions API | The Git Reporter">
+  <meta property="og:description" content="Developers have another downloadable model for judging documents and images locally. Alongside OpenAI&#39;s now generally available Decisions API, it makes two choices clearer: where evidence is processed, and which work can be reused.">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://thegitreporter.com/articles/2026-10-23-daily-ollama-adds-d3-as-openai-expands-its-decisions-api/">
+  <meta property="og:image" content="https://thegitreporter.com/assets/social/2026-10-23-daily-ollama-adds-d3-as-openai-expands-its-decisions-api-og.jpg">
+  <meta property="og:image:secure_url" content="https://thegitreporter.com/assets/social/2026-10-23-daily-ollama-adds-d3-as-openai-expands-its-decisions-api-og.jpg">
+  <meta property="og:image:type" content="image/jpeg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="A paper dossier branches toward OpenAI Decisions hosted servers and a computer labelled D3 in Ollama. Reuse rules depend on the implementation.">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:site" content="@TheGitReporter">
+  <meta name="twitter:creator" content="@TheGitReporter">
+  <meta name="twitter:title" content="Ollama Adds D3 as OpenAI Expands Its Decisions API | The Git Reporter">
+  <meta name="twitter:description" content="Developers have another downloadable model for judging documents and images locally. Alongside OpenAI&#39;s now generally available Decisions API, it makes two choices clearer: where evidence is processed, and which work can be reused.">
+  <meta name="twitter:url" content="https://thegitreporter.com/articles/2026-10-23-daily-ollama-adds-d3-as-openai-expands-its-decisions-api/">
+  <meta name="twitter:domain" content="thegitreporter.com">
+  <meta name="twitter:image" content="https://thegitreporter.com/assets/social/2026-10-23-daily-ollama-adds-d3-as-openai-expands-its-decisions-api-og.jpg">
+  <meta name="twitter:image:alt" content="A paper dossier branches toward OpenAI Decisions hosted servers and a computer labelled D3 in Ollama. Reuse rules depend on the implementation.">
+  <meta property="article:published_time" content="2026-10-23">
+  <meta property="article:modified_time" content="2026-10-23">
+  <meta property="article:section" content="Daily Edition">
+  <meta property="article:tag" content="Memory">
+  <meta property="article:tag" content="UX">
+  <meta property="article:tag" content="Runtime">
+  <meta property="article:tag" content="ollama/ollama">
+  <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"https://thegitreporter.com/#organization","name":"The Git Reporter","url":"https://thegitreporter.com","logo":{"@type":"ImageObject","url":"https://thegitreporter.com/assets/mark.svg"},"sameAs":["https://x.com/TheGitReporter"]},{"@type":"WebSite","@id":"https://thegitreporter.com/#website","name":"The Git Reporter","url":"https://thegitreporter.com","publisher":{"@id":"https://thegitreporter.com/#organization"}},{"@type":"NewsArticle","mainEntityOfPage":{"@type":"WebPage","@id":"https://thegitreporter.com/articles/2026-10-23-daily-ollama-adds-d3-as-openai-expands-its-decisions-api/"},"headline":"Ollama Adds D3 as OpenAI Expands Its Decisions API","description":"Developers have another downloadable model for judging documents and images locally. Alongside OpenAI's now generally available Decisions API, it makes two choices clearer: where evidence is processed, and which work can be reused.","image":["https://thegitreporter.com/assets/social/2026-10-23-daily-ollama-adds-d3-as-openai-expands-its-decisions-api-og.jpg"],"datePublished":"2026-10-23","dateModified":"2026-10-23","author":[{"@type":"Organization","name":"The Git Reporter","url":"https://thegitreporter.com"}],"publisher":{"@type":"Organization","@id":"https://thegitreporter.com/#organization","name":"The Git Reporter","url":"https://thegitreporter.com","logo":{"@type":"ImageObject","url":"https://thegitreporter.com/assets/mark.svg"},"sameAs":["https://x.com/TheGitReporter"]},"articleSection":"Daily Edition","keywords":"Memory, UX, Runtime, ollama/ollama"}]}</script>
+  <link rel="icon" href="/assets/mark.svg">
+  <link rel="stylesheet" href="/assets/site.css?v=2026-10-20-readable-site-v1">
+  <link rel="stylesheet" href="/assets/visual-essay.css?v=2026-10-20-readable-site-v1"><script type="module" src="/assets/visual-essays/decision-evidence.js?v=2026-10-20-readable-site-v1"></script>
+  <script defer src="/assets/feedback.js?v=2026-10-20-readable-site-v1"></script>
+  <script defer src="/assets/article-questions.js?v=2026-10-20-readable-site-v1"></script>
+  <script defer src="/assets/analytics.js?v=2026-10-20-readable-site-v1"></script>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-CH19T7M0T1"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){window.dataLayer.push(arguments);}
+    gtag("js", new Date());
+    gtag("config", "G-CH19T7M0T1");
+  </script>
+</head>
+<body>
+  <a class="skip-link" href="#main-content">Skip to content</a>
+  <div class="site">
+    <header class="site-header" id="top">
+      <div class="wrap utility-row">
+        <a class="icon-link menu-icon" href="/archive/" aria-label="Open edition history"><span></span><span></span><span></span></a>
+        <a class="icon-link archive-icon" href="/archive/" aria-label="Open edition history"></a>
+      </div>
+      <div class="wrap masthead-lockup">
+        <a class="masthead-title" href="/">THE GIT REPORTER</a>
+        <div class="masthead-ornament" aria-hidden="true"></div>
+      </div>
+      <div class="wrap nav-wrap">
+        <nav class="paper-nav" aria-label="Primary navigation">
+    <a class=""  href="/">Stories</a><a class=""  href="/today/">Today</a><a class="active" aria-current="page" href="/archive/">Editions</a><a class=""  href="/about/">About</a><a class=""  href="/battles/">Diff Derby</a><a class=""  href="/agent-pulse/">Agent Pulse</a><a class=""  href="/atlas/">Agent Atlas</a><a class=""  href="/repos/">Repos</a>
+  </nav>
+        <div class="nav-rule"></div>
+      </div>
+    </header>
+    <main id="main-content" tabindex="-1" class="wrap page-shell article-page visual-article">
+      <section class="page-hero story-front">
+        <div class="story-topline">
+          <span>Daily Edition</span>
+          <span>Sources <strong>+11</strong></span>
+        </div>
+        <h1>Ollama Adds D3 as OpenAI Expands Its Decisions API</h1>
+        <p class="summary">Developers have another downloadable model for judging documents and images locally. Alongside OpenAI's now generally available Decisions API, it makes two choices clearer: where evidence is processed, and which work can be reused.</p>
+        <p class="article-dates">By The Git Reporter · Published <time datetime="2026-10-23">October 23, 2026</time>. Reporting as of <time datetime="2026-10-23">October 23, 2026</time>.</p>
+        <div class="visual-byline">Diagram Punk · A visual essay · October 23, 2026</div>
+        <div class="receipt">
+    <div class="receipt-line">
+      <span class="receipt-icon">repo</span>
+      <span class="receipt-main">ollama/ollama</span>
+      <span class="branch-pill">evidence</span>
+    </div>
+    <div class="receipt-line receipt-muted">
+      <span>11 source signals</span>
+      <span>1 repo</span>
+      <span>commit f20eb3b</span>
+    </div>
+    <div class="commit-line">Evidence: commit f20eb3b / October 23, 2026 / Daily Edition</div>
+  </div>
+        <div class="article-route-row">
+          <a href="/editions/2026-10-23/">Open Edition</a>
+          <a href="#evidence">Evidence below</a>
+          <button type="button" class="ask-inline" data-ask-entry data-ask-open aria-haspopup="dialog" aria-controls="article-questions" hidden>Ask about this article ↗</button>
+        </div>
+      </section>
+      <section class="story-reader">
+        <article class="story-shell story-body">
+          <p>A decision model sits between an application's evidence and its next action. Given a support request, it can choose a department or score urgency; the application uses that answer to route the case. <a href="https://ollama.com/library/d3">The ollama/ollama project has published support for D3</a>, a family of downloadable models for this work, as OpenAI <a href="https://openai.com/index/decisions-api/">announces general availability of its hosted Decisions API</a> on October 22.</p>
+<p>For a team repeatedly judging the same document, this is a useful deployment choice. It is also a reason to look below the shared vocabulary. OpenAI documents reuse of shared input across requests. The new Ollama implementation inspected here recomputes a complete prompt for each question. That difference belongs to these implementations; it is not a rule separating cloud from local AI.</p>
+
+<section data-decision-evidence aria-labelledby="decision-evidence-title">
+  <h2 id="decision-evidence-title">Keep the dossier.<br>Change the question.</h2>
+  <p>Both routes can classify the same evidence. Where that evidence runs, and which computation can be reused, are separate choices.</p>
+  <div class="de-controls" data-de-controls hidden>
+    <fieldset><legend>Where does the evidence run?</legend>
+      <div class="de-buttons">
+        <button type="button" data-de-path="hosted" aria-pressed="true">OpenAI service</button>
+        <button type="button" data-de-path="local" aria-pressed="false">Local Ollama</button>
+      </div>
+    </fieldset>
+    <fieldset><legend>Ask about the same dossier</legend>
+      <div class="de-buttons">
+        <button type="button" data-de-question="first" aria-pressed="true">First question</button>
+        <button type="button" data-de-question="another" aria-pressed="false">Another question</button>
+      </div>
+    </fieldset>
+  </div>
+  <p class="de-example"><strong>Illustrative dossier:</strong> a damaged delivery, a receipt and a request for a replacement. The full reference material is abbreviated here. No model is called.</p>
+  <div class="de-paths">
+    <section class="de-case" data-de-panel="hosted" aria-labelledby="de-hosted-title">
+      <p class="de-location">Evidence runs in the hosted service</p>
+      <h3 id="de-hosted-title">OpenAI Decisions</h3>
+      <div class="de-dossier" data-de-dossier>
+        <div class="de-sheet" data-de-sheet="evidence"><strong>Shared input</strong><br><span>The reference dossier</span></div>
+        <div class="de-sheet" data-de-sheet="question"><strong>Question</strong><br><span data-de-question-text>Which team should handle this?</span></div>
+        <div class="de-sheet" data-de-sheet="options"><strong>Allowed answers</strong><br><span data-de-options>Billing · returns · technical</span></div>
+      </div>
+      <p class="de-state" data-de-status>For another question, an unchanged shared-input prefix of at least 1,024 tokens can be reused on a matching cache hit. The question and its instructions are outside that prefix.</p>
+      <p class="de-result"><strong>Answer shape:</strong> a choice and probabilities. No answer is predicted here.</p>
+      <p class="de-receipt"><a href="https://developers.openai.com/api/docs/guides/decisions">Read the shared-input cache contract.</a> Reuse is conditional; each request still supplies its input.</p>
+    </section>
+    <section class="de-case" data-de-panel="local" aria-labelledby="de-local-title">
+      <p class="de-location">Evidence runs on your machine</p>
+      <h3 id="de-local-title">Ollama’s D3 MLX path</h3>
+      <div class="de-dossier" data-de-dossier>
+        <div class="de-sheet" data-de-sheet="evidence"><strong>State</strong><br><span>The same reference dossier</span></div>
+        <div class="de-sheet" data-de-sheet="question"><strong>Question</strong><br><span data-de-question-text>Which team should handle this?</span></div>
+        <div class="de-sheet" data-de-sheet="options"><strong>Allowed answers</strong><br><span data-de-options>Billing · returns · technical</span></div>
+      </div>
+      <p class="de-state" data-de-status>For each question, this implementation builds state, question and options into a full prompt and runs a separate forward pass. It reports zero cached tokens.</p>
+      <p class="de-result"><strong>Answer shape:</strong> a choice and probabilities. No answer is predicted here.</p>
+      <p class="de-receipt"><a href="https://github.com/ollama/ollama/blob/f20eb3b312cc11b97ba4ad00b96a05f40f9b52ba/mlxrunner/model/d3/score.go">Inspect Ollama’s scorer.</a> This is one runtime: the publisher’s engine separately caches image features.</p>
+    </section>
+  </div>
+  <p class="de-bottom">The comparison describes request handling, not relative speed, accuracy or cost. A local model and a hosted service still need evaluation on the work you intend to give them.</p>
+</section>
+
+<h2>A local package, with a concrete working size</h2>
+<p>D3 comes from <a href="https://huggingface.co/vllm-sr/d3">vLLM Semantic Router</a>, which publishes Apache-2.0 weights. Ollama's library offers 2B, 4B, 9B and 27B versions; the plain <code>d3</code> name selects 4B. It requires <a href="https://github.com/ollama/ollama/releases/tag/v0.40.9">Ollama 0.40.9 or later</a>. This puts another decision-model family behind a familiar local installation and serving interface.</p>
+<p>Read the package details before planning a workload. Although the listing cards show a 256K architectural context window, the <a href="https://ollama.com/library/d3#limits">published packages use 4,096 tokens</a>. They accept text, structured state and still images; the publisher's broader video capability is not included in this Ollama offering. Its memory table describes particular Apple Silicon packages, while its displayed quality scores come from the original checkpoints. Neither is a measurement of your task on your machine.</p>
+<p>Local decisions already existed: our <a href="/articles/2026-09-29-daily-inside-typesafe-s-model-comparison-what-the-adapter-makes-you-pay-for/">September 29 reporting</a> examined a local Laya path, and our <a href="/articles/2026-10-08-daily-pi-adds-screenshot-questions-to-its-classifier-interface/">October 8 article</a> covered Decisions beta through Pi. D3 expands the obtainable choices. It does not establish the category or demonstrate that users are switching.</p>
+<h2>One document can carry several questions</h2>
+<p>Since its October 6 beta, OpenAI has added shared-input caching, native JSON and question-specific images, and doubled the question limit to 400. Its <a href="https://developers.openai.com/api/docs/guides/decisions#reuse-shared-input-with-prompt-caching">cache contract</a> lets repeated requests reuse an identical shared prefix of at least 1,024 tokens. The changing questions sit outside that prefix. A cache hit can preserve earlier processing; the returned usage fields say whether reuse occurred.</p>
+<p>That distinction matters for a stable reference document with changing questions. Grouping independent questions in one request and reusing a prefix across requests are separate capabilities. An answer that depends on another answer needs a later request. OpenAI's advertised improvement of up to tenfold speed is a comparison with GPT-6 Luna through its Responses API—not a D3 benchmark.</p>
+<h2>Why this D3 path reads the question with the evidence</h2>
+<p>The <a href="https://github.com/ollama/ollama/commit/f20eb3b312cc11b97ba4ad00b96a05f40f9b52ba">October 22 Ollama change</a> exposes a different mechanism. In its MLX implementation, used for Apple Silicon acceleration, the <a href="https://github.com/ollama/ollama/blob/f20eb3b312cc11b97ba4ad00b96a05f40f9b52ba/mlxrunner/model/d3/score.go">scorer assembles the state, question and answer options</a> into a complete prompt for each question. It runs that prompt through the model and reads scores for the supplied options.</p>
+<p>The reason is visible in the <a href="https://github.com/ollama/ollama/blob/f20eb3b312cc11b97ba4ad00b96a05f40f9b52ba/mlxrunner/model/d3/model.go">model implementation</a>. Its full-attention layers read in both directions within the prompt. Changing the later question or options can change how earlier evidence is represented. Reusing a causal model's saved prefix states would therefore produce the wrong intermediate computation. This scorer supplies no such cache and reports zero cached tokens.</p>
+<p>That is not a verdict against local reuse. The <a href="https://huggingface.co/vllm-sr/d3#serving-performance">D3 publisher describes another engine that caches image features</a>. A model can recompute its question-conditioned text while another part of a serving system reuses image processing. Deployment location and reuse strategy belong on separate lines of the evaluation.</p>
+<h2>Choose with a completed task</h2>
+<p>We inspected the released interfaces, containing source and test definitions. We did not run D3 or make authenticated Decisions calls. OpenAI's closed model internals are not auditable from its API guide; Ollama's code and constructed-model tests do not establish judgment quality. The Ollama release page and current tag also disagree on their October 22 hours, so they establish present published support without settling the first binary's contents.</p>
+<p>A useful next trial keeps the document and acceptance criteria fixed, asks a series of independent questions, then changes the document. Record correct and incorrect judgments, actual cache reads, memory, elapsed time and any human review needed to finish the job. The new choice is tangible: run an obtainable D3 package locally or evaluate the expanded hosted contract. Which arrangement earns its place depends on the completed work, including how often the evidence stays the same.</p>
+        </article>
+      </section>
+      <details class="visual-poster"><summary>Open the Diagram Punk poster</summary><figure class="story-illustration article-illustration">
+    <img src="/assets/illustrations/2026-10-23-ollama-adds-d3-as-openai-expands-its-decisions-api-diagram-punk-v1.png" alt="A paper dossier branches toward OpenAI Decisions hosted servers and a computer labelled D3 in Ollama. Reuse rules depend on the implementation." loading="lazy" decoding="async">
+    <figcaption><span>Diagram Punk</span>choose where the evidence runs; inspect reuse separately.</figcaption>
+  </figure></details>
+      <section class="article-questions-invitation" data-ask-entry hidden>
+    <h2>Keep asking questions.</h2>
+    <p>Explore the story and its evidence in your own ChatGPT conversation.</p>
+    <button class="paper-button" type="button" data-ask-open aria-haspopup="dialog" aria-controls="article-questions">Ask about this article <span aria-hidden="true">↗</span></button>
+  </section>
+  <dialog class="article-questions" id="article-questions" aria-labelledby="ask-title"
+    data-title="Ollama Adds D3 as OpenAI Expands Its Decisions API" data-date="2026-10-23"
+    data-url="https://thegitreporter.com/articles/2026-10-23-daily-ollama-adds-d3-as-openai-expands-its-decisions-api/"
+    data-summary="Developers have another downloadable model for judging documents and images locally. Alongside OpenAI&#39;s now generally available Decisions API, it makes two choices clearer: where evidence is processed, and which work can be reused.">
+    <div class="ask-heading">
+      <h2 id="ask-title" tabindex="-1" autofocus>Ask about this article</h2>
+      <button type="button" class="ask-close" aria-label="Close question box">×</button>
+    </div>
+    <form class="ask-form">
+      <div class="ask-content">
+        <p class="ask-article-title">Ollama Adds D3 as OpenAI Expands Its Decisions API</p>
+        <div class="ask-suggestions" role="group" aria-label="Suggested questions">
+          <button type="button" data-question="Explain this article in plain language. What changed?">Explain simply</button>
+          <button type="button" data-question="Why does this change matter, and who is affected?">Why does this matter?</button>
+          <button type="button" data-question="What is the strongest counterargument to this article, and what evidence would change its conclusion?">Challenge the argument</button>
+        </div>
+        <label for="ask-question">Your question</label>
+        <textarea id="ask-question" rows="3" maxlength="2000" required placeholder="What would you like to understand?" aria-describedby="ask-context"></textarea>
+        <p id="ask-context" class="ask-note">Article link and summary included. Continue using your ChatGPT account; you may need to sign in.</p>
+        <details class="ask-manual" hidden>
+          <summary>Prepared text for copying</summary>
+          <label for="ask-copy-text">Prepared question and article context</label>
+          <textarea id="ask-copy-text" class="ask-copy-text" rows="5" readonly></textarea>
+        </details>
+      </div>
+      <div class="ask-actions">
+        <p class="ask-status" role="status" aria-live="polite"></p>
+        <button class="paper-button primary" type="submit">Continue in ChatGPT ↗</button>
+        <div class="ask-copy-actions">
+          <button type="button" data-ask-copy="summary">Copy question + context</button>
+          <button type="button" data-ask-copy="article">Copy article + question</button>
+        </div>
+        <p class="ask-note">If your question doesn’t appear in ChatGPT, copy it here and paste it there.</p>
+      </div>
+    </form>
+  </dialog>
+      <section class="reader-feedback" id="reader-feedback" data-tgr-feedback
+    data-article-url="/articles/2026-10-23-daily-ollama-adds-d3-as-openai-expands-its-decisions-api/">
+    <div class="reader-feedback-head">
+      <div><div class="eyebrow">Your immediate reaction</div><h2>How did this article land?</h2></div>
+      <p>A thumb saves immediately. Notes stay private and are discussed with the editor before shaping future articles.</p>
+    </div>
+    <form class="feedback-form">
+      <div class="feedback-votes" role="group" aria-label="Article reaction"><button class="feedback-choice" type="button" data-vote="up" aria-pressed="false" aria-label="Thumbs up"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M7 10v11H3V10h4Zm0 0 5-7h1a2 2 0 0 1 2 2v4h4a2 2 0 0 1 2 2l-2 8a2 2 0 0 1-2 2H7"/></svg><span>Up</span></button>
+    <button class="feedback-choice" type="button" data-vote="down" aria-pressed="false" aria-label="Thumbs down"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M7 10v11H3V10h4Zm0 0 5-7h1a2 2 0 0 1 2 2v4h4a2 2 0 0 1 2 2l-2 8a2 2 0 0 1-2 2H7"/></svg><span>Down</span></button></div>
+      <details class="feedback-note"><summary>Add a note (optional)</summary>
+        <label class="feedback-comment"><span>What caught you, lost you, or made you think?</span>
+          <textarea name="comment" rows="3" maxlength="2000" placeholder="Your first impression…"></textarea>
+        </label>
+        <button class="paper-button primary feedback-submit" type="submit">Save note</button>
+      </details>
+      <div class="feedback-submit-row"><p class="feedback-status" aria-live="polite"></p></div>
+      <noscript><p>Enable JavaScript to send a private reaction.</p></noscript>
+    </form>
+    <div class="feedback-dock" data-feedback-dock hidden>
+      <span>React</span><div role="group" aria-label="Quick article reaction"><button class="feedback-choice" type="button" data-vote="up" aria-pressed="false" aria-label="Thumbs up"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M7 10v11H3V10h4Zm0 0 5-7h1a2 2 0 0 1 2 2v4h4a2 2 0 0 1 2 2l-2 8a2 2 0 0 1-2 2H7"/></svg><span>Up</span></button>
+    <button class="feedback-choice" type="button" data-vote="down" aria-pressed="false" aria-label="Thumbs down"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M7 10v11H3V10h4Zm0 0 5-7h1a2 2 0 0 1 2 2v4h4a2 2 0 0 1 2 2l-2 8a2 2 0 0 1-2 2H7"/></svg><span>Down</span></button></div>
+      <button type="button" data-feedback-note>Note</button>
+      <p class="feedback-status" aria-live="polite"></p>
+    </div>
+  </section>
+      <section class="evidence-section" id="evidence" aria-labelledby="evidence-title">
+    <div class="evidence-head">
+      <div>
+        <div class="eyebrow">Evidence Trail</div>
+        <h2 id="evidence-title">Receipts below the story</h2>
+        <p>The article above is the public narrative. This section keeps the source trail and limits on the same page.</p>
+      </div>
+      <a class="paper-button" href="/editions/2026-10-23/">Edition</a>
+    </div>
+    <div class="evidence-table evidence-summary">
+      <div class="evidence-line"><span>Date</span><span>October 23, 2026</span></div>
+      <div class="evidence-line"><span>Lane</span><span>Daily Edition</span></div>
+      <div class="evidence-line"><span>Confidence</span><span>91%</span></div>
+      <div class="evidence-line"><span>Sources</span><span>11</span></div>
+      <div class="evidence-line"><span>Repos</span><span>ollama/ollama</span></div>
+    </div>
+    <div class="markdown evidence-copy evidence-copy-block">
+      <h2>Primary Evidence</h2>
+<ul>
+<li>OpenAI's October 22 announcement: <a href="https://openai.com/index/decisions-api/">https://openai.com/index/decisions-api/</a>
+<ul>
+<li>Shows: Decisions general availability and an attributed speed comparison with the same model through Responses.
+</li>
+</ul>
+</li>
+<li>API changelog: <a href="https://developers.openai.com/api/docs/changelog">https://developers.openai.com/api/docs/changelog</a>
+<ul>
+<li>Shows: October 6 beta, October 22 GA and additions since beta.
+</li>
+</ul>
+</li>
+<li>Shared-input cache contract: <a href="https://developers.openai.com/api/docs/guides/decisions#reuse-shared-input-with-prompt-caching">https://developers.openai.com/api/docs/guides/decisions#reuse-shared-input-with-prompt-caching</a>
+<ul>
+<li>Shows: eligible matching prefixes, excluded question content and observable usage fields.
+</li>
+</ul>
+</li>
+<li>Ollama D3 library: <a href="https://ollama.com/library/d3">https://ollama.com/library/d3</a>
+<ul>
+<li>Shows: package sizes, default 4B, version requirement, local endpoint and 4,096-token package context.
+</li>
+</ul>
+</li>
+<li>Ollama release: <a href="https://github.com/ollama/ollama/releases/tag/v0.40.9">https://github.com/ollama/ollama/releases/tag/v0.40.9</a>
+<ul>
+<li>Shows: published D3 support; current tag contains the inspected change.
+</li>
+</ul>
+</li>
+<li>October 22 implementation: <a href="https://github.com/ollama/ollama/commit/f20eb3b312cc11b97ba4ad00b96a05f40f9b52ba">https://github.com/ollama/ollama/commit/f20eb3b312cc11b97ba4ad00b96a05f40f9b52ba</a>
+<ul>
+<li>Shows: D3 loading, scoring, request conversion and tests in ollama/ollama.
+</li>
+</ul>
+</li>
+<li>MLX cache boundary: <a href="https://github.com/ollama/ollama/blob/f20eb3b312cc11b97ba4ad00b96a05f40f9b52ba/mlxrunner/model/d3/model.go">https://github.com/ollama/ollama/blob/f20eb3b312cc11b97ba4ad00b96a05f40f9b52ba/mlxrunner/model/d3/model.go</a>
+<ul>
+<li>Shows: noncausal full-attention layers and absence of a causal-prefix cache.
+</li>
+</ul>
+</li>
+<li>MLX scorer: <a href="https://github.com/ollama/ollama/blob/f20eb3b312cc11b97ba4ad00b96a05f40f9b52ba/mlxrunner/model/d3/score.go">https://github.com/ollama/ollama/blob/f20eb3b312cc11b97ba4ad00b96a05f40f9b52ba/mlxrunner/model/d3/score.go</a>
+<ul>
+<li>Shows: full state/question/options prompts, separate forward passes and zero reported cached tokens.
+</li>
+</ul>
+</li>
+<li>Constructed-model tests: <a href="https://github.com/ollama/ollama/blob/f20eb3b312cc11b97ba4ad00b96a05f40f9b52ba/mlxrunner/model/d3/score_test.go">https://github.com/ollama/ollama/blob/f20eb3b312cc11b97ba4ad00b96a05f40f9b52ba/mlxrunner/model/d3/score_test.go</a>
+<ul>
+<li>Shows: intended prompt/readout behavior and causal/noncausal differences; not task accuracy.
+</li>
+</ul>
+</li>
+<li>D3 publisher model card: <a href="https://huggingface.co/vllm-sr/d3">https://huggingface.co/vllm-sr/d3</a>
+<ul>
+<li>Shows: vLLM Semantic Router provenance, Apache-2.0 weights and a separate engine that caches image features, countering a universal no-cache claim.
+</li>
+</ul>
+</li>
+<li>Pinned D3 configuration: <a href="https://huggingface.co/vllm-sr/d3/blob/cf15549a78fc52598ddd1951f321c58372bbd64f/decision_config.json">https://huggingface.co/vllm-sr/d3/blob/cf15549a78fc52598ddd1951f321c58372bbd64f/decision_config.json</a>
+<ul>
+<li>Shows: checkpoint noncausal full-attention and final-position readout configuration.
+</li>
+</ul>
+</li>
+</ul>
+<h2>Evidence Limits</h2>
+<ul>
+<li>No D3 inference, authenticated Decisions request, cache-hit trial or performance comparison ran. Tests were inspected, not executed.
+</li>
+<li>OpenAI model internals are closed. A cache capability does not guarantee a hit or cheaper completed workflow.
+</li>
+<li>No-prefix-cache findings concern the inspected Ollama MLX path. Other engines can reuse other work, including image features.
+</li>
+<li>Original checkpoint quality and vendor memory figures do not establish quantized-package results on a reader's machine.
+</li>
+<li>Ollama's release-page time precedes the current tag's later October 22 commit. Present support is established; original binaries and first availability hour are not.
+</li>
+<li>These are different API contracts, not drop-in replacements or evidence of coordinated development, adoption growth or an overall privacy ranking.
+</li>
+</ul>
+    </div>
+  </section>
+      <section class="related-edition-section atlas-context-section">
+    <div class="section-title-row">
+      <h2>Atlas Context</h2>
+      <a href="/atlas/">Open Atlas &rsaquo;</a>
+    </div>
+    <div class="updates-list">
+      <a class="article-card" href="/atlas/the-human-interface/">
+            <div class="article-meta"><span class="lane">Agent Atlas</span><span>Chapter 8</span></div>
+            <h3>The Human Control Loop</h3>
+            <p>A useful interface exposes active work, gives intervention a defined runtime effect, preserves evidence during correction, and resumes the intended session.</p>
+          </a>
+    </div>
+  </section>
+      
+    </main>
+    <footer class="wrap site-footer">
+      <span>&copy; 2026 The Git Reporter</span>
+      <a href="/about/">About</a>
+      <a href="/battles/">Diff Derby</a>
+      <a href="/agent-pulse/">Agent Pulse</a>
+      <a href="/feed.xml">RSS</a>
+      <a href="https://x.com/TheGitReporter">Follow on X</a>
+      <a href="/articles.json">Manifest JSON</a>
+      <a href="/repos/">Sources</a>
+    </footer>
+  </div>
+</body>
+</html>
