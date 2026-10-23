@@ -1,0 +1,529 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>DeepSeek opens the engine and the API adapter. What can you actually run? | The Git Reporter</title>
+  <meta name="description" content="DeepInfer exposes serious serving machinery. deepseek-recipe makes its API semantics portable. Getting the model onto a laptop follows a different path through quantization, system memory and SSD storage.">
+  <meta name="robots" content="index,follow">
+  <link rel="canonical" href="https://thegitreporter.com/articles/2026-10-22-daily-deepseek-opens-the-engine-and-the-api-adapter-what-can-you-actually-run/">
+  <link rel="alternate" type="application/rss+xml" title="The Git Reporter" href="https://thegitreporter.com/feed.xml">
+  <meta property="og:site_name" content="The Git Reporter">
+  <meta property="og:locale" content="en_US">
+  <meta property="og:title" content="DeepSeek opens the engine and the API adapter. What can you actually run? | The Git Reporter">
+  <meta property="og:description" content="DeepInfer exposes serious serving machinery. deepseek-recipe makes its API semantics portable. Getting the model onto a laptop follows a different path through quantization, system memory and SSD storage.">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://thegitreporter.com/articles/2026-10-22-daily-deepseek-opens-the-engine-and-the-api-adapter-what-can-you-actually-run/">
+  <meta property="og:image" content="https://thegitreporter.com/assets/social/2026-10-22-daily-deepseek-opens-the-engine-and-the-api-adapter-what-can-you-actually-run-og.jpg">
+  <meta property="og:image:secure_url" content="https://thegitreporter.com/assets/social/2026-10-22-daily-deepseek-opens-the-engine-and-the-api-adapter-what-can-you-actually-run-og.jpg">
+  <meta property="og:image:type" content="image/jpeg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="A request adapter branches toward DeepInfer accelerators and a local laptop connected to GPU, RAM and SSD.">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:site" content="@TheGitReporter">
+  <meta name="twitter:creator" content="@TheGitReporter">
+  <meta name="twitter:title" content="DeepSeek opens the engine and the API adapter. What can you actually run? | The Git Reporter">
+  <meta name="twitter:description" content="DeepInfer exposes serious serving machinery. deepseek-recipe makes its API semantics portable. Getting the model onto a laptop follows a different path through quantization, system memory and SSD storage.">
+  <meta name="twitter:url" content="https://thegitreporter.com/articles/2026-10-22-daily-deepseek-opens-the-engine-and-the-api-adapter-what-can-you-actually-run/">
+  <meta name="twitter:domain" content="thegitreporter.com">
+  <meta name="twitter:image" content="https://thegitreporter.com/assets/social/2026-10-22-daily-deepseek-opens-the-engine-and-the-api-adapter-what-can-you-actually-run-og.jpg">
+  <meta name="twitter:image:alt" content="A request adapter branches toward DeepInfer accelerators and a local laptop connected to GPU, RAM and SSD.">
+  <meta property="article:published_time" content="2026-10-22">
+  <meta property="article:modified_time" content="2026-10-22">
+  <meta property="article:section" content="Daily Edition">
+  <meta property="article:tag" content="Inference">
+  <meta property="article:tag" content="Local models">
+  <meta property="article:tag" content="Production">
+  <meta property="article:tag" content="deepseek-ai/DeepInfer">
+  <meta property="article:tag" content="deepseek-ai/deepseek-recipe">
+  <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"https://thegitreporter.com/#organization","name":"The Git Reporter","url":"https://thegitreporter.com","logo":{"@type":"ImageObject","url":"https://thegitreporter.com/assets/mark.svg"},"sameAs":["https://x.com/TheGitReporter"]},{"@type":"WebSite","@id":"https://thegitreporter.com/#website","name":"The Git Reporter","url":"https://thegitreporter.com","publisher":{"@id":"https://thegitreporter.com/#organization"}},{"@type":"NewsArticle","mainEntityOfPage":{"@type":"WebPage","@id":"https://thegitreporter.com/articles/2026-10-22-daily-deepseek-opens-the-engine-and-the-api-adapter-what-can-you-actually-run/"},"headline":"DeepSeek opens the engine and the API adapter. What can you actually run?","description":"DeepInfer exposes serious serving machinery. deepseek-recipe makes its API semantics portable. Getting the model onto a laptop follows a different path through quantization, system memory and SSD storage.","image":["https://thegitreporter.com/assets/social/2026-10-22-daily-deepseek-opens-the-engine-and-the-api-adapter-what-can-you-actually-run-og.jpg"],"datePublished":"2026-10-22","dateModified":"2026-10-22","author":[{"@type":"Organization","name":"The Git Reporter","url":"https://thegitreporter.com"}],"publisher":{"@type":"Organization","@id":"https://thegitreporter.com/#organization","name":"The Git Reporter","url":"https://thegitreporter.com","logo":{"@type":"ImageObject","url":"https://thegitreporter.com/assets/mark.svg"},"sameAs":["https://x.com/TheGitReporter"]},"articleSection":"Daily Edition","keywords":"Inference, Local models, Production, deepseek-ai/DeepInfer, deepseek-ai/deepseek-recipe"}]}</script>
+  <link rel="icon" href="/assets/mark.svg">
+  <link rel="stylesheet" href="/assets/site.css?v=2026-10-20-readable-site-v1">
+  <link rel="stylesheet" href="/assets/visual-essay.css?v=2026-10-20-readable-site-v1"><script type="module" src="/assets/visual-essays/deepseek-inference.js?v=2026-10-20-readable-site-v1"></script>
+  <script defer src="/assets/feedback.js?v=2026-10-20-readable-site-v1"></script>
+  <script defer src="/assets/article-questions.js?v=2026-10-20-readable-site-v1"></script>
+  <script defer src="/assets/analytics.js?v=2026-10-20-readable-site-v1"></script>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-CH19T7M0T1"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){window.dataLayer.push(arguments);}
+    gtag("js", new Date());
+    gtag("config", "G-CH19T7M0T1");
+  </script>
+</head>
+<body>
+  <a class="skip-link" href="#main-content">Skip to content</a>
+  <div class="site">
+    <header class="site-header" id="top">
+      <div class="wrap utility-row">
+        <a class="icon-link menu-icon" href="/archive/" aria-label="Open edition history"><span></span><span></span><span></span></a>
+        <a class="icon-link archive-icon" href="/archive/" aria-label="Open edition history"></a>
+      </div>
+      <div class="wrap masthead-lockup">
+        <a class="masthead-title" href="/">THE GIT REPORTER</a>
+        <div class="masthead-ornament" aria-hidden="true"></div>
+      </div>
+      <div class="wrap nav-wrap">
+        <nav class="paper-nav" aria-label="Primary navigation">
+    <a class=""  href="/">Stories</a><a class=""  href="/today/">Today</a><a class="active" aria-current="page" href="/archive/">Editions</a><a class=""  href="/about/">About</a><a class=""  href="/battles/">Diff Derby</a><a class=""  href="/agent-pulse/">Agent Pulse</a><a class=""  href="/atlas/">Agent Atlas</a><a class=""  href="/repos/">Repos</a>
+  </nav>
+        <div class="nav-rule"></div>
+      </div>
+    </header>
+    <main id="main-content" tabindex="-1" class="wrap page-shell article-page visual-article">
+      <section class="page-hero story-front">
+        <div class="story-topline">
+          <span>Daily Edition</span>
+          <span>Sources <strong>+25</strong></span>
+        </div>
+        <h1>DeepSeek opens the engine and the API adapter. What can you actually run?</h1>
+        <p class="summary">DeepInfer exposes serious serving machinery. deepseek-recipe makes its API semantics portable. Getting the model onto a laptop follows a different path through quantization, system memory and SSD storage.</p>
+        <p class="article-dates">By The Git Reporter · Published <time datetime="2026-10-22">October 22, 2026</time>. Reporting as of <time datetime="2026-10-22">October 22, 2026</time>.</p>
+        <div class="visual-byline">Diagram Punk · A visual essay · October 22, 2026</div>
+        <div class="receipt">
+    <div class="receipt-line">
+      <span class="receipt-icon">repos</span>
+      <span class="receipt-main">deepseek-ai/DeepInfer + deepseek-ai/deepseek-recipe</span>
+      <span class="branch-pill">evidence</span>
+    </div>
+    <div class="receipt-line receipt-muted">
+      <span>25 source signals</span>
+      <span>2 repos</span>
+      <span>2 linked commits</span>
+    </div>
+    <div class="commit-line">Evidence: 2 linked commits / October 22, 2026 / Daily Edition</div>
+  </div>
+        <div class="article-route-row">
+          <a href="/editions/2026-10-22/">Open Edition</a>
+          <a href="#evidence">Evidence below</a>
+          <button type="button" class="ask-inline" data-ask-entry data-ask-open aria-haspopup="dialog" aria-controls="article-questions" hidden>Ask about this article ↗</button>
+        </div>
+      </section>
+      <section class="story-reader">
+        <article class="story-shell story-body">
+          <div class="visual-essay">
+<p class="visual-intro">DeepSeek has published two components of its inference stack in <a href="https://github.com/deepseek-ai/DeepInfer/commit/9bd9cf243fc53ef9afbf8f04d391d989117d6ab9">deepseek-ai/DeepInfer</a> and <a href="https://github.com/deepseek-ai/deepseek-recipe/commit/935817c66f5d6e64838f419692545f06787e485f">deepseek-ai/deepseek-recipe</a>. One executes the model on specialized accelerators. The other translates API conversations into model inputs and turns generated output back into responses. Neither repository contains the model weights.</p>
+<p>As inspected October 22, the practical answer depends on your machine. A serving team can evaluate DeepInfer on supported hardware, then supply the surrounding service. A laptop or RTX owner should investigate the separate community runtime for the exact V4.1-Flash-1017 checkpoint. That route is experimental and memory-heavy.</p>
+<section data-deepseek-inference aria-labelledby="deepseek-boundary-title" style="margin:2rem 0;color:#20261e;overflow-wrap:anywhere">
+  <h2 id="deepseek-boundary-title">One contract. Two deployment paths.</h2>
+  <p>Recipe translates API conversations into model tokens and parses generated tokens back into API events. It does not make weights smaller or provide inference hardware.</p>
+  <div class="di-contract" style="padding:.9rem;border:2px solid #20261e;background:#fff7e4"><strong style="display:block">API messages</strong></div>
+  <div class="di-arrow" aria-hidden="true" style="text-align:center">↓</div>
+  <div class="di-contract" style="padding:.9rem;border:2px solid #20261e;background:#fff7e4"><strong style="display:block">DeepSeek Recipe</strong><span>Templates · tokenization · output parsing</span></div>
+  <div class="di-arrow" aria-hidden="true" style="text-align:center">↓</div>
+  <div class="di-switch" data-di-controls hidden role="group" aria-label="Deployment path">
+    <button type="button" data-di-mode="cluster" aria-pressed="true">Supported cluster</button>
+    <button type="button" data-di-mode="local" aria-pressed="false">Local experiment</button>
+  </div>
+  <div class="di-status" data-di-status role="status" aria-live="polite">The conversation contract stays; execution requirements change.</div>
+  <div class="di-route" data-di-route="cluster" style="min-width:0;padding:.8rem;border:2px solid #20261e;background:#f1e7d3;margin:1rem 0">
+    <h3>DeepInfer on supported hardware</h3>
+    <div class="di-backend">V4.1-Flash · SM100 / Ascend 950</div>
+    <div class="di-memory" data-di-memory>
+      <div class="di-memory-row" data-di-store="gpu" style="margin:.65rem 0;padding:.8rem .7rem .8rem 2.8rem;border:1px solid #807963;background:#fff9ec"><strong style="display:block">Accelerator memory</strong><span>Model weights and live cache</span></div>
+      <div class="di-memory-row" data-di-store="ram" style="margin:.65rem 0;padding:.8rem .7rem .8rem 2.8rem;border:1px solid #807963;background:#fff9ec"><strong style="display:block">Host RAM</strong><span>Runtime and transfers</span></div>
+      <div class="di-memory-row" data-di-store="ssd" style="margin:.65rem 0;padding:.8rem .7rem .8rem 2.8rem;border:1px solid #807963;background:#fff9ec"><strong style="display:block">SSD storage</strong><span>Checkpoint files</span></div>
+    </div>
+    <div class="di-responsibility">You supply online serving, shared cache and request balancing.</div>
+  </div>
+  <div class="di-route" data-di-route="local" style="min-width:0;padding:.8rem;border:2px solid #20261e;background:#f1e7d3;margin:1rem 0">
+    <h3>A different local runtime</h3>
+    <div class="di-backend">This local guide uses <a href="https://github.com/ggml-org/llama.cpp/pull/30817">llama.cpp PR #30817</a>. Discrete-GPU placement shown.</div>
+    <div class="di-memory" data-di-memory>
+      <div class="di-memory-row" data-di-store="gpu" style="margin:.65rem 0;padding:.8rem .7rem .8rem 2.8rem;border:1px solid #807963;background:#fff9ec"><strong style="display:block">GPU memory</strong><span>Compatible kernels; weights that fit</span></div>
+      <div class="di-memory-row" data-di-store="ram" style="margin:.65rem 0;padding:.8rem .7rem .8rem 2.8rem;border:1px solid #807963;background:#fff9ec"><strong style="display:block">System RAM</strong><span>Remaining weights and runtime</span></div>
+      <div class="di-memory-row" data-di-store="ssd" style="margin:.65rem 0;padding:.8rem .7rem .8rem 2.8rem;border:1px solid #807963;background:#fff9ec"><strong style="display:block">SSD storage</strong><span>Engram tables when offloaded</span></div>
+    </div>
+    <div class="di-responsibility">RTX support is not DeepInfer support.</div>
+  </div>
+  <p class="di-caption">The <a href="https://unsloth.ai/docs/models/deepseek-v4.1-flash">local low-bit guide</a> estimates 128–145 GB memory plus SSD. Conceptual integration; backend adapter required. Separate GPU/RAM placement represents a discrete-GPU system; Macs share unified memory. Capacity is not speed. Moving slips show placement, not quantities or measured transfers.</p>
+</section>
+
+<section class="visual-beat">
+<h2>What do the two drops actually supply?</h2>
+<p><a href="https://github.com/deepseek-ai/DeepInfer/blob/9bd9cf243fc53ef9afbf8f04d391d989117d6ab9/README.md">DeepInfer</a> combines optimized kernels, expert parallelism, speculative decoding, asynchronous scheduling and constrained generation. Its published requirements are Linux, Python 3.12, GCC 13+, and the CUDA 13 family for NVIDIA SM100 or CANN 9.2 for Ascend 950. The <a href="https://github.com/deepseek-ai/DeepInfer/blob/9bd9cf243fc53ef9afbf8f04d391d989117d6ab9/deepinfer/engine/llm_engine.py#L140">engine explicitly describes this release as lacking an online-serving wrapper</a>.</p>
+<p><a href="https://github.com/deepseek-ai/deepseek-recipe/blob/935817c66f5d6e64838f419692545f06787e485f/README.md">Recipe</a> supplies Rust libraries and Python bindings for Messages, Chat Completions and Responses conversion, DeepSeek prompt encoding, and streaming output parsing. Its scope includes reasoning and tool-call formats; actual inference and tool execution belong to the application. The <a href="https://github.com/deepseek-ai/deepseek-recipe/blob/935817c66f5d6e64838f419692545f06787e485f/server-py/main.py#L159">FastAPI example defaults to a mock yielding “Hello world!”</a>. Starting that server demonstrates protocol plumbing, not a working model.</p>
+</section>
+<section class="visual-beat">
+<h2>Production practicality: useful engine, substantial integration</h2>
+<p>DeepSeek describes production pools for vision, prompt processing and token generation, coordinated through cache storage and load balancing. The release omits the complete infrastructure for those responsibilities. It does contain <a href="https://github.com/deepseek-ai/DeepInfer/blob/9bd9cf243fc53ef9afbf8f04d391d989117d6ab9/deepinfer/worker/cache_engine.py">device-side KV-cache allocation and layouts</a>; “no KV cache” would misstate the boundary. The absent layer makes cached state useful across the larger service.</p>
+<p>The <a href="https://github.com/deepseek-ai/DeepInfer/blob/9bd9cf243fc53ef9afbf8f04d391d989117d6ab9/doc/inference_deployment_qa.md">deployment Q&amp;A</a> distinguishes a deployable prefill/decode pair from its recommended efficient unit of 64 prefill plus 64 decode GPUs. That is an efficiency recommendation under its architecture, not a universal 128-GPU minimum. DeepInfer merits an evaluation by teams already operating distributed inference. Smaller teams should compare integration effort with established serving runtimes before committing infrastructure.</p>
+<p>There are alternatives for this exact checkpoint. A <a href="https://github.com/vllm-project/vllm/blob/5fa7b7b01bba4d4e9cd17a4036113d97d086bb8a/recipes/models/deepseek-ai/DeepSeek-V4.1-Flash.yaml">vLLM recipe</a> specifies 1017, vLLM 0.31.0 and several accelerator configurations. <a href="https://github.com/sgl-project/sglang/blob/82f7249ce6c1f2b6c5d293dabdf11d2b21cc667a/docs/src/snippets/configs/deepseek-ai/deepseek-v4_1.jsx">SGLang lists 1017 configurations but marks their GPU validation pending</a>. Those different evidence levels matter more than a generic “supports DeepSeek” badge.</p>
+</section>
+<section class="visual-beat">
+<h2>The performance charts answer a narrower question</h2>
+<p>DeepInfer’s <a href="https://github.com/deepseek-ai/DeepInfer/blob/9bd9cf243fc53ef9afbf8f04d391d989117d6ab9/examples/benchmark.py">benchmark harness</a> uses random non-special text token IDs and forced load balancing, then measures prefill and decode separately. Its decode throughput calculation assumes full draft acceptance; the <a href="https://github.com/deepseek-ai/DeepInfer/blob/9bd9cf243fc53ef9afbf8f04d391d989117d6ab9/examples/sweep/plot_pareto.py">plotter can apply a supplied acceptance rate</a>. These are useful engine experiments. They do not directly measure request arrival, queueing, cache misses or complete API latency.</p>
+<p>A production trial should replay representative requests and report first-token latency, gaps between tokens, accepted output throughput, errors and memory at realistic concurrency. Test cold caches, cancellation and worker loss. Calculate cost per successfully completed workload from the whole deployment. We did not reproduce the GPU benchmarks or establish service economics.</p>
+</section>
+<section class="visual-beat">
+<h2>An RTX 5090 is Blackwell, but it is not SM100</h2>
+<p><a href="https://developer.nvidia.com/cuda/gpus">NVIDIA distinguishes</a> B200’s compute capability 10.0 from the RTX 5090’s 12.0 and RTX 4090’s 8.9. DeepInfer’s pinned <a href="https://github.com/deepseek-ai/FlashMLA/blob/2e5429fc5653bab6e081f09477126f731882a6a9/README.md">FlashMLA dependency requires SM100/SM103</a>. Its <a href="https://github.com/deepseek-ai/DeepInfer/blob/9bd9cf243fc53ef9afbf8f04d391d989117d6ab9/deepinfer/model_executor/models/v4_modules/mlp.py">expert computation</a> also relies on specialized FP8/FP4 kernels and communication choices. The pinned attention library specifically requires CUDA 13.1 or newer. An RTX port would need compatible kernels, layouts and memory management. Installing the same CUDA version cannot supply them.</p>
+<p>The model’s size is another independent obstacle. DeepSeek describes <a href="https://huggingface.co/deepseek-ai/DeepSeek-V4.1-Flash/blob/main/README.md">552 billion backbone parameters plus 196 billion Engram conditional-memory parameters</a>. Activating only a subset per token reduces computation; it does not eliminate storage for the remaining weights. The official <a href="https://huggingface.co/deepseek-ai/DeepSeek-V4.1-Flash-1017/tree/main">1017 repository is roughly 510 GB</a>, already using mixed precision.</p>
+</section>
+<section class="visual-beat">
+<h2>The local route moves the problem into RAM and SSD</h2>
+<p><a href="https://unsloth.ai/docs/models/deepseek-v4.1-flash">Unsloth documents exact-1017 quantizations and CPU, Metal and CUDA instructions</a>. Its guide uses <a href="https://github.com/ggml-org/llama.cpp/pull/30817">llama.cpp PR #30817</a>, open and unmerged at inspection. This is a concrete port to evaluate, not evidence that an arbitrary stock llama.cpp or Ollama binary works. Engram tables can remain on SSD while other weights occupy system memory and GPU memory.</p>
+<div style="overflow-x:auto"><table><caption>Selected Unsloth artifacts, October 22. GB as reported; disk sizes are not runtime memory totals.</caption><thead><tr><th scope="col">Quantization</th><th scope="col">Download</th><th scope="col">Engram</th><th scope="col">Other weights</th></tr></thead><tbody><tr><th scope="row">UD-IQ1_S</th><td>233.0 GB</td><td>110.6 GB</td><td>122.4 GB</td></tr><tr><th scope="row">UD-IQ3_XXS</th><td>394.7 GB</td><td>161.3 GB</td><td>233.5 GB</td></tr><tr><th scope="row">UD-Q4_K_XL</th><td>500.7 GB</td><td>202.8 GB</td><td>297.9 GB</td></tr></tbody></table></div>
+<p>The guide estimates 128–145 GB combined RAM/VRAM or unified memory for its one-bit variants with Engram on SSD. Context and runtime overhead still matter. The smallest file is not a promise of unchanged quality: reported next-token agreement tests are not coding-task accuracy. Quantization names also conceal mixed formats; the Q4 variants preserve original MXFP4 experts.</p>
+<div style="overflow-x:auto"><table><caption>Practical assessment, not hardware tested by TheGitReporter.</caption><thead><tr><th scope="col">Machine</th><th scope="col">What to expect</th></tr></thead><tbody><tr><th scope="row">16–64 GB laptop</th><td>Recipe conversion is accessible; the documented full-model configuration exceeds this memory class.</td></tr><tr><th scope="row">128 GB Mac</th><td>An experimental low-bit, SSD-backed route; allow for OS and runtime headroom.</td></tr><tr><th scope="row">RTX workstation</th><td>Use the separate CUDA port with substantial host RAM and SSD. A single consumer RTX’s VRAM is insufficient.</td></tr></tbody></table></div>
+<p>Stock MLX is a separate question. Its <a href="https://github.com/ml-explore/mlx-lm/blob/72be8c955d9a0d3099bd01865af288e0e947c3fa/mlx_lm/models/deepseek_v41.py#L68">V4.1 module rejects configurations with Engram layers</a>. A model file bearing the right name does not establish complete checkpoint support.</p>
+</section>
+<section class="visual-beat">
+<h2>Cold prompts expose the real consumer bottleneck</h2>
+<p>A <a href="https://github.com/JigSawPT/deepseek-v41-flash-on-5090">September RTX 5090 experiment</a> paired roughly 32 GiB VRAM with 126 GiB system RAM and NVMe. Its initial results separated 5.12 tokens/s on new content from 21.27 on repeated resident content; a later direct-I/O experiment improved first-pass decoding. These concern the earlier checkpoint, not 1017. Their lesson is valuable: repeating a prompt can warm the experts its answer needs. Measure fresh tasks as well as repeats before judging an offloaded system.</p>
+</section>
+<section class="visual-beat">
+<h2>How to adapt recipe without changing the conversation</h2>
+<p>The useful integration seam is the <a href="https://github.com/deepseek-ai/deepseek-recipe/blob/935817c66f5d6e64838f419692545f06787e485f/server-py/main.py">example’s inference callback</a>. Replace the mock with your chosen backend, map generation options and stream actual output back. Use one owner for prompt formatting: applying a second chat template to recipe’s encoded conversation can change the model input.</p>
+<p>The <a href="https://github.com/deepseek-ai/deepseek-recipe/blob/935817c66f5d6e64838f419692545f06787e485f/docs/tokenizer.md">tokenizer contract</a> distinguishes real control tokens from identical strings written by a user. Encode the conversation with its matching tokenizer; blindly re-tokenizing rendered text can lose that distinction. Map output constraints into backend-enforced decoding, resolve token limits against configured context, and propagate cancellation. The example already closes disconnected streams, but backend cleanup remains your responsibility.</p>
+<p>Before exposure, add authentication, request limits and an image-destination policy; <a href="https://github.com/deepseek-ai/deepseek-recipe/blob/935817c66f5d6e64838f419692545f06787e485f/docs/development.md">the examples do not provide authentication</a>. Tool-call conversion does not execute a tool or reproduce hosted web search. Validate one complete tool round trip, malformed output and a cancelled request. Recipe makes protocol behavior reusable; production behavior still belongs to the assembled application.</p>
+</section>
+<aside class="visual-colophon"><h2>Choose the layer you need to change</h2>
+<p>For a supported cluster, evaluate DeepInfer’s engine and the service integration budget. For a large local machine, pin the community port, checkpoint and quantization, then measure fresh-task performance and task quality. For an ordinary laptop, a smaller supported model is a different deployment decision. These releases make the boundaries inspectable. They do not make those three machines equivalent.</p></aside>
+</div>
+        </article>
+      </section>
+      <details class="visual-poster"><summary>Open the Diagram Punk poster</summary><figure class="story-illustration article-illustration">
+    <img src="/assets/illustrations/2026-10-22-deepseek-opens-the-engine-and-the-api-adapter-what-can-you-actually-run-diagram-punk-v1.png" alt="A request adapter branches toward DeepInfer accelerators and a local laptop connected to GPU, RAM and SSD." loading="lazy" decoding="async">
+    <figcaption><span>Diagram Punk</span>conceptual integration; a backend adapter is required. Separate GPU and RAM show a discrete-GPU system; Macs share unified memory. Stack sizes are schematic.</figcaption>
+  </figure></details>
+      <section class="article-questions-invitation" data-ask-entry hidden>
+    <h2>Keep asking questions.</h2>
+    <p>Explore the story and its evidence in your own ChatGPT conversation.</p>
+    <button class="paper-button" type="button" data-ask-open aria-haspopup="dialog" aria-controls="article-questions">Ask about this article <span aria-hidden="true">↗</span></button>
+  </section>
+  <dialog class="article-questions" id="article-questions" aria-labelledby="ask-title"
+    data-title="DeepSeek opens the engine and the API adapter. What can you actually run?" data-date="2026-10-22"
+    data-url="https://thegitreporter.com/articles/2026-10-22-daily-deepseek-opens-the-engine-and-the-api-adapter-what-can-you-actually-run/"
+    data-summary="DeepInfer exposes serious serving machinery. deepseek-recipe makes its API semantics portable. Getting the model onto a laptop follows a different path through quantization, system memory and SSD storage.">
+    <div class="ask-heading">
+      <h2 id="ask-title" tabindex="-1" autofocus>Ask about this article</h2>
+      <button type="button" class="ask-close" aria-label="Close question box">×</button>
+    </div>
+    <form class="ask-form">
+      <div class="ask-content">
+        <p class="ask-article-title">DeepSeek opens the engine and the API adapter. What can you actually run?</p>
+        <div class="ask-suggestions" role="group" aria-label="Suggested questions">
+          <button type="button" data-question="Explain this article in plain language. What changed?">Explain simply</button>
+          <button type="button" data-question="Why does this change matter, and who is affected?">Why does this matter?</button>
+          <button type="button" data-question="What is the strongest counterargument to this article, and what evidence would change its conclusion?">Challenge the argument</button>
+        </div>
+        <label for="ask-question">Your question</label>
+        <textarea id="ask-question" rows="3" maxlength="2000" required placeholder="What would you like to understand?" aria-describedby="ask-context"></textarea>
+        <p id="ask-context" class="ask-note">Article link and summary included. Continue using your ChatGPT account; you may need to sign in.</p>
+        <details class="ask-manual" hidden>
+          <summary>Prepared text for copying</summary>
+          <label for="ask-copy-text">Prepared question and article context</label>
+          <textarea id="ask-copy-text" class="ask-copy-text" rows="5" readonly></textarea>
+        </details>
+      </div>
+      <div class="ask-actions">
+        <p class="ask-status" role="status" aria-live="polite"></p>
+        <button class="paper-button primary" type="submit">Continue in ChatGPT ↗</button>
+        <div class="ask-copy-actions">
+          <button type="button" data-ask-copy="summary">Copy question + context</button>
+          <button type="button" data-ask-copy="article">Copy article + question</button>
+        </div>
+        <p class="ask-note">If your question doesn’t appear in ChatGPT, copy it here and paste it there.</p>
+      </div>
+    </form>
+  </dialog>
+      <section class="reader-feedback" id="reader-feedback" data-tgr-feedback
+    data-article-url="/articles/2026-10-22-daily-deepseek-opens-the-engine-and-the-api-adapter-what-can-you-actually-run/">
+    <div class="reader-feedback-head">
+      <div><div class="eyebrow">Your immediate reaction</div><h2>How did this article land?</h2></div>
+      <p>A thumb saves immediately. Notes stay private and are discussed with the editor before shaping future articles.</p>
+    </div>
+    <form class="feedback-form">
+      <div class="feedback-votes" role="group" aria-label="Article reaction"><button class="feedback-choice" type="button" data-vote="up" aria-pressed="false" aria-label="Thumbs up"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M7 10v11H3V10h4Zm0 0 5-7h1a2 2 0 0 1 2 2v4h4a2 2 0 0 1 2 2l-2 8a2 2 0 0 1-2 2H7"/></svg><span>Up</span></button>
+    <button class="feedback-choice" type="button" data-vote="down" aria-pressed="false" aria-label="Thumbs down"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M7 10v11H3V10h4Zm0 0 5-7h1a2 2 0 0 1 2 2v4h4a2 2 0 0 1 2 2l-2 8a2 2 0 0 1-2 2H7"/></svg><span>Down</span></button></div>
+      <details class="feedback-note"><summary>Add a note (optional)</summary>
+        <label class="feedback-comment"><span>What caught you, lost you, or made you think?</span>
+          <textarea name="comment" rows="3" maxlength="2000" placeholder="Your first impression…"></textarea>
+        </label>
+        <button class="paper-button primary feedback-submit" type="submit">Save note</button>
+      </details>
+      <div class="feedback-submit-row"><p class="feedback-status" aria-live="polite"></p></div>
+      <noscript><p>Enable JavaScript to send a private reaction.</p></noscript>
+    </form>
+    <div class="feedback-dock" data-feedback-dock hidden>
+      <span>React</span><div role="group" aria-label="Quick article reaction"><button class="feedback-choice" type="button" data-vote="up" aria-pressed="false" aria-label="Thumbs up"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M7 10v11H3V10h4Zm0 0 5-7h1a2 2 0 0 1 2 2v4h4a2 2 0 0 1 2 2l-2 8a2 2 0 0 1-2 2H7"/></svg><span>Up</span></button>
+    <button class="feedback-choice" type="button" data-vote="down" aria-pressed="false" aria-label="Thumbs down"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M7 10v11H3V10h4Zm0 0 5-7h1a2 2 0 0 1 2 2v4h4a2 2 0 0 1 2 2l-2 8a2 2 0 0 1-2 2H7"/></svg><span>Down</span></button></div>
+      <button type="button" data-feedback-note>Note</button>
+      <p class="feedback-status" aria-live="polite"></p>
+    </div>
+  </section>
+      <section class="evidence-section" id="evidence" aria-labelledby="evidence-title">
+    <div class="evidence-head">
+      <div>
+        <div class="eyebrow">Evidence Trail</div>
+        <h2 id="evidence-title">Receipts below the story</h2>
+        <p>The article above is the public narrative. This section keeps the source trail and limits on the same page.</p>
+      </div>
+      <a class="paper-button" href="/editions/2026-10-22/">Edition</a>
+    </div>
+    <div class="evidence-table evidence-summary">
+      <div class="evidence-line"><span>Date</span><span>October 22, 2026</span></div>
+      <div class="evidence-line"><span>Lane</span><span>Daily Edition</span></div>
+      <div class="evidence-line"><span>Confidence</span><span>91%</span></div>
+      <div class="evidence-line"><span>Sources</span><span>25</span></div>
+      <div class="evidence-line"><span>Repos</span><span>deepseek-ai/DeepInfer, deepseek-ai/deepseek-recipe</span></div>
+    </div>
+    <div class="markdown evidence-copy evidence-copy-block">
+      <h2>Primary Evidence</h2>
+<ul>
+<li><a href="https://github.com/deepseek-ai/DeepInfer/commit/9bd9cf243fc53ef9afbf8f04d391d989117d6ab9">deepseek-ai/DeepInfer</a>
+<ul>
+<li>Shows: deepseek-ai/DeepInfer; supports the adjacent source-linked claim in the article.
+</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li><a href="https://github.com/deepseek-ai/deepseek-recipe/commit/935817c66f5d6e64838f419692545f06787e485f">deepseek-ai/deepseek-recipe</a>
+<ul>
+<li>Shows: deepseek-ai/deepseek-recipe; supports the adjacent source-linked claim in the article.
+</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li><a href="https://github.com/ggml-org/llama.cpp/pull/30817">llama.cpp PR #30817</a>
+<ul>
+<li>Shows: llama.cpp PR #30817; supports the adjacent source-linked claim in the article.
+</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li><a href="https://unsloth.ai/docs/models/deepseek-v4.1-flash">local low-bit guide</a>
+<ul>
+<li>Shows: local low-bit guide; supports the adjacent source-linked claim in the article.
+</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li><a href="https://github.com/deepseek-ai/DeepInfer/blob/9bd9cf243fc53ef9afbf8f04d391d989117d6ab9/README.md">DeepInfer</a>
+<ul>
+<li>Shows: DeepInfer; supports the adjacent source-linked claim in the article.
+</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li><a href="https://github.com/deepseek-ai/DeepInfer/blob/9bd9cf243fc53ef9afbf8f04d391d989117d6ab9/deepinfer/engine/llm_engine.py#L140">engine explicitly describes this release as lacking an online-serving wrapper</a>
+<ul>
+<li>Shows: engine explicitly describes this release as lacking an online-serving wrapper; supports the adjacent source-linked claim in the article.
+</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li><a href="https://github.com/deepseek-ai/deepseek-recipe/blob/935817c66f5d6e64838f419692545f06787e485f/README.md">Recipe</a>
+<ul>
+<li>Shows: Recipe; supports the adjacent source-linked claim in the article.
+</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li><a href="https://github.com/deepseek-ai/deepseek-recipe/blob/935817c66f5d6e64838f419692545f06787e485f/server-py/main.py#L159">FastAPI example defaults to a mock yielding “Hello world!”</a>
+<ul>
+<li>Shows: FastAPI example defaults to a mock yielding “Hello world!”; supports the adjacent source-linked claim in the article.
+</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li><a href="https://github.com/deepseek-ai/DeepInfer/blob/9bd9cf243fc53ef9afbf8f04d391d989117d6ab9/deepinfer/worker/cache_engine.py">device-side KV-cache allocation and layouts</a>
+<ul>
+<li>Shows: device-side KV-cache allocation and layouts; supports the adjacent source-linked claim in the article.
+</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li><a href="https://github.com/deepseek-ai/DeepInfer/blob/9bd9cf243fc53ef9afbf8f04d391d989117d6ab9/doc/inference_deployment_qa.md">deployment Q&amp;amp;A</a>
+<ul>
+<li>Shows: deployment Q&amp;amp;A; supports the adjacent source-linked claim in the article.
+</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li><a href="https://github.com/vllm-project/vllm/blob/5fa7b7b01bba4d4e9cd17a4036113d97d086bb8a/recipes/models/deepseek-ai/DeepSeek-V4.1-Flash.yaml">vLLM recipe</a>
+<ul>
+<li>Shows: vLLM recipe; supports the adjacent source-linked claim in the article.
+</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li><a href="https://github.com/sgl-project/sglang/blob/82f7249ce6c1f2b6c5d293dabdf11d2b21cc667a/docs/src/snippets/configs/deepseek-ai/deepseek-v4_1.jsx">SGLang lists 1017 configurations but marks their GPU validation pending</a>
+<ul>
+<li>Shows: SGLang lists 1017 configurations but marks their GPU validation pending; supports the adjacent source-linked claim in the article.
+</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li><a href="https://github.com/deepseek-ai/DeepInfer/blob/9bd9cf243fc53ef9afbf8f04d391d989117d6ab9/examples/benchmark.py">benchmark harness</a>
+<ul>
+<li>Shows: benchmark harness; supports the adjacent source-linked claim in the article.
+</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li><a href="https://github.com/deepseek-ai/DeepInfer/blob/9bd9cf243fc53ef9afbf8f04d391d989117d6ab9/examples/sweep/plot_pareto.py">plotter can apply a supplied acceptance rate</a>
+<ul>
+<li>Shows: plotter can apply a supplied acceptance rate; supports the adjacent source-linked claim in the article.
+</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li><a href="https://developer.nvidia.com/cuda/gpus">NVIDIA distinguishes</a>
+<ul>
+<li>Shows: NVIDIA distinguishes; supports the adjacent source-linked claim in the article.
+</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li><a href="https://github.com/deepseek-ai/FlashMLA/blob/2e5429fc5653bab6e081f09477126f731882a6a9/README.md">FlashMLA dependency requires SM100/SM103</a>
+<ul>
+<li>Shows: FlashMLA dependency requires SM100/SM103; supports the adjacent source-linked claim in the article.
+</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li><a href="https://github.com/deepseek-ai/DeepInfer/blob/9bd9cf243fc53ef9afbf8f04d391d989117d6ab9/deepinfer/model_executor/models/v4_modules/mlp.py">expert computation</a>
+<ul>
+<li>Shows: expert computation; supports the adjacent source-linked claim in the article.
+</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li><a href="https://huggingface.co/deepseek-ai/DeepSeek-V4.1-Flash/blob/main/README.md">552 billion backbone parameters plus 196 billion Engram conditional-memory parameters</a>
+<ul>
+<li>Shows: 552 billion backbone parameters plus 196 billion Engram conditional-memory parameters; supports the adjacent source-linked claim in the article.
+</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li><a href="https://huggingface.co/deepseek-ai/DeepSeek-V4.1-Flash-1017/tree/main">1017 repository is roughly 510 GB</a>
+<ul>
+<li>Shows: 1017 repository is roughly 510 GB; supports the adjacent source-linked claim in the article.
+</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li><a href="https://github.com/ml-explore/mlx-lm/blob/72be8c955d9a0d3099bd01865af288e0e947c3fa/mlx_lm/models/deepseek_v41.py#L68">V4.1 module rejects configurations with Engram layers</a>
+<ul>
+<li>Shows: V4.1 module rejects configurations with Engram layers; supports the adjacent source-linked claim in the article.
+</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li><a href="https://github.com/JigSawPT/deepseek-v41-flash-on-5090">September RTX 5090 experiment</a>
+<ul>
+<li>Shows: September RTX 5090 experiment; supports the adjacent source-linked claim in the article.
+</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li><a href="https://github.com/deepseek-ai/deepseek-recipe/blob/935817c66f5d6e64838f419692545f06787e485f/server-py/main.py">example’s inference callback</a>
+<ul>
+<li>Shows: example’s inference callback; supports the adjacent source-linked claim in the article.
+</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li><a href="https://github.com/deepseek-ai/deepseek-recipe/blob/935817c66f5d6e64838f419692545f06787e485f/docs/tokenizer.md">tokenizer contract</a>
+<ul>
+<li>Shows: tokenizer contract; supports the adjacent source-linked claim in the article.
+</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li><a href="https://github.com/deepseek-ai/deepseek-recipe/blob/935817c66f5d6e64838f419692545f06787e485f/docs/development.md">the examples do not provide authentication</a>
+<ul>
+<li>Shows: the examples do not provide authentication; supports the adjacent source-linked claim in the article.
+</li>
+</ul>
+</li>
+</ul>
+<h2>Evidence Limits</h2>
+<ul>
+<li>Source and documentation inspection as of October 22, 2026. No model weights were downloaded, DeepInfer was not built, and no laptop, RTX or cluster inference was benchmarked by TheGitReporter. DeepSeek production descriptions and efficiency recommendations are company claims, not independently audited results. Quantized file sizes are storage figures, not full runtime memory. Unsloth memory estimates and next-token agreement do not guarantee task quality. The exact1017 llama.cpp port was open and unmerged; earlier RTX measurements used a different checkpoint. The diagram is conceptual integration and memory placement, not a tested recipe/backend adapter or proportional capacity/performance chart.
+</li>
+</ul>
+    </div>
+  </section>
+      <section class="related-edition-section atlas-context-section">
+    <div class="section-title-row">
+      <h2>Atlas Context</h2>
+      <a href="/atlas/">Open Atlas &rsaquo;</a>
+    </div>
+    <div class="updates-list">
+      <a class="article-card" href="/atlas/memory-is-not-one-thing/">
+            <div class="article-meta"><span class="lane">Agent Atlas</span><span>Chapter 6</span></div>
+            <h3>Memory Is a Typed Storage Contract</h3>
+            <p>Calling every retained fact memory obscures incompatible stores and guarantees. Thread history, notes, retrieval indexes, summaries, caches, and archives have different owners, lifetimes, and deletion behavior.</p>
+          </a>
+    </div>
+  </section>
+      <section class="related-edition-section">
+        <div class="section-title-row">
+          <h2>Same Edition</h2>
+          <a href="/editions/2026-10-22/">Open issue &rsaquo;</a>
+        </div>
+        <div class="updates-list">
+          <a class="update-card" href="/articles/2026-10-22-daily-phonon-s-offline-speech-is-now-a-kit-you-can-download/">
+    <div class="update-stripe"></div>
+    <div class="update-main">
+      <div class="update-meta">
+        <span>Trust</span>
+        <span class="source-plus">+12</span>
+        <span>Oct 22, 2026</span>
+      </div>
+      <h3>Phonon’s Offline Speech Is Now a Kit You Can Download</h3>
+      <div class="update-receipt">
+        <span>gradium-ai/xn-ptts</span>
+        <span class="branch-pill">evidence</span>
+      </div>
+      <div class="update-foot">
+        <span>12 sources</span>
+        <span>1 repo</span>
+        <span>12 source signals</span>
+      </div>
+    </div>
+    <span class="update-arrow" aria-hidden="true">&rsaquo;</span>
+  </a>
+        </div>
+      </section>
+    </main>
+    <footer class="wrap site-footer">
+      <span>&copy; 2026 The Git Reporter</span>
+      <a href="/about/">About</a>
+      <a href="/battles/">Diff Derby</a>
+      <a href="/agent-pulse/">Agent Pulse</a>
+      <a href="/feed.xml">RSS</a>
+      <a href="https://x.com/TheGitReporter">Follow on X</a>
+      <a href="/articles.json">Manifest JSON</a>
+      <a href="/repos/">Sources</a>
+    </footer>
+  </div>
+</body>
+</html>
