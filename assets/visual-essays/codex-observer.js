@@ -155,7 +155,7 @@ function makePaperMachine(T, stage, requestUpdate) {
   canvas.addEventListener('webglcontextlost', event => { event.preventDefault(); lost=true;stage.dataset.renderer='text'; });
   canvas.addEventListener('webglcontextrestored', () => { lost=false;stage.dataset.renderer='webgl';requestUpdate(); });
   function resize() {
-    const {width,height}=stage.getBoundingClientRect();
+    const {width,height}=canvas.getBoundingClientRect();
     renderer.setSize(width,height,false);
     const aspect=width/height, halfWidth=10.1, halfHeight=Math.max(5.1,halfWidth/aspect);
     camera.left=-halfWidth;camera.right=halfWidth;camera.top=halfHeight;camera.bottom=-halfHeight;camera.updateProjectionMatrix();
